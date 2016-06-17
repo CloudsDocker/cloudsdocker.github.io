@@ -1,0 +1,19 @@
+# S: Build Lifecycle
+install:
+  - npm install
+
+before_script:
+  - npm install -g gulp
+
+script:
+  - gulp dist
+
+after_script:
+  - cd dist
+  - git init
+  - git config user.name "todd zhang"
+  - git config user.email "phray@163.com"
+  - git add .
+  - git commit -m "Update docs"
+  - git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
+# E: Build LifeCycle
