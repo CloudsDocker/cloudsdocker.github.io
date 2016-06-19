@@ -1,7 +1,6 @@
 ---
-
-permalink: pretty
-
+title: Balancing Algorithm
+tag: algorithm
 ---
 
 There are few major algorithms for load balancing

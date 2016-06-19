@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Linux Tips
+tag:
+- Linux
 ---
 # one line command to download and extract files
 

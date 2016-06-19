@@ -1,6 +1,9 @@
 ---
 layout: page
 title: Docker Errors and Fixes
+tag:
+- DevOps
+- Docker
 ---
 
 # Docker Errors

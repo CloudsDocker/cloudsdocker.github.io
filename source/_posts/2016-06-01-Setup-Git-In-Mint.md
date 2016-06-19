@@ -1,6 +1,9 @@
 ---
 layout: page
 title: Setup Git in Mint Linux 
+tag: 
+- git
+- mint
 ---
 
 Setup Git in Mint Linux

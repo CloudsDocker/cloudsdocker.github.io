@@ -1,6 +1,9 @@
 ---
 Layout: page
 title: JavaScript tips
+tag:
+- Coding
+- JavaScript
 ---
 
 # closure 

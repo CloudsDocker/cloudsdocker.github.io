@@ -1,6 +1,10 @@
 ---
 layout: default
 title: Database sharding
+tag:
+- DB
+- Sharding
+- MobileInternet
 ---
 
 # DB sharding in YHD

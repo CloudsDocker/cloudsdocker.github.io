@@ -1,6 +1,9 @@
 ---
 Layout: page
 title: Github page commands notes
+tag:
+- Git
+- GitPages
 ---
 ## following lages are searchable in google 
 

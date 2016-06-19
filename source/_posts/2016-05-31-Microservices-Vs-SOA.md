@@ -1,6 +1,9 @@
 ---
 layout: default
 title: Microservices vs. SOA
+tag: 
+- Microservices
+- SOA
 ---
 
 # Differences between Microservices and SOA
