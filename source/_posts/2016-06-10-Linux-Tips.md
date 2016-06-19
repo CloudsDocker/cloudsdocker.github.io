@@ -78,3 +78,13 @@ Tag	Description
 ```sh
 sudo gpasswd -a USER docker
 ```
+
+
+## Compare files difference in two folders
+```sh
+diff -rq ~/dev/pa ~/dev/hexo/myblog/source/_posts
+```
+This used option `-r` (recursive) and `-q` quite, means only show differences
+
+
+

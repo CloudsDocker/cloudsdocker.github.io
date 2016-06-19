@@ -1,6 +1,6 @@
 ---
 Layout: page
-Title: JavaScript tips
+title: JavaScript tips
 ---
 
 # closure 
