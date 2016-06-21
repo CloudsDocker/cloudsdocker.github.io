@@ -13,6 +13,7 @@ tag:
 
 ## Never Queue Shceduling
 > The never queue scheduling algorithm adpots a two-speed model
+
 1. When there is an idel server avaiable, the job will be sent to the idel server, instead of waiting for a fast one.
 1. When there is no idel server avaiable, the job will be sent to the server that minimize it's expected delay.
 
