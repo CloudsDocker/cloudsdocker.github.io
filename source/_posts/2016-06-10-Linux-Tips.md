@@ -89,4 +89,12 @@ diff -rq ~/dev/pa ~/dev/hexo/myblog/source/_posts
 This used option `-r` (recursive) and `-q` quite, means only show differences
 
 
+# To vim/vim edit directly on file output by find command
+```sh
+find . -name "*tmux*" -exec vim {} \;
+```
 
+Be advised you may experience following error message
+> find: missing argument to `-exec'
+
+actually you should add a slash in front of semi colon
