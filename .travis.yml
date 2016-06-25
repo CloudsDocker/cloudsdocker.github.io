@@ -41,6 +41,7 @@ after_success:
 - git clone --depth 1 --branch master --single-branch $DEPLOY_REPO . || (git init && git remote add -t master origin $DEPLOY_REPO)
 - rm -rf ./*
 - cp -r ../public/* .
+- ls -lt
 - git commit -am 'Site updated from travis'
 - git push -f "https://${GH_TOKEN}@${GH_REF}" master:master
 
