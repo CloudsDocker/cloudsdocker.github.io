@@ -12,9 +12,9 @@ tag:
 
 # Travis errors:
 
-Got following errors in Travis page:
+ Got following errors in Travis page:
 
-branch not included or excluded
+## branch not included or excluded
 
 `solution`: that's because your source branch, such as 'blogSrc' should be added in whitelist of .travis.yml, for instance
 
@@ -22,4 +22,10 @@ branch not included or excluded
 branches:
   only:
   - blogSrc
+```
+
+## fatal: empty ident name
+Because *--global* is requried when setting up travis , below is the sample
+```sh
+git config --global user.email abc@def.com
 ```
