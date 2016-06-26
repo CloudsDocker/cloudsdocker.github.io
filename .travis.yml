@@ -32,7 +32,7 @@ script:
 - echo ${GH_TOKEN}
 - pwd
 - ls -lt
-- git clone --depth 1 --branch master --single-branch $DEPLOY_REPO . || (git init && git remote add -t master origin $DEPLOY_REPO)
+- git clone --depth 1 --branch blogSrc --single-branch $DEPLOY_REPO . || (git init && git remote add -t blogSrc origin $DEPLOY_REPO)
 - hexo generate
 - rm -rf ./*
 - cp -r ../public/* .
