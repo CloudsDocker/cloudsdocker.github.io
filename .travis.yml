@@ -35,7 +35,9 @@ script:
 - git clone --depth 1 --branch blogSrc --single-branch $DEPLOY_REPO . || (git init && git remote add -t blogSrc origin $DEPLOY_REPO)
 - ls -lt
 - hexo clean
+- ls -lt
 - hexo generate
+- ls -lt
 - rm -rf ./*
 - cp -r ../public/* .
 - ls -lt
