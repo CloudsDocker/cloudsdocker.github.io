@@ -16,8 +16,8 @@ install:
 
 # Notice: Replace 'YOUR NAME' and 'YOUR EMAIL'
 before_script:
-- git config user.name "todd zhang"
-- git config user.email "phray@163.com"
+- git config --global user.name "todd zhang"
+- git config --global user.email "phray@163.com"
 
 env:
   global:
@@ -26,22 +26,20 @@ env:
 
 
 script:
-- hexo generate
-
-
-after_success:
 - mkdir .deploy
-- git config --global user.name "todd zhang"
-- git config --global user.email "phray@163.com"
 - cd .deploy
 - echo $DEPLOY_REPO
 - echo ${GH_TOKEN}
 - pwd
 - ls -lt
 - git clone --depth 1 --branch master --single-branch $DEPLOY_REPO . || (git init && git remote add -t master origin $DEPLOY_REPO)
+- hexo generate
 - rm -rf ./*
 - cp -r ../public/* .
 - ls -lt
+
+
+after_success:
 - git commit -am 'Site updated from travis'
 - git push -f "https://${GH_TOKEN}@${GH_REF}" master:master
 
