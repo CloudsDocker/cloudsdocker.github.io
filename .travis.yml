@@ -33,10 +33,13 @@ script:
 - pwd
 - ls -lt
 - git clone --depth 1 --branch blogSrc --single-branch $DEPLOY_REPO . || (git init && git remote add -t blogSrc origin $DEPLOY_REPO)
+- ls -lt
+- hexo clean
 - hexo generate
 - rm -rf ./*
 - cp -r ../public/* .
 - ls -lt
+- hexo deploy
 
 
 after_success:
