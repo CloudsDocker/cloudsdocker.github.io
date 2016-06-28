@@ -39,13 +39,13 @@ script:
 - ls -lt
 - hexo generate
 - ls -lt
-- ls -lt ./public/
+#- ls -lt ./public/
 - cd ../.publish
 - touch README
 - ls -lt
 - git init && git remote add origin $DEPLOY_REPO
 - git pull
-- cp -r -f ../.deploy/public/* .
+- cp -r -f ../.deploy/* .
 - git pull
 - git add .
 - git commit -am 'Site updated from travis'
