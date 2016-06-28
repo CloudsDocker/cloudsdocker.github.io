@@ -46,9 +46,10 @@ script:
 - git init && git remote add origin $DEPLOY_REPO
 - git pull
 - cp -r -f ../.deploy/public/* .
+- git pull
 - git add .
 - git commit -am 'Site updated from travis'
-- git push
+- git push -f
 #- git push -f "https://${GH_TOKEN}@${GH_REF}" master:master
 
 after_success:
