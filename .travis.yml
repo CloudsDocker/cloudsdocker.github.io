@@ -40,11 +40,12 @@ script:
 - hexo generate
 - ls -lt
 - ls -lt ./public/
-- cp -r ./public/* ../.publish/
 - cd ../.publish
 - touch README
 - ls -lt
 - git init && git remote add origin $DEPLOY_REPO
+- git pull
+- cp -r -f ../.deploy/public/* .
 - git add .
 - git commit -am 'Site updated from travis'
 - git push
