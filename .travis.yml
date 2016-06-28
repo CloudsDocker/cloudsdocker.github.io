@@ -38,12 +38,14 @@ script:
 - ls -lt
 - hexo generate
 - ls -lt
-- ls ./public/
-
-
-after_success:
+- ls -lt ./public/
+- touch README
+- git add README
 - git commit -am 'Site updated from travis'
 - git push -f "https://${GH_TOKEN}@${GH_REF}" master:master
+
+after_success:
+
 
 # E: Build LifeCycle
 
