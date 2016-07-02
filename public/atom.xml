@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Clouds &amp; Docker</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://cloudsdocker.github.io/"/>
+  <updated>2016-07-02T13:23:12.769Z</updated>
+  <id>http://cloudsdocker.github.io/</id>
+  
+  <author>
+    <name>Todd Zhang</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git raise error filename too long when checkout</title>
+    <link href="http://cloudsdocker.github.io/2016/07/02/2016-07-02-file-name-too-long-when-git-checkout/"/>
+    <id>http://cloudsdocker.github.io/2016/07/02/2016-07-02-file-name-too-long-when-git-checkout/</id>
+    <published>2016-07-02T13:23:12.769Z</published>
+    <updated>2016-07-02T13:23:12.769Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Error&quot;&gt;&lt;a href=&quot;#Error&quot; class=&quot;headerlink&quot; title=&quot;Error:&quot;&gt;&lt;/a&gt;Error:&lt;/h1&gt;&lt;p&gt;node_modules/grunt-contrib-imagemin/node_modules/pngquant-bin/node_modules/bin-wrapper/node_modules/download/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-handle-source-errors.js: Filename too long&lt;/p&gt;
+&lt;h1 id=&quot;solution&quot;&gt;&lt;a href=&quot;#solution&quot; class=&quot;headerlink&quot; title=&quot;solution&quot;&gt;&lt;/a&gt;solution&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;Execute following command&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git config core.longpaths &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;retry checkoutpap&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Error&quot;&gt;&lt;a href=&quot;#Error&quot; class=&quot;headerlink&quot; title=&quot;Error:&quot;&gt;&lt;/a&gt;Error:&lt;/h1&gt;&lt;p&gt;node_modules/grunt-contrib-imagemin/node_modules/pngquan
+    
+    </summary>
+    
+    
+      <category term="git" scheme="http://cloudsdocker.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>heavy load web application</title>
+    <link href="http://cloudsdocker.github.io/2016/06/29/2016-06-29-heavy-load-web-app/"/>
+    <id>http://cloudsdocker.github.io/2016/06/29/2016-06-29-heavy-load-web-app/</id>
+    <published>2016-06-29T14:23:46.948Z</published>
+    <updated>2016-06-29T14:23:46.948Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Common-solutions&quot;&gt;&lt;a href=&quot;#Common-solutions&quot; class=&quot;headerlink&quot; title=&quot;Common solutions&quot;&gt;&lt;/a&gt;Common solutions&lt;/h1&gt;&lt;p&gt;With &lt;code&gt;cache&lt;/code&gt; + &lt;code&gt;hash&lt;/code&gt;, seems nothing is impossible.&lt;/p&gt;
+&lt;h2 id=&quot;hash&quot;&gt;&lt;a href=&quot;#hash&quot; class=&quot;headerlink&quot; title=&quot;hash&quot;&gt;&lt;/a&gt;hash&lt;/h2&gt;&lt;p&gt;When involving big data, heavey load and concurrent, the ultimate solution is &lt;code&gt;hash&lt;/code&gt;, such as random insert, time complexity O(1) etc, the only downside is waste of space, however, storage is cheap recently. &lt;code&gt;hash&lt;/code&gt; is one must-have for concurrent systems.&lt;/p&gt;
+&lt;h2 id=&quot;cache&quot;&gt;&lt;a href=&quot;#cache&quot; class=&quot;headerlink&quot; title=&quot;cache&quot;&gt;&lt;/a&gt;cache&lt;/h2&gt;&lt;p&gt;There are many mature cache mechanism, such as KV DB like memcache, redis, and they are supporting clusters, operatibility is good as well.&lt;/p&gt;
+&lt;h2 id=&quot;read-write-segaration&quot;&gt;&lt;a href=&quot;#read-write-segaration&quot; class=&quot;headerlink&quot; title=&quot;read-write segaration&quot;&gt;&lt;/a&gt;read-write segaration&lt;/h2&gt;&lt;p&gt;In most cases, there are more read than write operation, so separate database to acccept write request to master DB, and redirect read request to slave DBs. At the same time, multiple salve DBs can be smoothly &lt;code&gt;scale out&lt;/code&gt;, data replicate can leverage log bin.&lt;/p&gt;
+&lt;h2 id=&quot;Database-separation-and-sharding&quot;&gt;&lt;a href=&quot;#Database-separation-and-sharding&quot; class=&quot;headerlink&quot; title=&quot;Database separation and sharding&quot;&gt;&lt;/a&gt;Database separation and sharding&lt;/h2&gt;&lt;p&gt;For DB sharding, leverage hash to direct to corresponding DB shard. To ease the load on single host.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Common-solutions&quot;&gt;&lt;a href=&quot;#Common-solutions&quot; class=&quot;headerlink&quot; title=&quot;Common solutions&quot;&gt;&lt;/a&gt;Common solutions&lt;/h1&gt;&lt;p&gt;With &lt;code&gt;cac
+    
+    </summary>
+    
+    
+      <category term="heavy load" scheme="http://cloudsdocker.github.io/tags/heavy-load/"/>
+    
+      <category term="mobile internet" scheme="http://cloudsdocker.github.io/tags/mobile-internet/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>tips in as400 IBM Emulator</title>
+    <link href="http://cloudsdocker.github.io/2016/06/29/2016-06-29-TIPS-AS400-IBM-EMULATOR/"/>
+    <id>http://cloudsdocker.github.io/2016/06/29/2016-06-29-TIPS-AS400-IBM-EMULATOR/</id>
+    <published>2016-06-29T14:02:36.227Z</published>
+    <updated>2016-06-29T13:41:27.987Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Toggle-crosshair&quot;&gt;&lt;a href=&quot;#Toggle-crosshair&quot; class=&quot;headerlink&quot; title=&quot;Toggle crosshair&quot;&gt;&lt;/a&gt;Toggle crosshair&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;Open IBM personal communication client&lt;/li&gt;
+&lt;li&gt;Go to menu Edit-&amp;gt;Preference-&amp;gt;Apperance-&amp;gt;Display settings-&amp;gt;Ruler&lt;/li&gt;
+&lt;li&gt;change Rule style to crosshair or turn it off&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Toggle-crosshair&quot;&gt;&lt;a href=&quot;#Toggle-crosshair&quot; class=&quot;headerlink&quot; title=&quot;Toggle crosshair&quot;&gt;&lt;/a&gt;Toggle crosshair&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;Open IBM
+    
+    </summary>
+    
+    
+      <category term="AS400" scheme="http://cloudsdocker.github.io/tags/AS400/"/>
+    
+      <category term="IBM Personal Communications" scheme="http://cloudsdocker.github.io/tags/IBM-Personal-Communications/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Something about authentication</title>
+    <link href="http://cloudsdocker.github.io/2016/06/29/2016-06-29-SOMETHING-ABOUT-AUTHENTICATION/"/>
+    <id>http://cloudsdocker.github.io/2016/06/29/2016-06-29-SOMETHING-ABOUT-AUTHENTICATION/</id>
+    <published>2016-06-29T14:02:36.227Z</published>
+    <updated>2016-06-29T13:41:27.987Z</updated>
+    
+    <content type="html">&lt;p&gt;It’s annoying to keep on typing same login and password when you access multiple systems within office or for systems in external Internet. There are certain tools / technicles were introduced to cater for such. To my best knowledge, I’ll illustrate some as below.&lt;/p&gt;
+&lt;h1 id=&quot;SSO-Single-Sign-On&quot;&gt;&lt;a href=&quot;#SSO-Single-Sign-On&quot; class=&quot;headerlink&quot; title=&quot;SSO (Single Sign On)&quot;&gt;&lt;/a&gt;SSO (Single Sign On)&lt;/h1&gt;&lt;h1 id=&quot;OAuth&quot;&gt;&lt;a href=&quot;#OAuth&quot; class=&quot;headerlink&quot; title=&quot;OAuth&quot;&gt;&lt;/a&gt;OAuth&lt;/h1&gt;&lt;h1 id=&quot;Bookmarket&quot;&gt;&lt;a href=&quot;#Bookmarket&quot; class=&quot;headerlink&quot; title=&quot;Bookmarket&quot;&gt;&lt;/a&gt;Bookmarket&lt;/h1&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;It’s annoying to keep on typing same login and password when you access multiple systems within office or for systems in external Interne
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Github page commands notes</title>
+    <link href="http://cloudsdocker.github.io/2016/06/27/2016-06-13-github-pages/"/>
+    <id>http://cloudsdocker.github.io/2016/06/27/2016-06-13-github-pages/</id>
+    <published>2016-06-27T14:11:04.769Z</published>
+    <updated>2016-06-27T13:47:30.182Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;following-lages-are-searchable-in-google&quot;&gt;&lt;a href=&quot;#following-lages-are-searchable-in-google&quot; class=&quot;headerlink&quot; title=&quot;following lages are searchable in google&quot;&gt;&lt;/a&gt;following lages are searchable in google&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://byalice.github.io/2016/06/04/Build-Blog/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;alice&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;gihub&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;Travis-errors&quot;&gt;&lt;a href=&quot;#Travis-errors&quot; class=&quot;headerlink&quot; title=&quot;Travis errors:&quot;&gt;&lt;/a&gt;Travis errors:&lt;/h1&gt;&lt;p&gt; Got following errors in Travis page:&lt;/p&gt;
+&lt;h2 id=&quot;branch-not-included-or-excluded&quot;&gt;&lt;a href=&quot;#branch-not-included-or-excluded&quot; class=&quot;headerlink&quot; title=&quot;branch not included or excluded&quot;&gt;&lt;/a&gt;branch not included or excluded&lt;/h2&gt;&lt;p&gt;&lt;code&gt;solution&lt;/code&gt;: that’s because your source branch, such as ‘blogSrc’ should be added in whitelist of .travis.yml, for instance&lt;/p&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;branches:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  only:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - blogSrc&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;fatal-empty-ident-name&quot;&gt;&lt;a href=&quot;#fatal-empty-ident-name&quot; class=&quot;headerlink&quot; title=&quot;fatal: empty ident name&quot;&gt;&lt;/a&gt;fatal: empty ident name&lt;/h2&gt;&lt;p&gt;Because &lt;em&gt;–global&lt;/em&gt; is requried when setting up travis , below is the sample&lt;br&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git config --global user.email abc@def.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;following-lages-are-searchable-in-google&quot;&gt;&lt;a href=&quot;#following-lages-are-searchable-in-google&quot; class=&quot;headerlink&quot; title=&quot;following la
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://cloudsdocker.github.io/tags/Git/"/>
+    
+      <category term="GitPages" scheme="http://cloudsdocker.github.io/tags/GitPages/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>equity trading</title>
+    <link href="http://cloudsdocker.github.io/2016/06/25/2016-06-23-Equity-v2/"/>
+    <id>http://cloudsdocker.github.io/2016/06/25/2016-06-23-Equity-v2/</id>
+    <published>2016-06-25T13:09:49.455Z</published>
+    <updated>2016-06-25T12:06:02.398Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;Difference-between-mutal-funds-and-hedge-funds&quot;&gt;&lt;a href=&quot;#Difference-between-mutal-funds-and-hedge-funds&quot; class=&quot;headerlink&quot; title=&quot;Difference between mutal funds and hedge funds&quot;&gt;&lt;/a&gt;Difference between mutal funds and hedge funds&lt;/h2&gt;&lt;h3 id=&quot;Similarites&quot;&gt;&lt;a href=&quot;#Similarites&quot; class=&quot;headerlink&quot; title=&quot;Similarites:&quot;&gt;&lt;/a&gt;Similarites:&lt;/h3&gt;&lt;p&gt;Both are managed portfolios. There are manager (or managers) pick securities by certain strategy or algorithm.&lt;/p&gt;
+&lt;h3 id=&quot;Difference&quot;&gt;&lt;a href=&quot;#Difference&quot; class=&quot;headerlink&quot; title=&quot;Difference:&quot;&gt;&lt;/a&gt;Difference:&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Headge fund tend to aggressive, they take speculative postions in derviaties such as options are able to short sell. This iwll typically increase leverage (and also the risks). On the other hand, mutal fund are not permitted to take these highly leveraged postions and more safer as a result.&lt;/li&gt;
+&lt;li&gt;Hedge funds are avaiable to a specific group of sophisticated investotrs with high net worth. While mutul fund are more accessibale with minimal amoutns of money.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Difference-between-mutal-funds-and-hedge-funds&quot;&gt;&lt;a href=&quot;#Difference-between-mutal-funds-and-hedge-funds&quot; class=&quot;headerlink&quot; title=&quot;
+    
+    </summary>
+    
+    
+      <category term="fund" scheme="http://cloudsdocker.github.io/tags/fund/"/>
+    
+      <category term="finance" scheme="http://cloudsdocker.github.io/tags/finance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux Tips</title>
+    <link href="http://cloudsdocker.github.io/2016/06/23/2016-06-10-Linux-Tips/"/>
+    <id>http://cloudsdocker.github.io/2016/06/23/2016-06-10-Linux-Tips/</id>
+    <published>2016-06-23T14:44:11.375Z</published>
+    <updated>2016-06-23T14:44:11.371Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;one-line-command-to-download-and-extract-files&quot;&gt;&lt;a href=&quot;#one-line-command-to-download-and-extract-files&quot; class=&quot;headerlink&quot; title=&quot;one line command to download and extract files&quot;&gt;&lt;/a&gt;one line command to download and extract files&lt;/h1&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$cd&lt;/span&gt; /tmp;curl https://www.kernel.org/pub/linux/utils/util-linux/v2.24/util-linux-2.24.tar.gz	| tar -zxf-;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt;	util-linux-2.24;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;search-files-contains-keyword&quot;&gt;&lt;a href=&quot;#search-files-contains-keyword&quot; class=&quot;headerlink&quot; title=&quot;search files contains keyword&quot;&gt;&lt;/a&gt;search files contains keyword&lt;/h1&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;grep -ri &lt;span class=&quot;string&quot;&gt;&#39;architect&#39;&lt;/span&gt; . | awk -F &lt;span class=&quot;string&quot;&gt;&#39;:&#39;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;&amp;#123;print $1&amp;#125;&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;Show-Linux-kernel-and-name&quot;&gt;&lt;a href=&quot;#Show-Linux-kernel-and-name&quot; class=&quot;headerlink&quot; title=&quot;Show Linux kernel and name&quot;&gt;&lt;/a&gt;Show Linux kernel and name&lt;/h1&gt;&lt;h2 id=&quot;lsb-release&quot;&gt;&lt;a href=&quot;#lsb-release&quot; class=&quot;headerlink&quot; title=&quot;lsb_release&quot;&gt;&lt;/a&gt;lsb_release&lt;/h2&gt;&lt;p&gt;&lt;code&gt;lsb&lt;/code&gt; means Linux Standard Base , &lt;code&gt;-a&lt;/code&gt; means print all information&lt;br&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;lsb_release &lt;span class=&quot;_&quot;&gt;-a&lt;/span&gt; -u&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;will output&lt;br&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;phray@phray-VirtualBox ~ $ lsb_release &lt;span class=&quot;_&quot;&gt;-a&lt;/span&gt; -u&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;No LSB modules are available.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Distributor ID:	Ubuntu&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Description:	Ubuntu 14.04 LTS&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Release:	14.04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Codename:	trusty&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;etc-os-release&quot;&gt;&lt;a href=&quot;#etc-os-release&quot; class=&quot;headerlink&quot; title=&quot;/etc/os-release&quot;&gt;&lt;/a&gt;/etc/os-release&lt;/h2&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cat /etc/os-release&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;will output Following&lt;br&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;phray@phray-VirtualBox ~ $ cat /etc/os-release&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NAME=&lt;span class=&quot;string&quot;&gt;&quot;Ubuntu&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;VERSION=&lt;span class=&quot;string&quot;&gt;&quot;14.04.2 LTS, Trusty Tahr&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ID=ubuntu&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ID_LIKE=debian&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PRETTY_NAME=&lt;span class=&quot;string&quot;&gt;&quot;Ubuntu 14.04.2 LTS&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;VERSION_ID=&lt;span class=&quot;string&quot;&gt;&quot;14.04&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;HOME_URL=&lt;span class=&quot;string&quot;&gt;&quot;http://www.ubuntu.com/&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SUPPORT_URL=&lt;span class=&quot;string&quot;&gt;&quot;http://help.ubuntu.com/&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;BUG_REPORT_URL=&lt;span class=&quot;string&quot;&gt;&quot;http://bugs.launchpad.net/ubuntu/&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;Following is the command found in docker.sh&lt;br&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;lsb_dist=$(lsb_release &lt;span class=&quot;_&quot;&gt;-a&lt;/span&gt; -u 2&amp;gt;&amp;amp;1 | tr &lt;span class=&quot;string&quot;&gt;&#39;[:upper:]&#39;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;[:lower:]&#39;&lt;/span&gt; | grep -E &lt;span class=&quot;string&quot;&gt;&#39;id&#39;&lt;/span&gt; | cut &lt;span class=&quot;_&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;:&#39;&lt;/span&gt; &lt;span class=&quot;_&quot;&gt;-f&lt;/span&gt; 2 | tr &lt;span class=&quot;_&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;[[:space:]]&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;show the 2nd column&lt;br&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;lsb_release --Codename | cut &lt;span class=&quot;_&quot;&gt;-f&lt;/span&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;gpsswd&quot;&gt;&lt;a href=&quot;#gpsswd&quot; class=&quot;headerlink&quot; title=&quot;gpsswd&quot;&gt;&lt;/a&gt;gpsswd&lt;/h2&gt;&lt;p&gt;DESCRIPTION&lt;br&gt;gpasswd is used to administer the /etc/group file (and /etc/gshadow file if compiled with SHADOWGRP defined). Every group can have administrators, members and a password. System administrator can use -A option to define group administrator(s) and -M option to define members and has all rights of group administrators and members.&lt;/p&gt;
+&lt;p&gt;Notes about group passwords&lt;br&gt;Group passwords are an inherent security problem since more than one person is permitted to know the password. However, groups are a useful tool for permitting co-operation between different users.&lt;/p&gt;
+&lt;p&gt;OPTIONS&lt;br&gt;Group administrator can add and delete users using -a and -d options respectively. Administrators can use -r option to remove group password. When no password is set only group members can use newgrp to join the group. Option -R disables access via a password to the group through newgrp command (however members will still be able to switch to this group).&lt;/p&gt;
+&lt;p&gt;gpasswd called by a group administrator with group name only prompts for the group password. If password is set the members can still newgrp(1) without a password, non-members must supply the password.&lt;/p&gt;
+&lt;p&gt;FILES&lt;br&gt;Tag    Description&lt;br&gt;/etc/group&lt;br&gt;     Group account information.&lt;br&gt;/etc/gshadow&lt;br&gt;     Secure group account information.&lt;/p&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo gpasswd &lt;span class=&quot;_&quot;&gt;-a&lt;/span&gt; USER docker&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;Compare-files-difference-in-two-folders&quot;&gt;&lt;a href=&quot;#Compare-files-difference-in-two-folders&quot; class=&quot;headerlink&quot; title=&quot;Compare files difference in two folders&quot;&gt;&lt;/a&gt;Compare files difference in two folders&lt;/h2&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;diff -rq ~/dev/pa ~/dev/hexo/myblog/&lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt;/_posts&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;This used option &lt;code&gt;-r&lt;/code&gt; (recursive) and &lt;code&gt;-q&lt;/code&gt; quite, means only show differences&lt;/p&gt;
+&lt;h1 id=&quot;To-vim-vim-edit-directly-on-file-output-by-find-command&quot;&gt;&lt;a href=&quot;#To-vim-vim-edit-directly-on-file-output-by-find-command&quot; class=&quot;headerlink&quot; title=&quot;To vim/vim edit directly on file output by find command&quot;&gt;&lt;/a&gt;To vim/vim edit directly on file output by find command&lt;/h1&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;find . -name &lt;span class=&quot;string&quot;&gt;&quot;*tmux*&quot;&lt;/span&gt; -exec vim &amp;#123;&amp;#125; \;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Be advised you may experience following error message&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;find: missing argument to `-exec’&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;actually you should add a slash in front of semi colon&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;one-line-command-to-download-and-extract-files&quot;&gt;&lt;a href=&quot;#one-line-command-to-download-and-extract-files&quot; class=&quot;headerlink&quot; title=&quot;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://cloudsdocker.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>equity trading</title>
+    <link href="http://cloudsdocker.github.io/2016/06/23/2016-06-23-Equity/"/>
+    <id>http://cloudsdocker.github.io/2016/06/23/2016-06-23-Equity/</id>
+    <published>2016-06-23T14:18:49.140Z</published>
+    <updated>2016-06-23T14:17:22.004Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;Difference-between-mutal-funds-and-hedge-funds&quot;&gt;&lt;a href=&quot;#Difference-between-mutal-funds-and-hedge-funds&quot; class=&quot;headerlink&quot; title=&quot;Difference between mutal funds and hedge funds&quot;&gt;&lt;/a&gt;Difference between mutal funds and hedge funds&lt;/h2&gt;&lt;h3 id=&quot;Similarites&quot;&gt;&lt;a href=&quot;#Similarites&quot; class=&quot;headerlink&quot; title=&quot;Similarites:&quot;&gt;&lt;/a&gt;Similarites:&lt;/h3&gt;&lt;p&gt;Both are managed portfolios. There are manager (or managers) pick securities by certain strategy or algorithm.&lt;/p&gt;
+&lt;h3 id=&quot;Difference&quot;&gt;&lt;a href=&quot;#Difference&quot; class=&quot;headerlink&quot; title=&quot;Difference:&quot;&gt;&lt;/a&gt;Difference:&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Headge fund tend to aggressive, they take speculative postions in derviaties such as options are able to short sell. This iwll typically increase leverage (and also the risks). On the other hand, mutal fund are not permitted to take these highly leveraged postions and more safer as a result.&lt;/li&gt;
+&lt;li&gt;Hedge funds are avaiable to a specific group of sophisticated investotrs with high net worth. While mutul fund are more accessibale with minimal amoutns of money.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;Differences-among-money-markets-and-capital-markets&quot;&gt;&lt;a href=&quot;#Differences-among-money-markets-and-capital-markets&quot; class=&quot;headerlink&quot; title=&quot;Differences among money markets and capital markets&quot;&gt;&lt;/a&gt;Differences among &lt;code&gt;money markets&lt;/code&gt; and &lt;code&gt;capital markets&lt;/code&gt;&lt;/h2&gt;&lt;p&gt;The money markets are used for the raising of short term finance, sometimes for loans that are expected to be paid back as early as overnight. Whereas the capital markets are used for the raising of long term finance, such as the purchase of shares, or for loans that are not expected to be fully paid back for at least a year.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Difference-between-mutal-funds-and-hedge-funds&quot;&gt;&lt;a href=&quot;#Difference-between-mutal-funds-and-hedge-funds&quot; class=&quot;headerlink&quot; title=&quot;
+    
+    </summary>
+    
+    
+      <category term="fund" scheme="http://cloudsdocker.github.io/tags/fund/"/>
+    
+      <category term="finance" scheme="http://cloudsdocker.github.io/tags/finance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git commands notes</title>
+    <link href="http://cloudsdocker.github.io/2016/06/23/2016-06-13-GIT/"/>
+    <id>http://cloudsdocker.github.io/2016/06/23/2016-06-13-GIT/</id>
+    <published>2016-06-23T14:18:49.120Z</published>
+    <updated>2016-06-23T14:17:22.004Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;Differences-among-Git-and-subversion&quot;&gt;&lt;a href=&quot;#Differences-among-Git-and-subversion&quot; class=&quot;headerlink&quot; title=&quot;Differences among Git and subversion&quot;&gt;&lt;/a&gt;Differences among Git and subversion&lt;/h2&gt;&lt;p&gt; The differences between git and other source control (like subversion) is Git have to merge conflict before upload to server, while subversion will merge conflicts at server side&lt;/p&gt;
+&lt;h2 id=&quot;following-lages-are-searchable-in-google&quot;&gt;&lt;a href=&quot;#following-lages-are-searchable-in-google&quot; class=&quot;headerlink&quot; title=&quot;following lages are searchable in google&quot;&gt;&lt;/a&gt;following lages are searchable in google&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://byalice.github.io/2016/06/04/Build-Blog/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;alice&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;gihub&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Differences-among-Git-and-subversion&quot;&gt;&lt;a href=&quot;#Differences-among-Git-and-subversion&quot; class=&quot;headerlink&quot; title=&quot;Differences among Gi
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://cloudsdocker.github.io/tags/Git/"/>
+    
+      <category term="GitPages" scheme="http://cloudsdocker.github.io/tags/GitPages/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript tips</title>
+    <link href="http://cloudsdocker.github.io/2016/06/23/2016-06-12-JavaScript-tips/"/>
+    <id>http://cloudsdocker.github.io/2016/06/23/2016-06-12-JavaScript-tips/</id>
+    <published>2016-06-23T14:18:49.120Z</published>
+    <updated>2016-06-23T14:17:22.004Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;closure&quot;&gt;&lt;a href=&quot;#closure&quot; class=&quot;headerlink&quot; title=&quot;closure&quot;&gt;&lt;/a&gt;closure&lt;/h1&gt;&lt;p&gt;闭包就是一个函数引用另外一个函数的变量，因为变量被引用着所以不会被回收，因此可以用来封装一个私有变量。这是优点也是缺点，不必要的闭包只会徒增内存消耗！另外使用闭包也要注意变量的值是否符合你的要求，因为他就像一个静态私有变量一样。&lt;/p&gt;
+&lt;p&gt; In JavaScript, if you use the function keyword inside another function, you are creating a closure.&lt;/p&gt;
+&lt;p&gt; Two one sentence summaries about closure&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;closure is the local variable for a function — kept alive after the function has returned, or&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;closure is a stack-frame which is not deallocated when the function returns (as if a ‘stack-frame’ were malloc’ed instead of being on the stack!).&lt;/p&gt;
+&lt;p&gt;In JavaScript, if you declare a function within another function, then the local variables can remain accessible after returning from the function you called. &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;closure&quot;&gt;&lt;a href=&quot;#closure&quot; class=&quot;headerlink&quot; title=&quot;closure&quot;&gt;&lt;/a&gt;closure&lt;/h1&gt;&lt;p&gt;闭包就是一个函数引用另外一个函数的变量，因为变量被引用着所以不会被回收，因此可以用来封装一个私有变量
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="http://cloudsdocker.github.io/tags/Coding/"/>
+    
+      <category term="JavaScript" scheme="http://cloudsdocker.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hadoop</title>
+    <link href="http://cloudsdocker.github.io/2016/06/21/2016-06-21-tmux/"/>
+    <id>http://cloudsdocker.github.io/2016/06/21/2016-06-21-tmux/</id>
+    <published>2016-06-21T13:38:43.779Z</published>
+    <updated>2016-06-21T13:38:43.779Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;This-is-regarding-the-hadoop-sharing&quot;&gt;&lt;a href=&quot;#This-is-regarding-the-hadoop-sharing&quot; class=&quot;headerlink&quot; title=&quot;This is regarding the hadoop sharing&quot;&gt;&lt;/a&gt;This is regarding the hadoop sharing&lt;/h1&gt;&lt;p&gt;Including&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hadoop basics&lt;/li&gt;
+&lt;li&gt;HDFS&lt;/li&gt;
+&lt;li&gt;YARN&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;This-is-regarding-the-hadoop-sharing&quot;&gt;&lt;a href=&quot;#This-is-regarding-the-hadoop-sharing&quot; class=&quot;headerlink&quot; title=&quot;This is regarding th
+    
+    </summary>
+    
+    
+      <category term="hadoop" scheme="http://cloudsdocker.github.io/tags/hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Load Balancing</title>
+    <link href="http://cloudsdocker.github.io/2016/06/21/2016-06-07-Load-Balancing/"/>
+    <id>http://cloudsdocker.github.io/2016/06/21/2016-06-07-Load-Balancing/</id>
+    <published>2016-06-21T12:11:40.385Z</published>
+    <updated>2016-06-21T12:08:41.244Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Concepts&quot;&gt;&lt;a href=&quot;#Concepts&quot; class=&quot;headerlink&quot; title=&quot;Concepts&quot;&gt;&lt;/a&gt;Concepts&lt;/h1&gt;&lt;p&gt;&lt;code&gt;LVS&lt;/code&gt; means Linux Virtual Server, which is one Linux built-in component. &lt;/p&gt;
+&lt;h1 id=&quot;Some-logics-of-LVS&quot;&gt;&lt;a href=&quot;#Some-logics-of-LVS&quot; class=&quot;headerlink&quot; title=&quot;Some logics of LVS&quot;&gt;&lt;/a&gt;Some logics of LVS&lt;/h1&gt;&lt;h2 id=&quot;Never-Queue-Shceduling&quot;&gt;&lt;a href=&quot;#Never-Queue-Shceduling&quot; class=&quot;headerlink&quot; title=&quot;Never Queue Shceduling&quot;&gt;&lt;/a&gt;Never Queue Shceduling&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;The never queue scheduling algorithm adpots a two-speed model&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;When there is an idel server avaiable, the job will be sent to the idel server, instead of waiting for a fast one.&lt;/li&gt;
+&lt;li&gt;When there is no idel server avaiable, the job will be sent to the server that minimize it’s expected delay.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&quot;Examples&quot;&gt;&lt;a href=&quot;#Examples&quot; class=&quot;headerlink&quot; title=&quot;Examples&quot;&gt;&lt;/a&gt;Examples&lt;/h1&gt;&lt;h2 id=&quot;Setup-LVS&quot;&gt;&lt;a href=&quot;#Setup-LVS&quot; class=&quot;headerlink&quot; title=&quot;Setup LVS&quot;&gt;&lt;/a&gt;Setup LVS&lt;/h2&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ipvsadm -A -t 192.168.0.1:80 &lt;span class=&quot;_&quot;&gt;-s&lt;/span&gt; rr&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ipvsadm &lt;span class=&quot;_&quot;&gt;-a&lt;/span&gt; -t 192.168.0.1:80 -r 172.16.0.1:80 -m&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ipvsadm &lt;span class=&quot;_&quot;&gt;-a&lt;/span&gt; -t 192.168.0.1:80 -r 172.16.0.2:80 -m&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;The first command assign TCP port 80 on IP address 192.168.0.1 to the virtual server, the shceduling algorithm for load balancing is &lt;code&gt;-s rr&lt;/code&gt; means using round-robin&lt;/li&gt;
+&lt;li&gt;The 2nd and 3rd commands are adding IP addresss of &lt;code&gt;real servers&lt;/code&gt; to the LVS setup&lt;/li&gt;
+&lt;li&gt;the forwarded network packets shall be masked &lt;code&gt;-m&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;To-query-LVS-status&quot;&gt;&lt;a href=&quot;#To-query-LVS-status&quot; class=&quot;headerlink&quot; title=&quot;To query LVS status&quot;&gt;&lt;/a&gt;To query LVS status&lt;/h2&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ipvsadm -L -n&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;IP Virtual Server version 1.0.8 (size=65536)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Prot LocalAddress:Port Scheduler Flags&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -&amp;gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;TCP  192.168.0.1:80 rr&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -&amp;gt; 172.16.0.2:80                Masq    1      3          1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -&amp;gt; 172.16.0.1:80                Masq    1      4          0&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;Strucutre-of-LVS-in-wikipedia&quot;&gt;&lt;a href=&quot;#Strucutre-of-LVS-in-wikipedia&quot; class=&quot;headerlink&quot; title=&quot;Strucutre of LVS in wikipedia&quot;&gt;&lt;/a&gt;Strucutre of LVS in wikipedia&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Wikimedia_Server_Architecture_%28simplified%29.svg/743px-Wikimedia_Server_Architecture_%28simplified%29.svg.png&quot; alt=&quot;Strucutre of LVS in wikipedia&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Concepts&quot;&gt;&lt;a href=&quot;#Concepts&quot; class=&quot;headerlink&quot; title=&quot;Concepts&quot;&gt;&lt;/a&gt;Concepts&lt;/h1&gt;&lt;p&gt;&lt;code&gt;LVS&lt;/code&gt; means Linux Virtual Server, w
+    
+    </summary>
+    
+    
+      <category term="MobileInternet" scheme="http://cloudsdocker.github.io/tags/MobileInternet/"/>
+    
+      <category term="CTO" scheme="http://cloudsdocker.github.io/tags/CTO/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQL</title>
+    <link href="http://cloudsdocker.github.io/2016/06/20/2016-06-14-SQL/"/>
+    <id>http://cloudsdocker.github.io/2016/06/20/2016-06-14-SQL/</id>
+    <published>2016-06-20T14:27:06.708Z</published>
+    <updated>2016-06-20T14:27:06.704Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;Differences-between-not-in-not-exists-and-left-join-with-null&quot;&gt;&lt;a href=&quot;#Differences-between-not-in-not-exists-and-left-join-with-null&quot; class=&quot;headerlink&quot; title=&quot;Differences between not in, not exists , and left join with null&quot;&gt;&lt;/a&gt;Differences between not in, not exists , and left join with null&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;It seems to me that you can do the same thing in a SQL query using either NOT EXISTS, NOT IN, or LEFT JOIN WHERE IS NULL. For example:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SELECT a FROM table1 WHERE a NOT IN (SELECT a FROM table2)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SELECT a FROM table1 WHERE NOT EXISTS (SELECT * FROM table2 WHERE table1.a = table2.a)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SELECT a FROM table1 LEFT JOIN table2 ON table1.a = table2.a WHERE table1.a IS NULL&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;I’m not sure if I got all the syntax correct, but these are the general techniques I’ve seen. Why would I choose to use one over the other? Does performance differ…? Which one of these is the fastest / most efficient? (If it depends on implementation, when would I use each one?)&lt;/p&gt;
+&lt;h2 id=&quot;answer&quot;&gt;&lt;a href=&quot;#answer&quot; class=&quot;headerlink&quot; title=&quot;answer&quot;&gt;&lt;/a&gt;answer&lt;/h2&gt;&lt;p&gt;In a nutshell:&lt;/p&gt;
+&lt;p&gt;NOT IN is a little bit different: it never matches if there is but a single NULL in the list.&lt;/p&gt;
+&lt;p&gt;In MySQL, NOT EXISTS is a little bit less efficient&lt;/p&gt;
+&lt;p&gt;In SQL Server, LEFT JOIN / IS NULL is less efficient&lt;/p&gt;
+&lt;p&gt;In PostgreSQL, NOT IN is less efficient&lt;/p&gt;
+&lt;p&gt;In Oracle, all three methods are the same.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Differences-between-not-in-not-exists-and-left-join-with-null&quot;&gt;&lt;a href=&quot;#Differences-between-not-in-not-exists-and-left-join-with-nu
+    
+    </summary>
+    
+    
+      <category term="DB" scheme="http://cloudsdocker.github.io/tags/DB/"/>
+    
+      <category term="Coding" scheme="http://cloudsdocker.github.io/tags/Coding/"/>
+    
+      <category term="SQL" scheme="http://cloudsdocker.github.io/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTPS/2</title>
+    <link href="http://cloudsdocker.github.io/2016/06/19/2016-06-14-HTTP-HTTPS2/"/>
+    <id>http://cloudsdocker.github.io/2016/06/19/2016-06-14-HTTP-HTTPS2/</id>
+    <published>2016-06-19T13:12:41.567Z</published>
+    <updated>2016-06-19T13:12:41.559Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;concepts&quot;&gt;&lt;a href=&quot;#concepts&quot; class=&quot;headerlink&quot; title=&quot;concepts&quot;&gt;&lt;/a&gt;concepts&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;HTTP : 传统 HTTP 采用明文，完全开放的编码，缺少加解密功能，很容易遭受窃取、篡改等安全威胁。尤其涉及在线交易的网站，遭遇攻击如同家常便饭。&lt;/li&gt;
+&lt;li&gt;HTTPS : HTTPS 协议传输过程全程加解密，相当于增加了一层 SSL/TSL 分层协议的 HTTP，让访问更加安全。&lt;/li&gt;
+&lt;li&gt;HTTPS2 : HTTP/2 本身是 HTTP 协议自 1999 年发表后的第一次更新，于 2015 年 5 月正式发布。掐指一算，这个协议积累了 16 年才更新，憋了这么久，放的一定是大招，它的更新主要体现在多路复用，二进制传输，使用 HPACK 压缩头部信息，服务端 Push 。&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;concepts&quot;&gt;&lt;a href=&quot;#concepts&quot; class=&quot;headerlink&quot; title=&quot;concepts&quot;&gt;&lt;/a&gt;concepts&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;HTTP : 传统 HTTP 采用明文，完全开放的编码，缺少加解密功能，很容易遭
+    
+    </summary>
+    
+    
+      <category term="MobileInternet" scheme="http://cloudsdocker.github.io/tags/MobileInternet/"/>
+    
+      <category term="CTO" scheme="http://cloudsdocker.github.io/tags/CTO/"/>
+    
+      <category term="HTTP" scheme="http://cloudsdocker.github.io/tags/HTTP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RenMinBi International</title>
+    <link href="http://cloudsdocker.github.io/2016/06/19/2016-06-13-RQFII/"/>
+    <id>http://cloudsdocker.github.io/2016/06/19/2016-06-13-RQFII/</id>
+    <published>2016-06-19T13:12:11.575Z</published>
+    <updated>2016-06-19T13:12:11.567Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;RQFII&quot;&gt;&lt;a href=&quot;#RQFII&quot; class=&quot;headerlink&quot; title=&quot;RQFII&quot;&gt;&lt;/a&gt;RQFII&lt;/h1&gt;&lt;p&gt;&lt;code&gt;RQFII&lt;/code&gt; stands for Renminbi Qualified Foreign Institutional Investor. RQFII was introduced in 2011 to allow qualified foreign institutional investors to use RMB to buy securities such as bonds and shares and other investment instruments listed on the Chinese market. RQFII is an extension of the Qualified Foreign Institutional Investor (QFII) scheme established in 2002.&lt;/p&gt;
+&lt;h1 id=&quot;What-is-the-difference-between-QFII-and-RQFII&quot;&gt;&lt;a href=&quot;#What-is-the-difference-between-QFII-and-RQFII&quot; class=&quot;headerlink&quot; title=&quot;What is the difference between QFII and RQFII?&quot;&gt;&lt;/a&gt;What is the difference between QFII and RQFII?&lt;/h1&gt;&lt;p&gt;QFII (Qualified Foreign Institutional Investor) allows institutional investors to buy shares in mainland Chinese companies (A-shares) listed on stock exchanges in China. But they have to invest in their home currency, which is then converted. RQFII enables investors to buy into China using RMB. The government introduced it to facilitate the flow of offshore RMB into the country as the currency became more widely used globally.&lt;/p&gt;
+&lt;h1 id=&quot;Who-can-use-these-investment-programmes&quot;&gt;&lt;a href=&quot;#Who-can-use-these-investment-programmes&quot; class=&quot;headerlink&quot; title=&quot;Who can use these investment programmes?&quot;&gt;&lt;/a&gt;Who can use these investment programmes?&lt;/h1&gt;&lt;p&gt;Although China’s financial system is opening up, there are limits to who can invest. For a foreign institutional investor to qualify, it has to be licensed within its home country, demonstrate its capital strength, and have a track record in investments and asset management.&lt;/p&gt;
+&lt;h1 id=&quot;How-much-can-be-invested&quot;&gt;&lt;a href=&quot;#How-much-can-be-invested&quot; class=&quot;headerlink&quot; title=&quot;How much can be invested?&quot;&gt;&lt;/a&gt;How much can be invested?&lt;/h1&gt;&lt;p&gt;The Chinese government decides how much can be invested by allocating quotas to different countries. The limit is largely determined by demand. The RQFII quota for all countries is currently RMB970 billion (USD156 billion).&lt;/p&gt;
+&lt;h1 id=&quot;Which-countries-have-been-granted-an-RQFII-quota&quot;&gt;&lt;a href=&quot;#Which-countries-have-been-granted-an-RQFII-quota&quot; class=&quot;headerlink&quot; title=&quot;Which countries have been granted an RQFII quota?&quot;&gt;&lt;/a&gt;Which countries have been granted an RQFII quota?&lt;/h1&gt;&lt;p&gt;Thirteen countries have been granted RMB quotas: Australia, Canada, Chile, France, Germany, Hong Kong, Hungary, Luxembourg, Qatar, South Korea, Singapore, Switzerland and the UK. The QFII programme is open to more than 60 countries.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;RQFII&quot;&gt;&lt;a href=&quot;#RQFII&quot; class=&quot;headerlink&quot; title=&quot;RQFII&quot;&gt;&lt;/a&gt;RQFII&lt;/h1&gt;&lt;p&gt;&lt;code&gt;RQFII&lt;/code&gt; stands for Renminbi Qualified Foreign I
+    
+    </summary>
+    
+    
+      <category term="RMB" scheme="http://cloudsdocker.github.io/tags/RMB/"/>
+    
+      <category term="Finance" scheme="http://cloudsdocker.github.io/tags/Finance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker Errors and Fixes</title>
+    <link href="http://cloudsdocker.github.io/2016/06/19/2016-06-09-Docker-Errors-Fixes/"/>
+    <id>http://cloudsdocker.github.io/2016/06/19/2016-06-09-Docker-Errors-Fixes/</id>
+    <published>2016-06-19T13:11:09.331Z</published>
+    <updated>2016-06-19T13:11:09.327Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Docker-Errors&quot;&gt;&lt;a href=&quot;#Docker-Errors&quot; class=&quot;headerlink&quot; title=&quot;Docker Errors&quot;&gt;&lt;/a&gt;Docker Errors&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;Cannot connect to the Docker daemon. Is the docker daemon running on this host?&lt;br&gt;The solution is to run under root user, e.g. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo docker run hello-world&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;Docker service&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo service docker status&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo service docker start&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo docker run hello-world&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Docker-Errors&quot;&gt;&lt;a href=&quot;#Docker-Errors&quot; class=&quot;headerlink&quot; title=&quot;Docker Errors&quot;&gt;&lt;/a&gt;Docker Errors&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;Cannot connect to th
+    
+    </summary>
+    
+    
+      <category term="DevOps" scheme="http://cloudsdocker.github.io/tags/DevOps/"/>
+    
+      <category term="Docker" scheme="http://cloudsdocker.github.io/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python</title>
+    <link href="http://cloudsdocker.github.io/2016/06/19/2016-06-05-Python/"/>
+    <id>http://cloudsdocker.github.io/2016/06/19/2016-06-05-Python/</id>
+    <published>2016-06-19T13:10:33.891Z</published>
+    <updated>2016-06-19T13:10:33.879Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Python-items&quot;&gt;&lt;a href=&quot;#Python-items&quot; class=&quot;headerlink&quot; title=&quot;Python items&quot;&gt;&lt;/a&gt;Python items&lt;/h1&gt;&lt;p&gt;Test item,&lt;/p&gt;
+&lt;p&gt;MapReduce的设计灵感来自于函数式编程，这里不打算提MapReduce，就拿python中的map()函数来学习一下&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Python-items&quot;&gt;&lt;a href=&quot;#Python-items&quot; class=&quot;headerlink&quot; title=&quot;Python items&quot;&gt;&lt;/a&gt;Python items&lt;/h1&gt;&lt;p&gt;Test item,&lt;/p&gt;
+&lt;p&gt;MapReduce的设计
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="http://cloudsdocker.github.io/tags/Coding/"/>
+    
+      <category term="Python" scheme="http://cloudsdocker.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Storage Management</title>
+    <link href="http://cloudsdocker.github.io/2016/06/19/2016-06-03-Storage-Management/"/>
+    <id>http://cloudsdocker.github.io/2016/06/19/2016-06-03-Storage-Management/</id>
+    <published>2016-06-19T13:10:10.879Z</published>
+    <updated>2016-06-19T13:10:10.879Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;RAID&quot;&gt;&lt;a href=&quot;#RAID&quot; class=&quot;headerlink&quot; title=&quot;RAID&quot;&gt;&lt;/a&gt;RAID&lt;/h1&gt;&lt;p&gt;&lt;code&gt;RAID&lt;/code&gt; is Reductant Array Independent Disk, &lt;/p&gt;
+&lt;h1 id=&quot;JBOD&quot;&gt;&lt;a href=&quot;#JBOD&quot; class=&quot;headerlink&quot; title=&quot;JBOD&quot;&gt;&lt;/a&gt;JBOD&lt;/h1&gt;&lt;p&gt;&lt;code&gt;JBOD&lt;/code&gt; is abbreviated from “Just a bunch of disks”, is an architecutre using multiple hard drives, but not in a RAID configuration, thus providing neither redundancy nor performance improvement.Hard drives may be handled independently as separate logical volumnes, or they may be combined into a single logical volume using a volume manager like LVM, such volumes are usually called “spanned”&lt;/p&gt;
+&lt;h1 id=&quot;LVM&quot;&gt;&lt;a href=&quot;#LVM&quot; class=&quot;headerlink&quot; title=&quot;LVM&quot;&gt;&lt;/a&gt;LVM&lt;/h1&gt;&lt;p&gt;‘LVM’ means Logical Volume Manager, is part of Linux kenel, is a device mapper. LVM is used to manage large hard disk farms by allowing disks to be added and replaced without downtime or service distruption.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;RAID&quot;&gt;&lt;a href=&quot;#RAID&quot; class=&quot;headerlink&quot; title=&quot;RAID&quot;&gt;&lt;/a&gt;RAID&lt;/h1&gt;&lt;p&gt;&lt;code&gt;RAID&lt;/code&gt; is Reductant Array Independent Disk, &lt;/p&gt;
+&lt;h
+    
+    </summary>
+    
+    
+      <category term="MobileInternet" scheme="http://cloudsdocker.github.io/tags/MobileInternet/"/>
+    
+      <category term="CTO" scheme="http://cloudsdocker.github.io/tags/CTO/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CI and CD</title>
+    <link href="http://cloudsdocker.github.io/2016/06/19/2016-06-03-CI-CD/"/>
+    <id>http://cloudsdocker.github.io/2016/06/19/2016-06-03-CI-CD/</id>
+    <published>2016-06-19T13:09:46.371Z</published>
+    <updated>2016-06-19T13:09:46.367Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Concepts&quot;&gt;&lt;a href=&quot;#Concepts&quot; class=&quot;headerlink&quot; title=&quot;Concepts&quot;&gt;&lt;/a&gt;Concepts&lt;/h1&gt;&lt;p&gt;&lt;code&gt;CI/CD&lt;/code&gt; are usage of Docker, &lt;code&gt;CI&lt;/code&gt; is continuous integration, is the process of eliciting fast, automated feedback on the &lt;em&gt;correctness&lt;/em&gt; of your application every time there is a change to the code, while &lt;code&gt;CD&lt;/code&gt; means continuous delivery, build upon the earlier concept by providing fast, automated feedback on the &lt;em&gt;correctness&lt;/em&gt; and &lt;em&gt;production readiness&lt;/em&gt; of your application every time there is a chance to &lt;em&gt;code, infrastructure, or configuration&lt;/em&gt;.&lt;/p&gt;
+&lt;h1 id=&quot;Some-“best-practices”&quot;&gt;&lt;a href=&quot;#Some-“best-practices”&quot; class=&quot;headerlink&quot; title=&quot;Some “best practices”&quot;&gt;&lt;/a&gt;Some “best practices”&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;Frequent commits to a common code stream&lt;/li&gt;
+&lt;li&gt;Disallow commits into a “broken” build&lt;/li&gt;
+&lt;li&gt;A “broken” build on CI should be attended to immediately and its resolutin should be of utmost priority&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;Use-cases&quot;&gt;&lt;a href=&quot;#Use-cases&quot; class=&quot;headerlink&quot; title=&quot;Use cases&quot;&gt;&lt;/a&gt;Use cases&lt;/h1&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Concepts&quot;&gt;&lt;a href=&quot;#Concepts&quot; class=&quot;headerlink&quot; title=&quot;Concepts&quot;&gt;&lt;/a&gt;Concepts&lt;/h1&gt;&lt;p&gt;&lt;code&gt;CI/CD&lt;/code&gt; are usage of Docker, &lt;code&gt;
+    
+    </summary>
+    
+    
+      <category term="MobileInternet" scheme="http://cloudsdocker.github.io/tags/MobileInternet/"/>
+    
+      <category term="DevOps" scheme="http://cloudsdocker.github.io/tags/DevOps/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XA Transactions in 2PC</title>
+    <link href="http://cloudsdocker.github.io/2016/06/19/2016-06-01-XA-2PC/"/>
+    <id>http://cloudsdocker.github.io/2016/06/19/2016-06-01-XA-2PC/</id>
+    <published>2016-06-19T13:09:33.899Z</published>
+    <updated>2016-06-19T13:09:33.883Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;Description&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;2 phase commit protocol referred to as XA(eXtended Architecture)&lt;/li&gt;
+&lt;li&gt;This protocol provides ACID-like properties for global transaction processing&lt;/li&gt;
+&lt;li&gt;2 phase commit protocol is an atomic commitment protocol for distributed systems.&lt;/li&gt;
+&lt;li&gt;The first one is commit-request phase in which transaction manager coordinates all of the transaction resources to commit or abort. &lt;/li&gt;
+&lt;li&gt;In the commit-phase, transaction manager decides to finalize operation by committing or aborting according to the votes of the each transaction resource. &lt;/li&gt;
+&lt;li&gt;XA transactions need a global transaction id and local transaction id(xid) for each XA resource.&lt;/li&gt;
+&lt;li&gt;Each XA Resource is enlisted to XA Manager by start(xid) method. &lt;/li&gt;
+&lt;li&gt;This method tells that XA Resource is being involved in the transaction(be ready for operations). &lt;/li&gt;
+&lt;li&gt;the first phase of the 2PC protocol is realized by calling prepare(xid) method. This method requests OK or ABORT vote from XA Resource. &lt;/li&gt;
+&lt;li&gt;After receiving vote from each of XA Resource, XA Manager decides to execute a commit(xid) operation if all XA Resources send OK or decides to execute a rollback(xid) if an XA Resource sends ABORT.&lt;/li&gt;
+&lt;li&gt;Finally, the end(xid) method is called for each of XA Resource telling that the transaction is completed. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Reference links:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;(DZone XA 2PC)[&lt;a href=&quot;https://dzone.com/articles/xa-transactions-2-phase-commit&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://dzone.com/articles/xa-transactions-2-phase-commit&lt;/a&gt;]&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;Description&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;2 phase commit protocol refe
+    
+    </summary>
+    
+    
+      <category term="MobileInternet" scheme="http://cloudsdocker.github.io/tags/MobileInternet/"/>
+    
+      <category term="XA" scheme="http://cloudsdocker.github.io/tags/XA/"/>
+    
+  </entry>
+  
+</feed>
