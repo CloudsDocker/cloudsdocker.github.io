@@ -6,6 +6,8 @@ It's annoying to keep on typing same login and password when you access multiple
 
 # SSO (Single Sign On)
 
+After you successfully log into one system,  when you hop onto other systems, so you'll no need to furhter re-enter your user name and password, and you'll in 'logged in status'. Underlying mechanims will automatically sync up your login information among systems. The transferred details is typically called 'tickets'. One of the implementation logic is 'kerberos', which is one protocol developed by MIT and is widely used in such area.
+
 # OAuth
 
 # Bookmarket
