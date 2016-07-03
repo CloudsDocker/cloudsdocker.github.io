@@ -27,6 +27,7 @@ env:
 
 script:
 - mkdir .deploy
+- mkdir .publish
 - cd .deploy
 - echo $DEPLOY_REPO
 - echo ${GH_TOKEN}
@@ -38,15 +39,21 @@ script:
 - ls -lt
 - hexo generate
 - ls -lt
-#- rm -rf ./*
-#- cp -r ../public/* .
-#- ls -lt
-- hexo deploy
-
+#- ls -lt ./public/
+- cd ../.publish
+- touch README
+- ls -lt
+- git init && git remote add origin $DEPLOY_REPO
+- git pull
+- cp -r -f ../.deploy/* .
+- git pull
+- git add .
+- git commit -am 'Site updated from travis'
+#- git push -f
+#- git push -f "https://${GH_TOKEN}@${GH_REF}" master:master
 
 after_success:
-- git commit -am 'Site updated from travis'
-- git push -f "https://${GH_TOKEN}@${GH_REF}" master:master
+
 
 # E: Build LifeCycle
 
