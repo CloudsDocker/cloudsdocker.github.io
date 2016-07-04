@@ -65,4 +65,38 @@ To certain extent, DB sharding means change of DBSChema, which inevitable result
 1. For query involves multiple DBs with aggretation functions, e.g. groupBy, order by, min, max, avg. It's recommended DAL consolidate request from single DB, while upper layers do further processing. That's becuase if rely on DAL, it would be too complex, and such case is relatively rare case, so leave it to upper layer.
 
 
+# Oracle Sharding
+It's required in Web 2.0 and high availability technologies
+
+Shardingis an application-managed scaling technique using many (hundreds /thousands of) independent databases 
+- Data is split into multiple databases (shards)
+- Each database holds a subset (either range or hash) of the data
+- Split the shards as data volume or access grows
+- Shards are replicated for availability and scalability
+
+Sharding is the dominant approach for scaling massive websites
+
+- Application code dispatches request to a specific database based on key value
+- Queries are constrained -simple queries on shard-key
+- Data isdenormalizedto avoid cross-shard operations (no joins)
+- Each database holds all the data
+- Request dispatched to a specific database based on read/write,key value
+- Updates go to one database, changes are replicated to the other databases. The other databases are available for reads
+- Provides read scalability
+- Can be combined with horizontal sharding so that each shard is replicated to a different degree
+- Main benefit is that you do not need to reshard
+
+
+## Downsides of DB replica
+
+- Only async log shipping which can lose data in case of failure
+- Slaves can return inconsistent data
+- Statement based replication has correctness issues & row-based replication is immature
+- Replication is slow (high overhead on each reader, slaves are single-threaded)
+- No support for failover between master (primary) & slaves (backup)
+- Does not handle failure conditions such as missing or damaged logs
+- Storage engine and replication state may become inconsistent after a crash
+- Bringing a failed master back requires copying the database
+
+
 --End--
