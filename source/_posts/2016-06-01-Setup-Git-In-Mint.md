@@ -26,3 +26,13 @@ Above command will add the remote URL with alias "origin"
 ```sh
 git pull origin blogSrc
 ```
+
+# Errors
+
+## Error: The following untracked working tree files would be overwritten by checkout
+
+```sh
+git clean  -d  -fx ""
+```
+
+
