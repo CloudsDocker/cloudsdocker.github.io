@@ -19,3 +19,7 @@ tag:
  
  In JavaScript, if you declare a function within another function, then the local variables can remain accessible after returning from the function you called. 
  
+
+# Tips to redirect page
+
+It's better to use `window.location.replace("httpxxx")', rather than window.location.href="xxx". Because `replace` will not save the page in the session history, so users won't get stufy in never-ending back-button fiasco.
