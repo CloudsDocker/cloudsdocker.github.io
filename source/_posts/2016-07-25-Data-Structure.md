@@ -1,5 +1,5 @@
 ---
-title:
+title: Data Structure
 tag:
 - programming
 - data strucutre
