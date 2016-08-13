@@ -82,7 +82,7 @@ sudo gpasswd -a USER docker
 ```
 
 
-## Compare files difference in two folders
+# Compare files difference in two folders
 ```sh
 diff -rq ~/dev/pa ~/dev/hexo/myblog/source/_posts
 ```
@@ -98,3 +98,8 @@ Be advised you may experience following error message
 > find: missing argument to `-exec'
 
 actually you should add a slash in front of semi colon
+
+# quite mode in apt-get
+- apt-get will in verbose mode
+- apt-get `-q` will be in less verbose , a.k.a quite mode
+- apt-get `-qq` in extreme least verbose mode
