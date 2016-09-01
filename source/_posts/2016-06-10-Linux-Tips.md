@@ -4,6 +4,11 @@ title: Linux Tips
 tag:
 - Linux
 ---
+# case insensitive ls command in bash
+Update .bashrc or current active window
+```sh
+shopt -s nocaseglob
+```
 # one line command to download and extract files
 
 ```sh
