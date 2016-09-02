@@ -73,7 +73,11 @@ SOLID是几个编程哲学的总称，即 SOLID (Single responsibility, Open-clo
 ![](https://msdnshared.blob.core.windows.net/media/TNBlogsFS/BlogFileStorage/blogs_msdn/willy-peter_schaub/WindowsLiveWriter/SDLCSoftwareDevelopmentLifecycleflashbac_A707/image_4.png)
 ## Interface segregation principle （ISP）
 接口隔离。原文是 many client-specific interfaces are better than one general-purpose interface. 意思是多个特定客户端接口要好于一个宽泛用途的接口。Make fine grained interfaces that are client specific. 应该定义粒度合适的一系列接口(像下图)，以便于每个客户去实现具体的功能请求。换句话说是，客户（client）不应该必须去依赖于它用不到的功能方法。此原则的目的是系统解开耦合，从而容易重构，更改和重新部署。
+<<<<<<< HEAD
 ![](images/ISP.PNG)
+=======
+![](../ISP.PNG)
+>>>>>>> 0ccf68daf2b317968033d431b8fbf9111e0e2f33
 ## Dependency inversion principle (DIP)
 依赖反转原则. 原文是 One should “Depend upon Abstractions. Do not depend upon concretions.” 意思是 一个方法应该遵从“依赖于抽象而不是一个实例”。该原则规定：
 
