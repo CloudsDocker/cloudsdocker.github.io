@@ -9,7 +9,7 @@ tags:
 在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。
 
 # DRY
-这里的DRY是Do Not Repeat Yourself的缩写。具体解释参见 ,严谨的定义是　Every piece of knowledge must have a single, unambiguous, authoritative representation within a system，意思是：任何一部分知识在系统中必须只有单一的，清晰并且权威的展示。？？？这是啥意思，没懂。简单说就是不要重复自己任何一部分的工作。比如说，有一段代码是用于清除字条串中的HTML符号，在多个程序中会用到此功能，如果每个地方都使用如下代码
+这里的DRY是`Do Not Repeat Yourself`的缩写。具体解释参见 ,严谨的定义是　Every piece of knowledge must have a single, unambiguous, authoritative representation within a system，意思是：任何一部分知识在系统中必须只有单一的，清晰并且权威的展示。？？？这是啥意思，没懂。简单说就是不要重复自己任何一部分的工作。比如说，有一段代码是用于清除字条串中的HTML符号，在多个程序中会用到此功能，如果每个地方都使用如下代码
 ```java
 html = html.replaceAll("\\<.*?>","") 
 html = html.replaceAll("&nbsp;","");
@@ -21,7 +21,7 @@ html = html.replaceAll("&amp;"."");
 html = html.replaceAll("&lt;"."<");
 html = html.replaceAll("&gt;".">");
 ```
-所以这个DRY的规则就是推荐使用 _子方法_ 的方式，这样只需要修改一次即可. 与之类似的编程思想有 _DIE（Duplication is Evil）,SPoT(Single Point of Truth), SSOT (Singel Source of Truth)_ 。 题外话，和DRY对应的是WET,意思是 "write everything twice"（任何东西都写两遍）或者"we enjoy typing" （我们就是喜欢打字编码）。　:-)。
+所以这个DRY的规则就是推荐使用 `子方法` 的方式，这样只需要修改一次即可. 与之类似的编程思想有 `DIE（Duplication is Evil）,SPoT(Single Point of Truth), SSOT (Singel Source of Truth)` 。 题外话，和DRY对应的是WET,意思是 "write everything twice"（任何东西都写两遍）或者"we enjoy typing" （我们就是喜欢打字编码）。　:-)。
 
 # KISS
 KISS 是 Keep it simple, stupid （或者Keep it short and simple ）的简称。意思是在设计时保持简约，通俗。这个很像是现在推畅的“极简风”。
@@ -33,7 +33,7 @@ KISS 是 Keep it simple, stupid （或者Keep it short and simple ）的简称�
 - 你的代码将更加灵活，当有新需求时可以更好的支持扩展，修改或者重构
 - 等等
 
-在软件设计领域， 有一些技术具体实现这个精髓，比如 DDD (Domain Driven Design),TDD (Test Driven Develop),这个使代码集中在真正需要的功能上，而不需要其他额外的。另外一个建议是 *不要试图通过注释来提高代码的可读性*，而应该从代码本身提高。比如如下是不太好的变量定义
+在软件设计领域， 有一些技术具体实现这个精髓，比如 DDD (Domain Driven Design),TDD (Test Driven Develop),这个使代码集中在真正需要的功能上，而不需要其他额外的。另外一个建议是 `不要试图通过注释来提高代码的可读性`，而应该从代码本身提高。比如如下是不太好的变量定义
 ```java
 // i is for 'counter' and j means total sum
 int i, j;
@@ -46,7 +46,7 @@ int i, j;
 int counter,sum;
 ```
 
-与此相呼应的是称作 *奥卡姆剃刀* 或者 *简约之法则*：
+与此相呼应的是称作 `奥卡姆剃刀` 或者 `简约之法则`：
 > Occam's razor 
 > The simplest (explanation|solution) is usually the best one.
 > 往往最简单的解决方案是最好的解决方案
@@ -60,16 +60,16 @@ int counter,sum;
 - 不要害怕扔掉不用的代码。就像家里用不到的东西就及时扔掉一样。
 
 # New Jersey style （Worse is better）
-新泽西风格，也叫做“Worse is better”。此原则指出，*系统的质量不会因为新功能的增多而提高*。 比如一个软件，只提供一些功能，但是用户很方便使用，有可能比一些提供了非常多令人眼花缭乱功能的“大杂烩”似的软件。比如像 Linux下面的 vi/vim, 浏览器中的Chrome.
+新泽西风格，也叫做“Worse is better”。此原则指出，`系统的质量不会因为新功能的增多而提高`。 比如一个软件，只提供一些功能，但是用户很方便使用，有可能比一些提供了非常多令人眼花缭乱功能的“大杂烩”似的软件。比如像 Linux下面的 vi/vim, 浏览器中的Chrome.
 
 # SOLID
 SOLID是几个编程哲学的总称，即 SOLID (Single responsibility, Open-closed, Liskov substitution, Interface segregation and Dependency inversion) ，下面我们分别解释一下：
 ## Single responsibility （SRP）
-单一功能原则。Robert描述这个为“A class should have only one reason to change.”，即修改一个类（或者模块）有（且只能有）一个理由。简单说就是 *一个类或者模块只能负责一个功能*。举个例子，有一个模块负责生成一个报表，可以想像可能有两个理由去修改此模块，第一，报表的内容要变，第二，报表的格式要改。这两个改动是出于不同的理由，一个是内容的一个美化版面的。 而 “单一职责” 规则认为这是两个不同的职责，因此应该分成两个不同的子模块。如果把两件事情放在一起，并且不同的改动是出于不同的原因，这种设计是不好的。此规则方便系统各模块间解耦合。
+单一功能原则。Robert描述这个为“A class should have only one reason to change.”，即修改一个类（或者模块）有（且只能有）一个理由。简单说就是 `一个类或者模块只能负责一个功能`。举个例子，有一个模块负责生成一个报表，可以想像可能有两个理由去修改此模块，第一，报表的内容要变，第二，报表的格式要改。这两个改动是出于不同的理由，一个是内容的一个美化版面的。 而 “单一职责” 规则认为这是两个不同的职责，因此应该分成两个不同的子模块。如果把两件事情放在一起，并且不同的改动是出于不同的原因，这种设计是不好的。此规则方便系统各模块间解耦合。
 ## Open/closed principle （OCP）
-开闭原则。Bertrand描述为“"software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification";”，也就是说对于一个实体（类，模块，方法等）允许在不修改源代码的前提下扩展它的功能行为。即，你可以把 *新代码放到新的类或者方法中*，新类通过继承来重用已有代码及功能。而 *已有的代码只有在修bug时才去修改*。 此原则主要用于降低在添加新加功能时引入新的bug的风险。
+开闭原则。Bertrand描述为“"software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification";”，也就是说对于一个实体（类，模块，方法等）允许在不修改源代码的前提下扩展它的功能行为。即，你可以把 `新代码放到新的类或者方法中`，新类通过继承来重用已有代码及功能。而 `已有的代码只有在修bug时才去修改`。 此原则主要用于降低在添加新加功能时引入新的bug的风险。
 ## The Liskov Substitution Principle （LSP）
-里氏替换原则. 原文是 “Derived classes must be substitutable for their base classes.”，意思是，*派生类（子类）对象能够替换其基类（超类）对象被使用*。 比如说，如果 S 是T 的子类， 那么任何T类的具体实现对象都可以替换S的实现对象出现的地方，具体的调用者也不知道具体是父类还是子类，还不会出现任何错误。比如下图，调用者可以2来替换1的地方 。
+里氏替换原则. 原文是 “Derived classes must be substitutable for their base classes.”，意思是，`派生类（子类）对象能够替换其基类（超类）对象被使用`。 比如说，如果 S 是T 的子类， 那么任何T类的具体实现对象都可以替换S的实现对象出现的地方，具体的调用者也不知道具体是父类还是子类，还不会出现任何错误。比如下图，调用者可以2来替换1的地方 。
 ![](https://msdnshared.blob.core.windows.net/media/TNBlogsFS/BlogFileStorage/blogs_msdn/willy-peter_schaub/WindowsLiveWriter/SDLCSoftwareDevelopmentLifecycleflashbac_A707/image_4.png)
 ## Interface segregation principle （ISP）
 接口隔离。原文是 many client-specific interfaces are better than one general-purpose interface. 意思是多个特定客户端接口要好于一个宽泛用途的接口。Make fine grained interfaces that are client specific. 应该定义粒度合适的一系列接口(像下图)，以便于每个客户去实现具体的功能请求。换句话说是，客户（client）不应该必须去依赖于它用不到的功能方法。此原则的目的是系统解开耦合，从而容易重构，更改和重新部署。
@@ -92,7 +92,7 @@ SOLID是几个编程哲学的总称，即 SOLID (Single responsibility, Open-clo
 Separation of concerns, 即关注点分离。 是处理复杂性的一个原则。由于关注点混杂在一起会导致复杂性大大增加，所以能够把不同的关注点分离开来，分别处理就是处理复杂性的一个原则，一种方法。这个与SOLID中的 SRP很类似。
 
 # YANGI
-是"You aren't gonna need it"的缩写，直译是“你将来用不到它的”。这个是[极限编程](https://en.wikipedia.org/wiki/Extreme_programming)的一个编程思想。意思是说,永远不要因为 *预计*你会用到某个功能就去写一段代码去实现，总是只有问题出现了，*真的需要这个功能时才去写*。
+是"You aren't gonna need it"的缩写，直译是“你将来用不到它的”。这个是[极限编程](https://en.wikipedia.org/wiki/Extreme_programming)的一个编程思想。意思是说,永远不要因为 `预计`你会用到某个功能就去写一段代码去实现，总是只有问题出现了，`真的需要这个功能时才去写`。
 
 # 参考
 - [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
