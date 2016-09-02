@@ -23,8 +23,6 @@ html = html.replaceAll("&gt;".">");
 ```
 所以这个DRY的规则就是推荐使用 _子方法_ 的方式，这样只需要修改一次即可. 与之类似的编程思想有 _DIE（Duplication is Evil）,SPoT(Single Point of Truth), SSOT (Singel Source of Truth)_ 。 题外话，和DRY对应的是WET,意思是 "write everything twice"（任何东西都写两遍）或者"we enjoy typing" （我们就是喜欢打字编码）。　:-)。
 
-# GRASP
-
 # KISS
 KISS 是 Keep it simple, stupid （或者Keep it short and simple ）的简称。意思是在设计时保持简约，通俗。这个很像是现在推畅的“极简风”。
 使用KISS有什么好处呢？如下是其中的一些：
