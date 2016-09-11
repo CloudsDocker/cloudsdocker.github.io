@@ -4,6 +4,24 @@ title: Linux Tips
 tag:
 - Linux
 ---
+# To get rid of ''
+Sometimes got "403 Forbidden" error when trying to downalod file via wget, e.g.
+
+```sh
+$ wget http://www.xmind.net/xmind/downloads/xmind-7.5-update1-macosx.dmg
+--2016-09-09 23:27:29--  http://www.xmind.net/xmind/downloads/xmind-7.5-update1-macosx.dmg
+Resolving www.xmind.net... 23.23.188.223
+Connecting to www.xmind.net|23.23.188.223|:80... connected.
+HTTP request sent, awaiting response... 403 Forbidden
+2016-09-09 23:27:29 ERROR 403: Forbidden.
+```
+
+To solve this problem, using following syntax, adding `-U xx`
+
+```sh
+wget -U 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.6) Gecko/20070802 SeaMonkey/1.1.4' http://www.xmind.net/xmind/downloads/xmind-7.5-update1-macosx.dmg
+```
+
 # case insensitive ls command in bash
 Update .bashrc or current active window
 ```sh
