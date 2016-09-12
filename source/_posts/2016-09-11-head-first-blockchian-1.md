@@ -82,4 +82,5 @@
 * phray.zhang@gmail.com (email/邮件，whatsapp, linkedin)
 * helloworld_2000 (wechat/微信)
 * [github](https://github.com/CloudsDocker/)
-
+* [简书 jianshu]（http://www.jianshu.com/users/a9e7b971aafc）
+* 微信公众号：vibex
