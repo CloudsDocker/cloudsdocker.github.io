@@ -76,7 +76,7 @@
 
 ### 总之，BlockChain的出现，是由于人们的预期， 技术的进步。
 
-所有上面提到的东西，包括此文章的markdown源代码，mindmap思维导图等等都可以在我的github上找到。此文章是我在GitBook上此系统的第一篇，[链接](https://www.gitbook.com/book/cloudsdocker/head-first-blockchain/details)。如果有任何建议或者想法，请联系我。
+所有上面提到的东西，包括此文章的markdown源代码，mindmap思维导图等等都可以在我的github上找到。此文章是我在`GitBook`上此系统的第一篇，[链接](https://www.gitbook.com/book/cloudsdocker/head-first-blockchain/details)。如果有任何建议或者想法，请联系我。
 
 ## 联系我：
 * phray.zhang@gmail.com (email/邮件，whatsapp, linkedin)
