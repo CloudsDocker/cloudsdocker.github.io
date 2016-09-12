@@ -82,4 +82,4 @@ tag:
 所有上面提到的东西，包括此文章的markdown源代码，mindmap思维导图等等都可以在我的github上找到。联系我：
 * phray.zhang@gmail.com (email/邮件，whatsapp, linkedin)
 * helloworld_2000 (wechat/微信)
-* ![github](https://github.com/CloudsDocker/)
+* [github](https://github.com/CloudsDocker/)
