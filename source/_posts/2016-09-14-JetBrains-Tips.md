@@ -16,3 +16,11 @@ On the main menu, point to Navigate, and then choose Class, File, or Symbol resp
 Class: ⌘O
 File (directory): ⇧⌘O
 Symbol: ⌥⌘O
+
+## Search keywords in files
+
+Shift+Command+F: Fine in path
+
+## Re-open files
+
+Command +E
