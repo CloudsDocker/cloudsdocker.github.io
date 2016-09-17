@@ -4,6 +4,12 @@ title: Linux Tips
 tag:
 - Linux
 ---
+# lsof to locate whether/who allocated port 8080
+`lsof` means list open files.
+```sh
+lsof -n -P -i | grep 8080
+```
+
 # To get rid of ''
 Sometimes got "403 Forbidden" error when trying to downalod file via wget, e.g.
 
@@ -126,3 +132,4 @@ actually you should add a slash in front of semi colon
 - apt-get will in verbose mode
 - apt-get `-q` will be in less verbose , a.k.a quite mode
 - apt-get `-qq` in extreme least verbose mode
+
