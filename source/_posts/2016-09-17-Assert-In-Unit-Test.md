@@ -1,8 +1,16 @@
 ---
-title: title
+title: 浅谈软件单元测试中的“断言” (assert)
 tag:
-- tag
+- java
+- testing
 ---
+
+大家都知道，在软件测试，特别是在单元测试时肯定会用到的一个功能就是“断言”，最近在偶然的机会想到此功能，在此整理一下之前使用以及对“断言”的理解。
+
+# 什么是断言
+程序员在开发程序中预计在程序运行到某个节点位置，某些逻辑条件必须满足，否则程序就要"报错"甚至是"崩溃"。
+
+# “断言” vs “异常， 即 Assert vs. Exception
 
 
 "First generation" unit test frameworks provide an 'assert' statement, allowing one to assert during a test that a particular condition must be true. If the condition is false, the test fails. For example:
