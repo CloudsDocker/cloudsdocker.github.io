@@ -1,3 +1,12 @@
+前面第一章讲过了基本概念，可能有此抽象。接下来我们来看一些目前已经存在的真实项目和案例，好有一些形象的理解，以便为后面深入一些概念准备。
+
+1. JPMorgan 的 Juno
+2. Ripple 全球化交割网络
+3. R3 DEV
+4. 以态坊
+5. 万象Lab
+
+
 All of the advantages derived from basic blockchain technology can be boiled down to only two benefits; corruption resistance and redundancy.
 
 All of the advantages derived from basic blockchain technology can be boiled down to only two benefits; corruption resistance and redundancy.
