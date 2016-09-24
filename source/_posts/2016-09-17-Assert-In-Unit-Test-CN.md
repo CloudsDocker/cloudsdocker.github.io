@@ -28,6 +28,8 @@ tag:
 assert(x=y);
 ```
 
+![](http://cloudsdocker.github.io/images/blog_assert_1.png)
+
 ## “青铜时代”
 
 上面这种断言除了简单之外，是有一个问题，就是当断言被触发时显示出来的错误消息不是很友好。如上图一，只是知道出错了，但是并没有太多有用的信息，比如最好是能显示出x与y的值来，这样好更快的理解为啥出错。后来，支持断言的单元测试框架升级版本出现了，它们提供了一系列的高级”断言“语句，添加了一些更加友好的程序接口，同时还提供比较亲民的错误消息，比如下面的例子使用了两个单独的断言语句。
@@ -40,6 +42,8 @@ assertNotEquals(x, y);
 ```
 
 执行的结果如下图二，你可以看到这个错误结果相对于上面“石器时代”已经包括了不少有用的信息，比如除了知道断言失败外还显示了`期望的值`以及`实际值`。
+
+![](http://cloudsdocker.github.io/images/blog_assert_2.jpg)
 
 ## “黄金时代”
 
@@ -61,6 +65,8 @@ assertEquals("abc", 123); // 1
 assertThat(123, is("abc")); // 2
 ```
 
+![](http://cloudsdocker.github.io/images/blog_assert_3.jpg)
+
 - 使用Hamcrest的最后一个好处是对测试框架的“解耦合”，即，使用此框架你可以现在使用Junit后面可以转到TestNG。甚至你自己去扩展自己实现。
 
 # 总结
@@ -78,3 +84,4 @@ assertThat(123, is("abc")); // 2
 ### Reference:
 
 - [benefit of assertThat](https://objectpartners.com/2013/09/18/the-benefits-of-using-assertthat-over-other-assert-methods-in-unit-tests/)
+
