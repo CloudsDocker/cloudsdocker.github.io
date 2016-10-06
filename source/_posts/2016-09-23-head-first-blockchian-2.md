@@ -46,3 +46,9 @@ First, fear of the loss of raw power they would sustain if they went with public
 
 
 https://ripple.com/
+
+
+只要诚实的节点所控制的计算能力的总和，大于有合作关系的(cooperating)攻击者的计算能力的总和，该系统就是安全的
+
+
+Retail Giant Overstock to Issue its Own Stock on Blockchain Platform    
