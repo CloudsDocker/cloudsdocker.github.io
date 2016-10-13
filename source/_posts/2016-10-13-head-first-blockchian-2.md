@@ -1,3 +1,9 @@
+---
+title: 【原创】深入浅出区块链系统：第二章
+tag:
+- blockchain
+- ethereum
+---
 #【原创】深入浅出区块链系统：第二章
 
 -- 使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)
