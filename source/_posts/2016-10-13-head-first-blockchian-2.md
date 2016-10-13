@@ -3,7 +3,7 @@
 -- 使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)
 
 # 引言
-前面第一章 ([位于微博上的链接](http://weibo.com/ttarticle/p/show?id=2309404030129192967736#_0))主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的`无权限控制区块链`，第二是`有权限控制的区块链`，这个又包括了`私有链`(Private Blockchain,以Overstock为代表)和`联盟链`(Consortium Blockchain,以R3为代表)，这些一般都是没有电子货币，因为不需要由此去激励挖矿，所以速度也是比较快的。
+前面第一章 ([位于微博上的链接](http://weibo.com/ttarticle/p/show?id=2309404030129192967736#_0))主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的`无权限控制区块链`，第二是`有权限控制的区块链`，这个又包括了`私有链`(Private Blockchain,以Overstock为代表)和`联盟链`(Consortium Blockchain,以R3为代表)，相对于公有链来说，这些链一般都是没有电子货币，因为他们不需要像公有链那样要靠电子货币作为挖矿的奖励来激励参与，所以速度也是比较快的。
 
 上一章都是讲的抽象的概括，下面我们就深入讲一些具体的东西，这样以便于大家有一个形象的概念，方便理解。我们这一章主要讲讲公有链，以方便讲解以及大家去继续研究，尝试，这里选择在公有链领域社区最为活跃以太坊（Ethereum），对于中国用户来说，其于2016年9月19号刚刚在中国上海举办了DevCon 2区块链峰会，很多人可能有所印象。第一步，这个东西怎么读啊？其实这是新构造的一个单词，而非一个已有的英语单词，其读作[i'θi:'riəm]。接下来我们会一起过一下涉及的一些概念，后面我会介绍几个如何进行太坊开发的技术工具，以及两个比较好用的应用框架。
 
@@ -32,11 +32,11 @@ Ethereum ([官方链接](https://www.ethereum.org)) ，是个区块链公有链�
 
 
 ## Solidity
-上面说到的这些智能合约是使用一种特殊的编程语言来创建的，即Solidity，这个语言是以太坊提出并创造的，面向对象的DSL特定领域编程语言(Domain Specific Language),它是以太坊支持的4种语言（另外三个是Serpent, LLL 和 Mutan）。其首先会编译成字节码，然后运行于EVM（Ethereum Virtual Machine）上面。Solidity是与JavaScript十分类似的语言，如下是一段代码：
+上面说到的这些智能合约一般来说是使用一种特殊的编程语言来创建的，即Solidity，这个语言是以太坊提出并创造的，面向对象的DSL特定领域编程语言(Domain Specific Language),它是以太坊支持的4种语言（另外三个是Serpent, LLL 和 Mutan），只不过其是最流行的一个语言。从技术上来讲，solidify源代码会编译成字节码，然后运行于EVM（Ethereum Virtual Machine）上面。如果你看到源代码后就会觉得其实Solidity是与JavaScript十分类似的语言，如下是一段代码：
 
 ![](http://cloudsdocker.github.io/images/Solidity.png)
 
-Gavin Wood (Solidity之父)说Solidity就是根据ECMAScript创建，而其又是JavaScript,ActionScript等的标准。这样对于大多数开发人员来说学习曲线会很平滑。
+Gavin Wood (Solidity之父)说Solidity就是根据ECMAScript（是JavaScript,ActionScript等的标准祖先）所创建的，这样对于大多数开发人员来说学习曲线会很平滑。
 
 # 开发工具
 
@@ -44,12 +44,13 @@ Gavin Wood (Solidity之父)说Solidity就是根据ECMAScript创建，而其又�
 
 ## Microsoft Visual Studio Ethereum 插件
 
-没错，这就是使用市面上已经非常常见的visual studio，也就是dot net的开发工具，不是一个全新的开发工具。此开发集成环境只需要安装solidify插件即可。 这个也从侧面可以看到微软对于以太坊以及区块链的野心。
-安装此插件后在微软的Visual Studio后就可以在模板里看到这个Solidity 选项：
+没错，就是那个市面上已经非常常见的visual studio，也就是dot net的开发工具，不是一个全新的开发工具。此开发集成环境只需要安装solidify插件即可。 这个也从侧面可以看到微软对于以太坊以及区块链的野心。
+
+安装此插件后在微软的Visual Studio后就可以在新建项目时的模板里看到这个Solidity 选项：
 
 ![](http://cloudsdocker.github.io/images/VisualStudio-Overview.png)
 
-他会自动构造出一个应用的基本文件结构。这样你可以省去一些每次开发一个智能合约都要重复的工作。你就可以集中时间精力到真正业务代码上。
+当选择此模板后，visual studio他会自动构造出一个应用的基本文件结构。这样你可以省去一些每次开发一个智能合约都要重复的工作。你就可以集中时间精力到真正业务代码上。
 
 如下就是这个IDE自动生成的代码
 
@@ -57,15 +58,18 @@ Gavin Wood (Solidity之父)说Solidity就是根据ECMAScript创建，而其又�
 
 ## Ethereum Studio 
 
-这个是基于Cloud9平台的一个在线IDE，完全运行于浏览器中， 不用安装，可以用于任何的操作系统。
+除了背靠微软这个大旗的visual studio集成开发环境外，还有一个方便大家使用的免费的IDE。这个是基于Cloud9平台的一个在线IDE，其完全运行于浏览器中，不用安装，可以用于任何的操作系统。如下就是这个在线集成开发环境的样子。这个还是比较推荐的开发环境：
 
 ![](http://cloudsdocker.github.io/images/Cloud9.png)
 
-目前比较常用的智能合约构架有如下几个，我们来手把手的创建并运行一个智能合约，来体会一下。
+
+# 智能合约应用开发框架
+
+目前比较常用的智能合约构架有如下几个，都是开源并且免费的。这里我们来手把手的创建并运行一个智能合约，来体会一下。
 
 ## Embark
 
-Embark 是一个让你可以轻松开发部署Dapps的平台，它支持的功能包括，在JS代码中部署智能合约，合约的热部署，可以集成grunt等构造工具。支持TDD（即测试驱动的开发），可以方便的使用IPFS等去中心化的系统。支持增量，智能的部署修改过的智能合约等。这个工具是使用nodejs写的，因此你需要先安装nodejs的环境。这个平台会在你本地启动一个区块链服务，这样你就可以完全在本地开发测试，大大提高了工作效率。如下是启动后的截图。Embark的安装及源代码位于[Gitub这里](https://github.com/CloudsDocker/embark-framework)
+首先推荐的是这个叫做Embark的框架，他是一个让你可以轻松开发部署Dapps的平台，它支持的功能包括，在JS代码中部署智能合约，智能合约的热部署，可以集成grunt等构造工具。支持TDD（即测试驱动的开发）比如支持mocha等测试框架，可以方便的使用IPFS等去中心化的系统，支持增量，智能的部署修改过的智能合约等。这个工具是使用nodejs写的，因此你需要先安装nodejs的环境。这个平台会在你本地启动一个区块链服务模拟器，这样你就可以完全在本地开发测试，大大提高了工作效率。如下是启动后的截图。Embark的安装及源代码位于[Gitub这里](https://github.com/CloudsDocker/embark-framework)
 
 首先你需要来安装Embark以及区块链模拟器。
 
@@ -83,12 +87,12 @@ embark simulator
 启动的模拟器是下面这个样子
 ![](http://cloudsdocker.github.io/images/Ethersim.png)
 
-然后创建一个新的智能合约的框架：
+然后我们去创建一个新的智能合约：
 
 ```sh
 # 创建一个叫做demo的智能合约基础结构
 embark demo
-# 进入这个目录，下面含有配置文件 embar.yaml
+# 进入这个目录，下面含有配置文件 embark.yaml
 cd embark_demo
 # 启动应用
 embark run
@@ -97,15 +101,16 @@ embark run
 
 ![](http://cloudsdocker.github.io/images/EmbarkStart.png)
 
-你可以使用浏览器试验一下，比如打开`http://localhost:8000`，然后你可以试着输入个值看看它是不是已经能够响应处理你的输入了：
+你可以使用浏览器试验一下，比如打开`http://localhost:8000`，然后你可以试着输入个数值，去试试看看它是不是已经能够响应处理你的输入了：
 
 ![](http://cloudsdocker.github.io/images/EmbarkApp.png)
 
-
+是不是很神奇，短短两三分钟，已经从零开始构造出一个可以运行的以太坊DAPP
+，并运行于区块链之上。 接下来我们介绍另外一个框架选择方案。
 
 ## Truffle
 
-Truffle,是跟前面提到的 Ethereum Studio 同一个公司（ConsenSys）开发的一个框架， 这个跟前面的embark类似，也是可以提供一个智能合约的开发测试平台,一个特色就是它可以集成nodejs里面强大的测试功能，比如Mocha, Chai. 像Embark一样，你需要另外安装运行其他软件，来启动以太坊客户端模拟器，最常用的是EthereumJS TestRPC  [Github link](https://github.com/ethereumjs/testrpc), 它会在内存中启动一个Ethereum的客户端， 这样可以快速测试你开发的应用。
+Truffle,是跟前面提到的 Ethereum Studio 同一个公司（ConsenSys）开发的一个框架， 这个跟前面的embark类似，也是可以提供一个智能合约的开发测试平台,他的一个特色就是它可以集成nodejs里面强大的测试功能，比如Mocha, Chai等等. 像Embark一样，你需要另外安装运行其他软件，来启动以太坊客户端模拟器，最常用的是EthereumJS TestRPC  [Github link](https://github.com/ethereumjs/testrpc), 它会在内存中启动一个Ethereum的客户端， 这样可以快速测试你开发的应用。
 
 因为这个也是使用nodejs创建的应用，因此使用如下命令来安装此程序，安装好了启动此应用
 
@@ -150,6 +155,10 @@ module.exports = function(deployer) {
 truffle migrate
 truffle build
 ```
+
+# 结语
+
+好了，至此我们已经了解了什么是以太坊已经其上运行的智能合约，DAPP等概念。后面又介绍了开发智能合约的工具已经可复用的框架，最后又手把手亲自做了一个智能合约。这样大家应该对区块链以及以太坊等公有链有了一个形象具体的感觉了吧。如果这里有什么问题或者建议，欢迎通过下面的联系方式与我沟通。
 
 
 # Referece
