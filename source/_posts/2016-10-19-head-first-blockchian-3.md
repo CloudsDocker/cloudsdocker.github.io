@@ -1,3 +1,11 @@
+HyperLedger, from Arvind Krishna, Director of IBM research lab, meant to cross borders. e.g. for credit ledger, the importer and exporter in China need to make preparations few months beforehand, this is similiar to Marco Polo went to China 300 years ago.
+
+Another usage in stock market is stock loan, by using blockchain, we are going to know whose the stock came from. And the borrowers need to know who can borrow, and I need to prepare collaterials, need to check whether it comply with the processes, when I pay it back, etc. there are lots of things. right now they are handled by people manually, so going forward, if I have some stocks and I want to borrow it to earn some money, those can be programmed in blockchain. they'll be processed by machines automatically.  this will help to show there are no inside tradings, etc. 
+
+but initially as blockchian are annoymous, we are not sure whthere there are any money laundering, regulators may have concerns. So we need permisisoned blockchains. we need to one identity put aside of the transactions, so if reuiqred, can be recorded and checked, e.g. whether this is dealing with corrupted governments, etc. in addtion, it's not requried that only one player or government to provide identity, there are many entities can provide identity service, but off couse need to follow some standards agreed.
+
+JPMorgan Chase & Co has announced its second entrant into the blockchain fray, this time utilizing the smart contract enabled ethereum blockchain in creating a system called Quorum.
+
 前面第一章讲过了基本概念，可能有此抽象。接下来我们来看一些目前已经存在的真实项目和案例，好有一些形象的理解，以便为后面深入一些概念准备。
 
 1. JPMorgan 的 Juno

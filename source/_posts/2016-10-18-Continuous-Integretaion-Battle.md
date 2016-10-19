@@ -14,7 +14,7 @@ tag:
 # CI
 CI(Continuous Integration) 持续集成起源于 XP(极限编程)与 TDD (Test Driven Develop)以测试驱动的开发模式，是防止出现所谓的'集成地狱',即防止程序员在正常编码工作中新引入的bug。CI会持续的（重复的）进行一些小的工作，比如跑测试用例，扫描代码，等工作。比如，一个典型的用例是。
 
-- 配置CI工作去预订并监视SCM (比如Git等)
+- 配置CI工作去预订并监视SCM (比如Git等)Continuous Integration is a development practice that requires developers to integrate code into a shared repository. Each time developer checks in code into the repository, it is then verified by an automated build process. This process gives flexibility for the developer to detect any build issues early in the build life cycle.
 - 
 - 
 
