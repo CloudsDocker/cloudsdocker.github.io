@@ -45,7 +45,7 @@ CI(Continuous Integration) 持续集成起源于 XP(极限编程)与 TDD (Test D
 ![](http://cloudsdocker.github.io/images/jenkins_jobs.png)
 
 ## Hudson的界面
-![](hudson_gui.jpg)
+![](http://cloudsdocker.github.io/images/hudson_gui.jpg)
 
 但是有一个值得注意的地方就是两个系统的logo，其中Hudson是一个高傲的老头子，而Jenkins是一个谦卑为你服务的老头子。
 
