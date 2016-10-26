@@ -14,19 +14,19 @@ tag:
 # CI
 CI(Continuous Integration) 持续集成起源于 XP(极限编程)与 TDD (Test Driven Develop)也就是__以测试驱动__的开发模式，是防止出现所谓的'集成地狱',即防止程序员在正常编码工作中，需要写新的业务逻辑，添加新的代码，但是同时也新引入了bug。CI会持续的（重复的）进行一些小的工作，比如不断的跑测试用例，去扫描代码等工作。以减轻或者很大程度上避免这个个新引入的bug对软件交付质量引起的负面影响。目前，市场上有很多的CI解决方案及工具，常用的如下几个，
 
-![  ](http://logz.io/wp-content/uploads/2016/02/travis-ci.jpg)
-![Jenkins](http://www.datical.com/wp-content/uploads/2014/08/Jenkins-Logo.png)
-![  ](https://448bb31d92917ba3390f-4a8f48d20b0d8c78b979208d38d37653.ssl.cf1.rackcdn.com/677/screenshots/butler1000.jpg)
+![](http://cloudsdocker.github.io/images/travis-ci.jpg)
+![](http://cloudsdocker.github.io/images/Jenkins-Logo.png)
+![](http://cloudsdocker.github.io/images/Hudson-Logo.jpg)
 
 
 # CI 的进化史
 世界上本来没有CI,用的人多了也就成就了CI。本来软件工程里是没有这个概念的。最开始，就像下图中描述的帝国时代里，整个社会节奏平稳而缓慢，每个程序员自己做自己的开发，然后各自把自己的工作上次（提交），整个团队把代码放在一起，然后整个人过来，启动make/build，后面有个人去把编译好的代码放到测试机器上，每个程序员自己或者单独的测试团队去测试程序，如果没有问题，另外的人去发布到生产环境上。这些都是或多或少由人手工去做的。
 
-![](http://artho.com/age/pics/newcheats.gif)
+![](http://cloudsdocker.github.io/images/newcheats.gif)
 
 但是就是很多人类的发明就是为了人类"偷懒"一样，CI慢慢在一些想偷懒的牛人脑子里形成。这其中就有Kent Beck （多说一句，这个现在工作于Facebook的牛人，还发明创造了很多到现在还在流行的东西，比如Agile敏捷开发，以JUnit为代码的xUnit测试理念，TDD测试驱动开发等等），在上个世纪最后几年，Kent Beck创造了XP（注意这个不是Bill的那个XP操作系统），是eXtreme Programming，即极限编程。虽然现在看起来极限编程有很多很诡异不太现实的方式，比如两个程序员坐在一起，使用一台电脑一起写一段程序等天马行空的想法。但是其中一个理念就是“持续集成”（CI)。以此理念，后面出现了使用各种语言写的CI的工具，其中的老大是CruiseControl。这个就像是上图中那个跑车一样，在当时整个缓慢的大环境下其提升工作效率的效果十分的吸眼。
 
-![](https://www.cloudbees.com/sites/default/files/kohsuke-kawaguchi_2.jpg)
+![](http://cloudsdocker.github.io/images/kohsuke-kawaguchi_2.jpg)
 
 到了2005年，当时就职于Sun(没错，就是创造了Java的那家公司)的一个叫川口浩介（Kohsuke Kawaguchi）的日本人，就是上图这位“霓虹金”，敢于冒险，重新“发明轮子”，不顾如日中天的CruiseControl，设计并开发了一个新的持续集成的软件，起名叫做Hudson。它提供了很多强大的功能，比如提供插件机制，这样就使其几乎集成了市面上所有的源代码管理工具，比如CVS, Subversion, Git, Perforce等。除此之外，它还提供了界面的扩展能力，另外还支持基于Apache Ant 和 Apache Maven的项目，除了xNix,还支持Windows环境等一众强大功能。听起来这么牛逼的工具，很快，在大约2007年的时候Hudson已经超越CruiseControl。然后在2008年5月的JavaOne大会上，Hudson获得了开发解决方案类的Duke's Choice奖项。从此，小弟翻身做大哥，Hudson成为CI的代名词。其主要开发者 Kohsuke Kawaguchi 还获得了Google-O'Reilly Open Source Award。他后来也不用自己苦逼的写代码了，只要到处受邀去演讲做是如何受什么启发创造并发明了这么好的工具，造福大批程序员。再后来他还离职创立了公司CloudBees，出任CEO，迎娶白富美，走上人生新巅峰。（也难怪上图中他笑的如此开心）
 
@@ -42,20 +42,20 @@ CI(Continuous Integration) 持续集成起源于 XP(极限编程)与 TDD (Test D
 然后把代码fork出一份来（这里好笑的是Hudson说Jenkins都声称是对方是自己这里的子分叉，都跟孩子斗气似的），即便分出来了，但是绝大部分还是基于之前的核心代码，所以你可以通过下图看到Hudson与Jenkins的界面都十分类似。
 
 ## Jenkins的界面
-![](http://jenkins-debian-glue.org/img/jenkins_jobs.png)
+![](http://cloudsdocker.github.io/images/jenkins_jobs.png)
 
 ## Hudson的界面
 ![](hudson_gui.jpg)
 
 但是有一个值得注意的地方就是两个系统的logo，其中Hudson是一个高傲的老头子，而Jenkins是一个谦卑为你服务的老头子。
 
-![Jenkins](http://www.datical.com/wp-content/uploads/2014/08/Jenkins-Logo.png)
-![  ](https://448bb31d92917ba3390f-4a8f48d20b0d8c78b979208d38d37653.ssl.cf1.rackcdn.com/677/screenshots/butler1000.jpg)
+![](http://cloudsdocker.github.io/images/Jenkins-Logo.png)
+![](http://cloudsdocker.github.io/images/Hudson-Logo.jpg)
 
 
 分家之后，Hudson有Oracle和Sonatype's corporate的支持和Hudson的注册商标，而Jenkins拥有的是大多数的核心开发者，社区，和后续更多的commit。比如下图是分家之后两个软件的对比。
 
-![](hudson_vs_jenkins_submit.png)
+![](http://cloudsdocker.github.io/images/hudson_vs_jenkins_submit.png)
 
 # CI持续集成的工作原理
 
@@ -70,12 +70,12 @@ CI(Continuous Integration) 持续集成起源于 XP(极限编程)与 TDD (Test D
 - 一些高级的CI,比如Jenkinsg还支持自定义扩展，也会去按配置去执行。
 
 
-![jenkins-plugin-diagram-saci](http://agilelucero.com/wp-content/uploads/2014/03/jenkins-plugin-diagram-saci.png)
+![jenkins-plugin-diagram-saci](http://cloudsdocker.github.io/images/jenkins-plugin-diagram-saci.png)
 
 
 这其中如果任何一步出现了错误，比如某个程序员在提交代码时忘记同时提交一个新写的类，造成失败，首先在CI（比如Jekins，或者Travis）上会显示错误 （比如下图），同时还可以配置CI工具会发出邮件提醒，甚至可以根据提交信息智能的显示出来是哪个程序员搞砸的。
 
-![](https://www.packtpub.com/sites/default/files/Article-Images/0082OS_02_14.png)
+![](http://cloudsdocker.github.io/images/0082OS_02_14.png)
 
 总而言之，这个自动化的过程就像是一个可以配置的流水线，在其上可以添加任意个不同类型的节点，在每个节点可以通过灵活的配置来设置需要完成的工作，还提供了统计及报表，邮件通知等功能，方便团队高效的管理软件的持续集成。
 
@@ -85,7 +85,7 @@ CI(Continuous Integration) 持续集成起源于 XP(极限编程)与 TDD (Test D
 
 另外，持续集成也在跟其他新兴技术相结合使用，比如结合云计算及分布式处理，可以提高CI的运行速度和容错能力，比如下图中的各个服务器可以分别使用clust(集群)而非一台机器，这样就可以避免所谓的SPOF (Single Point of Failure)单点故障。
 
-![](http://decks.eric.pe/pantheon-ci/images/ci-architecture-pantheon.png)
+![](http://cloudsdocker.github.io/images/ci-architecture-pantheon.png)
 
 如果有什么问题或者想要跟我讨论，请通过如下方式找到我。
 
