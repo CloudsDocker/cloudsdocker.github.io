@@ -4,6 +4,13 @@ title: Linux Tips
 tag:
 - Linux
 ---
+# create directory hierarchy via path
+```sh
+mkdir -p ~/abc/def/egg
+```
+
+`-p` means create intermediary folders, if not exist. Those intermediary folders with permission 777
+
 # lsof to locate whether/who allocated port 8080
 `lsof` means list open files.
 ```sh
@@ -38,6 +45,16 @@ shopt -s nocaseglob
 ```sh
 $cd /tmp;curl https://www.kernel.org/pub/linux/utils/util-linux/v2.24/util-linux-2.24.tar.gz	| tar -zxf-;cd	util-linux-2.24;
 ```
+
+# Redirect request for HTTP 3xxx code
+```sh
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+```
+
+`-L` means redirect upon HTTP code 3xxx
+`-Ss` work together to make the curl show errors if there are
+`-o` means output to a specified file, rather than stdout
+
 # search files contains keyword
 ```sh
 grep -ri 'architect' . | awk -F ':' '{print $1}'
