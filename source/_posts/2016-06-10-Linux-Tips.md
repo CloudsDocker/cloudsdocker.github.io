@@ -134,6 +134,10 @@ diff -rq ~/dev/pa ~/dev/hexo/myblog/source/_posts
 ```
 This used option `-r` (recursive) and `-q` quite, means only show differences
 
+# To execut shell/unix command within vim
+```sh
+:~ls -lt
+```
 
 # To vim/vim edit directly on file output by find command
 ```sh
