@@ -5,19 +5,54 @@ tag:
 - MachineLearning
 - FacialRecognition
 ---
-最近在研究CV的一些开源库，比如OpenCV等。发现其实除了其下的_机器学习_,_深度学习_外，还有一些很有趣的现实使用场景，比如这里就使用短短几行代码（去除空格换行什么的，有效代码只要12行）就可以实现一个平时看起来 _高大上_ 的面部识别功能。
+# CV (Computer Vision) 与面部识别
+最近在研究CV的一些开源库(OpenCV)。发现其实除了一些非常学术的_机器学习_,_深度学习_外，还有一些很有趣的现实应用场景，比如之前在朋友圈很流行的使用自己的照片进行面部识别_猜年龄_。 这个看起来 很 _高大上_ 的面部识别功能，其实打散了就包括两大块，一是面部识别，二是根据算法去猜个年龄。大家可以猜猜实现第一个功能需要多少代码量？其实不用上万行，在这里就使用短短几行代码（去除空格换行什么的，有效代码只要12行）就可以实现一个面部识别的功能。
 
+## 刷脸
  _人脸识别_技术大家应该都不陌生，远的看，之前大家使用的数码相机，或者现在很多手机自带的相机都有人脸识别的功能，就像是下图这样。近的年，大家刚刚过了 _剁手节_ , 背后的马老板一直在力推的刷脸支付也是一个应用场景。比如在德国汉诺威电子展上，马云用支付宝“刷脸”买了一套纪念邮票。人脸识别应用市场也从爆发。随后，各大互联网巨头也纷纷推出了刷脸相关的应用。
  
 ![](iPhone-camera-face-recognition.jpg)
 
  如果要加个定义，人脸识别又叫做人像识别、面部识别，是一种通过用摄像机或摄像头采集含有人脸的图像或视频流，并自动在图像中检测和跟踪人脸，进而对检测到的人脸进行脸部的一系列相关技术。
 
- OK，长话短说，先上 _干货_ ， 下面就是此程序的 _带注释_版本，完成程序以及相关配套文件可以在 [这个github库](https://github.com/CloudsDocker/pyFacialRecognition) https://github.com/CloudsDocker/pyFacialRecognition 中找到，有兴趣可以 _fork_ 下来玩玩。previ
+ # 我的解决方案
+ 
+ OK，长话短说，先上 _干货_ ， 下面就是此程序的 _带注释_版本，完成程序以及相关配套文件可以在 [这个github库](https://github.com/CloudsDocker/pyFacialRecognition) https://github.com/CloudsDocker/pyFacialRecognition 中找到，有兴趣可以 _fork_ 下来玩玩。下面是整个程序的代码样子，后面我会逐行去解释分析。
+ 
+![](pythonSource.png)
+
+然后代码运行的效果如下：
+
+## 首先是原始的图片
+![](oriImage.png)
+## 运行程序后识别出面部并高度显示的结果
+![](postProcessImage.png)
+
+# 代码解析
+## 准备工作
+因为此程序使用是的python,因此你需要去安装Python。这里就不赘述了。除此之外，需要安装 [OpenCV](http://opencv.org/downloads.html) (http://opencv.org/downloads.html),
+特别提一下，对于Mac的用户，推荐使用brew去安装 （如果遇到第一条命令不过可以通过下面的方式联系作者）
+```sh
+brew tap homebrew/science
+brew install opencv
+```
+
+安装好了,在python的命令行中输入如下代码验证，如果没有报错就说明安装好了。
+```sh
+>>> import cv2
+```
+## 程序代码 
 
 ```python
 # -*- coding: utf-8 -*-
 import cv2,sys
+```
+- 由于这里注释及显示使用了中文，因此加上utf-8字符集的支持
+- 引入opencv库以及python的sys内建库，用于解析输入的图片参数
+
+
+```python
+
 
 # 使用输入的测试照片的文件名
 inputImageFile=sys.argv[1]
