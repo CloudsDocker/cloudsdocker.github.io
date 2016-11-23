@@ -6,7 +6,7 @@ tag:
 - FacialRecognition
 ---
 # CV (Computer Vision) 与面部识别
-最近在研究CV的一些开源库(OpenCV)。发现其实除了一些非常学术的_机器学习_,_深度学习_外，还有一些很有趣的现实应用场景，比如之前在朋友圈很流行的使用自己的照片进行面部识别_猜年龄_。 这个看起来 很 _高大上_ 的面部识别功能，其实打散了就包括两大块，一是面部识别，二是根据算法去猜个年龄。大家可以猜猜实现第一个功能需要多少代码量？其实不用上万行，在这里就使用短短几行代码（去除空格换行什么的，有效代码只要12行）就可以实现一个面部识别的功能。
+最近在研究CV的一些开源库(OpenCV)。发现其实除了一些非常学术的_机器学习_,_深度学习_外，还有一些很有趣的现实应用场景，比如之前在朋友圈很流行的使用自己的照片进行面部识别_猜年龄_。 这个看起来 很 _高大上_ 的面部识别功能，其实打散了就包括两大块，一是面部识别，二是根据算法去猜个年龄。大家可以猜猜实现第一个功能需要多少代码量？其实不用上万行，在这里就使用短短几行代码（去除空格换行什么的，有效代码只要10行）就可以实现一个面部识别的功能。
 
 ## 刷脸
  _人脸识别_技术大家应该都不陌生，远的看，之前大家使用的数码相机，或者现在很多手机自带的相机都有人脸识别的功能，就像是下图这样。近的年，大家刚刚过了 _剁手节_ , 背后的马老板一直在力推的刷脸支付也是一个应用场景。比如在德国汉诺威电子展上，马云用支付宝“刷脸”买了一套纪念邮票。人脸识别应用市场也从爆发。随后，各大互联网巨头也纷纷推出了刷脸相关的应用。
@@ -19,14 +19,16 @@ tag:
  
  OK，长话短说，先上 _干货_ ， 下面就是此程序的 _带注释_版本，完成程序以及相关配套文件可以在 [这个github库](https://github.com/CloudsDocker/pyFacialRecognition) https://github.com/CloudsDocker/pyFacialRecognition 中找到，有兴趣可以 _fork_ 下来玩玩。下面是整个程序的代码样子，后面我会逐行去解释分析。
  
-![](pythonSource.png)
+![](facial_code_preview.png)
+
 
 然后代码运行的效果如下：
 
 ## 首先是原始的图片
-![](oriImage.png)
+![](facial_oriImage.jpg)
+
 ## 运行程序后识别出面部并高度显示的结果
-![](postProcessImage.png)
+![](facial_postProcessImage.png)
 
 # 代码解析
 ## 准备工作
@@ -52,22 +54,47 @@ import cv2,sys
 
 
 ```python
-
-
-# 使用输入的测试照片的文件名
 inputImageFile=sys.argv[1]
+```
+- 使用输入的测试照片的文件名作为参数传进来
 
-# 使用 HAAR 的机器学习积累的原始文件，这里此文件包括了人脸识别的“经验”
-faceBase='haarcascade_frontalface_default.xml'
 
-# 根据机器学习库文件创建一个 classifier
-faceClassifier=cv2.CascadeClassifier(faceBase)
+```python
+faceClassifier=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+```
+- 使用 HAAR Casscade 机器学习积累的原始文件，这里此文件包括了人脸识别的“经验”，一般是在机器学习领域中对某些特定算法进行有针对性训练，比如使用positive和negative的大批量图片进行学习，这 些学习的结果存储下来就是这种文件，这样使用这些来对新的图片进行‘专家判断'分析。
 
-# 使用库 cv2 来加载图片
+```python
 objImage=cv2.imread(inputImageFile)
+```
+-  使用OpenCV库来加载我们使用参数传入的图片
 
-# 首先将图片进行灰度化处理，以便于进行图片分析
+
+```python
 cvtImage=cv2.cvtColor(objImage,cv2.COLOR_BGR2GRAY)
+```
+- 首先将图片进行灰度化处理，以便于进行图片分析。这种方法在图像识别领域非常常见，比如在进行验证码的机器识别时就会先灰度化，去除不相关的背景噪音图像，然后再分析每个像素，以便抽取出真实的数据。不对针对此，你就看到非常多的验证码后面特意添加了很多的噪音点，线，就是为了防止这种程序来灰度化图片进行分析破解。
+
+```python
+```
+
+```python
+```
+
+
+```python
+```
+
+
+```python
+```
+
+
+```python
+
+
+
+
 
 # 执行detectMultiScale方法来识别物体，我们这里使用的是人脸的数据，因此用于面部识别
 foundFaces=faceClassifier.detectMultiScale(cvtImage,scaleFactor=1.3,minNeighbors=9,minSize=(50,50),flags = cv2.cv.CV_HAAR_SCALE_IMAGE)
