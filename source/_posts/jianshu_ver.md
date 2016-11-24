@@ -1,6 +1,6 @@
 ## CV (Computer Vision)
 最近在研究CV的一些开源库(OpenCV)，有一个体会就是在此领域，除了一些非常学术的_机器学习_, _深度学习_等概念外，其实还有一些很有趣的_现实的_应用场景。比如之前很流行的微软的 https://how-old.net, 你使用自己指定或者上传的照片进行面部识别_猜年龄_。 如下图所示：
-![](http://cloudsdocker.github.io/images/facial_howold.jpg)
+![](http://upload-images.jianshu.io/upload_images/2380020-a20435eb05e69477.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 细想一下这个很吸引眼球的程序，其实技术本身打散了就包括两大块，一是从图片中扫描并进行面部识别，二是对找到的人脸根据算法去猜个年龄。大家可以猜猜实现第一个功能需要多少核心代码量？其实不用~~上万行~~，在这里我就使用短短**几行代码**（去除空格换行什么的，有效代码只要10行）就实现一个_高大上_面部识别的功能。在此文容我细述一下具体实现代码以及我对机器识别图像领域技术的理解。
 
@@ -15,17 +15,17 @@
  
 OK，长话短说，先上 _干货_ ，下面就是此程序的_带注释_ 版本，完整的程序以及相关配套文件可以在 [这个github库](https://github.com/CloudsDocker/pyFacialRecognition) https://github.com/CloudsDocker/pyFacialRecognition 中找到，有兴趣可以_fork_ 下来玩玩。下面是整个程序的代码样子，后面我会逐行去解释分析。
  
-![](http://cloudsdocker.github.io/images/facial_code_preview.png)
+![](http://upload-images.jianshu.io/upload_images/2380020-85da642858bdd76b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 就这短短的十行代码代码？seriously？“有图有真相”，我们先来看下运行的效果：
 
 ### 首先是原始的图片
-![](http://cloudsdocker.github.io/images/facial_oriImage.jpg)
+![](http://upload-images.jianshu.io/upload_images/2380020-661f82b0ccce7339.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 运行程序后识别出面部并高亮显示的结果
-请注意 _K歌二人组_ 的脸上的红色框框，这就是上面十行代码的成果。
-![](http://cloudsdocker.github.io/images/facial_postProcessImage.png)
+请注意-K歌二人组- 的脸上的红色框框，这就是上面十行代码的成果。
+![](http://upload-images.jianshu.io/upload_images/2380020-29ed06ac801b6462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 代码解析
 ### 准备工作
