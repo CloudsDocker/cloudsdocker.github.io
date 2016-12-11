@@ -1,36 +1,9 @@
 ---
 layout: page
-title: A Facial Recognition utility in a dozen of LOC/用10几行代码自己写个人脸识别程序
+title: 用10几行代码自己写个人脸识别程序
 tag:
 - DeepLearning
 - FacialRecognition
----
-A Facial Recognition utility in a dozen of LOC (Lines Of Code)
-## CV (Computer Vision)
-I have been soak myself in open sourced libraries, such as OpenCV. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
 
 # 用10几行代码自己写个人脸识别程序
@@ -177,6 +150,5 @@ cd pyFacialRecognition
 ## Reference
 - [OpenCV](http://docs.opencv.org/trunk/index.html)
 - [HAAR 哈尔特征](https://zh.wikipedia.org/wiki/哈尔特征)
-
 - [Face Detection using Haar Cascades](http://docs.opencv.org/trunk/d7/d8b/tutorial_py_face_detection.html)
 - [NSFW](https://github.com/yahoo/open_nsfw)
