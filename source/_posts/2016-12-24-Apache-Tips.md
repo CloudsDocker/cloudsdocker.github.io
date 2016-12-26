@@ -13,3 +13,5 @@ sudo su -
 apachectl start
 apachectl stop
 ```
+
+Open a browser to access http://localhost/
