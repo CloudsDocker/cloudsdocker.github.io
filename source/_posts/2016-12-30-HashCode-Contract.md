@@ -36,5 +36,7 @@ public class Employee{
 ### Hashcode
 When insert data into HashTable, HashMap, HashSet, the hashcode used to determine **where** to **store/search** the value in list/bucket. The hashcode only **point to an area** in list/bucket of data. The hashtable then iterates this area (all keys with the same hash code) and uses the key's equals() method to find the right key. Once the right key is found, the object stored for that key is returned. 
 
+After you override the hashcode, you are still be able to get origional hashcode via calling **int originalHashCode = System.identityHashCode(emp1);**
+
 ### Rules
 In this regard there is a rule of thumb that if you are going to overide the one of the methods (equals, hashcode), you have to override both, othersise it's a violation of contract .
