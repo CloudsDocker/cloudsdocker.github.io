@@ -3,7 +3,7 @@ layout: page
 title: HashMap in JDK
 ---
 # Hashmap in JDK
-Some note worth points about hashmap
+## Some note worth points about hashmap
 - Lookup process
 -- Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()).
 -- Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).
@@ -22,15 +22,31 @@ However, java has chosen chaining strategy for hashMap, so in case of collisions
 -- EnumMap: HashMap with Enum values as keys.
 -- LinkedHashMap: HashMap with predictable iteration order (great for FIFO/LIFO caches)
 
-## Internal data structure
+## WeakReferenceMap, SoftReference Map etc.
+Weak references (a WeakHashMap) aren't particularly good for this either, because as the elements in the cache become dereferenced by the application code they will quickly be removed from the cache by the garbage collector. This basically means there will be cache faults often (in other words, the cache lookups will fail).
+
+Soft references can be very handy in situations such as this. Because soft references only exist if the memory is available, they can make very effective use of the space that is available. Unfortunately, although there is a WeakHashMap , there is no java.util.SoftHashMap . Why? I'm not really sure. Thankfully, a little trip back over to Jakarta-Commons-Collections digs up the org.apache.commons.collections.map.ReferenceMap .
+
+SoftReferences are typically used for implementing memory caching. The JVM should try to keep softly referenced objects in memory as long as possible, and when memory is low clear the oldest soft references first. According to the JavaDoc, there are no guarantees though.
+
+WeakReferences is the reference type I use most frequently. It's typically used when you want weak listeners or if you want to connect additional information to an object (using WeakHashMap for example). Very useful stuff when you want to reduce class coupling. 
+
+Phantom references can be used to perform pre-garbage collection actions such as freeing resources. Instead, people usually use the finalize() method for this which is not a good idea. Finalizers have a horrible impact on the performance of the garbage collector and can break data integrity of your application if you're not very careful since the "finalizer" is invoked in a random thread, at a random time.
+
+In the constructor of a phantom reference, you specify a ReferenceQueue where the phantom references are enqueued once the referenced objects becomes "phantom reachable". Phantom reachable means unreachable other than through the phantom reference. The initially confusing thing is that although the phantom reference continues to hold the referenced object in a private field (unlike soft or weak references), its getReference() method always returns null. This is so that you cannot make the object strongly reachable again.
+
+From time to time, you can poll the ReferenceQueue and check if there are any new PhantomReferences whose referenced objects have become phantom reachable. In order to be able to to anything useful, one can for example derive a class from java.lang.ref.PhantomReference that references resources that should be freed before garbage collection. The referenced object is only garbage collected once the phantom reference becomes unreachable itself. 
+
+## Source code analysis
+### Internal data structure
 - transient Entry<K, V>[] elementData;
 - transient int modCount = 0;
 - private transient V[] cache;
 
-## Put
+### Put
 It will call return putImpl(key, value); directly
 
-### V putImpl(K key, V value) 
+#### V putImpl(K key, V value) 
 - if(key == null)
 -- entry = findNullKeyEntry();
 ```java
