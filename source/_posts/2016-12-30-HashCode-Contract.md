@@ -115,9 +115,18 @@ is added in Java 6 and it extends Queue interface to support **insertion and rem
 Just like ConcurrentHashMap provides a concurrent alternative of synchronized HashMap. **ConcurrentSkipListMap and ConcurrentSkipListSet provide concurrent alternative** for synchronized version of **SortedMap and SortedSet**. For example instead of using TreeMap or TreeSet wrapped inside synchronized Collection, You can consider using ConcurrentSkipListMap or ConcurrentSkipListSet from java.util.concurrent package. They also implement NavigableMap and NavigableSet to add additional navigation method we have seen in our post How to use NavigableMap in Java.
 
 
+# To sort hashmap by key and value
+- Why can't we use TreeMap in place of HashMap is the question appears in most Java programmer's mind when they asked to sort HashMap in Java. Well, TreeMap is way slower than HashMap because it runs sorting operation with each insertion, update and removal and sometimes you don't really need an all time sorted Map, What you need is an ability to sort any Map implementation based upon its key and value.
+## Sort by Key
+- As I said Map or HashMap in Java can be sorted either on keys or values. Sorting Map on keys is rather easy than sorting on values because Map **allows duplicate values but doesn't allow duplicates keys**. You can sort Map, be it HashMap or Hashtable by copying keys into List than sorting List by using Collections.sort() method, here you can use either Comparator or Comparable based upon whether you want to sort on a custom order or natural order. 
+-Once List of keys is sorted, we can create another Map, particularly LinkedHashMap to insert keys in sorted order. LinkedHashMap will maintain the order on which keys are inserted, the result is a sorted Map based on keys. This is shown in the following example by writing a generic parameterized method to sort Map based on keys. You can also sort Map in Java by using TreeMap and Google Collection API (Guava). The advantage of using Guava is that you get some flexibility on specifying ordering.
+## Sorting Map in Java - By Value
+- To implement Collection.sort(map, new Comparator<Map.Entry<K,V>>(){ o1.getValue().compareTo(o2.getValue())
+- But need to take care of null and duplication
 
 
 # Reference 
 - http://javarevisited.blogspot.in/2011/02/how-hashmap-works-in-java.html
 - http://javarevisited.blogspot.in/2011/04/difference-between-concurrenthashmap.html
 - http://javarevisited.blogspot.com/2013/02/concurrent-collections-from-jdk-56-java-example-tutorial.html#ixzz4WBYzKelD
+- http://javarevisited.blogspot.com/2012/12/how-to-sort-hashmap-java-by-key-and-value.html#ixzz4WBgfeGVM
