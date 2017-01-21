@@ -14,8 +14,16 @@ Classical example of using CountDownLatch in Java  is any server side core Java 
 
 ## Summary
 - Main Thread wait on Latch by calling CountDownLatch.await() method while other thread calls CountDownLatch.countDown() to inform that they have completed.
-- 
+
+
+# ThreadLocal
+- ThreadLocal in Java is another way to achieve thread-safety **apart from writing immutable** classes.
+- ThreadLocal in Java is a different way to achieve thread-safety, it doesn't address synchronization requirement, instead it eliminates sharing by providing explicitly copy of Object to each thread.
+- Since Object is no more shared there is no requirement of Synchronization which can improve scalability and performance of application.
+- One of the classic example of ThreadLocal is sharing SimpleDateForamt. Since SimpleDateFormat is not thread safe, having a global formatter may not work but having per Thread formatter will certainly work. but it can **be source of severe memory leak** and java.lang.OutOfMemoryError if not used carefully. so avoid until you don't have any other option.
 
 
 # Reference 
 - http://javarevisited.blogspot.in/2012/07/countdownlatch-example-in-java.html
+- http://javarevisited.blogspot.sg/2012/05/how-to-use-threadlocal-in-java-benefits.html
+- http://javarevisited.blogspot.com/2012/03/simpledateformat-in-java-is-not-thread.html

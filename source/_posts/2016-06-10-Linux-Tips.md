@@ -4,6 +4,13 @@ title: Linux Tips
 tag:
 - Linux
 ---
+# replace string in files
+```sh
+#grep -r "pack.*me" .
+sed -ie 's/package.*me.*;/package com.todzhang;/g' *.java
+sed -ie 's/package com.todzhang.*$/package com.todzhang;/g' *.java
+```
+
 # create directory hierarchy via path
 ```sh
 mkdir -p ~/abc/def/egg

@@ -57,3 +57,12 @@ assertEquals("a", a.get());
 # Stream
 “The purpose of streams isn’t just to convert from one collection to another; it’s to be able to provide a common set of operations over data.”
 
+# Collector
+
+There are various built-in collectors.
+
+## partitioningBy
+To split a stream into two groups, one for 'trueGroup' and another group
+
+
+
