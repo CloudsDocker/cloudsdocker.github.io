@@ -150,8 +150,32 @@ inside sub class static method
 - Utility methods are good candidate of making static in Java because then they can directly be accessed using class name without even creating any instance. Classic example is java.lang.Math
 - Static method in Java is very popular to implement Factory design pattern. Since Generics also provides type inference during method invocation, use of static factory method to create object is popular Java idiom. 
 
+# Phone interview
+-  Key to success in telephonic interview is **to the point** and **concise answer**.
+
+## Difference between String, StringBuffer and StringBuilder in Java
+- String is **immutable** while both StringBuffer and StringBuilder **is mutable**, which means any change e.g. converting String to upper case or trimming white space will **produce another instance** rather than changing the same instance. On later two, **StringBuffer is synchronized** while **StringBuilder is not**, in fact its a ditto replacement of StringBuffer added in Java 1.5.
+## Difference between extends Thread vs implements Runnable in Java? 
+- Difference comes from the fact that you **can only extend one class** in Java, which means if you extend Thread class you lose your opportunity to extend another class, on the other hand if you implement Runnable, you can still extend another class.
+
+## Difference between Runnable and Callable interface in Java? 
+- Runnable was the only way to implement a task in Java which can be executed in parallel before JDK 1.5 adds Callable. Just like Runnable, Callable also defines a single **call() method** but unlike run() it **can return values and throw exceptions**.
+
+## Difference between ArrayList and LinkedList in Java? 
+- In short, ArrayList is backed by array in Java, while **LinkedList is just collection of nodes**, similar to linked list data structure. ArrayList also provides **random search** if you know the index, while **LinkedList only allows sequential search**. On other hand, **adding and removing element from middle** is **efficient in LinkedList** as compared to ArrayList because it only require to modify links and no other element is rearranged.
+
+## What is difference between wait and notify in Java? 
+- Both wait and notify methods are used for **inter thread communication**, where **wait is used to pause** the thread on a condition and **notify is used to send notification** to waiting threads. Both must be called from synchronized context e.g. **synchronized method or block**.
+
+
+## Difference between HashMap and Hashtable in Java? 
+- Though both HashMap and Hashtable are based upon hash table data structure, there are subtle difference between them. HashMap is non synchronized while Hashtable is synchronized and because of that HashMap is faster than Hashtable, as there is no cost of synchronization associated with it. One more minor difference is that HashMap allows a null key but Hashtable doesn't.
+
+
+
 
 
 # Reference 
 - http://www.java67.com/2012/09/top-10-tricky-java-interview-questions-answers.html
 - http://javarevisited.blogspot.in/2012/03/what-is-static-and-dynamic-binding-in.html
+- http://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html
