@@ -185,9 +185,80 @@ Writer or fewer writers** since Map gets locked only during the write operation.
    - Instances of **RecursiveAction** represent executions that **do not yield a return value**.
    - In contrast, instances of **RecursiveTask yield return values**.
 In general, RecursiveTask is preferred because most divide-and-conquer algorithms return a value from a computation over a data set. 
-
-
-
+- The fork and join principle consists of two steps which are performed recursively. These two steps are the fork step and the join step. 
+- A task that uses the fork and join principle can fork (split) itself into smaller subtasks which can be executed concurrently. This is illustrated in the diagram below: 
+- By splitting itself up into subtasks, each **subtask can be executed in parallel by different CPUs**, or **different threads on the same CPU**. 
+- **The limit for when** it makes sense to fork a task into subtasks **is also called a threshold**. It is up to each task to decide on a sensible threshold. It depends very much on the kind of work being done.
+- Once the subtasks have finished executing, the task may **join (merge) all the results into one result**.
+- Of course, not all types of tasks may return a result. If the tasks do not return a result then a task just waits for its subtasks to complete. No result merging takes place then. 
+- The **ForkJoinPool is a special thread pool** which is designed to work well with fork-and-join task splitting. The ForkJoinPool located in the java.util.concurrent package, so the full class name is java.util.concurrent.ForkJoinPool. 
+- You create a ForkJoinPool using its constructor. As a parameter to the ForkJoinPool constructor you **pass the indicated level of parallelism** you desire. 
+- The parallelism level **indicates how many threads or CPUs** you want to work concurrently on on tasks passed to the ForkJoinPool.
+- You submit tasks to a ForkJoinPool **similarly to how you submit tasks to an ExecutorService**. You can submit two types of tasks. A task that **does not return any result (an "action"**), and a **task which does return** a result (a "task").
+## Fork/Join framework details
+- ForkJoinPool is consists of ForkJoinTask array and ForkJoinWorkerThread array.  
+   - ForkJoinTask array contains tasks submitted to ForkJoinPool
+   - ForkJoinWorkerThread array in charge of executing those tasks
+   - When you call fork method on ForkJoinTask, program will call "pushTask" asynchronously of ForkJoinWorkerThread, and then return result right away.
+   - "pushTask" will put current task into ForkJoinTask array queue, then execute "signalWork()" of ForkJoinPool to create a new thread to execute task.
+   ```java
+   final void pushTask(ForkJoinTask t) {
+        ForkJoinTask[] q; int s, m;
+        if ((q = queue) != null) {    // ignore if queue removed
+            long u = (((s = queueTop) & (m = q.length - 1)) << ASHIFT) + ABASE;
+            UNSAFE.putOrderedObject(q, u, t);
+            queueTop = s + 1;         // or use putOrderedInt
+            if ((s -= queueBase) <= 2)
+                pool.signalWork();
+	else if (s == m)
+                growQueue();
+        }
+    }
+   ```
+   - "join" method main functionality is blocking current thread and wait for resutls.
+   ```java
+		public final V join() {
+        if (doJoin() != NORMAL)
+            return reportResult();
+        else
+            return getRawResult();
+		}
+		private V reportResult() {
+				int s; Throwable ex;
+				if ((s = status) == CANCELLED)
+					throw new CancellationException();
+		if (s == EXCEPTIONAL && (ex = getThrowableException()) != null)
+					UNSAFE.throwException(ex);
+				return getRawResult();
+		}
+   ```
+	- When do call doJoin(), you can get status of curent thread. There are 4 status:
+	   - NORMAL: completed
+	   - CANCELLED
+	   - SIGNAL
+	   - EXCEPTIONAL
+	- The method of doJoin()
+	```java
+	private int doJoin() {
+        Thread t; ForkJoinWorkerThread w; int s; boolean completed;
+        if ((t = Thread.currentThread()) instanceof ForkJoinWorkerThread) {
+            if ((s = status) < 0)
+				return s;
+            if ((w = (ForkJoinWorkerThread)t).unpushTask(this)) {
+                try {
+                    completed = exec();
+                } catch (Throwable rex) {
+                    return setExceptionalCompletion(rex);
+                }
+                if (completed)
+                    return setCompletion(NORMAL);
+            }
+            return w.joinTask(this);
+        }
+        else
+            return externalAwaitDone();
+    }
+	```
 
 
 
@@ -205,3 +276,6 @@ In general, RecursiveTask is preferred because most divide-and-conquer algorithm
 - http://javarevisited.blogspot.com/2011/11/collection-interview-questions-answers.html#ixzz4WTN72QPa
 - http://javarevisited.blogspot.in/2011/11/collection-interview-questions-answers.html
 - http://www.oracle.com/technetwork/articles/java/fork-join-422606.html
+- http://tutorials.jenkov.com/java-util-concurrent/java-fork-and-join-forkjoinpool.html
+- http://coopsoft.com/ar/CalamityArticle.html
+- http://www.infoq.com/cn/articles/fork-join-introduction
