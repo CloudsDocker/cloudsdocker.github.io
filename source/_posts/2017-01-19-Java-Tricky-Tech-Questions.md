@@ -172,10 +172,89 @@ inside sub class static method
 - Though both HashMap and Hashtable are based upon hash table data structure, there are subtle difference between them. HashMap is non synchronized while Hashtable is synchronized and because of that HashMap is faster than Hashtable, as there is no cost of synchronization associated with it. One more minor difference is that HashMap allows a null key but Hashtable doesn't.
 
 
+# Check a number is prime or not
+- We learned numbers are prime if the only divisors they have are 1 and itself. Trivially, we can check every integer from 1 to itself (exclusive) and test whether it divides evenly. Check the source code of ** PrimeTester.java**
+   - naive approach:  We learned numbers are prime if the only divisors they have are 1 and itself. Trivially,  we can check every integer from 1 to itself (exclusive)  and test whether it divides evenly.
+   ```java
+   for(int i=2;2*i<=n;i++){
+			if(n%i==0)
+   ```
+   - power of 2 approach:    further enhance, as if 2 divides some interger n, then (n/2) divides n as well so we'll times of 2. Please be advised in for loop, should use 2*i<=n, rather than "<n",   otherwise, 4 will be return as ture mistakely
+   ```java
+   for(int i=2;2*i<=n;i++){
+			if(n%i==0)
+   ```
+   - isPrimeSquare approach:  	 we notice that you really only have to go up to the square root of n,   because if you list out all of the factors of a number,  the square root will always be in the middle Finally, we know 2 is the "oddest" prime - it happens to be the only even prime number. Because of this, we need only check 2 separately, then traverse  odd numbers up to the square root of n.  In the end, our code will resemble this:
+   ```java
+   // check if n is a multiple of 2
+   if(n>2&&n%2==0)
+			return false;		
+		// if not, then just check the odds
+		for(int i=3;i*i<=n;i+=2){
+			if(n%i==0) 
+   ```
+# Difference between abstract class and interface? 
+- From Java 8 onwards difference between abstract class and interface in Java has minimized, now even interface can have implementation in terms of default and static method. BTW, in Java you can still extend just one class but can extend multiple inheritance. Abstract class is used to provide default implementation with just something left to customize, while interface is used heavily in API to define contract of a class.
 
+# How to Swap Two Numbers without Temp or Third variable in Java - Interview Question
+## Swapping two numbers without using temp variable in Java
+```java
+int a = 10;
+int b = 20;
+System.out.println("value of a and b before swapping, a: " + a +" b: " + b);
 
+//swapping value of two numbers without using temp variable
+a = a+ b; //now a is 30 and b is 20
+b = a -b; //now a is 30 but b is 10 (original value of a)
+a = a -b; //now a is 20 and b is 10, numbers are swapped
+
+System.out.println("value of a and b after swapping, a: " + a +" b: " + b);
+Output:
+value of a and b before swapping, a: 10 b: 20
+value of a and b after swapping, a: 20 b: 10
+```
+## Swapping two numbers without using temp variable in Java with bitwise operator
+```java
+int a = 2; //0010 in binary
+int b = 4; //0100 in binary
+System.out.println("value of a and b before swapping, a: " + a +" b: " + b);
+// 6  is     0110
+//swapping value of two numbers without using temp variable and XOR bitwise operator     
+a = a^b; //now a is 6 (0110) and b is 4(0100)
+b = a^b; //now a is 6 but b is 2 (0010) (original value of a)
+a = a^b; //now a is 4 and b is 2, numbers are swapped
+
+System.out.println("value of a and b after swapping using XOR bitwise operation, a: " + a +" b: " + b);
+value of a and b before swapping, a: 2 b: 4
+value of a and b after swapping using XOR bitwise operation, a: 4 b: 2
+```
+
+## Swapping two numbers without using temp variable in Java with division and multiplication
+- There is another, third way of swapping two numbers without using third variable, which involves multiplication and division operator. 
+```java
+int a = 6;
+int b = 3;
+System.out.println("value of a and b before swapping, a: " + a +" b: " + b);
+
+//swapping value of two numbers without using temp variable using multiplication and division
+a = a*b; //now a is 18 and b is 3
+b = a/b; //now a is 18 but b is 6 (original value of a)
+a = a/b; //now a is 3 and b is 6, numbers are swapped
+
+System.out.println("value of a and b after swapping using multiplication and division, a: " + a +" b: " + b);
+Output:
+value of a and b before swapping, a: 6 b: 3
+value of a and b after swapping using multiplication and division, a: 3 b: 6
+```
+- That's all on 3 ways to swap two variables without using third variable in Java. Its good to know multiple ways of swapping two variables without using temp or third variable to handle any follow-up question. Swapping numbers **using bitwise operator is the fastest** among three, because it **involves bitwise operation**. It’s also great way to show your knowledge of bitwise operator in Java and impress interviewer, which then may ask some question on bitwise operation. A nice trick to drive interview on your expert area.
+
+# Bitwise operator
+- "~" inverts a bit pattern; it can be applied to any of the integral types, making every "0" a "1" and every "1" a "0".
 
 # Reference 
 - http://www.java67.com/2012/09/top-10-tricky-java-interview-questions-answers.html
 - http://javarevisited.blogspot.in/2012/03/what-is-static-and-dynamic-binding-in.html
 - http://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html
+- http://www.mkyong.com/java/how-to-determine-a-prime-number-in-java/
+- http://javarevisited.blogspot.in/2013/02/swap-two-numbers-without-third-temp-variable-java-program-example-tutorial.html
+- http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html
