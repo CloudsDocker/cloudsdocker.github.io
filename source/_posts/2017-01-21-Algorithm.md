@@ -44,11 +44,51 @@ Justification: The initialization at lines 3 and 4 and the return statement at l
 ## Composing Long Strings
 - Therefore, the overall time taken by this algorithm is proportional to
 1 + 2 + ··· + n,
-which we recognize as the familiar O(n2) summation from Proposition 4.3. Therefore, the total time complexity of the repeat1 algorithm is O(n2).
+which we recognize as the familiar O(n<sup>2</sup>) summation from Proposition 4.3. Therefore, the total time complexity of the repeat1 algorithm is O(n<sup>2</sup>).
 
 - x = logbn if and only if bx = n.
 The value b is known as the base of the logarithm. Note that by the above definition, for any base b > 0, we have that logb 1 = 0.
 
+
+# Three-Way Set Disjointness
+## Origional solution
+Suppose we are given three sets, A, B, and C, stored in three different integer arrays. We will assume that no individual set contains duplicate values, but that there may be some numbers that are in two or three of the sets. The three-way set disjointness problem is to determine if the intersection of the three sets is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C. 
+
+```java
+    private static boolean disjoint1(int[]  groupA, int[] groupB, int[] groupC){
+        for ( int i : groupA) {
+            for (int j : groupB) {
+                for (int k : groupC) {
+                    if(i==j && j==k){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+```
+- This simple algorithm loops through each possible triple of values from the three sets to see if those values are equivalent. If each of the original sets has size n, then the worst-case running time of this method is O(n<sup>3</sup>) .
+```java
+private static boolean disjoint2(int[]  groupA, int[] groupB, int[] groupC){
+        for ( int i : groupA) {
+            for (int j : groupB) {
+                if(i==j){
+                    // add this checking to reduce complexitiy
+                    for (int k : groupC) {
+                        if(j==k){
+                            return false;
+                        }
+                    }
+                }
+                
+            }
+        }
+        return true;
+    }
+```
+
+In the improved version, it is not simply that we save time if we get lucky. We claim that the worst-case running time for disjoint2 is O(n<sup>2</sup>). 
 
 # Code practice
 http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159
