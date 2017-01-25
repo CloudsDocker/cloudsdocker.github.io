@@ -250,6 +250,20 @@ value of a and b after swapping using multiplication and division, a: 3 b: 6
 
 # Bitwise operator
 - "~" inverts a bit pattern; it can be applied to any of the integral types, making every "0" a "1" and every "1" a "0".
+- The bitwise & operator performs a bitwise AND operation.
+- The bitwise ^ operator performs a bitwise exclusive OR operation.
+- The bitwise | operator performs a bitwise inclusive OR operation.
+
+
+# How to check if linked list contains loop in Java?
+- Algorithm to find if linked list contains loops or cycles. Two pointers, fast and slow is used while iterating over linked list. **Fast pointer moves two nodes** in each iteration, while **slow pointer moves to one node**. If linked list contains loop or cycle than both **fast and slow pointer will meet** at some point during iteration. If they don't meet and fast or slow will point to null, then linked list is not cyclic and it doesn't contain any loop. 
+1. Use two pointers fast and slow
+1. Move fast two nodes and slow one node in each iteration
+1. If fast and slow meet then linked list contains cycle
+1. if fast points to null or fast.next points to null then linked list is not cyclic
+- This algorithm is also known as Floyd’s cycle finding algorithm and popularly **known as tortoise and hare algorithm** to find cycles in linked list. Sample can be found via "LoopInList.java"
+
+
 
 # Reference 
 - http://www.java67.com/2012/09/top-10-tricky-java-interview-questions-answers.html
@@ -258,3 +272,4 @@ value of a and b after swapping using multiplication and division, a: 3 b: 6
 - http://www.mkyong.com/java/how-to-determine-a-prime-number-in-java/
 - http://javarevisited.blogspot.in/2013/02/swap-two-numbers-without-third-temp-variable-java-program-example-tutorial.html
 - http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html
+- http://javarevisited.blogspot.in/2013/05/find-if-linked-list-contains-loops-cycle-cyclic-circular-check.html
