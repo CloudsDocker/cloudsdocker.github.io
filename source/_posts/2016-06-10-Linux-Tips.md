@@ -8,7 +8,7 @@ tag:
 ```sh
 #grep -r "pack.*me" .
 sed -ie 's/package.*me.*;/package com.todzhang;/g' *.java
-sed -ie 's/package com.todzhang.*$/package com.todzhang;/g' *.java
+sed -ie 's/package me.todzhang;/package com.todzhang;/g' ~/dev/git/algo/algoWS/src/main/java/com/todzhang/*.java
 ```
 
 # create directory hierarchy via path
