@@ -88,7 +88,11 @@ private static boolean disjoint2(int[]  groupA, int[] groupB, int[] groupC){
     }
 ```
 
+
 In the improved version, it is not simply that we save time if we get lucky. We claim that the worst-case running time for disjoint2 is O(n<sup>2</sup>). 
+
+# by sorting
+Sorting algorithms will be the focus of Chapter 12. The best sorting algorithms (including those used by Array.sort in Java) guarantee a worst-case running time of O(nlog n). Once the data is sorted, the subsequent loop runs in O(n) time, and so the entire unique2 algorithm runs in O(n log n) time. Exercise C-4.35 explores the use of sorting to solve the three-way set disjointness problem in O(n log n) time.
 
 # Code practice
 http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159
