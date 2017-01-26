@@ -1,3 +1,4 @@
+
 ---
 title: Algorithm
 tag: algorithm
@@ -13,24 +14,24 @@ tag: algorithm
 
 # Big Omega
 - Just as the big-Oh notation provides an asymptotic way of saying that a function is “less than or equal to” another function, the following notations provide **an asymptotic way** of saying that a function grows at a rate that is “**greater than or equal to**” that of another.
-- Example 4.14: 3n log n − 2n is Ω(n log n).
+- Example 4.14: 3n log n ? 2n is Ω(n log n).
 
 # Big-Theta
-- In addition, there is a notation that allows us to say that two functions grow at the same rate, up to constant factors. We say that f(n) is Θ(g(n)), pronounced “f(n) is big-Theta of g(n),” 
+- In addition, there is a notation that allows us to say that two functions grow at the same rate, up to constant factors. We say that f(n) is Θ(g(n)), pronounced “f(n) is big-Theta of g(n),”
 
 # Comparative Analysis
-- asymptotically[,æsimp'tɔtik,-kəl] better
+- asymptotically[,?simp't?tik,-k?l] better
 - Suppose two algorithms solving the same problem are available: an algorithm A, which has a running time of O(n), and an algorithm B, which has a running time of O(n2). Which algorithm is better? We know that n is O(n2), which implies that algorithm A **is asymptotically better** than algorithm B, although for a small value of n, B may have a lower running time than A.
 
 
 # Some Words of Caution
 - First, note that the use of the big-Oh and related notations can be somewhat misleading should the constant factors they “hide” be very large. For example, while it is true that the function 10100n is O(n), if this is the running time of an algorithm being compared to one whose running time is 10n log n, we should prefer the O(nlog n)-time algorithm, even though the linear-time algorithm is asymptotically faster. This preference is because the constant factor, 10100, which is called “one googol,” is believed by many astronomers to be an upper bound on the number of atoms in the observable universe. So we are unlikely to ever have a real-world problem that has this number as its input size.
 
-# Exponential [,ekspə'nenʃ(ə)l] Running Times
+# Exponential [,eksp?'nen?(?)l] Running Times
 - To see how fast the function 2n grows, consider the famous story about the inventor of the game of chess. He asked only that his king pay him 1 grain of rice for the first square on the board, 2 grains for the second, 4 grains for the third, 8 for the fourth, and so on. The number of grains in the 64th square would be
 263 = 9, 223, 372, 036, 854, 775, 808,
 which is about nine billion billions!
-- If we must draw a line between efficient and inefficient algorithms, therefore, it is natural to make this distinction be that between those algorithms running in **polynomial [,pɒlɪ'nəʊmɪəl] time** and those running in **exponential time**. That is, make the distinction between algorithms with a running time that is **O(nc)** (power c based on n), for some constant c > 1, and those with a running time that is **O(bn)** (power n based on b), for some constant b > 1. Like so many notions we have discussed in this section, this too should be taken with a “grain of salt,” for an algorithm running in O(n100) time should probably not be considered “efficient.” Even so, the distinction between polynomial-time and exponential-time algorithms is considered a robust measure of tractability.
+- If we must draw a line between efficient and inefficient algorithms, therefore, it is natural to make this distinction be that between those algorithms running in **polynomial [,p?l?'n??m??l] time** and those running in **exponential time**. That is, make the distinction between algorithms with a running time that is **O(nc)** (power c based on n), for some constant c > 1, and those with a running time that is **O(bn)** (power n based on b), for some constant b > 1. Like so many notions we have discussed in this section, this too should be taken with a “grain of salt,” for an algorithm running in O(n100) time should probably not be considered “efficient.” Even so, the distinction between polynomial-time and exponential-time algorithms is considered a robust measure of tractability.
 
 # Examples of Algorithm Analysis
 ## constant time operation
@@ -39,7 +40,7 @@ which is about nine billion billions!
 ## Finding the Maximum of an Array
 Proposition 4.16: The algorithm, arrayMax, for computing the maximum element of an array of n numbers, runs in O(n) time.
 
-Justification: The initialization at lines 3 and 4 and the return statement at line 8 require only a constant number of primitive operations. Each iteration of the loop also requires only a constant number of primitive operations, and the loop executes n − 1 times. 
+Justification: The initialization at lines 3 and 4 and the return statement at line 8 require only a constant number of primitive operations. Each iteration of the loop also requires only a constant number of primitive operations, and the loop executes n ? 1 times.
 
 ## Composing Long Strings
 - Therefore, the overall time taken by this algorithm is proportional to
@@ -52,7 +53,7 @@ The value b is known as the base of the logarithm. Note that by the above defini
 
 # Three-Way Set Disjointness
 ## Origional solution
-Suppose we are given three sets, A, B, and C, stored in three different integer arrays. We will assume that no individual set contains duplicate values, but that there may be some numbers that are in two or three of the sets. The three-way set disjointness problem is to determine if the intersection of the three sets is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C. 
+Suppose we are given three sets, A, B, and C, stored in three different integer arrays. We will assume that no individual set contains duplicate values, but that there may be some numbers that are in two or three of the sets. The three-way set disjointness problem is to determine if the intersection of the three sets is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C.
 
 ```java
     private static boolean disjoint1(int[]  groupA, int[] groupB, int[] groupC){
@@ -81,7 +82,7 @@ private static boolean disjoint2(int[]  groupA, int[] groupB, int[] groupC){
                         }
                     }
                 }
-                
+
             }
         }
         return true;
@@ -89,10 +90,29 @@ private static boolean disjoint2(int[]  groupA, int[] groupB, int[] groupC){
 ```
 
 
-In the improved version, it is not simply that we save time if we get lucky. We claim that the worst-case running time for disjoint2 is O(n<sup>2</sup>). 
+In the improved version, it is not simply that we save time if we get lucky. We claim that the worst-case running time for disjoint2 is O(n<sup>2</sup>).
 
 # by sorting
 Sorting algorithms will be the focus of Chapter 12. The best sorting algorithms (including those used by Array.sort in Java) guarantee a worst-case running time of O(nlog n). Once the data is sorted, the subsequent loop runs in O(n) time, and so the entire unique2 algorithm runs in O(n log n) time. Exercise C-4.35 explores the use of sorting to solve the three-way set disjointness problem in O(n log n) time.
+
+# prefixAverage
+Check the source code at PrefixAverage.java, the inital implementation is two for loop, which is O(n<sup>2</sup>), while the better approach is reuse existing total sum.
+```java
+// naiive approach,
+for (int i = 0; i < n; i++) {
+			double total=0;
+			for (int j = 0; j <=i; j++) { // be awre it's <=, instead of "<"
+				total+=x[j];				
+			}
+			a[i]=total/(i+1);			
+		}
+// better approach
+double total=0;
+		for (int i = 0; i < n; i++) {
+			total += x[i];
+			a[i]=total/(i+1);			
+		}
+```
 
 # Code practice
 http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159
