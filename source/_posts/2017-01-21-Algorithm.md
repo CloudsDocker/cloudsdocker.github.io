@@ -114,6 +114,14 @@ double total=0;
 		}
 ```
 
+# Recursive
+## Definitions
+1. We have one or more **base cases**, which refer to fixed values of the function. e.g. for n!=1 as  n=1 is base.
+1. Then we have one or more **recursive cases**, which define the function in terms of itself. for n!, it's =n*(n-1)! for n>=1
+- Repetition is achieved through repeated recursive invocations of the method. The process i finite because each time the method is invoked, its argument is smaller by one, and when a base case is reached, no further recursive calls are made.
+- In the case of computing the factorial function, there is no compelling reason for prefereing recursion over a direct iteration with a loop.
+
+
 # Code practice
 http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159
 
