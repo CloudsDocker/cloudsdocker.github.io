@@ -5,6 +5,11 @@ tags:
 - java
 - Questions
 ---
+# Java Generics ? , E and T what is the difference?
+Well there's no difference between the first two - they're just using different names for the type parameter (E or T).
+
+The third isn't a valid declaration - ? is used as a wildcard which is used when providing a type argument, e.g. List<?> foo = ... means that foo refers to a list of some type, but we don't know what.
+
 # Question: What does the following Java program print?
 
 public class Test {

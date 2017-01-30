@@ -195,6 +195,7 @@ In general, RecursiveTask is preferred because most divide-and-conquer algorithm
 - You create a ForkJoinPool using its constructor. As a parameter to the ForkJoinPool constructor you **pass the indicated level of parallelism** you desire. 
 - The parallelism level **indicates how many threads or CPUs** you want to work concurrently on on tasks passed to the ForkJoinPool.
 - You submit tasks to a ForkJoinPool **similarly to how you submit tasks to an ExecutorService**. You can submit two types of tasks. A task that **does not return any result (an "action"**), and a **task which does return** a result (a "task").
+
 ## Fork/Join framework details
 - ForkJoinPool is consists of ForkJoinTask array and ForkJoinWorkerThread array.  
    - ForkJoinTask array contains tasks submitted to ForkJoinPool
@@ -260,6 +261,136 @@ In general, RecursiveTask is preferred because most divide-and-conquer algorithm
     }
 	```
 
+## newTaskFor
+
+If a SocketUsingTask is cancelled through its Future, the socket is closed and the
+
+As of Java 6, ExecutorService implementations can override newTaskFor in AbstractExecutorService to control instantiation of the Future corresponding to a submitted Callable or Runnable. The default implementation just creates a new FutureTask, as shown in Listing 6.12. 
+```java
+protected <T> RunnableFuture<T> newTaskFor(Callable<T> task) { 
+return new FutureTask<T>(task); 
+} 
+```
+Listing 6.12. Default implementation of newTaskFor in ThreadPoolExecutor.
+
+## Thread shutdown
+- Sensible encapsulation practices dictate that you should not manipulate a thread—interrupt it, modify its priority, etc.—unless you own it. The thread API has no formal concept of thread ownership: a thread is represented with a Thread object that can be freely shared like any other object. However, it makes sense **to think of a thread as having an owner**, and this **is usually the class that created the thread**. So **a thread pool owns its worker threads**, and if those threads need to be interrupted, the thread pool should take care of it.
+- As with any other encapsulated object, **thread ownership is not transitive**: the application may own the service and the service may own the worker threads, but **the application doesn’t own the worker threads and therefore should not attempt to stop them directly**. Instead, the service should provide lifecycle methods for shutting itself down that also shut down the owned threads; then the application can shut down the service, and the service can shut down the threads. Executor- Service provides the shutdown and shutdownNow methods; other thread-owning services should provide a similar shutdown mechanism.
+
+## Log service implemented by blocking queue
+- If you are logging multiple lines as part of a single log message, you may need to use additional client-side locking to prevent undesirable interleaving of output from multiple threads. If two threads logged multiline stack traces to the same stream with one println call per line, the results would be interleaved unpredictably, and could easily look like one large but meaningless stack trace.
+
+```java
+public class LogWriter {
+private final BlockingQueue<String> queue; private final LoggerThread logger;
+public LogWriter(Writer writer) {
+this.queue = new LinkedBlockingQueue<String>(CAPACITY); this.logger = new LoggerThread(writer);
+}
+public void start() { logger.start(); }
+public void log(String msg) throws InterruptedException { queue.put(msg);
+}
+private class LoggerThread extends Thread { private final PrintWriter writer;
+...
+public void run() {
+  try {
+    while (true)
+writer.println(queue.take());
+} catch(InterruptedException ignored) { } finally {
+    writer.close();
+}
+} }
+}
+```
+
+### Stop logging
+
+- However, this approach has race conditions that make it unreliable. The implementation of log is a check-then-act sequence: producers could observe that the service has not yet been shut down but still queue messages after the shutdown, again with the risk that the producer might get blocked in log and never become unblocked. There are tricks that reduce the likelihood of this (like having the consumer wait several seconds before declaring the queue drained), but these do not change the fundamental problem, merely the likelihood that it will cause a failure.
+
+```java
+public void log(String msg) throws InterruptedException { 
+    if (!shutdownRequested)
+        queue.put(msg);
+    else
+  throw new IllegalStateException("logger is shut down");
+}
+```
+- The way to provide reliable shutdown for LogWriter is to fix the race con- dition, which means making the submission of a new log message atomic. But we don’t want to hold a lock while trying to enqueue the message, since put could block. Instead, we can atomically check for shutdown and conditionally increment a counter to “reserve” the right to submit a message, as shown in Log- Service in Listing 7.15.
+
+
+### Delegate shutdown to high level service
+```java
+
+public class LogService {
+private final ExecutorService exec = newSingleThreadExecutor(); ...
+public void start() { }
+public void stop() throws InterruptedException { try {
+exec.shutdown();
+exec.awaitTermination(TIMEOUT, UNIT);
+        } finally {
+            writer.close();
+} }
+public void log(String msg) { try {
+ } }
+exec.execute(new WriteTask(msg));
+} catch (RejectedExecutionException ignored) { }
+
+```
+
+- It can even delegate to one shot Executor, OneShotExecutionService.java
+```java
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+/**
+ * Created by todzhang on 2017/1/30.
+ * If a method needs to process a batch of tasks and does not return
+ * until all the tasks are finished, it can simplify service lifecycle management
+ * by using a private Executor whose lifetime is bounded by that method.
+ *
+ *
+ * The checkMail method in Listing checks for new mail in parallel
+ * on a number of hosts. It creates a private executor and submits
+ * a task for each host: it then shuts down the executor and waits
+ * for termination, which occurs when all
+ */
+public class OneShotExecutionService {
+
+
+    boolean checkMail(Set<String> hosts, long timeout, TimeUnit unit) throws InterruptedException{
+        ExecutorService exec= Executors.newCachedThreadPool();
+        final AtomicBoolean hasNewMail=new AtomicBoolean(false);
+        try {
+            for (final String host : hosts
+                    ) {
+                exec.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (checkMail(host)) {
+                            hasNewMail.set(true);
+                        }
+                    }
+                });
+            }
+        }
+        finally{
+            exec.shutdown();
+            exec.awaitTermination(timeout,unit);
+        }
+        return hasNewMail.get();
+    }
+
+    boolean checkMail(String host){
+        return true;
+    }
+}
+
+```
+
+- When an ExecutorService is shut down abruptly with shutdownNow, it attempts to cancel the tasks currently in progress and returns a list of tasks that were sub- mitted but never started so that they can be logged or saved for later processing. Detailed logic can be found at [CancelledTaskTrackingExecutor.java](https://github.com/CloudsDocker/algo/blob/master/algoWS/src/main/java/com/todzhang/CancelledTaskTrackingExecutor.java)
+- The leading cause of premature thread death is RuntimeException.
 
 
 # Reference 
