@@ -392,6 +392,156 @@ public class OneShotExecutionService {
 - When an ExecutorService is shut down abruptly with shutdownNow, it attempts to cancel the tasks currently in progress and returns a list of tasks that were sub- mitted but never started so that they can be logged or saved for later processing. Detailed logic can be found at [CancelledTaskTrackingExecutor.java](https://github.com/CloudsDocker/algo/blob/master/algoWS/src/main/java/com/todzhang/CancelledTaskTrackingExecutor.java)
 - The leading cause of premature thread death is RuntimeException.
 
+# JVM shutdown
+- The JVM can shut down in either an _orderly_ or _abrupt_ manner. An orderly shut- down is initiated when the last “normal” (nondaemon) thread terminates, some- one calls System.exit, or by other platform-specific means (such as sending a SIGINT or hitting Ctrl-C). While this is the standard and preferred way for the JVM to shut down, it can also be shut down abruptly by calling **Runtime.halt or by killing the JVM process** through the operating system (such as sending a SIGKILL).
+
+## Shutdown hooks
+- In an orderly shutdown, the JVM first starts all registered shutdown hooks. Shutdown hooks are unstarted threads that are registered with **Runtime.addShutdownHook**. The JVM makes no guarantees on the order in which shutdown hooks are started. If any application threads (daemon or nondaemon) are still running at shutdown time, they continue to run concurrently with the shutdown process. 
+- When all shutdown hooks have completed, the JVM may choose **to run finalizers if runFinalizersOnExit is true**, 
+- and then halts. 
+- The JVM makes no attempt to stop or interrupt any application threads that are still running at shutdown time; they are abruptly terminated when the JVM eventually halts. If the shutdown hooks or finalizers don’t complete, then the orderly shutdown process “hangs” and the JVM must be shut down abruptly. In an abrupt shutdown, the JVM is not required to do anything other than halt the JVM; shutdown hooks will not run.
+- Shutdown **hooks should be thread-safe**: they must **use synchronization when accessing shared data** and should be careful to avoid deadlock, just like any other concurrent code. Further, they should not make assumptions about the state of the application (such as whether other services have shut down already or all normal threads have completed) or about why the JVM is shutting down, and **must therefore be coded extremely defensively**. 
+- Finally, they **should exit as quickly as possible**, since their existence delays JVM termination at a time when the user may be expecting the JVM to terminate quickly.
+- Shutdown hooks can be used for service or **application cleanu**p, such as deleting temporary files or cleaning up resources that are not automatically cleaned up by the OS. Listing 7.26 shows how LogService in Listing 7.16 could register a shutdown hook from its start method to ensure the log file is closed on exit.
+- Because shutdown hooks all run concurrently, closing the log file could cause trouble for other shutdown hooks who want to use the logger. To avoid this problem, shutdown hooks should not rely on services that can be shut down by the application or other shutdown hooks. **One way to accomplish this is to use a single shutdown hook for all services**, rather than one for each service, and have it call a series of shutdown actions. This ensures that shutdown actions execute sequentially in a single thread, thus avoiding the possibility of race conditions or deadlock between shutdown actions. This technique can be used whether or not you use shutdown hooks; **executing shutdown actions sequentially rather than concurrently** eliminates many potential sources of failure. 
+```java
+public void start() { 
+  Runtime.getRuntime().addShutdownHook(new Thread() {
+        public void run() {
+          try { LogService.this.stop(); }
+          catch (InterruptedException ignored) {}
+} });
+}
+```
+
+### Daemon thread
+- Threads are divided into two types: **normal threads and daemon threads**. When the **JVM starts up**, all the threads it creates (such as garbage collector and other housekeeping threads) **are daemon threads**, except the main thread. When a new thread is created, it inherits the daemon status of the thread that created it, so by default any threads created by the main thread are also normal threads. 
+- Normal threads and daemon threads **differ only in what happens when they exit**. When a thread exits, the JVM performs an inventory of running threads, and **if the only threads that are left are daemon threads, it initiates an orderly shutdown**. When the JVM halts, **any remaining daemon threads are abandoned— finally blocks are not executed**, stacks are not unwound—the JVM just exits.
+- **Daemon threads should be used sparingly**—few processing activities can be safely abandoned at any time with no cleanup. In particular, it is **dangerous to use daemon threads for tasks that might perform any sort of I/O**. Daemon threads are best saved for “housekeeping” tasks, such as a background thread that periodically removes expired entries from an in-memory cache.
+Daemon threads are not a good substitute for properly managing the life- cycle of services within an application.
+
+### Finalizer
+- Finalizers offer **no guarantees** on **when or even if they run**, and they impose a significant performance cost on objects with nontrivial finalizers. They are also extremely difficult to write correctly.9 In most cases, the combination of finally blocks and explicit close methods does a better job of resource management than finalizers; the sole exception is when you need to manage objects that hold resources acquired by native methods.
+- **Java does not provide a preemptive mechanism** for cancelling activities or terminating threads. Instead, **it provides a cooperative interruption mechanism** that can be used to facilitate cancellation, but it is up to you to construct protocols for cancellation and use them consistently. Using **FutureTask and the Executor framework simplifies building cancellable tasks and services**.
+
+# Thread Pool
+- Thread pools work best when tasks are homogeneous and independent. Mix- ing long-running and short-running tasks risks “clogging” the pool unless it is very large; submitting tasks that depend on other tasks risks deadlock unless the pool is unbounded. Fortunately, requests in typical network-based server applications—web servers, mail servers, file servers—usually meet these guide- lines.
+- Some tasks have characteristics that require or preclude a specific exe- cution policy. Tasks that depend on other tasks require that the thread pool be large enough that tasks are never queued or rejected; tasks that exploit thread confinement require sequential execution. Document these requirements so that future maintainers do not undermine safety or live- ness by substituting an incompatible execution policy.
+- In a single-threaded executor, a task that submits another task to the same executor and waits for its result **will always deadlock**.
+- The same thing can happen in larger thread pools if all threads are executing tasks that are blocked waiting for other tasks still on the work queue. This is called **thread starvation deadlock**, and can occur whenever a pool task initiates an unbounded blocking wait for some resource or condition that can succeed only through the action of another pool task, such as waiting for the return value or side effect of another task, unless you can guarantee that the pool is large enough.
+
+> Whenever you submit to an Executor tasks that are not independent, be aware of the possibility of thread starvation deadlock, and document any pool sizing or configuration constraints in the code or configuration file where the Executor is configured.
+
+- Task that deadlocks in a single-threaded Executor. Don’t do this.
+```java
+Future<String> header,footer;
+            header=exec.submit(new LoadFileTask("header.html"));
+            footer=exec.submit(new LoadFileTask("footer.html"));
+            String body=renderBody();
+            return header.get()+body+footer.get();
+```
+
+# Long running tasks
+- Thread pools can have responsiveness problems if tasks can block for extended periods of time, even if deadlock is not a possibility. A thread pool can become clogged with long-running tasks, increasing the service time even for short tasks. If the pool size is too small relative to the expected steady-state number of long- running tasks, eventually all the pool threads will be running long-running tasks and responsiveness will suffer.
+- **One technique that can mitigate the ill effects** of long-running tasks is for tasks **to use timed resource waits instead of unbounded waits**. Most blocking methods in the plaform libraries come in both untimed and timed versions, such as Thread.join, BlockingQueue.put, CountDownLatch.await, and Selector.sel- ect. If the wait times out, you can mark the task as failed and abort it or requeue it for execution later. This guarantees that each task eventually makes progress towards either successful or failed completion, freeing up threads for tasks that might complete more quickly. If a thread pool is frequently full of blocked tasks, this may also be a sign that the pool is too small.
+
+# size the thread pool
+- The ideal size for a thread pool depends on the types of tasks that will be submitted and the characteristics of the deployment system. **Thread pool sizes should rarely be hard-coded**; instead pool sizes should be provided by a **configuration** mechanism or computed dynamically by consulting **Runtime.availableProcessors**.
+- If you have different categories of tasks with very different behaviors, consider using multiple thread pools so each can be tuned according to its workload.
+- The optimal pool size for keeping the processors at the desired utilization is:
+Nthreads=Ncpu∗Ucpu∗ (1+((W/C)
+Ncpu: Number of CPU
+Ucpu: target CPU utilization , 0<Ucpu<1
+W/C: ratio of wait time to compute time
+
+# ThreadPoolExecutor
+- ThreadPoolExecutor provides the base implementation for the executors re- turned by the newCachedThreadPool, newFixedThreadPool, and newScheduled- ThreadExecutor factories in Executors. 
+- Implementation of ThreadPoolExecutor
+```java
+public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue,ThreadFactory threadFactory,RejectedExecutionHandler handler){...}
+```
+1. corePoolSize is the target size, the implementation attempts to maintain the pool at this size when there are no tasks to execute. and will not create more threads than this unless the work queue is full. When a ThreadPoolExecutor is initially created, the core threads are **not started immediately**, but instead as tasks are submitted. Unless you call **prestartAllCoreThreads**
+1. The maximum pool size is the upper bound on how many threads can be active at once.
+1. A thread that has been idel for longer than the **keep-alive time** becomes a candidate for reaping and can be terminated if the current **pool size exceed the core size**.
+- By tuning the core pool size and keep-alive times, you can encourage the pool to reclaim resources used by otherwise idle threads, making them available for more useful work. (Like everything else, this is a tradeoff: reaping idle threads incurs additional latency due to thread creation if threads must later be created when demand increases.)
+- The **newFixedThreadPool** factory sets **both the core pool size and the maxi- mum pool size** to the **requested pool size**, creating the effect of **infinite timeout**; 
+- the **newCachedThreadPool** factory sets the **maximum pool size to Integer.MAX_VALUE** and the **core pool size to zero** with a **timeout of one minute**, creating the effect of an **infinitely expandable thread pool** that will contract again when demand decreases. 
+- Other combinations are possible using the explicit ThreadPool- Executor constructor.
+- ThreadPoolExecutor allows you to supply a BlockingQueue to hold tasks awaiting execution. There are **three basic approaches to task queueing**: **un- bounded queue, bounded queue, and synchronous handoff**. The choice of queue interacts with other configuration parameters such as pool size.
+- The default for **newFixedThreadPool and newSingleThreadExecutor** is to use an **unbounded LinkedBlockingQueue**. Tasks will queue up if all worker threads are busy, but the queue could grow without bound if the tasks keep arriving faster than they can be executed.
+- A more stable resource management strategy is to use a bounded queue, such as an ArrayBlockingQueue or a bounded LinkedBlockingQueue or Priority- BlockingQueue. Bounded queues help prevent resource exhaustion but introduce the question of what to do with new tasks when the queue is full. (There are a number of possible **saturation policies** for addressing this problem;
+- For very large or unbounded pools, you can also bypass queueing entirely and instead hand off tasks directly from producers to worker threads using a SynchronousQueue. **A SynchronousQueue is not really a queue at all, but a mechanism for managing handoffs between threads**. In order to put an element on a SynchronousQueue, another thread must already be waiting to accept the handoff. If no thread is waiting but the current pool size is less than the maximum, ThreadPoolExecutor creates a new thread; otherwise the task is rejected according to the saturation policy. **Using a direct handoff is more efficient because the task can be handed right to the thread that will execute it, rather than first placing it on a queue and then having the worker thread fetch it from the queue**. Synchron- ousQueue is a practical choice only if the pool is unbounded or if rejecting excess tasks is acceptable. The newCachedThreadPool factory uses a SynchronousQueue.
+- Using a FIFO queue like LinkedBlockingQueue or ArrayBlockingQueue causes tasks to be started in the order in which they arrived. For more con- trol over task execution order, you can use a PriorityBlockingQueue, which orders tasks according to priority. Priority can be defined by natural order (if
+tasks implement Comparable) or by a Comparator.
+- The newCachedThreadPool factory is a good default choice for an Executor, providing better queuing performance than a fixed thread pool.5 A fixed size thread pool is a good choice when you need to limit the number of concurrent tasks for resource-management purposes, as in a server application that accepts requests from network clients and would otherwise be vulnerable to overload.
+- ith tasks that depend on other tasks, bounded thread pools or queues can cause thread starvation deadlock; instead, use an unbounded pool configuration like newCachedThreadPool.
+
+# Saturation policies
+- When a bounded work queue fills up, the **saturation policy** comes into play. The saturation policy for a ThreadPoolExecutor can be modified by calling setRejectedExecutionHandler. 
+- Several implementations of RejectedExecutionHandler are provided, each implementing a different saturation policy: **AbortPolicy, CallerRunsPolicy, DiscardPolicy, and DiscardOldestPolicy**.
+- The default policy, **abort**, causes execute to throw the unchecked Rejected- ExecutionException; the caller can catch this exception and implement its own overflow handling as it sees fit. The **discard** policy silently discards the newly submitted task if it cannot be queued for execution; the **discard-oldest** policy discards the task that would otherwise be executed next and tries to resubmit the new task. (If the work queue is a priority queue, this discards the highest-priority element, so the combination of a discard-oldest saturation policy and a priority queue is not a good one.)
+- The **caller-runs policy** implements a form of throttling that neither discards tasks nor throws an exception, but instead tries to slow down the flow of new tasks by pushing some of the work back to the caller. It executes the newly submitted task not in a pool thread, but in the thread that calls execute. If we modified our WebServer example to use a bounded queue and the caller-runs policy, after all the pool threads were occupied and the work queue filled up the next task would be executed in the main thread during the call to execute. 
+
+# Thread Factory
+- Whenever a thread pool needs to create a thread, it does so through a thread factory (see Listing 8.5). The default thread factory creates a new, nondaemon thread with no special configuration. Specifying a thread factory allows you to customize the configuration of pool threads. **ThreadFactory has a single method, newThread, that is called whenever a thread pool needs to create a new thread**.
+- There are a number of reasons to use a custom thread factory. You might want to specify an UncaughtExceptionHandler for pool threads, or instantiate an instance of a custom Thread class, such as one that performs debug logging.
+```java
+public interface ThreadFactory{
+    Thread newThread(Runnable r);
+}
+```
+- BoundedExecutor.java is using semaphore and Executor for bounded executor service.
+- MyThreadFactory.java and MyAppThread.java are used to customize ThreadFactory, a customized Thread.
+- MyExtendedThreadPool.java implemented beforeExecute, afterExecute, etc method to add statistics, such as log and timing for each operations in the thread pool
+
+## Process sequential processing to parallel
+```java
+void processSequentially(List<Element> elements) { for (Element e : elements)
+process(e);
+}
+void processInParallel(Executor exec, List<Element> elements) { for (final Element e : elements)
+exec.execute(new Runnable() {
+public void run() { process(e); }
+}); }
+```
+- If you want to submit a set of tasks and wait for them all to complete, you can use **ExecutorService.invokeAll**; to retrieve the results as they become available, you can use a **CompletionService**.
+
+# Deadlocks
+- There is often a tension between safety and liveness. We use locking to ensure thread safety, but indiscriminate use of locking can cause **lock-ordering deadlocks**. Similarly, we **use thread pools and semaphores to bound resource consumption**, but failure to understand the activities being bounded can cause **resource deadlocks**. Java applications do not recover from deadlock, so it is worthwhile to ensure that your design precludes the conditions that could cause it. 
+- When a thread holds a lock forever, other threads attempting to acquire that lock will block forever waiting. When thread A holds lock L and tries to acquire lock M, but at the same time thread B holds M and tries to acquire L, both threads will wait forever. This situation is the simplest case of deadlock (or deadly embrace),
+- Database systems are designed to detect and recover from deadlock. A trans- action may acquire many locks, and locks are held until the transaction commits. So it is quite possible, and in fact not uncommon, for two transactions to deadlock. Without intervention, they would wait forever (holding locks that are probably re- quired by other transactions as well). But the database server is not going to let this happen. When it detects that a set of transactions is deadlocked (which it does by searching the is-waiting-for graph for cycles), it picks a victim and aborts that transaction. This releases the locks held by the victim, allowing the other transactions to proceed. The application can then retry the aborted transaction, which may be able to complete now that any competing transactions have com- pleted.
+- A program will be free of lock-ordering deadlocks if all threads acquire the locks they need in a fixed global order.
+
+## To break deadlock by ensuring lock order
+-  uses System.identityHashCode to induce a lock ordering. It involves a few extra lines of code, but eliminates the possibility of deadlock.
+```java
+ public static native int identityHashCode(Object x);
+```
+- In the rare case that two objects have the same hash code, we must use an arbitrary means of ordering the lock acquisitions, and this reintroduces the pos- sibility of deadlock. To prevent inconsistent lock ordering in this case, a third “tie breaking” lock is used. By acquiring the tie-breaking lock before acquiring either Account lock, we ensure that only one thread at a time performs the risky task of acquiring two locks in an arbitrary order, eliminating the possibility of deadlock (so long as this mechanism is used consistently). If hash collisions were common, this technique might become a concurrency bottleneck (just as having a single, program-wide lock would), but because hash collisions with System.identity- HashCode are vanishingly infrequent, this technique provides that last bit of safety at little cost.
+- two locks are acquired by two threads in different orders, risking deadlock.
+- Calling a method **with no locks held is called an open call** [CPJ 2.4.1.3], and classes that rely on open calls are more well-behaved and composable than classes that make calls with locks held. Using open calls to avoid deadlock is analogous to using encapsulation to provide thread safety: while one can certainly construct a thread-safe program without any encapsulation, the thread safety analysis of a program that makes effective use of encapsulation is far easier than that of one that does not.
+
+## Avoiding and diagnosing deadlocks
+- A program that **never acquires more than one lock at a time cannot experience lock-ordering deadlock**. Of course, this is not always practical, but if you can get away with it, it’s a lot less work. If you must **acquire multiple locks, lock ordering must be a part of your design**: try to **minimize the number of potential locking interactions**, and follow and document a lock-ordering protocol for locks that may be acquired together.
+- In programs that use fine-grained locking, audit your code for deadlock free- dom using a two-part strategy: first, identify where multiple locks could be ac- quired (try to make this a small set), and then perform a global analysis of all such instances to ensure that lock ordering is consistent across your entire pro- gram. Using open calls wherever possible simplifies this analysis substantially. With no non-open calls, finding instances where multiple locks are acquired is fairly easy, either by code review or by automated bytecode or source code anal- ysis.
+
+## Timed lock attempts
+- Another technique for detecting and recovering from deadlocks is to use the timed tryLock feature of the explicit Lock classes (see Chapter 13) instead of intrinsic locking. Where intrinsic locks wait forever if they cannot acquire the lock, explicit locks let you specify a timeout after which tryLock returns failure.
+
+## JVM Thread dump including dead lock
+- There are two threads trying to accquire two locks in different orders
+```sh
+Java stack information for the threads listed above: "ApplicationServerThread ":
+at MumbleDBConnection.remove_statement
+- waiting to lock <0x650f7f30> (a MumbleDBConnection) at MumbleDBStatement.close
+- locked <0x6024ffb0> (a MumbleDBCallableStatement)
+...
+"ApplicationServerThread ":
+at MumbleDBCallableStatement.sendBatch
+- waiting to lock <0x6024ffb0> (a MumbleDBCallableStatement) at MumbleDBConnection.commit
+- locked <0x650f7f30> (a MumbleDBConnection)
+
+```
 
 # Reference 
 - http://javarevisited.blogspot.in/2012/07/countdownlatch-example-in-java.html

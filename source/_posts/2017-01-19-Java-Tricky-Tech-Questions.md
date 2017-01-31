@@ -26,37 +26,7 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler{
 }
 ```
 
-# JVM shutdown
-- The JVM can shut down in either an _orderly_ or _abrupt_ manner. An orderly shut- down is initiated when the last “normal” (nondaemon) thread terminates, some- one calls System.exit, or by other platform-specific means (such as sending a SIGINT or hitting Ctrl-C). While this is the standard and preferred way for the JVM to shut down, it can also be shut down abruptly by calling **Runtime.halt or by killing the JVM process** through the operating system (such as sending a SIGKILL).
 
-## Shutdown hooks
-- In an orderly shutdown, the JVM first starts all registered shutdown hooks. Shutdown hooks are unstarted threads that are registered with **Runtime.addShutdownHook**. The JVM makes no guarantees on the order in which shutdown hooks are started. If any application threads (daemon or nondaemon) are still running at shutdown time, they continue to run concurrently with the shutdown process. 
-- When all shutdown hooks have completed, the JVM may choose **to run finalizers if runFinalizersOnExit is true**, 
-- and then halts. 
-- The JVM makes no attempt to stop or interrupt any application threads that are still running at shutdown time; they are abruptly terminated when the JVM eventually halts. If the shutdown hooks or finalizers don’t complete, then the orderly shutdown process “hangs” and the JVM must be shut down abruptly. In an abrupt shutdown, the JVM is not required to do anything other than halt the JVM; shutdown hooks will not run.
-- Shutdown **hooks should be thread-safe**: they must **use synchronization when accessing shared data** and should be careful to avoid deadlock, just like any other concurrent code. Further, they should not make assumptions about the state of the application (such as whether other services have shut down already or all normal threads have completed) or about why the JVM is shutting down, and **must therefore be coded extremely defensively**. 
-- Finally, they **should exit as quickly as possible**, since their existence delays JVM termination at a time when the user may be expecting the JVM to terminate quickly.
-- Shutdown hooks can be used for service or **application cleanu**p, such as deleting temporary files or cleaning up resources that are not automatically cleaned up by the OS. Listing 7.26 shows how LogService in Listing 7.16 could register a shutdown hook from its start method to ensure the log file is closed on exit.
-- Because shutdown hooks all run concurrently, closing the log file could cause trouble for other shutdown hooks who want to use the logger. To avoid this problem, shutdown hooks should not rely on services that can be shut down by the application or other shutdown hooks. **One way to accomplish this is to use a single shutdown hook for all services**, rather than one for each service, and have it call a series of shutdown actions. This ensures that shutdown actions execute sequentially in a single thread, thus avoiding the possibility of race conditions or deadlock between shutdown actions. This technique can be used whether or not you use shutdown hooks; **executing shutdown actions sequentially rather than concurrently** eliminates many potential sources of failure. 
-```java
-public void start() { 
-  Runtime.getRuntime().addShutdownHook(new Thread() {
-        public void run() {
-          try { LogService.this.stop(); }
-          catch (InterruptedException ignored) {}
-} });
-}
-```
-
-### Daemon thread
-- Threads are divided into two types: **normal threads and daemon threads**. When the **JVM starts up**, all the threads it creates (such as garbage collector and other housekeeping threads) **are daemon threads**, except the main thread. When a new thread is created, it inherits the daemon status of the thread that created it, so by default any threads created by the main thread are also normal threads. 
-- Normal threads and daemon threads **differ only in what happens when they exit**. When a thread exits, the JVM performs an inventory of running threads, and **if the only threads that are left are daemon threads, it initiates an orderly shutdown**. When the JVM halts, **any remaining daemon threads are abandoned— finally blocks are not executed**, stacks are not unwound—the JVM just exits.
-- **Daemon threads should be used sparingly**—few processing activities can be safely abandoned at any time with no cleanup. In particular, it is **dangerous to use daemon threads for tasks that might perform any sort of I/O**. Daemon threads are best saved for “housekeeping” tasks, such as a background thread that periodically removes expired entries from an in-memory cache.
-Daemon threads are not a good substitute for properly managing the life- cycle of services within an application.
-
-### Finalizer
-- Finalizers offer **no guarantees** on **when or even if they run**, and they impose a significant performance cost on objects with nontrivial finalizers. They are also extremely difficult to write correctly.9 In most cases, the combination of finally blocks and explicit close methods does a better job of resource management than finalizers; the sole exception is when you need to manage objects that hold resources acquired by native methods.
-- **Java does not provide a preemptive mechanism** for cancelling activities or terminating threads. Instead, **it provides a cooperative interruption mechanism** that can be used to facilitate cancellation, but it is up to you to construct protocols for cancellation and use them consistently. Using **FutureTask and the Executor framework simplifies building cancellable tasks and services**.
 
 # Java Generics ? , E and T what is the difference?
 Well there's no difference between the first two - they're just using different names for the type parameter (E or T).
