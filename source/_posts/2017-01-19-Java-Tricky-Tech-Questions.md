@@ -26,7 +26,24 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler{
 }
 ```
 
+## What is the difference between Iterator and Enumeration
+- Iterator duplicate functionality of Enumeration with one addition of **remove() method**
+- Another difference is that Iterator is more safe than Enumeration and doesn't allow another thread to modify collection object during iteration except remove() method and **throws ConcurrentModificaitonException**.
 
+## How does HashSet is implemented in Java, How does it use Hashing
+- HashSet is built on top of HashMap. If you look at source code of java.util.HashSet class, you will find that that it uses a HashMap with same values for all keys, as shown below:
+```java
+private transient HashMap map;
+// Dummy value to associate with an Object in the backing Map
+private static final Object PRESENT = new Object();
+// When you call add() method of HashSet, it put entry in HashMap :
+public boolean add(E e) {
+  return map.put(e, PRESENT)==null;
+}
+```
+## What do you need to do to use a custom object as a key in Collection classes like Map or Set? (answer)
+- If you are using any custom object in Map as key, you need to **override equals() and hashCode() method**, and make sure they **follow their contract**. 
+- On the other hand if you are storing a custom object **in Sorted Collection** e.g. SortedSet or SortedMap, you also need to make sure that your **equals() method is consistent to compareTo() method**, otherwise that collection will not follow there contacts e.g. Set may allow duplicates.
 
 # Java Generics ? , E and T what is the difference?
 Well there's no difference between the first two - they're just using different names for the type parameter (E or T).

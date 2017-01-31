@@ -115,25 +115,6 @@ Another approach is to guarantee that a philosopher can only pick up both forks 
 ## What is the difference between Synchronized Collection and Concurrent Collection?
 - One Significant difference is that **Concurrent Collections has better performance than synchronized Collection ** because they **lock only a portion of Map** to achieve concurrency and Synchronization.
 
-## What is the difference between Iterator and Enumeration
-- Iterator duplicate functionality of Enumeration with one addition of **remove() method**
-- Another difference is that Iterator is more safe than Enumeration and doesn't allow another thread to modify collection object during iteration except remove() method and **throws ConcurrentModificaitonException**.
-
-## How does HashSet is implemented in Java, How does it use Hashing
-- HashSet is built on top of HashMap. If you look at source code of java.util.HashSet class, you will find that that it uses a HashMap with same values for all keys, as shown below:
-```java
-private transient HashMap map;
-// Dummy value to associate with an Object in the backing Map
-private static final Object PRESENT = new Object();
-// When you call add() method of HashSet, it put entry in HashMap :
-public boolean add(E e) {
-  return map.put(e, PRESENT)==null;
-}
-```
-## What do you need to do to use a custom object as a key in Collection classes like Map or Set? (answer)
-- If you are using any custom object in Map as key, you need to **override equals() and hashCode() method**, and make sure they **follow their contract**. 
-- On the other hand if you are storing a custom object **in Sorted Collection** e.g. SortedSet or SortedMap, you also need to make sure that your **equals() method is consistent to compareTo() method**, otherwise that collection will not follow there contacts e.g. Set may allow duplicates.
-
 ## When do you use ConcurrentHashMap in Java
 - ConcurrentHashMap is better suited for situation where you have **multiple readers** and **one
 Writer or fewer writers** since Map gets locked only during the write operation. **If you have an equal number of reader and writer** than ConcurrentHashMap will perform in the line of **Hashtable or synchronized HashMap**.
@@ -530,7 +511,8 @@ public void run() { process(e); }
 
 ## JVM Thread dump including dead lock
 - There are two threads trying to accquire two locks in different orders
-```sh
+- 
+```bash
 Java stack information for the threads listed above: "ApplicationServerThread ":
 at MumbleDBConnection.remove_statement
 - waiting to lock <0x650f7f30> (a MumbleDBConnection) at MumbleDBStatement.close
@@ -540,8 +522,11 @@ at MumbleDBConnection.remove_statement
 at MumbleDBCallableStatement.sendBatch
 - waiting to lock <0x6024ffb0> (a MumbleDBCallableStatement) at MumbleDBConnection.commit
 - locked <0x650f7f30> (a MumbleDBConnection)
-
 ```
+
+# Other liveness hazards
+- While deadlock is the most widely encountered liveness hazard, there are sev- eral other liveness hazards you may encounter in concurrent programs including starvation, missed signals, and livelock.
+
 
 # Reference 
 - http://javarevisited.blogspot.in/2012/07/countdownlatch-example-in-java.html
