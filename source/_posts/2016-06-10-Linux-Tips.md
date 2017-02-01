@@ -146,6 +146,12 @@ This used option `-r` (recursive) and `-q` quite, means only show differences
 :~ls -lt
 ```
 
+# To open find result with sublime
+```sh
+find . -name "*Linux*.md" | xargs sublime 
+find . -name "*Linux*.md" | xargs sublime ~ # open in new Sublime window
+```
+
 # To vim/vim edit directly on file output by find command
 ```sh
 find . -name "*tmux*" -exec vim {} \;

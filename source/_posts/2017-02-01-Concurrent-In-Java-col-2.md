@@ -10,5 +10,126 @@ tags:
 - While deadlock is the most widely encountered liveness hazard, there are sev- eral other liveness hazards you may encounter in concurrent programs including starvation, missed signals, and livelock.
 
 
+## Starvation
+- Starvation occurs when a thread is perpetually denied access to resources it needs in order to make progress; the most commonly starved resource is CPU cycles. Starvation in Java applications can be caused by inappropriate use of thread prior- ities. It can also be caused by executing nonterminating constructs (infinite loops or resource waits that do not terminate) with a lock held, since other threads that need that lock will never be able to acquire it.
+- The thread priorities defined in the Thread API are merely scheduling hints. The Thread API defines ten priority levels that the JVM can map to operating system scheduling priorities as it sees fit. This mapping is platform-specific, so two Java priorities can map to the same OS priority on one system and different OS priorities on another.
+- **Avoid the temptation to use thread priorities, since they increase platform dependence and can cause liveness problems**. Most concurrent applica- tions can use the default priority for all threads.
+
+
+## Poor responsiveness
+- One step removed from starvation is poor responsiveness, which is not uncom- mon in GUI applications using background threads.
+- If the work done by other threads are truly background tasks, lowering their priority can make the foreground tasks more responsive.
+
+## Livelock
+- **Livelock is a form of liveness failure** in which a thread, while **not blocked**, still **cannot make progress** because it keeps retrying an operation that **will always fail**. 
+- Livelock often occurs in transactional messaging applications, where the messaging infrastructure rolls back a transaction if a message cannot be processed successfully, and puts it back at the head of the queue. If a bug in the message handler for a particular type of message causes it to fail, **every time the message is dequeued and passed to the buggy handler, the transaction is rolled back**. Since the message is now back at the head of the queue, the **handler is called over and over with the same result**. (This is sometimes called the **poison message** problem.) The **message handling thread is not blocked, but it will never make progress either**. This form of livelock often comes from **overeager error-recovery code that mistakenly treats an unrecoverable error as a recoverable one**.
+- This is similar to what happens when **two overly polite people** are walking in opposite directions in a hallway: each steps out of the other’s way, and now they are again in each other’s way. So they both step aside again, and again, and again. . .
+
+### Solutions
+- The solution for this variety of livelock is **to introduce some randomness into the retry mechanism**. For example, when two stations in an ethernet network try to send a packet on the shared carrier at the same time, the packets collide. The stations detect the collision, and each tries to send their packet again later. If they each retry exactly one second later, they collide over and over, and neither packet ever goes out, even if there is plenty of available bandwidth. To avoid this, we make each wait an amount of time that includes a random component. (The ethernet protocol also includes exponential backoff after repeated collisions, reducing both congestion and the risk of repeated failure with multiple colliding stations.) Retrying with random waits and backoffs can be equally effective for avoiding livelock in concurrent applications.
+
+### Summary
+- Liveness failures are a serious problem because there is no way to recover from them short of aborting the application. The most common form of liveness failure is lock-ordering deadlock. Avoiding lock ordering deadlock starts at design time: ensure that when threads acquire multiple locks, they do so in a consistent order. The best way to do this is by using open calls throughout your program. This greatly reduces the number of places where multiple locks are held at once, and makes it more obvious where those places are.
 # Reference 
 
+
+# Performance
+- One of the primary reasons to use threads is to improve performance.
+- First make your program right, then make it fast—and then only if your performance requirements and measurements tell you it needs to be faster. In designing a con- current application, squeezing out the last bit of performance is often the least of your concerns.
+- When the performance of an activity is limited by availability of a par- ticular resource, we say it is bound by that resource: CPU-bound, database-bound, etc.
+- using multiple threads always introduces some performance costs compared to the single-threaded approach. These include the overhead associated with coordinating between threads (locking, signaling, and memory synchronization), increased context switching,thread creation and teardown, and scheduling overhead. When threading is employed effectively, these costs are more than made up for by greater throughput, responsiveness, or capacity. On the other hand, a poorly designed concurrent application can perform even worse than a comparable sequential one.
+- we want to keep the CPUs busy with **useful** work
+
+## Scalability
+- Scalability describes the ability to improve throughput or capacity when additional computing resources (such as additional CPUs, memory, stor- age, or I/O bandwidth) are added.
+- Nearly all engineering decisions involve some form of tradeoff. 
+- This is one of the reasons why most optimizations are premature: **they are often undertaken before a clear set of requirements is available**.
+- Avoid premature optimization. **First make it right, then make it fast**—if it is not already fast enough.
+- Measure, don’t guess.
+
+### Amdahl's law
+-  the theoretical speedup is always limited by the part of the task that cannot benefit from the improvement.
+-   If F is the fraction of the calculation that must be executed serially, then Amdahl’s law says that on a machine with N processors, we can achieve a speedup of at most:
+Speedup ≤ 1 / (F + (1 − F)/N)
+- As N approaches infinity, the maximum speedup converges to 1/F, meaning that **a program in which fifty percent of the processing must be executed serially can be sped up only by a factor of two**, regardless of how many processors are available, and a program in which ten percent must be executed serially can be sped up by at most a factor of ten. 
+- Amdahl’s law also quantifies the efficiency cost of serialization. With ten processors, a program with 10% serialization can achieve at most a speedup of 5.3 (at 53% utilization), and with 100 processors it can achieve at most a speedup of 9.2 (at 9% utilization). It takes a lot of inefficiently utilized CPUs to never get to that factor of ten.
+- It is clear that as processor counts increase, even a small percentage of serialized execution limits how much throughput can be increased with additional computing resources.
+- All concurrent applications have some sources of serialization; if you think yours does not, look again.
+
+# Costs introduced by threads
+## Context switching
+- Context switches are not free; thread scheduling requires manipulating shared data structures in the OS and JVM. The OS and JVM use the same CPUs your pro- gram does; more CPU time spent in JVM and OS code means less is available for your program.
+- When a new thread is switched in, the data it needs is unlikely to be in the local processor cache, so a context switch causes a flurry of cache misses, and thus threads run a little more slowly when they are first scheduled.
+- The actual cost of context switching varies across platforms, but a good rule of thumb is that a **context switch costs the equivalent of 5,000 to 10,000 clock cycles**, or several microseconds on most current processors.
+
+## memory synchronization
+- The performance cost of synchronization comes from several sources. The visibility guarantees provided by synchronized and volatile may entail using **special instructions called memory barriers** that can flush or invalidate caches, flush hard- ware write buffers, and stall execution pipelines. **Memory barriers** may also have indirect performance consequences because they **inhibit other compiler optimizations**; most operations cannot be reordered with memory barriers.
+- When assessing the performance impact of synchronization, it is **important to distinguish between contended and uncontended synchronization**. The synchronized mechanism is optimized for the uncontended case (**volatile is always uncontended**), and at this writing, the performance cost of **a “fast-path” uncontended synchronization ranges from 20 to 250 clock cycles** for most systems. While this is certainly not zero, the effect of needed, uncontended synchronization is rarely significant in overall application performance, and the alternative involves compromising safety and potentially signing yourself (or your succes- sor) up for some very painful bug hunting later.
+- Modern **JVMs can reduce the cost of incidental synchronization** by optimizing away locking that can be proven never to contend. If a lock object is accessible only to the current thread, the JVM is permitted to optimize away a lock acquisi- tion because there is no way another thread could synchronize on the same lock. For example, the lock acquisition in following Listing can always be eliminated by the JVM.
+
+Following synchronization has no effect
+```java
+synchronized (new Object()) {
+    // do something
+}
+```
+
+- More sophisticated JVMs can use **escape analysis** to identify when a local object reference is never published to the heap and is therefore thread-local. As below sample:
+```java
+public String getStoogeNames() {
+List<String> stooges = new Vector<String>(); stooges.add("Moe");
+stooges.add("Larry");
+stooges.add("Curly");
+return stooges.toString();
+}
+```
+- the only reference to the List is the local variable stooges, and **stack-confined variables are automatically thread-local**. A naive execution of getStoogeNames would acquire and release the lock on the Vector four times, once for each call to add or toString. However, a smart runtime compiler can inline these calls and then see **that stooges and its internal state never escape**, and therefore that **all four lock acquisitions can be eliminated**.
+- Even without escape analysis, compilers can also perform **lock coarsening**, the **merging of adjacent synchronized blocks using the same lock**. For getStooge- Names, a JVM that performs lock coarsening might combine the three calls to add and the call to toString into a single lock acquisition and release, using heuristics on the relative cost of synchronization versus the instructions inside the synch- ronized block.5 Not only does this reduce the synchronization overhead, but it also gives the optimizer a much larger block to work with, likely enabling other optimizations.
+
+> Don’t worry excessively about the cost of uncontended synchronization. The basic mechanism is already quite fast, and JVMs can perform addi- tional optimizations that further reduce or eliminate the cost. Instead, focus optimization efforts on areas where lock contention actually occurs.
+
+- Synchronization by one thread can also affect the performance of other threads. Synchronization creates traffic on the shared memory bus; this bus has a limited bandwidth and is shared across all processors. If threads must compete for synchronization bandwidth, all threads using synchronization will suffer.
+
+## Blocking
+- **Uncontended synchronization** can be handled **entirely within the JVM** (Bacon et al., 1998); **contended synchronization may require OS activity**, which adds to the cost. When locking is contended, the losing thread(s) must block. The JVM can implement blocking either via spin-waiting (repeatedly trying to acquire the lock until it succeeds) or by suspending the blocked thread through the operating system. Which is more efficient depends on the relationship between context switch overhead and the time until the lock becomes available; spin-waiting is preferable for short waits and suspension is preferable for long waits. Some JVMs choose between the two adaptively based on profiling data of past wait times, but most just suspend threads waiting for a lock.
+
+## Reducing lock contention
+- We’ve seen that **serialization hurts scalability** and that **context switches hurt performance**. **Contended locking causes both**, so **reducing lock contention can improve both performance and scalability**.
+Access to resources guarded by an exclusive lock is serialized—only one thread at a time may access it. Of course, we use locks for good reasons, such as preventing data corruption, but this safety comes at a price. Persistent contention for a lock limits scalability.
+- The principal threat to scalability in concurrent applications is the exclu- sive resource lock.
+- Two factors influence the likelihood of contention for a lock: how often that lock is requested and how long it is held once acquired.7 If the product of these factors is sufficiently small, then most attempts to acquire the lock will be uncon- tended, and lock contention will not pose a significant scalability impediment.
+
+### There are three ways to reduce lock contention:
+- Reduce the duration for which locks are held;
+- Reduce the frequency with which locks are requested; or
+- Replace exclusive locks with coordination mechanisms that permit
+greater concurrency.
+
+## Narrowing lock scope
+- **An effective way to reduce the likelihood of contention is to hold locks as briefly as possible**. This can be done by moving code that doesn’t require the lock out of synchronized blocks, especially for expensive operations and potentially block- ing operations such as I/O.
+- It is easy to see how holding a “hot” lock for too long can limit scalability
+- Reducing the scope of the lock in userLocationMatches substantially reduces the number of instructions that are executed with the lock held. **By Amdahl’s law, this removes an impediment to scalability because the amount of serialized code is reduced**.
+- Because AttributeStore has only one state variable, attributes, we can im- prove it further by the technique of **delegating thread safety** (Section 4.3). By replacing attributes with a thread-safe Map (a Hashtable, synchronizedMap, or Con- currentHashMap), AttributeStore can delegate all its thread safety obligations to the underlying thread-safe collection.
+
+## Reducing lock granularity
+- The other way to reduce the fraction of time that a lock is held (and therefore the likelihood that it will be contended) is to **have threads ask for it less often**. This can be accomplished **by lock splitting and lock striping**, which involve **using separate locks to guard multiple independent state variables previously guarded by a single lock**. These techniques reduce the granularity at which locking occurs, potentially allowing greater scalability—but using more locks also increases the risk of deadlock.
+- If a lock guards more than one **independent** state variable, you may be able to improve scalability by splitting it into multiple locks that each guard different variables. This results in each lock being requested less often.
+- After splitting the lock, each new finer-grained lock will see less locking traffic than the original coarser lock would have.
+
+## Lock stripping
+- Splitting a heavily contended lock into two is likely to result in two heavily contended locks. 
+- Lock splitting can sometimes be extended to partition locking on a variable- sized set of independent objects, in which case it is called lock striping. For exam- ple, the implementation of ConcurrentHashMap uses an array of 16 locks, each of which guards 1/16 of the hash buckets; bucket N is guarded by lock N mod 16.
+- One of the downsides of lock striping is that locking the collection for ex- clusive access is more difficult and costly than with a single lock. Usually **an operation can be performed by acquiring at most one lock**, but **occasionally you need to lock the entire collection**, as when ConcurrentHashMap needs **to expand the map and rehash the values** into a larger set of buckets. This is typically done by acquiring all of the locks in the stripe set
+- common optimizations such as caching frequently computed values can introduce “hot fields” that limit scalability.
+- A common optimization is to update a separate counter as entries are added or removed; this slightly increases the cost of a put or remove operation to keep the counter up-to-date, but reduces the cost of the size operation from O(n) to O(1).
+- In this case, the counter is called a **hot field** because every mutative operation needs to access it.
+- ConcurrentHashMap avoids this problem by having size enumerate the stripes and add up the number of elements in each stripe, instead of maintaining a global count. To avoid enumerating every element, ConcurrentHashMap maintains a separate count field for each stripe, also guarded by the stripe lock.
+
+## Alternative to exclusive lock
+- A third technique for mitigating the effect of lock contention **is to forego the use of exclusive locks** in favor of a more concurrency-friendly means of managing shared state. These include **using the concurrent collections, read-write locks, immutable objects and atomic variables**.
+
+### ReadWriteLock 
+- enforces a **multiple-reader, single-writer** locking discipline: more than one reader can access the shared resource concurrently so long as none of them wants to modify it, but writers must acquire the lock excusively. For read-mostly data structures, ReadWriteLock can offer greater concurrency than exclusive locking; **for read-only data structures, immutability can eliminate the need for locking entirely**.
+- Atomic variables (see Chapter 15) offer a means of reducing the cost of updat- ing “hot fields” such as statistics counters, sequence generators, or the reference
+- If size is called frequently compared to mutative operations, striped data structures can optimize for this by caching the collection size in a volatile whenever size is called and invalidating the cache (setting it to -1) whenever the collection is modified. If the cached value is nonnegative on entry to size, it is accurate and can be returned; otherwise it is recomputed.
+- The atomic variable classes pro- vide very fine-grained (and therefore more scalable) atomic operations on integers or object references, and are implemented using low-level concurrency primitives (such as compare-and-swap) provided by most modern processors. If your class has a small number of hot fields that do not participate in invariants with other variables, replacing them with atomic variables may improve scalability.
