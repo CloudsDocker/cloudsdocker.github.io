@@ -5,11 +5,28 @@ tags:
 - java
 - maven
 ---
-# Convention over Configuration
+# Maven philosophy
+- “It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies and their versions.”
+
+
+## Maven default repository
+
+http://repo.maven.apache.org/maven2/
+
+## All Maven pom.xml inherits from super POM
+
+# Coc: Convention over Configuration
 - Convention over configuration is a simple concept. Systems, libraries, and frameworks should assume reasonable defaults without requiring that unnecessary configuration systems should “just work.” Popular frameworks such as Ruby on Rails and EJB3 have started to adhere to these principles in reaction to the configuration complexity of frameworks such as the initial Enterprise JavaBeans? (EJB) specifications. 
+- “Popularized by the Ruby on Rails community, CoC emphasizes sensible defaults, thereby reducing the number of decisions to be made.”
+- “Gradle’s flexibility, like that of Ant, can be abused, which results in difficult and complex builds.
+”
+
 
 # Notes
 - This is the Project Object Model (POM), a declarative description of a project. 
+
+## Coordinate
+- “group, artifact, and version (**GAV**) coordinates”
 - We’ve highlighted the Maven coordinates for this project: **groupId, artifactId, version and packaging. These combined identifiers make up a project’s coordinates**.[3] Just as in any other coordinate system, a Maven coordinate is an address for a specific point in “space”: from general to specific. Maven pinpoints a project via its coordinates when one project relates to another, either as a dependency, a plugin, or a parent project reference. 
 - Maven coordinates are often written using a colon as a delimiter in the following format: **groupId:artifactId:packaging:version**. 
 - Projects undergoing active development can use a special identifier that marks **a version as a SNAPSHOT**.
@@ -35,3 +52,30 @@ Ant doesn’t have formal conventions such as a common project directory structu
 - The second command we ran in the previous section was **mvn install**. This command didn’t specify a plugin goal; instead, it specified a Maven lifecycle phase. A phase is a step in what Maven calls the “build lifecycle.” The build lifecycle is an ordered sequence of phases involved in building a project.
 - **Plugin goals can be attached to a lifecycle phase**. As Maven moves through the phases in a lifecycle, it will execute the goals attached to each particular phase. Each phase may have zero or more goals bound to it. In the previous section, when you ran mvn install, you might have noticed that more than one goal was executed. Examine the output after running mvn install and take note of the various goals that are executed. 
 - Maven steps through the phases preceding package in the Maven lifecycle; **executing a phase will first execute all proceeding phases in order**, ending with the phase specified on the command line. Each phase corresponds to zero or more goals, and since we haven’t performed any plugin configuration or customization, this example binds a set of standard plugin goals to the default lifecycle. 
+
+# Dependency
+- “Maven provides **declarative dependency management**. With this approach, you declare your project’s dependencies in an external file called pom.xml. Maven will automatically download those dependencies and hand them over to your project for the purpose of building, testing, or packaging.”
+- “The default remote repository with which Maven interacts is called Maven Central, and it is located at repo.maven.apache.org and uk.maven.org.”
+- “The **internal repository manager** acts as a proxy to remote repositories. Because you have full control over the internal repository, you can regulate the types of artifacts allowed in your company. Additionally, you can also push your organization’s artifacts onto the server, thereby enabling collaboration. ”, such as Nexus
+
+# Setup Proxy
+- “Maven requires an Internet connection to download plug-ins and dependencies. Some companies employ HTTP proxies to restrict access to the Internet. In those scenarios, running Maven will result in Unable to download artifact errors. To address this, edit the settings.xml file and add the proxy information specific to your company.”
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <proxies>
+  <proxy>
+      <id>companyProxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>proxy.company.com</host>
+      <port>8080</port>
+      <username>proxyusername</username>
+      <password>proxypassword</password>
+      <nonProxyHosts />
+    </proxy>
+  </proxies>
+ </settings>
+```
