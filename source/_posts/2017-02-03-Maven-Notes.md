@@ -58,6 +58,20 @@ Ant doesn’t have formal conventions such as a common project directory structu
 - “The default remote repository with which Maven interacts is called Maven Central, and it is located at repo.maven.apache.org and uk.maven.org.”
 - “The **internal repository manager** acts as a proxy to remote repositories. Because you have full control over the internal repository, you can regulate the types of artifacts allowed in your company. Additionally, you can also push your organization’s artifacts onto the server, thereby enabling collaboration. ”, such as Nexus
 
+## Transitive Dependcies
+- “A key benefit of Maven is that it automatically “deals with transitive dependencies and includes them in your project.
+- “Maven uses a technique known as **dependency mediation** to resolve version conflicts. Simply stated, dependency mediation allows Maven to pull the dependency that **is closest to the project in the tree**. In Figure 3-3, there are two versions of dependency B: 0.0.8 and 1.0.0. In this scenario, version 0.0.8 of dependency B is included in the project, because it is a direct dependency and closest to the tree. Now look at the three versions of dependency F: 0.1.3, 1.0.0, and 2.2.0. All three dependencies are at the same depth. In this scenario, Maven will use the **first-found dependency**, which would be 0.1.3, and not the latest 2.2.0 version.”
+
+## Dependency Scope
+- “Maven uses the concept of scope, which allows you to specify **when and where** you need a particular dependency.” “Maven provides the following six scopes:”
+- “**compile**: Dependencies with the compile scope are available in the class path in all phases on a project build, test, and run. This is the default scope.”
+- “**provided**: Dependencies with the provided scope are available in the class path during the build and test phases. They don’t get bundled within the generated artifact. Examples of dependencies that use this scope include Servlet api, JSP api, and so on.”
+- “**runtime**: Dependencies with the runtime scope are not available in the class path during the build phase. Instead they get bundled in the generated artifact and are available during runtime.”
+- “**test**: Dependencies with the test scope are available during the test phase. JUnit and TestNG are good examples of dependencies with the test scope.”
+- “**system**: Dependencies with the system scope are similar to dependencies with the provided scope, except that these dependencies are not retrieved from the repository. Instead, a hard-coded path to the file system is specified from which the dependencies are used.”
+- “**import**: The import scope is applicable for .pom file dependencies only. It allows you to include dependency management information from a remote .pom file. The import scope is available only in Maven 2.0.9 or later.”
+
+
 # Setup Proxy
 - “Maven requires an Internet connection to download plug-ins and dependencies. Some companies employ HTTP proxies to restrict access to the Internet. In those scenarios, running Maven will result in Unable to download artifact errors. To address this, edit the settings.xml file and add the proxy information specific to your company.”
 ```xml
