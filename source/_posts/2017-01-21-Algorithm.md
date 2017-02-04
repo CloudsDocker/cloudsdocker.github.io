@@ -121,6 +121,63 @@ double total=0;
 - Repetition is achieved through repeated recursive invocations of the method. The process i finite because each time the method is invoked, its argument is smaller by one, and when a base case is reached, no further recursive calls are made.
 - In the case of computing the factorial function, there is no compelling reason for prefereing recursion over a direct iteration with a loop.
 
+# Tree
+## ADT (Abstract Data Type)
+- we define a tree ADT using the concept of a position as an abstraction for a node of a tree. An element is stored at each position, and positions satisfy parent-child relationships that define the tree structure. 
+
+## Depth and Height 
+### Depth
+- The depth of p is the number of ancestors of p, other than p itself.
+- The running time of depth(p) for position p is O(dp + 1), where dp denotes the depth of p in the tree, because the algorithm performs a constant-time recursive step for each ancestor of p. Thus, algorithm depth(p) runs in O(n) worst-case time, where n is the total number of positions of T, because a position of T may have depth n - 1 **if all nodes form a single branch**. 
+- Method depth, as implemented within the AbstractTree class.
+```java
+public int depth(Position<E> p){
+	if(isRoot(p))
+		return 0;
+	else
+		return 1+depth(parent(p));
+}
+```
+### Height
+- We next define the height of a tree to be equal to the maximum of the depths of its positions (or zero, if the tree is empty).
+- Folloing worst time cost is O(n), it progresses in a **top-down** fashion.
+- If the method is initially called on the root of T, it will eventually be called once for each position of T. This is because the root eventually invokes the recursion on each of its children, which in turn invokes the recursion on each of their children, and so on.
+```java
+public int height(Position<E> p){
+	int h=0;
+	for(Position<E> c: children(p))
+		h=Math.max(h,1+height(c));
+	return h;
+}
+```
+
+## Binary Tree
+- A binary tree is an ordered tree with the following properties:
+   - Every node has at most two children.
+   - Each child node is labeled as being either a left child or a right child.
+   - A left child precedes a right child in the order of children of a node.
+- A binary **tree is proper if each node has either zero or two children**. Some people also refer to **such trees as being full binary trees**. Thus, **in a proper binary tree, every internal node has exactly two children**. A binary tree that is not proper is **improper**.
+### Some binary trees
+#### decision tree
+- An important class of binary trees arises in contexts where we wish to represent a number of different outcomes that can result from answering a series of yes-or-no questions. Each internal node is associated with a question. Starting at the root, we go to the left or right child of the current node, depending on whether the answer to the question is “Yes” or “No.” With each decision, we follow an edge from a parent to a child, eventually tracing a path in the tree from the root to a leaf. Such binary trees are known as decision trees, because a leaf position p in such a tree represents a decision of what to do if the questions associated with p's ancestors are answered in a way that leads to p. **A decision tree is a proper binary tree**. 
+#### Arithmetic expression
+- An arithmetic expression can be represented by a binary tree whose leaves are associated with variables or constants, and whose internal nodes are associated with one of the operators +, ?, *, and /, as demonstrated in Figure 8.6. Each node in such a tree has a value associated with it.
+   - If a node is leaf, then its value is that of its variable or constant.
+   - If a node is internal, then its value is defined by applying its operation to the values of its children.
+### Properties of Binary trees
+- level d has at most 2<sup>d</sup> nodes
+- Let T be a nonempty binary tree, and let n, nE, nI, and h denote the number of nodes, number of external nodes, number of internal nodes, and height of T, respectively. Then T has the following properties:
+   - h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1
+   - 1 ≤ nE ≤ 2<sup>h</sup>
+   - h ≤ nI ≤ 2<sup>h</sup> - 1
+   - log(n + 1) - 1 ≤ h ≤ n - 1
+
+- Also, if T is proper, then T has the following properties:
+   - 2h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1
+   - h + 1 ≤ nE ≤ 2<sup>h</sup>
+   - h ≤ nI ≤ 2<sup>h</sup> - 1
+   - log(n + 1) - 1 ≤ h ≤ (n - 1)/2
+-  In a nonempty proper binary tree T, with nE external nodes and nI internal nodes, we have nE = nI + 1.
 
 # Code practice
 http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159
