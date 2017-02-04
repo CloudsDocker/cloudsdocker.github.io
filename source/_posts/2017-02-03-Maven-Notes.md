@@ -93,3 +93,204 @@ Ant doesn’t have formal conventions such as a common project directory structu
   </proxies>
  </settings>
 ```
+
+
+# Multimodule projects
+## Generate parent
+```sh
+mvn archetype:generate -DgroupId=com.apress.gswmbook -DartifactId=gswm-parent -Dversion=1.0.0-SNAPSHOT -DarchetypeGroupId=org.codehaus.mojo.archetypes -DarchetypeArtifactId=pom-root
+```
+Listing 6-5. Parent pom.xml File with Modules
+
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.apress.gswmbook</groupId>
+  <artifactId>gswm-parent</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>gswm-parent</name>
+  <modules>
+    <module>gswm-web</module>
+    <module>gswm-service</module>
+    <module>gswm-repository</module>
+  </modules>
+</project>
+```
+## Generate web module
+```sh
+mvn archetype:generate -DgroupId=com.todzhang.mywebApp -DartifactId=main-web -Dversion=1.0.0-SNAPSHOT -Dpackage=war -DarchetypeArtifactId=maven-archetype-webapp
+```
+```xml
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.apress.gswmbook</groupId>
+    <artifactId>gswm-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <groupId>com.apress.gswmbook</groupId>
+  <artifactId>gswm-web</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>gswm-web Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>gswm-web</finalName>
+  </build>
+</project>
+```
+## Generate a service jar module
+```sh
+mvn archetype:generate -DgroupId=com.todzhang.mywebApp -DartifactId=back-service -Dversion=1.0.0-SNAPSHOT -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+```
+- Notice that you didn’t provide the package parameter, as the maven-archetype-quickstart produces a JAR project by default.
+## To start the module
+```sh
+mvn packages
+```
+# Create archetype from project
+```sh
+mvn archetype:create-from-project
+```
+# Site life cycle
+```sh
+mvn site
+```
+- The site life cycle uses Maven’s site plug-in to generate the site for a single project. Once this command completes, a site folder gets created under the project’s target.
+- Open the index.html file to browse the generated site. You will notice that Maven used the information provided in the pom.xml file to generate most of the documentation. It also automatically applied the default skin and generated the corresponding images and CSS files. 
+- To regenerate site
+```sh
+mvn clean site
+```
+
+# JavaDoc
+- Maven provides a Javadoc plug-in, which uses the Javadoc tool for generating Javadocs. Integrating the Javadoc plug-in simply involves declaring it in the reporting element of pom.xml file, as shown in Listing 7-4. Plug-ins declared in the pom reporting element are executed during site generation.
+```xml
+<project>
+        <!—Content removed for brevity-->
+ <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.1</version>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
+```
+Then run **mvn clean site** to generate javadoc,  the apidocs folder created under gswm /target/site
+# Unit test report
+- Maven offers the Surefire plug-in that provides a uniform interface for running tests created by frameworks such as JUnit or TestNG. It also generates execution results in various formats such as XML and HTML. These published results enable developers to find and fix broken tests quickly.
+The Surefire plug-in is configured in the same way as the Javadoc plug-in in the reporting section of the pom file. Listing 7-5 shows the Surefire plug-in configuration.
+```xml
+<project>
+        <!—Content removed for brevity-->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.17</version>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
+```
+-  you will see a Surefire Reports folder generated under gswm\target. It contains the test execution results in XML and TXT formats. The same information will be available in HTML format in the surefire-report.html file under site folder.
+
+# Code coverate report
+- Code coverage is a measurement of how much source code is being exercised by automated tests. Essentially, it provides an indication of the quality of your tests. Emma and Cobertura are two popular open source code coverage tools for Java.
+In this section, you will use Cobertura for measuring this project’s code coverage. Configuring Cobertura is similar to other plug-ins, as shown in
+```xml
+<project>
+        <!—Content removed for brevity-->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.6</version>
+      </plugin>
+   </plugins>
+  </reporting>
+</project>
+```
+# Find bug reports
+- FindBugs is a tool for detecting defects in Java code. It uses static analysis to detect bug patterns, such as infinite recursive loops and null pointer dereferences. Listing 7-7 shows the FindBugs configuration.
+
+```xml
+<project>
+        <!—Content removed for brevity-->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.0</version>
+      </plugin>
+   </plugins>
+ </reporting>
+</project>
+```
+
+# Integration with Nexus
+-  Repository managers act as a proxy of public repositories, facilitate artifact sharing and team collaboration, ensure build stability, and enable the governance of artifacts used in the enterprise.
+- Nexus is a popular open source repository manager from Sonatype. It is a web application that allows you to maintain internal repositories and access external repositories. It allows repositories to be grouped and accessed via a single URL. This enables the repository administrator to add and remove new repositories behind the scenes without requiring developers to change the configuration on their computers. Additionally, it provides hosting capabilities for sites generated using Maven site and artifact search capabilities.
+
+## To enable nexus in Maven
+- You will start by adding a distributionManagement element in the pom.xml file, as shown in Listing 8-1. This element is used to declare the location where the project’s artifacts will be when deployed. The repository element indicates the location where released artifacts will be deployed. Similarly, the snapshotRepository element identifies the location where the SNAPSHOT versions of the project will be stored.
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance” xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">  <modelVersion>4.0.0</modelVersion>
+
+        <!-- Content removed for brevity -->
+        <distributionManagement>
+           <repository>
+                <id>nexusReleases</id>
+              <name>Releases</name>
+        <url>http://localhost:8081/nexus/content/repositories/releases</url>
+           </repository>
+           <snapshotRepository>
+              <id>nexusSnapshots</id>
+              <name>Snapshots</name>
+              <url>http://localhost:8081/nexus/content/repositories/snapshots</url>
+           </snapshotRepository>
+        </distributionManagement>
+<!-- Content removed for brevity -->
+</project>
+```
+- Out of the box, Nexus comes with **Releases and Snapshots repositories**. By default, SNAPSHOT artifacts will be stored in the Snapshots Repository, and release artifacts will be stored in the Releases repository.
+Like most repository managers, deployment to Nexus is a protected operation. You provide the credentials needed to interact with Nexus in the **settings.xml** file.
+- Listing 8-2. Settings.xml File with Server Information
+- Listing 8-2 shows the settings.xml file with the server information. The Nexus deployment user with password deployment123 is provided out of the box. Notice that the IDs declared in the server tag — nexusReleases and nexusSnapshots must match the IDs of the repository and snapshotRepository declared in the pom.xml file. Replace the contents of the settings.xml file in the C:\Users\<<USER_NAME>>\.m2 folder with the code in Listing 8-2.
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<servers>
+   <server>
+      <id>nexusReleases</id>
+      <username>deployment</username>
+      <password>deployment123</password>
+   </server>
+   <server>
+      <id>nexusSnapshots</id>
+      <username>deployment</username>
+      <password>deployment123</password>
+   </server>
+</servers>
+</settings>
+```
+- This concludes the configuration steps for interacting with Nexus. At the command line, run the command mvn deploy under the directory C:\apress\gswm-book\chapter8\gswm. Upon successful execution of the command, you will see the SNAPSHOT artifact under Nexus 
