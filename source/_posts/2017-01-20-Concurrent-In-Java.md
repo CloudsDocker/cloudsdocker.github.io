@@ -188,6 +188,20 @@ Both Windows and Linux (kernel 2.6.8 onwards) implement temporary boosting. Stra
 1 microsecond is millionth of one second,
 1 millisecond is thousandth of one second
 
+##### What causes too many slow context switches in Java?
+- Every time we **deliberately** change a thread's status or attributes (e.g. by sleeping, waiting on an object, changing the thread's priority etc), we will cause a context switch. But usually we don't do those things so many times in a second to matter. Typically, the cause of excessive context switching comes from contention on shared resources, **particularly synchronized locks**:
+   - rarely, a single object very frequently synchronized on could become a bottleneck;
+   - more frequently, a complex application has several different objects that are each synchronized on with moderate frequency, but overall, threads find it difficult to make progress because they **keep hitting different contended locks** at regular intervals.
+
+##### Avoiding contention and context switches in Java
+
+- Firstly, before hacking with your code, a first course of action is upgrading your JVM, particularly if you are not yet using Java 6. Most new Java JVM releases have come with improved synchronization optimisation.
+- Then, a high-level solution to avoiding synchronized lock contention is generally to use the various classes from the Java 5 concurrency framework (see the java.util.concurrent package). For example, instead of using a HashMap with appropriate synchronization, a ConcurrentHashMap can easily double the throughput with 4 threads and treble it with 8 threads (see the aforementioned link for some ConcurrentHashMap performance measurements). A replacement to synchronized with often better concurrency is offered with various explicit lock classes (such as ReentrantLock).
+
+###### Java thread priority
+- Lower-priority threads are given CPU when all higher priority threads are waiting (or otherwise unable to run) at that given moment.
+- Thread priority isn't very meaningful when all threads are competing for CPU.
+
 ## Thread scheduling implications in Java
 
 ### Thread Control
