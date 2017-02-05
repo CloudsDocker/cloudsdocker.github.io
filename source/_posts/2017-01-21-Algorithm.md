@@ -179,6 +179,14 @@ public int height(Position<E> p){
    - log(n + 1) - 1 ≤ h ≤ (n - 1)/2
 -  In a nonempty proper binary tree T, with nE external nodes and nI internal nodes, we have nE = nI + 1.
 
+
+# Why use tree
+- You can search, insert/delete items quickly in a tree
+- Ordered Arrays are bad at Insertions/Deletions
+- Finding items in a Linkedlist is slow
+- Time needed to perform an operation on a tree is O(log N)
+- On average a tree is more efficient if you need to perform many different types of operations.
+
 # Code practice
 http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159
 

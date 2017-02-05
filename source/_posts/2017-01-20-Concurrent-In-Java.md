@@ -74,6 +74,7 @@ synchronized(lock){
 	}
 }
 ```
+
 ## Tips
 - **Always call wait(), notify() and notifyAll() methods from synchronized method or synchronized block** otherwise JVM will **throw IllegalMonitorStateException**.
 - Always call wait and notify method **from a loop** and **never from if()** block, because loop test waiting condition before and after sleeping and handles notification even if waiting for the condition is not changed.
@@ -81,11 +82,33 @@ synchronized(lock){
 - Prefer **notifyAll() over notify()** method due to reasons given in this article. 
 
 # Fork-Join
-- Fork/join tasks is “pure” in-memory algorithms in which no I/O operations come into picture.it is based on a work-stealing algorithm. 
+- Fork/join tasks is “pure” in-memory algorithms in which no I/O operations come into picture.it is based on a **work-stealing algorithm**. 
 - Java’s most attractive part is it makes things easier and easier.
 - its really challenging where several threads are working together to accomplish a large task so again java has tried to make things easy and simplifies this concurrency using Executors and Thread Queue.
 - it work on **divide and conquer algorithm** and **create sub-tasks and communicate with each other to complete**.
 - New fork-join executor framework has been created which is responsible for creating one new task object which is again responsible for creating new sub-task object and waiting for sub-task to be completed.internally it maintains a thread pool and executor assign pending task to this thread pool to complete when one task is waiting for another task to complete. whole Idea of fork-join framework is to leverage multiple processors of advanced machine.
+
+# Thread.yield()
+- This static method is essentially used to notify the system that the current thread is willing to "give up the CPU" for a while. The general idea is that: The thread scheduler will select a different thread to run instead of the current one. However, the details of how yielding is implemented by the thread scheduler differ from platform to platform. In general, you shouldn't rely on it behaving in a particular way. Things that differ include:
+   - when, after yielding, the thread will get an opportunity to run again;
+   - whether or not the thread foregoes its remaining quantum.
+
+## Windows
+- In the Hotspot implementation, the way that Thread.yield() works has changed between Java 5 and Java 6.
+- In **Java 5, Thread.yield() calls the Windows API call Sleep(0)**. This has the special effect of clearing the current thread's quantum and putting it to the end of the queue for its priority level. In other words, all runnable threads of the same priority (and those of greater priority) will get a chance to run before the yielded thread is next given CPU time. When it is eventually re-scheduled, it will come back with a full full quantum, but doesn't "carry over" any of the remaining quantum from the time of yielding. This behaviour is a little different from a non-zero sleep where the sleeping thread generally loses 1 quantum value (in effect, 1/3 of a 10 or 15ms tick).
+- In **Java 6, this behaviour was changed. The Hotspot VM now implements Thread.yield() using the Windows SwitchToThread() API call**. This call makes the current thread give up its current timeslice, but not its entire quantum. This means that depending on the priorities of other threads, the yielding thread can be scheduled back in one interrupt period later. (See the section on thread scheduling for more information on timeslices.)
+
+## Linux
+- Under Linux, Hotspot simply calls sched_yield(). The consequences of this call are a little different, and possibly more severe than under Windows:
+    - a yielded thread will not get another slice of CPU until all other threads have had a slice of CPU;
+    - (at least in kernel 2.6.8 onwards), the fact that the thread has yielded is **implicitly taken into account by the scheduler's heuristics on its recent CPU allocation** — thus, implicitly, a thread that has yielded could be given more CPU when scheduled in the future.
+(See the section on thread scheduling for more details on priorities and scheduling algorithms.)
+
+## When  to use yield()?
+- I would say **practically never**. Its behaviour isn't standardly defined and there are generally better ways to perform the tasks that you might want to perform with yield():
+- if you're trying to use only a portion of the CPU, you can do this in a more controllable way by estimating how much CPU the thread has used in its last chunk of processing, then **sleeping for some amount of time to compensate: see the sleep() method**;
+- if you're **waiting for a process or resource to complete or become available, there are more efficient ways to accomplish this, such as by using join() to wait** for another thread to complete, using the wait/notify mechanism to allow one thread to signal to another that a task is complete, or ideally by using one of the Java 5 concurrency constructs such as a Semaphore or blocking queue.
+
 
 # Dinnig Philosophers problem
 - The problem was designed to **illustrate the challenges of avoiding deadlock**, a system state in which no progress is possible. To see that a proper solution to this problem is not obvious, consider a proposal in which each philosopher is instructed to behave as follows:
@@ -246,7 +269,7 @@ In general, RecursiveTask is preferred because most divide-and-conquer algorithm
 
 If a SocketUsingTask is cancelled through its Future, the socket is closed and the
 
-As of Java 6, ExecutorService implementations can override newTaskFor in AbstractExecutorService to control instantiation of the Future corresponding to a submitted Callable or Runnable. The default implementation just creates a new FutureTask, as shown in Listing 6.12. 
+As of **Java 6, ExecutorService implementations can override newTaskFor** in AbstractExecutorService **to control instantiation of the Future corresponding to a submitted Callable or Runnable**. The default implementation just creates a new FutureTask, as shown in Listing 6.12. 
 ```java
 protected <T> RunnableFuture<T> newTaskFor(Callable<T> task) { 
 return new FutureTask<T>(task); 
@@ -529,6 +552,7 @@ at MumbleDBCallableStatement.sendBatch
 
 
 # Reference 
+- http://www.javamex.com/tutorials/threads/yield.shtml
 - http://javarevisited.blogspot.in/2012/07/countdownlatch-example-in-java.html
 - http://javarevisited.blogspot.sg/2012/05/how-to-use-threadlocal-in-java-benefits.html
 - http://javarevisited.blogspot.com/2012/03/simpledateformat-in-java-is-not-thread.html

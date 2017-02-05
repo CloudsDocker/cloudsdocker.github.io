@@ -5,9 +5,11 @@ title: HashMap in JDK
 # Hashmap in JDK
 ## Some note worth points about hashmap
 - Lookup process
--- Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()).
--- Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).
+   - Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()).
+   - Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).
 - Immutability of keys
+- In Node<K,V> node of hashMap, besides key, value, hash, there is Node next link inside. So undelrying table is a linked list.
+- For **get()**, firstly using hashcode calculation, divide by bucket number and get reminder, to locate the bucket, then compare key via ".euqals()", if matched, the value will be returned.
 - Load factor and resize
 When new hashHap is being populated, the linkedList associated with each bucket of source hashMap is iterated and nodes are copied to the destination bucket. However, note that these new nodes are prepended to the head of the destination linkedList. So resizing has an side effect of reversing the order of the items in the list. Default load factor for hashMap is 0.75.
 - Worst-case performance:
