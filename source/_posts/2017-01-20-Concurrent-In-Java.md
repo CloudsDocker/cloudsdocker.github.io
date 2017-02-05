@@ -64,7 +64,18 @@ hashtable.put(key,value);
 - **IllegalMonitorStateException in Java which will occur** if we don't call wait (), notify () or notifyAll () method from synchronized context.
 - Any potential race condition between wait and notify method in Java
 
-# Wait & Notify
+# Thread in Java
+## details:
+- A thread is essentialy a subdivision of a process, or LWP: lightweight process.
+- Crucially, each process has its own memory space. 
+- A thread is a subdivision that shares the memory space of its parent process. 
+- Threads belonging to a process usually share a few other key resources as well, such as their working directory, environment variables, file handles etc.
+- On the other hand, each thread has its **own private stack and registers, including program counter**.  program counter (PC) register keeps track of the current instruction executing at any moment. That is like a pointer to the current instruction in sequence of instructions in a program. 
+- Method area: In general, method area is a logical part of heap area. But that is left to the JVM implementers to decide.  Method area has per class structures and fields. Nothing but static fields and structures.
+- Depending on the OS, threads may have some other private resources too, such as **thread-local storage** (effectively, a way of referring to "variable number X", where each thread has its own private value of X).
+
+
+## Wait & Notify
 - Since wait method is **not defined in Thread** class, you cannot simply call Thread.wait(), that won't work but since many Java developers are used to calling Thread.sleep() they try the same thing with wait() method and stuck.
 - You need to call **wait() method on the object** which is **shared between two threads**, in producer-consumer problem its the queue which is shared between producer and consumer threads.
 ```java
@@ -81,34 +92,118 @@ synchronized(lock){
 - Always **call wait in shared object** e.g. shared queue in this example.
 - Prefer **notifyAll() over notify()** method due to reasons given in this article. 
 
-# Fork-Join
+## Fork-Join
 - Fork/join tasks is “pure” in-memory algorithms in which no I/O operations come into picture.it is based on a **work-stealing algorithm**. 
 - Java’s most attractive part is it makes things easier and easier.
 - its really challenging where several threads are working together to accomplish a large task so again java has tried to make things easy and simplifies this concurrency using Executors and Thread Queue.
 - it work on **divide and conquer algorithm** and **create sub-tasks and communicate with each other to complete**.
 - New fork-join executor framework has been created which is responsible for creating one new task object which is again responsible for creating new sub-task object and waiting for sub-task to be completed.internally it maintains a thread pool and executor assign pending task to this thread pool to complete when one task is waiting for another task to complete. whole Idea of fork-join framework is to leverage multiple processors of advanced machine.
 
-# Thread.yield()
+## Thread.yield()
 - This static method is essentially used to notify the system that the current thread is willing to "give up the CPU" for a while. The general idea is that: The thread scheduler will select a different thread to run instead of the current one. However, the details of how yielding is implemented by the thread scheduler differ from platform to platform. In general, you shouldn't rely on it behaving in a particular way. Things that differ include:
    - when, after yielding, the thread will get an opportunity to run again;
    - whether or not the thread foregoes its remaining quantum.
 
-## Windows
+### Windows
 - In the Hotspot implementation, the way that Thread.yield() works has changed between Java 5 and Java 6.
 - In **Java 5, Thread.yield() calls the Windows API call Sleep(0)**. This has the special effect of clearing the current thread's quantum and putting it to the end of the queue for its priority level. In other words, all runnable threads of the same priority (and those of greater priority) will get a chance to run before the yielded thread is next given CPU time. When it is eventually re-scheduled, it will come back with a full full quantum, but doesn't "carry over" any of the remaining quantum from the time of yielding. This behaviour is a little different from a non-zero sleep where the sleeping thread generally loses 1 quantum value (in effect, 1/3 of a 10 or 15ms tick).
 - In **Java 6, this behaviour was changed. The Hotspot VM now implements Thread.yield() using the Windows SwitchToThread() API call**. This call makes the current thread give up its current timeslice, but not its entire quantum. This means that depending on the priorities of other threads, the yielding thread can be scheduled back in one interrupt period later. (See the section on thread scheduling for more information on timeslices.)
 
-## Linux
+### Linux
 - Under Linux, Hotspot simply calls sched_yield(). The consequences of this call are a little different, and possibly more severe than under Windows:
     - a yielded thread will not get another slice of CPU until all other threads have had a slice of CPU;
     - (at least in kernel 2.6.8 onwards), the fact that the thread has yielded is **implicitly taken into account by the scheduler's heuristics on its recent CPU allocation** — thus, implicitly, a thread that has yielded could be given more CPU when scheduled in the future.
 (See the section on thread scheduling for more details on priorities and scheduling algorithms.)
 
-## When  to use yield()?
+### When  to use yield()?
 - I would say **practically never**. Its behaviour isn't standardly defined and there are generally better ways to perform the tasks that you might want to perform with yield():
 - if you're trying to use only a portion of the CPU, you can do this in a more controllable way by estimating how much CPU the thread has used in its last chunk of processing, then **sleeping for some amount of time to compensate: see the sleep() method**;
 - if you're **waiting for a process or resource to complete or become available, there are more efficient ways to accomplish this, such as by using join() to wait** for another thread to complete, using the wait/notify mechanism to allow one thread to signal to another that a task is complete, or ideally by using one of the Java 5 concurrency constructs such as a Semaphore or blocking queue.
 
+## Thread Scheduling
+- **thread scheduler**, part of the OS (usually) that is responsible for sharing the available CPUs out between the various threads. How exactly the scheduler works depends on the individual platform, but various modern operating systems (notably Windows and Linux) use largely similar techniques that we'll describe here.
+- Note that we'll continue to talk about a single thread scheduler. On multiprocessor systems, there is generally some kind of scheduler per processor, which then need to be coordinated in some way. 
+- Across platforms, thread scheduling tends to be based on at least the following criteria:
+   - a **priority**, or in fact usually multiple "priority" settings that we'll discuss below;
+   - a **quantum, or number of allocated timeslices of CPU**, which essentially determines the amount of CPU time a thread is allotted before it is forced to yield the CPU to another thread of the same or lower priority (the system will keep track of the remaining quantum at any given time, plus its default quantum, which could depend on thread type and/or system configuration);
+   - a **state**, notably "runnable" vs "waiting";
+   - **metrics** about the behaviour of threads, such as recent CPU usage or the time since it last ran (i.e. had a share of CPU), or the fact that it has "just received an event it was waiting for".
+- Most systems use what we might dub **priority-based round-robin scheduling** to some extent. The general principles are:
+   - a thread of **higher priority** (which is a function of base and local priorities) will **preempt** a thread of lower priority;
+   - otherwise, threads of equal priority will essentially **take turns** at getting an allocated slice or quantum of CPU;
+   - there are a few extra "tweaks" to make things work.
+
+### States
+
+Depending on the system, there are various states that a thread can be in. Probably the two most interesting are:
+- **runnable**, which essentially means "ready to consume CPU"; being runnable is generally the minimum requirement for a thread to actually be scheduled on to a CPU;
+- **waiting**, meaning that the thread currently cannot continue as it is waiting for a resource such as a lock or I/O, for memory to be paged in, for a signal from another thread, or simply for a period of time to elapse (sleep).
+
+Other states include **terminated**, which means the thread's code has finished running but not all of the thread's resources have been cleared up, and a **new** state, in which the thread has been created, but not all resources necessary for it to be runnable have been created. 
+
+### Quanta and clock ticks
+- Each thread has a quantum, which is effectively how long it is allowed to keep hold of the CPU if:
+   - it remains runnable;
+   - the scheduler determines that no other thread needs to run on that CPU instead.
+- Thread quanta are generally defined in terms of some number of **clock ticks**. If it doesn't otherwise cease to be runnable, the scheduler decides whether to preempt the currently running thread every clock tick. As a rough guide:
+   - a clock tick is typically 10-15 ms under Windows; under Linux, it is 1ms (kernel 2.6.8 onwards);
+   - a quantum is usually a small number of clock ticks, depending on the OS:
+either 2, 6 or 12 clock ticks on Windows, depending on whether Windows is running in "server" mode:
+
+Windows mode   | Foreground process | Non-foreground process
+---|---|---
+Normal|  6 ticks |2 ticks
+Server | 12 ticks | 12 ticks
+
+between 10-200 clock ticks (i.e. 10-200 ms) under Linux, though some granularity is introduced in the calculation— see below.
+a thread is usually allowed to "save up" unused quantum, up to some limit and granularity.
+- In Windows, a thread's quantum allocation is fairly stable. In Linux, on the other hand, a thread's quantum is dynamically adjusted when it is scheduled, depending partly on heuristics about its recent resource usage and partly on a nice value
+
+#### Switching and scheduling algorithms
+
+- At key moments, the thread scheduler considers whether to switch the thread that is currently running on a CPU. These key moments are usually:
+   - **periodically**, via an interrupt routine, the scheduler will consider whether the currently running thread on each CPU has reached the end of its allotted **quantum**;
+   - at any time, a currently running thread could **cease to be runnable** (e.g. by needing to wait, reaching the end of its execution or being forcibly killed);
+   - when some other attribute of the thread changes (e.g. its priority or processor affinity4) which means that which threads are running needs to be re-assessed.
+- At these decision points, the scheduler's job is essentially to decide, of all the **runnable** threads, **which are the most appropriate to actually be running on the available CPUs**. Potentially, this is quite a complex task. But we don't want the scheduler to waste too much time deciding "what to do next". So in practice, a few simple heuristics are used each time the scheduler needs to decide which thread to let run next:
+   - there's usually **a fast path** for determining that the currently running thread is still the most appropriate one to continue running (e.g. storing a bitmask of which priorities have runnable threads, so the scheduler can quickly determine that there's none of a higher priority than that currently running);
+   - if there is a runnable **thread of higher priority** than the currently running one, then the higher priority one will be scheduled in3;
+   - if a thread is "preempted" in this way, it is generally allowed to keep its remaining quantum and continue running when the higher-priority thread is scheduled out again;
+   - when a thread's **quantum runs out**, the thread is **"put to the back of the queue"** of runnable threads with the given priority and if there's no queued (runnable) thread of higher priority, then next thread of the same priority will be scheduled in;
+   - at the end of its quantum, if there's "nothing better to run", then a **thread could immediately get a new quantum and continue running**;
+   - a thread typically gets a temporary boost to its quantum and/or priority at strategic points.
+- Quantum and priority boosting
+Both Windows and Linux (kernel 2.6.8 onwards) implement temporary boosting. Strategic points at which a thread may be given a "boost" include:
+   - when it has just finished waiting for a lock/signal or I/O5;
+   - when it has not run for a long time (in Windows, this appears to be a simple priority boost after a certain time; in Linux, there is an ongoing calculation based on the thread's nice value and its recent resource usage);
+   - when a GUI event occurs;
+   - while it owns the focussed window (recent versions of Windows give threads of the owning process a larger quantum; earlier versions give them a priority boost).
+
+#### Context switching
+- context switching. Roughly speaking, this is the procedure that takes place when the system switches between threads running on the available CPUs.
+- the thread scheduler must actually manage the various thread structures and make decisions about which thread to schedule next where, and every time the thread running on a CPU actually changes— often referred to as a context switch
+- switching between **threads of different processes** (that is, switching to a thread that belongs to a different process from the one last running on that CPU) **will carry a higher cost**, since the address-to-memory mappings must be changed, and the contents of the cache almost certainly will be irrelevant to the next process.
+- Context switches appear to typically have a cost somewhere between 1 and 10 microseconds (i.e. between a thousandth and a hundredth of a millisecond) between the fastest and slowest cases (same-process threads with little memory contention vs different processes). So the following are acceptable:
+1 nanoseconds is billionth of one second, 
+1 microsecond is millionth of one second,
+1 millisecond is thousandth of one second
+
+## Thread scheduling implications in Java
+
+### Thread Control
+- the granularity and responsiveness of the Thread.sleep() method is largely determined by **the scheduler's interrupt** period and by how quickly the slept thread becomes the "chosen" thread again;
+- the precise function of the setPriority() method depends on the specific OS's interpretation of priority (and which underlying API call Java actually uses when several are available): for more information, see the more detailed section on thread priority;
+- the behaviour of the Thread.yield() method is similarly determined by what particuar underlying API calls do, and which is actually chosen by the VM implementation.
+
+### "Granularity" of threads
+- Although our introduction to threading focussed on how to create a thread, it turns out that **it isn't appropriate to create a brand new thread just for a very small task**. Threads are actually quite a "coarse-grained" unit of execution, for reasons that are hopefully becoming clear from the previous sections.
+
+### Overhead and limits of creating and destroying threads
+- creating and tearing down threads isn't free: there'll be some CPU overhead each time we do so;
+- there may be some moderate limit on the number of threads that can be created, determined by the resources that a thread needs to have allocated (if a process has 2GB of address space, and each thread as 512K of stack, that means a maximum of a few thousands threads per process).
+
+### Avoiding thread overhead in Java
+- In applications such as servers that need to continually execute short, multithreaded tasks, the usual way to avoid the overhead of repeated thread creation is to create a thread pool. 
 
 # Dinnig Philosophers problem
 - The problem was designed to **illustrate the challenges of avoiding deadlock**, a system state in which no progress is possible. To see that a proper solution to this problem is not obvious, consider a proposal in which each philosopher is instructed to behave as follows:
@@ -552,6 +647,9 @@ at MumbleDBCallableStatement.sendBatch
 
 
 # Reference 
+- http://www.javamex.com/tutorials/threads/thread_scheduling.shtml
+- http://www.javamex.com/tutorials/threads/how_threads_work.shtml
+- http://www.javamex.com/tutorials/threads/thread_scheduling_2.shtml
 - http://www.javamex.com/tutorials/threads/yield.shtml
 - http://javarevisited.blogspot.in/2012/07/countdownlatch-example-in-java.html
 - http://javarevisited.blogspot.sg/2012/05/how-to-use-threadlocal-in-java-benefits.html
