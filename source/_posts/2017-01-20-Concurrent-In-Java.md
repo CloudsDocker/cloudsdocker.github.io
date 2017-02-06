@@ -200,7 +200,20 @@ Both Windows and Linux (kernel 2.6.8 onwards) implement temporary boosting. Stra
 
 ###### Java thread priority
 - Lower-priority threads are given CPU when all higher priority threads are waiting (or otherwise unable to run) at that given moment.
-- Thread priority isn't very meaningful when all threads are competing for CPU.
+- Thread priority **isn't very meaningful when all threads are competing for CPU**.
+- The number should lie in the range of two constants **MIN_PRIORITY and MAX_PRIORITY defined on Thread**, and will typically reference **NORM_PRIORITY**, the default priority of a thread if we don't set it to anything else.
+- For example, to give a thread a priority that is "half way between normal and maximum", we could call:
+```java
+thr.setPriority((Thread.MAX_PRIORITY - Thread.NORM_PRIORITY) / 2);
+```
+
+####### Some points about thread property
+- depending on your OS and VM version, Thread.setPriority() may actually **do nothing at all** (see below for details);
+- what thread priorities **mean to the thread scheduler differs from scheduler to scheduler**, and may not be what you intuitively presume; in particular: **Priority may not indicate "share of the CPU"**. As we'll see below, it turns out that "priority" is more or less an indication of CPU distribution on UNIX systems, but not under Windows.
+- thread priorities are usually a **combination of "global" and "local" priority settings**, and Java's setPriority() method typically works only on the local priority— in other words, you can't set priorities across the entire range possible (this is actually a form of protection— you generally don't want, say, the mouse pointer thread or a thread handling audio data to be preempted by some random user thread);
+- the number of distinct priorities available differs from system to system, but Java defines 10 (numbered 1-10 inclusive), so you could end up with threads that have different priorities under one OS, but the same priority (and hence unexpected behaviour) on another;
+- most operating systems' thread schedulers actually perform **temporary manipulations** to thread priorities at strategic points (e.g. when a thread receives an event or I/O it was waiting for), and often "the OS knows best"; trying to manually manipulate priorities could just interfere with this system;
+- your application **doesn't generally know what threads are running in other processes**, so the effect on the overall system of changing the priority of a thread may be hard to predict. So you might find, for example, that your low-priority thread designed to "run sporadically in the background" hardly runs at all due to a virus dection program running at a slightly higher (but still 'lower-than-normal') priority, and that the performance unpredictably varies depending on which antivirus program your customer is using. Of course, effects like these will always happen to some extent or other on modern systems.
 
 ## Thread scheduling implications in Java
 
@@ -662,6 +675,7 @@ at MumbleDBCallableStatement.sendBatch
 
 # Reference 
 - http://www.javamex.com/tutorials/threads/thread_scheduling.shtml
+- http://www.javamex.com/tutorials/threads/priority.shtml
 - http://www.javamex.com/tutorials/threads/how_threads_work.shtml
 - http://www.javamex.com/tutorials/threads/thread_scheduling_2.shtml
 - http://www.javamex.com/tutorials/threads/yield.shtml
