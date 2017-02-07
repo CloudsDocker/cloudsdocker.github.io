@@ -63,6 +63,7 @@ ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc
 - A cryptographic hash function is a special class of hash function that has certain properties which make it suitable for use in cryptography. **It is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size** (a hash function) which is designed to also be **a one-way function**, that is, a function which is infeasible to invert. The only way to recreate the input data from an ideal cryptographic hash function's output is **to attempt a brute-force search** of possible inputs to see if they produce a match. 
 -  Bruce Schneier has called one-way hash functions "the workhorses of modern cryptography".[1] The input data is often called the message, and the output (the hash value or hash) is often called the message digest or simply the `digest`.
 - in information-security contexts, cryptographic hash values are sometimes called (digital) fingerprints, checksums, or just hash values, even though all these terms stand for more general functions with rather different properties and purposes.
+- Another finalist from the NIST hash function competition, BLAKE, was optimized to produce BLAKE2 which is notable for being faster than SHA-3, SHA-2, SHA-1, or MD5, and is used in numerous applications and libraries.
 
 ## The ideal cryptographic hash function has five main properties:
 - it is deterministic so the same message always results in the same hash
@@ -84,17 +85,116 @@ ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc
 - Storing all user passwords as cleartext can result in a massive security breach if the password file is compromised. One way to reduce this danger is to only store the hash digest of each password. To authenticate a user, the password presented by the user is hashed and compared with the stored hash. 
 - The password is often concatenated with a random, non-secret salt value before the hash function is applied. The salt is stored with the password hash. Because users have different salts, it is not feasible to store tables of precomputed hash values for common passwords. 
 
+## MD5
+- The MD5 algorithm is a widely used hash function producing a 128-bit hash value. Although MD5 was initially designed to be used as a cryptographic hash function, it has been found to suffer from extensive vulnerabilities. It can still be used as a checksum to verify data integrity, but only against unintentional corruption.
+- Like most hash functions, **MD5 is neither encryption nor encoding**. It **can be reversed by brute-force attack** and suffers from extensive vulnerabilities as detailed in the security section below.
+- MD5 was designed by Ronald Rivest in 1991 to replace an earlier hash function MD4.
+- The MD5 hash function receives its acronym MD from its structure using Merkle–Damg?rd construction.
+
+### Collision resistance
+- Collision resistance is a property of cryptographic hash functions: a hash function H is collision resistant if it is hard to find two inputs that hash to the same output; that is, two inputs a and b such that H(a) = H(b), and a ≠ b
+- Collision resistance doesn't mean that no collisions exist; simply that they are hard to find.
+- Cryptographic hash functions are usually designed to be collision resistant. But many hash functions that were once thought to be collision resistant were later broken. MD5 and SHA-1 in particular both have published techniques more efficient than brute force for finding collisions.
+
+#### Rationale
+Collision resistance is desirable for several reasons.
+- In some digital signature systems, a party attests to a document by publishing a public key signature on a hash of the document. If it is possible to produce two documents with the same hash, an attacker could get a party to attest to one, and then claim that the party had attested to the other.
+- In some proof-of-work systems (e.g. bitcoin mining), users provide hash collisions as proof that they have performed a certain amount of computation to find them. If there is an easier way to find collisions than brute force, users can cheat the system.
+- In some distributed content systems, parties compare cryptographic hashes of files in order to make sure they have the same version. An attacker who could produce two files with the same hash could trick users into believing they had the same version of a file when they in fact did not.
+
+#### Algorithm
+- The Merkle–Damg?rd hash function first applies an MD-compliant padding function to create an input whose size is a multiple of a fixed number (e.g. 512 or 1024) — this is because compression functions cannot handle inputs of arbitrary size. The hash function then breaks the result into blocks of fixed size, and processes them one at a time with the compression function, each time combining a block of the input with the output of the previous round.[1]:146 In order to make the construction secure, Merkle and Damg?rd proposed that messages be padded with a padding that encodes the length of the original message. This is called **length padding** or Merkle–Damg?rd strengthening.
+- In the diagram, the one-way compression function is denoted by f, and transforms two fixed length inputs to an output of the same size as one of the inputs. The algorithm starts with an initial value, the initialization vector (IV). The IV is a fixed value (algorithm or implementation specific). For each message block, the compression (or compacting) function f takes the result so far, combines it with the message block, and produces an intermediate result. The last block is padded with zeros as needed and bits representing the length of the entire message are appended. (See below for a detailed length padding example.)
+- To harden the hash further the last result is then sometimes fed through a finalisation function. The finalisation function can have several purposes such as compressing a bigger internal state (the last result) into a smaller output hash size or to guarantee a better mixing and avalanche effect on the bits in the hash sum. The finalisation function is often built by using the compression function[citation needed] (Note that in some documents instead the act of length padding is called "finalisation").
+
+### Merkle–Damg?rd construction
+- In cryptography, the Merkle–Damg?rd construction or **Merkle–Damg?rd hash function** is a method of building collision-resistant cryptographic hash functions from collision-resistant one-way compression functions.[1]:145 This construction was used in the design of many popular hash algorithms such as MD5, SHA1 and SHA2.
+- The Merkle–Damg?rd construction was described in Ralph Merkle's Ph.D. thesis in 1979.[2] Ralph Merkle and Ivan Damg?rd independently proved that the structure is sound: that is, if an appropriate padding scheme is used and the compression function is collision-resistant, then the hash function will also be collision resistant.
+
+## SHA 
+- In cryptography, SHA-1 (Secure Hash Algorithm 1) is a cryptographic hash function designed by the United States National Security Agency and is a U.S. Federal Information Processing Standard published by the United States NIST.[2] SHA-1 produces a 160-bit (20-byte) hash value known as a message digest. A SHA-1 hash value is typically rendered as a hexadecimal number, 40 digits long.
+
+### Applications
+- SHA-1 forms part of several widely used security applications and protocols, including TLS and SSL, PGP, SSH, S/MIME, and IPsec. Those applications can also use MD5; **both MD5 and SHA-1 are descended from MD4**. **SHA-1 hashing is also used in distributed revision control systems like Git**, Mercurial, and Monotone to identify revisions, and to detect data corruption or tampering. The algorithm has also been used on Nintendo's Wii gaming console for signature verification when booting, but a significant flaw in the first implementations of the firmware allowed for an attacker to bypass the system's security scheme.
+- SHA-1 and SHA-2 are the secure hash algorithms required by law for use in certain U.S. Government applications, including use within other cryptographic algorithms and protocols, for the protection of sensitive unclassified information.
+- A prime motivation for the publication of the Secure Hash Algorithm was the Digital Signature Standard, in which it is incorporated.
+- Revision control systems such as Git and Mercurial use SHA-1 not for security but for ensuring that the data has not changed due to accidental corruption.
+
 ## Salt (cryptography)
 - In cryptography, a salt is random data that is used as an additional input to a one-way function that "hashes" a password or passphrase. Salts are closely related to the concept of nonce. The primary function of salts is to defend against dictionary attacks or against its hashed equivalent, a pre-computed rainbow table attack.[1]
+- Salts are used to safeguard passwords in storage. 
+- The purpose of a hash and salt process in password security is not to prevent a password from being guessed, but to prevent a leaked password database from being used in further attacks.
 
-Salts are used to safeguard passwords in storage. 
+## Rainbow table
+- A rainbow table is a precomputed table for reversing cryptographic hash functions, **usually for cracking password hashes**. 
+- Tables are **usually used in recovering a plaintext password up to a certain length consisting of a limited set of characters**. It is a practical example of a space/time trade-off, using less computer processing time and more storage than a brute-force attack which calculates a hash on every attempt, but more processing time and less storage than a simple lookup table with one entry per hash. 
+- After gathering a password hash, using said hash as a password would fail since the authentication system would hash it a second time. In order to learn a user's password, a password that produces the same hashed value must be found, usually through a brute-force or dictionary attack.
+- Use of a **key derivation function that employs a salt** makes this attack infeasible.
+
+
+## Passphrase
+- A passphrase is a sequence of words or other text used to control access to a computer system, program or data. A passphrase is similar to a password in usage, but is generally longer for added security. Passphrases are often used to control both access to, and operation of, cryptographic programs and systems, especially those that derive an encryption key from a passphrase. The origin of the term is by analogy with password. The modern concept of passphrases is believed to have been invented by Sigmund N. Porter[1] in 1982.
+
+### Compared to password
+- Passphrases differ from passwords. A password is usually short—six to ten characters. Such passwords may be adequate for various applications (if frequently changed, if chosen using an appropriate policy, if not found in dictionaries, if sufficiently random, and/or if the system prevents online guessing, etc.)
+- But passwords are typically not safe to use as keys for standalone security systems (e.g., encryption systems) that expose data to enable offline password guessing by an attacker.[citation needed] Passphrases are theoretically stronger, and so should make a better choice in these cases. First, they usually are (and always should be) much longer—20 to 30 characters or more is typical—making some kinds of brute force attacks entirely impractical. Second, if well chosen, they will not be found in any phrase or quote dictionary, so such dictionary attacks will be almost impossible. Third, they can be structured to be more easily memorable than passwords without being written down, reducing the risk of hardcopy theft.[citation needed] However, if a passphrase is not protected appropriately by the authenticator and the clear-text passphrase is revealed its use is no better than other passwords. For this reason it is recommended that passphrases not be reused across different or unique sites and services.
+
+## Dictionary Attack
+- In cryptanalysis and computer security, a dictionary attack is a technique for defeating a cipher or authentication mechanism by trying to determine its decryption key or passphrase by trying hundreds or sometimes millions of likely possibilities, such as words in a dictionary.
+- A dictionary attack is based on trying all the strings in a pre-arranged listing, typically derived from a list of words such as in a dictionary (hence the phrase dictionary attack).
+- **In contrast to a brute force attack**, where a large proportion of the **key space is searched systematically**, a **dictionary attack** tries **only those possibilities** which are deemed **most likely** to succeed. 
+- Dictionary attacks often succeed because many people have a tendency to choose short passwords that are ordinary words or common passwords, or simple variants obtained, for example, by appending a digit or punctuation character. Dictionary attacks are relatively easy to defeat, e.g. by using a passphrase or otherwise choosing a password that is not a simple variant of a word found in any dictionary or listing of commonly used passwords.
+- It is possible to achieve a time-space tradeoff by pre-computing a list of hashes of dictionary words, and storing these in a database using the hash as the key. This requires a considerable amount of preparation time, but allows the actual attack to be executed faster. 
+- A more refined approach involves the use of rainbow tables, which reduce storage requirements at the cost of slightly longer lookup times. 
+- **Pre-computed dictionary attacks, or "rainbow table attacks", can be thwarted by the use of salt**, a technique that forces the hash dictionary to be recomputed for each password sought, making precomputation infeasible provided the number of possible salt values is large enough.
 
 # Avalanche effect
 - In cryptography, the avalanche effect is the desirable property of cryptographic algorithms, typically block ciphers and cryptographic hash functions wherein if when an input is changed slightly (for example, flipping a single bit) the output changes significantly (e.g., half the output bits flip). In the case of high-quality block ciphers, such a small change in either the key or the plaintext should cause a drastic change in the ciphertext. The actual term was first used by Horst Feistel,[1] although the concept dates back to at least Shannon's diffusion.
 -  The SHA-1 hash function exhibits good avalanche effect. When a single bit is changed the hash sum becomes completely different. If a block cipher or cryptographic **hash function does not exhibit the avalanche effect to a significant degree, then it has poor randomization**, and thus a cryptanalyst can make predictions about the input, being given only the output. This may be sufficient to partially or completely break the algorithm. Thus, the avalanche effect is a desirable condition from the point of view of the designer of the cryptographic algorithm or device.
+
+# Public-key cryptography
+- An unpredictable (typically large and random) number is used to begin generation of an acceptable pair of keys suitable for use by an asymmetric key algorithm.
+- In an asymmetric key encryption scheme, anyone can encrypt messages using the public key, but only the holder of the paired private key can decrypt. Security depends on the secrecy of the private key.
+-  In the Diffie–Hellman key exchange scheme, each party generates a public/private key pair and distributes the public key. After obtaining an authentic copy of each other's public keys, Alice and Bob can compute a shared secret offline. The shared secret can be used, for instance, as the key for a symmetric cipher.
+- Public key cryptography, or asymmetric cryptography, is any cryptographic system that uses pairs of keys: public keys which may be disseminated widely, and private keys which are known only to the owner. This accomplishes two functions: **authentication**, which is when the public key is used to verify that a holder of the paired private key sent the message, and **encryption**, whereby only the holder of the paired private key can decrypt the message encrypted with the public key.
+- In a public key encryption system, any person can encrypt a message using the public key of the receiver, but such a message can be decrypted only with the receiver's private key. For this to work it must be computationally easy for a user to generate a public and private key-pair to be used for encryption and decryption. The strength of a public key cryptography system relies on the degree of difficulty (computational impracticality) for a properly generated private key to be determined from its corresponding public key. Security then depends only on keeping the private key private, and the public key may be published without compromising security.
+- Because of the computational complexity of asymmetric encryption, it is usually used only for small blocks of data, typically the transfer of a symmetric encryption key (e.g. a session key). This symmetric key is then used to encrypt the rest of the potentially long message sequence. The symmetric encryption/decryption is based on simpler algorithms and is much faster.
+
+## Usage of public key
+Two of the best-known uses of public key cryptography are:
+- **Public key encryption**, in which a message is encrypted with a recipient's public key. The message cannot be decrypted by anyone who does not possess the matching private key, who is thus presumed to be the owner of that key and the person associated with the public key. This is used in an attempt to ensure confidentiality.
+- **Digital signatures**, in which a message is signed with the sender's private key and can be verified by anyone who has access to the sender's public key. This verification proves that the sender had access to the private key, and therefore is likely to be the person associated with the public key. This also ensures that the message has not been tampered with, as a signature is mathematically bound to the message it originally was made with, and verification will fail for practically any other message, no matter how similar to the original message.
+
+- An analogy to public key encryption is that of a locked mail box with a mail slot. The mail slot is exposed and accessible to the public – its location (the street address) is, in essence, the public key. Anyone knowing the street address can go to the door and drop a written message through the slot. However, only the person who possesses the key can open the mailbox and read the message.
+- An analogy for digital signatures is the sealing of an envelope with a personal wax seal. The message can be opened by anyone, but the presence of the unique seal authenticates the sender.
+
+## Problems of public generated key
+- A central problem with the use of public key cryptography is confidence/proof that a particular public key is authentic, in that it is correct and belongs to the person or entity claimed, and has not been tampered with or replaced by a malicious third party. The usual approach to this problem is to use a public key infrastructure (PKI), in which one or more third parties – known as certificate authorities – certify ownership of key pairs. PGP, in addition to being a certificate authority structure, has used a scheme generally called the "web of trust", which decentralizes such authentication of public keys by a central mechanism, and substitutes individual endorsements of the link between user and public key. To date, no fully satisfactory solution to the "public key authentication problem" has been found
+
+# RSA
+- RSA is one of the first practical public-key cryptosystems and is widely used for secure data transmission. In such a cryptosystem, the encryption key is public and differs from the decryption key which is kept secret. In RSA, this asymmetry is based on the practical difficulty of factoring the product of two large prime numbers, the factoring problem. RSA is made of the initial letters of the surnames of Ron Rivest, Adi Shamir, and Leonard Adleman, who first publicly described the algorithm in 1977. 
+- A user of RSA creates and then publishes a public key based on two large prime numbers, along with an auxiliary value. The prime numbers must be kept secret. Anyone can use the public key to encrypt a message, but with currently published methods, if the public key is large enough, only someone with knowledge of the prime numbers can feasibly decode the message.[2] Breaking RSA encryption is known as the RSA problem; whether it is as hard as the factoring problem remains an open question.
+- RSA is a relatively slow algorithm, and because of this it is less commonly used to directly encrypt user data. More often, RSA passes encrypted shared keys for symmetric key cryptography which in turn can perform bulk encryption-decryption operations at much higher speed.
+
+## Operation
+- The RSA algorithm involves four steps: key generation, key distribution, encryption and decryption.
+- RSA involves a public key and a private key. The public key can be known by everyone and is used for encrypting messages. The intention is that messages encrypted with the public key can only be decrypted in a reasonable amount of time using the private key.
+
+# Symmetric-key algorithm
+- Symmetric-key algorithms[1] are algorithms for cryptography that use the same cryptographic keys for both encryption of plaintext and decryption of ciphertext. The keys may be identical or there may be a simple transformation to go between the two keys
+- The keys, in practice, represent a shared secret between two or more parties that can be used to maintain a private information link.
+- This requirement that both parties have access to the secret key is one of the main drawbacks of symmetric key encryption, in comparison to public-key encryption (also known as asymmetric key encryption)
+
+## Implementations
+-  Examples of popular symmetric algorithms include Twofish, Serpent, **AES** (Rijndael), **Blowfish**, CAST5, Kuznyechik, RC4, **3DES**, Skipjack, Safer+/++ (Bluetooth), and IDEA.[5][6]
+
 
 # References
 - https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers
 - https://en.wikipedia.org/wiki/Secure_Shell
 - https://en.wikipedia.org/wiki/Ssh-keygen
 - https://en.wikipedia.org/wiki/Cryptographic_hash_function
+- https://en.wikipedia.org/wiki/Rainbow_table
+- https://en.wikipedia.org/wiki/Merkle%E2%80%93Damg%C3%A5rd_construction
+- https://en.wikipedia.org/wiki/Public-key_cryptography
+- https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29
