@@ -7,6 +7,21 @@ tag: algorithm
 # Interview tips
 - If an interviewer says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.
 
+# search without recursive
+Node findNode( Node root, int value ){
+    while( root != null ){
+        int currval = root.getValue();
+        if( currval == value ) break;
+        if( currval < value ){
+            root = root.getRight();
+        } else { // currval > value
+            root = root.getLeft();
+        }
+    }
+
+    return root;
+}
+
 # Big O sequencey
 1, logn, n, n log n, n2, n3, 2n(2 power n).
 
