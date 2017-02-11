@@ -1,10 +1,11 @@
 ---
 title: http methods
-tags;
+tags:
 - http
 - rfc
 ---
-[RFC origion](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.1.2)
+
+RFC origion http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.1.2)
 
 part of Hypertext Transfer Protocol -- HTTP/1.1
 RFC 2616 Fielding, et al.

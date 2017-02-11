@@ -4,6 +4,8 @@ title: Algorithm
 tag: algorithm
 ---
 
+# Interview tips
+- If an interviewer says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.
 
 # Big O sequencey
 1, logn, n, n log n, n2, n3, 2n(2 power n).
