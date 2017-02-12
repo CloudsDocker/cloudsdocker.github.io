@@ -22,6 +22,20 @@ Node findNode( Node root, int value ){
     return root;
 }
 
+- preceding lookup operation can be reimplemented recursively as follows:
+Node findNode( Node root, int value ){
+    if( root == null ) return null;
+    int currval = root.getValue();        
+    if( currval == value ) return root;           
+    if( currval < value ){
+        return findNode( root.getRight(), value );
+    } else { // currval > value
+        return findNode( root.getLeft(), value );
+    }  
+}
+
+- This subtree property is conducive to recursion because recursion generally involves solving a problem in terms of similar subproblems and a base case. 
+
 # Big O sequencey
 1, logn, n, n log n, n2, n3, 2n(2 power n).
 
