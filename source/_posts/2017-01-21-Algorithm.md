@@ -7,6 +7,13 @@ tag: algorithm
 # Interview tips
 - If an interviewer says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.
 
+# To print content of Array
+```java
+Import java.util.Arrays;
+Arrays.toString(ary);
+Arrays.deepToString(ary);
+```
+
 # search without recursive
 Node findNode( Node root, int value ){
     while( root != null ){

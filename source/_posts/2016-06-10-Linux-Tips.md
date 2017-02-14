@@ -4,6 +4,24 @@ title: Linux Tips
 tag:
 - Linux
 ---
+
+# Passwordless connection in putty
+```sh
+1. Generate Public & private key pair by keygen
+2. Log into Linux, nano .ssh/authorized_keys and paste the public key
+3. Save the private key in putty and load it in Putty session
+```
+
+# find java files older than 3 days
+```sh
+find . -name "*.java" -atime -3d
+```
+
+# Remove capitalization
+```sh
+sed -ie 's/Return /return /g' ReverseString.java 
+```
+
 # replace string in files
 ```sh
 #grep -r "pack.*me" .
