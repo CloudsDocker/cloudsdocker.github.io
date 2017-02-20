@@ -3,6 +3,12 @@
 title: Algorithm
 tag: algorithm
 ---
+# Methodology
+- The easiest way to improve search efficiency on a set of data is to put it in a data structure that allows more efficient searching.
+What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1)).
+- Then need to determine which data structure to be used. If the underlying characters are just ASCII, then a array[128] would be enough. But characters are UNICODe, then it need 100,000 (100K) array, which is a concern of memory, so hash table would be a better option, which only keep exist characters.
+In general, arrays are a better choice for long strings with a limited set of possible characters values, hash tables are more efficient for shorter strings or when there are many possible character values.  
+
 
 # Interview tips
 - If an interviewer says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.

@@ -5,6 +5,42 @@ tags:
 - java
 - Questions
 ---
+# What is the difference between Serializable and Externalizable in Java?
+- In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applications) was a bit of a performance problem. To handle this situation, the java.io.Externalizable interface was provided, which is like java.io.Serializable but with custom-written mechanisms to perform the marshalling and unmarshalling functions (you need to implement readExternal and writeExternal methods on your class). This gives you the means to get around the reflection performance bottleneck.
+- In recent versions of Java (1.3 onwards, certainly) the performance of reflection is vastly better than it used to be, and so this is much less of a problem. I suspect you'd be hard-pressed to get a meaningful benefit from Externalizable with a modern JVM.
+- Also, the built-in Java serialization mechanism isn't the only one, you can get third-party replacements, such as JBoss Serialization, which is considerably quicker, and is a drop-in replacement for the default.
+- A big downside of Externalizable is that you have to maintain this logic yourself - if you add, remove or change a field in your class, you have to change your writeExternal/readExternal methods to account for it.
+- In summary, Externalizable is a relic of the Java 1.1 days. There's really no need for it any more.
+
+## write transcient fields
+- Storing and reconstituting the transient data can also be achieved by implementing the Externalizable interface and implementing the writeExternal( ) and the readExternal( ) methods of that interface. 
+
+
+# Java Class
+- Class objects for known types can also be written as “class literals”:
+```java
+// Express a class literal as a type name followed by ".class"
+c = int.class; // Same as Integer.TYPE
+c = String.class; // Same as "a string".getClass()
+c = byte[].class; // Type of byte arrays
+```
+- For primitive types and void, we also have class objects that are represented as literals:
+```java
+// Obtain a Class object for primitive types with various 
+// predefined constants
+c = Void.TYPE; // The special "no-return-value" type
+c = Byte.TYPE; // Class object that represents a byte
+c = Integer.TYPE; // Class object that represents an int
+c = Double.TYPE; // etc; see also Short, Character, Long, Float
+```
+
+# Convert arrays to ArrayList, two different approaches
+// View array as an ungrowable list
+List<String> l = Arrays.asList(a);          
+// Make a growable copy of the view
+List<String> m = new ArrayList<String>(l);
+
+
 # What's seed in Java
 Since the next number in a pseudorandom generator is determined by the pre- vious number(s), such a generator always needs **a place to start, which is called its seed**. The sequence of numbers generated for **a given seed will always be the same**. The seed for an instance of the java.util.Random class can be set in its constructor or with its setSeed() method.
 
