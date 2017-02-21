@@ -8,7 +8,52 @@ tag: algorithm
 What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1)).
 - Then need to determine which data structure to be used. If the underlying characters are just ASCII, then a array[128] would be enough. But characters are UNICODe, then it need 100,000 (100K) array, which is a concern of memory, so hash table would be a better option, which only keep exist characters.
 In general, arrays are a better choice for long strings with a limited set of possible characters values, hash tables are more efficient for shorter strings or when there are many possible character values.  
+- For some problems, obvious iterative alternatives like the one just shown don’t exist, but it’s always possible to implement a recursive algorithm without using recursive calls.
+- For a simple recursive function like factorial, many computer architectures spend more time on call overhead than on the actual calculation. Iterative functions, which use looping constructs instead of recursive function calls, do not suffer from this overhead and are frequently more efficient.
+- NOTE Iterative solutions are usually more efficient than recursive solutions.
+- NOTE Every recursive case must eventually lead to a base case.
+- NOTE Recursive algorithms have two cases: recursive cases and base cases
 
+
+# Self review
+## CeasarCipher:
+
+Generally: it’s a rotation of English alphabic. E.g. if rotation is 2, the encode is start from A+2, i.e. A is at -2 of the encode array. 
+And decode is start with 26-2, and “A” start at positon 2, then the increase by 1 character to constitute the array
+That’s why need to “%26”, to make it loop across 26 characters
+
+```sh
+If rotation is 2:
+--- encrytpion code is:[C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B]
+--- decrytpion code is:[Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X]
+If rotation is 4:
+--- encrytpion code is:[E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B, C, D]
+--- decrytpion code is:[W, X, Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V]
+```
+
+```java
+ABC:
+Msg ={‘A’,’B’,’C’};
+Char[] encode=’A’+(k+rotation)%26);
+Char[] decode=’A’+(k-rotation+26)%26); // +26 to avoid negative
+
+Encode={‘C’,’D’,’E’}; // rotation=3, so A+3, A+4,A+5,xxx, A+26=>3,4,5,6,xxx,0
+Decode={‘M’,’N’,’O’};//as k-rotation+26 % 26, so it’s 26-3+0,26-3+1 ,xx: => 23,24,25,0,1,2,3,4,is: A+23,A+24,A+25=>‘M’,’N’,’O’. that’s rotation, rotain-1, rotaion -2 xxxx
+For(int i=0;i<msg.length;i++){
+  Int j=msg[i]-‘A’; // to remove the base ‘A”, so sync with the “k” in encode, 3,4,5,xxx 3+26
+  Msg[i]=codes[j];
+}
+// encode
+Int j=’A’-‘A’; //0
+Msg[0]=’C’;
+Msg[1]=’D’;
+Msg[2]=’E’;
+
+//decode
+Int j=msg[i]-‘A’; //’C’-‘A’=3
+Msg[i]=decode[j]; // correspoindg to the postion 0,-xxx, 26 in decode, 
+Msg[0]=
+```
 
 # Interview tips
 - If an interviewer says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.
