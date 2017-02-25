@@ -9,6 +9,13 @@
 # Byte code verifier
 - The verifier is often referred to as a `mini−theorem prover` (a term first used in several documents from Sun). This sounds somewhat more impressive than it is; it's not a generic, all−purpose theorem prover by any means. Instead, it's a piece of code that can prove one (and only one) thing −− that a given series of ( Java) bytecodes represents a legal set of ( Java) instructions.
 
+# Shifting
+Java and JavaScript perform sign extension when shift¬ing right, filling the empty spaces with 1’s for negative numbers, so 10100110 >> 5 becomes 11111101.
+The >>> operator is unique to Java and JavaScript. It does a logical shift right, filling the empty spaces with 0 no matter what the value, so 10100110 >>> 5 becomes 00000101.
+
+The shift operators enable you to multiply and divide by powers of 2 very quickly. For non-negative numbers, shifting to the right one bit is equivalent to dividing by 2, and shifting to the left one bit is equivalent to multiplying by 2. For negative numbers, it obviously depends on the language being used.
+
+
 ## Specifically, the bytecode verifier can prove the following:
 - The class file has the correct format. The full definition of the class file format may be found in the Java virtual machine specification; the bytecode verifier is responsible for making sure that the class file has the right length, the correct magic numbers in the correct places, and so on.
 - Final classes are not subclassed, and final methods are not overridden.

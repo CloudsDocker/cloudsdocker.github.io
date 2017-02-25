@@ -5,6 +5,20 @@ tag:
 - Linux
 ---
 
+# top
+- enter u, then user id to show only user process
+- Z: global color scheme, e.g. red or green
+- B: global bold for all
+- z: show color, then b to hightlight, and x highlight sort fidl, y highlight running tasks
+- #3: show only 3 threads
+- c: show command line
+- F: sort, e.g. Fk sort by CPU%
+- R: reverse order
+
+
+As always, talk to the interviewer about what you’re doing.
+
+
 # Passwordless connection in putty
 ```sh
 1. Generate Public & private key pair by keygen
