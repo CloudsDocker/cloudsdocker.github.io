@@ -14,6 +14,49 @@ In general, arrays are a better choice for long strings with a limited set of po
 - NOTE Every recursive case must eventually lead to a base case.
 - NOTE Recursive algorithms have two cases: recursive cases and base cases
 
+# Sort
+## I collections.sort()
+
+```java
+Object[] a = list.toArray();
+        Arrays.sort(a);
+        ListIterator<T> i = list.listIterator();
+        for (int j=0; j<a.length; j++) {
+            i.next();
+            i.set((T)a[j]);
+        }
+
+```
+
+##  Arrays.sort
+```java
+public static void sort(Object[] a) {
+        if (LegacyMergeSort.userRequested)
+            legacyMergeSort(a);
+        else
+            ComparableTimSort.sort(a);
+    }
+private static void mergeSort(Object[] src,
+                                  Object[] dest,
+                                  int low,
+                                  int high,
+                                  int off) {
+        int length = high - low;
+
+        // Insertion sort on smallest arrays
+        if (length < INSERTIONSORT_THRESHOLD) { // threshold is 7
+            for (int i=low; i<high; i++)
+                for (int j=i; j>low &&
+                         ((Comparable) dest[j-1]).compareTo(dest[j])>0; j--)
+                    swap(dest, j, j-1);
+            return;
+        }
+
+// else use mergeSort
+
+```
+
+
 
 # Self review
 ## CeasarCipher:

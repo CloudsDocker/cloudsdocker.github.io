@@ -1,7 +1,7 @@
 ---
 layout: page
 title: SSH and Cryptography
-tag: 
+tags: 
 - SSH
 - Cryptography
 ---

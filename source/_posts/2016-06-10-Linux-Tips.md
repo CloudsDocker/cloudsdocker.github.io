@@ -19,6 +19,93 @@ tag:
 As always, talk to the interviewer about what you’re doing.
 
 
+
+## ==== screenrc  =
+https://gist.githubusercontent.com/ChrisWills/1337178/raw/8275b66c3ea86a562cdaa16f1cc6d9931d521e1b/.screenrc-main-example
+```sh
+# GNU Screen - main configuration file 
+# All other .screenrc files will source this file to inherit settings.
+# Author: Christian Wills - cwills.sys@gmail.com
+
+# Allow bold colors - necessary for some reason
+attrcolor b ".I"
+
+# Tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+# Enables use of shift-PgUp and shift-PgDn
+termcapinfo xterm|xterms|xs|rxvt ti@:te@
+
+# Erase background with current bg color
+defbce "on"
+
+# Enable 256 color term
+term xterm-256color
+
+# Cache 30000 lines for scroll back
+defscrollback 30000
+
+# New mail notification
+# backtick 101 30 15 $HOME/bin/mailstatus.sh
+
+hardstatus alwayslastline 
+# Very nice tabbed colored hardstatus line
+hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
+
+# change command character from ctrl-a to ctrl-b (emacs users may want this)
+#escape ^Bb
+
+# Hide hardstatus: ctrl-a f 
+bind f eval "hardstatus ignore"
+# Show hardstatus: ctrl-a F
+bind F eval "hardstatus alwayslastline"
+```
+
+## ====================.bashrc ==========
+```sh
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+# source ./prompt
+export PS1=''
+
+export PS1='[\e[104mLight blue \u \A\]$ '
+
+export PS1="\[\e[32m\]\u@\h \d \t \w \[\e[m\] \\$"
+
+\e[104mLight blue
+
+# Welcome message
+echo -ne "Good Morning ! It's "; date '+%A, %B %-d %Y'
+echo -e "And now your moment of Zen:"; fortune
+echo
+echo "Hardware Information:"
+sensors  # Needs: 'sudo apt-get install lm-sensors'
+uptime   # Needs: 'sudo apt-get install lsscsi'
+free -m
+
+# User specific aliases and functions
+
+PS1='\[`[ $? = 0 ] && X=2 || X=1; tput setaf $X`\]\h\[`tput sgr0`\]:$PWD\n\$ '
+
+============vimrc =========
+set number
+set incsearch
+set hlsearch
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+grep -v "unwanted_word" file | grep XXXXXXXX
+
+// find command exclude “permission denied”
+$ find . -name "java" 2>/dev/null
+```
+
+
+
 # Passwordless connection in putty
 ```sh
 1. Generate Public & private key pair by keygen
