@@ -4,6 +4,30 @@ title: Linux Tips
 tag:
 - Linux
 ---
+# chmod
+From one to four octal digits
+Any omitted digits are assumed to be leading zeros. 
+
+The first digit = selects attributes for the set user ID (4) and set group ID (2) and save text image (1)S
+The second digit = permissions for the user who owns the file: read (4), write (2), and execute (1)
+The third digit = permissions for other users in the file's group: read (4), write (2), and execute (1)
+The fourth digit = permissions for other users NOT in the file's group: read (4), write (2), and execute (1)
+
+The octal (0-7) value is calculated by adding up the values for each digit
+User (rwx) = 4+2+1 = 7
+Group(rx) = 4+1 = 5
+World (rx) = 4+1 = 5
+chmode mode = 0755
+
+Examples
+
+chmod 400 file - Read by owner
+chmod 040 file - Read by group
+chmod 004 file - Read by world 
+
+chmod 200 file - Write by owner
+chmod 020 file - Write by group
+chmod 002 file - Write by world
 
 # top
 - enter u, then user id to show only user process
