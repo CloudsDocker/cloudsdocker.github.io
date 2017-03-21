@@ -44,3 +44,41 @@ We'll start by examining the security manager. From the perspective of the Java 
 ## The BasicPermission class
 - If you need to implement your own permission class, the BasicPermission class (java.security.BasicPermission) provides some useful semantics. This class implements a basic permission −− that is, a permission that doesn't have actions. Basic permissions can be thought of as binary permissions −− you either have them or you don't. However, this restriction does not prevent you from implementing actions in your subclasses of the BasicPermission class (as the PropertyPermission class does).
 - The prime benefit of this class is the manner in which it implements wildcards. Names in basic permissions are considered to be hierarchical, following a dot−separated convention. For example, if the XYZ corporation wanted to create a set of basic permissions, they might use the convention that the first word of the permission always be xyz: xyz.readDatabase, xyz.writeDatabase, xyz.runPayrollProgram, xyz.HRDepartment.accessCheck, and so on. These permissions can then be specified by their full name, or they can be specified with an asterisk wildcard: xyz.* would match each of these (no matter what depth), and * would match every possible basic permission.
+
+- http://www.qidianlife.com/index.php?m=home&c=discover&a=article&id=2351
+
+- 保护密码的最好办法是使用加盐密码哈希（ salted password hashing）。
+- 永远不要告诉用户输错的究竟是用户名还是密码。就像通用的提示那样，始终显示：“无效的用户名或密码。”就行了。这样可以防止攻击者在不知道密码的情况下枚举出有效的用户名。
+- 应当注意的是，用来保护密码的哈希函数，和数据结构课学到的哈希函数是不同的。例如，实现哈希表的哈希函数设计目的是快速查找，而非安全性。只有加密哈希函数（ cryptographic hash function）才可以用来进行密码哈希加密。像 SHA256 、 SHA512 、 RIPEMD 和 WHIRLPOOL 都是加密哈希函数。
+- 破解哈希加密最简单的方法是尝试猜测密码，哈希每个猜测的密码，并对比猜测密码的哈希值是否等于被破解的哈希值。如果相等，则猜中。猜测密码攻击的两种最常见的方法是字典攻击和暴力攻击 。
+
+- 字典攻击使用包含单词、短语、常用密码和其他可能用做密码的字符串的字典文件。对文件中的每个词都进行哈希加密，将这些哈希值和要破解的密码哈希值比较。如果它们相同，这个词就是密码。字典文件是通过大段文本中提取的单词构成，甚至还包括一些数据库中真实的密码。还可以对字典文件进一步处理以使其更为有效：如单词 “hello” 按网络用语写法转成 “h3110” 。
+
+- 暴力攻击是对于给定的密码长度，尝试每一种可能的字符组合。这种方式会消耗大量的计算，也是破解哈希加密效率最低的办法，但最终会找出正确的密码。因此密码应该足够长，以至于遍历所有可能的字符组合，耗费的时间太长令人无法承受，从而放弃破解。
+
+- 目前没有办法来组织字典攻击或暴力攻击。只能想办法让它们变得低效。如果密码哈希系统设计是安全的，破解哈希的唯一方法就是进行字典攻击或暴力攻击遍历每一个哈希值了。
+
+- 我们可以通过在密码中加入一段随机字符串再进行哈希加密，这个被加的字符串称之为盐值。如上例所示，这使得相同的密码每次都被加密为完全不同的字符串。我们需要盐值来校验密码是否正确。通常和密码哈希值一同存储在帐号数据库中，或者作为哈希字符串的一部分。
+
+- 盐值无需加密。由于随机化了哈希值，查表法、反向查表法和彩虹表都会失效。因为攻击者无法事先知道盐值，所以他们就没有办法预先计算查询表或彩虹表。如果每个用户的密码用不同的盐再进行哈希加密，那么反向查表法攻击也将不能奏效。
+
+- 一个常见的错误是每次都使用相同的盐值进行哈希加密，这个盐值要么被硬编码到程序里，要么只在第一次使用时随机获得。这样的做法是无效的，因为如果两个用户有相同的密码，他们仍然会有相同的哈希值。攻击者仍然可以使用反向查表法对每个哈希值进行字典攻击。他们只是在哈希密码之前，将固定的盐值应用到每个猜测的密码就可以了。如果盐值被硬编码到一个流行的软件里，那么查询表和彩虹表可以内置该盐值，以使其更容易破解它产生的哈希值。
+
+- 用户创建帐号或者更改密码时，都应该用新的随机盐值进行加密。
+
+- 出于同样的原因，不应该将用户名用作盐值。对每一个服务来说，用户名是唯一的，但它们是可预测的，并且经常重复应用于其他服务。攻击者可以用常见用户名作为盐值来建立查询表和彩虹表来破解密码哈希。
+
+- 为使攻击者无法构造包含所有可能盐值的查询表，盐值必须足够长。一个好的经验是使用和哈希函数输出的字符串等长的盐值。例如， SHA256 的输出为256位（32字节），所以该盐也应该是32个随机字节。
+
+- 每个用户的每一个密码都要使用独一无二的盐值。用户每次创建帐号或更改密码时，密码应采用一个新的随机盐值。永远不要重复使用某个盐值。这个盐值也应该足够长，以使有足够多的盐值能用于哈希加密。一个经验规则是，盐值至少要跟哈希函数的输出一样长。该盐应和密码哈希一起存储在用户帐号表中。
+
+- 存储密码的步骤：
+   - 使用 CSPRNG 生成足够长的随机盐值。
+   - 将盐值混入密码，并使用标准的密码哈希函数进行加密，如Argon2、 bcrypt 、 scrypt 或 PBKDF2 。
+   - 将盐值和对应的哈希值一起存入用户数据库。
+
+- 校验密码的步骤：
+   - 从数据库检索出用户的盐值和对应的哈希值。
+   - 将盐值混入用户输入的密码，并且使用通用的哈希函数进行加密。
+   - 比较上一步的结果，是否和数据库存储的哈希值相同。如果它们相同，则表明密码是正确的；否则，该密码错误。
+
