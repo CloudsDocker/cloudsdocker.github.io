@@ -4,6 +4,9 @@ title: Linux Tips
 tag:
 - Linux
 ---
+# Check system resource
+execute `cat /proc/cpuinfo` and `free -m` to gain information about the server’s CPU and memory.
+
 # chmod
 From one to four octal digits
 Any omitted digits are assumed to be leading zeros. 
