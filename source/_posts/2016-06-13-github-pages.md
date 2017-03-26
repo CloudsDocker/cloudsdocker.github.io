@@ -5,6 +5,14 @@ tag:
 - Git
 - GitPages
 ---
+
+# 404 error for customized domain (such as godday)
+```sh
+404
+There is not a GitHub Pages site here.
+```
+- Go to github master branch for gitpages site, manually add CNAME file
+
 ## following lages are searchable in google 
 
 - [alice](http://byalice.github.io/2016/06/04/Build-Blog/)
