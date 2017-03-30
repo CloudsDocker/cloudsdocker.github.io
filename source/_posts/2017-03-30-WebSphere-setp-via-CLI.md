@@ -8,8 +8,51 @@ tags:
 
 # Setup WebSphere profiles and application in command line
 
+## Background & descriptions
+
+- Beginning with V8.5, WebSphere Application Server provides two runtime profiles. Every WebSphere Application Server package includes both profile types.
+   1. Full WebSphere Application Server
+   1. Liberty profile
+
+### What's profile?
+- Simply put, a profile contains an Application Server.
+When an Application Server is running, the server process may read and write data to the underlying configuration files and logs. So, by using profiles, transient data is kept away from the base product. This allows us to have more than one profile using the same base binaries, and also allows us to remove certain profiles without affecting other profiles. Another reason for separating the base binaries is that we can upgrade the product with maintenance updates and fix packs without having to re-create all profiles. Sometimes you do not want a specific profile to be updated. WAS profile management has been designed for flexibility.
+
+- WAS has the ability to have multiple application server definitions using the same underlying base binaries. Each profile defines the attributes and configurations for a given application server.
+Each standalone application server can optionally have its own administrative console application, which you use to manage the application server.
+We will cover how to install a profile later in the chapter.
+
+- On distributed platforms, profiles are created after you install the product by using either the Profile Management Tool or the manageprofiles command.
+
+## WAS Concepts 
+### Nodes
+A node is an administrative grouping of application servers for configuration and operational management within one operating system instance. You can create multiple nodes inside one operating system instance, but a node cannot leave the operating system boundaries.
+
+
+A stand-alone application server configuration has only one node. With Network Deployment, you can configure a distributed server environment that consists of multiple nodes that are managed from one central administration server.
+
+### Node agents
+In distributed server configurations, each node has a node agent that works with the deployment manager to manage administration processes. A node agent is created automatically when you add (federate) a stand-alone application server node to a cell. Node agents are not included in the Base and Express configurations because a deployment manager is not needed in these architectures.
+
+The node agent is an administrative server that runs on the same system as the node. It monitors the application servers on that node, routing administrative requests from the deployment manager to those application servers.
+
+### Node groups
+A node group is a collection of nodes within a cell that have similar capabilities in terms of installed software, available resources, and configuration. A node group is used to define a boundary for server cluster formation so that the servers on the same node group host the same applications.
+A DefaultNodeGroup is created automatically. The DefaultNodeGroup contains the deployment manager and any new nodes with the same platform type. A node can be a member of more than one node group.
+
+
+### Cells
+A cell is a grouping of nodes into a single administrative domain. A cell encompasses the entire management domain. In the Base and Express configurations, a cell contains one node, and that node contains one server. The left side of Figure 3-11 illustrates a system with two cells that are each accessed by their own administrative console. Each cell has a node and a stand-alone application server.
+In a Network Deployment environment (the right side of Figure 3-11), a cell can consist of multiple nodes and node groups. These nodes and groups are all administered from a single point, the deployment manager. Figure 3-11 shows a single cell that spans two systems that are accessed by a single administrative console. The deployment manager is administering the nodes.
+
+A cell configuration that contains nodes that are running on the same operating system is called a homogeneous cell.
+It is also possible to configure a cell that consists of nodes on mixed operating systems. With this configuration, other operating systems can exist in the same WebSphere Application Server cell. 
+
+For example, z/OS nodes, Linux nodes, UNIX nodes, and Windows system nodes can exist in the same WebSphere Application Server cell. This configuration is called a heterogeneous cell. A heterogeneous cell requires significant planning.
+
+
 ## Noteworthy points
-- Please be advised  
+ 
 ### Tools/utilities 
 - create profile
 ```sh

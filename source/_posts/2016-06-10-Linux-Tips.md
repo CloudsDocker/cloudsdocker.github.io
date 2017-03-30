@@ -4,10 +4,31 @@ title: Linux Tips
 tag:
 - Linux
 ---
-# Check system resource
-execute `cat /proc/cpuinfo` and `free -m` to gain information about the server’s CPU and memory.
 
-# chmod
+# To check redhat Linux version
+```sh
+cat  /etc/redhat-release
+```
+
+# To list all users in linux
+```sh
+cat /etc/passwd
+```
+
+
+# Show IP address in Linux
+```sh
+$ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:50:56:9B:19:81
+          inet addr:133.14.16.5  Bcast:133.14.16.255  Mask:255.255.255.0
+```
+
+# Check system resource
+```sh
+execute `cat /proc/cpuinfo` and `free -m` to gain information about the server’s CPU and memory.
+```
+
+# chmod command
 From one to four octal digits
 Any omitted digits are assumed to be leading zeros. 
 
@@ -23,7 +44,7 @@ World (rx) = 4+1 = 5
 chmode mode = 0755
 
 Examples
-
+```sh
 chmod 400 file - Read by owner
 chmod 040 file - Read by group
 chmod 004 file - Read by world 
@@ -31,6 +52,7 @@ chmod 004 file - Read by world
 chmod 200 file - Write by owner
 chmod 020 file - Write by group
 chmod 002 file - Write by world
+```
 
 # top
 - enter u, then user id to show only user process
@@ -42,10 +64,18 @@ chmod 002 file - Write by world
 - F: sort, e.g. Fk sort by CPU%
 - R: reverse order
 
+# Sample config files 
 
-As always, talk to the interviewer about what you’re doing.
+## .vimrc
 
+```sh
 
+set number
+set incsearch
+set hlsearch
+syntax on
+colorscheme desert
+```
 
 ## ==== screenrc  =
 https://gist.githubusercontent.com/ChrisWills/1337178/raw/8275b66c3ea86a562cdaa16f1cc6d9931d521e1b/.screenrc-main-example
