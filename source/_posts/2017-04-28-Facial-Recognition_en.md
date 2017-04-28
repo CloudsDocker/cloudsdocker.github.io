@@ -3,9 +3,11 @@ layout: page
 title: A Facial Recognition utility in a dozen of LOC
 tag:
 - DeepLearning
+- MachineLearning
 - FacialRecognition
 - Python
 ---
+
 # A Facial Recognition utility in a dozen of python LOC (Lines Of Code)
 
 ## CV (Computer Vision)
