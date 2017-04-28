@@ -5,6 +5,9 @@ tags:
 - java
 - concurrent
 ---
+# This blog is about noteworthy pivot points about Java Concurrent Framework
+> Back to Java old days there were wait()/notify() which is error prone, while from Java 5.0 there was Concurrent framework being introduced, this page list some pivot points.
+
 # CountDownLatch
 - CountDownLatch in Java is a kind of synchronizer which allows one Thread  to wait for one or more Threads before starts processing. 
 - You can also implement same functionality using  wait and notify mechanism in Java but it requires lot of code and getting it write in first attempt is tricky,  With CountDownLatch it can  be done in just few lines.

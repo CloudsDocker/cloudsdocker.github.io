@@ -231,8 +231,8 @@ inside sub class static method
 - Utility methods are good candidate of making static in Java because then they can directly be accessed using class name without even creating any instance. Classic example is java.lang.Math
 - Static method in Java is very popular to implement Factory design pattern. Since Generics also provides type inference during method invocation, use of static factory method to create object is popular Java idiom. 
 
-# Phone interview
--  Key to success in telephonic interview is **to the point** and **concise answer**.
+# Phone
+-  Key to success in telephonic is **to the point** and **concise answer**.
 
 ## Difference between String, StringBuffer and StringBuilder in Java
 - String is **immutable** while both StringBuffer and StringBuilder **is mutable**, which means any change e.g. converting String to upper case or trimming white space will **produce another instance** rather than changing the same instance. On later two, **StringBuffer is synchronized** while **StringBuilder is not**, in fact its a ditto replacement of StringBuffer added in Java 1.5.
@@ -277,7 +277,7 @@ inside sub class static method
 # Difference between abstract class and interface? 
 - From Java 8 onwards difference between abstract class and interface in Java has minimized, now even interface can have implementation in terms of default and static method. BTW, in Java you can still extend just one class but can extend multiple inheritance. Abstract class is used to provide default implementation with just something left to customize, while interface is used heavily in API to define contract of a class.
 
-# How to Swap Two Numbers without Temp or Third variable in Java - Interview Question
+# How to Swap Two Numbers without Temp or Third variable in Java 
 ## Swapping two numbers without using temp variable in Java
 ```java
 int a = 10;

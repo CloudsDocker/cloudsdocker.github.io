@@ -5,6 +5,7 @@ tags:
 - java
 - hashcode
 ---
+
 # contract of hashCode :
 
 - Whenever it is **invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer**, provided no information used in equals comparisons on the object is modified. This _integer need **not** remain consistent from one execution of an application to another execution of the **same** application_.

@@ -1,14 +1,15 @@
 ---
 layout: page
-title: Default feature in Java 8
+title: Java 8 Tips
 tag:
 - Coding
 - Java
 ---
+# This blog is listing key new features introduced in Java 8
 
-# **default** in Java
+## **default** in Java
 
-## There are three rules about **default**
+### There are three rules about **default**
 Regarding how to handle the situation of same default method in multiple inheritance.
 - **class win**, any class wins over any interfaces.So if there’s a method with a body, or an abstract declaration, in the superclass chain, we can ignore the interfaces completely.
 - **subtype win supertype**, “which two interfaces are competing to provide a default method and one interface extends the other, the subclass wins.”
@@ -16,7 +17,7 @@ Regarding how to handle the situation of same default method in multiple inherit
 
 “Interfaces give you multiple inheritance but no fields, while abstract classes let you “inherit fields but you don’t get multiple inheritance.”
 
-# Static method in Interface
+## Static method in Interface
 
 We’ve seen a lot of calling of **Stream.of** but haven’t gotten into its details yet. You may recall that Stream is an interface, but this is a static method on an interface. 
 ```java
@@ -56,10 +57,6 @@ assertEquals("a", a.get());
 
 # Stream
 “The purpose of streams isn’t just to convert from one collection to another; it’s to be able to provide a common set of operations over data.”
-
-# Collector
-
-There are various built-in collectors.
 
 ## partitioningBy
 To split a stream into two groups, one for 'trueGroup' and another group
