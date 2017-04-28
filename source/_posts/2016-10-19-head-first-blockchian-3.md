@@ -1,3 +1,14 @@
+---
+title: Head First Blockchina 3
+tag:
+- blockchain
+- hyperledger
+---
+
+
+> Hyperledger Fabric for Mortals
+
+
 HyperLedger, from Arvind Krishna, Director of IBM research lab, meant to cross borders. e.g. for credit ledger, the importer and exporter in China need to make preparations few months beforehand, this is similiar to Marco Polo went to China 300 years ago.
 
 Another usage in stock market is stock loan, by using blockchain, we are going to know whose the stock came from. And the borrowers need to know who can borrow, and I need to prepare collaterials, need to check whether it comply with the processes, when I pay it back, etc. there are lots of things. right now they are handled by people manually, so going forward, if I have some stocks and I want to borrow it to earn some money, those can be programmed in blockchain. they'll be processed by machines automatically.  this will help to show there are no inside tradings, etc. 
@@ -60,3 +71,11 @@ https://ripple.com/
 
 
 Retail Giant Overstock to Issue its Own Stock on Blockchain Platform    
+
+# Referece
+- [Hyperledger Whitepaper](https://docs.google.com/document/d/1Z4M_qwILLRehPbVRUsJ3OF8Iir-gqS-ZYe7W-LE9gnE/pub?cm_mc_uid=46896667284114692531747&cm_mc_sid_50200000=1477673527)
+- [About blockchain](https://console.ng.bluemix.net/docs/services/blockchain/ibmblockchain_overview.html)
+- [IBM Blockchain for developers](https://developer.ibm.com/courses/all-courses/blockchain-for-developers/)
+- [Getting started with IBM Blockchain](https://console.ng.bluemix.net/docs/services/blockchain/index.html)
+- [IBM Blockchain 101: Quick-start guide for developers](https://www.ibm.com/developerworks/cloud/library/cl-ibm-blockchain-101-quick-start-guide-for-developers-bluemix-trs/index.html)
+

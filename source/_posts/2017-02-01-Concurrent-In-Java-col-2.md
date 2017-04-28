@@ -6,7 +6,9 @@ tags:
 - concurrent
 ---
 
-# non-blocking synchronization
+# This is the second half about Java Concurrent of my blog
+
+## non-blocking synchronization
 - Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures.
 - Nonblocking algorithms are considerably more complicated to design and im- plement than lock-based alternatives, but they can **offer significant scalability and liveness advantages**. They coordinate at a finer level of granularity and can greatly reduce scheduling overhead because they don’t block when multiple threads contend for the same data. Further, they are `immune to deadlock and other liveness problems`. In lock-based algorithms, other threads cannot make progress if a thread goes to sleep or spins while holding a lock, whereas `nonblocking algorithms are impervious to individual thread failures`. As of Java 5.0, it is possible to build efficient **nonblocking algorithms in Java using the atomic variable classes such as AtomicInteger and AtomicReference**.
 - Atomic variables can also be used as **“better volatile variables”** even if you are not developing nonblocking algorithms. `Atomic variables offer the same memory semantics as volatile variables`, but with additional support for atomic updates— making them ideal for counters, sequence generators, and statistics gathering while offering better scalability than lock-based alternatives.

@@ -5,8 +5,9 @@ tags:
 - java
 - serialVersionUID
 ---
+# Noteworthy points about SeriableVersionUID in Java
 
-# Preventing ClassCastExceptions with SerialVersionUID Problem
+## Preventing ClassCastExceptions with SerialVersionUID Problem
 - Your classes were recompiled, and you’re getting ClassCastExceptions that you shouldn’t.
 Solution
 - Run serialver to generate a “serial version UUID” and paste its output into your classes before you start. Or use your IDE’s tools for this purpose.

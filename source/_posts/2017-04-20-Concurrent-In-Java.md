@@ -2,8 +2,8 @@
 layout: page
 title: Java Concurrent
 tags:
-- java
-- concurrent
+- Java
+- Concurrent
 ---
 # This blog is about noteworthy pivot points about Java Concurrent Framework
 > Back to Java old days there were wait()/notify() which is error prone, while from Java 5.0 there was Concurrent framework being introduced, this page list some pivot points.

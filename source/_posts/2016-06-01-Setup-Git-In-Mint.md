@@ -6,7 +6,7 @@ tag:
 - Mint
 ---
 
-Setup Git in Mint Linux
+# How to setup Git in Mint Linux
 =================================================
 
 - git config --global user.name "Todd Zhang"
