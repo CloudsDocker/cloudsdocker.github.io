@@ -2,6 +2,23 @@
 title: Openshift tips
 ---
 
+# Commands bible
+
+## install cli in Mac
+```sh
+brew install openshift-cli
+```
+
+## Frequently used OC commands
+```sh
+oc config view
+```
+
+### To switch project
+```sh
+oc project 
+```
+
 ## OpenShift command-line tool
 The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster. 
 
