@@ -9,15 +9,46 @@ title: Openshift tips
 brew install openshift-cli
 ```
 
-## Frequently used OC commands
+## Frequently used commands
+
+### Start mini shift
+```sh
+minishift start
+```
+
+### OC commands
 ```sh
 oc config view
 ```
 
-### To switch project
+#### Start a new application
+```sh
+oc new-app https://github.com/openshift/nodejs-ex -l name=toddapp
+```
+
+#### To switch project
 ```sh
 oc project 
 ```
+
+#### Show a high level overview of the current project 
+```sh
+oc status
+# Export the overview of the current project in an svg file.
+  oc status -o dot | dot -T svg -o project.svg
+  
+  # See an overview of the current project including details for any identified issues.
+  oc status -v
+```
+
+This command will show services, deployment configs, build configurations, and active deployments.
+If you have any misconfigured components information about them will be shown. For more information
+about individual items, use the describe command (e.g. oc describe buildConfig, oc describe
+deploymentConfig, oc describe service). 
+
+You can specify an output format of "-o dot" to have this command output the generated status graph
+in DOT format that is suitable for use by the "dot" command.
+
 
 ## OpenShift command-line tool
 The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster. 
