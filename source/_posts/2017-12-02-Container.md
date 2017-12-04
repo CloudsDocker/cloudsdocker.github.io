@@ -5,11 +5,19 @@ title: Container
 The Docker project was responsible for popularizing container development in Linux systems. The original project defined a command and service (both named docker) and a format in which containers are structured. This chapter provides a hands-on approach to using the docker command and service to begin working with containers in Red Hat Enterprise Linux 7 and RHEL Atomic Host by getting and using container images and working with running containers. 
 
 
-Containers provide a means of packaging applications in lightweight, portable entities. Running applications within containers offers the following advantages: 
+ Containers provide a means of packaging applications in lightweight, portable entities. Running applications within containers offers the following advantages:
+
+- **Smaller than Virtual Machines**: Because container images include only the content needed to run an application, saving and sharing is much more efficient with containers than it is with virtual machines (which include entire operating systems)
+- **Improved performance**: Likewise, since you are not running an entirely separate operating system, a container will typically run faster than an application that carries with it the overhead of a whole new virtual machine.
+- **Secure**: Because a container typically has its own network interfaces, file system, and memory, the application running in that container can be isolated and secured from other activities on a host computer.
+- **Flexible**: With an application’s run time requirements included with the application in the container, a container is capable of being run in multiple environments. 
 
 
- - Smaller than Virtual Machines: Because container images include only the content needed to run an application, saving and sharing is much more efficient with containers than it is with virtual machines (which include entire operating systems) 
- - Improved performance: Likewise, since you are not running an entirely separate operating system, a container will typically run faster than an application that carries with it the overhead of a whole new virtual machine. 
+
+RHEL Atomic Host is a light-weight Linux operating system distribution that was designed specifically for running containers. It contains two different versions of the docker service, as well as some services that can be used to orchestrate and manage Docker containers, such as Kubernetes. Only one version of the docker service can be running at a time. 
+
+
+
 
 # Reference 
  -  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/single/getting_started_with_containers/index#introduction_to_linux_containers
