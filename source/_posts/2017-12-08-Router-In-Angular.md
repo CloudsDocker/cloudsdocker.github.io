@@ -49,7 +49,8 @@ content_copy
 A router must be configured with a list of route definitions.
 
 ## mechanism
-When the application requests navigation to the path /crisis-center, the router activates an instance of CrisisListComponent, displays its view, and updates the browser's address location and history with the URL for that path.
+- When the application requests navigation to the path /crisis-center, the router activates an instance of CrisisListComponent, displays its view, and updates the browser's address location and history with the URL for that path.
+- Pass the array of routes, appRoutes, to the RouterModule.forRoot method. It returns a module, containing the configured Router service provider, plus other providers that the routing library requires. Once the application is bootstrapped, the Router performs the initial navigation based on the current browser URL
 
 # Reference
 - https://angular.io/guide/router
