@@ -52,5 +52,14 @@ A router must be configured with a list of route definitions.
 - When the application requests navigation to the path /crisis-center, the router activates an instance of CrisisListComponent, displays its view, and updates the browser's address location and history with the URL for that path.
 - Pass the array of routes, appRoutes, to the RouterModule.forRoot method. It returns a module, containing the configured Router service provider, plus other providers that the routing library requires. Once the application is bootstrapped, the Router performs the initial navigation based on the current browser URL
 
+## Some key points of setting up router
+- Load the router library.
+- Add a nav bar to the shell template with anchor tags, routerLink and routerLinkActive directives.
+- Add a router-outlet to the shell template where views will be displayed.
+- Configure the router module with RouterModule.forRoot.
+- Set the router to compose HTML5 browser URLs.
+- handle invalid routes with a wildcard route.
+- navigate to the default route when the app launches with an empty path.
+
 # Reference
 - https://angular.io/guide/router
