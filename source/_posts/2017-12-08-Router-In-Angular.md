@@ -36,5 +36,15 @@ export class AppModule { }
 - The ** path in the last route is a wildcard. The router will select this route if the requested URL doesn't match any paths for routes defined earlier in the configuration. This is useful for displaying a "404 - Not Found" page or redirecting to another route.
 - The order of the routes in the configuration matters and this is by design. The router uses a **first-match wins strategy** when matching routes, so **more specific routes should be placed above less specific routes**. 
 
+## Router outlet
+
+The router matches that URL to the route path  and displays the Component after a RouterOutlet that you've placed in the host view's HTML.
+
+```javascript
+content_copy
+<router-outlet></router-outlet>
+<!-- Routed views go here -->
+```
+
 # Reference
 - https://angular.io/guide/router
