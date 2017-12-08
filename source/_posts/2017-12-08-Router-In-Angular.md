@@ -48,5 +48,8 @@ content_copy
 ## Define routes
 A router must be configured with a list of route definitions.
 
+## mechanism
+When the application requests navigation to the path /crisis-center, the router activates an instance of CrisisListComponent, displays its view, and updates the browser's address location and history with the URL for that path.
+
 # Reference
 - https://angular.io/guide/router
