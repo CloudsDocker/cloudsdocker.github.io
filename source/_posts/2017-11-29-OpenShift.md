@@ -54,7 +54,18 @@ in DOT format that is suitable for use by the "dot" command.
 The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster. 
 
 ## Pod
-The most basic unit in OpenShift are pods. A pod is one or more containers guaranteed to be running on the same host. The containers within a pod share a unique IP address. They can communicate with each other via the “localhost” and also all share any volumes (persistent storage). The containers themselves are started from an image, which in our case is a Docker image.
+The most basic unit in OpenShift are pods. A pod is one or more containers guaranteed to be running on the same host. The containers within a pod share a unique IP address. They can communicate with each other via the “localhost” and also all share any volumes (persistent storage). The containers themselves are started from an image, which in our case is a Docker image.    
+
+OpenShift Origin leverages the Kubernetes concept of a pod, which is one or more containers deployed together on one host, and the smallest compute unit that can be defined, deployed, and managed.
+
+Pods are the rough equivalent of a machine instance (physical or virtual) to a container. Each pod is allocated its own internal IP address, therefore owning its entire port space, and containers within pods can share their local storage and networking.
+
+Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.
+
+Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.
+
+OpenShift Origin treats pods as largely immutable; changes cannot be made to a pod definition while it is running. OpenShift Origin implements changes by terminating an existing pod and recreating it with modified configuration, base image(s), or both. Pods are also treated as expendable, and do not maintain state when recreated. Therefore pods should usually be managed by higher-level controllers, rather than directly by users.
+
 
 ## Scale up
 When scaled up, an application will have more than one copy of itself, and each copy will have its own local state. Each copy corresponds to a different instance of a pod with the pods being managed by the replication controller. As each pod has a unique IP, we need an easy way to address the set of all pods as a whole. This is where a service comes into play. The service gets its own IP and a DNS name. When making a connection to a service, OpenShift will automatically route the connection to one of the pods associated with that service.
@@ -73,6 +84,11 @@ You may be wondering: “Is a namespace the same thing as an application?” Ope
 
 You can dedicate one to everything related to just one application. Or, so long as you label all the resources making up an application so you know what goes with what, you can also use the namespace to hold more than one.
 
+# Secrets
+
+This topic discusses important properties of secrets and provides an overview on how developers can use them.
+
+The Secret object type provides a mechanism to hold sensitive information such as passwords, OpenShift Origin client configuration files, dockercfg files, private source repository credentials, and so on. Secrets decouple sensitive content from the pods. You can mount secrets into containers using a volume plug-in or the system can use secrets to perform actions on behalf of a pod.
 
 
 
