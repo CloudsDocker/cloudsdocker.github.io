@@ -45,6 +45,8 @@ content_copy
 <router-outlet></router-outlet>
 <!-- Routed views go here -->
 ```
+## Define routes
+A router must be configured with a list of route definitions.
 
 # Reference
 - https://angular.io/guide/router
