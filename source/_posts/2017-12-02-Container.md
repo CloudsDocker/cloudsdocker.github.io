@@ -17,6 +17,16 @@ The Docker project was responsible for popularizing container development in Lin
 RHEL Atomic Host is a light-weight Linux operating system distribution that was designed specifically for running containers. It contains two different versions of the docker service, as well as some services that can be used to orchestrate and manage Docker containers, such as Kubernetes. Only one version of the docker service can be running at a time. 
 
 
+# Images
+
+Containers in OpenShift Origin are based on Docker-formatted container images. An image is a binary that includes all of the requirements for running a single container, as well as metadata describing its needs and capabilities.
+
+
+You can think of it as a packaging technology. Containers only have access to resources defined in the image unless you give the container additional access when creating it. By deploying the same image in multiple containers across multiple hosts and load balancing between them, OpenShift Origin can provide redundancy and horizontal scaling for a service packaged into an image.
+
+## Container Registries
+A container registry is a service for storing and retrieving Docker-formatted container images. A registry contains a collection of one or more image repositories. Each image repository contains one or more tagged images. Docker provides its own registry, the Docker Hub, and you can also use private or third-party registries. Red Hat provides a registry at registry.access.redhat.com for subscribers. OpenShift Origin can also supply its own internal registry for managing custom container images.
+
 
 
 # Reference 
