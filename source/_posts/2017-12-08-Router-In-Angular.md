@@ -45,6 +45,7 @@ content_copy
 <router-outlet></router-outlet>
 <!-- Routed views go here -->
 ```
+
 ## Define routes
 A router must be configured with a list of route definitions.
 
@@ -60,6 +61,10 @@ A router must be configured with a list of route definitions.
 - Set the router to compose HTML5 browser URLs.
 - handle invalid routes with a wildcard route.
 - navigate to the default route when the app launches with an empty path.
+
+# Difference between forRoot and forChild
+Only call RouterModule.forRoot in the root AppRoutingModule (or the AppModule if that's where you register top level application routes). In any other module, you must call the RouterModule.forChild method to register additional routes.
+
 
 # Reference
 - https://angular.io/guide/router
