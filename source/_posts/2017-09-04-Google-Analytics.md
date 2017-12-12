@@ -2,6 +2,47 @@
 title: google analysis
 ---
 
+# How Page Value is calculated
+
+## At a glance
+Page Value is the average value for a page that a user visited before landing on the goal page or completing an Ecommerce transaction (or both). This value is intended to give you an idea of which page in your site contributed more to your site's revenue. If the page wasn't involved in an ecommerce transaction for your website in any way, then the Page Value for that page will be $0 since the page was never visited in a session where a transaction occurred.
+
+Below is the equation you can follow to calculate Page Value. Please note that the unique pageview statistic represents the number of individual users who have loaded a given page per session. Each user is counted only once per session, no matter how many pages are opened by the same user.
+
+Ecommerce Revenue + Total Goal Value
+Number of Unique Pageviews for Given Page
+
+## In depth
+
+The first example above illustrates how Page Value works. Let's say you want to know the Page Value for Page B, and you know the following factors:
+
+Goal page D: $10 (Remember, you assign the value of the Goal page when you first create a goal in the Analytics Settings page)
+Receipt Page E: $100 (This page is where the user makes an ecommerce transaction of $100)
+Unique pageview for Page B: One
+
+You would then set up your Page Value equation like this:
+
+Ecommerce Revenue ($100) + Total Goal Value ($10) 
+Number of Unique Pageviews for Page B (1)
+
+Page Value for Page B is $110 since a user visits Page B only once before the goal page during this session.
+
+
+Now let's explore how Page Value for Page B is affected when we combine the data from two different sessions. You can see that Page B is viewed only once during Session 1, but during Session 2 it gets two pageviews (we're assuming the two pageviews are from the same user). The total Ecommerce revenue stays the same during both sessions. Although there were two unique pageviews, there was still only one Ecommerce transaction total for both sessions.
+
+Goal page D: $10
+Receipt Page E: $100
+Unique pageview for Page B: Two
+
+Your Page Value calculation should be adjusted to look like this:
+
+Ecommerce Revenue ($100) + Total Goal Value ($10 x 2 sessions) 
+Number of Unique Pageviews for Page B (2)
+
+Page Value for Page B across two sessions is then $60, or $120 divided by two sessions.
+
+# Code snippet about setting up GA in your site
+
 ```html
 <script>
         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
