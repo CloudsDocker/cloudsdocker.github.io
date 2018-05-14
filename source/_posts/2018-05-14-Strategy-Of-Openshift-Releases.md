@@ -5,7 +5,7 @@ title: Strategy-Of-Openshift-Releases
 # Release & Testing Strategy
 There are various methods for safely releasing changes to Production. Each team must select what is appropriate for their own use case with consideration to risk, rollback approaches and testing approaches.
 
-#The following are options:
+# The following are options:
 
 ## Canary Release
 This is the lowest risk strategy since it allows for testing on a subset of users, and it allows for fast rollback:
