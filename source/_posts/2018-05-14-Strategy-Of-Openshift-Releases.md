@@ -14,10 +14,10 @@ This is the lowest risk strategy since it allows for testing on a subset of user
 * Use a routing tool (eg. Apigee) to test with a specific set of users
 * Bleed traffic across
 * Remove old environment
-* Blue Green
-* This is the classic zero-downtime deployment model that involves flipping traffic between two environments:
 
-## Ensure your router has two entry points, one for Production Testing and one for Production traffic
+## Blue Green
+ This is the classic zero-downtime deployment model that involves flipping traffic between two environments:
+* Ensure your router has two entry points, one for Production Testing and one for Production traffic
 * Have two environments: `blue` and `green`
 * If Production traffic is pointing to `blue` then deploy your changes on `green`
 * Point your Production Testing traffic to `green`
