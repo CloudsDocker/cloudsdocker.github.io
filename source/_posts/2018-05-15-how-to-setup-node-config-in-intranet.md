@@ -41,7 +41,17 @@ npm config delete https-proxy
 
 # Error of 'code E503'
 
-Sometimes when you run npm install, you can see error 'E503'. That's because property 'proxy' missing for npm. Please run below command to check wether it's exist or not.
+Sometimes when you run npm install, you can see error 'E503'. 
+```bash
+$ npm install -g @angular/cli@latest                                            npm WARN registry Using stale package data from http://registry.npmjs.org/ due to a request error during revalidation.
+npm ERR! code E503
+npm ERR! 503 Service Unavailable: @angular-devkit/architect@0.6.0
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     C:\Users\xxx\AppData\Roaming\npm-cache\_logs\2018-05-15T05_40_53_127Z-debug.log
+
+```
+That's because property 'proxy' missing for npm. Please run below command to check wether it's exist or not.
 
 ```bash
 npm config list | grep 'proxy'
