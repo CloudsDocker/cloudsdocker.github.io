@@ -2,7 +2,7 @@
 title: GIT useful scripts or error solutions
 ---
 
-# Scribpt bible
+# Script bible
 
 ## to list merge conflicts files in command line
 You can use either one of below three commands
