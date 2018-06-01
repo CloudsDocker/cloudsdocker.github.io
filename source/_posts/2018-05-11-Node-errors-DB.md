@@ -4,7 +4,7 @@ title: Node errors troubleshooting
 
 Here is the typical erros log:
 
-```
+```bash
 node_modules/@types/node/index.d.ts(6202,55): error TS2304: Cannot find name 'Map'.
 node_modules/@types/node/index.d.ts(6209,55): error TS2304: Cannot find name 'Set'.
 node_modules/@types/node/index.d.ts(6213,64): error TS2304: Cannot find name 'Symbol'.
