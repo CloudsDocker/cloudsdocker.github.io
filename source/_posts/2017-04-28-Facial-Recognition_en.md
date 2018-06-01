@@ -7,6 +7,7 @@ tag:
 - FacialRecognition
 - Python
 - MyBlog
+date: 2017-04-28 06:40:12
 ---
 
 # A Facial Recognition utility in a dozen of python LOC (Lines Of Code)
