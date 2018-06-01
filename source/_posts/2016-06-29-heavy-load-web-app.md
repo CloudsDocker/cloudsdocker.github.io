@@ -4,6 +4,7 @@ title: heavy load web application
 tag:
 - heavy load
 - mobile internet
+- DevOps
 ---
 
 # Common solutions

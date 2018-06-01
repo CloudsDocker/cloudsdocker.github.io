@@ -3,6 +3,7 @@ title: Simpler chronicle of CI(Continuous Integration) “乱弹系列”之持�
 tag:
 - CI
 - DevOps
+- MyBlog
 ---
 
 # 引言

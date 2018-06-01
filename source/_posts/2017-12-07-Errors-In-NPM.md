@@ -1,5 +1,9 @@
 ---
 title: common errors in NPM or node
+tags:
+- nodejs
+- javascript
+- anugar
 ---
 
 ## code E503

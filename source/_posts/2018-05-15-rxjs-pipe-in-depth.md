@@ -1,5 +1,9 @@
 ---
 title: rxjs pipe in depth
+tags:
+- RxJS
+- NodeJs
+- Angular
 ---
 https://stormforger.com/blog/2016/07/08/types-of-performance-testing/
 

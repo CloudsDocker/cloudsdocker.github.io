@@ -1,5 +1,8 @@
 ---
 title: TypeScript noteworthy notes
+tags:
+- Angular
+- JavaScript
 ---
 
 # Troubleshotting

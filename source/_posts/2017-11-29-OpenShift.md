@@ -1,5 +1,8 @@
 ---
 title: Openshift tips
+tags:
+- cloud
+- DevOps
 ---
 
 # Commands bible

@@ -2,8 +2,6 @@
 layout: page
 title: Java new features 
 tag:
-- fund
-- finance
 ---
 # JDK Versions
 - JDK 1.5 in 2005

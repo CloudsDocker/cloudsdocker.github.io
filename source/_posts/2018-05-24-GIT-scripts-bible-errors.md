@@ -1,5 +1,7 @@
 ---
 title: GIT useful scripts or error solutions
+tags:
+- DevOps
 ---
 
 # Script bible

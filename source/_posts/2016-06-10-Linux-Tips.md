@@ -3,6 +3,7 @@ layout: page
 title: Linux Tips
 tag:
 - Linux
+- DevOps
 ---
 
 # To check redhat Linux version

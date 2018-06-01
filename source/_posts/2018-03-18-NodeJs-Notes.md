@@ -1,5 +1,8 @@
 ---
 title: NodeJs Notes
+tags:
+- NodeJs
+- Angular
 ---
 
 ## commands to read files
