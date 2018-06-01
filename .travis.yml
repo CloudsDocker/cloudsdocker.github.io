@@ -44,9 +44,11 @@ script:
 - touch README
 - ls -lt
 - git init && git remote add origin $DEPLOY_REPO
-- git pull
-- cp -r -f ../.deploy/* .
 - git pull origin master
+- cp -r -f ../.deploy/* .
+- ls -lt
+#- git pull origin master
+- git status
 - git add .
 - git commit -am 'Site updated from travis'
 #- git push -f
