@@ -1,3 +1,7 @@
+---
+title: Node errors troubleshooting
+---
+
 ```
 node_modules/@types/node/index.d.ts(6202,55): error TS2304: Cannot find name 'Map'.
 node_modules/@types/node/index.d.ts(6209,55): error TS2304: Cannot find name 'Set'.
