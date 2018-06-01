@@ -1,5 +1,9 @@
 ---
 title: RxJS reactive extension javascript
+tags:
+- Angular
+- JavaScript
+- NodeJs
 ---
 
 # Streams

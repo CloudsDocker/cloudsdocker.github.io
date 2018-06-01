@@ -6,6 +6,7 @@ tag:
 - MachineLearning
 - FacialRecognition
 - Python
+- MyBlog
 ---
 
 # A Facial Recognition utility in a dozen of python LOC (Lines Of Code)

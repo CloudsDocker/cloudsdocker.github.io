@@ -2,6 +2,7 @@
 title: How to customize Sublime syntax highlights
 tag:
 - tag
+- efficiency
 ---
 
 # Reference 

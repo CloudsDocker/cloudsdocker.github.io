@@ -1,6 +1,8 @@
 ---
 layout: page
 title: HashMap in JDK
+tags:
+- java
 ---
 # Hashmap in JDK
 ## Some note worth points about hashmap

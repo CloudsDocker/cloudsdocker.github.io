@@ -1,5 +1,9 @@
 ---
 title: How to setup nodejs to install package from intranet
+tags:
+- nodejs
+- angular
+- javascript
 ---
 
 # Error of 'ECONNRESET'

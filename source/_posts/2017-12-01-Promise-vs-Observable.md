@@ -1,5 +1,8 @@
 ---
 title: promise vs observiable
+tags:
+- Angular
+- JavaScript
 ---
 
 The drawback of using Promises is that they’re unable to handle data sources that produce more than one value, like mouse movements or sequences of bytes in a file stream. Also, they lack the ability to retry from failure—all present in RxJS. 

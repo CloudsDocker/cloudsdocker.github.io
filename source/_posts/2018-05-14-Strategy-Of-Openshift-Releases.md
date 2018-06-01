@@ -1,5 +1,8 @@
 ---
 title: Strategy-Of-Openshift-Releases
+tags:
+- clud
+- Openshift
 ---
 
 # Release & Testing Strategy

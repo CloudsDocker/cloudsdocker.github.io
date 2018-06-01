@@ -1,5 +1,9 @@
 ---
 title: What is difference between declarations, providers and import in NgModule
+tags:
+- Angular
+- JavaScript
+- NodeJs
 ---
 
 # What is difference between declarations, providers and import in NgModule 
