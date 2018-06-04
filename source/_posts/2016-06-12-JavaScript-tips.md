@@ -12,6 +12,7 @@ tag:
 
 * The some() method checks if some elements exists in an array, and returns true or false. This is somewhat similar to the concept of the includes() method, `the key diffence is the argument is a function` but not a string.
 
+
 # Observable is `lazy`
 
 Remember that observables are lazy — if we want to pull a value out of an observable, we must subscribe().
