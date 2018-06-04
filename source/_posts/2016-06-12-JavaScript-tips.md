@@ -6,12 +6,53 @@ tag:
 - JavaScript
 ---
 
+# includes() vs some()
+
+* The includes() method is used to check if a specific string exists in a collection, and returns true or false. Keep in mind that it is case sensitive: if the item inside the collection is SCHOOL, and you search for school, it will return false.
+
+* The some() method checks if some elements exists in an array, and returns true or false. This is somewhat similar to the concept of the includes() method, `the key diffence is the argument is a function` but not a string.
+
+# Observable is `lazy`
+
+Remember that observables are lazy — if we want to pull a value out of an observable, we must subscribe().
+
+# mergeAll vs mergeMap in redux
+
+## mergeAll
+
+When the inner observable emits, let me know by merging the value to the outer observable.
+
+Under the hood, the mergeAll() operator basically does takes the inner observable, subscribes to it, and pushes the value to the observer. Here is one sample:
+
+
+```typescript
+const click$ = Observable.fromEvent(button, ‘click’);
+const interval$ = Observable.interval(1000);
+
+const observable$ = click$.map(event => { 
+   return interval$;
+});
+
+observable$.mergeAll().subscribe(num => console.log(num));
+
+Because this is a common pattern in Rx, there is a shortcut that achieves the same behaviour — mergeMap().
+
+
+const click$ = Observable.fromEvent(button, ‘click’);
+const interval$ = Observable.interval(1000);
+
+const observable$ = click$.mergeMap(event => { 
+   return interval$;
+});
+
+observable$.subscribe(num => console.log(num));
+```
+
 #  more elegant, concise and flexible approach to check host string belongs to multiple value choices
 checkStringAgainstMultipleLiteralValues.js
 ```javascript
-if (host.match(/["uat" , "beta", "lab"].(api.)?youdomain.(com.)?["au","io"]/)) {
-    // if (host.match('/[beta|uat|lab]/i')) {
-    console.log('matched1111')
+if (host.match(/["uat" , "beta", "lab"].(api.)?yourdomain.(com.)?["au","io"]/)) {
+    console.log('matched')
 }
 ```
 # closure 
