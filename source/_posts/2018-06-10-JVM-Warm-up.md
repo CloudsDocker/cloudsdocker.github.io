@@ -75,3 +75,97 @@ Inside Java HotSpot VM, there are actually two separate JIT compiler modes, whic
 
 The two compiler modes use different techniques for JIT compilation, and they can output very different machine code for the same Java method. Modern Java applications, however, can usually make use of both compilation modes. To take advantage of this fact, starting with some of the later Java SE 7 releases, a new feature called tiered compilation became available. This feature uses the C1 compiler mode at the start to provide better startup performance. Once the application is properly warmed up, the C2 compiler mode takes over to provide more-aggressive optimizations and, usually, better performance. With the arrival of Java SE 8, tiered compilation is now the default behavior.
 
+
+# Java memory monitoring tools
+
+```bash
+
+pemi$ jps | grep Main
+50903 Main
+pemi$ jmap -histo 50903 | head
+ num     #instances         #bytes  class name
+
+----------------------------------------------
+   1:            95       42952184  [I
+   2:          1079         101120  [C
+   3:           485          55272  java.lang.Class
+   4:           526          25936  [Ljava.lang.Object;
+   5:            13          25664  [B
+   6:          1057          25368  java.lang.String
+   7:            74           5328  java.lang.reflect.Field
+```
+
+jmap - Memory Map
+
+
+
+Tool or Option  Description and Usage
+
+Java Mission Control
+    
+
+Java Mission Control (JMC) is a new JDK profiling and diagnostic tools platform for HotSpot JVM. It s a tool suite basic monitoring, managing, and production time profiling and diagnostics with high performance. Java Mission Control minimizes the performance overhead that's usually an issue with profiling tools. See Java Mission Control.
+
+jcmd utility
+    
+
+The jcmd utility is used to send diagnostic command requests to the JVM, where these requests are useful for controlling Java Flight Recordings. The JFRs are used to troubleshoot and diagnose JVM and Java Applications with flight recording events. See The jcmd Utility.
+
+Java VisualVM
+    
+
+This utility provides a visual interface for viewing detailed information about Java applications while they are running on a Java Virtual Machine. This information can be used in troubleshooting local and remote applications, as well as for profiling local applications. See Java VisualVM.
+
+JConsole utility
+    
+
+This utility is a monitoring tool that is based on Java Management Extensions (JMX). The tool uses the built-in JMX instrumentation in the Java Virtual Machine to provide information about performance and resource consumption of running applications. See JConsole.
+
+jmap utility
+    
+
+This utility can obtain memory map information, including a heap histogram, from a Java process, a core file, or a remote debug server. See The jmap Utility.
+
+jps utility
+    
+
+This utility lists the instrumented Java HotSpot VMs on the target system. The utility is very useful in environments where the VM is embedded, that is, it is started using the JNI Invocation API rather than the java launcher. See The jps Utility.
+
+jstack utility
+    
+
+This utility can obtain Java and native stack information from a Java process. On Oracle Solaris and Linux operating systems the utility can alos get the information from a core file or a remote debug server. See The jstack Utility.
+
+jstat utility
+    
+
+This utility uses the built-in instrumentation in Java to provide information about performance and resource consumption of running applications. The tool can be used when diagnosing performance issues, especially those related to heap sizing and garbage collection. See The jstat Utility.
+
+jstatd daemon
+    
+
+This tool is a Remote Method Invocation (RMI) server application that monitors the creation and termination of instrumented Java Virtual Machines and provides an interface to allow remote monitoring tools to attach to VMs running on the local host. See The jstatd Daemon.
+
+visualgc utility
+    
+
+This utility provides a graphical view of the garbage collection system. As with jstat, it uses the built-in instrumentation of Java HotSpot VM. See The visualgc Tool.
+
+Native tools
+    
+
+Each operating system has native tools and utilities that can be useful for monitoring purposes. For example, the dynamic tracing (DTrace) capability introduced in Oracle Solaris 10 operating system performs advanced monitoring. See Native Operating System Tools.
+
+
+
+
+```bash
+$ jps
+16217 MyApplication
+16342 jps
+
+The utility lists the virtual machines for which the user has access rights. This is determined by access-control mechanisms specific to the operating system. On Oracle Solaris operating system, for example, if a non-root user executes the jps utility, then the output is a list of the virtual machines that were started with that user's uid.
+
+In addition to listing the PID, the utility provides options to output the arguments passed to the application's main method, the complete list of VM arguments, and the full package name of the application's main class. The jps utility can also list processes on a remote system if the remote system is running the jstatd daemon.
+
+```
