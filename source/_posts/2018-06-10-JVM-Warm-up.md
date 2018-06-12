@@ -169,3 +169,13 @@ The utility lists the virtual machines for which the user has access rights. Thi
 In addition to listing the PID, the utility provides options to output the arguments passed to the application's main method, the complete list of VM arguments, and the full package name of the application's main class. The jps utility can also list processes on a remote system if the remote system is running the jstatd daemon.
 
 ```
+
+
+# GC-less Java
+
+Java Development without GC
+All products developed by Coral Blocks have the very important feature of leaving ZERO garbage behind. Because the latency imposed by the Java Garbage Collector (i.e. GC) is unacceptable for high-performance systems and because it is impossible to turn off the GC, the best option for real-time systems in Java is to not produce any garbage at all so that the GC never kicks in. Imagine a high-performance matching engine operating in the microsecond level, sending and receiving hundreds of thousands messages per second. If at any given time the GC decides to kick in with its 1+ millisecond latencies, the disruption in the system will be huge. Therefore, if you want to develop real-time systems in Java with minimal variance and latency, the best option is to do it right without creating any garbage for the GC. 
+
+
+## Warming up, Checking the GC and Sampling
+The key to make sure your system is not creating any garbage is to warm up your critical path from start to finish a couple of million times and then check for memory allocation another couple of million times. If it is allocating memory linearly as the number of iterations increases, it is most likely creating garbage and you should use the stack trace 
