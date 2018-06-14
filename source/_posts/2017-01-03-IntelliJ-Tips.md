@@ -101,3 +101,7 @@ Detailed Answer
 One way to achieve your requirement (excluding files and folders from a search) is to define a custom scope. This is specifically useful because sometimes you just want to exclude a folder from your search and not from the whole project.
 Follow these steps:
 Edit -> Find -> Find in path or press Ctrl+Shift+F.Choose Custom in the Scope section and then choose <unknown scope>
+
+
+## how to add xx-properties project to xx project as dependencies
+select project and press F4 to open properites, chose 'module' in left pane and then click "+", chose 'import module', then chose the properties project
