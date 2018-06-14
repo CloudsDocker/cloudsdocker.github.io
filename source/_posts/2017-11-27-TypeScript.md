@@ -4,6 +4,11 @@ tags:
 - Angular
 - JavaScript
 ---
+# Async Await keywords
+Async Await Support in TypeScript
+Async - Await has been supported by TypeScript since version 1.7. Asynchronous functions are prefixed with the async keyword; await suspends the execution until an asynchronous function return promise is fulfilled and unwraps the value from the Promise returned. It was only supported for target es6 transpiling directly to ES6 generators.
+
+
 
 # Troubleshotting
 
