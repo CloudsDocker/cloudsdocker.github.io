@@ -13,6 +13,18 @@ tags:
 
 http://repo.maven.apache.org/maven2/
 
+# Maven Settings
+The settings element in the settings.xml file contains elements used to define values which configure Maven execution in various ways, like the pom.xml, but should not be bundled to any specific project, or distributed to an audience. These include values such as the local repository location, alternate remote repository servers, and authentication information.
+
+There are two locations where a settings.xml file may live:
+
+- The Maven install: ${maven.home}/conf/settings.xml
+- A user’s install: ${user.home}/.m2/settings.xml
+The former settings.xml are also called `global settings`, the latter settings.xml are referred to as user settings. If both files exists, their contents gets merged, with the user-specific settings.xml being dominant.
+
+Tip: If you need to create user-specific settings from scratch, it’s easiest to copy the global settings from your Maven installation to your ${user.home}/.m2 directory. Maven’s default settings.xml is a template with comments and examples so you can quickly tweak it to match your needs.
+
+
 ## All Maven pom.xml inherits from super POM
 
 # Coc: Convention over Configuration
