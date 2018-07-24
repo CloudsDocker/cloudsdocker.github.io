@@ -6,6 +6,19 @@ tag:
 - DevOps
 ---
 
+# To check Linux release name
+```sh
+cat /etc/os-release
+```
+
+# How to check whether your linux is 32bit or 64 bit 
+To run "arch" command,  this is similar to "uname -m" , it prints to the screen whether your system is running 32-bit (“i686”) or 64-bit (“x86_64”).
+
+# convert line ending to unix (sometimes git submit is dos format)
+```sh
+dos2unix the_script_file_name
+```
+
 # To check redhat Linux version
 ```sh
 cat  /etc/redhat-release
