@@ -9,6 +9,18 @@ tags:
 
 在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。
 
+# POLA
+The principle of least astonishment (POLA) is: "If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature."
+
+In general engineering design contexts, the principle means that a component of a system should behave in a way that users expect it to behave; that is, users should not be astonished by its behavior.
+
+A textbook formulation is: "People are part of the system. The design should match the user's experience, expectations, and mental models."
+
+In more practical terms, the principle aims to leverage the pre-existing knowledge of users to minimize the learning curve, for instance by designing interfaces that borrow heavily from "functionally similar or analogous programs with which your users are likely to be familiar".
+
+## Example:
+A web site could declare an input that should autofocus when the page is loaded,[8] such as a search field (e.g., Google.com), or the username field of a login form.
+
 # DRY
 这里的DRY是`Do Not Repeat Yourself`的缩写。具体解释参见 ,严谨的定义是　Every piece of knowledge must have a single, unambiguous, authoritative representation within a system，意思是：任何一部分知识在系统中必须只有单一的，清晰并且权威的展示。？？？这是啥意思，没懂。简单说就是不要重复自己任何一部分的工作。比如说，有一段代码是用于清除字条串中的HTML符号，在多个程序中会用到此功能，如果每个地方都使用如下代码
 ```java
@@ -87,12 +99,13 @@ SOLID是几个编程哲学的总称，即 SOLID (Single responsibility, Open-clo
 图1中，高层对象A依赖于底层对象B的实现；图2中，把高层对象A对底层对象的需求抽象为一个接口A，底层对象B实现了接口A，这就是依赖反转。
 
 # SOC
-Separation of concerns, 即关注点分离。 是处理复杂性的一个原则。由于关注点混杂在一起会导致复杂性大大增加，所以能够把不同的关注点分离开来，分别处理就是处理复杂性的一个原则，一种方法。这个与SOLID中的 SRP很类似。
+Separation of concerns,?即关注点分离。 是处理复杂性的一个原则。由于关注点混杂在一起会导致复杂性大大增加，所以能够把不同的关注点分离开来，分别处理就是处理复杂性的一个原则，一种方法。这个与SOLID中的 SRP很类似。
 
 # YANGI
 是"You aren't gonna need it"的缩写，直译是“你将来用不到它的”。这个是[极限编程](https://en.wikipedia.org/wiki/Extreme_programming)的一个编程思想。意思是说,永远不要因为 `预计`你会用到某个功能就去写一段代码去实现，总是只有问题出现了，`真的需要这个功能时才去写`。
 
 # 参考
+- https://en.wikipedia.org/wiki/Principle_of_least_astonishment
 - [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
 - [ 六大设计原则--里氏替换原则【Liskov Substitution Principle】](http://blog.csdn.net/sinat_20645961/article/details/47393737)
 - [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
@@ -100,3 +113,4 @@ Separation of concerns, 即关注点分离。 是处理复杂性的一个原则
 - [奥卡姆剃刀](https://en.wikipedia.org/wiki/Occam%27s_razor)
 - [Apache KISS](http://people.apache.org/~fhanik/kiss.html)
 - [Worse is better](https://en.wikipedia.org/wiki/Worse_is_better)
+
