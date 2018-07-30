@@ -1,0 +1,377 @@
+---
+title: akka framework of scala
+---
+
+# philosophy
+The actor model adopts the philosophy that everything is an actor. This is similar to the everything is an object philosophy used by some object-oriented programming languages.
+
+
+Decoupling the sender from communications sent was a fundamental advance of the Actor model enabling asynchronous communication and control structures as patterns of passing messages.
+
+
+Recipients of messages are identified by address, sometimes called "mailing address". Thus an actor can only communicate with actors whose addresses it has.
+
+# Route
+Routes effectively are simply highly specialised functions that take a RequestContext and eventually complete it, which could (and often should) happen asynchronously.
+
+Directives create Routes.
+
+The ¡°Route¡± is the central concept of Akka HTTP¡¯s Routing DSL. All the structures you build with the DSL, no matter whether they consists of a single line or span several hundred lines, are type turning a RequestContext into a Future[RouteResult].
+
+```scala
+type Route = RequestContext => Future[RouteResult]
+```
+
+
+Generally when a route receives a request (or rather a RequestContext for it) it can do one of these things:
+
+- Complete the request by returning the value of requestContext.complete(...)
+- Reject the request by returning the value of requestContext.reject(...) (see Rejections)
+- Fail the request by returning the value of requestContext.fail(...) or by just throwing an exception (see Exception Handling)
+- Do any kind of asynchronous processing and instantly return a Future[RouteResult] to be eventually completed later
+
+## The Routing Tree
+Essentially, when you combine directives and custom routes via nesting and the ~ operator, you build a routing structure that forms a tree. When a request comes in it is injected into this tree at the root and flows down through all the branches in a depth-first manner until either some node completes it or it is fully rejected.
+
+In RouteDirective.scala
+
+```scala
+/**
+   * Completes the request using the given arguments.
+   *
+   * @group route
+   */
+  def complete(m: ? ToResponseMarshallable): StandardRoute =
+    StandardRoute(_.complete(m))
+
+```
+
+
+## RouteResult
+RouteResult is a simple abstract data type (ADT) that models the possible non-error results of a Route. It is defined as such:
+```scala
+sealed trait RouteResult
+
+object RouteResult {
+  final case class Complete(response: HttpResponse) extends RouteResult
+  final case class Rejected(rejections: immutable.Seq[Rejection]) extends RouteResult
+}
+```
+
+
+## Routing DSL
+
+In addition to the Core Server API Akka HTTP provides a very flexible ,Routing DSL, for elegantly defining RESTful web services.
+
+Http().bindAndHandle(routes ~ abcRoute, host, port)
+
+```scala
+/**
+     * Returns a Route that chains two Routes. If the first Route rejects the request the second route is given a
+     * chance to act upon the request.
+     */
+    def ~(other: Route): Route = { ctx ?
+      import ctx.executionContext
+      route(ctx).fast.flatMap {
+        case x: RouteResult.Complete ? FastFuture.successful(x)
+        case RouteResult.Rejected(outerRejections) ?
+          other(ctx).fast.map {
+            case x: RouteResult.Complete               ? x
+            case RouteResult.Rejected(innerRejections) ? RouteResult.Rejected(outerRejections ++ innerRejections)
+          }
+      }
+    }
+
+```
+
+### Path matching
+> Note
+The path matching DSL describes what paths to accept after URL decoding. This is why the path-separating slashes have special status and cannot simply be specified as part of a string! The string ¡°foo/bar¡± would match the raw URI path ¡°foo%2Fbar¡±, which is most likely not what you want!
+
+
+
+# Sink
+A Sink is a set of stream processing steps that has one open input. Can be used as a Subscriber
+
+# supervision
+
+## What Supervision Means
+As described in Actor Systems supervision describes a dependency relationship between actors: the supervisor delegates tasks to subordinates and therefore must respond to their failures. When a subordinate detects a failure (i.e. throws an exception), it suspends itself and all its subordinates and sends a message to its supervisor, signaling failure. Depending on the nature of the work to be supervised and the nature of the failure, the supervisor has a choice of the following four options:
+
+- Resume the subordinate, keeping its accumulated internal state
+- Restart the subordinate, clearing out its accumulated internal state
+- Stop the subordinate permanently
+- Escalate the failure, thereby failing itself
+
+
+## sealed class
+```java
+object Supervision {
+  sealed trait Directive
+}
+```
+A sealed class may not be directly inherited, except if the inheriting template is defined in the same source file as the inherited class. However, subclasses of a sealed class can inherited anywhere.
+
+## implicit
+A method can have an implicit parameter list, marked by the implicit keyword at the start of the parameter list. If the parameters in that parameter list are not passed as usual, Scala will look if it can get an implicit value of the correct type, and if it can, pass it automatically.
+
+The places Scala will look for these parameters fall into two categories:
+
+Scala will first look for implicit definitions and implicit parameters that can be accessed directly (without a prefix) at the point the method with the implicit parameter block is called.
+Then it looks for members marked implicit in all the companion objects associated with the implicit candidate type.
+
+## KillSwitch
+A KillSwitch allows completion of Graphs from the outside by completing Graphs of FlowShape linked to the switch. Depending on whether the KillSwitch is a UniqueKillSwitch or a SharedKillSwitch one or multiple streams might be linked with the switch.
+
+```scala
+trait KillSwitch {
+//After calling KillSwitch.shutdown() the linked Graphs of FlowShape are completed normally.
+ def shutdown(): Unit
+ def abort(ex:Throwable): Unit
+}
+```
+
+## Source
+A Source is a set of stream processing steps that has one open output. It can comprise any number of internal sources and transformations that are wired together, or it can be an atomic source, e.g. from a collection or a file. Materialization turns a Source into a Reactive Streams Publisher (at least conceptually).
+
+
+### connect to Sink
+```scala
+/**
+   * Connect this [[akka.stream.scaladsl.Source]] to a [[akka.stream.scaladsl.Sink]],
+   * concatenating the processing steps of both.
+   */
+  def to[Mat2](sink: Graph[SinkShape[Out], Mat2]): RunnableGraph[Mat] = toMat(sink)(Keep.left)
+```
+
+
+
+# Future
+trait Future[+T]
+ extends Awaitable[T]
+A Future represents a value which may or may not *currently* be available, but will be available at some point, or an exception if that value could not be made available. Asynchronous computations that yield futures are created with the Future.apply call and are computed using a supplied ExecutionContext, which can be backed by a Thread pool.
+  
+   import ExecutionContext.Implicits.global
+   val s = "Hello"
+   val f: Future[String] = Future {
+     s + " future!"
+   }
+   f foreach {
+     msg => println(msg)
+   }
+
+## Future introduction
+Futures provide a way to reason about performing many operations in parallel¨C in an efficient and non-blocking way. A Future is a placeholder object for a value that may not yet exist. Generally, the value of the Future is supplied concurrently and can subsequently be used. Composing concurrent tasks in this way tends to result in faster, asynchronous, non-blocking parallel code.
+
+By default, futures and promises are non-blocking, making use of callbacks instead of typical blocking operations. To simplify the use of callbacks both syntactically and conceptually, Scala provides combinators such as flatMap, foreach, and filter used to compose futures in a non-blocking way. Blocking is still possible - for cases where it is absolutely necessary, futures can be blocked on (although this is discouraged).
+
+
+
+# Scala scope protection:
+private[C] means that access is private "up to" C, where C is the corresponding package, class or singleton object.
+```scala
+private[http] def build = {
+  // ...
+}
+```
+
+The modi?er can be quali?ed with an identi?er C (e.g. private[C]) that must denote a class or package enclosing the de?nition. Members labeled with such a modi?er are accessible respectively only from code inside the package C or only from code inside the class C and its companion module (¡ì5.4). Such members are also inherited only from templates inside C.
+
+
+
+# Scala flexible import
+you can import several classes the Scala way:
+```scala
+import java.io.{File, IOException, FileNotFoundException}
+```
+Use the following syntax to import everything from the java.io package:
+```scala
+import java.io._
+```
+The _ character in this example is similar to the * wildcard character in Java.
+
+If the _ character feels unusual at first, it helps to know that it¡¯s used consistently throughout the Scala language as a wildcard character, and that consistency is very nice.
+
+
+
+## Directives
+A ¡°Directive¡± is a small building block used for creating arbitrarily complex route structures. Akka HTTP already pre-defines a large number of directives and you can easily construct your own:
+
+
+
+# Regular Expression
+```scala
+val pattern = "Scala".r
+      val str = "Scala is Scalable and cool"
+      
+      println(pattern findFirstIn str)
+
+```
+
+We create a String and call the r( ) method on it. Scala implicitly converts the String to a RichString and invokes that method to get an instance of Regex. To find a first match of the regular expression, simply call the findFirstIn() method. If instead of finding only the first occurrence we would like to find all occurrences of the matching word, we can use the findAllIn( ) method and in case there are multiple Scala words available in the target string, this will return a collection of all matching words.
+
+## PathMatcher
+
+- Segment: PathMatcher1[String]
+Matches if the unmatched path starts with a path segment (i.e. not a slash). If so the path segment is extracted as a String instance.
+
+
+
+# Option
+In short, if you have a value of type A that may be absent, Scala uses an instance of Option[A] as its container. An Intance of Option is either an instance of case class Some when it is present or case object None when it is not. Since both Some and None are children of Option, your function signature should declare that the returned value is an Option of some type, e.g. Option[A]
+
+## Sample
+It is very easy to create an Option in Scala, i.e. you can use a present/absent value directly.
+```scala
+val optionalInt: Option[Int] = Some(1)
+// or
+// val optionalInt: Option[Int] = None
+```
+
+### To validate user login
+```scala
+def auth(user:String, pwd:String): AuthResult =
+	(user, pwd) match {
+	case (u, _) if Option(u).exists(_.trim.isEmpty) => ErrorLogin
+	case (_, p) if Option(p).exists(_.trim.isEmpty) => ErrorPwd
+	case (u, p) => doAuth(u,p)
+
+}
+```
+## isDefined
+you add a checker for the None value using the isDefined method and specify logic to handle each scenario accordingly.
+
+```scala
+def addTwoWithDefault(a: Option[Int]): Int = {
+  if(a.isDefined) a.get + 2 else 2
+}
+```
+
+## getOrElse
+
+In many cases, you have a fallback or default value for your absent values, e.g. zero in the above example. With Option, you can easily provide a default value via the getOrElse method.
+
+def addTwoWithDefault(a: Option[Int]): Int = a.getOrElse(0) + 2
+
+## flatten
+Assume that we have a List of Option[Int].
+```scala
+val l: List[Option[Int]] = List(Some(3), Some(1), None, Some(5), Some(8), None)
+```
+
+A common scenario is that we need to filter out the absent values and return a List of Int. A straightfoward approach is to combine filter with .isDefined.
+
+```scala
+l.filter(_.isDefined).map(_.get) 
+// res1: List[Int] = List(3, 1, 5, 8)
+```
+However, Scala actually provides an elegent built-in function to achieve the same goal, which is often more preferred.
+
+```scala
+l.flatten
+// res1: List[Int] = List(3, 1, 5, 8)
+```
+
+
+# underscore
+In Scala, pattern matching is somewhat similar to java switch statement. But it is more powerful.
+
+```scala
+ def matchTest(x: Int): String = x match {
+    case 1 => "one"
+    case 2 => "two"
+    case _ => "anything other than one and two"
+  }
+
+```
+
+_ acts like a wildcard. It will match anything. Scala allows nested patterns, so we can nest the _ also.Lets see another example that uses _ in nested pattern.
+
+```scala
+expr match {
+  case List(1,_,_) => " a list with three element and the first element is 1"
+  case List(_*)  => " a list with zero or more elements "
+  case Map[_,_] => " matches a map with any key type and any value type "
+  case _ =>
+  }
+```
+
+## Anonymous Functions
+Scala represents anonymous functions with a elegant syntax. The _ acts as a placeholder for parameters in the anonymous function. The _ should be used only once, But we can use two or more underscores to refer different parameters.
+
+```scala
+List(1,2,3,4,5).foreach(print(_))
+List(1,2,3,4,5).foreach( a => print(a))
+// Here the _ refers to the parameter. The first one is a short form of the second one. Lets look at another example which take two parameters.
+
+val sum = List(1,2,3,4,5).reduceLeft(_+_)
+val sum = List(1,2,3,4,5).reduceLeft((a, b) => a + b)
+```
+
+## Functions
+Scala is a functional language. So we can treat function as a normal variable. If you try to assign a function to a new variable, the function will be invoked and the result will be assigned to the variable. This confusion occurs due to the optional braces for method invocation. We should use _ after the function name to assign it to another variable.
+
+```scala
+List(1,2,3,4,5).foreach(print(_))
+class Test {
+  def fun = {
+    // some code
+  }
+  val funLike = fun _
+}
+List(1,2,3,4,5).foreach(print(_))
+```
+
+
+
+# Either, Left, Right
+
+Using Either, Left, and Right
+Prior to Scala 2.10, an approach similar to Try was available with the Either, Left, and Right classes. With these classes, Either is analogous to Try, Right is similar to Success, and Left is similar to Failure.
+
+The following method demonstrates how to implement the Either approach:
+
+```scala
+def divideXByY(x: Int, y: Int): Either[String, Int] = {
+    if (y == 0) Left("Dude, can't divide by 0")
+    else Right(x / y)
+}
+```
+As shown, your method should be declared to return an Either, and the method body should return a Right on success and a Left on failure. The Right type is the type your method returns when it runs successfully (an Int in this case), and the Left type is typically a String, because that¡¯s how the error message is returned.
+
+As with Option and Try, a method returning an Either can be called in a variety of ways, including getOrElse or a match expression:
+
+```scala
+val x = divideXByY(1, 1).right.getOrElse(0)   // returns 1
+val x = divideXByY(1, 0).right.getOrElse(0)   // returns 0
+
+// prints "Answer: Dude, can't divide by 0"
+divideXByY(1, 0) match {
+    case Left(s) => println("Answer: " + s)
+    case Right(i) => println("Answer: " + i)
+}
+```
+You can also access the error message by testing the result with isLeft, and then accessing the left value, but this isn¡¯t really the Scala way:
+
+```scala
+scala> val x = divideXByY(1, 0)
+x: Either[String,Int] = Left(Dude, can't divide by 0)
+
+scala> x.isLeft
+res0: Boolean = true
+
+scala> x.left
+res1: scala.util.Either.LeftProjection[String,Int] =
+      LeftProjection(Left(Dude, can't divide by 0))
+```
+Although the Either classes offered a potential solution prior to Scala 2.10, I now use the Try classes in all of my code instead of Either.
+
+
+## classOf
+Retrieve the runtime representation of a class type. classOf[T] is equivalent to the class literal T.class in Java.
+
+# Operators
+// Keywords
+<-  // Used on for-comprehensions, to separate pattern from generator
+=>  // Used for function types, function literals and import renaming
+
