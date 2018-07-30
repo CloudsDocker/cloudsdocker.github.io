@@ -43,4 +43,46 @@ if (configuration != null) {
                         settings = QuickfixjEngine.loadSettings(remaining);
                     }
 
+## MessageStore
+This interface Used by a Session to store and retrieve messages for resend purposes.
 
+- boolean set(int sequence, String message) throws IOException;
+- void get(int startSequence, int endSequence, Collection<String> messages) throws IOException;
+
+Implementations such as MemoryStore.java, it use one HashMap<Integer, String> to keep messages (string)
+
+## Parse body
+private void parseBody(DataDictionary dd, boolean doValidation) throws InvalidMessage {
+        for(StringField field = this.extractField(dd, this); field != null; field = this.extractField(dd, this)) {
+            if (isTrailerField(field.getField())) {
+                this.pushBack(field);
+                return;
+            }
+
+
+## validate check sum
+in message.class
+
+private void validateCheckSum(String messageData) throws InvalidMessage {
+        try {
+            int checksum = this.trailer.getInt(10);
+            if (checksum != MessageUtils.checksum(messageData)) {
+                throw new InvalidMessage("Expected CheckSum=" + MessageUtils.checksum(messageData) + ", Received CheckSum=" + checksum + " in " + messageData);
+            }
+}
+
+the first checksum is 131
+
+in MessageUtils.checksum
+public static int checksum
+
+int end = isEntireMessage ? data.lastIndexOf("\u000110=") : -1;
+            int len = end > -1 ? end + 1 : data.length();
+
+            for(int i = 0; i < len; ++i) {
+                sum += data.charAt(i);
+            }
+
+            return sum & 255;
+the checksum from above messageUtil is 87
+?? how to get and set this.trailer.10=131 ?
