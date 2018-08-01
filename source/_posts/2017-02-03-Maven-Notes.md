@@ -416,6 +416,8 @@ This is likely you are behind corporate proxy, so you have to config to make Mav
 	</mirrors>
 ```
 - double check your login token in nexus, log into nexus, click your login name in top right dropdown, chose "profile" and then trigger button "Access User Token"
+## Newly added dependency in pom not working, class not found
+If you are in intellij, please go to the exact module (the child module, rather than parent pom), right click the pom.xml, chose maven -> Reinstall
 # Setup Proxy
 - “Maven requires an Internet connection to download plug-ins and dependencies. Some companies employ HTTP proxies to restrict access to the Internet. In those scenarios, running Maven will result in Unable to download artifact errors. To address this, edit the settings.xml file and add the proxy information specific to your company.”
 ```xml
