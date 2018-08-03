@@ -59,9 +59,70 @@ ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc
 # DSA
 - The Digital Signature Algorithm (DSA) is a Federal Information Processing Standard for digital signatures. It was proposed by the National Institute of Standards and Technology (NIST) in August 1991 for use in their Digital Signature Standard (DSS) and adopted as FIPS 186 in 1993
 
+# Hash 
+In cryptography applications, we often need a so-called secure hash function. Secure hash functions are generaelly a subset of hash functions that fulfil at least two extra criteria:
+
+- it must be computationally impossible to reverse the mapping, that is, go from a hash code to a message or piece of data that would have generated that hash code;
+- it must be infeasible for a collision to occur: that is, for two messages to be found that have the same hash code.
+
+In order to fulfil these criteria (or at least, as a by-product of needing to fulfil these criteria), secure hash functions generally have these characteristics:
+
+they are slower to compute than the hash codes typically used to key hash maps;
+they are wider (i.e. have more bits) than weak hash codes.
+
+Secure hash codes are typically 128 bits wide at the very least; compare that, for example, to the 32-bit codes returned by Java hashCode() method, or the 64-bit hash codes recommended for key-less hash maps in Numerical Recipes.
+
+Applications of secure hash functions
+Secure hash functions actually have various applications. A very common case is verifying the integrity of data. When we send some data, we append a hash of that data; on the receiving end, we re-hash the received data and check that the computed hash equals that sent; if any of the data has changed then (with overwhelming probability), the computed hash value will no longer match the original. Another case is where we need to authenticate some data, i.e. produce a kind of integrity check that only a party with a given private key could produce. (In this case, the general solution is to combine a hash code with encryption.)
+
+In other cases, a secure hash function is useful to represent a particular item of data. For example, for the purpose of checking passwords, we need only store a hash of that password. When somebody enters their password, if the computed hash of what they entered matches the hash stored in the password file/database, we assume they knew the password.
+
+This scheme, sometimes called compare by hash (CBH) can be used to search for duplicates of data on a hard drive or for synching data between multiple machines. Similarly, another example are the databases that various law enforcement agencies keep of known "disapproved" files that they want to search peoples hard drives for. In these applications, keeping a database of the actual file contents, and/or transmitting and comparing those entire contents, would be impractical. Instead, only hashes are stored and compared.
+
+More broadly, secure hash functions are useful in a variety of cases where we need a trapdoor function (i.e. one that cannot feasibly be reversed), especially where we need one with a limited or fixed-size result.
+
+As mentioned, secure hashes are sometimes called message digests. And in fact, the main class for computing them in Java is java.security.MessageDigest. We get an instance of MessageDigest, feed it an array (or several arrays) of bytes, then call its digest() method to get the resulting hash:
+
+```java
+byte[] data = ....
+
+MessageDigest md = MessageDigest.getInstance("SHA-1");
+md.update(data);
+byte[] hash = md.digest();
+```
+
+## MD5
+MD5 is a later hash function developed by Ron Rivest. It is one of the most common hash algorithms in use today. Like MD2, it is a 128-bit hash function but, unlike its predecessor, it is one of the fastest "secure" hash functions in common use, and the fastest provided in Java 6.
+
+Unfortunately, it is now considered insecure. Aside from the relatively small hash size, there are well-published methods to find collisions analytically in a trivial amount of time. For example, Vlastimil Klima has published a C program to find MD5 collisions in around 30 seconds on an average PC. If you need security, dont use MD5!
+
+Although insecure, MD5 still makes a good general strong hash function due to its speed. In non-security applications such as finding duplicate files on a hard disk (where you are not trying to protect against the threat model of somebody deliberately fooling your system), MD5 makes a good choice.
+
+## SHA algorithms
+SHA (Secure Hash Algorithm) refers collectively to various hash functions developed by the US National Security Agency (NSA). The various algorithms are based on differing hash sizes and (in principle) offer corresponding levels of security:
+
+# PBE  password-based encryption
+
+The technique of generating a secret key from a user-generated passphrase is usually called password-based encryption (PBE). As you might imagine, it is fraught with difficulty. In particular:
+
+- the user is requirement and the security requirement usually conflict: the user requires an easy-to-remember passphrase, or at least one that is made of recognisable characters and short enough to write down; yet for secure encryption by today is standards, we require at least 128 strongly random bits (and ideally more);
+- password-based encryption is typically used in applications where an attacker can repeatedly try to guess the password undetected and beyond the control of the genuine sender/recipient (if the password is being used to log into our server, we can detect that so many invalid attempts were made and in the worst case shut down our server to prevent further attempts; but if an eavesdropper takes a copy of the encrypted ZIP file we e-mailed, we will never know that they are sitting there with a 100,000-processor botnet trying to brute-force the password, and they can essentially sit doing it for as long as they like).
+The typical result is fairly dire: most password-protected data is encrypted with weak encryption keys, and an attacker can spend all the processor time they like trying to guess that weak key with complete impunity.
+
+## How to use PBE
+There are two fundamental problems: 
+(a) user-memorable passwords typically dont contain as much randomness as we need for a secure key; 
+(b) in a typical application, an attacker gets as many tries as they like at the password. An additional problem is that if, say, the password abc123 always generated the same key in our application, then an attacker could calculate the key from this password once and then quickly decrypt any data protected with this password.
+
+Two common techniques are used in password-based encryption to try to alleviate these problems:
+
+- a deliberately slow method is used to derive the encryption key from the password, reducing the number of guesses that an attacker can make in a given time frame;
+- some random bytes, called a salt, are appended to the password before it is used to calculate the key.
+
+
 # Cryptographic hash function
-- A cryptographic hash function is a special class of hash function that has certain properties which make it suitable for use in cryptography. **It is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size** (a hash function) which is designed to also be **a one-way function**, that is, a function which is infeasible to invert. The only way to recreate the input data from an ideal cryptographic hash function's output is **to attempt a brute-force search** of possible inputs to see if they produce a match. 
--  Bruce Schneier has called one-way hash functions "the workhorses of modern cryptography".[1] The input data is often called the message, and the output (the hash value or hash) is often called the message digest or simply the `digest`.
+- A cryptographic hash function is a special class of hash function that has certain properties which make it suitable for use in cryptography. **It is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size** (a hash function) which is designed to also be **a one-way function**, that is, a function which is infeasible to invert. The only way to recreate the input data from an ideal cryptographic hash function is output is **to attempt a brute-force search** of possible inputs to see if they produce a match. 
+-  Bruce Schneier has called one-way hash functions the workhorses of modern cryptography.[1] The input data is often called the message, and the output (the hash value or hash) is often called the message digest or simply the `digest`.
 - in information-security contexts, cryptographic hash values are sometimes called (digital) fingerprints, checksums, or just hash values, even though all these terms stand for more general functions with rather different properties and purposes.
 - Another finalist from the NIST hash function competition, BLAKE, was optimized to produce BLAKE2 which is notable for being faster than SHA-3, SHA-2, SHA-1, or MD5, and is used in numerous applications and libraries.
 
@@ -72,11 +133,11 @@ ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc
 - a small change to a message should change the hash value so extensively that the new hash value appears uncorrelated with the old hash value
 - it is infeasible to find two different messages with the same hash value
 
-### Illustration[edit]
+### Illustration
 - An illustration of the potential use of a cryptographic hash is as follows: Alice poses a tough math problem to Bob and claims she has solved it. Bob would like to try it himself, but would yet like to be sure that Alice is not bluffing. Therefore, Alice writes down her solution, computes its hash and tells Bob the hash value (whilst keeping the solution secret). Then, when Bob comes up with the solution himself a few days later, Alice can prove that she had the solution earlier by revealing it and having Bob hash it and check that it matches the hash value given to him before. (This is an example of a simple commitment scheme; in actual practice, Alice and Bob will often be computer programs, and the secret would be something less easily spoofed than a claimed puzzle solution).
 
 ### Applications
-#### Verifying the integrity of files or messages[edit]
+#### Verifying the integrity of files or messages
 - An important application of secure hashes is verification of message integrity. Determining whether any changes have been made to a message (or a file), for example, can be accomplished by comparing message digests calculated before, and after, transmission (or any other event).
 - For this reason, most digital signature algorithms only confirm the authenticity of a hashed digest of the message to be "signed". Verifying the authenticity of a hashed digest of the message is considered proof that the message itself is authentic.
 - **MD5, SHA1, or SHA2 hashes** are sometimes posted along with files on websites or forums to allow verification of integrity.[6] This practice establishes a chain of trust so long as the hashes are posted on a site authenticated by HTTPS.
@@ -93,7 +154,7 @@ ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc
 
 ### Collision resistance
 - Collision resistance is a property of cryptographic hash functions: a hash function H is collision resistant if it is hard to find two inputs that hash to the same output; that is, two inputs a and b such that H(a) = H(b), and a ≠ b
-- Collision resistance doesn't mean that no collisions exist; simply that they are hard to find.
+- Collision resistance does not mean that no collisions exist; simply that they are hard to find.
 - Cryptographic hash functions are usually designed to be collision resistant. But many hash functions that were once thought to be collision resistant were later broken. MD5 and SHA-1 in particular both have published techniques more efficient than brute force for finding collisions.
 
 #### Rationale
@@ -109,13 +170,13 @@ Collision resistance is desirable for several reasons.
 
 ### Merkle–Damg?rd construction
 - In cryptography, the Merkle–Damg?rd construction or **Merkle–Damg?rd hash function** is a method of building collision-resistant cryptographic hash functions from collision-resistant one-way compression functions.[1]:145 This construction was used in the design of many popular hash algorithms such as MD5, SHA1 and SHA2.
-- The Merkle–Damg?rd construction was described in Ralph Merkle's Ph.D. thesis in 1979.[2] Ralph Merkle and Ivan Damg?rd independently proved that the structure is sound: that is, if an appropriate padding scheme is used and the compression function is collision-resistant, then the hash function will also be collision resistant.
+- The Merkle–Damg?rd construction was described in Ralph Merkles Ph.D. thesis in 1979.[2] Ralph Merkle and Ivan Damg?rd independently proved that the structure is sound: that is, if an appropriate padding scheme is used and the compression function is collision-resistant, then the hash function will also be collision resistant.
 
 ## SHA 
 - In cryptography, SHA-1 (Secure Hash Algorithm 1) is a cryptographic hash function designed by the United States National Security Agency and is a U.S. Federal Information Processing Standard published by the United States NIST.[2] SHA-1 produces a 160-bit (20-byte) hash value known as a message digest. A SHA-1 hash value is typically rendered as a hexadecimal number, 40 digits long.
 
 ### Applications
-- SHA-1 forms part of several widely used security applications and protocols, including TLS and SSL, PGP, SSH, S/MIME, and IPsec. Those applications can also use MD5; **both MD5 and SHA-1 are descended from MD4**. **SHA-1 hashing is also used in distributed revision control systems like Git**, Mercurial, and Monotone to identify revisions, and to detect data corruption or tampering. The algorithm has also been used on Nintendo's Wii gaming console for signature verification when booting, but a significant flaw in the first implementations of the firmware allowed for an attacker to bypass the system's security scheme.
+- SHA-1 forms part of several widely used security applications and protocols, including TLS and SSL, PGP, SSH, S/MIME, and IPsec. Those applications can also use MD5; **both MD5 and SHA-1 are descended from MD4**. **SHA-1 hashing is also used in distributed revision control systems like Git**, Mercurial, and Monotone to identify revisions, and to detect data corruption or tampering. The algorithm has also been used on Nintendos Wii gaming console for signature verification when booting, but a significant flaw in the first implementations of the firmware allowed for an attacker to bypass the systems security scheme.
 - SHA-1 and SHA-2 are the secure hash algorithms required by law for use in certain U.S. Government applications, including use within other cryptographic algorithms and protocols, for the protection of sensitive unclassified information.
 - A prime motivation for the publication of the Secure Hash Algorithm was the Digital Signature Standard, in which it is incorporated.
 - Revision control systems such as Git and Mercurial use SHA-1 not for security but for ensuring that the data has not changed due to accidental corruption.
@@ -125,10 +186,67 @@ Collision resistance is desirable for several reasons.
 - Salts are used to safeguard passwords in storage. 
 - The purpose of a hash and salt process in password security is not to prevent a password from being guessed, but to prevent a leaked password database from being used in further attacks.
 
+The idea of salt is that when the user enters the password, we dont actually use their raw password to generate the key. We first append some random bytes to the password. A new, random salt is used for every file/piece of data being encrypted. The salt bytes are not secret: they are stored unencrypted along side the encrypted data. This means that the salt bytes would add no extra security if there was only once piece of data in the world encrypted with a given password. But they prevent dictionary attacks, whereby an attacker pre-computes the keys from some common passwords and then tries those keys on the encrypted data. Without salt bytes, the dictionary attack would be worthwhile attack because we use a deliberately slow function to derive a key from a password. With the salt bytes, the attacker is forced to run the slow key derivation function for each password they want to try on each piece of data.
+
+To generate salt bytes in Java, we just need to make sure that we use a secure random number generator. Construct an instance of SecureRandom, create (say) a 20-byte array, and call nextBytes() on that array:
+```java
+Random r = new SecureRandom();
+byte[] salt = new byte[20];
+r.nextBytes(salt);
+```
+
+# Secure Random
+The SecureRandom class, housed in the java.security package, provides a drop-in replacement to java.lang.Random. But unlike the latter, java.security.SecureRandom is designed to be cryptographically secure. 
+
+SecureRandom is typically used in cases where:
+
+random numbers are generated for security related purposes, such as generating an encryption key or session ID (see below);
+or, more generally, high-quality randomness is important and it is worth consuming CPU (or where CPU consumption is not an issue) to generate those high-quality random numbers.
+
+## Properties of SecureRandom
+We said that SecureRandom is designed to be cryptographically secure. In practice, this means that the generator has the following properties:
+
+- given only a number produced by the generator, it is (to all intents and purposes) impossible to predict previous and future numbers;
+- the numbers produced contain no known biases;
+- the generator has a large period (in Suns standard implementation, based on the 160-bit SHA1 hash function, the period is 2160);
+- the generator can seed itself at any position within that period with equal probability (or at least, it comes so close to this goal, that we have no practical way of telling otherwise).
+
+These properties are important in various security applications. The first is important, for eaxmple, if we use the generator to produce, say, a session ID on a web server: we donot want user n to predict user n+1 s session ID. Similarly, we donot want a user in an Internet cafe, based on the session ID or encryption key that they are given to access a web site, to be able to predict the value assigned to a previous user on that machine.
+
+## The importance of producing all values with equal probability
+
+For example, let s say that we want to pick a 128-bit AES encryption key. The idea of a strong encryption algorithm such as AES is that in order for an adversary to guess the key by "brute force" (which we assume is the only possible means), they would have to try every single possible key in turn until they hit on the right one. By law of averages, we would expect them to find it after half as many guesses as there are possible keys. A 128-bit key has 2128 possible values, so on average, they would have to try 2127 keys. In decimal 2127 is a 39-digit number. Or put another way, trying a million million keys per second, it would take 5x1015 millennia to try 2127 keys. Not even the British government wants to decrypt your party invitations that badly. So with current mainstream technology1, a 128-bit key is in principle sufficient for most applications.
+
+But these metrics hold true only if our key selection algorithm— i.e. our random number generator— genuinely can pick any of the possible keys. For example, we certainly should not choose the key as follows:
+```java
+// This is WRONG!! Do not do this!
+Random ranGen = new Random();
+byte[] aesKey = new byte[16]; // 16 bytes = 128 bits
+ranGen.nextBytes(aesKey);
+```
+The problem here is that the period of java.util.Random is only 248. Even though we are generating a 128-bit key, we will only ever pick from a subset of 248 of the possible keys. Or put another way: an attacker need only try on average 247 keys, and will find our key by trial and error in a couple of days if they try just a thousand million keys per second. And as if that wasnot bad enough, they probably donot even need to try anywhere near 247: for reasons discussed earlier, there is a good chance that an instance of java.util.Random created within a couple of minutes of bootup will actually be seeded from a about one thousandth of the 248 possible values. This time, HM Sniffing Service doesnot even need expensive hardware to find the secret location of your housewarming party: a trip to Staples will give them all the computing power they need.
+
+So as you've probably guessed, our solution to the problem is to use SecureRandom instead:
+
+import java.security.SecureRandom;
+..
+Random ranGen = new SecureRandom();
+byte[] aesKey = new byte[16]; // 16 bytes = 128 bits
+ranGen.nextBytes(aesKey);
+Now, there's a good chance that any of the 2128 possible keys will be chosen.
+
+Seeding of SecureRandom
+In order to provide this property of choosing any seed with "equal" likelihood, (or at least, with no bias that is practically detectable), SecureRandom seeds itself from sources of entropy available from the local machine, such as timings of I/O events.
+
+
+
+
+## 
+
 ## Rainbow table
 - A rainbow table is a precomputed table for reversing cryptographic hash functions, **usually for cracking password hashes**. 
 - Tables are **usually used in recovering a plaintext password up to a certain length consisting of a limited set of characters**. It is a practical example of a space/time trade-off, using less computer processing time and more storage than a brute-force attack which calculates a hash on every attempt, but more processing time and less storage than a simple lookup table with one entry per hash. 
-- After gathering a password hash, using said hash as a password would fail since the authentication system would hash it a second time. In order to learn a user's password, a password that produces the same hashed value must be found, usually through a brute-force or dictionary attack.
+- After gathering a password hash, using said hash as a password would fail since the authentication system would hash it a second time. In order to learn a users password, a password that produces the same hashed value must be found, usually through a brute-force or dictionary attack.
 - Use of a **key derivation function that employs a salt** makes this attack infeasible.
 
 
@@ -190,6 +308,7 @@ Two of the best-known uses of public key cryptography are:
 
 
 # References
+- https://www.javamex.com/tutorials/cryptography/hash_functions_algorithms.shtml
 - https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers
 - https://en.wikipedia.org/wiki/Secure_Shell
 - https://en.wikipedia.org/wiki/Ssh-keygen
@@ -198,3 +317,4 @@ Two of the best-known uses of public key cryptography are:
 - https://en.wikipedia.org/wiki/Merkle%E2%80%93Damg%C3%A5rd_construction
 - https://en.wikipedia.org/wiki/Public-key_cryptography
 - https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29
+
