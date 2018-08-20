@@ -1,6 +1,309 @@
 ---
 title: Chronicle
 ---
+
+# Overview
+
+Chronicle Software is about simplifying fast data.  It is a suite of libraries to make it easier to write, monitor and tune data processing systems where performance and scalability are concerned.
+
+# Writing to a Queue
+In Chronicle Queue we refer to the act of writing your data to the Chronicle queue, as storing an excerpt. This data could be made up from any data type, including text, numbers, or serialised blobs. Ultimately, all your data, regardless of what it is, is stored as a series of bytes.
+
+Just before storing your excerpt, Chronicle Queue reserves an 8-byte header. Chronicle Queue writes the length of your data into this header. This way, when Chronicle Queue comes to read your excerpt, it knows how long each blob of data is. We refer to this 8-byte header, along with your excerpt, as a document. So strictly speaking Chronicle Queue can be used to read and write documents.
+
+> Within this 8-byte header we also reserve a few bits for a number of internal operations, such as locking, to make Chronicle Queue thread-safe across both processors and threads. The important thing to note is that because of this, you can’t strictly convert the 8 bytes to an integer to find the length of your data blob.
+
+To write data to a Chronicle-Queue, you must first create an Appender
+
+```java
+try (ChronicleQueue queue = SingleChronicleQueueBuilder.binary(path + "/trades").build()) {
+   final ExcerptAppender appender = queue.acquireAppender();
+}
+```
+Chronicle Queue uses the following low-level interface to write the data:
+```java
+try (final DocumentContext dc = appender.writingDocument()) {
+      dc.wire().write().text(“your text data“);
+}
+```
+So, Chronicle Queue uses an `Appender to write` to the queue and a `Tailer to read` from the queue. Unlike other java queuing solutions, messages are not lost when they are read with a Tailer. 
+
+Each Chronicle Queue excerpt has a unique index.
+
+```java
+try (final DocumentContext dc = appender.writingDocument()) {
+    dc.wire().write().text(“your text data“);
+    System.out.println("your data was store to index="+ dc.index());
+}
+```
+
+The high-level methods below such as writeText() are convenience methods on calling appender.writingDocument(), but both approaches essentially do the same thing. The actual code of writeText(CharSequence text) looks like this:
+
+```java
+/**
+ * @param text to write a message
+ */
+void writeText(CharSequence text) {
+    try (DocumentContext dc = writingDocument()) {
+        dc.wire().bytes().append8bit(text);
+    }
+}
+
+```
+
+This is the highest-level API which hides the fact you are writing to messaging at all. The benefit is that you can swap calls to the interface with a real component, or an interface to a different protocol.
+```java
+// using the method writer interface.
+RiskMonitor riskMonitor = appender.methodWriter(RiskMonitor.class);
+final LocalDateTime now = LocalDateTime.now(Clock.systemUTC());
+riskMonitor.trade(new TradeDetails(now, "GBPUSD", 1.3095, 10e6, Side.Buy, "peter"));
+```
+
+You can write a "self-describing message". Such messages can support schema changes. They are also easier to understand when debugging or diagnosing problems.
+```java
+// writing a self describing message
+appender.writeDocument(w -> w.write("trade").marshallable(
+        m -> m.write("timestamp").dateTime(now)
+                .write("symbol").text("EURUSD")
+                .write("price").float64(1.1101)
+                .write("quantity").float64(15e6)
+                .write("side").object(Side.class, Side.Sell)
+                .write("trader").text("peter")));
+```
+
+You can write "raw data" which is self-describing. The types will always be correct; position is the only indication as to the meaning of those values.
+```java
+// writing just data
+appender.writeDocument(w -> w
+        .getValueOut().int32(0x123456)
+        .getValueOut().int64(0x999000999000L)
+        .getValueOut().text("Hello World"));
+```
+You can write "raw data" which is not self-describing. Your reader must know what this data means, and the types that were used.
+```java
+// writing raw data
+appender.writeBytes(b -> b
+        .writeByte((byte) 0x12)
+        .writeInt(0x345678)
+        .writeLong(0x999000999000L)
+        .writeUtf8("Hello World"));
+```
+This is the lowest level way to write data. You get an address to raw memory and you can write what you want.
+```java
+// Unsafe low level
+appender.writeBytes(b -> {
+    long address = b.address(b.writePosition());
+    Unsafe unsafe = UnsafeMemory.UNSAFE;
+    unsafe.putByte(address, (byte) 0x12);
+    address += 1;
+    unsafe.putInt(address, 0x345678);
+    address += 4;
+    unsafe.putLong(address, 0x999000999000L);
+    address += 8;
+    byte[] bytes = "Hello World".getBytes(StandardCharsets.ISO_8859_1);
+    unsafe.copyMemory(bytes, Unsafe.ARRAY_BYTE_BASE_OFFSET, null, address, bytes.length);
+    b.writeSkip(1 + 4 + 8 + bytes.length);
+});
+```
+You can print the contents of the queue. You can see the first two, and last two messages store the same data.
+
+// dump the content of the queue
+System.out.println(queue.dump());
+# position: 262568, header: 0
+--- !!data #binary
+trade: {
+  timestamp: 2016-07-17T15:18:41.141,
+  symbol: GBPUSD,
+  price: 1.3095,
+  quantity: 10000000.0,
+  side: Buy,
+  trader: peter
+}
+# position: 262684, header: 1
+--- !!data #binary
+trade: {
+  timestamp: 2016-07-17T15:18:41.141,
+  symbol: EURUSD,
+  price: 1.1101,
+  quantity: 15000000.0,
+  side: Sell,
+  trader: peter
+}
+# position: 262800, header: 2
+--- !!data #binary
+!int 1193046
+168843764404224
+Hello World
+# position: 262830, header: 3
+--- !!data #binary
+000402b0       12 78 56 34 00 00  90 99 00 90 99 00 00 0B   ·xV4·· ········
+000402c0 48 65 6C 6C 6F 20 57 6F  72 6C 64                Hello Wo rld
+# position: 262859, header: 4
+--- !!data #binary
+000402c0                                               12                 ·
+000402d0 78 56 34 00 00 90 99 00  90 99 00 00 0B 48 65 6C xV4····· ·····Hel
+000402e0 6C 6F 20 57 6F 72 6C 64 
+
+## Finding the index at the end of a Chronicle Queue
+
+Chronicle Queue appenders are thread-local. In fact when you ask for:
+```java
+final ExcerptAppender appender = queue.acquireAppender();
+```
+the acquireAppender() uses a thread-local pool to give you an appender which will be reused to reduce object creation.
+
+As such, the method call to:
+```java
+long index = appender.lastIndexAppended();
+```
+will only give you the last index appended by this appender; not the last index appended by any appender.
+
+If you wish to find the index of the last record written, then you have to call:
+```java
+long index = queue.createTailer().toEnd().index();
+```
+
+## Dumping a Chronicle Queue, cq4 file as text to the Command Line
+
+Chronicle Queue stores its data in binary format, with a file extension of cq4:
+
+\��@π�header∂�SCQStoreÇE���»wireType∂�WireTypeÊBINARYÕwritePositionèèèèß��������ƒroll∂�SCQSRollÇ*���∆length¶ÄÓ6�∆format
+ÎyyyyMMdd-HH≈epoch¶ÄÓ6�»indexing∂SCQSIndexingÇN��� indexCount•��ÃindexSpacing�Àindex2Indexé����ß��������…lastIndexé�
+���ß��������ﬂlastAcknowledgedIndexReplicatedé������ßˇˇˇˇˇˇˇˇ»recovery∂�TimedStoreRecoveryÇ����…timeStampèèèß����������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+This can often be a bit difficult to read, so it is better to dump the cq4 files as text. This can also help you fix your production issues, as it gives you the visibility as to what has been stored in the queue, and in what order.
+
+You have to use the chronicle-queue.jar, from any version 4.5.3 or later, and set up the dependent files in the class path. 
+
+
+$ java -cp chronicle-queue-4.5.5.jar net.openhft.chronicle.queue.DumpQueueMain 19700101-02.cq4
+
+this will dump the 19700101-02.cq4 file out as text, as shown below:
+
+--- !!meta-data #binary
+header: !SCQStore {
+  wireType: !WireType BINARY,
+  writePosition: 0,
+  roll: !SCQSRoll {
+    length: !int 3600000,
+    format: yyyyMMdd-HH,
+    epoch: !int 3600000
+  },
+  indexing: !SCQSIndexing {
+    indexCount: !short 4096,
+    indexSpacing: 4,
+    index2Index: 0,
+    lastIndex: 0
+  },
+  lastAcknowledgedIndexReplicated: -1,
+  recovery: !TimedStoreRecovery {
+    timeStamp: 0
+  }
+}
+
+...
+4198044 bytes remaining
+
+## Reading from a Queue using a Tailer
+
+Reading the queue follows the same pattern as writing, except there is a possibility there is not a message when you attempt to read it.
+
+Start Reading
+```java
+try (ChronicleQueue queue = SingleChronicleQueueBuilder.binary(path + "/trades").build()) {
+   final ExcerptTailer tailer = queue.createTailer();
+}
+```
+
+You can turn each message into a method call based on the content of the message.
+```java
+// reading using method calls
+RiskMonitor monitor = System.out::println;
+MethodReader reader = tailer.methodReader(monitor);
+// read one message
+assertTrue(reader.readOne());
+```
+You can decode the message yourself.
+```java
+assertTrue(tailer.readDocument(w -> w.read("trade").marshallable(
+        m -> {
+            LocalDateTime timestamp = m.read("timestamp").dateTime();
+            String symbol = m.read("symbol").text();
+            double price = m.read("price").float64();
+            double quantity = m.read("quantity").float64();
+            Side side = m.read("side").object(Side.class);
+            String trader = m.read("trader").text();
+            // do something with values.
+        })));
+```
+
+You can read self-describing data values. This will check the types are correct, and convert as required.
+```java
+
+assertTrue(tailer.readDocument(w -> {
+    ValueIn in = w.getValueIn();
+    int num = in.int32();
+    long num2 = in.int64();
+    String text = in.text();
+    // do something with values
+}));
+```
+
+You can read raw data as primitives and strings.
+
+```java
+assertTrue(tailer.readBytes(in -> {
+    int code = in.readByte();
+    int num = in.readInt();
+    long num2 = in.readLong();
+    String text = in.readUtf8();
+    assertEquals("Hello World", text);
+    // do something with values
+}));
+```
+
+or, you can get the underlying memory address and access the native memory.
+
+```java
+assertTrue(tailer.readBytes(b -> {
+    long address = b.address(b.readPosition());
+    Unsafe unsafe = UnsafeMemory.UNSAFE;
+    int code = unsafe.getByte(address);
+    address++;
+    int num = unsafe.getInt(address);
+    address += 4;
+    long num2 = unsafe.getLong(address);
+    address += 8;
+    int length = unsafe.getByte(address);
+    address++;
+    byte[] bytes = new byte[length];
+    unsafe.copyMemory(null, address, bytes, Unsafe.ARRAY_BYTE_BASE_OFFSET, bytes.length);
+    String text = new String(bytes, StandardCharsets.UTF_8);
+    assertEquals("Hello World", text);
+    // do something with values
+}));
+```
+### Tailers and File Handlers Clean up
+
+Chronicle queue tailers may create file handlers, the file handlers are cleaned up whenever the associated chronicle queue is close() or whenever the Jvm runs a Garbage Collection. 
+
+### ExcerptTailer.toEnd()
+
+In some applications, it may be necessary to start reading from the end of the queue (e.g. in a restart scenario). For this use-case, ExcerptTailer provides the toEnd() method.
+
+If it is necessary to read backwards through the queue from the end, then the tailer can be set to read backwards:
+```java
+ExcerptTailer tailer = queue.createTailer();
+tailer.direction(TailerDirection.BACKWARD).toEnd();
+```
+
+When reading backwards, then the toEnd() method will move the tailer to the last record in the queue. If the queue is not empty, then there will be a DocumentContext available for reading:
+```java
+// this will be true if there is at least one message in the queue
+boolean messageAvailable = tailer.toEnd().direction(TailerDirection.BACKWARD).
+        readingDocument().isPresent();
+```
+
+
 # Low GC 
 Ultra low GC means less than one minor collection per day.
 
@@ -269,6 +572,32 @@ public class MappedFile implements ReferenceCounted {
     private final FileChannel fileChannel;
 ```
 
+public interface BytesStore extends RandomDataInput, RandomDataOutput, ReferencedCount, CharSequence
+
+public interface Memory {
+    default long heapUsed() {
+        Runtime runtime = Runtime.getRuntime();
+        return runtime.totalMemory() - runtime.freeMemory();
+    }
+
+
+    @Override
+    @ForceInline
+    public void writeByte(long address, byte b) {
+        UNSAFE.putByte(address, b);
+    }
+
+
+/**
+ * Marker annotation for some methods and constructors in the JSR 292 implementation.
+ * <p>
+ * To utilise this annotation se Chronicle Enterprise Warmup module.
+ */
+@Target({ElementType.METHOD, ElementType.CONSTRUCTOR})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ForceInline {
+}
+
 # Reference
 - https://github.com/OpenHFT/Chronicle-Queue
-- 
+- http://vanillajava.blogspot.com/2015/08/what-does-chronicle-software-do.html
