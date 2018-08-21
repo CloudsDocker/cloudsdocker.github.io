@@ -161,8 +161,124 @@ Created /assign
 [assign, master, tasks, workers, zookeeper]
 
 ```
+## link master and workers
+
+In a real application, these znodes need to be created either by a primary process before it starts assigning tasks or by some bootstrap procedure. Regardless of how they are created, once they exist, the master needs to watch for changes in the children of /workers and /tasks:
+    [zk: localhost:2181(CONNECTED) 4] ls /workers true
+    []
+    [zk: localhost:2181(CONNECTED) 5] ls /tasks true
+    []
+    [zk: localhost:2181(CONNECTED) 6]
+Note that we have used the optional true parameter with ls, as we did before with stat on the master. The true parameter, in this case, creates a watch for changes to the set of children of the corresponding znode.
+
+```sh
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 14] create -e /workers/todd-worker1 ""
+Created /workers/todd-worker1
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/workers
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 15]
+```
+Recall that the master has set a watch for changes to the children of /workers. Once the worker creates a znode under /workers, the master observes the following notification:
+    WATCHER::
+    WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/workers
+
+## Tasks workflows
+- Clients add tasks to the system. Here we assume that the client asks the master-worker system to run a command cmd. To add a task to the system, a client executes the following:
+    [zk: localhost:2181(CONNECTED) 0] create -s /tasks/task- "cmd"
+    Created /tasks/task-0000000000
+- The client now has to wait until the task is executed. 
+- The worker that executes the task creates a status znode for the task once the task completes. 
+- The client determines that the task has been executed when it sees that a status znode for the task has been created; 
+- the client consequently must watch for the creation of the status znode:
+
+```sh
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 18] create -s /tasks/task- "cmd"
+Created /tasks/task-0000000000
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 19] ls /tasks
+[task-0000000000]
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 20] ls -w /tasks/task-0000000000 
+[]
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 21] ls -w /workers
+[todd-worker1]
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 22] create /assign/todd-worker1/task-0000000000 ""
+Ephemerals cannot have children: /assign/todd-worker1/task-0000000000
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 23] delete /assign/todd-worker1
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 24] create /assign/todd-worker1
+Created /assign/todd-worker1
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 25] create /assign/todd-worker1/task-0000000000 ""
+Created /assign/todd-worker1/task-0000000000
+[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 26] ls /assign/todd-worker1
+[task-0000000000]
 
 
 
+# Once the worker finishes executing the task, it adds a status znode to /tasks:
+    [zk: localhost:2181(CONNECTED) 4] create /tasks/task-0000000000/status "done"
+    Created /tasks/task-0000000000/status
+    [zk: localhost:2181(CONNECTED) 5]
+# and the client receives a notification and checks the result:
+WATCHER::
+    WatchedEvent state:SyncConnected type:NodeChildrenChanged
+    path:/tasks/task-0000000000
+    [zk: localhost:2181(CONNECTED) 2] get /tasks/task-0000000000
+    "cmd"
+```
+
+# ZooKeeper API
+
+## Setting the ZooKeeper CLASSPATH
+
+ ZOOBINDIR="<path_to_distro>/bin"
+    . "$ZOOBINDIR"/zkEnv.sh
+
+## handle
+The ZooKeeper API is built around a ZooKeeper handle that is passed to every API call. This handle represents a session with ZooKeeper. A session that is established with one ZooKeeper server will migrate to another ZooKeeper server if its connection is broken. As long as the session is alive, the handle will remain valid, and the ZooKeeper client library will continually try to keep an active connection to a ZooKeeper server to keep the session alive. If the handle is closed, the ZooKeeper client library will tell the ZooKeeper servers to kill the session. If ZooKeeper decides that a client has died, it will invalidate the session. If a client later tries to reconnect to a Zoo‐ Keeper server using the handle that corresponds to the invalidated session, the Zoo‐ Keeper server informs the client library that the session is no longer valid and the handle returns errors for all operations.
+
+The constructor that creates a ZooKeeper handle usually looks like:
+ZooKeeper(
+String connectString, int sessionTimeout, Watcher watcher)
+### Implementing a Watcher
+To receive notifications from ZooKeeper, we need to implement watchers. Let’s look a bit more closely at the Watcher interface. It has the following declaration:
+public interface Watcher {
+void process(WatchedEvent event);
+}
 
 
+### Sample ZooKeeper handle
+```java
+import org.apache.zookeeper.ZooKeeper; 
+import org.apache.zookeeper.Watcher;
+
+public class Master implements Watcher { 
+  ZooKeeper zk;
+        String hostPort;
+
+Master(String hostPort) 
+{ this.hostPort = hostPort;
+}
+void startZK() {
+zk = new ZooKeeper(hostPort, 15000, this);
+}
+public void process(WatchedEvent e) { System.out.println(e);
+}
+public static void main(String args[]) throws Exception {
+Master m = new Master(args[0]);
+            m.startZK();
+            // wait for a bit
+            Thread.sleep(60000);
+        }
+}
+```
+
+nce we have connected to ZooKeeper, there will be a background thread that will maintain the ZooKeeper session. This thread is a daemon thread, which means that the program may exit even if the thread is still active. Here we sleep for a bit so that we can see some events come in before the program exits.
+We can compile this simple example using the following:
+$ javac -cp $CLASSPATH Master.java
+Once we have compiled Master.java, we run it and see the following:
+$ java -cp $CLASSPATH Master 127.0.0.1:2181
+
+
+## disconnect
+
+When developers see the Disconnected event, some think they need to create a new ZooKeeper handle to reconnect to the service. Do not do that! See what happens when you start the server, start the Master, and then stop and start the server while the Master is still running. You should see the SyncConnected event followed by the Disconnec ted event and then another SyncConnected event. The ZooKeeper client library takes care of reconnecting to the service for you. Unfortunately, network outages and server failures happen. Usually, ZooKeeper can deal with these failures.
