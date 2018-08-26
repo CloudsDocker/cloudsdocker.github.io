@@ -367,11 +367,114 @@ res1: scala.util.Either.LeftProjection[String,Int] =
 Although the Either classes offered a potential solution prior to Scala 2.10, I now use the Try classes in all of my code instead of Either.
 
 
-## classOf
+### classOf
 Retrieve the runtime representation of a class type. classOf[T] is equivalent to the class literal T.class in Java.
 
-# Operators
+## Operators
 // Keywords
 <-  // Used on for-comprehensions, to separate pattern from generator
 =>  // Used for function types, function literals and import renaming
+
+
+# Akka framework
+Akka is a toolkit and runtime for building highly concurrent, distributed, and fault-tolerant event-driven applications on the JVM. 
+
+Actors are the unit of execution in Akka. The Actor model is an abstraction that makes it easier to write correct concurrent, parallel and distributed systems.
+
+This will get your feet wet, and hopefully inspire you to dive deeper into the wonderful sea of Akka!
+
+The Akka team refers to their creation as a toolkit rather than a framework. Frameworks tend to be a mechanism for providing a discrete element of a stack (e.g. the ui, or the web services layer). Akka provides a set of tools to render any part of the stack, and to provide the interconnects between them. 
+
+He two ways (shared mutable state/message passing (Akka)) to solve the problem of selling tickets.
+
+Actors do not share state, can only communicate through immutable messages and do not talk to each other directly but through actor references, similar to the addresses we talked about. This approach satisfies the three things we wanted to change. So why is this simpler than the shared mutable state approach?
+- We don't need to manage locks. We don't have to think about how to protect the shared data. Inside an actor we're safe.
+- We are more protected from deadlocks caused by out of order access by multiple threads, that cause the system to wait forever, or other problems like race conditions and thread starvation. Use of Akka precludes most of these problems, relieving us of the burden.
+- Performance tuning a shared mutable state solution is hard work and error prone and verification through tests is nearly impossible.
+
+## Benefits of using the Actor Model
+
+The following characteristics of Akka allow you to solve difficult concurrency and scalability challenges in an intuitive way:
+
+- Event-driven model — Actors perform work in response to messages. Communication between Actors is asynchronous, allowing Actors to send messages and continue their own work without blocking to wait for a reply.
+- Strong isolation principles — Unlike regular objects in Java, an Actor does not have a public API in terms of methods that you can invoke. Instead, its public API is defined through messages that the actor handles. This prevents any sharing of state between Actors; the only way to observe another actor’s state is by sending it a message asking for it.
+- Location transparency — The system constructs Actors from a factory and returns references to the instances. Because location doesn’t matter, Actor instances can start, stop, move, and restart to scale up and down as well as recover from unexpected failures.
+- Lightweight — Each instance consumes only a few hundred bytes, which realistically allows millions of concurrent Actors to exist in a single application.
+
+## Design recommendations
+When defining Actors and their messages, keep these recommendations in mind:
+
+- Since messages are the Actor’s public API, it is a good practice to define messages with good names and rich semantic and domain specific meaning, even if they just wrap your data type. This will make it easier to use, understand and debug actor-based systems.
+- Messages should be immutable, since they are shared between different threads.
+- It is a good practice to put an actor’s associated messages as static classes in the class of the Actor. This makes it easier to understand what type of messages the actor expects and handles.
+- It is also a common pattern to use a static props method in the class of the Actor that describes how to construct the Actor.
+
+### Props
+The static props method creates and returns a Props instance. Props is a configuration class to specify options for the creation of actors, think of it as an immutable and thus freely shareable recipe for creating an actor that can include associated deployment information. This example simply passes the parameters that the Actor requires when being constructed. We will see the props method in action later in this tutorial.
+
+
+## The power of location transparency
+
+In Akka you can’t create an instance of an Actor using the new keyword. Instead, you create Actor instances using a factory. The factory does not return an actor instance, but a reference, akka.actor.ActorRef, that points to the actor instance. This level of indirection adds a lot of power and flexibility in a distributed system.
+
+In Akka location doesn’t matter. Location transparency means that the ActorRef can, while retaining the same semantics, represent an instance of the running actor in-process or on a remote machine. If needed, the runtime can optimize the system by changing an Actor’s location or the entire application topology while it is running. This enables the “let it crash” model of failure management in which the system can heal itself by crashing faulty Actors and restarting healthy ones.
+
+## The Akka ActorSystem
+
+The akka.actor.ActorSystem factory is, to some extent, similar to Spring’s BeanFactory. It acts as a container for Actors and manages their life-cycles. The actorOf factory method creates Actors and takes two parameters, a configuration object called Props and a name.
+
+### Asynchronous communication
+Actors are reactive and message driven. An Actor doesn’t do anything until it receives a message. Actors communicate using asynchronous messages. This ensures that the sender does not stick around waiting for their message to be processed by the recipient. Instead, the sender puts the message in the recipient’s mailbox and is free to do other work. The Actor’s mailbox is essentially a message queue with ordering semantics. The order of multiple messages sent from the same Actor is preserved, but can be interleaved with messages sent by another Actor.
+
+
+You might be wondering what the Actor is doing when it is not processing messages, i.e. doing actual work? It is in a suspended state in which it does not consume any resources apart from memory. Again, showing the lightweight, efficient nature of Actors.
+
+### Sending messages to an Actor
+To put a message into an Actor’s mailbox, use the tell method on the ActorRef. For example, the main class of Hello World sends messages to the Greeter Actor like this:
+
+```java
+howdyGreeter.tell(new WhoToGreet("Akka"), ActorRef.noSender());
+howdyGreeter.tell(new Greet(), ActorRef.noSender());
+```
+
+The test class is using akka.test.javadsl.TestKit, which is a module for integration testing of actors and actor systems. This class only uses a fraction of the functionality provided by TestKit.
+
+## Akka under the hood
+So are there no concurrency primitives like locks used at all in Akka? Well, of course there are, it's just that you don't have to deal with them directly . Everything still eventually runs on threads and low level concurrency primitives. Akka uses the java.util.concurrent library to coordinate message processing and takes great care to minimize the number of locks used to an absolute bare minimum. It uses lock free and wait free algorithms where possible, for example compare-and-swap (CAS) techniques, which are beyond the scope of this book. And because nothing can be shared between actors, the shared locks that you would normally have between objects are not present at all. 
+
+
+
+There are other benefits that stem from the message passing approach that Akka uses, which we will discuss in the next sections. We have touched on them briefly already:
+1. Even in this first, simple example, the message passing approach is clearly more fault tolerant, averting catastrophic failure if one component (no matter how key) fails.
+2. The shared mutable state is always in one place in the example (in one JVM if it is kept entirely in memory). If you need to scale beyond this constraint, you will have to (re)distribute the data somehow. Since the message passing style uses addresses, looking ahead, you can see that if local and remote addresses were interchangeable, scaling out would be possible without code changes of any kind.
+
+
+This scenario is one example of a fault tolerance strategy that Akka provides, which is called the Restart strategy. Other strategies that can be used are Resume, Stop and Escalate. 
+
+## Scale up and Scale out
+In our Ticketing example, scaling up would mean getting more TicketingAgents running on our one server, scaling out would be bringing up TicketingAgents on a number of machines.
+
+
+## Locking
+
+locks result in contention, which will mean the number of threads doing work at any one time is often less than the total number, as some will have to wait on each other to finish. Sharing as little as possible means locking as little as possible, which is the goal of the message passing approach.
+
+Every thread has a stack to store runtime data. The size of the stack differs per operating system, for instance on the linux x64 platform it is normally 256kB. The stack size is one of the factors that limits the number of threads that run at the same time on a server. Around 4096 threads can fit in 1GB of memory on the linux x64 platform.
+
+## Dispatcher
+
+Actors run on an abstraction which is called a dispatcher. The dispatcher takes care of which threading model is used and processes the mailboxes.
+
+Actors are lightweight because they run on top of dispatchers, the actors are not necessarily directly proportional to the number of threads. Akka Actors take a lot less space than threads, around 2.7 million actors can fit in 1GB of memory. A big difference compared to 4096 threads, which means that you can create different types of actors more freely than you would when using threads directly. There are different types of dispatchers to choose from which can be tuned to specific needs.
+
+We identified that we had to make the following changes to get to a message passing style:
+1. No mutable shared data structure. 
+2. Immutable message passing.
+3. Asynchronous message sending.
+
+
+Akka implements actors and which components compare to the concepts we've talked about so far: actors, addresses and mailboxes.
+
+## Actor Path
+So how do you get an actor reference to an actor in the hierarchy? This is where ActorPaths come in. You could compare the hierarchy of actors to a URL path structure. Every actor has a name. This name needs to be unique per level in the hierarchy, two sibling actors cannot have the same name (if you do not provide a name Akka generates one for you, but it is a good idea to name all your actors). All actor references can be located directly by an actor path, absolute or relative, and it has to follow the URI generic syntax. An actor path is built just like a URI, starting with a scheme followed by a scheme-specific part,
 

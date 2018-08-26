@@ -35,7 +35,7 @@ depending on project and packaging type, Maven binds various plugin goals to lif
 Default Lifecycle
 The most important of the three lifecycles is the Default Lifecycle . Maven uses default lifecycle to build, test and distribute the project. Default lifecycle contains 21 phases.
 
-Project may contain resources such as properties, XML configuration files etc., and phases process-resources and process-test-resources copy and process such resources files. and in a later chapter, we explain the resource management in detail.
+Project may contain resources such as properties, XML configuration files etc., and phases process-resources and process-test-resources copy and process such resources files. 
 The phases compile and test-compile complies the source Java files and test files respectively.
 The phases package, install, and deploy are used to distribute the project. As we have already seen, the package phase creates JAR file of resources and compiled classes for distribution. The phase install, installs the artifacts of the project i.e jar and pom.xml to the local repository at $HOME/.m2 so that other projects can use them as dependencies. The phase deploy installs the artifacts of the project to a remote repository (probably on Internet) so that a wider group of projects can use it as dependency. We will cover these phases in a later chapter.
 
