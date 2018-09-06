@@ -478,3 +478,81 @@ Akka implements actors and which components compare to the concepts we've talked
 ## Actor Path
 So how do you get an actor reference to an actor in the hierarchy? This is where ActorPaths come in. You could compare the hierarchy of actors to a URL path structure. Every actor has a name. This name needs to be unique per level in the hierarchy, two sibling actors cannot have the same name (if you do not provide a name Akka generates one for you, but it is a good idea to name all your actors). All actor references can be located directly by an actor path, absolute or relative, and it has to follow the URI generic syntax. An actor path is built just like a URI, starting with a scheme followed by a scheme-specific part,
 
+
+## Core Actor Operations
+Another way to look at an actor is to describe the operations that it supports. An Akka actor has four core operations :
+1. CREATE: An actor can create another actor. In Akka, actors are part of an actor system, which defines the root of the actor hierarchy and creates top-level actors. Every actor can create child actors. The topology of the actors is dynamic, it depends on which actors create other actors and which addresses are used to communicate with them.
+2. SEND: An actor can send a message to another actor. Messages are sent asynchronously, using an address to send to an Actor associated with a given Mailbox.
+3. BECOME: The behavior of an actor can be dynamically changed. Messages are received one at a time and an actor can designate that it wants to handle next messages in a different way, basically swapping its behavior, which we will look at in later chapters.
+4. SUPERVISE: An actor supervises and monitors its children in the actor hierarchy and manages the failures that happen. As we will see in chapter 3, this provides a clean separation between message processing and error handling.
+
+## Akka concurrency
+Message passing enables an easier road to real concurrency
+ With that concurrent approach, we will be able to scale up and out
+We can scale both the request and the processing elements of our application
+Messages also unlock greater fault tolerance capabilities
+Supervision provides a means of modeling for both concurrency and fault tolerance
+Akka infuses our code with these powers in a lightweight, unobtrusive manner
+
+### Build Akka
+using TypeSafe's Simple Build Tool (SBT) to create a single jar file that can be used to run the app
+
+If you have not worked with the SBT DSL before it is important to note that you need to put en empty line between lines in the file (this is the price we pay for not telling Scala where each expression ends).
+
+
+### tell vs ask
+Messages are sent to an Actor through one of the following methods.
+
+! means “fire-and-forget”, e.g. send a message asynchronously and return immediately. Also known as tell.
+
+? sends a message asynchronously and returns a Future representing a possible reply. Also known as ask.
+
+So below line is equivalent to tell
+```scala
+class ReceiveActor extends Actor {
+
+  def receive = {
+    case "Hello" => sender ! "And Hello to you!" // same as sender.tell("And Hello to you!")
+  }
+}
+```
+#### Sample of actor
+```scala
+package com.goticks
+import akka.actor.{PoisonPill, Actor}
+class TicketSeller extends Actor {
+  import TicketProtocol._
+  var tickets = Vector[Ticket]()
+  def receive = {
+    case GetEvents => sender ! tickets.size
+    case Tickets(newTickets) =>
+      tickets = tickets ++ newTickets
+    case BuyTicket =>
+      if (tickets.isEmpty) {
+        sender ! SoldOut
+        self ! PoisonPill
+}
+      tickets.headOption.foreach { ticket =>
+        tickets = tickets.tail
+        sender ! ticket
+} }
+}
+
+case Event(name, nrOfTickets) =>
+  if(context.child(name).isEmpty) {
+If TicketSellers have not been
+   val ticketSeller = context.actorOf(Props[TicketSeller], name)
+  val tickets = Tickets((1 to nrOfTickets).map{
+    nr=> Ticket(name, nr)).toList
+}
+  ticketSeller ! tickets
+}
+sender ! EventCreated
+
+```
+
+The BoxOffice creates TicketSellers for each event. Notice that it uses it's context instead of the actor system to create the actor; Actors created with the context of another Actor are its children and subject to the parent Actor's supervision
+
+
+## Test
+Right now it always fails since it is not implemented yet, as is expected in Red-Green-Refactor style, where you first make sure the test fails (Red), then implement the code to make it pass (Green), after which you might refactor the code to make it nicer.
