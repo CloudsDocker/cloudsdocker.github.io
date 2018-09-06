@@ -413,6 +413,27 @@ When defining Actors and their messages, keep these recommendations in mind:
 The static props method creates and returns a Props instance. Props is a configuration class to specify options for the creation of actors, think of it as an immutable and thus freely shareable recipe for creating an actor that can include associated deployment information. This example simply passes the parameters that the Actor requires when being constructed. We will see the props method in action later in this tutorial.
 
 
+## configuration
+
+When using the default, the library will try to find the configuration file. Since the library supports a number of different configuration formats, it looks for different files, in the following order:
+application.properties
+This file should contain the configuration properties in the java property file format.
+application.json
+This file should contain the configuration properties in the json style
+
+application.conf
+This file should contain the configuration properties in the HOCON format. This is a format based on json but easier to read..
+It is possible to use all the different files at the same time. For the example below, in listing 7.2 we use the last file:
+MyAppl {
+    version = 10
+    description = "My application"
+    database {
+        connect="jdbc:mysql://localhost/mydata"
+        user="me"
+        }
+}
+Nesting is done by simply grouping with {}s
+
 ## The power of location transparency
 
 In Akka you can’t create an instance of an Actor using the new keyword. Instead, you create Actor instances using a factory. The factory does not return an actor instance, but a reference, akka.actor.ActorRef, that points to the actor instance. This level of indirection adds a lot of power and flexibility in a distributed system.
@@ -556,3 +577,26 @@ The BoxOffice creates TicketSellers for each event. Notice that it uses it's con
 
 ## Test
 Right now it always fails since it is not implemented yet, as is expected in Red-Green-Refactor style, where you first make sure the test fails (Red), then implement the code to make it pass (Green), after which you might refactor the code to make it nicer.
+
+## source code
+
+### UntypedActor
+This class is the Java cousin to the akka.actor.Actor Scala interface. Subclass this abstract class to create a MDB-style untyped actor.
+
+An actor has a well-defined (non-cyclic) life-cycle.
+
+    RUNNING (created and started actor) - can receive messages
+    SHUTDOWN (when 'stop' or 'exit' is invoked) - can't do anything
+
+The Actor's own akka.actor.ActorRef is available as getSelf(), the current message’s sender as getSender() and the akka.actor.UntypedActorContext as getContext(). The only abstract method is onReceive() which is invoked for each processed message unless dynamically overridden using getContext().become().
+
+Annotations
+    @Deprecated @deprecated 
+Deprecated
+
+    (Since version 2.5.0) Use AbstractActor instead of UntypedActor.
+
+### loggingAdaptor
+trait LoggingAdapter extends AnyRef
+
+Logging wrapper to make nicer and optimize: provide template versions which evaluate .toString only if the log level is actually enabled. Typically used by obtaining an implementation from the Logging object:
