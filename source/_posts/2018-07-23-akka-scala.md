@@ -16,7 +16,7 @@ Routes effectively are simply highly specialised functions that take a RequestCo
 
 Directives create Routes.
 
-The ¡°Route¡± is the central concept of Akka HTTP¡¯s Routing DSL. All the structures you build with the DSL, no matter whether they consists of a single line or span several hundred lines, are type turning a RequestContext into a Future[RouteResult].
+The Route is the central concept of Akka HTTP's Routing DSL. All the structures you build with the DSL, no matter whether they consists of a single line or span several hundred lines, are type turning a RequestContext into a Future[RouteResult].
 
 ```scala
 type Route = RequestContext => Future[RouteResult]
@@ -341,6 +341,7 @@ As shown, your method should be declared to return an Either, and the method bod
 
 As with Option and Try, a method returning an Either can be called in a variety of ways, including getOrElse or a match expression:
 
+
 ```scala
 val x = divideXByY(1, 1).right.getOrElse(0)   // returns 1
 val x = divideXByY(1, 0).right.getOrElse(0)   // returns 0
@@ -401,6 +402,14 @@ The following characteristics of Akka allow you to solve difficult concurrency a
 - Location transparency — The system constructs Actors from a factory and returns references to the instances. Because location doesn’t matter, Actor instances can start, stop, move, and restart to scale up and down as well as recover from unexpected failures.
 - Lightweight — Each instance consumes only a few hundred bytes, which realistically allows millions of concurrent Actors to exist in a single application.
 
+
+### Message
+two special channels. The first is the Dead Letter channel, which contain message that couldn't be delivered. This is sometimes also called a dead message queue. This channel can help when debugging, why some messages aren't processed or to monitor where there are problems.
+
+
+### EventStream
+the benefit of decoupling the receivers and the sender and the dynamic nature of the publish-subscribe channel, but because the EventStream is available for all actors is also a nice solution for messages which can be send from all over the system and needs to be collected at one or more Actors. A good example is logging. Logging can be done throughout the system and needs to be collected at one point and be written to a log file. Internally the ActorLogging is using the EventStream to collect the log lines from all over the system.
+
 ## Design recommendations
 When defining Actors and their messages, keep these recommendations in mind:
 
@@ -433,6 +442,28 @@ MyAppl {
         }
 }
 Nesting is done by simply grouping with {}s
+
+### substitution
+ hostname="localhost"
+hostname=${?HOST_NAME}
+MyAppl {
+    version = 10
+    description = "My
+    application"
+    database {
+        connect="jdbc:mysql://${hostname}/mydata"
+user="me" }
+}
+
+define the variable first, if system environment do exist, override it, otherwise use default
+? means get a variable from system envrionment
+
+### Default/fallback properies
+Default properties are configured in the file reference.conf and placed in the root of the jar file; the idea is that every library contains its own defaults. The configuration library will find all the reference.conf files and integrate these settings into the configuration fall-back structure. 
+
+### Order of properties
+System properties->application.conf->applicaiton.json->application.properties->reference.conf
+
 
 ## The power of location transparency
 
