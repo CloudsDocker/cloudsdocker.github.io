@@ -410,6 +410,14 @@ two special channels. The first is the Dead Letter channel, which contain messag
 ### EventStream
 the benefit of decoupling the receivers and the sender and the dynamic nature of the publish-subscribe channel, but because the EventStream is available for all actors is also a nice solution for messages which can be send from all over the system and needs to be collected at one or more Actors. A good example is logging. Logging can be done throughout the system and needs to be collected at one point and be written to a log file. Internally the ActorLogging is using the EventStream to collect the log lines from all over the system.
 
+### Dead Letter Message
+Akka is using the EventStream to implement the dead letter queue. This way only the actors which are interested in the failed messages are receiving them. When a message is queued in a mailbox of an actor that Terminates or is send after the Termination, the message is send to the EventStream of the ActorSystem. The message is wrapped into a DeadLetter object. This Object contains the original message, the sender of the message and the intended receiver. This way the Dead letter queue is integrated in the EventStream. To get these dead letter messages you only need to subscribe your actor to the EventStream with the DeadLetter class as the Classifier.
+
+
+Messages send to a Terminated Actor can't be processed anymore and the ActorRef of this actor should not be used anymore. When there are messages send to a terminated Actor, these message will be send to the DeadLetter queue.
+
+Another use of the DeadLetter queue is when the processing fails. This is a Actor specific decision. An actor can decide that a received message couldn't be processed and that it doesn't know what to do with it. In this situation the messages can be send to the dead letter queue. 
+
 ## Design recommendations
 When defining Actors and their messages, keep these recommendations in mind:
 
