@@ -24,4 +24,18 @@ Guice aims to make development and debugging easier and faster, not harder and s
 3. Preferring Constructor Injection
 
 Although Spring and Guice both support constructor and setter injection, each framework has a preference. Spring has long favored setter injection. Back in the early days of Spring, the authors believed the lack of argument names and default arguments in constructor injection reduced clarity. In addition, constructor injection makes it difficult to have optional dependencies, requires dependencies to be configured in a specific order, and forces subclasses to deal with superclass dependencies. Using setter injection eliminates these problems, and so Spring favors that approach.
+
+The Guice authors saw difficulties with setter injection. One problem is immutability: it is impossible to make immutable a class that uses setter injection. Constructor injection, on the other hand, makes the creation of immutable classes easy, an important consideration in writing multi-threaded applications. In addition, optional dependencies, while perhaps convenient, can introduce confusion about how a class is configured at runtime. Configuring a class through setter injection can often lead to missed required dependencies. Though Spring does provide a @Required annotation to solve this problem, using constructor injection eliminates it by default.
+
+Constructor injection also makes a class's dependencies immediately clear at a glance. If you're writing or modifying a unit test, it's easy to read what the system-under-test needs. Lastly, because Guice uses types to wire classes together, constructor argument order isn't an issue. You can feel free to reorder them how you want without needing to modify configuration code at all.
+
+The potential drawbacks posed by setter injection outweigh the benefits in many common scenarios, and so Guice established a best practice of favoring constructor injection instead. Its API is well-suited to that approach. But if you should choose to switch from one form of injection to the other, Guice makes that easy too. Changing from setter to constructor injection or vice versa is simply a matter of modifying the class in question. Unlike in Spring, you need never touch a configuration file.
+
+4. Nullifying NullPointerExceptions
+
+Null is easily one of the most non-communicative return values possible from a method call.
+Guice hates nulls as much as I do. By default, Guice refuses to inject a null into any object, and if an accidental null shows up during wiring, it fails-fast with a ProvisionException. Guice does allow for the exception case by permitting fields to be annotated with @Nullable, but this is discouraged.
+
+5. Intruding into the domain
+
 # References
