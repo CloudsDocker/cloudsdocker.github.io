@@ -38,4 +38,77 @@ Guice hates nulls as much as I do. By default, Guice refuses to inject a null in
 
 5. Intruding into the domain
 
+
+
+Guice aims to eliminate all of this boilerplate without sacrificing maintainability.
+With Guice, you implement modules. Guice passes a binder to your module, and your module uses the binder to map interfaces to implementations. The following module tells Guice to map Service to ServiceImpl in singleton scope:
+```java
+       public class MyModule implements Module {
+         public void configure(Binder binder) {
+          binder.bind(Service.class)
+           .to(ServiceImpl.class)
+           .in(Scopes.SINGLETON);
+} }
+```
+
+A module tells Guice what we want to inject. Now, how do we tell Guice where we want it injected? With Guice, you annotate constructors, methods and fields with @Inject.
+```java
+       public class Client {
+         private final Service service;
+@Inject
+         public Client(Service service) {
+           this.service = service;
+}
+         public void go() {
+           service.go();
+} }
+```
+
+## Guice vs. Dependency Injection By Hand
+As you can see, Guice saves you from having to write factory classes. You don't have to write explicit code wiring clients to their dependencies. If you forget to provide a dependency, Guice fails at startup. Guice handles circular dependencies automatically.
+Guice enables you to specify scopes declaratively. For example, you don't have to write the same code to store an object in the HttpSession over and over.
+In the real world, you often don't know an implementation class until runtime. You need meta factories or service locators for your factories. Guice addresses these problems with minimal effort.
+When injecting dependencies by hand, you can easily slip back into old habits and introduce direct dependencies, especially if you're new to the concept of dependency injection. Using Guice turns the tables and makes doing the right thing easier. Guice helps keep you on track.
+
+## Guice annotations
+When possible, Guice enables you to use annotations in lieu of explicit bindings and eliminate even more boilerplate code. Back to our example, if you need an interface to simplify unit testing but you don't care about compile time dependencies, you can point to a default implementation directly from your interface.
+```java
+       @ImplementedBy(ServiceImpl.class)
+       public interface Service {
+         void go();
+}
+```
+
+If a client needs a Service and Guice can't find an explicit binding, Guice will
+inject an instance of ServiceImpl.
+
+By default, Guice injects a new instance every time. If you want to specify a
+different scope, you can annotate the implementation class, too.
+```java
+@Singleton
+       public class ServiceImpl implements Service {
+         public void go() {
+... }
+}
+```
+
+# Architectural Overview
+We can break Guice's architecture down into two distinct stages: startup and
+runtime. You build an Injector during startup and use it to inject objects at runtime.
+
+## Startup
+You configure Guice by implementing Module. You pass Guice a module, Guice passes your module a Binder, and your module uses the binder to configure bindings. A binding most commonly consists of a mapping between an interface and a concrete implementation. For example:
+```java
+       public class MyModule implements Module {
+         public void configure(Binder binder) {
+          // Bind Foo to FooImpl. Guice will create a new
+           // instance of FooImpl for every injection.
+           binder.bind(Foo.class).to(FooImpl.class);
+           // Bind Bar to an instance of Bar.
+           Bar bar = new Bar();
+           binder.bind(Bar.class).toInstance(bar);
+}
+```
+
+
 # References
