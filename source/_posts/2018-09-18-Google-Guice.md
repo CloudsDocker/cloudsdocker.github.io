@@ -111,4 +111,42 @@ You configure Guice by implementing Module. You pass Guice a module, Guice passe
 ```
 
 
+# Injecting Providers
+With normal dependency injection, each type gets exactly one instance of each of its dependent types. The RealBillingService gets one CreditCardProcessor and one TransactionLog. Sometimes you want more than one instance of your dependent types. When this flexibility is necessary, Guice binds a provider. Providers produce a value when the get() method is invoked:
+```java
+public interface Provider<T> {
+  T get();
+}
+```
+
+# @Provides Methods
+When you need code to create an object, use an @Provides method. The method must be defined within a module, and it must have an @Provides annotation. The method's return type is the bound type. Whenever the injector needs an instance of that type, it will invoke the method.
+```java
+public class BillingModule extends AbstractModule {
+  @Override
+  protected void configure() {
+    ...
+  }
+
+  @Provides
+  TransactionLog provideTransactionLog() {
+    DatabaseTransactionLog transactionLog = new DatabaseTransactionLog();
+    transactionLog.setJdbcUrl("jdbc:mysql://localhost/pizza");
+    transactionLog.setThreadPoolSize(30);
+    return transactionLog;
+  }
+}
+```
+If the @Provides method has a binding annotation like @PayPal or @Named("Checkout"), Guice binds the annotated type. Dependencies can be passed in as parameters to the method. The injector will exercise the bindings for each of these before invoking the method.
+```java
+  @Provides @PayPal
+  CreditCardProcessor providePayPalCreditCardProcessor(
+      @Named("PayPal API key") String apiKey) {
+    PayPalCreditCardProcessor processor = new PayPalCreditCardProcessor();
+    processor.setApiKey(apiKey);
+    return processor;
+  }
+```
+
+
 # References
