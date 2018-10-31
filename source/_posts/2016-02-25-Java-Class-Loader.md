@@ -386,3 +386,6 @@ Loading classes with native methods creates a call to this method of the ClassLo
 protected String findLibrary(String libname)
 Return the directory from which native libraries should be loaded.
 This method is used by the System.loadLibrary( ) method to determine the directory in which the native library in question should be found. If this method returns null (the default), the native library must be in one of the di
+
+
+谈到常量池，在Java体系中，共用三种常量池。分别是字符串常量池、Class常量池和运行时常量池。
