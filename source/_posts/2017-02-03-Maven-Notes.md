@@ -20,7 +20,7 @@ When we invoke command mvn clean, Maven loads Clean Lifecycle and executes the p
 We can invoke any of these three phases and all preceding phases up to and including the invoked phase are executed sequentially.
 
 
-Lifecycle phases canӴ do anything by themselves. For example, phase clean by itself doesnӴ have ability or functionality to delete the build directory. It delegate the task to a plugin named maven-clean-plugin. So, lifecycles phases are just some predefined steps which Maven invokes sequentially one after another. As we can see, phases are similar to the steps in a job which are executed one after another.
+Lifecycle phases can's do anything by themselves. For example, phase clean by itself doesnӴ have ability or functionality to delete the build directory. It delegate the task to a plugin named maven-clean-plugin. So, lifecycles phases are just some predefined steps which Maven invokes sequentially one after another. As we can see, phases are similar to the steps in a job which are executed one after another.
 
 # Concepts summary
 Lifecycles, Lifecycle Phases, Plugins and Plugin Goals are the core of Maven. and we summarize the concepts learned so far:
@@ -67,6 +67,17 @@ When we run mvn package in a Java Project.
 ---
 To process-resources phase, Maven binds resources goal of maven-resources-plugin and to test phase, it binds test goal of maven-surefire-plugin and so on.
 Whatӳ happens at package phase is bit interesting. In a Java Project, Maven binds jar goal of maven-jar-plugin. However, when we run the same command in a webapp project, up to test phase Maven binds same goals, but to the package phase Maven binds war goal of maven-war-plugin the war:war instead of jar:jar.
+
+### Samples
+
+For example, consider the command below. The clean and package arguments are build phases, while the dependency:copy-dependencies is a goal (of a plugin).
+```bash
+mvn clean dependency:copy-dependencies package
+```
+If this were to be executed, the clean phase will be executed first (meaning it will run all preceding phases of the clean lifecycle, plus the clean phase itself), and then the dependency:copy-dependencies goal, before finally executing the package phase (and all its preceding build phases of the default lifecycle).
+
+Moreover, if a goal is bound to one or more build phases, that goal will be called in all those phases.
+
 
 ### To see what goals bined to lifecycle phase
 ```bash
