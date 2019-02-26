@@ -220,6 +220,38 @@ Let's continue:
 6. You decrypt my message with your private key and find my secret key. 
 7. Every request or response between us will be encrypted with this shared secret symmetric key. 
 
+## CN
+The Common Name (AKA CN) represents the server name protected by the SSL certificate.
+
+The certificate is valid only if the request hostname matches the certificate common name.
+
+To check the status, such as 
+```bash
+sudo openssl x509 -noout -in xxx.com.cer -text
+```
+ Subject: C=UK, ST=London, L=London, O=AAA Bank, OU=Product and Markets, CN=*.xxxtest.com
+        Subject Public Key Info:
+
+### commonName format
+
+The common name is not a URL. It doesn’t include any protocol (e.g. http:// or https://), port number, or pathname. For instance, https://example.com or example.com/path are incorrect. In both cases, the common name should be example.com
+
+
+#### Common Name vs Subject Alternative Name
+
+The common name can only contain up to one entry: either a wildcard or non-wildcard name. It’s not possible to specify a list of names covered by an SSL certificate in the common name field.
+
+The Subject Alternative Name extension (also called Subject Alternate Name or SAN) was introduced to solve this limitation. The SAN allows issuance of multi-name SSL certificates.
+
+
+
+# SHA-2 SSL Certificates
+Almost all certificates are currently signed with the SHA-2 hash algorithm.
+
+This article provides a simple overview of the SHA-1 to SHA-2 transition plans, as well additional informations on the SHA-2 hash algorithm and SSL certificates purchased with DNSimple previous than September 2014.
+
+The SHA family of hashing algorithms were developed by the National Institute of Standards and Technology (NIST) and are used by certificate authorities (CAs) when digitally signing issued certificates.
+
 
 
 # Reference
