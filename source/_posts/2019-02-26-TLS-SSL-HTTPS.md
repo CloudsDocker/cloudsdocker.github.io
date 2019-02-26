@@ -106,17 +106,6 @@ Public Verify Key - Used to verify that a message was, in fact, signed by me.
 
 
 
-
-
-https://confluence.dss.ext.national.com.au/display/SXCore/SSL+Certificate
-
-
-
-links to request internal certificate
-search SSL certificates in intranet
-https://intranet.nab.com.au/Div/F/site100/Pages/7308.aspx
-
-
 How do I request an Internal SSL Certificate?
 
 Expand/Collapse panel display
@@ -129,17 +118,12 @@ Venafi Trust Protection Platform
 Venafi is a made-up word created by combining two Latin roots—Vena (vein or root) and Fides (trust or faith). Venafi secures the root of trust—the encryption keys and certificates.
 
 
-
-ssh 10.53.202.62
-
 https://en.wikipedia.org/wiki/Savvis
 
 Savvis - Wikipedia
 
 Savvis, formerly SVVS on Nasdaq and formerly known as Savvis Communications Corporation, and, later, Savvis Inc., is a subsidiary of CenturyLink, a company headquartered in Monroe, Louisiana.[1] The company sells managed hosting and colocation services with more than 50 data centers[2] (over 2 million square feet) in North America, Europe, and Asia, automated management and provisioning systems, and information technology consulting. Savvis has approximately 2,500 unique business and government customers.[3][4] 
 
-/usr/local/httpd/conf/conf.d
-savvis-secure.conf
 
 The file extensions .CRT and .CER are interchangeable.  If your server requires that you use the .CER file extension, you can change the extension by following the steps below:
 
@@ -155,10 +139,6 @@ The file extensions .CRT and .CER are interchangeable.  If your server requires 
 
 But the way that Windows handles them when you double-click them is about the only difference between the two. Both extensions just represent that it contains a public certificate. You can rename a file or use one in place of the other in any system or configuration file that I've seen. And on non-Windows platforms (and even on Windows), people aren't particularly careful about which extension they use, and treat them both interchangeably, as there's no difference between them as long as the contents of the file are correct.
 
-/usr/local/httpd/conf/server.crt
-
-
-scp 10.53.202.62:/data01/home/svc_chef_stg/server.crt ~/
 
 
 *.pem, *.crt, *.ca-bundle, *.cer, *.p7b, *.p7s files contain one or more X.509 digital certificate files that use base64 (ASCII) encoding. 
