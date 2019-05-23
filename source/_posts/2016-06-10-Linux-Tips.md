@@ -5,6 +5,13 @@ tag:
 - Linux
 - DevOps
 ---
+# To delete lines in files contain pattern
+```bash
+sed -i '/.*167\=OPT.*/d' testdata.txt
+```
+
+# to select only only one element value of XML file : 
+grep -oPm1 "(?<=<TheUniqID>)[^<]+" 
 
 # To check Linux release name
 ```sh
