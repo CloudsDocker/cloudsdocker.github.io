@@ -5,6 +5,18 @@ tag:
 - Linux
 - DevOps
 ---
+# Get permission denied error when sudo su (or hyphen in sudo command)
+bash: /home/YOURNAME/.bashrc: Permission denied
+That's because you didn't add "-" hyphen in your sudo command.
+
+The difference between "-" and "no hyphen" is that the latter keeps your existing environment (variables, etc); the former creates a new environment (with the settings of the actual user, not your own).
+
+The hyphen has two effects:
+
+1) switches from the current directory to the home directory of the new user (e.g., to /root in the case of the root user) by logging in as that user
+
+2) changes the environmental variables to those of the new user as dictated by their ~/.bashrc. That is, if the first argument to su is a hyphen, the current directory and environment will be changed to what would be expected if the new user had actually logged on to a new session (rather than just taking over an existing session).
+
 # To delete lines in files contain pattern
 ```bash
 sed -i '/.*167\=OPT.*/d' testdata.txt
