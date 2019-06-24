@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【原创】深入浅出区块链系统：第二章 | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)  引言前面第一章 (位于微博上的链接)主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的无权限控制区块链，第二是有权限控制的区块链，这个又包括了私有链(Private Blockchain,以Overstock为代表)和联盟链(Consortium Blockchain,以R3为代表)">
+<meta name="keywords" content="MyBlog,blockchain,ethereum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【原创】深入浅出区块链系统：第二章">
+<meta property="og:url" content="http://www.todzhang.com/2016-10-13-head-first-blockchian-2/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)  引言前面第一章 (位于微博上的链接)主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的无权限控制区块链，第二是有权限控制的区块链，这个又包括了私有链(Private Blockchain,以Overstock为代表)和联盟链(Consortium Blockchain,以R3为代表)">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/EtherUSD.png">
+<meta property="og:image" content="https://blog.ethereum.org/wp-content/uploads/2016/07/Screen-Shot-2016-07-08-at-5.37.32-PM.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/Solidity.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/VisualStudio-Overview.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/VisualStudio-Outline.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/Cloud9.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/Ethersim.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/EmbarkStart.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/EmbarkApp.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/Testrpc.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/Truffle_Window.png">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【原创】深入浅出区块链系统：第二章">
+<meta name="twitter:description" content="使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)  引言前面第一章 (位于微博上的链接)主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的无权限控制区块链，第二是有权限控制的区块链，这个又包括了私有链(Private Blockchain,以Overstock为代表)和联盟链(Consortium Blockchain,以R3为代表)">
+<meta name="twitter:image" content="http://cloudsdocker.github.io/images/EtherUSD.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2016-10-13-head-first-blockchian-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016-10-13-head-first-blockchian-2/" class="article-date">
+  <time datetime="2019-05-31T13:03:27.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【原创】深入浅出区块链系统：第二章
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)</p>
+</blockquote>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>前面第一章 (<a href="http://weibo.com/ttarticle/p/show?id=2309404030129192967736#_0" target="_blank" rel="noopener">位于微博上的链接</a>)主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的<code>无权限控制区块链</code>，第二是<code>有权限控制的区块链</code>，这个又包括了<code>私有链</code>(Private Blockchain,以Overstock为代表)和<code>联盟链</code>(Consortium Blockchain,以R3为代表)，相对于公有链来说，这些链一般都是没有电子货币，因为他们不需要像公有链那样要靠电子货币作为挖矿的奖励来激励参与，所以速度也是比较快的。</p>
+<p>上一章都是讲的抽象的概括，下面我们就深入讲一些具体的东西，这样以便于大家有一个形象的概念，方便理解。我们这一章主要讲讲公有链，以方便讲解以及大家去继续研究，尝试，这里选择在公有链领域社区最为活跃以太坊（Ethereum），对于中国用户来说，其于2016年9月19号刚刚在中国上海举办了DevCon 2区块链峰会，很多人可能有所印象。第一步，这个东西怎么读啊？其实这是新构造的一个单词，而非一个已有的英语单词，其读作[i’θi:’riəm]。接下来我们会一起过一下涉及的一些概念，后面我会介绍几个如何进行太坊开发的技术工具，以及两个比较好用的应用框架。</p>
+<p>大家都知道，学习一个新技术最好的方式就是亲自动手试一把，几乎学习所有新编程语言上来都会写个<code>HelloWorld</code>并运行一把，在这一章最后一部分我会手把手的带领大家创建并运行一个智能合约。</p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="Ethereum"><a href="#Ethereum" class="headerlink" title="Ethereum:"></a>Ethereum:</h2><p>Ethereum (<a href="https://www.ethereum.org" target="_blank" rel="noopener">官方链接</a>) ，是个区块链公有链解决方案，如果比特币的区块链称作区块链1.0的话，那Ethereum可以称为区块链2.0 。 其主要特色就是支持<code>可编程</code>的智能合约。这个开源的系统相当于计算机中的操作系统一样，其是一个平台，提供了API及接口，以供其上运行不同的程序共享使用。同时因为它本质上是<code>去中心化的区块链</code>，因此号称是零宕机，零审查，以及不会有欺诈与人为篡改。就像所有的公有链需要激励机制的“代币”一样，它除了底层的区块链外，还有自己的加密电子货币，Ether，即<code>以太币</code>，在国内有些人戏称为“姨太”。目前一个“姨太”大约11美元，实时的价格趋势可以参见 <a href="https://www.coingecko.com/en/price_charts/ethereum/usd" target="_blank" rel="noopener">这个交易所链接</a></p>
+<p><img src="http://cloudsdocker.github.io/images/EtherUSD.png" alt></p>
+<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p>智能合约 (<a href="https://en.wikipedia.org/wiki/Smart_contract" target="_blank" rel="noopener">解释链接</a> )，其实这个概念本身是远远早于区块链产生的（早在1994年就出现了）。智能合约，说白了就是自己写的一段代码放到区块链上，在这里可以添加自己需要的业务逻辑等，只是这段代码在创建后不像传统应用是部署到服务器上运行，而是放到区块链上，并且自动执行(其运行部署都会消耗Gas(气，也就是若干的以太币))。各个参与方不需要像以前需要一个或若干个中心节点/服务器，大家都各自在自己那里完全按照“合约”执行，中间没有人可以去篡改或者停止，此设计会大大提高flexibility(灵活性）以及互相不信任的问题。比如有一个智能合约定义的逻辑是：当A收到钱后，B就会收到货物，这些操作都是按照合约自动执行，中间不再会有违约或者被人为修改的风险。</p>
+<p>这些智能合约是以DAPP (Decentralized  Application)的形式存在。智能合约是部署在区块链上，由于区块链的透明性，这些合约对任何人都是可见的，当然这个有利有弊。如果其有bug或者漏洞，就有可能被人抓住并利用，比如2016年6月的The DAO攻击，就造成相当于5千万美元的以太币丢失，这也直接导致了以太坊后面的一次更分叉，这块笔者后面会撰文详解。</p>
+<h2 id="Web-3-0"><a href="#Web-3-0" class="headerlink" title="Web 3.0"></a>Web 3.0</h2><p>大家可能听说过web 1.0， 其是指之前传统的网页技术，比如HTML，传统的JavaScript,VBScript,CSS。而web 2.0 是使用所谓的DHMTL,HTML5, Ajax,等众多的JavaScript技术，来创作类似于桌面程序效果般的网页应用。Web 2.0这些技术有个问题，就是<code>过于依赖</code>中心化的服务器/第三方机构，比如除了其应该做的提供网页访问服务外，还有验证，用户行为记录分析等。 而这里提出的web 3.0是有如下几个特性，首先是<code>去中心化</code>，比如通用的后台端，使用Swarm与bzz来作为<code>内容寻址的存储系统</code>，基于区块链的<code>共识形成机制</code>，基于Whisper的异步消息机制等，这样具体的业务逻辑都会分发到每个客户端去执行，而非位于昂贵且易于出问题的少数中心节点。 </p>
+<p>这是刚刚提到的架构图</p>
+<p><img src="https://blog.ethereum.org/wp-content/uploads/2016/07/Screen-Shot-2016-07-08-at-5.37.32-PM.png" alt> </p>
+<h2 id="Solidity"><a href="#Solidity" class="headerlink" title="Solidity"></a>Solidity</h2><p>上面说到的这些智能合约一般来说是使用一种特殊的编程语言来创建的，即Solidity，这个语言是以太坊提出并创造的，面向对象的DSL特定领域编程语言(Domain Specific Language),它是以太坊支持的4种语言（另外三个是Serpent, LLL 和 Mutan），只不过其是最流行的一个语言。从技术上来讲，solidify源代码会编译成字节码，然后运行于EVM（Ethereum Virtual Machine）上面。如果你看到源代码后就会觉得其实Solidity是与JavaScript十分类似的语言，如下是一段代码：</p>
+<p><img src="http://cloudsdocker.github.io/images/Solidity.png" alt></p>
+<p>Gavin Wood (Solidity之父)说Solidity就是根据ECMAScript（是JavaScript,ActionScript等的标准祖先）所创建的，这样对于大多数开发人员来说学习曲线会很平滑。</p>
+<h1 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h1><p>由于发展时间不是很长，目前市面上可用的开发环境IDE不太多。下面介绍下稍微比较成熟可靠的开发工具。</p>
+<h2 id="Microsoft-Visual-Studio-Ethereum-插件"><a href="#Microsoft-Visual-Studio-Ethereum-插件" class="headerlink" title="Microsoft Visual Studio Ethereum 插件"></a>Microsoft Visual Studio Ethereum 插件</h2><p>没错，就是那个市面上已经非常常见的visual studio，也就是dot net的开发工具，不是一个全新的开发工具。此开发集成环境只需要安装solidify插件即可。 这个也从侧面可以看到微软对于以太坊以及区块链的野心。</p>
+<p>安装此插件后在微软的Visual Studio后就可以在新建项目时的模板里看到这个Solidity 选项：</p>
+<p><img src="http://cloudsdocker.github.io/images/VisualStudio-Overview.png" alt></p>
+<p>当选择此模板后，visual studio他会自动构造出一个应用的基本文件结构。这样你可以省去一些每次开发一个智能合约都要重复的工作。你就可以集中时间精力到真正业务代码上。</p>
+<p>如下就是这个IDE自动生成的代码</p>
+<p><img src="http://cloudsdocker.github.io/images/VisualStudio-Outline.png" alt></p>
+<h2 id="Ethereum-Studio"><a href="#Ethereum-Studio" class="headerlink" title="Ethereum Studio"></a>Ethereum Studio</h2><p>除了背靠微软这个大旗的visual studio集成开发环境外，还有一个方便大家使用的免费的IDE。这个是基于Cloud9平台的一个在线IDE，其完全运行于浏览器中，不用安装，可以用于任何的操作系统。如下就是这个在线集成开发环境的样子。这个还是比较推荐的开发环境：</p>
+<p><img src="http://cloudsdocker.github.io/images/Cloud9.png" alt></p>
+<h1 id="智能合约应用开发框架"><a href="#智能合约应用开发框架" class="headerlink" title="智能合约应用开发框架"></a>智能合约应用开发框架</h1><p>目前比较常用的智能合约构架有如下几个，都是开源并且免费的。这里我们来手把手的创建并运行一个智能合约，来体会一下。</p>
+<h2 id="Embark"><a href="#Embark" class="headerlink" title="Embark"></a>Embark</h2><p>首先推荐的是这个叫做Embark的框架，他是一个让你可以轻松开发部署Dapps的平台，它支持的功能包括，在JS代码中部署智能合约，智能合约的热部署，可以集成grunt等构造工具。支持TDD（即测试驱动的开发）比如支持mocha等测试框架，可以方便的使用IPFS等去中心化的系统，支持增量，智能的部署修改过的智能合约等。这个工具是使用nodejs写的，因此你需要先安装nodejs的环境。这个平台会在你本地启动一个区块链服务模拟器，这样你就可以完全在本地开发测试，大大提高了工作效率。如下是启动后的截图。Embark的安装及源代码位于<a href="https://github.com/CloudsDocker/embark-framework" target="_blank" rel="noopener">Gitub这里</a></p>
+<p>首先你需要来安装Embark以及区块链模拟器。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装Embark</span></span><br><span class="line">npm -g install embark-framework</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装区块链模拟器</span></span><br><span class="line">npm -g install ethersim</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动RPC模拟器</span></span><br><span class="line">embark simulator</span><br></pre></td></tr></table></figure>
+
+<p>启动的模拟器是下面这个样子<br><img src="http://cloudsdocker.github.io/images/Ethersim.png" alt></p>
+<p>然后我们去创建一个新的智能合约：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个叫做demo的智能合约基础结构</span></span><br><span class="line">embark demo</span><br><span class="line"><span class="comment"># 进入这个目录，下面含有配置文件 embark.yaml</span></span><br><span class="line"><span class="built_in">cd</span> embark_demo</span><br><span class="line"><span class="comment"># 启动应用</span></span><br><span class="line">embark run</span><br></pre></td></tr></table></figure>
+
+<p>启动后,首先在后台看，Emark帮忙使用coffee script等构造并部署了合约。</p>
+<p><img src="http://cloudsdocker.github.io/images/EmbarkStart.png" alt></p>
+<p>你可以使用浏览器试验一下，比如打开<code>http://localhost:8000</code>，然后你可以试着输入个数值，去试试看看它是不是已经能够响应处理你的输入了：</p>
+<p><img src="http://cloudsdocker.github.io/images/EmbarkApp.png" alt></p>
+<p>是不是很神奇，短短两三分钟，已经从零开始构造出一个可以运行的以太坊DAPP<br>，并运行于区块链之上。 接下来我们介绍另外一个框架选择方案。</p>
+<h2 id="Truffle"><a href="#Truffle" class="headerlink" title="Truffle"></a>Truffle</h2><p>Truffle,是跟前面提到的 Ethereum Studio 同一个公司（ConsenSys）开发的一个框架， 这个跟前面的embark类似，也是可以提供一个智能合约的开发测试平台,他的一个特色就是它可以集成nodejs里面强大的测试功能，比如Mocha, Chai等等. 像Embark一样，你需要另外安装运行其他软件，来启动以太坊客户端模拟器，最常用的是EthereumJS TestRPC  <a href="https://github.com/ethereumjs/testrpc" target="_blank" rel="noopener">Github link</a>, 它会在内存中启动一个Ethereum的客户端， 这样可以快速测试你开发的应用。</p>
+<p>因为这个也是使用nodejs创建的应用，因此使用如下命令来安装此程序，安装好了启动此应用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装以太坊模拟器</span></span><br><span class="line">npm install -g ethereumjs-testrpc</span><br><span class="line"><span class="comment"># 启动模拟器</span></span><br><span class="line">testrpc</span><br></pre></td></tr></table></figure>
+
+<p>启动后是这样子的<br><img src="http://cloudsdocker.github.io/images/Testrpc.png" alt></p>
+<p>模拟器启动好了，接下来执行下面的命令来初始化truffle应用。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir firstApp</span><br><span class="line"><span class="built_in">cd</span> firstApp</span><br><span class="line">truffle init</span><br></pre></td></tr></table></figure>
+
+<p>上面最后一个命令就会自动帮你构造好的程序框架，包括一些最基本的JavaScript文件，几个智能合约源代码，主应用程序的HTML代码及配套的CSS等文件 。如下是这个基本框架：<br><img src="http://cloudsdocker.github.io/images/Truffle_Window.png" alt></p>
+<p>接下来你可以添加自己的代码到<code>contracts</code>目录下的智能合约文件，也可以什么都不动，因为truffle已经自动生成了最基本的框架。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这个命令会把智能合约源代码编译成字节码</span></span><br><span class="line">truffle compile</span><br></pre></td></tr></table></figure>
+
+<p>编译好的代码需要部署到区块链上才可以执行，在truffle中这个工作是由<code>migrates</code>目录下定义的migrate作业执行的，我们去修改文件<code>2_deploy_contracts.js</code>为如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">deployer</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// deployer.deploy(ConvertLib);</span></span><br><span class="line">  <span class="comment">// deployer.autolink();</span></span><br><span class="line">  <span class="comment">// deployer.deploy(MetaCoin);</span></span><br><span class="line">  deployer.deploy(HelloEthereum);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后执行如下命令去执行代码部署，它除了把你的智能合约发布到区块链之外，还会做一些相关工作，比如link用到的library等。deployer可以使用<code>promise</code>的方式 (e.g. .then(function(xx)))来执行其他额外的工作等，比如创建一个其他的合约并调用，等。这个便于你来灵活的扩展应用。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">truffle migrate</span><br><span class="line">truffle build</span><br></pre></td></tr></table></figure>
+
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>好了，至此我们已经了解了什么是以太坊已经其上运行的智能合约，DAPP等概念。后面又介绍了开发智能合约的工具已经可复用的框架，最后又手把手亲自做了一个智能合约。这样大家应该对区块链以及以太坊等公有链有了一个形象具体的感觉了吧。如果这里有什么问题或者建议，欢迎通过下面的联系方式与我沟通。</p>
+<h1 id="Referece"><a href="#Referece" class="headerlink" title="Referece"></a>Referece</h1><ul>
+<li><a href="https://solidity.readthedocs.io/en/develop/introduction-to-smart-contracts.html" target="_blank" rel="noopener">Introduction to Smart Contracts</a></li>
+<li><a href="https://solidity.readthedocs.io/en/develop/installing-solidity.html" target="_blank" rel="noopener">Installing Solidity</a></li>
+<li><a href="https://blog.ethereum.org/2016/07/12/build-server-less-applications-mist/" target="_blank" rel="noopener">以太坊官方教程</a></li>
+<li><a href="http://swarm-gateways.net/bzz:/swarm/" target="_blank" rel="noopener">Swarm</a></li>
+<li><a href="http://truffle.readthedocs.io/en/latest/" target="_blank" rel="noopener">Truffle Official Doc</a></li>
+</ul>
+<h2 id="联系我："><a href="#联系我：" class="headerlink" title="联系我："></a>联系我：</h2><ul>
+<li><a href="mailto:phray.zhang@gmail.com" target="_blank" rel="noopener">phray.zhang@gmail.com</a> (email/邮件，whatsapp, linkedin)</li>
+<li>helloworld_2000 (wechat/微信)</li>
+<li><a href="https://github.com/CloudsDocker/" target="_blank" rel="noopener">github</a></li>
+<li>[简书 jianshu]（<a href="http://www.jianshu.com/users/a9e7b971aafc）" target="_blank" rel="noopener">http://www.jianshu.com/users/a9e7b971aafc）</a></li>
+<li>微信公众号：vibex</li>
+<li><a href="http://weibo.com/cloudsdocker" target="_blank" rel="noopener">webo/微博</a>: cloudsdocker</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2016-10-13-head-first-blockchian-2/" data-id="cjxaajrpc0025bhq1atv1wm2w" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ethereum/">ethereum</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016-10-06-Sublime-Syntax-Highlights/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          How to customize Sublime syntax highlights
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016-10-19-head-first-blockchian-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Head First Blockchina 3</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

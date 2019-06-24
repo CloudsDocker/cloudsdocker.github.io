@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Simpler chronicle of CI(Continuous Integration) “乱弹系列”之持续集成工具 | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="引言有句话说有人的地方就有江湖，同样，有江湖的地方就有恩怨。在软件行业历史长河（虽然相对于其他行业来说，软件行业的历史实在太短了，但是确是充满了智慧的碰撞也是十分的精彩）中有一些恩怨情愁，分分合合的小故事，比如类似的有，从一套代码发展出来后面由于合同到期就分道扬镳，然后各自发展成独门产品的Sybase DB和微软的SQL Server；另外一个例子是，当时JBPM的两个主要开发的小伙伴离开当时的R">
+<meta name="keywords" content="DevOps,MyBlog,CI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Simpler chronicle of CI(Continuous Integration) “乱弹系列”之持续集成工具">
+<meta property="og:url" content="http://www.todzhang.com/2016-10-26-Continuous-Integretaion-Simpler-Chronicle/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="引言有句话说有人的地方就有江湖，同样，有江湖的地方就有恩怨。在软件行业历史长河（虽然相对于其他行业来说，软件行业的历史实在太短了，但是确是充满了智慧的碰撞也是十分的精彩）中有一些恩怨情愁，分分合合的小故事，比如类似的有，从一套代码发展出来后面由于合同到期就分道扬镳，然后各自发展成独门产品的Sybase DB和微软的SQL Server；另外一个例子是，当时JBPM的两个主要开发的小伙伴离开当时的R">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/travis-ci.jpg">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/Jenkins-Logo.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/Hudson-Logo.jpg">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/newcheats.gif">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/kohsuke-kawaguchi_2.jpg">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/jenkins_jobs.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/hudson_gui.jpg">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/Jenkins-Logo.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/Hudson-Logo.jpg">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/hudson_vs_jenkins_submit.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/jenkins-plugin-diagram-saci.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/0082OS_02_14.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/ci-architecture-pantheon.png">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Simpler chronicle of CI(Continuous Integration) “乱弹系列”之持续集成工具">
+<meta name="twitter:description" content="引言有句话说有人的地方就有江湖，同样，有江湖的地方就有恩怨。在软件行业历史长河（虽然相对于其他行业来说，软件行业的历史实在太短了，但是确是充满了智慧的碰撞也是十分的精彩）中有一些恩怨情愁，分分合合的小故事，比如类似的有，从一套代码发展出来后面由于合同到期就分道扬镳，然后各自发展成独门产品的Sybase DB和微软的SQL Server；另外一个例子是，当时JBPM的两个主要开发的小伙伴离开当时的R">
+<meta name="twitter:image" content="http://cloudsdocker.github.io/images/travis-ci.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2016-10-26-Continuous-Integretaion-Simpler-Chronicle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016-10-26-Continuous-Integretaion-Simpler-Chronicle/" class="article-date">
+  <time datetime="2019-05-31T13:03:27.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Simpler chronicle of CI(Continuous Integration) “乱弹系列”之持续集成工具
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>有句话说<code>有人的地方就有江湖</code>，同样，有江湖的地方就有恩怨。在软件行业历史长河（虽然相对于其他行业来说，软件行业的历史实在太短了，但是确是充满了智慧的碰撞也是十分的精彩）中有一些恩怨情愁，分分合合的小故事，比如类似的有，从一套代码发展出来后面由于合同到期就分道扬镳，然后各自发展成独门产品的Sybase DB和微软的SQL Server；另外一个例子是，当时JBPM的两个主要开发的小伙伴离开当时的RedHat，在JBPM基础上自立门户新创建的Java工作流管理软件Activiti，等等。在持续集成工具龙头老大这个宝座，也曾经发生过合作合并，吵架分家，再对着干的事情，今天分享一下这前前后后有趣的故事。</p>
+<h1 id="DevOps"><a href="#DevOps" class="headerlink" title="DevOps"></a>DevOps</h1><p>首先，防止<strong><code>先入为主</code></strong>,以为大家都知道这个那个的。先普及下相关背景知识，如果已经了解的同学可以跳过。目前在软件工程领域已经火了好几年的<code>DevOps</code>领域，核心的模块就是<code>CI</code>与’CD’，即Continuous Integration与Continuous Deployment,也就是持续集成与持续部署，这个对于处于<code>敏捷</code>开发环境下尤其是互联网等需要高速迭代是个核心的功能，可以说没有CI，就不可能达到像Google或者Facebook这些一天有多个release的情况。</p>
+<h1 id="CI"><a href="#CI" class="headerlink" title="CI"></a>CI</h1><p>CI(Continuous Integration) 持续集成起源于 XP(极限编程)与 TDD (Test Driven Develop)也就是<strong>以测试驱动</strong>的开发模式，是防止出现所谓的’集成地狱’,即防止程序员在正常编码工作中，需要写新的业务逻辑，添加新的代码，但是同时也新引入了bug。CI会持续的（重复的）进行一些小的工作，比如不断的跑测试用例，去扫描代码等工作。以减轻或者很大程度上避免这个个新引入的bug对软件交付质量引起的负面影响。目前，市场上有很多的CI解决方案及工具，常用的如下几个，</p>
+<p><img src="http://cloudsdocker.github.io/images/travis-ci.jpg" alt><br><img src="http://cloudsdocker.github.io/images/Jenkins-Logo.png" alt><br><img src="http://cloudsdocker.github.io/images/Hudson-Logo.jpg" alt></p>
+<h1 id="CI-的进化史"><a href="#CI-的进化史" class="headerlink" title="CI 的进化史"></a>CI 的进化史</h1><p>世界上本来没有CI,用的人多了也就成就了CI。本来软件工程里是没有这个概念的。最开始，就像下图中描述的帝国时代里，整个社会节奏平稳而缓慢，每个程序员自己做自己的开发，然后各自把自己的工作上次（提交），整个团队把代码放在一起，然后整个人过来，启动make/build，后面有个人去把编译好的代码放到测试机器上，每个程序员自己或者单独的测试团队去测试程序，如果没有问题，另外的人去发布到生产环境上。这些都是或多或少由人手工去做的。</p>
+<p><img src="http://cloudsdocker.github.io/images/newcheats.gif" alt></p>
+<p>但是就像很多人类的发明就是为了人类”偷懒”一样，CI慢慢在一些想偷懒的牛人脑子里形成。这其中就有Kent Beck （多说一句，这个现在工作于Facebook的牛人，还发明创造了很多到现在还在流行的东西，比如Agile敏捷开发，以JUnit为代码的xUnit测试理念，TDD测试驱动开发等等），在上个世纪最后几年，Kent Beck创造了XP（注意这个不是Bill的那个XP操作系统），是eXtreme Programming，即极限编程。虽然现在看起来极限编程有很多很诡异不太现实的方式，比如两个程序员坐在一起，使用一台电脑一起写一段程序等天马行空的想法。但是其中一个理念就是“持续集成”（CI)。以此理念，后面出现了使用各种语言写的CI的工具，其中的老大是CruiseControl。这个就像是上图中那个跑车一样，在当时整个缓慢的大环境下其提升工作效率的效果十分的吸眼。</p>
+<p><img src="http://cloudsdocker.github.io/images/kohsuke-kawaguchi_2.jpg" alt></p>
+<p>到了2005年，当时就职于Sun(没错，就是创造了Java的那家公司)的一个叫川口浩介（Kohsuke Kawaguchi）的日本人，就是上图这位“霓虹金”，敢于冒险，重新“发明轮子”，不顾如日中天的CruiseControl，设计并开发了一个新的持续集成的软件，起名叫做Hudson。它提供了很多强大的功能，比如提供插件机制，这样就使其几乎集成了市面上所有的源代码管理工具，比如CVS, Subversion, Git, Perforce等。除此之外，它还提供了界面的扩展能力，另外还支持基于Apache Ant 和 Apache Maven的项目，除了xNix,还支持Windows环境等一众强大功能。听起来这么牛逼的工具，很快，在大约2007年的时候Hudson已经超越CruiseControl。然后在2008年5月的JavaOne大会上，Hudson获得了开发解决方案类的Duke’s Choice奖项。从此，小弟翻身做大哥，Hudson成为CI的代名词。其主要开发者 Kohsuke Kawaguchi 还获得了Google-O’Reilly Open Source Award。他后来也不用自己苦逼的写代码了，只要到处受邀去演讲做是如何受什么启发创造并发明了这么好的工具，造福大批程序员。再后来他还离职创立了公司CloudBees，出任CEO，迎娶白富美，走上人生新巅峰。（也难怪上图中他笑的如此开心）</p>
+<p>一切看起来都是那么美好。但是，天有不测风云，在2009年6月，Oracle收购Sun，所有人都蒙逼了，是不是写反了？一个传统数据库的公司收购了在Java及开源老大的Sun？！！这个消息公布之后，两个公司内部各个产品及项目就被整合，调整，Hudson也不例外。这也就算了，反正谁给钱不是干活哪，但是在2010年9月，Oracle竟然暗戳啜的把Hudson变成了注册商标。2010年11月，Hudson社区的核心开发人员发现了这个事情，他们觉得这对于一个一直标榜自己是开源CI领域“诚实可靠小郎君”的Hudson来说是个玷污。双方进行了会谈，过程不太友好，然后就不出意料的谈崩了。2011年圣诞节过后，几个秃顶的大叔觉得不要再跟Oracle的律师在这里瞎扯淡了，他们决定自立门户，自己起个新的名字叫Jenkins。然后凑钱注册网址，买服务器，列出下面的清单，统统改名，</p>
+<ul>
+<li>hudson-labs.org -&gt; jenkins-ci.org</li>
+<li>@hudsonci -&gt; @jenkinsci</li>
+<li><a href="http://github.com/hudson" target="_blank" rel="noopener">http://github.com/hudson</a> -&gt; <a href="http://github.com/jenkinsci" target="_blank" rel="noopener">http://github.com/jenkinsci</a></li>
+<li>hudson-dev -&gt; jenkins-dev</li>
+<li>hudson-users -&gt; jenkins-users</li>
+<li>hudson-commits -&gt; jenkins-commits</li>
+<li>hudson-issues -&gt; jenkins-issues</li>
+</ul>
+<p>然后把代码fork出一份来（这里好笑的是Hudson与Jenkins都声称对方是自己这里的子分叉，都跟孩子斗气似的），即便分出来了，但是绝大部分还是基于之前的核心代码，所以你可以通过下图看到Hudson与Jenkins的界面都十分类似。</p>
+<h2 id="Jenkins的界面"><a href="#Jenkins的界面" class="headerlink" title="Jenkins的界面"></a>Jenkins的界面</h2><p><img src="http://cloudsdocker.github.io/images/jenkins_jobs.png" alt></p>
+<h2 id="Hudson的界面"><a href="#Hudson的界面" class="headerlink" title="Hudson的界面"></a>Hudson的界面</h2><p><img src="http://cloudsdocker.github.io/images/hudson_gui.jpg" alt></p>
+<p>但是有一个值得注意的地方就是两个系统的logo，其中Hudson是一个高傲的老头子，而Jenkins是一个谦卑为你服务的老头子。</p>
+<p><img src="http://cloudsdocker.github.io/images/Jenkins-Logo.png" alt><br><img src="http://cloudsdocker.github.io/images/Hudson-Logo.jpg" alt></p>
+<p>分家之后，Hudson有Oracle和Sonatype’s corporate的支持和Hudson的注册商标，而Jenkins拥有的是大多数的核心开发者，社区，和后续更多的commit。比如下图是分家之后两个软件的对比。两个软件的活跃程度十分明显，Jenkins遥遥领先。</p>
+<p><img src="http://cloudsdocker.github.io/images/hudson_vs_jenkins_submit.png" alt></p>
+<h1 id="CI持续集成的工作原理"><a href="#CI持续集成的工作原理" class="headerlink" title="CI持续集成的工作原理"></a>CI持续集成的工作原理</h1><p>上面讲完了主流CI工具的江湖故事后，我们来看下这类工具本身的技术情况。其实这类工具的工作原理大同小异，比如下图，一个典型的用例是</p>
+<ul>
+<li>程序员在本地开发完成后把代码提交到VCS (Version Control System)比如SVN, Git, Perforce, RTS等</li>
+<li>CI工具发现有新的check in 自动启动去抓取最新的代码。当然这里有很多不同的配置，比如除了主动监视VSC外，还可以使用CRON等配置按时启动，比如每隔一个小时启动一次，或者每两次check in 启动一次，等等很多的策略。</li>
+<li>CI可以配置使用集群的编译机器，去选择最合适的机器（有不同的策略，比如找到最清闲或者离代码文件距离最近的机器等）来编译源代码</li>
+<li>根据不同的配置，CI有可能会调用配置好的测试用例，如果测试失败，根据策略（比如少于几个错误就先忽略）要么通知用户，要么继续跑测试用例</li>
+<li>根据配置，CI可能会去执行其他操作，比如静态源代码分析，如代码有没有不符合公司安全要求，把连接密码写在代码里面等等，还有比如生成文档，测试报告，等。</li>
+<li>如果所有定义好的jobs跑完，去生成最终报告并送给用户</li>
+<li>生成一些分析报表，比如最近成功率，最近哪些程序员造成的错误最多等等。</li>
+<li>一些高级的CI,比如Jenkinsg还支持自定义扩展，也会去按配置去执行。</li>
+</ul>
+<p><img src="http://cloudsdocker.github.io/images/jenkins-plugin-diagram-saci.png" alt="jenkins-plugin-diagram-saci"></p>
+<p>这其中如果任何一步出现了错误，比如某个程序员在提交代码时忘记同时提交一个新写的类，造成失败，首先在CI（比如Jekins，或者Travis）上会显示错误 （比如下图），同时还可以配置CI工具会发出邮件提醒，甚至可以根据提交信息智能的显示出来是哪个程序员搞砸的。</p>
+<p><img src="http://cloudsdocker.github.io/images/0082OS_02_14.png" alt></p>
+<p>总而言之，这个自动化的过程就像是一个可以配置的流水线，在其上可以添加任意个不同类型的节点，在每个节点可以通过灵活的配置来设置需要完成的工作，还提供了统计及报表，邮件通知等功能，方便团队高效的管理软件的持续集成。</p>
+<h1 id="发展及未来"><a href="#发展及未来" class="headerlink" title="发展及未来"></a>发展及未来</h1><p>目前的CI也在处于高速发展期，比如最新的Jenkins 2 可以支持使用Groovy编写插件，pipeline等。同时也出现了像是开源的<strong>Travis</strong>之类的持续集成service，即你不用自己去安装调试Jenkins，直接写个YAML文件 （.travis.yaml）放到云上，自动就可以使用其提供的服务了。</p>
+<p>另外，持续集成也在跟其他新兴技术相结合使用，比如结合云计算及分布式处理，可以提高CI的运行速度和容错能力，比如下图中的各个服务器可以分别使用cluster(集群)而非一台机器，这样就可以避免所谓的SPOF (Single Point of Failure)单点故障。</p>
+<p><img src="http://cloudsdocker.github.io/images/ci-architecture-pantheon.png" alt></p>
+<p>如果有什么问题或者想要跟我讨论，请通过如下方式找到我。</p>
+<h2 id="联系我："><a href="#联系我：" class="headerlink" title="联系我："></a>联系我：</h2><ul>
+<li><a href="mailto:phray.zhang@gmail.com" target="_blank" rel="noopener">phray.zhang@gmail.com</a> (email/邮件，whatsapp, linkedin)</li>
+<li>helloworld_2000 (wechat/微信)</li>
+<li><a href="https://github.com/CloudsDocker/" target="_blank" rel="noopener">github</a></li>
+<li>[简书 jianshu]（<a href="http://www.jianshu.com/users/a9e7b971aafc）" target="_blank" rel="noopener">http://www.jianshu.com/users/a9e7b971aafc）</a></li>
+<li>微信公众号：vibex</li>
+<li><a href="http://weibo.com/cloudsdocker" target="_blank" rel="noopener">webo/微博</a>: cloudsdocker</li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Continuous_integration" target="_blank" rel="noopener">CI in wikipedia</a></li>
+<li><a href="http://image.slidesharecdn.com/continuousintegration-100503045436-phpapp01/95/continuous-integration-system-6-728.jpg?cb=1272862514" target="_blank" rel="noopener">Slide share</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2016-10-26-Continuous-Integretaion-Simpler-Chronicle/" data-id="cjxaajrpe002abhq191erqyrs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI/">CI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBlog/">MyBlog</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016-10-19-head-first-blockchian-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Head First Blockchina 3
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016-11-04-Python-Scrapy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python Scraphy</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

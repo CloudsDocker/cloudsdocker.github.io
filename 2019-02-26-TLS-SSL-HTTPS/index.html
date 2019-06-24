@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>SSL certificates | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="What’s TLSTLS (Transport Layer Security) and its predecessor, SSL (Secure Sockets Layer), are security protocols designed to secure the communication between a server and a client, for example, a web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSL certificates">
+<meta property="og:url" content="http://www.todzhang.com/2019-02-26-TLS-SSL-HTTPS/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="What’s TLSTLS (Transport Layer Security) and its predecessor, SSL (Secure Sockets Layer), are security protocols designed to secure the communication between a server and a client, for example, a web">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-06-16T06:03:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSL certificates">
+<meta name="twitter:description" content="What’s TLSTLS (Transport Layer Security) and its predecessor, SSL (Secure Sockets Layer), are security protocols designed to secure the communication between a server and a client, for example, a web">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2019-02-26-TLS-SSL-HTTPS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019-02-26-TLS-SSL-HTTPS/" class="article-date">
+  <time datetime="2019-06-16T06:03:47.000Z" itemprop="datePublished">2019-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SSL certificates
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="What’s-TLS"><a href="#What’s-TLS" class="headerlink" title="What’s TLS"></a>What’s TLS</h1><p>TLS (Transport Layer Security) and its predecessor, SSL (Secure Sockets Layer), are security protocols designed to secure the communication between a server and a client, for example, a web server and a browser. Both protocols are frequently referred to as SSL.</p>
+<p>A TLS/SSL certificate (simply called SSL certificate) is required to enable SSL/TLS on your site and serve your website using the secure HTTPS protocol.</p>
+<p>We offer different types of domain-validated SSL certificates signed by globally recognized certificate authorities.</p>
+<h1 id="CA"><a href="#CA" class="headerlink" title="CA"></a>CA</h1><p>A Certificate Authority (CA) (or Certification Authority) is an entity that issues digital certificates.</p>
+<p>The digital certificate <em>certifies the ownership</em> of a public key by the named subject of the certificate. This allows others (relying parties) to rely upon signatures or assertions made by the private key that corresponds to the public key that is certified.</p>
+<h1 id="Root-certificate"><a href="#Root-certificate" class="headerlink" title="Root certificate"></a>Root certificate</h1><p>In the SSL ecosystem, anyone can generate a signing key and sign a new certificate with that signature. However, that certificate is not considered valid unless it has been directly or indirectly signed by a trusted CA.</p>
+<p>A trusted certificate authority is an entity that has been entitled to verify that someone is effectively who it declares to be. In order for this model to work, all the participants on the game must agree on a set of CA which they trust. All operating systems and most of web browsers ship with a set of trusted CAs.</p>
+<p>The SSL ecosystem is based on a * model of trust relationship<em>, also called *</em> “chain of trust” **. When a device validates a certificate, it compares the certificate issuer with the list of trusted CAs. If a match is not found, the client will then check to see if the certificate of the issuing CA was issued by a trusted CA, and so on until the end of the certificate chain. The top of the chain, the root certificate, must be issued by a trusted Certificate Authority.</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>The root certificate is generally embedded in your connected device. In the case of web browsers, root certificates are packaged with the browser software.</p>
+<h3 id="To-install-the-Intermediate-SSL-certificates"><a href="#To-install-the-Intermediate-SSL-certificates" class="headerlink" title="To  install the Intermediate SSL certificates?"></a>To  install the Intermediate SSL certificates?</h3><p>The procedure to install the Intermediate SSL certificates depends on the web server and the environment where you install the certificate.</p>
+<p>For instance, Apache requires you to bundle the intermediate SSL certificates and assign the location of the bundle to the SSLCertificateChainFile configuration. Conversely, NGINX requires you to package the intermediate SSL certificates in a single bundle with the end-user certificate.</p>
+<h1 id="SSL-certificate-chain"><a href="#SSL-certificate-chain" class="headerlink" title="SSL certificate chain"></a>SSL certificate chain</h1><p>There are two types of certificate authorities (CAs): root CAs and intermediate CAs. In order for an SSL certificate to be trusted, that certificate must have been issued by a CA that is included in the trusted store of the device that is connecting.</p>
+<p>In this model of trust relationships, a CA is a trusted third party that is trusted by both the subject (owner) of the certificate and the party relying upon the certificate.</p>
+<p>In the context of a website, when we use the term digital certificate we often refer to SSL certificates. The CA is the authority responsible for issuing SSL certificates publicly trusted by web browsers.</p>
+<p>Anyone can issue SSL certificates, but those certificates would not be trusted automatically by web browsers. Certificates such as these are called self-signed. The CA has the responsibility to validate the entity behind an SSL certificate request and, upon successful validation, the ability to issue publicly trusted SSL certificates that will be accepted by web browsers. Essentially, the browser vendors rely on CAs to validate the entity behind a web site.</p>
+<h1 id="How-SSL-work-in-browser"><a href="#How-SSL-work-in-browser" class="headerlink" title="How SSL work in browser"></a>How SSL work in browser</h1><p>There are 3 essential elements at work in the process described above: a protocol for communications (SSL), credentials for establishing identity (the SSL certificate), and a third party that vouches for the credentials (the certificate authority). </p>
+<pre><code>Computers use protocols to allow different systems to work together. Web servers and web browsers rely on the Secure Sockets Layer (SSL) protocol to enable encrypted communications. The browser’s request that the server identify itself is a function of the SSL protocol.
+Credentials for establishing identity are common to our everyday lives: a driver’s license, a passport, a company badge. An SSL certificate is a type of digital certificate that serves as a credential in the online world. Each SSL certificate uniquely identifies a specific domain (such as thawte.com) and a web server.
+Our trust of a credential depends on our confidence in the organization that issued it. Certificate authorities have a variety of methods to verify information provided by individuals or organizations. Established certificate authorities, such as Thawte, are well known and trusted by browser vendors. Browsers extend that trust to digital certificates that are verified by the certificate authority.</code></pre><h2 id="PKI"><a href="#PKI" class="headerlink" title="PKI"></a>PKI</h2><p>You are correct that SSL uses an asymmetric key pair. One public and one private key is generated which also known as public key infrastructure (PKI). The public key is what is distributed to the world, and is used to encrypt the data. Only the private key can actually decrypt the data though.</p>
+<blockquote>
+<p>Say we both go to walmart.com and buy stuff. Each of us get a copy of Walmart’s public key to sign our transaction with. Once the transaction is signed by Walmart’s public key, only Walmart’s private key can decrypt the transaction. If I use my copy of Walmart’s public key, it will not decrypt your transaction. Walmart must keep their private key very private and secure, else anyone who gets it can decrypt transactions to Walmart. This is why the DigiNotar breach was such a big deal</p>
+</blockquote>
+<h1 id="A-sample-of-how-browser-get-SSL-certificate"><a href="#A-sample-of-how-browser-get-SSL-certificate" class="headerlink" title="A sample of how browser get SSL certificate"></a>A sample of how browser get SSL certificate</h1><p>If I get an SSL certificate from a well-known provider, what does that prove about my site and how?</p>
+<p>Here’s what I know:</p>
+<pre><code>Assume Alice and Bob both have public and private keys
+If Alice encrypts something with Bob&apos;s public key, she ensures that only Bob can decrypt it (using his private key)
+If Alice encrypts something with her own private key, anyone can decrypt it (using her public key), but they will know that it was encrypted by her
+Therefore, if Alice encrypts a message first with her own private key, then with Bob&apos;s public key, she will ensure that only Bob can decrypt it and that Bob will know the message is from her.</code></pre><p>Regarding certificates, here’s what I think happens (updated):</p>
+<pre><code>I generate a request for a certificate. In that request, I put my public key and a bunch of information about myself.
+The certificate issuer (in theory) checks me out to make sure it knows who I am: talks to me in person, sees my driver&apos;s license, retina scan, or whatever.
+If they&apos;re satisfied, the certificate issuer then encrypts my request with their private key. Anyone who decrypts it with their public key knows that they vouch for the information it contains: they agree that the public key is mine and that the information stated is true about me. This encrypted endorsement is the certificate that they issue to me.
+When you connect to my site via https, I send you the certificate.
+Your browser already knows the issuer&apos;s public key because your browser came installed with that information.
+Your browser uses the issuer&apos;s public key to decrypt what I sent you. The fact that the issuer&apos;s public key works to decrypt it proves that the issuer&apos;s private key was used to encrypt it, and therefore, that the issuer really did create this certificate.
+Inside the decrypted information is my public key, which you now know has been vouched for. You use that to encrypt some data to send to me.</code></pre><p>Your key theory: basically right, but authentication is usually done by encrypting a cryptographically secure hash of the data rather than the data itself.</p>
+<p>A CA’s signature on an SSL certificate should indicate that the CA has done a certain amount of diligence to ensure that the credentials on the certificate match the owner. That diligence varies, but the ultimate point is that they’re saying that the certificate they signed belongs to the entity named on it.</p>
+<p>See <a href="http://en.wikipedia.org/wiki/Digital_signature#Definition" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Digital_signature#Definition</a></p>
+<p>A public key certificate is the signed combination between a public key, identifiers, and possibly other attributes. Those who sign this document effectively assert the authenticity of the binding between the public key and the identifier and these attributes, in the same way as a passport issuing authority asserts the binding between the picture and the name in a passport, as various other pieces of information (nationality, date of birth, …).</p>
+<pre><code>The private key is used for signing and deciphering/decrypting.
+The public key is used for verifying signatures and enciphering/encrypting.</code></pre><p>public key cryptography: A class of cryptographic techniques employing two-key ciphers. Messages encrypted with the public key can only be decrypted with the associated private key. Conversely, messages signed with the private key can be verified with the public key.</p>
+<p>It should be pointed out, along with all the other answers, that your private key is not always just one key that is used for both decrypting and signing messages. These should be two separate keys. This would create 4 keys for each person:</p>
+<p>Public Encryption Key - Used to encrypt data to send to me.</p>
+<p>Private Decryption Key - Used to decrypt messages that were encrypted using my Public Encryption Key.</p>
+<p>Private Signing Key - Used to sign messages that I send to other people.</p>
+<p>Public Verify Key - Used to verify that a message was, in fact, signed by me.</p>
+<p>How do I request an Internal SSL Certificate?</p>
+<p>Expand/Collapse panel display<br>To request or renew an internal SSL certificate go to the Venafi (Aperture) portal and log on with your NAB network ID and password.</p>
+<p>Venafi Trust Protection Platform</p>
+<p>Venafi is a made-up word created by combining two Latin roots—Vena (vein or root) and Fides (trust or faith). Venafi secures the root of trust—the encryption keys and certificates.</p>
+<p><a href="https://en.wikipedia.org/wiki/Savvis" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Savvis</a></p>
+<p>Savvis - Wikipedia</p>
+<p>Savvis, formerly SVVS on Nasdaq and formerly known as Savvis Communications Corporation, and, later, Savvis Inc., is a subsidiary of CenturyLink, a company headquartered in Monroe, Louisiana.[1] The company sells managed hosting and colocation services with more than 50 data centers[2] (over 2 million square feet) in North America, Europe, and Asia, automated management and provisioning systems, and information technology consulting. Savvis has approximately 2,500 unique business and government customers.[3][4] </p>
+<p>The file extensions .CRT and .CER are interchangeable.  If your server requires that you use the .CER file extension, you can change the extension by following the steps below:</p>
+<pre><code>Double-click on the yourwebsite.crt file to open it into the certificate display.
+Select the Details tab, then select the Copy to file button.
+Hit Next on the Certificate Wizard.
+Select Base-64 encoded X.509 (.CER), then Next.
+Select Browse (to locate a destination) and type in the filename yourwebsite.
+Hit Save. You now have the file yourwebsite.cer
+
+
+File extensions for cryptographic certificates aren&apos;t really as standardized as you&apos;d expect. Windows by default treats double-clicking a .crt file as a request to import the certificate into the Windows Root Certificate store, but treats a .cer file as a request just to view the certificate. So, they&apos;re different in that sense, at least, that Windows has some inherent different meaning for what happens when you double click each type of file.</code></pre><p>But the way that Windows handles them when you double-click them is about the only difference between the two. Both extensions just represent that it contains a public certificate. You can rename a file or use one in place of the other in any system or configuration file that I’ve seen. And on non-Windows platforms (and even on Windows), people aren’t particularly careful about which extension they use, and treat them both interchangeably, as there’s no difference between them as long as the contents of the file are correct.</p>
+<p>*.pem, *.crt, *.ca-bundle, *.cer, *.p7b, *.p7s files contain one or more X.509 digital certificate files that use base64 (ASCII) encoding. </p>
+<p>.DER = The DER extension is used for binary DER encoded certificates. These files may also bear the CER or the CRT extension.   Proper English usage would be “I have a DER encoded certificate” not “I have a DER certificate”.</p>
+<p>.PEM = The PEM extension is used for different types of X.509v3 files which contain ASCII (Base64) armored data prefixed with a “—– BEGIN …” line.</p>
+<p>.CRT = The CRT extension is used for certificates. The certificates may be encoded as binary DER or as ASCII PEM. The CER and CRT extensions are nearly synonymous.  Most common among *nix systems</p>
+<p>CER = alternate form of .crt (Microsoft Convention) You can use MS to convert .crt to .cer (.both DER encoded .cer, or base64[PEM] encoded .cer)  The .cer file extension is also recognized by IE as a command to run a MS cryptoAPI command (specifically rundll32.exe cryptext.dll,CryptExtOpenCER) which displays a dialogue for importing and/or viewing certificate contents.</p>
+<p>.KEY = The KEY extension is used both for public and private PKCS#8 keys. The keys may be encoded as binary DER or as ASCII PEM.</p>
+<p>The only time CRT and CER can safely be interchanged is when the encoding type can be identical.  (ie  PEM encoded CRT = PEM encoded CER)</p>
+<p>What is the SSL Certificate Chain?</p>
+<p>There are two types of certificate authorities (CAs): root CAs and intermediate CAs. In order for an SSL certificate to be trusted, that certificate must have been issued by a CA that is included in the trusted store of the device that is connecting.</p>
+<p>Good. I see you want to access this particular page.  I need to send the page to you in a secure way. If I<br>encrypt it using my public key, you won’t be able to decrypt it because you don’t have my private key. And since you don’t have any public key of your own that I can use to encrypt the page for you here’s what I propose<br>Since you can send me encrypted messages that only me can read (you have my public key), send me an encrypted message with an encryption key in it. Just make up a random encryption key that we’ll both use to encrypt and decrypt the messages between us during this session . </p>
+<p>A simple symmetric key is enought. We’ll use the same key to encrypt and decrypt the messages.</p>
+<ul>
+<li>So there’s no way that anybody with your public<br>key can trick others to believe that he is you ? </li>
+<li>Nope. That’s the beauty of the assymetric encryption. </li>
+</ul>
+<p>When you send the public key to the victim’s contain your public key + a certificate that this public key belongs to you. If you are a website, then the certificate will contain the domain name of the website. Basically, a certificate says something like:  the following public key “XYZ123” belongs to example.com. </p>
+<p>that’s why we have “Certificate Authorities” like Verisign, Digicert or even Symantec. It is believed that these companies have the necessary trustworthiness to deliver certificates to different •entities.<br>Think of a CA like a registrar for public keys. Just like registrars assert that a domain name belongs to a certain person or company, CAS assert that a public key belongs to a certain domain name (or IP address) . </p>
+<p>The certificate will contain the CA that delivered it, but you don’t even have to check with them because the certificate is signed by them. That signature alone is enough proof that the certificate comes from them. </p>
+<p>A signature is simply a small message that is encrypted with their private key. Since private keys are asymetric, that means that only the associated public key can decrypt it.</p>
+<p>Asymmetric encryption works in both way. public -&gt; private and private -&gt; public.<br>What the public key encrypts only the private key can decrypt, and what the private key can encrypt only the public key can decrypt.</p>
+<p>for PKI, we’re not looking for secrecy here, we only want to prove that we’ re the real authors of the message. Suppose I send you the message “HELLO WORLD”, encrypted with my private key. The encrypted message would be, for example, “XYZ1234”. So you receive “XYZ1234” . If I give you my public key, you would be able to decrypt “XYZ1234” into “HELLO WORLD” . And by doing so, you would have proof that that message was sent by me, because the public key you used decrypts messages that were encrypted by my private key only. And since I am the only person in the universe who has that private key, that proves that I am the author of that message. </p>
+<p>Really nice. So I don’t have to contact the CA to check the validity of the certificate, all I have to do is use their public key to decrypt the signature that’s in it. If it’s the same as err, wait, what should I compare the decrypted signature to again ? </p>
+<p>You have to find the same hash as the one you have calculated. They are sending a small hash of the whole certificate. So what you have to do is to calculate the hash of the certificate yourself, then compare it to the hash you get when you decrypt the signature. If the two are the same that means two things </p>
+<ol>
+<li>The CA’s public key worked, so the signature was encrypted by the associated private key, which means the certificate was really issued by the CA. </li>
+<li>Since the hash is the same, it also means that you are seeing the exact same certificate that the CA delivered to the website you are visiting. The information contained inside hasn’t been tampered with. </li>
+</ol>
+<p>That’s really good. So, let me recap one more time . </p>
+<ol>
+<li>I contact you for an HTTPS page. </li>
+<li>You send me an SSL certificate that contains your public key and a signature from the CA that delivered </li>
+<li>I make sure the certificate is valid by using the CA’s public key to decrypt the signature. In parallel, I also calculate the hash of the certificate. </li>
+</ol>
+<p>If my hash and the one I got from decrypting the signature are equal, that means that the certificate was really issued by the CA and that I can be sure that the public key you sent me is really yours. </p>
+<p>Because you implicitly trust the CA.</p>
+<p>Let’s continue: </p>
+<ol start="4">
+<li>I generate a random key that we’ll both use as a symmetric key to encrypt and decrypt the messages we’ll be sending each other. </li>
+<li>I encrypt this symmetric key with your public key and send it to you. </li>
+<li>You decrypt my message with your private key and find my secret key. </li>
+<li>Every request or response between us will be encrypted with this shared secret symmetric key. </li>
+</ol>
+<h2 id="CN"><a href="#CN" class="headerlink" title="CN"></a>CN</h2><p>The Common Name (AKA CN) represents the server name protected by the SSL certificate.</p>
+<p>The certificate is valid only if the request hostname matches the certificate common name.</p>
+<p>To check the status, such as </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo openssl x509 -noout -<span class="keyword">in</span> xxx.com.cer -text</span><br></pre></td></tr></table></figure>
+
+<p> Subject: C=UK, ST=London, L=London, O=AAA Bank, OU=Product and Markets, CN=*.xxxtest.com<br>        Subject Public Key Info:</p>
+<h3 id="commonName-format"><a href="#commonName-format" class="headerlink" title="commonName format"></a>commonName format</h3><p>The common name is not a URL. It doesn’t include any protocol (e.g. http:// or https://), port number, or pathname. For instance, <a href="https://example.com" target="_blank" rel="noopener">https://example.com</a> or example.com/path are incorrect. In both cases, the common name should be example.com</p>
+<h4 id="Common-Name-vs-Subject-Alternative-Name"><a href="#Common-Name-vs-Subject-Alternative-Name" class="headerlink" title="Common Name vs Subject Alternative Name"></a>Common Name vs Subject Alternative Name</h4><p>The common name can only contain up to one entry: either a wildcard or non-wildcard name. It’s not possible to specify a list of names covered by an SSL certificate in the common name field.</p>
+<p>The Subject Alternative Name extension (also called Subject Alternate Name or SAN) was introduced to solve this limitation. The SAN allows issuance of multi-name SSL certificates.</p>
+<h1 id="SHA-2-SSL-Certificates"><a href="#SHA-2-SSL-Certificates" class="headerlink" title="SHA-2 SSL Certificates"></a>SHA-2 SSL Certificates</h1><p>Almost all certificates are currently signed with the SHA-2 hash algorithm.</p>
+<p>This article provides a simple overview of the SHA-1 to SHA-2 transition plans, as well additional informations on the SHA-2 hash algorithm and SSL certificates purchased with DNSimple previous than September 2014.</p>
+<p>The SHA family of hashing algorithms were developed by the National Institute of Standards and Technology (NIST) and are used by certificate authorities (CAs) when digitally signing issued certificates.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://support.dnsimple.com/articles/what-is-ssl-certificate-chain/" target="_blank" rel="noopener">https://support.dnsimple.com/articles/what-is-ssl-certificate-chain/</a></li>
+<li><a href="https://www.thawte.com/resources/getting-started/how-ssl-works/" target="_blank" rel="noopener">https://www.thawte.com/resources/getting-started/how-ssl-works/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2019-02-26-TLS-SSL-HTTPS/" data-id="cjxaajrso007ubhq1cv5a08s5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018-06-12-KDB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          KDB
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016-09-01-Mac-Tips/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Mac tips</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

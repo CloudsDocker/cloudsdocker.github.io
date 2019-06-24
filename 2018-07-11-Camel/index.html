@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Apache Camel | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Camel’s message modelIn Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.  org.apache.camel.Message—The fundamental entity containing the data being c">
+<meta name="keywords" content="Apache,Camel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache Camel">
+<meta property="og:url" content="http://www.todzhang.com/2018-07-11-Camel/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="Camel’s message modelIn Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.  org.apache.camel.Message—The fundamental entity containing the data being c">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Apache Camel">
+<meta name="twitter:description" content="Camel’s message modelIn Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.  org.apache.camel.Message—The fundamental entity containing the data being c">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-2018-07-11-Camel" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018-07-11-Camel/" class="article-date">
+  <time datetime="2019-05-31T13:03:27.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Apache Camel
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Camel’s-message-model"><a href="#Camel’s-message-model" class="headerlink" title="Camel’s message model"></a>Camel’s message model</h1><p>In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.</p>
+<ul>
+<li>org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel</li>
+<li>org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message</li>
+</ul>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><p>Messages are the entities used by systems to communicate with each other when using messaging channels. Messages flow in one direction from a sender to a receiver,  Messages have a body (a payload), headers, and optional attachments,</p>
+<p>Messages are uniquely identified with an identifier of type java.lang.String. The identifier’s uniqueness is enforced and guaranteed by the message creator, it’s protocol depen- dent, and it doesn’t have a guaranteed format.<br>For protocols that don’t define a unique message identification scheme, Camel uses its own UID generator.<br>HEADERS AND ATTACHMENTS<br>Headers are values associated with the message, such as sender identifiers, hints about content encoding, authentication infor- mation, and so on. Headers are name-value pairs; the name is a unique, case-insensitive string, and the value is of type java. lang.Object. This means that Camel imposes no constraints on the type of the headers. Headers are stored as a map within the message. A message can also have optional attachments, which are typically used for the web service and email components.</p>
+<h2 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h2><p>An exchange in Camel is the message’s container during routing. An exchange also provides support for the various types of interactions between systems, also known as message exchange patterns (MEPs). MEPs are used to differentiate between one-way and request-response messaging styles. The Camel exchange holds a pattern property that can be either</p>
+<ul>
+<li>InOnly—A one-way message (also known as an Event message). For example, JMS messaging is often one-way messaging.</li>
+<li>InOut—A request-response message. For example, HTTP-based transports are often request reply, where a client requests to retrieve a web page, waiting for the reply from the server.</li>
+</ul>
+<h1 id="Start-Camel-application"><a href="#Start-Camel-application" class="headerlink" title="Start Camel application"></a>Start Camel application</h1><p>Camel doesn’t start magically by itself. Often it’s the server (container) that Camel is running inside that invokes the start method on CamelContext, starting up Camel. This is also what you saw in chapter 1, where you used Camel inside a standalone Java application. A standalone Java application isn’t the only deployment choice—you can also run Camel inside a container such as Spring or OSGi.<br>Regardless of which container you use, the same principle applies. The container must prepare and create an instance of CamelContext up front, before Camel can be started.</p>
+<h2 id="Spring-container"><a href="#Spring-container" class="headerlink" title="Spring container"></a>Spring container</h2><p>Camel provides the CamelNamespaceHandler.<br>When using Camel in the Spring XML file, you would define the <camelcontext> tag as follows:<br><camelcontext xmlns="http://camel.apache.org/schema/spring"></camelcontext></camelcontext></p>
+<p>The <a href="http://camel.apache.org/schema/spring" target="_blank" rel="noopener">http://camel.apache.org/schema/spring</a> namespace is the Camel custom namespace. To let Spring know about this custom namespace, it must be identified in the META-INF/spring.handlers, where you map the namespace to the class implementation:<br>http://camel.apache.org/schema/spring=<br>     org.apache.camel.spring.handler.CamelNamespaceHandler</p>
+<p>The CamelNamespaceHandler is then responsible for parsing the XML and dele- gating to other factories for further pro- cessing. One of these factories is the Camel- ContextFactoryBean, which is responsible for creating the CamelContext that essen- tially is your Camel application.<br>When Spring is finished initializing, it signals to third-party frameworks that they can start by broadcasting the Context- RefreshedEvent event.</p>
+<h1 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h1><p>At this point, CamelContext is ready to be started. What happens next is the same regardless of which container or deploy- ment option you’re using with Camel. </p>
+<p>CamelContext is started by invoking its start method. The first step is to determines whether or not autostartup is enabled for Camel. If it’s disabled, the entire startup process is skipped. By default, Camel is set to autostart, which involves the following four steps.</p>
+<p>1 Start internal services—Prepares and starts internal services used by Camel, such as the type-converter mechanism.<br>2 Compute starting order—Computes the order in which the routes should be started. By default, Camel will start up all the routes in the order they are defined in the Spring XML files or the RouteBuilder classes. We’ll cover how to configure the order of routes in section 13.1.3.<br>3 Prepare routes—Prepares the routes before they’re started.<br>4 Start routes—Starts the routes by starting the consumers, which essentially opens<br>the gates to Camel and lets the messages start to flow in.</p>
+<p>After step 4, Camel writes a message to the log indicating that it has been started and that the startup process is complete.</p>
+<h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><h2 id="ENDPOINT"><a href="#ENDPOINT" class="headerlink" title="ENDPOINT"></a>ENDPOINT</h2><p>An endpoint is the Camel abstraction that models the end of a channel through which a system can send or receive messages.</p>
+<p>In Camel, you configure endpoints using URIs, such as </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:data/inbox?delay=5000</span><br></pre></td></tr></table></figure>
+
+<p> and you also refer to endpoints this way. At runtime, Camel will look up an endpoint based on the URI notation. </p>
+<p>The scheme  denotes which Camel component handles that type of endpoint. In this case,<br>the scheme of file selects the FileComponent.<br>The FileComponent then works as a factory creat-<br>ing the FileEndpoint based on the remaining parts of the URI.<br>The context path data/ inbox tells the FileComponent that the starting folder is data/inbox.<br>The option, delay=5000 indicates that files should be polled at a 5 second interval.</p>
+<p>There’s more to an endpoint than meets the eye. </p>
+<h2 id="JMS"><a href="#JMS" class="headerlink" title="JMS"></a>JMS</h2><p>Queues are strictly point-to-point, where each message has only one consumer. Topics operate on a publish/subscribe scheme; a single message may be delivered to many consumers if they have subscribed to the topic.</p>
+<p>JMS also provides a ConnectionFactory that clients (like Camel) can use to cre- ate a connection with a JMS provider. JMS providers are usually referred to as brokers because they manage the communication between a message producer and a mes- sage consumer.</p>
+<h3 id="HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER"><a href="#HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER" class="headerlink" title="HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER"></a>HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER</h3><p>To connect Camel to a specific JMS provider, you need to configure Camel’s JMS com- ponent with an appropriate ConnectionFactory.<br>Apache ActiveMQ is one of the most popular open source JMS providers, and it’s the primary JMS broker that the Camel team uses to test the JMS component. </p>
+<h3 id="JSM-destinations"><a href="#JSM-destinations" class="headerlink" title="JSM destinations"></a>JSM destinations</h3><p>There are two types of JMS destinations: queues and topics. The queue is a point-to-point channel, where each message has only one recipient. A topic delivers a copy of the message to all clients who have subscribed to receive it.</p>
+<h3 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h3><p>o in the case of Apache ActiveMQ, you can create an ActiveMQConnectionFactory<br>that points to the location of the running ActiveMQ broker:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConnectionFactory connectionFactory =</span><br><span class="line">  <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"vm://localhost"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>The vm://localhost URI means that you should connect to an embedded broker named “localhost” running inside the current JVM. The vm transport connector in ActiveMQ creates a broker on demand if one isn’t running already, so it’s very handy for quickly testing JMS applications; for production scenarios, it’s recommended that you connect to a broker that’s already running. </p>
+<p>Next, when you create your CamelContext, you can add the JMS component as follows:<br>CamelContext context = new DefaultCamelContext();<br>context.addComponent(“jms”,<br>    JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));<br>The JMS component and the ActiveMQ-specific connection factory aren’t part of the camel-core module. In order to use these, you’ll need to add some dependencies to your Maven-based project. For the plain JMS component, all you have to add is this:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.camel<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>camel-jms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">The connection factory comes directly from ActiveMQ, so you’ll need the following dependency:</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="USING-URIS-TO-SPECIFY-THE-DESTINATION"><a href="#USING-URIS-TO-SPECIFY-THE-DESTINATION" class="headerlink" title="USING URIS TO SPECIFY THE DESTINATION"></a>USING URIS TO SPECIFY THE DESTINATION</h3><p>Once the JMS component is configured, you can start sending and receiving JMS mes- sages at your leisure. Because you’re using URIs, this is a real breeze to configure.<br>Let’s say you want to send a JMS message to the queue named incomingOrders. The URI in this case would be</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jms:queue:incomingOrders</span><br></pre></td></tr></table></figure>
+
+<p>This is pretty self-explanatory. The “jms” prefix indicates that you’re using the JMS component you configured before. By specifying “queue”, the JMS component knows to send to a queue named incomingOrders. You could even have omitted the queue<br>qualifier, because the default behavior is to send to a queue rather than a topic.</p>
+<p>NOTE Some endpoints can have an intimidating list of endpoint URI proper- ties. For instance, the JMS component has about 60 options, many of which are only used in specific JMS scenarios. Camel always tries to provide built-in defaults that fit most cases, and you can always find out what the default values are by browsing to the component’s page in the online Camel documentation. </p>
+<p>Using Camel’s Java DSL, you can send a message to the incomingOrders queue by using the to keyword like this:<br>…to(“jms:queue:incomingOrders”)<br>This can be read as sending to the JMS queue named incomingOrders.</p>
+<h2 id="FINDING-ROUTE-BUILDERS"><a href="#FINDING-ROUTE-BUILDERS" class="headerlink" title="FINDING ROUTE BUILDERS"></a>FINDING ROUTE BUILDERS</h2><p>Using the Spring CamelContext as a runtime and the Java DSL for route development is a great way of using Camel. In fact, it’s the most frequent usage of Camel.<br>You saw before that you can explicitly tell the Spring CamelContext what route builders to load. You can do this by using the routerBuilder element:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">routeBuilder</span> <span class="attr">ref</span>=<span class="string">"ftpToJmsRoute"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Being this explicit results in a clean and concise definition of what is being loaded into Camel.<br>Sometimes, though, you may need to be a bit more dynamic. This is where the packageScan and contextScan elements come in:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>This packageScan element will load all RouteBuilder classes found in the camelinac- tion.routes package, including all subpackages.<br>You can even be a bit more picky about what route builders are included:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">excludes</span>&gt;</span>**.*Test*<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">includes</span>&gt;</span>**.*<span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>In this case, you’re loading all route builders in the camelinaction.routes package, except for ones with “Test” in the class name. The matching syntax is similar to what is used in Apache Ant’s file pattern matchers.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2018-07-11-Camel/" data-id="cjxaajrs3006obhq1x1kaleqw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache/">Apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camel/">Camel</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018-07-10-QuickFixJ/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          QuickFixJ
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018-07-13-Camel/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Camel</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

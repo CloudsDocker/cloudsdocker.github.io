@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Java Security Notes | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Java Security well-behaved: programs should be prevent from consuming too much system resources  Components JCE: Java Cryptography Extension JSSE: Java Secure Socketets Extension JAAS: Java Authentica">
+<meta name="keywords" content="java,security">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Security Notes">
+<meta property="og:url" content="http://www.todzhang.com/2017-02-15-Java-Security/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="Java Security well-behaved: programs should be prevent from consuming too much system resources  Components JCE: Java Cryptography Extension JSSE: Java Secure Socketets Extension JAAS: Java Authentica">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Security Notes">
+<meta name="twitter:description" content="Java Security well-behaved: programs should be prevent from consuming too much system resources  Components JCE: Java Cryptography Extension JSSE: Java Secure Socketets Extension JAAS: Java Authentica">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-2017-02-15-Java-Security" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017-02-15-Java-Security/" class="article-date">
+  <time datetime="2019-05-31T13:03:27.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java Security Notes
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java-Security"><a href="#Java-Security" class="headerlink" title="Java Security"></a>Java Security</h1><ul>
+<li><code>well-behaved</code>: programs should be prevent from consuming too much system resources</li>
+</ul>
+<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><ul>
+<li>JCE: Java Cryptography Extension</li>
+<li>JSSE: Java Secure Socketets Extension</li>
+<li>JAAS: Java Authentication and Authorization Service</li>
+</ul>
+<h1 id="Anatomy-of-a-Java-Application"><a href="#Anatomy-of-a-Java-Application" class="headerlink" title="Anatomy of a Java Application"></a>Anatomy of a Java Application</h1><h2 id="the-bytecode-verifier"><a href="#the-bytecode-verifier" class="headerlink" title="the bytecode verifier"></a>the bytecode verifier</h2><p>The bytecode verifier ensures that Java class files follow the rules of the Java language. As the figure implies, not all classes are subject to bytecode verification.</p>
+<h2 id="the-class-loader"><a href="#the-class-loader" class="headerlink" title="the class loader"></a>the class loader</h2><p>One or more class loaders load all Java classes. Programatically, the class loader can set permissions for each class it loads.</p>
+<h2 id="the-access-controller"><a href="#the-access-controller" class="headerlink" title="the access controller"></a>the access controller</h2><p>The access controller allows (or prevents) most access from the core API to the operating system, based upon policies set by the end user or system administrator.</p>
+<h2 id="the-security-manager"><a href="#the-security-manager" class="headerlink" title="the security manager"></a>the security manager</h2><p>The security manager is the primary interface between the core API and the operating system; it has the ultimate responsibility for allowing or preventing access to all system resources. However, it exists mostly for historical reasons; it defers its actions to the access controller.</p>
+<h2 id="The-security-package"><a href="#The-security-package" class="headerlink" title="The security package"></a>The security package</h2><p> the security package is a complex API. This includes discussions of:</p>
+<ul>
+<li>The security provider interface −− the means by which different security implementations may be plugged into the security package</li>
+<li>Message digests</li>
+<li>Keys and certificates</li>
+<li>Digital signatures</li>
+<li>Encryption (through JCE and JSSE)</li>
+<li>Authentication (through JAAS)</li>
+</ul>
+<h2 id="The-key-database"><a href="#The-key-database" class="headerlink" title="The key database"></a>The key database</h2><p>The key database is a set of keys used by the security infrastructure to create or verify digital signatures. In the Java architecture, it is part of the security package, though it may be manifested as an external file or database.</p>
+<h2 id="Trusted-and-Untrusted-Classes"><a href="#Trusted-and-Untrusted-Classes" class="headerlink" title="Trusted and Untrusted Classes"></a>Trusted and Untrusted Classes</h2><ul>
+<li>In Java 2, only classes in the core API are considered trusted. Other classes must be given explicit permission to perform the operations we’ve discussed.</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Although the security manager is the most commonly known feature of Java’s security story, it’s often misunderstood: there is no standard security manager among Java implementations, and Java applications, by default, have no security manager at all.</p>
+<h1 id="Access-Controller"><a href="#Access-Controller" class="headerlink" title="Access Controller"></a>Access Controller</h1><ul>
+<li>The implementation of most security managers, however, is based entirely upon the access controller.</li>
+</ul>
+<h2 id="Permissions"><a href="#Permissions" class="headerlink" title="Permissions"></a>Permissions</h2><ul>
+<li>The basic entity that the access controller operates on is a permission object −− an instance of the Permission class (java.security.Permission). This class, of course, is the basis of the types that are listed in a policy file for the default security policy. The Permission class itself is an abstract class that represents a particular operation. The nomenclature here is a little misleading because a permission object can reflect two things. When it is associated with a class (through a code source and a protection domain), a permission object represents an actual permission that has been granted to that class. Otherwise, a permission object allows us to ask if we have a specific permission.</li>
+<li>For example, if we construct a permission object that represents access to a file, possession of that object does not mean we have permission to access the file. Rather, possession of the object allows us to ask if we have permission to access the file.</li>
+</ul>
+<h2 id="The-access-controller-is-built-upon-the-four-concepts"><a href="#The-access-controller-is-built-upon-the-four-concepts" class="headerlink" title="The access controller is built upon the four concepts"></a>The access controller is built upon the four concepts</h2><ul>
+<li>Code sources<br>An encapsulation of the location from which certain Java classes were obtained.</li>
+<li>Permissions<br>An encapsulation of a request to perform a particular operation.</li>
+<li>Policies<br>An encapsulation of all the specific permissions that should be granted to specific code sources.</li>
+<li>Protection domains<br>An encapsulation of a particular code source and the permissions granted to that code source.</li>
+</ul>
+<h1 id="Byte-code-verifier"><a href="#Byte-code-verifier" class="headerlink" title="Byte code verifier"></a>Byte code verifier</h1><ul>
+<li>The verifier is often referred to as a <code>mini−theorem prover</code> (a term first used in several documents from Sun). This sounds somewhat more impressive than it is; it’s not a generic, all−purpose theorem prover by any means. Instead, it’s a piece of code that can prove one (and only one) thing −− that a given series of ( Java) bytecodes represents a legal set of ( Java) instructions.</li>
+</ul>
+<h1 id="Shifting"><a href="#Shifting" class="headerlink" title="Shifting"></a>Shifting</h1><p>Java and JavaScript perform sign extension when shift¬ing right, filling the empty spaces with 1’s for negative numbers, so 10100110 &gt;&gt; 5 becomes 11111101.<br>The &gt;&gt;&gt; operator is unique to Java and JavaScript. It does a logical shift right, filling the empty spaces with 0 no matter what the value, so 10100110 &gt;&gt;&gt; 5 becomes 00000101.</p>
+<p>The shift operators enable you to multiply and divide by powers of 2 very quickly. For non-negative numbers, shifting to the right one bit is equivalent to dividing by 2, and shifting to the left one bit is equivalent to multiplying by 2. For negative numbers, it obviously depends on the language being used.</p>
+<h2 id="Specifically-the-bytecode-verifier-can-prove-the-following"><a href="#Specifically-the-bytecode-verifier-can-prove-the-following" class="headerlink" title="Specifically, the bytecode verifier can prove the following:"></a>Specifically, the bytecode verifier can prove the following:</h2><ul>
+<li>The class file has the correct format. The full definition of the class file format may be found in the Java virtual machine specification; the bytecode verifier is responsible for making sure that the class file has the right length, the correct magic numbers in the correct places, and so on.</li>
+<li>Final classes are not subclassed, and final methods are not overridden.</li>
+<li>Every class (except for java.lang.Object) has a single superclass.</li>
+<li>There is no illegal data conversion of primitive data types (e.g., int to Object).</li>
+<li>No illegal data conversion of objects occurs. Because the casting of a superclass to its subclass may<br>be a valid operation (depending on the actual type of the object being cast), the verifier cannot ensure that such casting is not attempted −− it can only ensure that before each such attempt is made, the legality of the cast is tested.</li>
+<li>There are no operand stack overflows or underflows.</li>
+</ul>
+<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><ul>
+<li>In Java, there are two stacks for each thread. One stack holds a series of method frames, where each method frame holds the local variables and other storage for a particular method invocation. This stack is known as the data stack and is what we normally think of as the stack within a traditional program. The bytecode verifier cannot prevent overflow of this stack −− an infinitely recursive method call will cause this stack to overflow. However, each method invocation requires a second stack (which itself is allocated on the data stack) that is referred to as the operand stack; the operand stack holds the values that the Java bytecodes operate on. This secondary stack is the stack that the bytecode verifier can ensure will not overflow or underflow.</li>
+</ul>
+<h1 id="Security-Manager"><a href="#Security-Manager" class="headerlink" title="Security Manager"></a>Security Manager</h1><ul>
+<li>The implementation of the sandbox depends on three things:</li>
+<li>The security manager, which provides the mechanism that the Java API uses to see if security−related operations are allowed.</li>
+<li>The access controller, which provides the basis of the default implementation of the security manager. </li>
+<li>The class loader, which encapsulates information about security policies and classes.</li>
+</ul>
+<p>We’ll start by examining the security manager. From the perspective of the Java API, there is a security manager that actually is in control of the security policy of an application. The purpose of the security manager is to determine whether particular operations should be permitted or denied. In truth, the purpose of the access controller is really the same: it decides whether access to a critical system resource should be permitted or denied. Hence, the access controller can do everything the security manager can do.</p>
+<p><strong>The reason there is both an access controller and a security manager is mainly historical</strong>: the access controller is only available in Java 2 and subsequent releases. Before the access controller existed, the security manager relied on its internal logic to determine the security policy that should be in effect, and changing the security policy required changing the security manager itself. Starting with Java 2, the security manager defers these decisions to the access controller. Since the security policy enforced by the access controller can be specified by using policy files, this allows a much more flexible mechanism for determining policies. The access controller also gives us a much simpler method of granting fine−grained, specific permissions to specific classes. That process was theoretically possibly with the security manager alone, but it was simply too hard to implement.</p>
+<h2 id="The-BasicPermission-class"><a href="#The-BasicPermission-class" class="headerlink" title="The BasicPermission class"></a>The BasicPermission class</h2><ul>
+<li><p>If you need to implement your own permission class, the BasicPermission class (java.security.BasicPermission) provides some useful semantics. This class implements a basic permission −− that is, a permission that doesn’t have actions. Basic permissions can be thought of as binary permissions −− you either have them or you don’t. However, this restriction does not prevent you from implementing actions in your subclasses of the BasicPermission class (as the PropertyPermission class does).</p>
+</li>
+<li><p>The prime benefit of this class is the manner in which it implements wildcards. Names in basic permissions are considered to be hierarchical, following a dot−separated convention. For example, if the XYZ corporation wanted to create a set of basic permissions, they might use the convention that the first word of the permission always be xyz: xyz.readDatabase, xyz.writeDatabase, xyz.runPayrollProgram, xyz.HRDepartment.accessCheck, and so on. These permissions can then be specified by their full name, or they can be specified with an asterisk wildcard: xyz.* would match each of these (no matter what depth), and * would match every possible basic permission.</p>
+</li>
+<li><p><a href="http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351" target="_blank" rel="noopener">http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351</a></p>
+</li>
+<li><p>保护密码的最好办法是使用加盐密码哈希（ salted password hashing）。</p>
+</li>
+<li><p>永远不要告诉用户输错的究竟是用户名还是密码。就像通用的提示那样，始终显示：“无效的用户名或密码。”就行了。这样可以防止攻击者在不知道密码的情况下枚举出有效的用户名。</p>
+</li>
+<li><p>应当注意的是，用来保护密码的哈希函数，和数据结构课学到的哈希函数是不同的。例如，实现哈希表的哈希函数设计目的是快速查找，而非安全性。只有加密哈希函数（ cryptographic hash function）才可以用来进行密码哈希加密。像 SHA256 、 SHA512 、 RIPEMD 和 WHIRLPOOL 都是加密哈希函数。</p>
+</li>
+<li><p>破解哈希加密最简单的方法是尝试猜测密码，哈希每个猜测的密码，并对比猜测密码的哈希值是否等于被破解的哈希值。如果相等，则猜中。猜测密码攻击的两种最常见的方法是字典攻击和暴力攻击 。</p>
+</li>
+<li><p>字典攻击使用包含单词、短语、常用密码和其他可能用做密码的字符串的字典文件。对文件中的每个词都进行哈希加密，将这些哈希值和要破解的密码哈希值比较。如果它们相同，这个词就是密码。字典文件是通过大段文本中提取的单词构成，甚至还包括一些数据库中真实的密码。还可以对字典文件进一步处理以使其更为有效：如单词 “hello” 按网络用语写法转成 “h3110” 。</p>
+</li>
+<li><p>暴力攻击是对于给定的密码长度，尝试每一种可能的字符组合。这种方式会消耗大量的计算，也是破解哈希加密效率最低的办法，但最终会找出正确的密码。因此密码应该足够长，以至于遍历所有可能的字符组合，耗费的时间太长令人无法承受，从而放弃破解。</p>
+</li>
+<li><p>目前没有办法来组织字典攻击或暴力攻击。只能想办法让它们变得低效。如果密码哈希系统设计是安全的，破解哈希的唯一方法就是进行字典攻击或暴力攻击遍历每一个哈希值了。</p>
+</li>
+<li><p>我们可以通过在密码中加入一段随机字符串再进行哈希加密，这个被加的字符串称之为盐值。如上例所示，这使得相同的密码每次都被加密为完全不同的字符串。我们需要盐值来校验密码是否正确。通常和密码哈希值一同存储在帐号数据库中，或者作为哈希字符串的一部分。</p>
+</li>
+<li><p>盐值无需加密。由于随机化了哈希值，查表法、反向查表法和彩虹表都会失效。因为攻击者无法事先知道盐值，所以他们就没有办法预先计算查询表或彩虹表。如果每个用户的密码用不同的盐再进行哈希加密，那么反向查表法攻击也将不能奏效。</p>
+</li>
+<li><p>一个常见的错误是每次都使用相同的盐值进行哈希加密，这个盐值要么被硬编码到程序里，要么只在第一次使用时随机获得。这样的做法是无效的，因为如果两个用户有相同的密码，他们仍然会有相同的哈希值。攻击者仍然可以使用反向查表法对每个哈希值进行字典攻击。他们只是在哈希密码之前，将固定的盐值应用到每个猜测的密码就可以了。如果盐值被硬编码到一个流行的软件里，那么查询表和彩虹表可以内置该盐值，以使其更容易破解它产生的哈希值。</p>
+</li>
+<li><p>用户创建帐号或者更改密码时，都应该用新的随机盐值进行加密。</p>
+</li>
+<li><p>出于同样的原因，不应该将用户名用作盐值。对每一个服务来说，用户名是唯一的，但它们是可预测的，并且经常重复应用于其他服务。攻击者可以用常见用户名作为盐值来建立查询表和彩虹表来破解密码哈希。</p>
+</li>
+<li><p>为使攻击者无法构造包含所有可能盐值的查询表，盐值必须足够长。一个好的经验是使用和哈希函数输出的字符串等长的盐值。例如， SHA256 的输出为256位（32字节），所以该盐也应该是32个随机字节。</p>
+</li>
+<li><p>每个用户的每一个密码都要使用独一无二的盐值。用户每次创建帐号或更改密码时，密码应采用一个新的随机盐值。永远不要重复使用某个盐值。这个盐值也应该足够长，以使有足够多的盐值能用于哈希加密。一个经验规则是，盐值至少要跟哈希函数的输出一样长。该盐应和密码哈希一起存储在用户帐号表中。</p>
+</li>
+<li><p>存储密码的步骤：</p>
+<ul>
+<li>使用 CSPRNG 生成足够长的随机盐值。</li>
+<li>将盐值混入密码，并使用标准的密码哈希函数进行加密，如Argon2、 bcrypt 、 scrypt 或 PBKDF2 。</li>
+<li>将盐值和对应的哈希值一起存入用户数据库。</li>
+</ul>
+</li>
+<li><p>校验密码的步骤：</p>
+<ul>
+<li>从数据库检索出用户的盐值和对应的哈希值。</li>
+<li>将盐值混入用户输入的密码，并且使用通用的哈希函数进行加密。</li>
+<li>比较上一步的结果，是否和数据库存储的哈希值相同。如果它们相同，则表明密码是正确的；否则，该密码错误。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2017-02-15-Java-Security/" data-id="cjxaajrqh003vbhq1r1fpieaf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017-02-14-SerialVersionUID/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SeriableVersionUID
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017-02-21-Java-JIT/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java JIT compiler</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

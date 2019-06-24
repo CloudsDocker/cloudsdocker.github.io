@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>KDB | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="KDBHowever kdb+ evaluates expressions right-to-left. There are no precedence rules. The reason commonly given for this behaviour is that it is a much simpler to understand system, many q-gods would ag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KDB">
+<meta property="og:url" content="http://www.todzhang.com/2018-06-12-KDB/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="KDBHowever kdb+ evaluates expressions right-to-left. There are no precedence rules. The reason commonly given for this behaviour is that it is a much simpler to understand system, many q-gods would ag">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-06-18T12:39:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="KDB">
+<meta name="twitter:description" content="KDBHowever kdb+ evaluates expressions right-to-left. There are no precedence rules. The reason commonly given for this behaviour is that it is a much simpler to understand system, many q-gods would ag">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-06-12-KDB" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018-06-12-KDB/" class="article-date">
+  <time datetime="2019-06-18T12:39:42.000Z" itemprop="datePublished">2019-06-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      KDB
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="KDB"><a href="#KDB" class="headerlink" title="KDB"></a>KDB</h1><p>However kdb+ evaluates expressions right-to-left. There are no precedence rules. The reason commonly given for this behaviour is that it is a much simpler to understand system, many q-gods would agree, beginners however may not.</p>
+<p>The kdb+ built-in commands are mostly a single letter. If a system command that is not built-in is entered, that command will be passed to the underlying operating system.</p>
+<p>Created with financial institutions in mind, the database was developed as a central repository <em>to store time series data</em> that <em>supports real-time analysis of billions of records</em>.</p>
+<p>Columnar databases return answers to some queries in a more efficient way than row-based database management systems.</p>
+<p>kdb+ dictionaries, tables and nanosecond time stamps are native data types and are used to store time series data.</p>
+<p>In 1998, Kx Systems released kdb, a database built on the language K written by Arthur Whitney. In 2003, kdb+ was released as a 64-bit version of kdb.</p>
+<p>kdb/q/kdb+ is both a database (kdb) and a vector language (q). It’s used by almost every major financial institution</p>
+<p><strong>Kdb+ is an in-memory column-oriented database based on the concept of ordered lists</strong>. In-memory means it primarily stores its data in RAM. This makes it extremely fast with a much simplified database engine but it requires a lot of RAM (Which no longer poses a problem as servers with massive amounts of RAM are now inexpensive). Column oriented database means that each column of data is stored sequentially in memory</p>
+<h1 id="Column-DB"><a href="#Column-DB" class="headerlink" title="Column DB"></a>Column DB</h1><p>The main reason why indexes dramatically improve performance on large datasets is that database indexes on one or more columns are typically sorted by value, which makes range queries operations (like the above “find all records with salaries between 40,000 and 50,000” example) very fast (lower time-complexity).</p>
+<p>Kdb+ the Database - Column Oriented DB allowing fast timeseries analysis</p>
+<h2 id="Column-oriented-systems"><a href="#Column-oriented-systems" class="headerlink" title="Column-oriented systems"></a>Column-oriented systems</h2><p>A column-oriented database serializes all of the values of a column together, then the values of the next column, and so on. For our example table, the data would be stored in this fashion:<br>10:001,12:002,11:003,22:004;<br>Smith:001,Jones:002,Johnson:003,Jones:004;<br>Joe:001,Mary:002,Cathy:003,Bob:004;<br>40000:001,50000:002,44000:003,55000:004;<br>In this layout, any one of the columns more closely matches the structure of an index in a row-based system. This may cause confusion that can lead to the mistaken belief a column-oriented store “is really just” a row-store with an index on every column. However, it is the mapping of the data that differs dramatically. In a row-oriented indexed system, the primary key is the rowid that is mapped from indexed data. In the column-oriented system, the primary key is the data, which is mapped from rowids.[2] This may seem subtle, but the difference can be seen in this common modification to the same store:</p>
+<blockquote>
+<p>…;Smith:001;Jones:002,004;Johnson:003;…</p>
+</blockquote>
+<p>Whether or not a column-oriented system will be more efficient in operation depends heavily on the workload being automated. Operations that retrieve all the data for a given object (the entire row) are slower. A row-based system can retrieve the row in a single disk read, whereas numerous disk operations to collect data from multiple columns are required from a columnar database. However, these whole-row operations are generally rare. In the majority of cases, only a limited subset of data is retrieved. In a rolodex application, for instance, collecting the first and last names from many rows to build a list of contacts is far more common than reading all data for any single address. This is even more true for writing data into the database, especially if the data tends to be “sparse” with many optional columns. For this reason, column stores have demonstrated excellent real-world performance in spite of many theoretical disadvantages.</p>
+<h2 id="Why-are-most-databases-row-oriented"><a href="#Why-are-most-databases-row-oriented" class="headerlink" title="Why are most databases row-oriented?"></a>Why are most databases row-oriented?</h2><p>Imagine we want to add one row somewhere in the middle of our data for 2011-02-26, on the row oriented database no problem, column oriented we will have to move almost all the data! Lucky since we <code>mostly deal with time series new data only appends to the end</code> of our table.</p>
+<h2 id="Difference-vs-row-based-DB"><a href="#Difference-vs-row-based-DB" class="headerlink" title="Difference vs row based DB"></a>Difference vs row based DB</h2><p> a subtle point is that unlike most standard <code>SQL which is based on set theory</code>, <code>kdb+ is based on vectors of ordered lists</code>. Where standard SQL has struggled with queries like find the top 3 stocks by price, find the bottom 3 by market cap because it has no concept of order, kdb’s ordering significantly simplifies many queries. This ordered concept allows kdb+ to provide unique timeseries joins that would be be extremely difficult in other variations of SQL and require the use of slow cursors.</p>
+<h1 id="Language-Q"><a href="#Language-Q" class="headerlink" title="Language Q"></a>Language Q</h1><p>the primary design objectives of q are expressiveness, speed and efficiency. In these, it is beyond compare. The design trade-off is a terseness that can be disconcerting to programmers coming from verbose traditional database programming environments – e.g., C++, Java, C# or Python – and a relational DBMS</p>
+<p>Q evolved from APL (A Programming Language), which was first invented as a mathematical notation by Kenneth Iverson at Harvard University in the 1950s. APL was introduced in the 1960s by IBM as a vector programming language, meaning that it processes a list of numbers in a single operation. It was successful in finance and other industries that required heavy number crunching.</p>
+<p>q is Kx’s proprietary language. It’s a powerful, concise and elegant array language, which means that a production system could just be a single page of code, not pages and pages of code and a nightmare to maintain. Clearly there is an initial investment in learning it, but the power it gives you to manipulate streaming, real-time and historical data makes that initial investment really worthwhile. </p>
+<p>q language - fast, interpreted vector based language</p>
+<p>Q is a interpreted vector based dynamically typed language built for speed and expressiveness.</p>
+<p>Since q is interpreted you can enter commands straight into the console there is no waiting for compilation, feedback is instantaneous. </p>
+<h2 id="Key-features-of-Q"><a href="#Key-features-of-Q" class="headerlink" title="Key features of Q"></a>Key features of Q</h2><p>Interpreted Q is interpreted, not compiled. During execution, data and functions live in an in-memory workspace. Iterations of the development cycle tend to be quick because all run-time information needed to test and debug is immediately available in the workspace. Q programs are stored and executed as simple text files called scripts. The interpreter’s eval and parse routines are exposed so that you can dynamically generate code in a controlled manner.</p>
+<p>Types Q is a dynamically typed language, in which type checking is mostly unobtrusive. Each variable has the type of its currently assigned value and type promotion is automatic for most numeric operations. Types are checked on operations to homogenous lists.</p>
+<p>Evaluation Order While q is entered left-to-right, expressions are evaluated right-to-left or, as the q gods prefer, left of right – meaning that a function is applied to the argument on its right. There is no operator precedence and function application can be written without brackets. Punctuation noise is significantly reduced.</p>
+<p>Null and Infinity Values In classical SQL, the value NULL represents missing data for a field of any type and takes no storage space. In q, null values are typed and take the same space as non-nulls. Numeric types also have infinity values. Infinite and null values can participate in arithmetic and other operations with (mostly) predictable results.</p>
+<p>Integrated I/O I/O is done through function handles that act as windows to the outside world. Once such a handle is initialized, passing a value to the handle is a write.</p>
+<p>Table Oriented Give up objects, ye who enter here. In contrast to traditional languages, you’ll find no classes, objects, inheritance and virtual methods in q. Instead, q has tables as first class entities. The lack of objects is not as severe as might first appear. Objects are essentially glorified records (i.e., entities with named fields), which are modeled by q dictionaries. A table can be viewed as a list of record dictionaries.</p>
+<p>Ordered Lists Because classical SQL is the algebra of sets – which are unordered with no duplicates – row order and column order are not defined, making time series processing cumbersome and slow. In q, data structures are based on ordered lists, so time series maintain the order in which they are created. Moreover, simple lists occupy contiguous storage, so processing big data is fast. Very fast.</p>
+<p>Column Oriented SQL tables are organized as rows distributed across storage and operations apply to fields within a row. Q tables are column lists in contiguous storage and operations apply on entire columns.</p>
+<p>In-Memory Database One can think of kdb+ as an in-memory database with persistent backing. Since data manipulation is performed with q, there is no separate stored procedure language. In fact, kdb+ comprises serialized q column lists written to the file system and then mapped into memory.</p>
+<p>In q, data structures are based on ordered lists, so time series maintain the order in which they are created. Moreover, simple lists occupy contiguous storage, so processing big data is fast. Very fast.</p>
+<p>Q tables are column lists in contiguous storage and operations apply on entire columns.</p>
+<h2 id="Sample-of-Q-code"><a href="#Sample-of-Q-code" class="headerlink" title="Sample of Q code"></a>Sample of Q code</h2><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">q)l:<span class="number">10</span> <span class="number">12</span> <span class="number">14</span> <span class="number">16</span> <span class="number">18</span> <span class="number">22</span> <span class="number">32</span> <span class="number">45</span></span><br><span class="line">q)<span class="built_in">sum</span> l</span><br><span class="line"><span class="number">169</span></span><br><span class="line">q)<span class="built_in">avg</span> l</span><br><span class="line"><span class="number">21.125</span></span><br><span class="line">q)l*<span class="number">10</span></span><br><span class="line"><span class="number">100</span> <span class="number">120</span> <span class="number">140</span> <span class="number">160</span> <span class="number">180</span> <span class="number">220</span> <span class="number">320</span> <span class="number">450</span></span><br><span class="line"></span><br><span class="line">q)k:<span class="built_in">til</span> <span class="number">8</span></span><br><span class="line">q)k</span><br><span class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></span><br><span class="line">q)l+k</span><br><span class="line"><span class="number">10</span> <span class="number">13</span> <span class="number">16</span> <span class="number">19</span> <span class="number">22</span> <span class="number">27</span> <span class="number">38</span> <span class="number">52</span></span><br></pre></td></tr></table></figure>
+
+<p>Notice in the example code above the absence of loops, no for/while/do yet we could easily express adding one array to another. This is because the vector/list is the primary unit of data in kdb+. Operations are intended to be performed and expressed as being on an entire set of data. Dictionaries can be defined using lists, they provide a hashmap datastructure for quick lookups. Tables are constructed from dictionaries and lists. This brevity of data structures is actually one of the attributes that gives q its ability to express concisely what would take many lines in other languages.</p>
+<h1 id="Some-of-the-practical-applications-of-being-able-to-combine-both-streaming-and-real-time-data-together-with-historical-all-in-the-same-database"><a href="#Some-of-the-practical-applications-of-being-able-to-combine-both-streaming-and-real-time-data-together-with-historical-all-in-the-same-database" class="headerlink" title="Some of the practical applications of being able to combine both streaming and real-time data together with historical, all in the same database?"></a>Some of the practical applications of being able to combine both streaming and real-time data together with historical, all in the same database?</h1><p>The most important thing is the simplicity, which translates into speed and ease of doing analysis. For example, it allows you to do complicated, time-critical analysis, such as pre-trade risk. This means that you are likely to see interesting trading opportunities before those who are using the same off-the-shelf solution as everybody else. So you’re there first and you’re there so early, you can afford to do comprehensive pre-trade risk analysis, and you’re able to look for patterns you’ve seen in the past. </p>
+<p>In addition to capturing market data, firms are using kdb+ for order-book management, algorithmic trading, and risk assessment. “They are using kdb+/q for queries being performed on both streaming or historical data — the latter easily accommodating research and back-testing,”</p>
+<p>DeltaFlow, a platform from First Derivatives that’s based on kdb+, is used by traders for high volume, low-latency algorithmic trading and by regulators for real-time detection of market abuse and unauthorized trading activity across multiple asset classes.</p>
+<h1 id="Combined-power-of-kdb-q"><a href="#Combined-power-of-kdb-q" class="headerlink" title="Combined power of kdb+/q"></a>Combined power of kdb+/q</h1><p>What’s beautiful about kdb+ is that since tables are columns of vectors, all the power of the q language can be used as easily on table data as it was on lists. Where we had sum[l],avg[l],weightedAvg[l1;l2] of lists we can write similar qSQL:<br>select avg price, sum volume, weightedAvg[time;price] from trade<br>Want to apply a function to a timeseries, simply place it inline:<br>select {a:avg x; sqrt avg (x<em>x)-a</em>a} price from trade</p>
+<h1 id="Q-commadns"><a href="#Q-commadns" class="headerlink" title="Q commadns"></a>Q commadns</h1><p>To obtain official console display of any q value, apply the built-in function show to it.</p>
+<p>q)show a:42</p>
+<h3 id="comments"><a href="#comments" class="headerlink" title="comments"></a>comments</h3><p>At least one whitespace character must separate / intended to begin a comment from any text to the left of it on a line.</p>
+<h3 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h3><p>Boolean values in q are stored in a single byte and are denoted as the binary values they really are with an explicit type suffix b. One way to generate boolean values is to test for equality.</p>
+<p>q)42=40+2<br>1b</p>
+<h3 id="date"><a href="#date" class="headerlink" title="date"></a>date</h3><p>One interesting and useful feature of q temporal values is that, as integral values under the covers, they naturally participate in arithmetic. For example, to advance a date five days, add 5.</p>
+<p>q)2000.01.01+5<br>_
+Or to advance a time by one microsecond (i.e., 1000 nanoseconds) add 1000.</p>
+<p>q)12:00:00.000000000+1000<br>_
+Or to verify that temporal values are indeed their underlying values, test for equality.</p>
+<p>q)2000.01.01=0</p>
+<h3 id="Symbols"><a href="#Symbols" class="headerlink" title="Symbols"></a>Symbols</h3><p>Symbols are denoted by a leading back-quote (called “back tick” in q-speak) followed by characters. Symbols without embedded blanks or other special characters can be entered literally into the console.<br>q)`aapl<br>_</p>
+<p>Since symbols are atoms, any two can be tested for equality.</p>
+<p>q)<code>aapl=</code>apl<br>_</p>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><p>The fundamental q data structure is a list, which is an ordered collection of items sequenced from left to right. The notation for a general list encloses items with ( and ) and uses ; as separator. Spaces after the semi-colons are optional but can improve readability.</p>
+<p>q)(1; 1.2; `one)<br>_</p>
+<p>In the case of a homogenous list of atoms, called a simple list, q adopts a simplified format for both storage and display. The parentheses and semicolons are dropped. For example, a list of underlying numeric type separates its items with a space.</p>
+<p>q)(1; 2; 3)<br>1 2 3</p>
+<p>A simple list of booleans is juxtaposed with no spaces and has a trailing b type indicator.</p>
+<p>q)(1b; 0b; 1b)<br>101b<br>A simple list of symbols is displayed with no separating spaces.</p>
+<p>q)(<code>one;</code>two; <code>three)</code>one<code>two</code>three</p>
+<h3 id="basic-operations"><a href="#basic-operations" class="headerlink" title="basic operations"></a>basic operations</h3><p> to construct and manipulate lists. The most fundamental is til, which takes a non-negative integer n and returns the first n integers starting at 0 (n itself is not included in the result).</p>
+<p>q)til 10<br>0 1 2 3 4 5 6 7 8 9</p>
+<h4 id="til-list-tips"><a href="#til-list-tips" class="headerlink" title="til list tips"></a>til list tips</h4><p>Be mindful that q always evaluates expressions from right to left and that operations work on vectors whenever possible.</p>
+<p>q)1+til 10<br>1 2 3 4 5 6 7 8 9 10</p>
+<p>Similarly, we obtain the first 10 even numbers and the first ten odd numbers.</p>
+<p>q)2<em>til 10<br>_
+q)1+2</em>til 10<br>_
+Finally, we obtain the first 10 even numbers starting at 42.</p>
+<p>q)42+2*til 10<br>_</p>
+<p>Another frequently used list primitive is join , that returns the list obtained by concatenating its right operand to its left operand.</p>
+<p>q)1 2 3,4 5<br>1 2 3 4 5</p>
+<h3 id="extract"><a href="#extract" class="headerlink" title="extract"></a>extract</h3><p>To extract items from the front or back of a list, use the take operator #. Positive argument means take from the front, negative from the back.</p>
+<p>q)2#til 10<br>0 1<br>q)-2#til 10 </p>
+<blockquote>
+<p>Applying # always results in a list.</p>
+</blockquote>
+<p>In particular, the idiom 0# returns an empty list of the same type as the first item in its argument. Using an atom argument is a succinct way to create a typed empty list of the type of the atom.</p>
+<p>q)0#1 2 3<br>`long$()</p>
+<p>Should you extract more items than there are in the list, # restarts at the beginning and continues extracting. It does this until the specified number of items is reached.</p>
+<p>q)5#1 2 3<br>1 2 3 1 2</p>
+<p>As with atoms, a list can be assigned to a variable.</p>
+<p>q)L:10 20 30<br>The items of a list can be accessed via indexing, which uses square brackets and is relative to 0.</p>
+<p>q)L[0]<br>10</p>
+<h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><p>Conceptually, a q function is a sequence of steps that produces an output result from an input value. Since q is not purely functional, these rules can interact with the world by reaching outside the context of the function. Such actions are called side effects and should be carefully controlled.</p>
+<p>Function definition is delimited by matching curly braces { and }. Immediately after the opening brace, the formal parameters are names enclosed in square brackets [ and ] and separated by semi-colons. These parameters presumably appear in the body of the function, which follows the formal parameters and is a succession of expressions sequenced by semi-colons.</p>
+<p>Following is a simple function that returns the square of its input. On the next line we assign the same function to the variable sq. The whitespace is optional.</p>
+<p>q){[x] x<em>x}<br>_
+q)sq:{[x] x</em>x}<br>_</p>
+<p>Here is a function that takes two input values and returns the sum of their squares.</p>
+<p>q){[x;y] a:x<em>x; b:y</em>y; a+b}<br>_
+q)pyth:{[x;y] a:x<em>x; b:y</em>y; a+b}<br>_</p>
+<p>Here are the previous functions applied to arguments.</p>
+<p>q){[x] x<em>x}[5]<br>25<br>q)sq[5]<br>_
+q){[x;y] a:x</em>x; b:y*y; a+b}[3;4]<br>25<br>q)pyth[3;4]<br>_</p>
+<h3 id="monadic-function"><a href="#monadic-function" class="headerlink" title="monadic function"></a>monadic function</h3><p>In q, as in most functional languages, we don’t need no stinkin’ brackets for application of a monadic function – i.e., with one parameter. Simply separate the function from its argument by whitespace. This is called function juxtaposition.</p>
+<p>q){x<em>x} 5<br>_
+q)f:{x</em>x}<br>q)f 5<br>_</p>
+<h3 id="x-y-z"><a href="#x-y-z" class="headerlink" title="x,y,z"></a>x,y,z</h3><p>It is common in mathematics to use function parameters x, y, or z. If you are content with these names (in the belief that descriptive names provide no useful information to the poor soul reading your code), you can omit their declaration and q will understand that you mean the implicit parameters x, y, and z in that order.</p>
+<p>q){x<em>x}[5]<br>25<br>q){a:x</em>x; b:y*y; a+b}[3;4]<br>25</p>
+<h3 id="verbs"><a href="#verbs" class="headerlink" title="verbs"></a>verbs</h3><p>higher order functions, or as they are called in q, adverbs. </p>
+<p>In words, we tell q to start with the initial value of 0 in the accumulator and then modify + with the adverb / so that it adds across the list.</p>
+<p>q)0 +/ 1 2 3 4 5<br>15</p>
+<p>In this situation we don’t really need the flexibility to specify the initial value of the accumulator. It suffices to start with the first item of the list and proceed across the rest of the list. There is an even simpler form for this case.</p>
+<p>q)(+/) 1 2 3 4 5</p>
+<h4 id="for-loop"><a href="#for-loop" class="headerlink" title="for loop"></a>for loop</h4><p>If you are new to functional programming, you may think, “Big deal, I write for loops in my sleep.” </p>
+<p>More importantly, you can focus on what you want done without the irrelevant scaffolding of how to set up control structures. This is called declarative programming.</p>
+<p>What else can we do with our newfound adverb? Change addition to multiplication for factorial.</p>
+<p>q)(*/) 1+til 10<br>3628800</p>
+<h3 id="larger-vs-smaller"><a href="#larger-vs-smaller" class="headerlink" title="larger vs smaller"></a>larger vs smaller</h3><p>The fun isn’t limited to arithmetic primitives. We introduce |, which returns the larger of its operands and &amp;, which returns the smaller of its operands.</p>
+<p>q)42|98<br>98<br>q)42&amp;98</p>
+<p>Use | or &amp; with over and you have maximum or minimum.</p>
+<p>q)(|/) 20 10 40 30<br>40<br>q)(&amp;/) 20 10 40 30</p>
+<h3 id="command-‘over’-adverb"><a href="#command-‘over’-adverb" class="headerlink" title="command ‘over’ adverb"></a>command ‘over’ adverb</h3><p>Some applications of / are so common that they have their own names.</p>
+<p>q)sum 1+til 10<br>55<br>q)prd 1+til 10 “o”<br>_
+q)max 20 10 40 30<br>_
+q)min 20 10 40 30 </p>
+<p>At this point the / pattern should be clear: it takes a given function and produces a new function that accumulates across the original list, producing a single result. In particular, / converts a dyadic function to a monadic aggregate function – i.e., one that collapses a list to an atom.</p>
+<h1 id="data-type"><a href="#data-type" class="headerlink" title="data type"></a>data type</h1><p>long¶</p>
+<p>In q versions 3.0 and later, the basic integer type is a signed eight-byte integer, called long. A literal is identified as a long by the fact that it contains only numeric digits, with an optional leading minus sign, and no decimal point. It may also have an optional trailing type indicator j indicating it is a long and not another integer type. Here is a typical long integer value.</p>
+<p>q)42<br>42<br>Observe that the type indicator j is accepted but redundant.</p>
+<p>q)42j<br>42</p>
+<p>The short type represents a two-byte signed integer and requires the trailing type indicator h. For example,</p>
+<p>q)-123h<br>_
+Similarly, the int type represents a four-byte signed integer and requires the trailing type indicator i.</p>
+<p>The float type represents an IEEE standard eight-byte floating-point number, often called “double” in traditional languages. A float can hold (at least) 15 decimal digits of precision. It is denoted by optionally signed numeric digits with either a decimal point or an optional trailing type indicator f. Observe that the console shortens the display of floats with no significant digits to the right of the decimal.</p>
+<p>You can change this by using the \P command (note upper case) to specify a display width up to 16 digits. If you issue \P 0 the console will display all 17 decimal digits of the underlying binary representation, although the last digit is unreliable.</p>
+<p>boolean¶</p>
+<p>The boolean type uses one byte to store a bit and is denoted by the bit value with the trailing type indicator b. There are no keywords for ‘true’ or ‘false’, nor are there separate logical operators for booleans.</p>
+<p>q)0b<br>_
+q)1b</p>
+<p>Text Data¶</p>
+<p>There are two atomic text types in q. They are more akin to the SQL types CHAR and VARCHAR than the character types of traditional languages.</p>
+<p>2.4.1 char¶</p>
+<p>A char holds an individual ASCII or 8-bit Unicode character that is stored in one byte. It corresponds to a SQL CHAR. It is denoted by a single character enclosed in double quotes.</p>
+<p>q)”q”</p>
+<p>Some keyboard characters – e.g., the double-quote – cannot be entered directly into a char since they have special meaning in the q console. As in C, special characters are escaped with a preceding back-slash . The console display somewhat confusingly displays the escape, but the following are all actually single characters.</p>
+<p>q)”&quot;“ 
+“&quot;“
+q)”\“ 
+_
+q)”\n”<br>_
+q)”\r”<br>_
+q)”\t”<br>_
+Also as in C, you can escape any ASCII character by specifying its underlying numeric value as three octal digits.</p>
+<p>q)”\142”<br>“b”</p>
+<p>symbol¶</p>
+<p>A symbol is an atom holding text. It is denoted by a leading back-quote, read “back tick” in q-speak.</p>
+<p>q)<code>q
+_
+q)</code>zaphod<br>_</p>
+<p>a symbol is not a collection of char. The symbol `a and the char “a” are not the same, as we can see by asking q if they are identical.</p>
+<p>q)`a~”a”<br>0b</p>
+<h1 id="list-1"><a href="#list-1" class="headerlink" title="list"></a>list</h1><h2 id="Index-Notation¶"><a href="#Index-Notation¶" class="headerlink" title="Index Notation¶"></a>Index Notation¶</h2><p>To access the item at index i in a list, follow the list immediately with [i]. This is called item indexing. For example,</p>
+<p>q)(100; 200; 300)[0]</p>
+<p> Indexed Assignment¶</p>
+<p>Items in a list can also be assigned via item indexing. Thus,</p>
+<p>q)L:1 2 3<br>q)L[1]:42<br>q)L<br>1 42 3</p>
+<p>An omitted index returns the entire list.</p>
+<p>q)L:10 20 30 40<br>q)L[]<br>10 20 30 40</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2018-06-12-KDB/" data-id="cjxaajrru0063bhq1hw31sax4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019-02-26-TLS-SSL-HTTPS/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SSL certificates</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Java-Tricky-Tech-Questions.md | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="What is the difference between Serializable and Externalizable in Java? In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applica">
+<meta name="keywords" content="java,Questions">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-Tricky-Tech-Questions.md">
+<meta property="og:url" content="http://www.todzhang.com/2017-01-19-Java-Tricky-Tech-Questions/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="What is the difference between Serializable and Externalizable in Java? In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applica">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-Tricky-Tech-Questions.md">
+<meta name="twitter:description" content="What is the difference between Serializable and Externalizable in Java? In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applica">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-2017-01-19-Java-Tricky-Tech-Questions" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017-01-19-Java-Tricky-Tech-Questions/" class="article-date">
+  <time datetime="2019-05-31T13:03:27.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java-Tricky-Tech-Questions.md
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="What-is-the-difference-between-Serializable-and-Externalizable-in-Java"><a href="#What-is-the-difference-between-Serializable-and-Externalizable-in-Java" class="headerlink" title="What is the difference between Serializable and Externalizable in Java?"></a>What is the difference between Serializable and Externalizable in Java?</h1><ul>
+<li>In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applications) was a bit of a performance problem. To handle this situation, the java.io.Externalizable interface was provided, which is like java.io.Serializable but with custom-written mechanisms to perform the marshalling and unmarshalling functions (you need to implement readExternal and writeExternal methods on your class). This gives you the means to get around the reflection performance bottleneck.</li>
+<li>In recent versions of Java (1.3 onwards, certainly) the performance of reflection is vastly better than it used to be, and so this is much less of a problem. I suspect you’d be hard-pressed to get a meaningful benefit from Externalizable with a modern JVM.</li>
+<li>Also, the built-in Java serialization mechanism isn’t the only one, you can get third-party replacements, such as JBoss Serialization, which is considerably quicker, and is a drop-in replacement for the default.</li>
+<li>A big downside of Externalizable is that you have to maintain this logic yourself - if you add, remove or change a field in your class, you have to change your writeExternal/readExternal methods to account for it.</li>
+<li>In summary, Externalizable is a relic of the Java 1.1 days. There’s really no need for it any more.</li>
+</ul>
+<h2 id="write-transcient-fields"><a href="#write-transcient-fields" class="headerlink" title="write transcient fields"></a>write transcient fields</h2><ul>
+<li>Storing and reconstituting the transient data can also be achieved by implementing the Externalizable interface and implementing the writeExternal( ) and the readExternal( ) methods of that interface. </li>
+</ul>
+<h1 id="Java-Class"><a href="#Java-Class" class="headerlink" title="Java Class"></a>Java Class</h1><ul>
+<li><p>Class objects for known types can also be written as “class literals”:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Express a class literal as a type name followed by ".class"</span></span><br><span class="line">c = <span class="keyword">int</span>.class; <span class="comment">// Same as Integer.TYPE</span></span><br><span class="line">c = String.class; <span class="comment">// Same as "a string".getClass()</span></span><br><span class="line">c = <span class="keyword">byte</span>[].class; <span class="comment">// Type of byte arrays</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>For primitive types and void, we also have class objects that are represented as literals:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Obtain a Class object for primitive types with various </span></span><br><span class="line"><span class="comment">// predefined constants</span></span><br><span class="line">c = Void.TYPE; <span class="comment">// The special "no-return-value" type</span></span><br><span class="line">c = Byte.TYPE; <span class="comment">// Class object that represents a byte</span></span><br><span class="line">c = Integer.TYPE; <span class="comment">// Class object that represents an int</span></span><br><span class="line">c = Double.TYPE; <span class="comment">// etc; see also Short, Character, Long, Float</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="Convert-arrays-to-ArrayList-two-different-approaches"><a href="#Convert-arrays-to-ArrayList-two-different-approaches" class="headerlink" title="Convert arrays to ArrayList, two different approaches"></a>Convert arrays to ArrayList, two different approaches</h1><p>// View array as an ungrowable list<br>List<string> l = Arrays.asList(a);<br>// Make a growable copy of the view<br>List<string> m = new ArrayList<string>(l);</string></string></string></p>
+<h1 id="What’s-seed-in-Java"><a href="#What’s-seed-in-Java" class="headerlink" title="What’s seed in Java"></a>What’s seed in Java</h1><p>Since the next number in a pseudorandom generator is determined by the pre- vious number(s), such a generator always needs <strong>a place to start, which is called its seed</strong>. The sequence of numbers generated for <strong>a given seed will always be the same</strong>. The seed for an instance of the java.util.Random class can be set in its constructor or with its setSeed() method.</p>
+<h1 id="Cipher"><a href="#Cipher" class="headerlink" title="Cipher"></a>Cipher</h1><ul>
+<li>Given a variable c that is known to be an uppercase letter, the Java computation, j = c − ‘A’ produces the desired index j. <strong>As a sanity check</strong>, if character c is ‘A’, then j = 0. When c is ‘B’, the difference is 1.</li>
+</ul>
+<h1 id="Uncaught-exception-handler"><a href="#Uncaught-exception-handler" class="headerlink" title="Uncaught exception handler"></a>Uncaught exception handler</h1><ul>
+<li>The Thread API also provides <strong>the UncaughtExceptionHandler facility, which lets you detect when a thread dies due to an uncaught exception</strong>. The two approaches are complementary: taken together, they provide defense-in- depth against thread leakage.</li>
+<li>When <strong>a thread exits due to an uncaught exception</strong>, the <strong>JVM reports this event to an application-provided UncaughtExceptionHandler</strong> (see Listing 7.24); if no handler exists, the default behavior is to print the stack trace to System.err</li>
+<li>In long-running applications, always use uncaught exception handlers for all threads that at least log the exception.</li>
+<li>To set an UncaughtExceptionHandler for pool threads, provide a ThreadFac- tory to the ThreadPoolExecutor constructor.</li>
+<li>Somewhat confusingly, exceptions thrown from tasks make it to the uncaught exception handler <strong>only for tasks submitted with execute</strong> ; for tasks submitted with submit, any thrown exception, checked or not, is considered to be part of the task’s return status. If a task submitted with submit terminates with an exception, it is rethrown by Future.get, wrapped in an ExecutionException.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UEHLogger</span> <span class="keyword">implements</span> <span class="title">Thread</span>.<span class="title">UncaughtExceptionHandler</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread t, Throwable e)</span></span>&#123;</span><br><span class="line">    Logger logger=Logger.getAnonymousLogger();</span><br><span class="line">    logger.log(Level.SEVERE, <span class="string">"Thread terminated with exception:"</span>+e.getName(),e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="What-is-the-difference-between-Iterator-and-Enumeration"><a href="#What-is-the-difference-between-Iterator-and-Enumeration" class="headerlink" title="What is the difference between Iterator and Enumeration"></a>What is the difference between Iterator and Enumeration</h2><ul>
+<li>Iterator duplicate functionality of Enumeration with one addition of <strong>remove() method</strong></li>
+<li>Another difference is that Iterator is more safe than Enumeration and doesn’t allow another thread to modify collection object during iteration except remove() method and <strong>throws ConcurrentModificaitonException</strong>.</li>
+</ul>
+<h2 id="How-does-HashSet-is-implemented-in-Java-How-does-it-use-Hashing"><a href="#How-does-HashSet-is-implemented-in-Java-How-does-it-use-Hashing" class="headerlink" title="How does HashSet is implemented in Java, How does it use Hashing"></a>How does HashSet is implemented in Java, How does it use Hashing</h2><ul>
+<li>HashSet is built on top of HashMap. If you look at source code of java.util.HashSet class, you will find that that it uses a HashMap with same values for all keys, as shown below:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> HashMap map;</span><br><span class="line"><span class="comment">// Dummy value to associate with an Object in the backing Map</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object PRESENT = <span class="keyword">new</span> Object();</span><br><span class="line"><span class="comment">// When you call add() method of HashSet, it put entry in HashMap :</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> map.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="What-do-you-need-to-do-to-use-a-custom-object-as-a-key-in-Collection-classes-like-Map-or-Set-answer"><a href="#What-do-you-need-to-do-to-use-a-custom-object-as-a-key-in-Collection-classes-like-Map-or-Set-answer" class="headerlink" title="What do you need to do to use a custom object as a key in Collection classes like Map or Set? (answer)"></a>What do you need to do to use a custom object as a key in Collection classes like Map or Set? (answer)</h2><ul>
+<li>If you are using any custom object in Map as key, you need to <strong>override equals() and hashCode() method</strong>, and make sure they <strong>follow their contract</strong>. </li>
+<li>On the other hand if you are storing a custom object <strong>in Sorted Collection</strong> e.g. SortedSet or SortedMap, you also need to make sure that your <strong>equals() method is consistent to compareTo() method</strong>, otherwise that collection will not follow there contacts e.g. Set may allow duplicates.</li>
+</ul>
+<h1 id="Java-Generics-E-and-T-what-is-the-difference"><a href="#Java-Generics-E-and-T-what-is-the-difference" class="headerlink" title="Java Generics ? , E and T what is the difference?"></a>Java Generics ? , E and T what is the difference?</h1><p>Well there’s no difference between the first two - they’re just using different names for the type parameter (E or T).</p>
+<p>The third isn’t a valid declaration - ? is used as a wildcard which is used when providing a type argument, e.g. List&lt;?&gt; foo = … means that foo refers to a list of some type, but we don’t know what.</p>
+<h1 id="Question-What-does-the-following-Java-program-print"><a href="#Question-What-does-the-following-Java-program-print" class="headerlink" title="Question: What does the following Java program print?"></a>Question: What does the following Java program print?</h1><p>public class Test {<br>    public static void main(String[] args) {<br>        System.out.println(Math.min(Double.MIN_VALUE, 0.0d));<br>    }<br>}</p>
+<h2 id="Anwser-0-0d"><a href="#Anwser-0-0d" class="headerlink" title="Anwser 0.0d"></a>Anwser 0.0d</h2><p>The Double.MIN_VALUE is 2^(-1074), a double constant whose magnitude is the least among all double values. </p>
+<h1 id="What-will-happen-if-you-put-return-statement-or-System-exit-on-try-or-catch-block-Will-finally-block-execute"><a href="#What-will-happen-if-you-put-return-statement-or-System-exit-on-try-or-catch-block-Will-finally-block-execute" class="headerlink" title="What will happen if you put return statement or System.exit () on try or catch block? Will finally block execute?"></a>What will happen if you put return statement or System.exit () on try or catch block? Will finally block execute?</h1><p>Answer of this tricky question in Java is that <strong>finally block will execute even if you put a return statement</strong> in the try block or catch block but finally block <strong>won’t run if you call System.exit()</strong> from try or catch block. </p>
+<h1 id="Question-Can-you-override-a-private-or-static-method-in-Java"><a href="#Question-Can-you-override-a-private-or-static-method-in-Java" class="headerlink" title="Question: Can you override a private or static method in Java?"></a>Question: Can you override a private or static method in Java?</h1><p>Another popular Java tricky question, As I said method overriding is a good topic to ask trick questions in Java. Anyway, you <strong>can not override a private or static method</strong> in Java, if you <strong>create a similar method with same return type and same method arguments in child class</strong> then it will <strong>hide the superclass method</strong>, this is known as <strong>method hiding</strong>.</p>
+<p>Similarly, you cannot override a private method in sub class because it’s not accessible there, what you do is create another private method with the same name in the child class. See Can you override a private method in Java or more details</p>
+<h1 id="Question-What-do-the-expression-1-0-0-0-will-return-will-it-throw-Exception-any-compile-time-error"><a href="#Question-What-do-the-expression-1-0-0-0-will-return-will-it-throw-Exception-any-compile-time-error" class="headerlink" title="Question: What do the expression 1.0 / 0.0 will return? will it throw Exception? any compile time error?"></a>Question: What do the expression 1.0 / 0.0 will return? will it throw Exception? any compile time error?</h1><p>Answer: This is another tricky question from Double class. Though Java developer knows about the double primitive type and Double class, while doing floating point arithmetic they don’t pay enough attention to Double.INFINITY , NaN, and -0.0<br>and other rules that govern the arithmetic calculations involving them. The simple answer to this question is that it will not throw ArithmeticExcpetion and <strong>return Double.INFINITY</strong>.</p>
+<p>Also, note that the comparison <strong>x == Double.NaN always evaluates to false</strong>, even if x itself is a NaN. To test if x is a NaN, one should use the method call Double.isNaN(x) to check if given number is NaN or not. If you know SQL, this is very close to NULL there. </p>
+<h1 id="Overloading-vs-Overriding"><a href="#Overloading-vs-Overriding" class="headerlink" title="Overloading vs Overriding"></a>Overloading vs Overriding</h1><ul>
+<li>Main difference comes from the fact that method <strong>overloading is resolved during compile time</strong>, while method <strong>overriding is resolved at runtime</strong></li>
+<li>Also rules of overriding or overloading a method are different in Java. <ul>
+<li>a private, static and final method cannot be overriding in Java but you can still overload them</li>
+<li>overriding both name and signature of the method must remain same, but in for overloading method, the signature must be different</li>
+<li>call to <strong>overloaded</strong> methods are <strong>resolved using static binding</strong> while the call to <strong>overridden method is resolved using dynamic binding</strong> in Java.</li>
+</ul>
+</li>
+<li>Java programmer to declare method with same name but different behavior. Method overloading and method overriding is based on Polymorphism in Java.</li>
+<li>In case of method overloading, method with same name co-exists in <strong>same class</strong> but they must have <strong>different method signature</strong>, while in case of method <strong>overriding</strong>, method with <strong>same name</strong> is declared in <strong>derived class or sub class</strong></li>
+<li>If you have <strong>two methods with same name</strong> in one Java class <strong>with different method signature</strong> than its called <strong>overloaded</strong> method in Java. You can also overload constructor in Java</li>
+<li>Since <strong>return type is not part of method signature</strong> simply changing return type will result in duplicate method and you will get compile time error in Java.</li>
+<li>you can also <strong>overload private and final method</strong> in Java but you <strong>can not override</strong> them</li>
+<li>When you <strong>override a method</strong> in Java its signature remains exactly same <strong>including return type</strong>. Rules of override:<ul>
+<li>Method signature must be same including return type, number of method parameters, type of parameters <strong>and order of parameters</strong> . Be advised: as of Java 5, you’re allowed to change the return type in the overriding method as long as the new return type is a subtype of the declared return type of the overridden (super class) method</li>
+<li>Overriding method <strong>can not throw higher Exception</strong> than original or overridden method. means if original method throws IOException than overriding method can not throw super class of IOException e.g. Exception but it can throw any sub class of IOException or simply does not throw any Exception. This rule only applies to checked Exception in Java, overridden method is free to throw any unchecked Exception. </li>
+<li>Overriding method <strong>can not reduce accessibility of overridden method</strong> , means if original or overridden method is public than overriding method <strong>can not make it protected</strong>. </li>
+</ul>
+</li>
+<li>Another important point is that you <strong>can not override static method</strong> in Java because <strong>they are associated with Class</strong> <strong>rather than object</strong> and resolved and <strong>bonded during compile time</strong> and that’s the reason you cannot override main method in Java</li>
+<li>From Java 5 onwards you can use annotation in Java to declare overridden method just like we did with @override. ** @override annotation allows compiler** , IDE like NetBeans and Eclipse <strong>to cross verify or check</strong>  if this method is really overrides super class method or not.</li>
+</ul>
+<h1 id="Static-vs-Dynamic-binding"><a href="#Static-vs-Dynamic-binding" class="headerlink" title="Static vs. Dynamic binding"></a>Static vs. Dynamic binding</h1><ul>
+<li><strong>private, final and static methods and variables uses static binding</strong> and bonded by compiler while <strong>virtual methods</strong> are bonded during <strong>runtime</strong> based upon runtime object.</li>
+<li>Here is sample of static binding <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticBindingTest</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span>  </span>&#123;</span><br><span class="line">       Collection c = <span class="keyword">new</span> HashSet();</span><br><span class="line">       StaticBindingTest et = <span class="keyword">new</span> StaticBindingTest();</span><br><span class="line">       et.sort(c);</span><br><span class="line">          &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//overloaded method takes Collection argument</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Collection <span class="title">sort</span><span class="params">(Collection c)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Inside Collection sort method"</span>);</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//another overloaded method which takes HashSet argument which is sub class</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Collection <span class="title">sort</span><span class="params">(HashSet hs)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Inside HashSet sort method"</span>);</span><br><span class="line">        <span class="keyword">return</span> hs;</span><br><span class="line">    &#125;</span><br><span class="line">      &#125;</span><br><span class="line">Output: Inside Collection sort method</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><strong>because it was bonded on compile time based on type of variable (Static binding)  which was collection.</strong></p>
+<ul>
+<li>Here is sample of dynamic binding <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicBindingTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        Vehicle vehicle = <span class="keyword">new</span> Car(); <span class="comment">//here Type is vehicle but object will be Car</span></span><br><span class="line">        vehicle.start();       <span class="comment">//Car's start called because start() is overridden method</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Inside start method of Vehicle"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">extends</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Inside start method of Car"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Output: Inside start method of Car</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>In summary, bottom line is static binding is a compile time operation while dynamic binding is a runtime. one uses Type and other uses Object to bind. static, private and final methods and variables are resolved using static binding which makes there execution fast because no time is wasted to find correct method during runtime.</p>
+<h1 id="Static-in-Java"><a href="#Static-in-Java" class="headerlink" title="Static in Java"></a>Static in Java</h1><ul>
+<li><p>static keyword can not be applied on top level class. Making a top level class static in Java will result in compile time error.</p>
+</li>
+<li><p>Beware that if your static initialize block throws Exception than you may <strong>get java.lang.NoClassDefFoundError</strong> when you try to access the class which failed to load.</p>
+</li>
+<li><p><strong>Static method can not be overridden</strong> in Java as they belong to class and not to object</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TradingSystem</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        TradingSystem system = <span class="keyword">new</span> DirectMarketAccess();</span><br><span class="line">        DirectMarketAccess dma = <span class="keyword">new</span> DirectMarketAccess();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// static method of Instrument class will be called,</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// even though object is of sub-class DirectMarketAccess</span></span><br><span class="line">        system.printCategory();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//static method of EquityInstrument class will be called</span></span><br><span class="line">        dma.printCategory();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printCategory</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"inside super class static method"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DirectMarketAccess</span> <span class="keyword">extends</span> <span class="title">TradingSystem</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printCategory</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"inside sub class static method"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">inside <span class="keyword">super</span> <span class="class"><span class="keyword">class</span> <span class="title">static</span> <span class="title">method</span></span></span><br><span class="line"><span class="class"><span class="title">inside</span> <span class="title">sub</span> <span class="title">class</span> <span class="title">static</span> <span class="title">method</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>This shows that static method can not be overridden in Java and concept of method overloading doesn’t apply to static methods. Instead declaring same static method on Child class <strong>is known as method hiding</strong> in Java</p>
+</li>
+<li><p>Consider <strong>making a static variable final</strong> in Java to make it constant and avoid changing it from anywhere in the code</p>
+</li>
+<li><p>when to use Singleton vs Static Class in Java for those purpose,answer is that if its <strong>completely stateless</strong> and it work on provided data then you can <strong>go for static class</strong> <strong>otherwise Singleton</strong> pattern is a better choice.</p>
+<h2 id="When-to-make-a-method-static-in-Java"><a href="#When-to-make-a-method-static-in-Java" class="headerlink" title="When to make a method static in Java"></a>When to make a method static in Java</h2></li>
+<li><p>Method <strong>doesn’t depends on object’s state</strong>, in other words <strong>doesn’t depend on any member variable</strong> and <strong>everything they need is passes as parameter</strong> to them</p>
+</li>
+<li><p>Utility methods are good candidate of making static in Java because then they can directly be accessed using class name without even creating any instance. Classic example is java.lang.Math</p>
+</li>
+<li><p>Static method in Java is very popular to implement Factory design pattern. Since Generics also provides type inference during method invocation, use of static factory method to create object is popular Java idiom. </p>
+</li>
+</ul>
+<h1 id="Phone"><a href="#Phone" class="headerlink" title="Phone"></a>Phone</h1><ul>
+<li>Key to success in telephonic is <strong>to the point</strong> and <strong>concise answer</strong>.</li>
+</ul>
+<h2 id="Difference-between-String-StringBuffer-and-StringBuilder-in-Java"><a href="#Difference-between-String-StringBuffer-and-StringBuilder-in-Java" class="headerlink" title="Difference between String, StringBuffer and StringBuilder in Java"></a>Difference between String, StringBuffer and StringBuilder in Java</h2><ul>
+<li>String is <strong>immutable</strong> while both StringBuffer and StringBuilder <strong>is mutable</strong>, which means any change e.g. converting String to upper case or trimming white space will <strong>produce another instance</strong> rather than changing the same instance. On later two, <strong>StringBuffer is synchronized</strong> while <strong>StringBuilder is not</strong>, in fact its a ditto replacement of StringBuffer added in Java 1.5.<h2 id="Difference-between-extends-Thread-vs-implements-Runnable-in-Java"><a href="#Difference-between-extends-Thread-vs-implements-Runnable-in-Java" class="headerlink" title="Difference between extends Thread vs implements Runnable in Java?"></a>Difference between extends Thread vs implements Runnable in Java?</h2></li>
+<li>Difference comes from the fact that you <strong>can only extend one class</strong> in Java, which means if you extend Thread class you lose your opportunity to extend another class, on the other hand if you implement Runnable, you can still extend another class.</li>
+</ul>
+<h2 id="Difference-between-Runnable-and-Callable-interface-in-Java"><a href="#Difference-between-Runnable-and-Callable-interface-in-Java" class="headerlink" title="Difference between Runnable and Callable interface in Java?"></a>Difference between Runnable and Callable interface in Java?</h2><ul>
+<li>Runnable was the only way to implement a task in Java which can be executed in parallel before JDK 1.5 adds Callable. Just like Runnable, Callable also defines a single <strong>call() method</strong> but unlike run() it <strong>can return values and throw exceptions</strong>.</li>
+</ul>
+<h2 id="Difference-between-ArrayList-and-LinkedList-in-Java"><a href="#Difference-between-ArrayList-and-LinkedList-in-Java" class="headerlink" title="Difference between ArrayList and LinkedList in Java?"></a>Difference between ArrayList and LinkedList in Java?</h2><ul>
+<li>In short, ArrayList is backed by array in Java, while <strong>LinkedList is just collection of nodes</strong>, similar to linked list data structure. ArrayList also provides <strong>random search</strong> if you know the index, while <strong>LinkedList only allows sequential search</strong>. On other hand, <strong>adding and removing element from middle</strong> is <strong>efficient in LinkedList</strong> as compared to ArrayList because it only require to modify links and no other element is rearranged.</li>
+</ul>
+<h2 id="What-is-difference-between-wait-and-notify-in-Java"><a href="#What-is-difference-between-wait-and-notify-in-Java" class="headerlink" title="What is difference between wait and notify in Java?"></a>What is difference between wait and notify in Java?</h2><ul>
+<li>Both wait and notify methods are used for <strong>inter thread communication</strong>, where <strong>wait is used to pause</strong> the thread on a condition and <strong>notify is used to send notification</strong> to waiting threads. Both must be called from synchronized context e.g. <strong>synchronized method or block</strong>.</li>
+</ul>
+<h2 id="Difference-between-HashMap-and-Hashtable-in-Java"><a href="#Difference-between-HashMap-and-Hashtable-in-Java" class="headerlink" title="Difference between HashMap and Hashtable in Java?"></a>Difference between HashMap and Hashtable in Java?</h2><ul>
+<li>Though both HashMap and Hashtable are based upon hash table data structure, there are subtle difference between them. HashMap is non synchronized while Hashtable is synchronized and because of that HashMap is faster than Hashtable, as there is no cost of synchronization associated with it. One more minor difference is that HashMap allows a null key but Hashtable doesn’t.</li>
+</ul>
+<h1 id="Check-a-number-is-prime-or-not"><a href="#Check-a-number-is-prime-or-not" class="headerlink" title="Check a number is prime or not"></a>Check a number is prime or not</h1><ul>
+<li><p>We learned numbers are prime if the only divisors they have are 1 and itself. Trivially, we can check every integer from 1 to itself (exclusive) and test whether it divides evenly. Check the source code of ** PrimeTester.java**</p>
+<ul>
+<li><p>naive approach:  We learned numbers are prime if the only divisors they have are 1 and itself. Trivially,  we can check every integer from 1 to itself (exclusive)  and test whether it divides evenly.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;<span class="number">2</span>*i&lt;=n;i++)&#123;</span><br><span class="line"><span class="keyword">if</span>(n%i==<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>power of 2 approach:    further enhance, as if 2 divides some interger n, then (n/2) divides n as well so we’ll times of 2. Please be advised in for loop, should use 2*i&lt;=n, rather than “&lt;n”,   otherwise, 4 will be return as ture mistakely</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;<span class="number">2</span>*i&lt;=n;i++)&#123;</span><br><span class="line"><span class="keyword">if</span>(n%i==<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>isPrimeSquare approach:       we notice that you really only have to go up to the square root of n,   because if you list out all of the factors of a number,  the square root will always be in the middle Finally, we know 2 is the “oddest” prime - it happens to be the only even prime number. Because of this, we need only check 2 separately, then traverse  odd numbers up to the square root of n.  In the end, our code will resemble this:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// check if n is a multiple of 2</span></span><br><span class="line"> <span class="keyword">if</span>(n&gt;<span class="number">2</span>&amp;&amp;n%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">false</span>;		</span><br><span class="line"><span class="comment">// if not, then just check the odds</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i*i&lt;=n;i+=<span class="number">2</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(n%i==<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Difference-between-abstract-class-and-interface"><a href="#Difference-between-abstract-class-and-interface" class="headerlink" title="Difference between abstract class and interface?"></a>Difference between abstract class and interface?</h1><ul>
+<li>From Java 8 onwards difference between abstract class and interface in Java has minimized, now even interface can have implementation in terms of default and static method. BTW, in Java you can still extend just one class but can extend multiple inheritance. Abstract class is used to provide default implementation with just something left to customize, while interface is used heavily in API to define contract of a class.</li>
+</ul>
+<h1 id="How-to-Swap-Two-Numbers-without-Temp-or-Third-variable-in-Java"><a href="#How-to-Swap-Two-Numbers-without-Temp-or-Third-variable-in-Java" class="headerlink" title="How to Swap Two Numbers without Temp or Third variable in Java"></a>How to Swap Two Numbers without Temp or Third variable in Java</h1><h2 id="Swapping-two-numbers-without-using-temp-variable-in-Java"><a href="#Swapping-two-numbers-without-using-temp-variable-in-Java" class="headerlink" title="Swapping two numbers without using temp variable in Java"></a>Swapping two numbers without using temp variable in Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">20</span>;</span><br><span class="line">System.out.println(<span class="string">"value of a and b before swapping, a: "</span> + a +<span class="string">" b: "</span> + b);</span><br><span class="line"></span><br><span class="line"><span class="comment">//swapping value of two numbers without using temp variable</span></span><br><span class="line">a = a+ b; <span class="comment">//now a is 30 and b is 20</span></span><br><span class="line">b = a -b; <span class="comment">//now a is 30 but b is 10 (original value of a)</span></span><br><span class="line">a = a -b; <span class="comment">//now a is 20 and b is 10, numbers are swapped</span></span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"value of a and b after swapping, a: "</span> + a +<span class="string">" b: "</span> + b);</span><br><span class="line">Output:</span><br><span class="line">value of a and b before swapping, a: <span class="number">10</span> b: <span class="number">20</span></span><br><span class="line">value of a and b after swapping, a: <span class="number">20</span> b: <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Swapping-two-numbers-without-using-temp-variable-in-Java-with-bitwise-operator"><a href="#Swapping-two-numbers-without-using-temp-variable-in-Java-with-bitwise-operator" class="headerlink" title="Swapping two numbers without using temp variable in Java with bitwise operator"></a>Swapping two numbers without using temp variable in Java with bitwise operator</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">2</span>; <span class="comment">//0010 in binary</span></span><br><span class="line"><span class="keyword">int</span> b = <span class="number">4</span>; <span class="comment">//0100 in binary</span></span><br><span class="line">System.out.println(<span class="string">"value of a and b before swapping, a: "</span> + a +<span class="string">" b: "</span> + b);</span><br><span class="line"><span class="comment">// 6  is     0110</span></span><br><span class="line"><span class="comment">//swapping value of two numbers without using temp variable and XOR bitwise operator     </span></span><br><span class="line">a = a^b; <span class="comment">//now a is 6 (0110) and b is 4(0100)</span></span><br><span class="line">b = a^b; <span class="comment">//now a is 6 but b is 2 (0010) (original value of a)</span></span><br><span class="line">a = a^b; <span class="comment">//now a is 4 and b is 2, numbers are swapped</span></span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"value of a and b after swapping using XOR bitwise operation, a: "</span> + a +<span class="string">" b: "</span> + b);</span><br><span class="line">value of a and b before swapping, a: <span class="number">2</span> b: <span class="number">4</span></span><br><span class="line">value of a and b after swapping using XOR bitwise operation, a: <span class="number">4</span> b: <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Swapping-two-numbers-without-using-temp-variable-in-Java-with-division-and-multiplication"><a href="#Swapping-two-numbers-without-using-temp-variable-in-Java-with-division-and-multiplication" class="headerlink" title="Swapping two numbers without using temp variable in Java with division and multiplication"></a>Swapping two numbers without using temp variable in Java with division and multiplication</h2><ul>
+<li><p>There is another, third way of swapping two numbers without using third variable, which involves multiplication and division operator. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line">System.out.println(<span class="string">"value of a and b before swapping, a: "</span> + a +<span class="string">" b: "</span> + b);</span><br><span class="line"></span><br><span class="line"><span class="comment">//swapping value of two numbers without using temp variable using multiplication and division</span></span><br><span class="line">a = a*b; <span class="comment">//now a is 18 and b is 3</span></span><br><span class="line">b = a/b; <span class="comment">//now a is 18 but b is 6 (original value of a)</span></span><br><span class="line">a = a/b; <span class="comment">//now a is 3 and b is 6, numbers are swapped</span></span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"value of a and b after swapping using multiplication and division, a: "</span> + a +<span class="string">" b: "</span> + b);</span><br><span class="line">Output:</span><br><span class="line">value of a and b before swapping, a: <span class="number">6</span> b: <span class="number">3</span></span><br><span class="line">value of a and b after swapping using multiplication and division, a: <span class="number">3</span> b: <span class="number">6</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>That’s all on 3 ways to swap two variables without using third variable in Java. Its good to know multiple ways of swapping two variables without using temp or third variable to handle any follow-up question. Swapping numbers <strong>using bitwise operator is the fastest</strong> among three, because it <strong>involves bitwise operation</strong>. It’s also great way to show your knowledge of bitwise operator in Java and impress interviewer, which then may ask some question on bitwise operation. A nice trick to drive interview on your expert area.</p>
+</li>
+</ul>
+<h1 id="Bitwise-operator"><a href="#Bitwise-operator" class="headerlink" title="Bitwise operator"></a>Bitwise operator</h1><ul>
+<li>“~” inverts a bit pattern; it can be applied to any of the integral types, making every “0” a “1” and every “1” a “0”.</li>
+<li>The bitwise &amp; operator performs a bitwise AND operation.</li>
+<li>The bitwise ^ operator performs a bitwise exclusive OR operation.</li>
+<li>The bitwise | operator performs a bitwise inclusive OR operation.</li>
+</ul>
+<h1 id="How-to-check-if-linked-list-contains-loop-in-Java"><a href="#How-to-check-if-linked-list-contains-loop-in-Java" class="headerlink" title="How to check if linked list contains loop in Java?"></a>How to check if linked list contains loop in Java?</h1><ul>
+<li>Algorithm to find if linked list contains loops or cycles. Two pointers, fast and slow is used while iterating over linked list. <strong>Fast pointer moves two nodes</strong> in each iteration, while <strong>slow pointer moves to one node</strong>. If linked list contains loop or cycle than both <strong>fast and slow pointer will meet</strong> at some point during iteration. If they don’t meet and fast or slow will point to null, then linked list is not cyclic and it doesn’t contain any loop. </li>
+</ul>
+<ol>
+<li>Use two pointers fast and slow</li>
+<li>Move fast two nodes and slow one node in each iteration</li>
+<li>If fast and slow meet then linked list contains cycle</li>
+<li>if fast points to null or fast.next points to null then linked list is not cyclic</li>
+</ol>
+<ul>
+<li>This algorithm is also known as Floyd’s cycle finding algorithm and popularly <strong>known as tortoise and hare algorithm</strong> to find cycles in linked list. Sample can be found via “LoopInList.java”</li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://www.java67.com/2012/09/top-10-tricky-java-interview-questions-answers.html" target="_blank" rel="noopener">http://www.java67.com/2012/09/top-10-tricky-java-interview-questions-answers.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2012/03/what-is-static-and-dynamic-binding-in.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2012/03/what-is-static-and-dynamic-binding-in.html</a></li>
+<li><a href="http://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html" target="_blank" rel="noopener">http://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html</a></li>
+<li><a href="http://www.mkyong.com/java/how-to-determine-a-prime-number-in-java/" target="_blank" rel="noopener">http://www.mkyong.com/java/how-to-determine-a-prime-number-in-java/</a></li>
+<li><a href="http://javarevisited.blogspot.in/2013/02/swap-two-numbers-without-third-temp-variable-java-program-example-tutorial.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2013/02/swap-two-numbers-without-third-temp-variable-java-program-example-tutorial.html</a></li>
+<li><a href="http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2013/05/find-if-linked-list-contains-loops-cycle-cyclic-circular-check.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2013/05/find-if-linked-list-contains-loops-cycle-cyclic-circular-check.html</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2017-01-19-Java-Tricky-Tech-Questions/" data-id="cjxaajrq00038bhq1k9u65h7x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Questions/">Questions</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017-01-19-Java-NavigableMap/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          NavigableMap Misc
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017-01-20-DeadLock/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Dead Lock</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>A Facial Recognition utility in a dozen of LOC | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="A Facial Recognition utility in a dozen of python LOC (Lines Of Code)CV (Computer Vision)I have been soak myself in open sourced libraries, such as OpenCV. I gradually came to discern concepts such as">
+<meta name="keywords" content="Python,MyBlog,DeepLearning,FacialRecognition,MachineLearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Facial Recognition utility in a dozen of LOC">
+<meta property="og:url" content="http://www.todzhang.com/2017-04-28-Facial-Recognition_en/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="A Facial Recognition utility in a dozen of python LOC (Lines Of Code)CV (Computer Vision)I have been soak myself in open sourced libraries, such as OpenCV. I gradually came to discern concepts such as">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/facial_howold.jpg">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/iPhone-camera-face-recognition.jpg">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/facial_code_preview.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/facial_oriImage.jpg">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/facial_postProcessImage_en.png">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Facial Recognition utility in a dozen of LOC">
+<meta name="twitter:description" content="A Facial Recognition utility in a dozen of python LOC (Lines Of Code)CV (Computer Vision)I have been soak myself in open sourced libraries, such as OpenCV. I gradually came to discern concepts such as">
+<meta name="twitter:image" content="http://cloudsdocker.github.io/images/facial_howold.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-2017-04-28-Facial-Recognition_en" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017-04-28-Facial-Recognition_en/" class="article-date">
+  <time datetime="2017-04-27T20:40:12.000Z" itemprop="datePublished">2017-04-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      A Facial Recognition utility in a dozen of LOC
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="A-Facial-Recognition-utility-in-a-dozen-of-python-LOC-Lines-Of-Code"><a href="#A-Facial-Recognition-utility-in-a-dozen-of-python-LOC-Lines-Of-Code" class="headerlink" title="A Facial Recognition utility in a dozen of python LOC (Lines Of Code)"></a>A Facial Recognition utility in a dozen of python LOC (Lines Of Code)</h1><h2 id="CV-Computer-Vision"><a href="#CV-Computer-Vision" class="headerlink" title="CV (Computer Vision)"></a>CV (Computer Vision)</h2><p>I have been soak myself in open sourced libraries, such as OpenCV. I gradually came to discern concepts such as <em>Machine Learning</em> , <em>Deep Learning</em> are not academic standing water. As a matter of fact, those elusive topics and certain pragmatic use cases could coalesce in a amount of interesting products. For instance, in past couple of months, there were a hype of <em>guess-ages-by-photo</em>, below screenshot depicts such.</p>
+<p><img src="http://cloudsdocker.github.io/images/facial_howold.jpg" alt></p>
+<p>What a seductive one! Initially been attracted by such funky features, after second thoughts, I found at the heart of it is two cohesive parts, the first one is how to locate <em>human faces</em> from background and whole picture, consequently to have a ballpark <em>age</em> guess for the recognized the faces. You may guess how difficult to codify a program to implement the 1st feature. Actually no need chunks of code, at here purely a dozen of lines of code are necessitated (actually only 10 lines of code, excluding space line and comments). I’d like to piggyback on such tiny utility to elaborate advanced topics of Computer Visions.</p>
+<h3 id="Faces-recognition"><a href="#Faces-recognition" class="headerlink" title="Faces recognition"></a>Faces recognition</h3><p>Actually <em>face recognition</em> is not new to us, this feature prevailing in so-called <em>auto focus</em> in DC (Digital Camera) and many main stream smart phone built-in cameras. Just like below photo. You can get a sense of how <em>commonplace</em> of face recognition , which is becoming a widely used technology around us.</p>
+<p><img src="http://cloudsdocker.github.io/images/iPhone-camera-face-recognition.jpg" alt></p>
+<p>Theoretically speaking, face recognition is also called <em>face detection</em>, it’s a type of technology/program to electronically identify human frontal faces in digital images, such as photos, camera or surveillance. Further more, face detection is kind of objects detection in computer vision area. Which will locate object (e.g. human face) and get the size.</p>
+<h2 id="My-‘10-LOC-program’"><a href="#My-‘10-LOC-program’" class="headerlink" title="My ‘10 LOC program’"></a>My ‘10 LOC program’</h2><p>First of all, let’s have some visual and concrete feeling of this program, below screenshot is the source code.</p>
+<p><img src="http://cloudsdocker.github.io/images/facial_code_preview.png" alt></p>
+<p>The whole program source code can be found at  <a href="https://github.com/CloudsDocker/pyFacialRecognition" target="_blank" rel="noopener">this github repository</a> <a href="https://github.com/CloudsDocker/pyFacialRecognition" target="_blank" rel="noopener">https://github.com/CloudsDocker/pyFacialRecognition</a> . Please feel free to <em>fork</em> , check it out and have a try. I’ll walk through this program one line by one line at this blog.</p>
+<p>“You serious? This is all the problem, just aforementioned 10 lines?” Let’s first take a look at the actual run output.</p>
+<h3 id="Here-is-the-origional-image"><a href="#Here-is-the-origional-image" class="headerlink" title="Here is the origional image"></a>Here is the origional image</h3><p><img src="http://cloudsdocker.github.io/images/facial_oriImage.jpg" alt></p>
+<h3 id="Below-is-the-result-of-execution-of-this-tiny-utility"><a href="#Below-is-the-result-of-execution-of-this-tiny-utility" class="headerlink" title="Below is the result of execution of this tiny utility"></a>Below is the result of execution of this tiny utility</h3><p>Please be advised the red rectangle around faces.<br><img src="http://cloudsdocker.github.io/images/facial_postProcessImage_en.png" alt></p>
+<h2 id="Souce-Code"><a href="#Souce-Code" class="headerlink" title="Souce Code"></a>Souce Code</h2><h3 id="Prerequite"><a href="#Prerequite" class="headerlink" title="Prerequite"></a>Prerequite</h3><p>First of first, as you know, this program is composed by <strong>python</strong>,therefore, make sure you work station or laptop equiped with python, vesrion is irrelavant for this program.</p>
+<p>In addition, this utility is built upon <a href="http://opencv.org/downloads.html" target="_blank" rel="noopener">OpenCV</a> (<a href="http://opencv.org/downloads.html" target="_blank" rel="noopener">http://opencv.org/downloads.html</a>), therefore please install this component as well. Just as its name suggested, it is an open source framework focus on computer vision related deep learning, surfaced decades ago. This is one Intel lab built by Rusian, which is a very active community.</p>
+<p>Particulary, if you are Mac users, it’s recommended to use <em>brew</em> to setup OpenCV. Below is sample commands(The 1st line of following command may raise some errors, in that case please contact me via the link at the rear of this blog):</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap homebrew/science</span><br><span class="line">brew install opencv</span><br></pre></td></tr></table></figure>
+
+<p>Upon completion of preceding scripts, you can execute following scripts to verify whether it’s installed success or not, e.g. it means all fine if no exception/errors raised</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import cv2</span><br></pre></td></tr></table></figure>
+
+<h3 id="Souce-Code-Dissection"><a href="#Souce-Code-Dissection" class="headerlink" title="Souce Code Dissection"></a>Souce Code Dissection</h3><p>Let’s dissect file <strong>recognizeFace_loose_en.py</strong> as one example</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2,sys</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>To import library of OpenCV and python built-in system library, which is used to parse input arguments.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inputImageFile=sys.argv[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>To read the <strong>1st</strong> argument, which to be the file name of the image to be parsed, e.g. <em>test.jpg</em></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faceClassifier=cv2.CascadeClassifier(<span class="string">'haarcascade_frontalface_default.xml'</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>To load HAAR Casscade Classifier, the human face recognition cascade categorizer which shipped with OpenCV. Which will do the <em>actual</em> computation, logic to recognize and size human faces from any given images.</li>
+</ul>
+<h3 id="Expansion-of-computer-vision-knowledge"><a href="#Expansion-of-computer-vision-knowledge" class="headerlink" title="Expansion of computer vision knowledge"></a>Expansion of computer vision knowledge</h3><p>We stop here not reading further code, avoiding perplex you, I’ll walk through certain CV topics pertaining to this blog. As for more deep concepts, please feel free to contact me or goole by yourself.</p>
+<h4 id="Classifier"><a href="#Classifier" class="headerlink" title="Classifier"></a>Classifier</h4><p>In arena of computer vision and machine learning, a variaty of classifiers been and being built, to assemle special <em>domain</em> knowledge to recognize corresponding objects. For example, there are particular <strong>classifier</strong> to recognize cars, there are <em>plane</em> classifier, and classifiers to recognize smile, eyes, etc. For our case, we need a specific classifier help us to detect and locate human faces.</p>
+<h4 id="Conceps-of-objects-recognize"><a href="#Conceps-of-objects-recognize" class="headerlink" title="Conceps of objects recognize"></a>Conceps of objects recognize</h4><p>Generally speaking，, to recognize one object (such as human faces) means finding and identifying objects in an image or video sequence. However, it’s neccessitate tons of sample/specimen to <strong>train</strong> machine to learn, for instance, it’s likely thousands of hundreds of digital images/video will be prepared as learning material, while all of specimen should be categorized to two mutax type,  <em>positive</em> or <em>negative</em>. e.g. phots containss <em>human face</em> and ones <strong>without</strong> <em>human face</em>. When machine read one photo, it was told this is either a positive one or negative one, then machine could gradually analysys and induce some <strong>common facets</strong> and persist to files for future usages, e.g. when given a new photo, the machine can <strong>classify</strong> it whether it’s a positive or negative. That’s why it’s called <strong><em>classifier</em></strong>.</p>
+<h4 id="Cascade"><a href="#Cascade" class="headerlink" title="Cascade"></a>Cascade</h4><p>Your feeling is right, just as it’s name suggrested, cascade implies propagating something. In this case, it’s specifically means <strong>Cascade classifier</strong>. Intuitively the next question is <em>why</em> cascade is required? Let me try to articulate the underlying logic, as you know, at the heart of digital images, which is the raw material of computer vision, are pixel。For one CV process, it need to scan each pixel per pixel, while in contemporary world, size of image tend to incresing more than we expected, e.g. normall one photo taken by smart phone tend to contains millions of pixels. At the meanwhile, to fine tune and get a more accuate result of one object recognition, it tend to lots of <em>classifiers</em> to work from different point of views of the underlying photo. Therefore these two factors interwhirled together, the final number would be astronomical. Therefore, one innovative solution is <em>cascade</em>, in a nutshell, all classifiers will be splited to multiple layers, one photo will be examined by classifiers on 1st layer at the very begining, if failed, the whole CV can retain <strong><em>negative</em></strong> immediately, with fewest efforts and time cost, while majority of other classifiers won’t be executed in actual. This should significantely accelerate the whole process of CV. This is similar to <strong><em>FF(Fail Fast)</em></strong> in other areas,severed for sake of running efficiency.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objImage=cv2.imread(inputImageFile)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>To create one OpenCV image object by loading the input digital file via OpenCV</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cvtImage=cv2.cvtColor(objImage,cv2.COLOR_BGR2GRAY)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Firstly, convert the digital colorful image to grayscale one, which easy the task to scan and analyse the image. Actually this is quite common in image analys area. e.g. this could eliminate those <em>noisy</em> pixel from the picture.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foundFaces=faceClassifier.detectMultiScale(cvtImage,scaleFactor=<span class="number">1.3</span>,minNeighbors=<span class="number">9</span>,minSize=(<span class="number">50</span>,<span class="number">50</span>),flags = cv2.cv.CV_HAAR_SCALE_IMAGE)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Call method <strong>detectMultiScale</strong> to recongnize object, i.e. human face in this case. The parameters overview as below:<ul>
+<li>scaleFactor: For a photo, particualy from selpie, some faces are shows bigger than rest of others, due to the distance between each faces and lens. Therefore this parameter is used to config the factor, please be advised this <em>double</em> should greater than 1.0</li>
+<li>minNeighbors: Because it need to gradually scan the photo by a certain <em>window</em>, i.e. a rectangle. So this parameter is telling how many other object in the vacinity to be detected, before making final decision that it’s positive or negative.</li>
+<li>minSize：For aforementioend <em>window</em>, this parameter is setting the size of this rectangle.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">" Found &#123;&#125; human faces in this image"</span>.format(len(foundFaces)))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>To print how many faces detected, be reminded returned value is a list, each item is the actual position of every faces. Therefore, using  <em>len</em>  to print total number of ojects found.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (x,y,w,h) <span class="keyword">in</span> foundFaces:</span><br><span class="line">    cv2.rectangle(objImage,(x,y),(x+w,y+h),(<span class="number">0</span>,<span class="number">0</span>,<span class="number">255</span>),<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Traverese all faces detected, please be noted returning object is consist of 4 parts, i.e. the horizontal and vertial position, width and height.</li>
+<li>Consequently to draw a rectangle by an off-the-shelf method from <em>OpenCV</em>. Be advised <em>(0,0,255)</em> represents color of the rectangel. It use R/G/B mode, e.g. black is (0,0,0)，white is (255,255,255)，etc. Well versed web programmer should be familiar with it.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cv2.imshow(<span class="string">'Detected human faces highlighted. Press any key to exit. '</span>, objImage)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>To display this image via <em>opencv</em> provided method imshow, together with the rectangles we draw previously</li>
+<li>The last one is one user hint, remind you can quit the applicaiton by press any key on the image display window</li>
+</ul>
+<h1 id="In-summary"><a href="#In-summary" class="headerlink" title="In summary"></a>In summary</h1><p>We’ve skimmed source codes and pertaining knowledge. This is just scratched the surface of this framework, hope this can open the door to more advanced topics and insights, such as hack of CAPTCHA, newly open sourced project form Yahoo, <a href="https://github.com/yahoo/open_nsfw" target="_blank" rel="noopener">NSFW</a>, Not Suitable for Work (NSFW)，to detect images with pornagraphy, etc.</p>
+<p>Finally，please be reminded all related source are open sourced at github repository <a href="https://github.com/CloudsDocker/pyFacialRecognition" target="_blank" rel="noopener">https://github.com/CloudsDocker/pyFacialRecognition</a> ，please fork and sync to your local disk, check it out and paly it.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/CloudsDocker/pyFacialRecognition.git</span><br><span class="line"><span class="built_in">cd</span> pyFacialRecognition</span><br><span class="line">./run.sh</span><br></pre></td></tr></table></figure>
+
+<p>You can access <a href="http://cloudsdocker.github.io/2016/12/11/2016-11-22-Facial-Recognition_en/" target="_blank" rel="noopener">my blog</a>. Any comments/suggestions, feel free to contact me.</p>
+<h2 id="Contact-me："><a href="#Contact-me：" class="headerlink" title="Contact me："></a>Contact me：</h2><ul>
+<li><a href="mailto:phray.zhang@gmail.com" target="_blank" rel="noopener">phray.zhang@gmail.com</a> (email，whatsapp, linkedin)</li>
+<li>helloworld_2000 (wechat)</li>
+<li>weibo: cloudsdocker</li>
+<li><a href="https://github.com/CloudsDocker/" target="_blank" rel="noopener">github</a></li>
+<li><a href="http://www.jianshu.com/users/a9e7b971aafc" target="_blank" rel="noopener">jianshu</a></li>
+<li>wechat：vibex</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://www.mathworks.com/discovery/object-recognition.html" target="_blank" rel="noopener">Object recognition</a></li>
+<li><a href="http://docs.opencv.org/trunk/index.html" target="_blank" rel="noopener">OpenCV</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Haar-like_features" target="_blank" rel="noopener">HAAR features</a></li>
+<li><a href="http://docs.opencv.org/trunk/d7/d8b/tutorial_py_face_detection.html" target="_blank" rel="noopener">Face Detection using Haar Cascades</a></li>
+<li><a href="https://github.com/yahoo/open_nsfw" target="_blank" rel="noopener">NSFW</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2017-04-28-Facial-Recognition_en/" data-id="cjxaajrqr004bbhq1enirixfn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018-06-01-DevOps-Philosophy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          DevOps-Philosophy
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018-05-24-GIT-scripts-bible-errors/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">GIT useful scripts or error solutions</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

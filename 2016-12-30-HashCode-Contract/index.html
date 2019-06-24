@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hash Code Misc | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="contract of hashCode : Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no in">
+<meta name="keywords" content="java,hashcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hash Code Misc">
+<meta property="og:url" content="http://www.todzhang.com/2016-12-30-HashCode-Contract/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="contract of hashCode : Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no in">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hash Code Misc">
+<meta name="twitter:description" content="contract of hashCode : Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no in">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-2016-12-30-HashCode-Contract" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016-12-30-HashCode-Contract/" class="article-date">
+  <time datetime="2019-05-31T13:03:27.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hash Code Misc
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="contract-of-hashCode"><a href="#contract-of-hashCode" class="headerlink" title="contract of hashCode :"></a>contract of hashCode :</h1><ul>
+<li>Whenever it is <strong>invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer</strong>, provided no information used in equals comparisons on the object is modified. This <em>integer need <strong>not</strong> remain consistent from one execution of an application to another execution of the <strong>same</strong> application</em>.</li>
+<li>If two objects <strong>are equal</strong> according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the <strong>same integer</strong> result.</li>
+<li>It is <strong>not required</strong> that <strong>if two objects are unequal</strong> according to the equals(java.lang.Object) method, then calling the hashCode method on each of the two objects <strong>must produce distinct integer results</strong>. However, the programmer should be aware that producing distinct integer results for unequal objects <em>may improve the performance of hash tables</em>.</li>
+</ul>
+<p>As much as is reasonably practical, the hashCode method defined by class Object does return distinct integers for distinct objects. (This is typically implemented by <strong>converting the internal address</strong> of the object into an integer, but this implementation technique is not required by the JavaTM programming language.)</p>
+<h1 id="Hashcode-in-Java-Collections"><a href="#Hashcode-in-Java-Collections" class="headerlink" title="Hashcode in Java Collections"></a>Hashcode in Java Collections</h1><h2 id="Hashcode-vs-equals"><a href="#Hashcode-vs-equals" class="headerlink" title="Hashcode vs. equals"></a>Hashcode vs. equals</h2><h3 id="Equals"><a href="#Equals" class="headerlink" title="Equals"></a>Equals</h3><p>For usage in java collections framework, <strong>equals()</strong> used in following scenarios:</p>
+<ul>
+<li>contains or not</li>
+<li>to remove one item</li>
+</ul>
+<p>Below is one implementation of a Equals</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(o==<span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(!(o <span class="keyword">instanceof</span> Employee)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        Employee other=(Employee)o;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.employeeID==other.employeeID;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hashcode"><a href="#Hashcode" class="headerlink" title="Hashcode"></a>Hashcode</h3><p>When insert data into HashTable, HashMap, HashSet, the hashcode used to determine <strong>where</strong> to <strong>store/search</strong> the value in list/bucket. The hashcode only <strong>point to an area</strong> in list/bucket of data. The hashtable then iterates this area (all keys with the same hash code) and uses the key’s equals() method to find the right key. Once the right key is found, the object stored for that key is returned. </p>
+<p>After you override the hashcode, you are still be able to get origional hashcode via calling <strong>int originalHashCode = System.identityHashCode(emp1);</strong></p>
+<h3 id="Rules"><a href="#Rules" class="headerlink" title="Rules"></a>Rules</h3><p>In this regard there is a rule of thumb that if you are going to overide the one of the methods (equals, hashcode), you have to override both, othersise it’s a violation of contract .</p>
+<h2 id="HashMap-tips"><a href="#HashMap-tips" class="headerlink" title="HashMap tips"></a>HashMap tips</h2><ul>
+<li>Since searching inlined list is O(n) operation, in worst case hash collision reduce a map to linked list. This issue is recently addressed in Java 8 by replacing linked list to the tree to search in O(logN)</li>
+<li><strong>HashMap works on the principle of hashing</strong>.</li>
+<li>HashMap  stores both Key and Value in LinkedList node or as Map</li>
+<li>using immutable, final object with proper equals() and hashcode() implementation would act as perfect Java HashMap  keys and improve the performance of Java HashMap  by reducing collision. <strong>Immutability also allows caching their hashcode of different keys which makes overall retrieval process very fast</strong> and suggest that String and various wrapper classes e.g. Integer very good keys in Java HashMap.</li>
+<li>if the load factor is .75 it will act to re-size the map once it filled 75%. Java HashMap re-size itself by creating a new bucket array of size twice of the previous size of HashMap and then start putting every old element into that new bucket array. This process is called rehashing because it also applies the hash function to find new bucket location. </li>
+<li>there is potential race condition exists while resizing HashMap in Java, if two thread at the same time found that now HashMap needs resizing and they both try to resizing. on the process of resizing of HashMap in Java, the element in the bucket which is stored in linked list get reversed in order during their migration to new bucket because Java HashMap  doesn’t append the new element at tail instead it append new element at the head to avoid tail traversing.</li>
+<li>If race condition happens then you will end up with an infinite loop. </li>
+</ul>
+<h2 id="Why-String-Integer-and-other-wrapper-classes-are-considered-good-keys"><a href="#Why-String-Integer-and-other-wrapper-classes-are-considered-good-keys" class="headerlink" title="Why String, Integer and other wrapper classes are considered good keys?"></a>Why String, Integer and other wrapper classes are considered good keys?</h2><ul>
+<li>String, Integer and other wrapper classes are natural candidates of HashMap key, and String is most frequently used key as well because String is immutable and final, and overrides equals and hashcode() method. </li>
+<li>Immutability is best as it offers other advantages as well like thread-safety, If you can  keep your hashCode same by only making certain fields final, then you go for that as well.</li>
+</ul>
+<h1 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h1><ul>
+<li>ConcurrentHashMap provides better concurrency by only locking portion of map determined by concurrency level. </li>
+<li>but Hashtable provides stronger thread-safety than ConcurrentHashMap</li>
+<li>ConcurrentHashMap performs better than earlier two because it only locks a portion of Map, instead of whole Map, which is the case with Hashtable and synchronized Map. </li>
+<li>provided all functions supported by Hashtable with an additional feature called “concurrency level”, which allows ConcurrentHashMap to partition Map.</li>
+<li>ConcurrentHashMap allows multiple readers to read concurrently without any blocking. This is achieved by partitioning Map into different parts based on concurrency level and locking only a portion of Map during updates. </li>
+<li><strong>Default concurrency level is 16</strong>, and accordingly Map is divided into 16 part and each part is governed with a different lock. This means, 16 thread can operate on Map simultaneously until they are operating on different part of Map. </li>
+<li>Since update operations like put(), remove(), putAll() or clear() is not synchronized, concurrent retrieval may not reflect most recent change on Map.</li>
+<li>ConcurrentHashMap also uses ReentrantLock to internally lock its segments.</li>
+<li>In hashmap and hashtable, you can check one item first and add it if not present. Though this code will work fine in HashMap and Hashtable, This won’t work in ConcurrentHashMap; because, during put operation whole map is not locked, and while one thread is putting value, other thread’s get() call can still return null which result in one thread overriding value inserted by other thread. Ofcourse, you can wrap whole code in synchronized block and make it thread-safe but that will only make your code single threaded. ConcurrentHashMap provides putIfAbsent(key, value) which does same thing but atomically and thus eliminates above race condition</li>
+<li>ConcurrentHashMap is best suited when you have <strong>multiple readers</strong> and <strong>few writers</strong>. If writers outnumber reader, or writer is equal to reader, than performance of ConcurrentHashMap <strong>effectively reduces to synchronized map or Hashtable</strong>. Performance of CHM drops, because you got to <strong>lock all portion of Map</strong>, and effectively each reader will wait for another writer, operating on that portion of Map. ConcurrentHashMap is a good choice for caches, which can be initialized during application start up and later accessed my many request processing threads.</li>
+<li>ConcurrentHashMap allows <strong>concurrent read</strong> and <strong>thread-safe update</strong> operation.</li>
+<li>Iterator returned by ConcurrentHashMap is weekly consistent, fail-safe and never throw ConcurrentModificationException. </li>
+<li>In Java.ConcurrentHashMap <strong>doesn’t allow null as key or value</strong>.</li>
+</ul>
+<h1 id="How-null-work-in-HashMap"><a href="#How-null-work-in-HashMap" class="headerlink" title="How null work in HashMap"></a>How null work in HashMap</h1><p> How null key is handled in HashMap? Since equals() and hashCode() are used to store and retrieve values, how does it work in case of the null key?</p>
+<p>The null key is handled specially in HashMap, there are two separate methods for that putForNullKey(V value)<br>and getForNullKey()<br>. Later is offloaded version of get() to look up null keys.  Null keys always map to index 0.  This null case is split out into separate methods for the sake of performance in the two most commonly used operations (get and put), but incorporated with conditionals in others. In short, equals()<br>and hashcode() method are not used in case of null keys in HashMap.</p>
+<h1 id="Performance-changes-in-JDK-1-7-and-1-8"><a href="#Performance-changes-in-JDK-1-7-and-1-8" class="headerlink" title="Performance changes in JDK 1.7 and 1.8"></a>Performance changes in JDK 1.7 and 1.8</h1><ul>
+<li>There is some performance improvement done on HashMap and ArrayList from JDK 1.7, which reduce memory consumption. Due to this empty Map are lazily initialized and will cost you less memory. Earlier, when you create HashMap e.g. new HashMap() it automatically creates an array of default length e.g. 16. After some research, Java team found that most of this Map are temporary and never use that many elements, and only end up wasting memory. Also, From JDK 1.8 onwards HashMap has introduced an improved strategy to deal with high collision rate. Since a poor hash function e.g. which always return location of same bucket, can turn a HashMap into linked list, i.e. converting get() method to perform <strong>in O(n) instead of O(1)</strong> and someone can take advantage of this fact, Java now internally replace linked list to a binary true once certain threshold is breached. This ensures performance or order O(log(n)) even in the worst case where a hash function is not distributing keys properly.</li>
+<li>such change is creating empty ArrayList and HashMap with size zero in JDK 1.7.0_40 update.</li>
+<li>If you are running on Java 1.6 or earlier version of Java 1.7, you can open code of java.util.ArrayList and check that, currently empty ArrayList is initialized with Object array of <strong>size 10</strong>. If you create several temporary list in your program, which remains uninitialized, due to any reason then you are not only losing memory but also losing performance by giving your garbage collector more work.</li>
+<li>Same is true for empty HashMap, which was initialized by <strong>default initial capacity of 16</strong>. This changes are result of observation made by Nathan Reynolds, and Architect at Oracle, which apparently analysed 670 Java heap dumps from different Java programs to find out memory hogs.</li>
+<li>By the way, it’s not just memory, it’s also extra work-load for Garbage collector</li>
+</ul>
+<h1 id="Hashtable"><a href="#Hashtable" class="headerlink" title="Hashtable"></a>Hashtable</h1><ul>
+<li>One of the major differences between HashMap and Hashtable is that HashMap is non-synchronized whereas Hashtable is synchronized</li>
+<li>Another difference is HashMap allows <strong>one</strong> null key and null values but *<em>Hashtable doesn’t allow null *</em> key or values.</li>
+<li>Another significant difference between HashMap vs Hashtable is that Iterator in the <strong>HashMap is  a fail-fast ** iterator  while the enumerator for the **Hashtable is not and throw ConcurrentModificationException</strong> if any other Thread modifies the map structurally  by adding or removing any element except Iterator’s own remove() method</li>
+</ul>
+<h1 id="ConcurrentHashMap-vs-Hashtable-vs-Synchronized-Map"><a href="#ConcurrentHashMap-vs-Hashtable-vs-Synchronized-Map" class="headerlink" title="ConcurrentHashMap vs Hashtable vs Synchronized Map"></a>ConcurrentHashMap vs Hashtable vs Synchronized Map</h1><ul>
+<li>Though all three collection classes are thread-safe and can be used in multi-threaded, concurrent Java application, there is a significant difference between them, which arise from the fact that <strong>how they achieve their thread-safety</strong>. </li>
+<li>Hashtable is a legacy class from JDK 1.1 itself, which uses <strong>synchronized methods</strong> to achieve thread-safety. All methods of Hashtable are synchronized which makes them quite slow due to contention if a number of thread increases. </li>
+<li>Synchronized Map is also <strong>not very different than Hashtable</strong> and provides similar performance in concurrent Java programs. The only difference between Hashtable and Synchronized Map is that later is not a legacy and you <strong>can wrap any Map</strong> to create it’s synchronized version by using Collections.synchronizedMap()</li>
+<li>Unlike Hashtable and Synchronized Map, it <strong>never locks whole Map</strong>, instead, it divides the map into segments and locking is done on those. Though it performs better if a number of <strong>reader threads are greater than</strong> the number of writer threads.</li>
+<li><strong>ConcurrentHashMap and CopyOnWriteArrayList</strong> implementations provide much <strong>higher concurrency while preserving thread safety</strong>, with some minor compromises in their promises to callers. ConcurrentHashMap and CopyOnWriteArrayList are not necessarily useful everywhere you might use HashMap or ArrayList, but are designed to optimize specific common situations. </li>
+<li><strong>ConcurrentHashMap does not allow null</strong> keys or null values while <strong>synchronized HashMap allows one null key</strong>.</li>
+</ul>
+<h1 id="Synchronized-List"><a href="#Synchronized-List" class="headerlink" title="Synchronized List"></a>Synchronized List</h1><ul>
+<li><p>CopyOnWriteArrayList and CopyOnWriteArraySet<br>CopyOnWriteArrayList is a concurrent alternative of synchronized List. CopyOnWriteArrayList provides better concurrency than synchronized List by allowing <strong>multiple concurrent reader</strong> and <strong>replacing the whole list on write</strong> operation. Yes, write operation is costly on CopyOnWriteArrayList but it <strong>performs better when there are multiple reader</strong> and requirement of <strong>iteration is more than writing</strong>. Since CopyOnWriteArrayList Iterator also don’t throw ConcurrencModificationException <strong>it eliminates need to lock the collection during iteration</strong>. Remember both ConcurrentHashMap and CopyOnWriteArrayList doesn’t provides same level of locking as Synchronized Collection and achieves thread-safety by there locking and mutability strategy. So they perform better if requirements suits there nature. Similarly, CopyOnWriteArraySet is a concurrent replacement to Synchronized Set. See What is CopyOnWriteArrayList in Java for more details</p>
+</li>
+<li><p>BlockingQueue<br>BlockingQueue is also one of better known collection class in Java 5. BlockingQueue makes it easy <strong>to implement producer-consumer design pattern</strong> by providing inbuilt <strong>blocking support for put() and take() method</strong>. put() method will block if Queue is full while take() method will block if Queue is empty. Java 5 API provides two concrete implementation of BlockingQueue in form of <strong>ArrayBlockingQueue and LinkedBlockingQueue</strong>, both of them implement <strong>FIFO ordering</strong> of element. ArrayBlockingQueue <strong>is backed by Array</strong> and its <strong>bounded</strong> in nature while <strong>LinkedBlockingQueue is optionally bounded</strong>. Consider <strong>using BlockingQueue to solve producer Consumer problem</strong> in Java instead of writing your won wait-notify code. Java 5 also provides <strong>PriorityBlockingQueue</strong>, another implementation of BlockingQueue which is ordered on priority and useful if you want to process elements on order other than FIFO.</p>
+</li>
+<li><p>Deque interface<br>is added in Java 6 and it extends Queue interface to support <strong>insertion and removal from both end of Queue</strong> referred as <strong>head and tail</strong>. Java6 also provides concurrent implementation of Deque like <strong>ArrayDeque and LinkedBlockingDeque</strong>. Deque Can be used efficiently <strong>to increase parallelism in program by allowing set of worker thread *<em>to help each other by taking some of work load from other thread by utilizing Deque double end consumption property. So if all Thread has there *</em>own set of task Queue and they are consuming from head</strong>; helper thread can also share some work load via <strong>consumption from tail</strong>.</p>
+</li>
+<li><p>ConcurrentSkipListMap and ConcurrentSkipListSet<br>Just like ConcurrentHashMap provides a concurrent alternative of synchronized HashMap. <strong>ConcurrentSkipListMap and ConcurrentSkipListSet provide concurrent alternative</strong> for synchronized version of <strong>SortedMap and SortedSet</strong>. For example instead of using TreeMap or TreeSet wrapped inside synchronized Collection, You can consider using ConcurrentSkipListMap or ConcurrentSkipListSet from java.util.concurrent package. They also implement NavigableMap and NavigableSet to add additional navigation method we have seen in our post How to use NavigableMap in Java.</p>
+</li>
+</ul>
+<h1 id="To-sort-hashmap-by-key-and-value"><a href="#To-sort-hashmap-by-key-and-value" class="headerlink" title="To sort hashmap by key and value"></a>To sort hashmap by key and value</h1><ul>
+<li>Why can’t we use TreeMap in place of HashMap is the question appears in most Java programmer’s mind when they asked to sort HashMap in Java. Well, TreeMap is way slower than HashMap because it runs sorting operation with each insertion, update and removal and sometimes you don’t really need an all time sorted Map, What you need is an ability to sort any Map implementation based upon its key and value.<h2 id="Sort-by-Key"><a href="#Sort-by-Key" class="headerlink" title="Sort by Key"></a>Sort by Key</h2></li>
+<li>As I said Map or HashMap in Java can be sorted either on keys or values. Sorting Map on keys is rather easy than sorting on values because Map <strong>allows duplicate values but doesn’t allow duplicates keys</strong>. You can sort Map, be it HashMap or Hashtable by copying keys into List than sorting List by using Collections.sort() method, here you can use either Comparator or Comparable based upon whether you want to sort on a custom order or natural order. </li>
+<li>Once List of keys is sorted, we can create another Map, particularly LinkedHashMap to insert keys in sorted order. LinkedHashMap will maintain the order on which keys are inserted, the result is a sorted Map based on keys. This is shown in the following example by writing a generic parameterized method to sort Map based on keys. You can also sort Map in Java by using TreeMap and Google Collection API (Guava). The advantage of using Guava is that you get some flexibility on specifying ordering.<h2 id="Sorting-Map-in-Java-By-Value"><a href="#Sorting-Map-in-Java-By-Value" class="headerlink" title="Sorting Map in Java - By Value"></a>Sorting Map in Java - By Value</h2></li>
+<li>To implement Collection.sort(map, new Comparator&lt;Map.Entry&lt;K,V&gt;&gt;(){ o1.getValue().compareTo(o2.getValue())</li>
+<li>But need to take care of null and duplication</li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://javarevisited.blogspot.in/2011/02/how-hashmap-works-in-java.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2011/02/how-hashmap-works-in-java.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2011/04/difference-between-concurrenthashmap.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2011/04/difference-between-concurrenthashmap.html</a></li>
+<li><a href="http://javarevisited.blogspot.com/2013/02/concurrent-collections-from-jdk-56-java-example-tutorial.html#ixzz4WBYzKelD" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/02/concurrent-collections-from-jdk-56-java-example-tutorial.html#ixzz4WBYzKelD</a></li>
+<li><a href="http://javarevisited.blogspot.com/2012/12/how-to-sort-hashmap-java-by-key-and-value.html#ixzz4WBgfeGVM" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2012/12/how-to-sort-hashmap-java-by-key-and-value.html#ixzz4WBgfeGVM</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2016-12-30-HashCode-Contract/" data-id="cjxaajrpo002rbhq15j8qnl17" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016-12-24-Apache-Tips/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Apache Tips
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016-12-30-Java-GC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java GC notes</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

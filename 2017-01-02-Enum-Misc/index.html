@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Java Enum Misc | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Enum Misc All enums implicitely extends java.lang.Enum Enum in Java are type-safe You can specify values of enum constants at the creation time. Enum.values() returns an array of MyEnum’s values. Enum">
+<meta name="keywords" content="java,enum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Enum Misc">
+<meta property="og:url" content="http://www.todzhang.com/2017-01-02-Enum-Misc/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="Enum Misc All enums implicitely extends java.lang.Enum Enum in Java are type-safe You can specify values of enum constants at the creation time. Enum.values() returns an array of MyEnum’s values. Enum">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Enum Misc">
+<meta name="twitter:description" content="Enum Misc All enums implicitely extends java.lang.Enum Enum in Java are type-safe You can specify values of enum constants at the creation time. Enum.values() returns an array of MyEnum’s values. Enum">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-2017-01-02-Enum-Misc" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017-01-02-Enum-Misc/" class="article-date">
+  <time datetime="2019-05-31T13:03:27.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java Enum Misc
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Enum-Misc"><a href="#Enum-Misc" class="headerlink" title="Enum Misc"></a>Enum Misc</h1><ul>
+<li>All enums implicitely extends <strong>java.lang.Enum</strong></li>
+<li>Enum in Java are <strong>type-safe</strong></li>
+<li>You can specify values of enum constants at the <strong>creation</strong> time. <strong>Enum.values()</strong> returns an array of MyEnum’s values.</li>
+<li>Enum constants are implicitly static and final and can not be changed once created.</li>
+<li>Enum can be safely compare using:<ul>
+<li>Switch-Case Statement</li>
+<li>== Operator</li>
+<li>.equals() method</li>
+</ul>
+</li>
+<li>You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself.</li>
+<li>Instance of Enum in Java <strong>is created when</strong> any Enum constants are <strong>first called or referenced</strong> in code.</li>
+<li>An enum can be declared outside or inside a class, but NOT in a method.</li>
+<li>An enum declared outside a class must NOT be marked static, final , abstract, protected , or private</li>
+<li>Enums can contain constructors, methods, variables, and constant class bodies.</li>
+<li>enum constructors can have arguments, and can be overloaded.</li>
+<li>enum constructors can NEVER be invoked directly in code. They are always called automatically when an enum is initialized.</li>
+<li>The semicolon at the end of an enum declaration is optional.</li>
+</ul>
+<p>These are legal:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;</span><br><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="type-safe"><a href="#type-safe" class="headerlink" title="type safe"></a>type safe</h1><p>The advantage of this style of enumeration over the C/C++-style enum or constants is that they are <strong>type-safe</strong>, meaning that, for example, if you define a method</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSuit</span><span class="params">(Suit suit)</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>the caller cannot pass in a value that does not correspond to an enumeration value</p>
+<h1 id="Language-level-features"><a href="#Language-level-features" class="headerlink" title="Language level features"></a>Language level features</h1><ul>
+<li>Since enumeration instances are all effectively <strong>singletons</strong>, they can be compared for equality using identity (“==”).</li>
+<li>In Java 5.0, the enum keyword is introduced as a special type of class that always extends <strong>java.lang.Enum</strong>.</li>
+<li>Note that the enumeration values are still <strong>static class members</strong>, though not declared as such.</li>
+<li>Enum is implemented using <strong>Arrays and common operations result in constant time</strong>. So if you are thinking of an high-performance Map, EnumMap could be a decent choice for enumeration data. We have already seen many examples of Java enum in our article 10 Examples of enum in Java  and using Enum as thread-safe Singleton. In this Java tutorial, we will see simple examples of using EnumMap in Java. </li>
+<li>All keys used in EnumMap must be  from same Enum type which is specified while creating EnumMap in Java. For example if you can not use different enum instances from two different enum.</li>
+<li>EnumMap is ordered collection and they are maintained in the natural order of their keys( natural order of keys means  the order on which enum constant are declared inside enum type ). you can verify this while Iterating over an EnumMap in Java.</li>
+<li>Iterators of EnumMap are fail-fast Iterator , much like of ConcurrentHashMap and doesn’t throw ConcurrentModificationException and may not show effect of any modification on EnumMap during Iteration process.</li>
+<li>You can not insert null keys inside EnumMap in Java.  EnumMap doesn’t allow null key and throw NullPointerException, at same time null values are permitted.</li>
+<li>EnumMap is not synchronized and it has to be synchronized manually before using it in a concurrent or multi-threaded environment. like synchronized Map in Java  you can also make EnumMap synchronized by using Collections.synchronizedMap() method and as per javadoc this should be done while creating EnumMap in java to avoid accidental non synchronized access.</li>
+<li>The constructor of enum in java must be private any other access modifier will result in compilation error. Now to get the value associated with each coin you can define a public getValue() method inside Java enum like any normal Java class. Also, the semicolon in the first line is optional.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Since constants defined inside Enum in Java are <strong>final</strong> you can <strong>safely compare them using “==”</strong>, the equality operator as shown in following example of  Java Enum:</li>
+<li>Java compiler automatically generates static values() method for every enum in java. Values() method returns array of Enum constants in the same order they have listed in Enum and you can use values() to iterate over values of Enum  in Java as shown in below example. Notice <strong>the order is exactly the same as defined order</strong> in the Enum.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(Currency coin: Currency.values())&#123;</span><br><span class="line">   System.out.println(<span class="string">"coin: "</span> + coin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>In Java, Enum can override methods also. Let’s see an example of overriding toString() method inside Enum in Java to provide a meaningful description for enums constants.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">  ........</span><br><span class="line">      </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">switch</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">         <span class="keyword">case</span> PENNY:</span><br><span class="line">              System.out.println(<span class="string">"Penny: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> NICKLE:</span><br><span class="line">              System.out.println(<span class="string">"Nickle: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> DIME:</span><br><span class="line">              System.out.println(<span class="string">"Dime: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> QUARTER:</span><br><span class="line">              System.out.println(<span class="string">"Quarter: "</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">super</span>.toString();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>EnumSet doesn’t have any public constructor instead it provides <strong>factory methods to create instance e.g. EnumSet.of()</strong> methods. This design allows EnumSet to internally choose between two different implementations depending upon the size of Enum constants.</li>
+</ul>
+<p>If Enum has <strong>less than 64 constants than EnumSet uses RegularEnumSet</strong> class which internally uses a long variable to store those 64 Enum constants and if Enum has more keys than 64 then it uses JumboEnumSet. See my article the difference between RegularEnumSet and JumboEnumSet for more details.</p>
+<ul>
+<li>An instance of Enum in Java is created when any Enum constants are first called or referenced in code.</li>
+<li>Enum in Java can *<em>implement the interface and override any method *</em>like normal class It’s also worth noting that Enum in java implicitly implements both Serializable and Comparable interface. Let’s see and example of how to implement interface using Java Enum:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency implements Runnable&#123;</span><br><span class="line">  PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">  ............</span><br><span class="line">        </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"Enum in Java implement interfaces"</span>);</span><br><span class="line">                </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>You can define abstract methods inside Enum in Java and can also provide a different implementation for different instances of enum in java.  Let’s see an example of using abstract method inside enum in java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"copper"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        NICKLE(<span class="number">5</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"bronze"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        DIME(<span class="number">10</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        QUARTER(<span class="number">25</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">color</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In this example since every coin will have the different color we made the color() method abstract and let each instance of Enum to define  their own color. You can get color of any coin by just calling the color() method as shown in below example of Java Enum:</p>
+<p>System.out.println(“Color: “ + Currency.DIME.color());</p>
+<p>So that was the comprehensive list of properties, behavior and capabilities of Enumeration type in Java. I know, it’s not easy to remember all those powerful features and that’s why I have prepared this small Microsoft powerpoint slide containing all important properties of Enum in Java. You can always come back and check this slide to revise important features of Java Enum.</p>
+<h1 id="RegularEnumSet-vs-JumboEnumSet"><a href="#RegularEnumSet-vs-JumboEnumSet" class="headerlink" title="RegularEnumSet vs. JumboEnumSet"></a>RegularEnumSet vs. JumboEnumSet</h1><ul>
+<li>Since Enum always has fixed number of instances, data-structure which is used to store Enum can be optimized depending upon number of instances and that’s why we have two different implementation of EnumSet in Java. We will take a closer look on this concept in next paragraph.</li>
+<li>How EnumSet is implemented in Java<br>EnumSet is an abstract class and it provides two concrete implementations, java.util.RegularEnumSet and java.util.JumboEnumSet. Main difference between RegularEnumSet and JumboEnumSet is that former uses a long variable to store elements while later uses a long[] to store its element. Since RegularEnumSet uses long variable, which is a 64 bit data type, it can only hold that much of element. That’s why when an empty EnumSet is created using EnumSet.noneOf() method, it choose RegularEnumSet if key universe (number of enum instances in Key Enum) is less than or equal to 64 and JumboEnumSet if key universe is more than 64. Here is the code which does that :</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;E extends Enum&lt;E&gt;&gt; <span class="function">EnumSet&lt;E&gt; <span class="title">noneOf</span><span class="params">(Class&lt;E&gt; elementType)</span> </span>&#123;   </span><br><span class="line">        .. ............ </span><br><span class="line">        <span class="keyword">if</span> (universe.length &lt;= <span class="number">64</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> RegularEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> JumboEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>EnumSet is <strong>not thread-safe</strong>, which means if it needs to be externally synchronized, when multiple thread access it and one of them modifies the Collection.</li>
+<li>EnumSet can not be used to store any other object <strong>except Enum</strong>, at the same time you can not store instances of two different Enum.</li>
+<li>EnumSet doesn’t allow Null elements.</li>
+<li>EnumSet Iterators are fail-safe in nature.</li>
+</ol>
+<h1 id="Difference-between-EnumMap-vs-HashMap"><a href="#Difference-between-EnumMap-vs-HashMap" class="headerlink" title="Difference between EnumMap vs HashMap"></a>Difference between EnumMap vs HashMap</h1><ul>
+<li>Internally EnumMap is represented using Array and provides constant time performance for common methods e.g. get() or put(). Now let’s see few differences between EnumMap vs HashMap :</li>
+<li>As said earlier, first and foremost difference between EnumMap and HashMap is that EnumMap is optimized for enum keys while HashMap is a general purpose Map implementation similar to Hashtable. you can not use any type other than Enum as key in EnumMap but you can use both Enum and any other Object as key in HashMap.</li>
+<li>Another difference between EnumMap and HashMap is <strong>performance</strong>. as discussed in the previous point, due to specialized optimization done for Enum keys, EnumMap is likely to perform better than HashMap when using enum as key object.</li>
+<li>One more thing which can be considered as the difference between HashMap and EnumMap is <strong>the probability of Collision</strong>. Since <strong>Enum is internally maintained as array ** and they are **stored in their natural order using ordinal()</strong>, as shown in following code which is taken from put() method of EnumMap.<br>Since EnumMap doesn’t call hashCode method on keys, there is no chance of collision.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> index = ((Enum)key).ordinal();</span><br><span class="line">    Object oldValue = vals[index];</span><br><span class="line">    vals[index] = maskNull(value);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>you can use both == and equals() method to compare Enum, they will produce same result because equals() method of Java.lang.Enum internally uses == to compare enum in Java. Since every Enum in Java implicitly extends java.lang.Enum ,and since equals() method is declared final, there is no chance of overriding equals method in user defined enum</li>
+<li>But there are still some slight difference, because  ==  (equality operator) being operator and equals() being method.</li>
+<li><ul>
+<li>Using == for comparing Enum can prevent NullPointerException</li>
+</ul>
+</li>
+<li><ul>
+<li>== method provides type safety during compile time</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>A <strong>fail-fast</strong> system is nothing but immediately report any failure that is likely to lead to failure. When a problem occurs, a fail-fast system fails immediately. In Java, we can find this behavior with iterators. Incase, you have called iterator on a collection object, and another thread tries to modify the collection object, then concurrent modification exception will be thrown. This is called fail-fast. - See more at: </li>
+</ul>
+<h1 id="Real-world-Examples-of-Enum-in-Java"><a href="#Real-world-Examples-of-Enum-in-Java" class="headerlink" title="Real world Examples of Enum in Java"></a>Real world Examples of Enum in Java</h1><ol>
+<li>Enum as Thread Safe Singleton</li>
+<li>Strategy Pattern using Enum. to implement the Strategy interface and define individual strategy</li>
+<li>Enum as replacement of Enum String or int pattern. There is now no need to use String or integer constant to represent fixed set of things e.g. status of object like ON and OFF for a button or START, IN PROGRESS and DONE for a Task. Enum is much better suited for those needs as it provide compile time type safety and better debugging assistent than String or Integer.</li>
+<li>Enum as State Machine</li>
+<li>Enum Java valueOf example. “You could also include valueOf() method of enum in java which is added by compiler in any enum along with values() method. Enum valueOf() is a static method which takes a string argument and can be used to convert a String into an enum. One think though you would like to keep in mind is that valueOf(String) method of enum will throw “Exception in thread “main” java.lang.IllegalArgumentException: No enum const class” if you supply any string other than enum values.</li>
+</ol>
+<h1 id="Reverse-lookup"><a href="#Reverse-lookup" class="headerlink" title="Reverse lookup"></a>Reverse lookup</h1><p>Often in your object model it is common to have data that is naturally “associated” with an enumeration. Since an enum is a class, it is easy to represent this associated information as class fields. Often it is desirable to “lookup” the associated enumeration using the field value. This is easy to do using a static java.util.Map. Take, for example, a Status enum that has an associated status code.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Status</span><br><span class="line">&#123;</span><br><span class="line">     WAITING(<span class="number">0</span>),</span><br><span class="line">     READY(<span class="number">1</span>),</span><br><span class="line">     SKIPPED(-<span class="number">1</span>),</span><br><span class="line">     COMPLETED(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Integer,Status&gt; lookup</span><br><span class="line">          = <span class="keyword">new</span> HashMap&lt;Integer,Status&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">static</span> &#123;</span><br><span class="line">          <span class="keyword">for</span>(Status s : EnumSet.allOf(Status.class))</span><br><span class="line">               lookup.put(s.getCode(), s);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> code;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="title">Status</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">this</span>.code = code;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCode</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> code; &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Status <span class="title">get</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> lookup.get(code);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Sleek-EnumMap"><a href="#Sleek-EnumMap" class="headerlink" title="Sleek EnumMap"></a>Sleek EnumMap</h1><p>Why would I use an EnumMap rather than a HashMap?  The primary reasons boil down to some inherent advantages of Java’s enum as stated in the Javadoc documentation for EnumMap: “Enum maps are represented internally as arrays. This representation is extremely compact and efficient.” Later in the same Javadoc documentation, there is an “Implementation Note” that states: “All basic operations execute in constant time. They are likely (though not guaranteed) to be faster than their HashMap counterparts.”</p>
+<p>The Javadoc documentation states similar advantages for the EnumSet over the HashSet:</p>
+<blockquote>
+<p>Enum sets are represented internally as <strong>bit vectors</strong>. This representation is extremely <strong>compact and efficient</strong>. The space and time performance of this class should be good enough to allow its use as a high-quality, typesafe alternative to traditional int-based ‘bit flags.’  … Implementation note: All basic operations execute <strong>in constant time</strong>. They are likely (though not guaranteed) to be much faster than their HashSet counterparts. Even <strong>bulk operations execute in constant time</strong> if their argument is also an enum set.</p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/" target="_blank" rel="noopener">http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/</a></li>
+<li><a href="http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks" target="_blank" rel="noopener">http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks</a></li>
+<li><a href="http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html" target="_blank" rel="noopener">http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html</a></li>
+<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV</a></li>
+<li><a href="http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html</a></li>
+<li><a href="http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5" target="_blank" rel="noopener">http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5</a></li>
+<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB</a></li>
+<li><a href="http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC</a></li>
+<li><a href="http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2017-01-02-Enum-Misc/" data-id="cjxaajrpq002vbhq1672rwce1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/enum/">enum</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016-12-30-Java-GC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java GC notes
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017-01-03-IntelliJ-Tips/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">IntelliJ Tips</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

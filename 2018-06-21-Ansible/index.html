@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Ansible | Clouds &amp; Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Ansible: What Is It Good For?Ansible is often described as a configuration management tool, and is typically mentioned in the same breath as Chef, Puppet, and Salt. When we talk about configuration ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible">
+<meta property="og:url" content="http://www.todzhang.com/2018-06-21-Ansible/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="Ansible: What Is It Good For?Ansible is often described as a configuration management tool, and is typically mentioned in the same breath as Chef, Puppet, and Salt. When we talk about configuration ma">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible">
+<meta name="twitter:description" content="Ansible: What Is It Good For?Ansible is often described as a configuration management tool, and is typically mentioned in the same breath as Chef, Puppet, and Salt. When we talk about configuration ma">
+  
+    <link rel="alternate" href="/atom.xml" title="Clouds &amp; Docker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clouds &amp; Docker</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.todzhang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-06-21-Ansible" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018-06-21-Ansible/" class="article-date">
+  <time datetime="2019-05-31T13:03:27.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ansible
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Ansible-What-Is-It-Good-For"><a href="#Ansible-What-Is-It-Good-For" class="headerlink" title="Ansible: What Is It Good For?"></a>Ansible: What Is It Good For?</h1><p>Ansible is often described as a configuration management tool, and is typically mentioned in the same breath as Chef, Puppet, and Salt. When we talk about configuration management, we are typically talking about writing some kind of state description for our servers, and then using a tool to enforce that the servers are, indeed, in that state: the right packages are installed, configuration files contain the expected values and have the expected permissions, the right services are running, and so on. Like other configuration management tools, Ansible exposes a domain-specific language (DSL) that you use to describe the state of your servers.</p>
+<p>These tools also can be used for doing deployment as well. When people talk about deployment, they are usually referring to the process of taking software that was written in-house, generating binaries or static assets (if necessary), copying the required files to the server(s), and then starting up the services. Capistrano and Fabric are two examples of open-source deployment tools. Ansible is a great tool for doing deployment as well as configuration management. Using a single tool for both configuration management and deployment makes life simpler for the folks responsible for operations.</p>
+<p>Some people talk about the need for orchestration of deployment. This is where multiple remote servers are involved, and things have to happen in a specific order. For example, you need to bring up the database before bringing up the web servers, or you need to take web servers out of the load balancer one at a time in order to upgrade them without downtime. Ansible’s good at this as well, and is designed from the ground up for performing actions on multiple servers. Ansible has a refreshingly simple model for controlling the order that actions happen in.</p>
+<p>Finally, you’ll hear people talk about provisioning new servers. In the context of public clouds such as Amazon EC2, this refers to spinning up a new virtual machine instance. Ansible’s got you covered here, with a number of modules for talking to clouds, including EC2, Azure, Digital Ocean, Google Compute Engine, Linode, and Rackspace, as well as any clouds that support the OpenStack APIs.</p>
+<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>As with most configuration management software, Ansible has two types of servers: controlling machines and nodes. First, there is a single controlling machine which is where orchestration begins. Nodes are managed by a controlling machine over SSH. The controlling machine describes the location of nodes through its inventory.</p>
+<h2 id="Agentless"><a href="#Agentless" class="headerlink" title="Agentless"></a>Agentless</h2><p>In contrast with popular configuration management software — such as Chef, Puppet, and CFEngine — Ansible uses an agentless architecture.[14] With an agent-based architecture, nodes must have a locally installed daemon that communicates with a controlling machine. With an agentless architecture, nodes are not required to install and run background daemons to connect with a controlling machine. This type of architecture reduces the overhead on the network by preventing the nodes from polling the controlling machine.</p>
+<h2 id="Playbook"><a href="#Playbook" class="headerlink" title="Playbook"></a>Playbook</h2><p>Playbooks are Ansible’s configuration, deployment, and orchestration language. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT process.</p>
+<p>I like to think of <code>Ansible playbooks as executable documentation</code>. It’s like the README file that describes the commands you had to type out to deploy your software, except that the instructions will never go out-of-date because they are also the code that gets executed directly.</p>
+<p>If Ansible modules are the tools in your workshop, playbooks are your instruction manuals, and your inventory of hosts are your raw material.</p>
+<p> In Ansible, a script is called a playbook. A playbook describes which hosts (what Ansible calls remote servers) to configure, and an ordered list of tasks to perform on those hosts.</p>
+<p> To execute the playbook using the ansible-playbook command. In the example, the playbook is named webservers.yml, and is executed by typing:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ansible-playbook webservers.yml</span><br></pre></td></tr></table></figure>
+
+<p>Ansible will make SSH connections in parallel to web1, web2, and web3. It will execute the first task on the list on all three hosts simultaneously. In this example, the first task is installing the nginx apt package (since Ubuntu uses the apt package manager), so the task in the playbook would look something like this:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">  apt:</span> <span class="string">name=nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>Ansible will:</p>
+<ol>
+<li>Generate a Python script that installs the nginx package.</li>
+<li>Copy the script to web1, web2, and web3.</li>
+<li>Execute the script on web1, web2, web3.</li>
+<li>Wait for the script to complete execution on all hosts.</li>
+</ol>
+<p>Ansible will then move to the next task in the list, and go through these same four steps. It’s important to note that:</p>
+<ul>
+<li>Ansible runs each task in parallel across all hosts.</li>
+<li>Ansible waits until all hosts have completed a task before moving to the next task.</li>
+<li>Ansible runs the tasks in the order that you specify them.</li>
+</ul>
+<h2 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h2><p>Variable names should be letters, numbers, and underscores. Variables should always start with a letter.</p>
+<p>foo_port is a great variable. foo5 is fine too.<br>foo-port, foo port, foo.port and 12 are not valid variable names.</p>
+<p>Defining Variables in Playbooks<br>The simplest way to define variables is to put a vars section in your playbook with the names and values of variables.</p>
+<p>Ansible also allows you to put variables into one or more files, using a section called vars_files. </p>
+<p>We would replace the vars section with a vars_files that looks like this:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">vars_files:</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">nginx.yml</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## nginx.yml</span></span><br><span class="line"><span class="attr">key_file:</span> <span class="string">/etc/nginx/ssl/nginx.key</span></span><br><span class="line"><span class="attr">cert_file:</span> <span class="string">/etc/nginx/ssl/nginx.crt</span></span><br><span class="line"><span class="attr">conf_file:</span> <span class="string">/etc/nginx/sites-available/default</span></span><br><span class="line"><span class="attr">server_name:</span> <span class="string">localhost</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="To-debug-variable"><a href="#To-debug-variable" class="headerlink" title="To debug variable"></a>To debug variable</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- debug:</span> <span class="string">var=myvarname</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Registering-Variables"><a href="#Registering-Variables" class="headerlink" title="Registering Variables"></a>Registering Variables</h2><p>Often, you’ll find that you need to set the value of a variable based on the result of a task. To do so, we create a registered variable using the register clause when invoking a module. </p>
+<p>In order to use the login variable later, we need to know what type of value to expect. The value of a variable set using the register clause is always a dictionary, but the specific keys of the dictionary are different, depending on the module that was invoked.</p>
+<p>ACCESSING DICTIONARY KEYS IN A VARIABLE<br>If a variable contains a dictionary, then you can access the keys of the dictionary using either a dot (.) or a subscript ([]).</p>
+<h3 id="facts"><a href="#facts" class="headerlink" title="facts"></a>facts</h3><p>When Ansible gathers facts, it connects to the host and queries the host for all kinds of details about the host: CPU architecture, operating system, IP addresses, memory info, disk info, and more. This information is stored in variables that are called facts, and they behave just like any other variable does.</p>
+<p>Here’s a simple playbook that will print out the operating system of each server:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">print</span> <span class="string">out</span> <span class="string">operating</span> <span class="string">system</span></span><br><span class="line"><span class="attr">  hosts:</span> <span class="string">all</span></span><br><span class="line"><span class="attr">  gather_facts:</span> <span class="literal">True</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - debug:</span> <span class="string">var=ansible_distribution</span></span><br></pre></td></tr></table></figure>
+
+<p>Viewing All Facts Associated with a Server<br>Ansible implements fact collecting through the use of a special module called the setup module. You don’t need to call this module in your playbooks because Ansible does that automatically when it gathers facts. However, if you invoke it manually with the ansible command-line tool, like this:</p>
+<p>$ ansible server1 -m setup</p>
+<h2 id="interactive-mode"><a href="#interactive-mode" class="headerlink" title="interactive mode"></a>interactive mode</h2><p>If Ansible did not succeed, add the -vvvv flag to see more details about the error:</p>
+<p>$ ansible testserver -i hosts -m ping -vvvv</p>
+<p>We can see that the module succeeded. The “changed”: false part of the output tells us that executing the module did not change the state of the server. The “ping”: “pong” text is output that is specific to the ping module.</p>
+<h2 id="Simplifying-with-the-ansible-cfg-File"><a href="#Simplifying-with-the-ansible-cfg-File" class="headerlink" title="Simplifying with the ansible.cfg File"></a>Simplifying with the ansible.cfg File</h2><p>We had to type a lot of text in the inventory file to tell Ansible about our test server. Fortunately, Ansible has a number of ways you can specify these sorts of variables so we don’t have to put them all in one place.</p>
+<p>Right now, we’ll use one such mechanism, the ansible.cfg file, to set some defaults so we don’t need to type as much.</p>
+<h3 id="WHERE-SHOULD-I-PUT-MY-ANSIBLE-CFG-FILE"><a href="#WHERE-SHOULD-I-PUT-MY-ANSIBLE-CFG-FILE" class="headerlink" title="WHERE SHOULD I PUT MY ANSIBLE.CFG FILE?"></a>WHERE SHOULD I PUT MY ANSIBLE.CFG FILE?</h3><p>Ansible looks for an ansible.cfg file in the following places, in this order:</p>
+<p>File specified by the ANSIBLE_CONFIG environment variable</p>
+<p>./ansible.cfg (ansible.cfg in the current directory)</p>
+<p>~/.ansible.cfg (.ansible.cfg in your home directory)</p>
+<p>/etc/ansible/ansible.cfg</p>
+<p>I typically put an ansible.cfg in the current directory, alongside my playbooks. That way, I can check it into the same version control repository my playbooks are in.</p>
+<h2 id="Run-command-remotely"><a href="#Run-command-remotely" class="headerlink" title="Run command remotely"></a>Run command remotely</h2><p>I like to use the ansible command-line tool to run arbitrary commands on remote machines, like parallel SSH. You can execute arbitrary commands with the command module. When invoking this module, you also need to pass an argument to the module with the -a flag, which is the command to run.</p>
+<p>For example, to check the uptime of our server, we can use:</p>
+<p>$ ansible testserver -m command -a uptime</p>
+<p>The command module is so commonly used that it’s the default module, so we can omit it:</p>
+<p>$ ansible testserver -a uptime<br>$ ansible testserver -a “tail /var/log/dmesg”</p>
+<h3 id="inventory"><a href="#inventory" class="headerlink" title="inventory"></a>inventory</h3><p>WARNING<br>Although Ansible adds the localhost to your inventory automatically, you have to have at least one other host in your inventory file; otherwise, ansible-playbook will terminate with the error:</p>
+<p>ERROR: provided hosts list is empty</p>
+<h3 id="property-“Changed”"><a href="#property-“Changed”" class="headerlink" title="property “Changed”"></a>property “Changed”</h3><p>The changed key is present in the return value of all Ansible modules, and Ansible uses it to determine whether a state change has occurred. For the command and shell module, this will always be set to true unless overridden with the changed_when clause</p>
+<h2 id="ignore-error"><a href="#ignore-error" class="headerlink" title="ignore error"></a>ignore error</h2><p>Ignoring when a module returns an error</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">Run</span> <span class="string">myprog</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">/opt/myprog</span></span><br><span class="line"><span class="attr">  register:</span> <span class="string">result</span></span><br><span class="line"><span class="attr">  ignore_errors:</span> <span class="literal">True</span></span><br><span class="line"><span class="attr">- debug:</span> <span class="string">var=result</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Data-type"><a href="#Data-type" class="headerlink" title="Data type"></a>Data type</h2><p>All members of a list are lines beginning at the same indentation level starting with a “- “ (a dash and a space):</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="comment"># A list of tasty fruits</span></span><br><span class="line"><span class="attr">fruits:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Apple</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Orange</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Strawberry</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Mango</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p>A dictionary is represented in a simple key: value form (the colon must be followed by a space):</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># An employee record</span></span><br><span class="line"><span class="attr">martin:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">Martin</span> <span class="string">D'vloper</span></span><br><span class="line"><span class="attr">    job:</span> <span class="string">Developer</span></span><br><span class="line"><span class="attr">    skill:</span> <span class="string">Elite</span></span><br></pre></td></tr></table></figure>
+
+<p>More complicated data structures are possible, such as lists of dictionaries, dictionaries whose values are lists or a mix of both:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Employee records</span></span><br><span class="line"><span class="attr">-  martin:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">Martin</span> <span class="string">D'vloper</span></span><br><span class="line"><span class="attr">    job:</span> <span class="string">Developer</span></span><br><span class="line"><span class="attr">    skills:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">python</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">perl</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">pascal</span></span><br><span class="line"><span class="attr">-  tabitha:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">Tabitha</span> <span class="string">Bitumen</span></span><br><span class="line"><span class="attr">    job:</span> <span class="string">Developer</span></span><br><span class="line"><span class="attr">    skills:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">lisp</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">fortran</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">erlang</span></span><br></pre></td></tr></table></figure>
+
+<p>Dictionaries and lists can also be represented in an abbreviated form if you really want to:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">martin:</span> <span class="string">&#123;name:</span> <span class="string">Martin</span> <span class="string">D'vloper,</span> <span class="attr">job:</span> <span class="string">Developer,</span> <span class="attr">skill:</span> <span class="string">Elite&#125;</span></span><br><span class="line"><span class="attr">fruits:</span> <span class="string">['Apple',</span> <span class="string">'Orange'</span><span class="string">,</span> <span class="string">'Strawberry'</span><span class="string">,</span> <span class="string">'Mango'</span><span class="string">]</span></span><br></pre></td></tr></table></figure>
+
+<p>These are called “Flow collections”.</p>
+<h3 id="span-multiple-lines"><a href="#span-multiple-lines" class="headerlink" title="span multiple lines"></a>span multiple lines</h3><p>Values can span multiple lines using | or &gt;. Spanning multiple lines using a “Literal Block Scalar” | will include the newlines and any trailing spaces. Using a “Folded Block Scalar” &gt; will fold newlines to spaces; it’s used to make what would otherwise be a very long line easier to read and edit. In either case the indentation will be ignored. Examples are:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">include_newlines:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            exactly as you see</span></span><br><span class="line"><span class="string">            will appear these three</span></span><br><span class="line"><span class="string">            lines of poetry</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span><span class="attr">fold_newlines:</span> <span class="string">&gt;</span></span><br><span class="line"><span class="string">            this is really a</span></span><br><span class="line"><span class="string">            single line of text</span></span><br><span class="line"><span class="string">            despite appearances</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h1><h2 id="file"><a href="#file" class="headerlink" title="file"></a>file</h2><p>file - Sets attributes of files</p>
+<p>Sets attributes of files, symlinks, and directories, or removes files/symlinks/directories. Many other modules support the same options as the file module - including copy, template, and assemble.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># change file ownership, group and mode. When specifying mode using octal numbers, first digit should always be 0.</span></span><br><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/etc/foo.conf</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">0644</span></span><br><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/work</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">01777</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="delegation"><a href="#delegation" class="headerlink" title="delegation"></a>delegation</h2><p>This isn’t actually rolling update specific but comes up frequently in those cases.</p>
+<p>If you want to perform a task on one host with reference to other hosts, use the ‘delegate_to’ keyword on a task. This is ideal for placing nodes in a load balanced pool, or removing them. It is also very useful for controlling outage windows. Be aware that it does not make sense to delegate all tasks, debug, add_host, include, etc always get executed on the controller. Using this with the ‘serial’ keyword to control the number of hosts executing at one time is also a good idea:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- hosts:</span> <span class="string">webservers</span></span><br><span class="line"><span class="attr">  serial:</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">take</span> <span class="string">out</span> <span class="string">of</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">/usr/bin/take_out_of_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">    delegate_to:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">actual</span> <span class="string">steps</span> <span class="string">would</span> <span class="string">go</span> <span class="string">here</span></span><br><span class="line"><span class="attr">    yum:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">acme-web-stack</span></span><br><span class="line"><span class="attr">      state:</span> <span class="string">latest</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">add</span> <span class="string">back</span> <span class="string">to</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">/usr/bin/add_back_to_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">    delegate_to:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
+
+<p>These commands will run on 127.0.0.1, which is the machine running Ansible. There is also a shorthand syntax that you can use on a per-task basis: ‘local_action’. Here is the same playbook as above, but using the shorthand syntax for delegating to 127.0.0.1:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">take</span> <span class="string">out</span> <span class="string">of</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    local_action:</span> <span class="string">command</span> <span class="string">/usr/bin/take_out_of_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">add</span> <span class="string">back</span> <span class="string">to</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    local_action:</span> <span class="string">command</span> <span class="string">/usr/bin/add_back_to_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>A common pattern is to use a local action to call ‘rsync’ to recursively copy files to the managed servers. Here is an example:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">recursively</span> <span class="string">copy</span> <span class="string">files</span> <span class="string">from</span> <span class="string">management</span> <span class="string">server</span> <span class="string">to</span> <span class="string">target</span></span><br><span class="line"><span class="attr">    local_action:</span> <span class="string">command</span> <span class="string">rsync</span> <span class="bullet">-a</span> <span class="string">/path/to/files</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;:/path/to/target/</span></span><br></pre></td></tr></table></figure>
+
+<p>Note that you must have passphrase-less SSH keys or an ssh-agent configured for this to work, otherwise rsync will need to ask for a passphrase.</p>
+<p>dev experience<br>lead</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.todzhang.com/2018-06-21-Ansible/" data-id="cjxaajrry006bbhq1d4rf0br3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018-06-14-flex-box/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          flexbox
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018-06-21-Apigee/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Apigee</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AS400/">AS400</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architect/">Architect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BA/">BA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTO/">CTO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camel/">Camel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud/">Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collections/">Collections</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent/">Concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev/">Dev</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficiency/">Efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Equity/">Equity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FX/">FX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FacialRecognition/">FacialRecognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Finance/">Finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Financial/">Financial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPages/">GitPages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Global-Market/">Global Market</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haddop/">Haddop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IBM-Personal-Communications/">IBM Personal Communications</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JIT/">JIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jboss/">Jboss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JetBrains/">JetBrains</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MTF/">MTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mifid/">Mifid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mint/">Mint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MobileInternet/">MobileInternet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBlog/">MyBlog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NavigableMap/">NavigableMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJs/">NodeJs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenShift/">OpenShift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenStack/">OpenStack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openshift/">Openshift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Protocols/">Protocols</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Questions/">Questions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTul/">RESTul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMB/">RMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJS/">RxJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SFTP/">SFTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOA/">SOA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sharding/">Sharding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WAS/">WAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSphere/">WebSphere</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anugar/">anugar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class-loader/">class loader`</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clud/">clud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/compare/">compare</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-strucutre/">data strucutre</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dead-lock/">dead lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desgin/">desgin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/development/">development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enum/">enum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/">ethereum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/finance/">finance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fund/">fund</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashcode/">hashcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heavy-load/">heavy load</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hyperledger/">hyperledger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intelliJ/">intelliJ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile-internet/">mobile internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngrx/">ngrx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/principals/">principals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rfc/">rfc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scraphy/">scraphy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serialVersionUID/">serialVersionUID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortcut/">shortcut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/">tag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testing/">testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AS400/" style="font-size: 10px;">AS400</a> <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Angular/" style="font-size: 18px;">Angular</a> <a href="/tags/Apache/" style="font-size: 12px;">Apache</a> <a href="/tags/Architect/" style="font-size: 12px;">Architect</a> <a href="/tags/BA/" style="font-size: 10px;">BA</a> <a href="/tags/BigData/" style="font-size: 10px;">BigData</a> <a href="/tags/CAS/" style="font-size: 10px;">CAS</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/CTO/" style="font-size: 12px;">CTO</a> <a href="/tags/Camel/" style="font-size: 10px;">Camel</a> <a href="/tags/Cloud/" style="font-size: 10px;">Cloud</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Concurrent/" style="font-size: 11px;">Concurrent</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/DB/" style="font-size: 11px;">DB</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/DeepLearning/" style="font-size: 11px;">DeepLearning</a> <a href="/tags/Dev/" style="font-size: 10px;">Dev</a> <a href="/tags/DevOps/" style="font-size: 19px;">DevOps</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Eclipse/" style="font-size: 10px;">Eclipse</a> <a href="/tags/Efficiency/" style="font-size: 10px;">Efficiency</a> <a href="/tags/Equity/" style="font-size: 10px;">Equity</a> <a href="/tags/FX/" style="font-size: 11px;">FX</a> <a href="/tags/FacialRecognition/" style="font-size: 11px;">FacialRecognition</a> <a href="/tags/Finance/" style="font-size: 10px;">Finance</a> <a href="/tags/Financial/" style="font-size: 10px;">Financial</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitPages/" style="font-size: 11px;">GitPages</a> <a href="/tags/Global-Market/" style="font-size: 10px;">Global Market</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Haddop/" style="font-size: 10px;">Haddop</a> <a href="/tags/IBM-Personal-Communications/" style="font-size: 10px;">IBM Personal Communications</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JIT/" style="font-size: 10px;">JIT</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Jboss/" style="font-size: 10px;">Jboss</a> <a href="/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MTF/" style="font-size: 10px;">MTF</a> <a href="/tags/Mac/" style="font-size: 11px;">Mac</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Mifid/" style="font-size: 10px;">Mifid</a> <a href="/tags/Mint/" style="font-size: 10px;">Mint</a> <a href="/tags/MobileInternet/" style="font-size: 15px;">MobileInternet</a> <a href="/tags/MyBlog/" style="font-size: 17px;">MyBlog</a> <a href="/tags/NavigableMap/" style="font-size: 10px;">NavigableMap</a> <a href="/tags/NodeJs/" style="font-size: 14px;">NodeJs</a> <a href="/tags/OpenShift/" style="font-size: 10px;">OpenShift</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Openshift/" style="font-size: 10px;">Openshift</a> <a href="/tags/Protocols/" style="font-size: 10px;">Protocols</a> <a href="/tags/Python/" style="font-size: 11px;">Python</a> <a href="/tags/Questions/" style="font-size: 11px;">Questions</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RESTul/" style="font-size: 10px;">RESTul</a> <a href="/tags/RMB/" style="font-size: 10px;">RMB</a> <a href="/tags/RxJS/" style="font-size: 10px;">RxJS</a> <a href="/tags/SFTP/" style="font-size: 10px;">SFTP</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sharding/" style="font-size: 10px;">Sharding</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Storm/" style="font-size: 10px;">Storm</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WAS/" style="font-size: 10px;">WAS</a> <a href="/tags/WebSphere/" style="font-size: 10px;">WebSphere</a> <a href="/tags/XA/" style="font-size: 10px;">XA</a> <a href="/tags/angular/" style="font-size: 12px;">angular</a> <a href="/tags/anugar/" style="font-size: 10px;">anugar</a> <a href="/tags/blockchain/" style="font-size: 12px;">blockchain</a> <a href="/tags/class-loader/" style="font-size: 10px;">class loader`</a> <a href="/tags/cloud/" style="font-size: 12px;">cloud</a> <a href="/tags/clud/" style="font-size: 10px;">clud</a> <a href="/tags/compare/" style="font-size: 10px;">compare</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/data-strucutre/" style="font-size: 10px;">data strucutre</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/dead-lock/" style="font-size: 10px;">dead lock</a> <a href="/tags/desgin/" style="font-size: 10px;">desgin</a> <a href="/tags/development/" style="font-size: 10px;">development</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/tags/elasticsearch/" style="font-size: 11px;">elasticsearch</a> <a href="/tags/enum/" style="font-size: 10px;">enum</a> <a href="/tags/ethereum/" style="font-size: 10px;">ethereum</a> <a href="/tags/finance/" style="font-size: 10px;">finance</a> <a href="/tags/fund/" style="font-size: 10px;">fund</a> <a href="/tags/hashcode/" style="font-size: 10px;">hashcode</a> <a href="/tags/heavy-load/" style="font-size: 10px;">heavy load</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/hyperledger/" style="font-size: 11px;">hyperledger</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/intelliJ/" style="font-size: 10px;">intelliJ</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mobile-internet/" style="font-size: 10px;">mobile internet</a> <a href="/tags/ngrx/" style="font-size: 10px;">ngrx</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 11px;">nodejs</a> <a href="/tags/principals/" style="font-size: 10px;">principals</a> <a href="/tags/programming/" style="font-size: 10px;">programming</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rfc/" style="font-size: 10px;">rfc</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/scraphy/" style="font-size: 10px;">scraphy</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/serialVersionUID/" style="font-size: 10px;">serialVersionUID</a> <a href="/tags/shortcut/" style="font-size: 11px;">shortcut</a> <a href="/tags/source-code/" style="font-size: 10px;">source code</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/testing/" style="font-size: 10px;">testing</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/04/">April 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018-06-12-KDB/">KDB</a>
+          </li>
+        
+          <li>
+            <a href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
+          </li>
+        
+          <li>
+            <a href="/2016-09-01-Mac-Tips/">Mac tips</a>
+          </li>
+        
+          <li>
+            <a href="/2018-11-01-seconds/">Seconds</a>
+          </li>
+        
+          <li>
+            <a href="/2016-02-25-Java-Class-Loader/">Java Class Loader</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Todd Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
