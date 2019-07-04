@@ -1,172 +1,390 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<!-- Head tag -->
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
 <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--Description-->
-    
-        <meta name="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-    
 
-    <!--Author-->
-    
-        <meta name="author" content="Todd Zhang">
-    
 
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="Head First Blockchina 1">
-    
 
-    <!--Open Graph Description-->
-    
-        <meta property="og:description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-    
 
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="Clouds &amp; Docker">
 
-    <!--Type page-->
-    
-        <meta property="og:type" content="article">
-    
 
-    <!--Page Cover-->
-    
 
-    <meta name="twitter:card" content="summary">
-    
 
-    <!-- Title -->
-    
-    <title>Head First Blockchina 1 - Clouds &amp; Docker</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
 
-    <!-- Google Analytics -->
-    
 
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="深入浅出区块链系统：第一章.what you should know about blockchain 考虑的大家现在很多都是碎片化阅读，不知道大家如何，反正如果我是在在只有很短一段时间里，不太容易切换状态静下心来读一篇洋洋洒洒的长文章。因此此系统会保持短小精悍，把整套分成一系列小文章，每个文章有分成若干个段（sections）。既KISS原则，查看这里什么是KISS. 目前区块链（blockch">
+<meta name="keywords" content="blockchain,hyperledger,MyBlog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Head First Blockchina 1">
+<meta property="og:url" content="http://www.todzhang.com/2016-09-11-head-first-blockchian-1/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="深入浅出区块链系统：第一章.what you should know about blockchain 考虑的大家现在很多都是碎片化阅读，不知道大家如何，反正如果我是在在只有很短一段时间里，不太容易切换状态静下心来读一篇洋洋洒洒的长文章。因此此系统会保持短小精悍，把整套分成一系列小文章，每个文章有分成若干个段（sections）。既KISS原则，查看这里什么是KISS. 目前区块链（blockch">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://qph.ec.quoracdn.net/main-qimg-6290fccef5f018b22672e7d1c9179350-c?convert_to_webp=true">
+<meta property="og:image" content="http://bitcoinspace.net/wp-content/uploads/2016/03/bitcoin.jpg">
+<meta property="og:image" content="https://image.spreadshirtmedia.com/image-server/v1/designs/12710632,width=190,height=190,version=1395590038.png/bitcoin-lego-block-chain-t-shirt_design.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/BlockChain_1.jpg">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/BlockChain_Chain2.png">
+<meta property="og:image" content="http://cloudsdocker.github.io/images/blockchain_info.gif">
+<meta property="og:image" content="http://fintechnews.ch/wp-content/uploads/2016/05/Centralized-vs-Distributed-Ledger-Bitcoin-pressure.png">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Head First Blockchina 1">
+<meta name="twitter:description" content="深入浅出区块链系统：第一章.what you should know about blockchain 考虑的大家现在很多都是碎片化阅读，不知道大家如何，反正如果我是在在只有很短一段时间里，不太容易切换状态静下心来读一篇洋洋洒洒的长文章。因此此系统会保持短小精悍，把整套分成一系列小文章，每个文章有分成若干个段（sections）。既KISS原则，查看这里什么是KISS. 目前区块链（blockch">
+<meta name="twitter:image" content="https://qph.ec.quoracdn.net/main-qimg-6290fccef5f018b22672e7d1c9179350-c?convert_to_webp=true">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.todzhang.com/2016-09-11-head-first-blockchian-1/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Head First Blockchina 1 | Clouds & Docker</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5d908896b5a8b5c505cdf8bd885edc3a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
-<body>
+  
+  
+    
+  
 
-<div class="bg-gradient"></div>
-<div class="bg-pattern"></div>
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
 
-<!-- Menu -->
-<!--Menu Links and Overlay-->
-<div class="menu-bg">
-    <div class="menu-container">
-        <ul>
-            
-            <li class="menu-item">
-                <a href="/">
-                    Home
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/archives">
-                    Archives
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/about.html">
-                    About
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/tags">
-                    Tags
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/categories">
-                    Categories
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/contact.html">
-                    Contact
-                </a>
-            </li>
-            
-        </ul>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Clouds & Docker</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
-<!--Hamburger Icon-->
-<nav>
-    <a href="#menu"></a>
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
 </nav>
 
-<div class="container">
 
-    <!-- Main Content -->
-    <div class="row">
-    <div class="col-sm-12">
 
-        <!--Title and Logo-->
-        <header>
-    <div class="logo">
-        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-11-head-first-blockchian-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+
+    
+      <header class="post-header">
+
         
-    </div>
-</header>
+        
+          <h1 class="post-title" itemprop="name headline">Head First Blockchina 1
 
-        <section class="main">
+              
             
-<div class="post">
+          </h1>
+        
 
-    <div class="post-header">
-        <h1 class="title">
-            <a href="/2016-09-11-head-first-blockchian-1/">
-                Head First Blockchina 1
-            </a>
-        </h1>
-        <div class="post-info">
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+          
+
+          
             
-                <span class="date">2019-05-31</span>
             
-            
-            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
         </div>
-    </div>
+      </header>
+    
 
-    <div class="content">
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-        <!-- Gallery -->
-        
+      
+      
 
-        <!-- Post Content -->
+      
         <h1 id="深入浅出区块链系统：第一章"><a href="#深入浅出区块链系统：第一章" class="headerlink" title="深入浅出区块链系统：第一章."></a>深入浅出区块链系统：第一章.</h1><p><code>what you should know about blockchain</code></p>
 <p>考虑的大家现在很多都是碎片化阅读，不知道大家如何，反正如果我是在在只有很短一段时间里，不太容易切换状态静下心来读一篇洋洋洒洒的长文章。因此此系统会保持短小精悍，把整套分成一系列小文章，每个文章有分成若干个段（sections）。既KISS原则，查看<a href="http://cloudsdocker.github.io/2016/09/02/2016-09-02-Design-Principals/" target="_blank" rel="noopener">这里</a>什么是KISS.</p>
 <p>目前<code>区块链（blockchain）</code>应该是在最近比较火的新技术之一了，这个不光在银行金融行业，也在其他诸多行业逐渐成为热点。区块链基于被认为是<code>继互联网之后最重要的技术发明之一</code>。看到过很多关于区块链的文章，要么是太过于学术，要么又局限于某个行业领域。对于一般人来说不太容易去理解其所以然。因此，笔者提笔自己写一个关于区块链的系列文章，以方便大家。</p>
@@ -207,193 +425,623 @@
 <li>微信公众号：vibex</li>
 </ul>
 
+      
     </div>
 
     
 
     
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
         <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/MyBlog/">#MyBlog</a> <a href="/tags/blockchain/">#blockchain</a> <a href="/tags/hyperledger/">#hyperledger</a>
+          
+            <a href="/tags/blockchain/" rel="tag"># blockchain</a>
+          
+            <a href="/tags/hyperledger/" rel="tag"># hyperledger</a>
+          
+            <a href="/tags/MyBlog/" rel="tag"># MyBlog</a>
+          
         </div>
-    
+      
 
-    <!-- Comments -->
-    
+      
+      
+      
 
-</div>
-        </section>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016-09-04-Kubernets-vs-Swarm/" rel="next" title="Kubernetes 与 Docker Swarm的对比">
+                <i class="fa fa-chevron-left"></i> Kubernetes 与 Docker Swarm的对比
+              </a>
+            
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016-09-01-HTTP-Methods-RFC/" rel="prev" title="http methods">
+                http methods <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
-</div>
+  </div>
 
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
 
-</div>
+      
 
-<!-- Footer -->
-<div class="push"></div>
-
-<footer class="footer-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
-                <h2>About</h2>
-                <p>
-                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
-                </p>
-            </div>
-            
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
-        <h2>Recent Posts</h2>
-        <ul>
-            
-            <li>
-                <a class="footer-post" href="/2018-06-12-KDB/">KDB</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2019-02-26-TLS-SSL-HTTPS/">SSL certificates</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2016-09-01-Mac-Tips/">Mac tips</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018-11-01-seconds/">Seconds</a>
-            </li>
-            
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
         </ul>
-    </div>
+      
 
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Todd Zhang</p>
+              <div class="site-description motion-element" itemprop="description">Contact me via phray.zhang@gmail.com or wechat at helloworld_2000</div>
+          </div>
 
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">147</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">124</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
 
             
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深入浅出区块链系统：第一章"><span class="nav-number">1.</span> <span class="nav-text">深入浅出区块链系统：第一章.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#比特币"><span class="nav-number">1.1.</span> <span class="nav-text">比特币</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记账"><span class="nav-number">1.2.</span> <span class="nav-text">记账</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是区块链"><span class="nav-number">1.3.</span> <span class="nav-text">什么是区块链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记住这几个词可以帮助理解什么是区块链"><span class="nav-number">1.3.1.</span> <span class="nav-text">记住这几个词可以帮助理解什么是区块链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区块链的应用领域"><span class="nav-number">1.4.</span> <span class="nav-text">区块链的应用领域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#金融业"><span class="nav-number">1.4.1.</span> <span class="nav-text">金融业</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般商业公司"><span class="nav-number">1.4.2.</span> <span class="nav-text">一般商业公司</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于零售行业"><span class="nav-number">1.4.3.</span> <span class="nav-text">对于零售行业</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.4.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ-（常问的问题）"><span class="nav-number">1.5.</span> <span class="nav-text">FAQ （常问的问题）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#这些-“区块”-具体是什么样子的？"><span class="nav-number">1.5.1.</span> <span class="nav-text">这些 “区块” 具体是什么样子的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么样新的块才能够加入"><span class="nav-number">1.5.2.</span> <span class="nav-text">什么样新的块才能够加入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每个节点都存一份不也是有额外的成本吗"><span class="nav-number">1.5.3.</span> <span class="nav-text">每个节点都存一份不也是有额外的成本吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总之，BlockChain的出现，是由于人们的预期，-技术的进步。"><span class="nav-number">1.5.4.</span> <span class="nav-text">总之，BlockChain的出现，是由于人们的预期， 技术的进步。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联系我："><span class="nav-number">1.6.</span> <span class="nav-text">联系我：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul class="list-inline footer-social-icons">
-                    
-                    <li class="list-inline-item">
-                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-github"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://twitter.com/?lang=en">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-twitter"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.facebook.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-facebook"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.instagram.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-instagram"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://dribbble.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-dribbble"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://plus.google.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-google-plus"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.behance.net/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-behance"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://500px.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-500px"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="mailto:test@example.com">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-envelope-o"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="\#">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-rss"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="footer-copyright">
-                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
-                </div>
-            </div>
-        </div>
+      <!--/noindex-->
+      
+
+      
+
     </div>
-</footer>
-
-<!-- After footer scripts -->
-
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Tween Max -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Custom JavaScript -->
-<script src="/js/main.js"></script>
-
-<!-- Disqus Comments -->
+  </aside>
+  
 
 
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Todd Zhang</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 </body>
-
 </html>
