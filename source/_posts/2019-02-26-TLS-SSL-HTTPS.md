@@ -1,5 +1,5 @@
 ---
-title: SSL certificate
+title: SSL certificates
 ---
 
 # What's TLS
