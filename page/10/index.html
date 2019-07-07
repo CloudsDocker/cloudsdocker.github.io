@@ -295,6 +295,313 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-09-04-Google-Analytics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017-09-04-Google-Analytics/" class="post-title-link" itemprop="url">google analysis</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="How-Page-Value-is-calculated"><a href="#How-Page-Value-is-calculated" class="headerlink" title="How Page Value is calculated"></a>How Page Value is calculated</h1><h2 id="At-a-glance"><a href="#At-a-glance" class="headerlink" title="At a glance"></a>At a glance</h2><p>Page Value is the average value for a page that a user visited before landing on the goal page or completing an Ecommerce transaction (or both). This value is intended to give you an idea of which page in your site contributed more to your site’s revenue. If the page wasn’t involved in an ecommerce transaction for your website in any way, then the Page Value for that page will be $0 since the page was never visited in a session where a transaction occurred.</p>
+<p>Below is the equation you can follow to calculate Page Value. Please note that the unique pageview statistic represents the number of individual users who have loaded a given page per session. Each user is counted only once per session, no matter how many pages are opened by the same user.</p>
+<p>Ecommerce Revenue + Total Goal Value<br>Number of Unique Pageviews for Given Page</p>
+<h2 id="In-depth"><a href="#In-depth" class="headerlink" title="In depth"></a>In depth</h2><p>The first example above illustrates how Page Value works. Let’s say you want to know the Page Value for Page B, and you know the following factors:</p>
+<p>Goal page D: $10 (Remember, you assign the value of the Goal page when you first create a goal in the Analytics Settings page)<br>Receipt Page E: $100 (This page is where the user makes an ecommerce transaction of $100)<br>Unique pageview for Page B: One</p>
+<p>You would then set up your Page Value equation like this:</p>
+<p>Ecommerce Revenue ($100) + Total Goal Value ($10)<br>Number of Unique Pageviews for Page B (1)</p>
+<p>Page Value for Page B is $110 since a user visits Page B only once before the goal page during this session.</p>
+<p>Now let’s explore how Page Value for Page B is affected when we combine the data from two different sessions. You can see that Page B is viewed only once during Session 1, but during Session 2 it gets two pageviews (we’re assuming the two pageviews are from the same user). The total Ecommerce revenue stays the same during both sessions. Although there were two unique pageviews, there was still only one Ecommerce transaction total for both sessions.</p>
+<p>Goal page D: $10<br>Receipt Page E: $100<br>Unique pageview for Page B: Two</p>
+<p>Your Page Value calculation should be adjusted to look like this:</p>
+<p>Ecommerce Revenue ($100) + Total Goal Value ($10 x 2 sessions)<br>Number of Unique Pageviews for Page B (2)</p>
+<p>Page Value for Page B across two sessions is then $60, or $120 divided by two sessions.</p>
+<h1 id="Code-snippet-about-setting-up-GA-in-your-site"><a href="#Code-snippet-about-setting-up-GA-in-your-site" class="headerlink" title="Code snippet about setting up GA in your site"></a>Code snippet about setting up GA in your site</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.ga=<span class="built_in">window</span>.ga||<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;(ga.q=ga.q||[]).push(<span class="built_in">arguments</span>)&#125;;ga.l=+<span class="keyword">new</span> <span class="built_in">Date</span>;</span></span><br><span class="line"><span class="javascript">                ga(<span class="string">'create'</span>, <span class="string">'UA-xxxx-1'</span>, <span class="string">'auto'</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">                        <span class="keyword">var</span> hostName = <span class="built_in">window</span>.location.host;</span></span><br><span class="line"><span class="javascript">                                <span class="keyword">var</span> ga_script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span></span><br><span class="line"><span class="javascript">                                        ga_script.setAttribute(<span class="string">'async'</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">                                                <span class="keyword">if</span> ([<span class="string">'localhost:9000'</span>,<span class="string">'test'</span>,<span class="string">'uat'</span>].some(<span class="function"><span class="keyword">function</span>(<span class="params">hostItem</span>)</span>&#123;<span class="keyword">return</span> hostName.indexOf(hostItem)&gt;<span class="number">-1</span>&#125;)) &#123;</span></span><br><span class="line"><span class="javascript">                                                                <span class="comment">// non-production</span></span></span><br><span class="line"><span class="javascript">                                                                            ga_script.setAttribute(<span class="string">'src'</span>,<span class="string">'https://www.google-analytics.com/analytics_debug.js'</span>);</span></span><br><span class="line"><span class="javascript">                                                                                        <span class="built_in">window</span>.ga_debug = &#123;<span class="attr">trace</span>: <span class="literal">true</span>&#125;;</span></span><br><span class="line"><span class="javascript">                                                                                                &#125;<span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                                                                                                                ga_script.setAttribute(<span class="string">'src'</span>,<span class="string">'https://www.google-analytics.com/analytics.js'</span>);</span></span><br><span class="line">                                                                                                                        &#125;</span><br><span class="line"><span class="javascript">                                                                                                                                <span class="built_in">document</span>.head.appendChild(ga_script);</span></span><br><span class="line"><span class="javascript">                                                                                                                                        ga(<span class="string">'send'</span>, <span class="string">'pageview'</span>);</span></span><br><span class="line">                                                                                                                                            <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$rootScope.$on(<span class="string">'$stateChangeSuccess'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    $<span class="built_in">window</span>.ga(<span class="string">'send'</span>, <span class="string">'pageview'</span>, $location.path());</span><br><span class="line">                                    $<span class="built_in">window</span>.scrollTo(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">                                                &#125;);</span><br></pre></td></tr></table></figure>
+
+Alternative async tracking snippet
+While the JavaScript tracking snippet described above ensures the script will be loaded and executed asynchronously on all browsers, it has the disadvantage of not allowing modern browsers to preload the script.
+The alternative async tracking snippet below adds support for preloading, which will provide a small performance boost on modern browsers, but can degrade to synchronous loading and execution on IE 9 and older mobile browsers that do not recognize the async script attribute. Only use this tracking snippet if your visitors primarily use modern
+browsers to access your site.
+
+&lt;!-- Google Analytics --&gt;
+&lt;script&gt;
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga(&apos;create&apos;, &apos;UA-XXXXX-Y&apos;, &apos;auto&apos;);
+ga(&apos;send&apos;, &apos;pageview&apos;);
+&lt;/script&gt;
+&lt;script async src=&apos;https://www.google-analytics.com/analytics.js&apos;&gt;&lt;/script&gt;
+&lt;!-- End Google Analytics --&gt;
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/&gt; 
+What data does the tracking snippet capture?
+When you add either of these tracking snippets to your website, you send a pageview for each page your users visit. Google Analytics processes this data and can infer a great deal of information including:
+• The total time a user spends on your site.
+• The time a user spends on each page and in what order those pages were visited.
+• What internal links were clicked (based on the URL of the next pageview).
+In addition, the IP address, user agent string, and initial page inspection analytics.js does when creating a new tracker is used to determine things like the following:
+• The geographic location of the user.
+• What browser and operating system are being used.
+• Screen size and whether Flash or Java is installed.
+• The referring site.
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/#alternative_async_tracking_snippet&gt; 
+
+
+How analytics.js Works
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/how-analyticsjs-works&gt; 
+
+The ga command queue
+The JavaScript tracking snippet defines a global ga function known as the &quot;command queue&quot;. It&apos;s called the command queue because rather than executing the commands it receives immediately, it adds them to a queue that delays execution until the analytics.js library is fully loaded.
+In JavaScript, functions are also objects, which means they can contain properties. The tracking snippet defines a q property on the ga function object as an empty array. Prior to the analytics.js library being loaded, calling the ga() function appends the list of arguments passed to the ga()function to the end of the q array.
+For example, if you were to run the tracking snippet and then immediately log the contents of ga.qto the console, you&apos;d see an array, two items in length, containing the two sets of arguments already passed to the ga() function:
+
+console.log(ga.q);
+
+// Outputs the following:
+// [
+//   [&apos;create&apos;, &apos;UA-XXXXX-Y&apos;, &apos;auto&apos;],
+//   [&apos;send&apos;, &apos;pageview&apos;]
+// ]
+Once the analytics.js library is loaded, it inspects the contents of the ga.q array and executes each command in order. After that, the ga() function is redefined, so all subsequent calls execute immediately.
+This pattern allows developers to use the ga() command queue without having to worry about whether or not the analytics.js library has finished loading. It provides a simple, synchronous-looking interface that abstracts away most of the complexities of asynchronous code.
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/how-analyticsjs-works&gt; 
+
+Adding commands to the queue
+All calls to the ga() command queue share a common signature. The first parameter, the &quot;command&quot;, is a string that identifies a particular analytics.js method. Any additional parameters are the arguments that get passed to that method.
+The method a particular command refers to can be a global method, like create, a method on the ga object, or it can be an instance method on a tracker object, like send. If the ga() command queue receives a command it doesn&apos;t recognize, it simply ignores it, making calls to the ga()function very safe, as they will almost never result in an error.
+For a comprehensive list of all commands that can be executed via the command queue, see the ga() command queue reference.
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/how-analyticsjs-works&gt; 
+
+Command parameters
+Most analytics.js commands (and their corresponding methods) accept parameters in a number of different formats. This is done as a convenience to make it easier to pass commonly used fields to certain methods.
+As an example, consider the two commands in the JavaScript tracking snippet:
+
+ga(&apos;create&apos;, &apos;UA-XXXXX-Y&apos;, &apos;auto&apos;);
+ga(&apos;send&apos;, &apos;pageview&apos;);
+In the first command, create accepts the fields trackingId, cookieDomain, and name to optionally be specified as the second, third, and fourth parameters, respectively. The sendcommand accepts an optional hitType second parameter.
+All commands accept a final fieldsObject parameter that can be used to specify any fields as well. For example, the above two commands in the tracking snippet could be rewritten as:
+
+ga(&apos;create&apos;, {
+      trackingId: &apos;UA-XXXXX-Y&apos;,
+        cookieDomain: &apos;auto&apos;
+});
+ga(&apos;send&apos;, {
+      hitType: &apos;pageview&apos;
+});
+See the ga() command queue reference for a comprehensive list of the optional parameters allowed for each of the commands.
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/how-analyticsjs-works&gt; 
+
+
+Creating Trackers
+• Contents
+• The create method
+• Naming trackers
+• Specifying fields at creation time
+• Working with multiple trackers
+• Running commands for a specific tracker
+• Next steps
+Tracker objects (also known as &quot;trackers&quot;) are objects that can collect and store data and then send that data to Google Analytics.
+When creating a new tracker, you must specify a tracking ID (which is the same as the property ID that corresponds to one of your Google Analytics properties) as well as a cookie domain, which specifies how cookies are stored. (The recommended value &apos;auto&apos; specifies automatic cookie domain configuration.)
+If a cookie does not exist for the specified domain, a client ID is generated and stored in the cookie, and the user is identified as new. If a cookie exists containing a client ID value, that client ID is set on the tracker, and the user is identified as returning.
+Upon creation, tracker objects also gather information about the current browsing context such as the page title and URL, and information about the device such as screen resolution, viewport size, and document encoding. When it&apos;s time to send data to Google Analytics, all of the information currently stored on the tracker gets sent.
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/creating-trackers&gt; 
+
+Running commands for a specific tracker
+To run analytics.js commands for a specific tracker, you prefix the command name with the tracker name, followed by a dot. When you don&apos;t specify a tracker name, the command is run on the default tracker.
+To send pageviews for the above two trackers, you&apos;d run the following two commands:
+
+ga(&apos;send&apos;, &apos;pageview&apos;);
+ga(&apos;clientTracker.send&apos;, &apos;pageview&apos;);
+Future guides will go into more detail on the syntax for running specific commands. You can also refer to the command queue reference to see the full command syntax for all analytics.js commands.
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/creating-trackers&gt; 
+
+Getting trackers via ga Object methods
+If you&apos;re not using a default tracker, or if you have more than one tracker on the page, you can access those trackers via one of the ga object methods.
+Once the analytics.js library is fully loaded, it adds additional methods to the ga object itself. Two of those methods, getByName and getAll, are used to access tracker objects.
+Note: ga object methods are only available when analytics.js has fully loaded, so you should only reference them inside a ready callback.
+getByName
+If you know the name of the tracker you want to access, you can do so using the getByNamemethod:
+
+ga(&apos;create&apos;, &apos;UA-XXXXX-Y&apos;, &apos;auto&apos;, &apos;myTracker&apos;);
+
+ga(function() {
+      // Logs the &quot;myTracker&quot; tracker object to the console.
+        console.log(ga.getByName(&apos;myTracker&apos;));
+});
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/accessing-trackers&gt; 
+
+The last line of the JavaScript tracking snippet adds a send command to the ga() command queue to send a pageview to Google Analytics:
+
+ga(&apos;create&apos;, &apos;UA-XXXXX-Y&apos;, &apos;auto&apos;);
+ga(&apos;send&apos;, &apos;pageview&apos;);
+The object that is doing the sending is the tracker that was scheduled for creation in the previous line of code, and the data that gets sent is the data stored on that tracker.
+This guide describes the various ways to send data to Google Analytics and explains how to control what data gets sent.
+
+From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits&gt; 
+
+Hits, hit types, and the Measurement Protocol
+When a tracker sends data to Google Analytics it&apos;s called sending a hit, and every hit must have a hit type. The JavaScript tracking snippet sends a hit of type pageview; other hit types include screenview, event, transaction, item, social, exception, and timing. This guide outlines the concepts and methods common to all hit types. Individual guides
+for each hit type can be found under the section Tracking common user interactions in the left-side navigation.
+    The hit is an HTTP request, consisting of field and value pairs encoded as a query string, and sent to the Measurement Protocol.
+
+    From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits&gt; 
+
+    The simplest way to use the send command, that works for all hit types, is to pass all fields using the fieldsObjectparameter. For example:
+
+    ga(&apos;send&apos;, {
+          hitType: &apos;event&apos;,
+            eventCategory: &apos;Video&apos;,
+              eventAction: &apos;play&apos;,
+                eventLabel: &apos;cats.mp4&apos;
+    });
+    For convenience, certain hit types allow commonly used fields to be passed directly as arguments to the sendcommand. For example, the above send command for the &quot;event&quot; hit type could be rewritten as:
+
+    ga(&apos;send&apos;, &apos;event&apos;, &apos;Video&apos;, &apos;play&apos;, &apos;cats.mp4&apos;);
+    For a complete list of what fields can be passed as arguments for the various hit types, see the &quot;parameters&quot; section of the send method reference.
+
+
+    From &lt;https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits&gt; </code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-02-Container/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -395,6 +702,156 @@
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/single/getting_started_with_containers/index#introduction_to_linux_containers" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/single/getting_started_with_containers/index#introduction_to_linux_containers</a></li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-07-Errors-In-NPM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017-12-07-Errors-In-NPM/" class="post-title-link" itemprop="url">common errors in NPM or node</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="code-E503"><a href="#code-E503" class="headerlink" title="code E503"></a>code E503</h2><p>code E503 when run npm install packages, e.g.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pretty-data</span><br></pre></td></tr></table></figure>
+
+<p>Get following error:<br>`
+npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
+<p>npm ERR! A complete log of this run can be found in:<br>npm ERR!     xxxx\nodejs\npm-cache_logs\2017-12-07T04_16_53_679Z-debug.log</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h3><p>You maybe behind corporate proxy, so try execute following command </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy http://127.0.0.1:53128</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -586,156 +1043,6 @@ This tells you that a custom pipe class must implement just one method with the 
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://angular.io/guide/router" target="_blank" rel="noopener">https://angular.io/guide/router</a></li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-07-Errors-In-NPM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017-12-07-Errors-In-NPM/" class="post-title-link" itemprop="url">common errors in NPM or node</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="code-E503"><a href="#code-E503" class="headerlink" title="code E503"></a>code E503</h2><p>code E503 when run npm install packages, e.g.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pretty-data</span><br></pre></td></tr></table></figure>
-
-<p>Get following error:<br>`
-npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
-<p>npm ERR! A complete log of this run can be found in:<br>npm ERR!     xxxx\nodejs\npm-cache_logs\2017-12-07T04_16_53_679Z-debug.log</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h3><p>You maybe behind corporate proxy, so try execute following command </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy http://127.0.0.1:53128</span><br></pre></td></tr></table></figure>
-
 
           
         
@@ -1035,7 +1342,7 @@ npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-18-Clouding/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-11-Why-Reactive-programming-is-outpermant/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1055,7 +1362,7 @@ npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017-12-18-Clouding/" class="post-title-link" itemprop="url">cloud computering</a>
+                <a href="/2017-12-11-Why-Reactive-programming-is-outpermant/" class="post-title-link" itemprop="url">reactive programing</a>
               
             
           </h1>
@@ -1120,55 +1427,7 @@ npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
       
         
           
-            <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><p>Cloud computing is the on-demand demand delivery of compute database storage applications and other IT resources through a cloud services platform via the Internet with <code>pay-as-you-go</code> pricing.</p>
-<h1 id="The-6-advantages-of-cloud-computering"><a href="#The-6-advantages-of-cloud-computering" class="headerlink" title="The 6 advantages of cloud computering"></a>The 6 advantages of cloud computering</h1><h2 id="Trade-Capital-Expense-For-Variable-Expense"><a href="#Trade-Capital-Expense-For-Variable-Expense" class="headerlink" title="Trade Capital Expense For Variable Expense"></a>Trade Capital Expense For Variable Expense</h2><h2 id="Benefit-from-massive-economies-of-scale"><a href="#Benefit-from-massive-economies-of-scale" class="headerlink" title="Benefit from massive economies of scale"></a>Benefit from massive economies of scale</h2><h2 id="Stop-guessing-about-capacity"><a href="#Stop-guessing-about-capacity" class="headerlink" title="Stop guessing about capacity"></a>Stop guessing about capacity</h2><h2 id="Increase-speed-and-agility"><a href="#Increase-speed-and-agility" class="headerlink" title="Increase speed and agility"></a>Increase speed and agility</h2><h2 id="Stop-spending-money-running-and-maintaining-data-centers"><a href="#Stop-spending-money-running-and-maintaining-data-centers" class="headerlink" title="Stop spending money running and maintaining data centers"></a>Stop spending money running and maintaining data centers</h2><h2 id="Go-global-in-minutes"><a href="#Go-global-in-minutes" class="headerlink" title="Go global in minutes"></a>Go global in minutes</h2><h1 id="3-types-of-cloud-computing"><a href="#3-types-of-cloud-computing" class="headerlink" title="3 types of cloud computing"></a>3 types of cloud computing</h1><ol>
-<li>IAAS</li>
-<li>PAAS</li>
-<li>SAAS</li>
-</ol>
-<p>“Certification is the beginning of your journey, not the end”</p>
-<h2 id="Edge-location"><a href="#Edge-location" class="headerlink" title="Edge location"></a>Edge location</h2><p>Edge locations are CDN endpoints for CloudFront.</p>
-<h2 id="IAM"><a href="#IAM" class="headerlink" title="IAM"></a>IAM</h2><p>Identity Access Management, to control who can access the service. IAM is apply to “Global”, it’s not releated to any single region.</p>
-<h3 id="MFA"><a href="#MFA" class="headerlink" title="MFA"></a>MFA</h3><p>Multiple Factors Authentication, which can be virtual (software) or hardware devices.</p>
-<h2 id="How-to-access-AWS"><a href="#How-to-access-AWS" class="headerlink" title="How to access AWS"></a>How to access AWS</h2><ol>
-<li>Web console</li>
-<li>CLI (command line)</li>
-<li>SDK</li>
-</ol>
-<h2 id="Account"><a href="#Account" class="headerlink" title="Account"></a>Account</h2><p>By logging into webconsole with your email acess, you are in root account. The root account alwyas has full administrator access. You should not give these account credentials away to anyone. You should always secure this root account using multi factor authentication.</p>
-<h2 id="Group"><a href="#Group" class="headerlink" title="Group"></a>Group</h2><p>A group is simply a place to store your users. Your users will inherit all permissions that the group has. Examples of groups might be developers, system administrators, etc.</p>
-<h2 id="Policy"><a href="#Policy" class="headerlink" title="Policy"></a>Policy</h2><p>To set the permissions in a group you need to apply a policy to that group. Policies consist of JSON.</p>
-<h2 id="S3"><a href="#S3" class="headerlink" title="S3"></a>S3</h2><ul>
-<li>Its a safe place to store your files. They are object-based storage.</li>
-<li>S3 is a global name space, so you won’t have same name with others.</li>
-<li>There is unlimited storage. </li>
-<li>Files are stored in Buckets, you can think buckets as folder.</li>
-<li>There are versioning, encryptiong for file storage</li>
-<li>Secure your data using Access Control Lists(Object level) and Bucket policies(folder level)</li>
-</ul>
-<h3 id="S3-solutions"><a href="#S3-solutions" class="headerlink" title="S3 solutions"></a>S3 solutions</h3><ul>
-<li>S3 (99.99% availability , 99.999999999% durability)-&gt; S3 IA (infrequently accessed) -&gt; Reduced Redundancy Storage -&gt; Glacier (very cheap , used for archival, it takes 3-5 hours to restore from Glacier, its $0.01/GB/Month)</li>
-<li>S3 is for current data while Glacier is for archived data.</li>
-</ul>
-<h3 id="S3-Transfer-Acceleration"><a href="#S3-Transfer-Acceleration" class="headerlink" title="S3 Transfer Acceleration"></a>S3 Transfer Acceleration</h3><p>It enable fast, easy and secure transfer of files over long distances between your end users and an S3 bucket. Transfer Acceleration takes advantage of Amazon CloudFront’s globally distributed edge locations. As data arrives at an edge location, data is routed to Amazon S3 over an optimized network path.</p>
-<h1 id="Cloudfront"><a href="#Cloudfront" class="headerlink" title="Cloudfront"></a>Cloudfront</h1><p>It’s the CDN services. Amazon CloudFront can be used to deliever your entire website, including dynamic, static contents using a global network of edge locations. There are two types of distributions available: </p>
-<ul>
-<li>Web Distribution: typically used for websites.</li>
-<li>RTMP distribution: used for media streaming</li>
-</ul>
-<h2 id="Edge-location-1"><a href="#Edge-location-1" class="headerlink" title="Edge location"></a>Edge location</h2><p>This is the location where content will be cached. This is separate to an AWS region/AZ (Avaiability Zones)</p>
-<h2 id="Origin"><a href="#Origin" class="headerlink" title="Origin"></a>Origin</h2><p>This is the origin of all the files that the CDN will distribute. This can be an S3 bucket, an EC2 instance, and Elastic Load Balancer or Route53.</p>
-<h1 id="EC2"><a href="#EC2" class="headerlink" title="EC2"></a>EC2</h1><p>Amazon Elastic Compute Cloud (EC2) is a web service that provies resizable compute capacity in the cloud. Basically EC2 are just virtual machines. EC2 reduces the time required to obtain and boot new server instances to minutes, allowing you to quickly scale capacity, both up and down, as your computing requirements changes.</p>
-<h2 id="EC2-options"><a href="#EC2-options" class="headerlink" title="EC2 options"></a>EC2 options</h2><ul>
-<li>On demand</li>
-<li>reserved</li>
-<li>Spot. Users with urgent computing needs for large amounts of additional capacity.</li>
-<li>Dedicated</li>
-</ul>
-<h2 id="EBS"><a href="#EBS" class="headerlink" title="EBS"></a>EBS</h2><p>Elastic Block Storage. Amazon EBS allows you to create storage volumes and attach them to Amazon EC2 instances. Once attached, you can create a file system on top of these volumes, run a database, or use them in any other way you would use in a block device. It’s simply a virtual disk that you install your operating system on and all relevant files.</p>
-<h1 id="openshift-vs-openstack"><a href="#openshift-vs-openstack" class="headerlink" title="openshift vs openstack"></a>openshift vs openstack</h1><p>“How does OpenShift relate to OpenStack?”, I answer “OpenShift Origin can run on top of OpenStack. They are complementary projects that work well together. OpenShift Origin is not presently part of OpenStack, and does not compete with OpenStack. If you stand up your own OpenStack system, you can make it even more useful by installing OpenShift Origin on top of it.”</p>
-<p>OpenStack provides “Infrastructure-as-a-Service”, or “IaaS”. It provides bootable virtual machines, networking, block storage, object storage, and so forth. Some IaaS service providers based on OpenStack are HP Cloud and Rackspace Cloud. </p>
-<p>The OpenShift hosted service provides “Platform-as-a-Service” or “PaaS”. It provides the necessary parts to quickly deploy and run a LAMP application: the web server, application server, application runtimes and libraries, database service, and so forth.</p>
+            <p>The second advantage to a lazy subscription is that the observable doesn’t hold onto data by default. In the previous example, each event generated by the interval will be processed and then dropped. This is what we mean when we say that the observable is streaming in nature rather than pooled. This discard-by-default semantic means that you never have to worry about unbounded memory growth sneaking up on you, causing memory leaks. When writing native event-driven JavaScript code, especially in older browsers, memory leaks can occur if you neglect event management and disposal.</p>
 
           
         
@@ -1312,6 +1571,196 @@ npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
           
             <h1 id="whats-Effects"><a href="#whats-Effects" class="headerlink" title="whats @Effects"></a>whats @Effects</h1><p>You can almost think of your Effects as special kinds of reducer functions that are meant to be a place for you to put your async calls in such a way that the returned data can then be easily inserted into the store’s internal state for the application.</p>
 <h1 id="rule-of-a-thumb-for-actions"><a href="#rule-of-a-thumb-for-actions" class="headerlink" title="rule of a thumb for actions"></a>rule of a thumb for actions</h1><p>As a good rule of thumb, try not to make one reducer that handles all the actions, but also do not make a separate reducer for each action. Group them in a way that makes sense for the application structure. </p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-18-Clouding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017-12-18-Clouding/" class="post-title-link" itemprop="url">cloud computering</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><p>Cloud computing is the on-demand demand delivery of compute database storage applications and other IT resources through a cloud services platform via the Internet with <code>pay-as-you-go</code> pricing.</p>
+<h1 id="The-6-advantages-of-cloud-computering"><a href="#The-6-advantages-of-cloud-computering" class="headerlink" title="The 6 advantages of cloud computering"></a>The 6 advantages of cloud computering</h1><h2 id="Trade-Capital-Expense-For-Variable-Expense"><a href="#Trade-Capital-Expense-For-Variable-Expense" class="headerlink" title="Trade Capital Expense For Variable Expense"></a>Trade Capital Expense For Variable Expense</h2><h2 id="Benefit-from-massive-economies-of-scale"><a href="#Benefit-from-massive-economies-of-scale" class="headerlink" title="Benefit from massive economies of scale"></a>Benefit from massive economies of scale</h2><h2 id="Stop-guessing-about-capacity"><a href="#Stop-guessing-about-capacity" class="headerlink" title="Stop guessing about capacity"></a>Stop guessing about capacity</h2><h2 id="Increase-speed-and-agility"><a href="#Increase-speed-and-agility" class="headerlink" title="Increase speed and agility"></a>Increase speed and agility</h2><h2 id="Stop-spending-money-running-and-maintaining-data-centers"><a href="#Stop-spending-money-running-and-maintaining-data-centers" class="headerlink" title="Stop spending money running and maintaining data centers"></a>Stop spending money running and maintaining data centers</h2><h2 id="Go-global-in-minutes"><a href="#Go-global-in-minutes" class="headerlink" title="Go global in minutes"></a>Go global in minutes</h2><h1 id="3-types-of-cloud-computing"><a href="#3-types-of-cloud-computing" class="headerlink" title="3 types of cloud computing"></a>3 types of cloud computing</h1><ol>
+<li>IAAS</li>
+<li>PAAS</li>
+<li>SAAS</li>
+</ol>
+<p>“Certification is the beginning of your journey, not the end”</p>
+<h2 id="Edge-location"><a href="#Edge-location" class="headerlink" title="Edge location"></a>Edge location</h2><p>Edge locations are CDN endpoints for CloudFront.</p>
+<h2 id="IAM"><a href="#IAM" class="headerlink" title="IAM"></a>IAM</h2><p>Identity Access Management, to control who can access the service. IAM is apply to “Global”, it’s not releated to any single region.</p>
+<h3 id="MFA"><a href="#MFA" class="headerlink" title="MFA"></a>MFA</h3><p>Multiple Factors Authentication, which can be virtual (software) or hardware devices.</p>
+<h2 id="How-to-access-AWS"><a href="#How-to-access-AWS" class="headerlink" title="How to access AWS"></a>How to access AWS</h2><ol>
+<li>Web console</li>
+<li>CLI (command line)</li>
+<li>SDK</li>
+</ol>
+<h2 id="Account"><a href="#Account" class="headerlink" title="Account"></a>Account</h2><p>By logging into webconsole with your email acess, you are in root account. The root account alwyas has full administrator access. You should not give these account credentials away to anyone. You should always secure this root account using multi factor authentication.</p>
+<h2 id="Group"><a href="#Group" class="headerlink" title="Group"></a>Group</h2><p>A group is simply a place to store your users. Your users will inherit all permissions that the group has. Examples of groups might be developers, system administrators, etc.</p>
+<h2 id="Policy"><a href="#Policy" class="headerlink" title="Policy"></a>Policy</h2><p>To set the permissions in a group you need to apply a policy to that group. Policies consist of JSON.</p>
+<h2 id="S3"><a href="#S3" class="headerlink" title="S3"></a>S3</h2><ul>
+<li>Its a safe place to store your files. They are object-based storage.</li>
+<li>S3 is a global name space, so you won’t have same name with others.</li>
+<li>There is unlimited storage. </li>
+<li>Files are stored in Buckets, you can think buckets as folder.</li>
+<li>There are versioning, encryptiong for file storage</li>
+<li>Secure your data using Access Control Lists(Object level) and Bucket policies(folder level)</li>
+</ul>
+<h3 id="S3-solutions"><a href="#S3-solutions" class="headerlink" title="S3 solutions"></a>S3 solutions</h3><ul>
+<li>S3 (99.99% availability , 99.999999999% durability)-&gt; S3 IA (infrequently accessed) -&gt; Reduced Redundancy Storage -&gt; Glacier (very cheap , used for archival, it takes 3-5 hours to restore from Glacier, its $0.01/GB/Month)</li>
+<li>S3 is for current data while Glacier is for archived data.</li>
+</ul>
+<h3 id="S3-Transfer-Acceleration"><a href="#S3-Transfer-Acceleration" class="headerlink" title="S3 Transfer Acceleration"></a>S3 Transfer Acceleration</h3><p>It enable fast, easy and secure transfer of files over long distances between your end users and an S3 bucket. Transfer Acceleration takes advantage of Amazon CloudFront’s globally distributed edge locations. As data arrives at an edge location, data is routed to Amazon S3 over an optimized network path.</p>
+<h1 id="Cloudfront"><a href="#Cloudfront" class="headerlink" title="Cloudfront"></a>Cloudfront</h1><p>It’s the CDN services. Amazon CloudFront can be used to deliever your entire website, including dynamic, static contents using a global network of edge locations. There are two types of distributions available: </p>
+<ul>
+<li>Web Distribution: typically used for websites.</li>
+<li>RTMP distribution: used for media streaming</li>
+</ul>
+<h2 id="Edge-location-1"><a href="#Edge-location-1" class="headerlink" title="Edge location"></a>Edge location</h2><p>This is the location where content will be cached. This is separate to an AWS region/AZ (Avaiability Zones)</p>
+<h2 id="Origin"><a href="#Origin" class="headerlink" title="Origin"></a>Origin</h2><p>This is the origin of all the files that the CDN will distribute. This can be an S3 bucket, an EC2 instance, and Elastic Load Balancer or Route53.</p>
+<h1 id="EC2"><a href="#EC2" class="headerlink" title="EC2"></a>EC2</h1><p>Amazon Elastic Compute Cloud (EC2) is a web service that provies resizable compute capacity in the cloud. Basically EC2 are just virtual machines. EC2 reduces the time required to obtain and boot new server instances to minutes, allowing you to quickly scale capacity, both up and down, as your computing requirements changes.</p>
+<h2 id="EC2-options"><a href="#EC2-options" class="headerlink" title="EC2 options"></a>EC2 options</h2><ul>
+<li>On demand</li>
+<li>reserved</li>
+<li>Spot. Users with urgent computing needs for large amounts of additional capacity.</li>
+<li>Dedicated</li>
+</ul>
+<h2 id="EBS"><a href="#EBS" class="headerlink" title="EBS"></a>EBS</h2><p>Elastic Block Storage. Amazon EBS allows you to create storage volumes and attach them to Amazon EC2 instances. Once attached, you can create a file system on top of these volumes, run a database, or use them in any other way you would use in a block device. It’s simply a virtual disk that you install your operating system on and all relevant files.</p>
+<h1 id="openshift-vs-openstack"><a href="#openshift-vs-openstack" class="headerlink" title="openshift vs openstack"></a>openshift vs openstack</h1><p>“How does OpenShift relate to OpenStack?”, I answer “OpenShift Origin can run on top of OpenStack. They are complementary projects that work well together. OpenShift Origin is not presently part of OpenStack, and does not compete with OpenStack. If you stand up your own OpenStack system, you can make it even more useful by installing OpenShift Origin on top of it.”</p>
+<p>OpenStack provides “Infrastructure-as-a-Service”, or “IaaS”. It provides bootable virtual machines, networking, block storage, object storage, and so forth. Some IaaS service providers based on OpenStack are HP Cloud and Rackspace Cloud. </p>
+<p>The OpenShift hosted service provides “Platform-as-a-Service” or “PaaS”. It provides the necessary parts to quickly deploy and run a LAMP application: the web server, application server, application runtimes and libraries, database service, and so forth.</p>
 
           
         
@@ -1512,153 +1961,6 @@ npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-08-ngrx/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018-01-08-ngrx/" class="post-title-link" itemprop="url">ngrx</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Why-Effects"><a href="#Why-Effects" class="headerlink" title="Why @Effects?"></a>Why @Effects?</h1><p>In a simple ngrx/store project without ngrx/effects there is really no good place to put your async calls. Suppose a user clicks on a button or types into an input box and then we need to make an asynchronous call. The dumb component will be the first to know about this action from the user, and it’s handler will be called when the button is actually clicked. However, we don’t want to put the logic to do our async call right in the dumb component since we want to keep it dumb! The only thing in the dumb component’s handler is it’s @Output emitter emitting an event to the smart component telling it that the button was clicked. Then the smart component gets the event and it’s handler function is triggered, but we don’t want to put the async login right in there because we want to keep it lean and only dipatching actions to our store so that the store can modify the state! Ok… but the store only handles actions in the reducer, and reducer are meant to be pure functions so where are we supposed to logically put our async calls so that we can put their response data in the store? The answer, friends, is @Effects! You can almost think of your Effects as special kinds of reducer functions that are meant to be a place for you to put your async calls in such a way that the returned data can then be easily inserted into the store’s internal state for the application.</p>
-<h1 id="what’s-effects"><a href="#what’s-effects" class="headerlink" title="what’s effects"></a>what’s effects</h1><p> At it’s core, the Effects Class in simply just an Angular 2 Service:</p>
-<p>  In Angular 2 a service is just a regular old TypeScript class with the @Injectable metadata, and when working with @Effects you make a single “Effect Class” or “Effect Service” that then contains various @Effect functions, each corresponding to an action dispatched by your ngrx store.</p>
-<h1 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Effect() update$ = <span class="keyword">this</span>.action$</span><br><span class="line">    .ofType(<span class="string">'SUPER_SIMPLE_EFFECT'</span>)</span><br><span class="line">    .switchMap( <span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">      Observable.of(&#123;<span class="attr">type</span>: <span class="string">"SUPER_SIMPLE_EFFECT_HAS_FINISHED"</span>&#125;)</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
-
-<p>Were using the TypeScript metadata to label our variable update$ (the $ is commonly used as a suffix for variables whose value is an observable) as an “ngrx effect” that will be triggered when we dispatch actions with the store (the same was we always send actions to the reducer or reducers). Then we see “this.action$.ofType(‘SUPER_SIMPLE_EFFECT’)”. Remeber, we’re translating the dispatched event into an observable, so .ofType means your taking in an observable and then returning the observable only if it is of that type.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-06-iOS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1762,159 +2064,6 @@ npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
 <p>In Swift, no variable comes implicitly into existence; all variables must be declared. If you need a name for something, you must say “I’m creating a name.” You do this with one of two keywords: let or var. In Swift, declaration is usually accompanied by initialization — you use an equal sign to give the variable a value immediately, as part of the declaration. These are both variable declarations (and initializations):</p>
 <p>let one = 1<br>var two = 2</p>
 <h1 id="main-swift"><a href="#main-swift" class="headerlink" title="main.swift"></a>main.swift</h1><p>Swift also has a special rule that a file called main.swift, exceptionally, can have executable code at its top level, outside any function body, and this is the code that actually runs when the program runs. You can construct your app with a main.swift file, but in general you won’t need to.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-10-CORS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018-01-10-CORS/" class="post-title-link" itemprop="url">CORS :Cross-Origin Resource Sharing</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Cross-Origin Request Sharing - CORS (A.K.A. Cross-Domain AJAX request) is an issue that most web developers might encounter, according to Same-Origin-Policy, browsers restrict client JavaScript in a security sandbox, usually JS cannot directly communicate with a remote server from a different domain. In the past developers created many tricky ways to achieve Cross-Domain resource request, most commonly using ways are:</p>
-<p>Use Flash/Silverlight or server side as a “proxy” to communicate with remote.<br>JSON With Padding (JSONP).<br>Embeds remote server in an iframe and communicate through fragment or window.name, refer here.<br>Those tricky ways have more or less some issues, for example JSONP might result in security hole if developers simply “eval” it, and #3 above, although it works, both domains should build strict contract between each other, it neither flexible nor elegant IMHO:)</p>
-<p>W3C had introduced Cross-Origin Resource Sharing (CORS) as a standard solution to provide a safe, flexible and a recommended standard way to solve this issue.</p>
-<p>The Mechanism</p>
-<p>From a high level we can simply deem CORS is a contract between client AJAX call from domain A and a page hosted on domain B, a typical Cross-Origin request/response would be:</p>
-<p>DomainA AJAX request headers</p>
-<p>Host DomainB.com<br>User-Agent Mozilla/5.0 (Windows NT 6.1; WOW64; rv:2.0) Gecko/20100101 Firefox/4.0<br>Accept text/html,application/xhtml+xml,application/xml;q=0.9,<em>/</em>;q=0.8,application/json<br>Accept-Language en-us;<br>Accept-Encoding gzip, deflate<br>Keep-Alive 115<br>Origin <a href="http://DomainA.com" target="_blank" rel="noopener">http://DomainA.com</a><br>DomainB response headers</p>
-<p>Cache-Control private<br>Content-Type application/json; charset=utf-8<br>Access-Control-Allow-Origin DomainA.com<br>Content-Length 87<br>Proxy-Connection Keep-Alive<br>Connection Keep-Alive<br>The blue parts I marked above were the kernal facts, “Origin” request header “indicates where the cross-origin request or preflight request originates from”, the “Access-Control-Allow-Origin” response header indicates this page allows remote request from DomainA (if the value is * indicate allows remote requests from any domain).</p>
-<p>As I mentioned above, W3 recommended browser to implement a “preflight request” before submiting the actually Cross-Origin HTTP request, in a nutshell it is an HTTP OPTIONS request:</p>
-<p>OPTIONS DomainB.com/foo.aspx HTTP/1.1<br>If foo.aspx supports OPTIONS HTTP verb, it might return response like below:</p>
-<p>HTTP/1.1 200 OK<br>Date: Wed, 01 Mar 2011 15:38:19 GMT<br>Access-Control-Allow-Origin: <a href="http://DomainA.com" target="_blank" rel="noopener">http://DomainA.com</a><br>Access-Control-Allow-Methods: POST, GET, OPTIONS, HEAD<br>Access-Control-Allow-Headers: X-Requested-With<br>Access-Control-Max-Age: 1728000<br>Connection: Keep-Alive<br>Content-Type: application/json<br>Only if the response contains “Access-Control-Allow-Origin” AND its value is “*” or contain the domain who submitted the CORS request, by satisfying this mandtory condition browser will submit the actual Cross-Domain request, and cache the result in “Preflight-Result-Cache”.</p>
-<p>I blogged about CORS three years ago: AJAX Cross-Origin HTTP request</p>
 
           
         

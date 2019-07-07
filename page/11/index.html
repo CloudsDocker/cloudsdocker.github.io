@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-02-27-MVP/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-08-ngrx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -315,7 +315,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018-02-27-MVP/" class="post-title-link" itemprop="url">Minium Viable Product</a>
+                <a href="/2018-01-08-ngrx/" class="post-title-link" itemprop="url">ngrx</a>
               
             
           </h1>
@@ -380,8 +380,12 @@
       
         
           
-            <p><a href="https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418" target="_blank" rel="noopener">https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418</a></p>
-<p>What is a Minimum Viable Product (MVP)<br>A Minimum Viable Product is the smallest thing you can build that delivers customer value (and as a bonus captures some of that value back i.e. gets you paid).</p>
+            <h1 id="Why-Effects"><a href="#Why-Effects" class="headerlink" title="Why @Effects?"></a>Why @Effects?</h1><p>In a simple ngrx/store project without ngrx/effects there is really no good place to put your async calls. Suppose a user clicks on a button or types into an input box and then we need to make an asynchronous call. The dumb component will be the first to know about this action from the user, and it’s handler will be called when the button is actually clicked. However, we don’t want to put the logic to do our async call right in the dumb component since we want to keep it dumb! The only thing in the dumb component’s handler is it’s @Output emitter emitting an event to the smart component telling it that the button was clicked. Then the smart component gets the event and it’s handler function is triggered, but we don’t want to put the async login right in there because we want to keep it lean and only dipatching actions to our store so that the store can modify the state! Ok… but the store only handles actions in the reducer, and reducer are meant to be pure functions so where are we supposed to logically put our async calls so that we can put their response data in the store? The answer, friends, is @Effects! You can almost think of your Effects as special kinds of reducer functions that are meant to be a place for you to put your async calls in such a way that the returned data can then be easily inserted into the store’s internal state for the application.</p>
+<h1 id="what’s-effects"><a href="#what’s-effects" class="headerlink" title="what’s effects"></a>what’s effects</h1><p> At it’s core, the Effects Class in simply just an Angular 2 Service:</p>
+<p>  In Angular 2 a service is just a regular old TypeScript class with the @Injectable metadata, and when working with @Effects you make a single “Effect Class” or “Effect Service” that then contains various @Effect functions, each corresponding to an action dispatched by your ngrx store.</p>
+<h1 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Effect() update$ = <span class="keyword">this</span>.action$</span><br><span class="line">    .ofType(<span class="string">'SUPER_SIMPLE_EFFECT'</span>)</span><br><span class="line">    .switchMap( <span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">      Observable.of(&#123;<span class="attr">type</span>: <span class="string">"SUPER_SIMPLE_EFFECT_HAS_FINISHED"</span>&#125;)</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+
+<p>Were using the TypeScript metadata to label our variable update$ (the $ is commonly used as a suffix for variables whose value is an observable) as an “ngrx effect” that will be triggered when we dispatch actions with the store (the same was we always send actions to the reducer or reducers). Then we see “this.action$.ofType(‘SUPER_SIMPLE_EFFECT’)”. Remeber, we’re translating the dispatched event into an observable, so .ofType means your taking in an observable and then returning the observable only if it is of that type.</p>
 
           
         
@@ -438,7 +442,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-11-Why-Reactive-programming-is-outpermant/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-10-CORS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -458,7 +462,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017-12-11-Why-Reactive-programming-is-outpermant/" class="post-title-link" itemprop="url">reactive programing</a>
+                <a href="/2018-01-10-CORS/" class="post-title-link" itemprop="url">CORS :Cross-Origin Resource Sharing</a>
               
             
           </h1>
@@ -523,7 +527,18 @@
       
         
           
-            <p>The second advantage to a lazy subscription is that the observable doesn’t hold onto data by default. In the previous example, each event generated by the interval will be processed and then dropped. This is what we mean when we say that the observable is streaming in nature rather than pooled. This discard-by-default semantic means that you never have to worry about unbounded memory growth sneaking up on you, causing memory leaks. When writing native event-driven JavaScript code, especially in older browsers, memory leaks can occur if you neglect event management and disposal.</p>
+            <p>Cross-Origin Request Sharing - CORS (A.K.A. Cross-Domain AJAX request) is an issue that most web developers might encounter, according to Same-Origin-Policy, browsers restrict client JavaScript in a security sandbox, usually JS cannot directly communicate with a remote server from a different domain. In the past developers created many tricky ways to achieve Cross-Domain resource request, most commonly using ways are:</p>
+<p>Use Flash/Silverlight or server side as a “proxy” to communicate with remote.<br>JSON With Padding (JSONP).<br>Embeds remote server in an iframe and communicate through fragment or window.name, refer here.<br>Those tricky ways have more or less some issues, for example JSONP might result in security hole if developers simply “eval” it, and #3 above, although it works, both domains should build strict contract between each other, it neither flexible nor elegant IMHO:)</p>
+<p>W3C had introduced Cross-Origin Resource Sharing (CORS) as a standard solution to provide a safe, flexible and a recommended standard way to solve this issue.</p>
+<p>The Mechanism</p>
+<p>From a high level we can simply deem CORS is a contract between client AJAX call from domain A and a page hosted on domain B, a typical Cross-Origin request/response would be:</p>
+<p>DomainA AJAX request headers</p>
+<p>Host DomainB.com<br>User-Agent Mozilla/5.0 (Windows NT 6.1; WOW64; rv:2.0) Gecko/20100101 Firefox/4.0<br>Accept text/html,application/xhtml+xml,application/xml;q=0.9,<em>/</em>;q=0.8,application/json<br>Accept-Language en-us;<br>Accept-Encoding gzip, deflate<br>Keep-Alive 115<br>Origin <a href="http://DomainA.com" target="_blank" rel="noopener">http://DomainA.com</a><br>DomainB response headers</p>
+<p>Cache-Control private<br>Content-Type application/json; charset=utf-8<br>Access-Control-Allow-Origin DomainA.com<br>Content-Length 87<br>Proxy-Connection Keep-Alive<br>Connection Keep-Alive<br>The blue parts I marked above were the kernal facts, “Origin” request header “indicates where the cross-origin request or preflight request originates from”, the “Access-Control-Allow-Origin” response header indicates this page allows remote request from DomainA (if the value is * indicate allows remote requests from any domain).</p>
+<p>As I mentioned above, W3 recommended browser to implement a “preflight request” before submiting the actually Cross-Origin HTTP request, in a nutshell it is an HTTP OPTIONS request:</p>
+<p>OPTIONS DomainB.com/foo.aspx HTTP/1.1<br>If foo.aspx supports OPTIONS HTTP verb, it might return response like below:</p>
+<p>HTTP/1.1 200 OK<br>Date: Wed, 01 Mar 2011 15:38:19 GMT<br>Access-Control-Allow-Origin: <a href="http://DomainA.com" target="_blank" rel="noopener">http://DomainA.com</a><br>Access-Control-Allow-Methods: POST, GET, OPTIONS, HEAD<br>Access-Control-Allow-Headers: X-Requested-With<br>Access-Control-Max-Age: 1728000<br>Connection: Keep-Alive<br>Content-Type: application/json<br>Only if the response contains “Access-Control-Allow-Origin” AND its value is “*” or contain the domain who submitted the CORS request, by satisfying this mandtory condition browser will submit the actual Cross-Domain request, and cache the result in “Preflight-Result-Cache”.</p>
+<p>I blogged about CORS three years ago: AJAX Cross-Origin HTTP request</p>
 
           
         
@@ -670,6 +685,149 @@
 <li>declarations are to make directives (including components and pipes) from the current module available to other directives in the current module. Selectors of directives, components or pipes are only matched against the HTML if they are declared or imported. declaration is used to declare components, directives, pipes that belongs to the current module. Everything inside declarations knows each other. For example, if we have a component, say UsernameComponent, which display list of the usernames, and we also have a pipe, say toupperPipe, which transform string to uppercase letter string. Now If we want to show usernames in uppercase letters in our UsernameComponent, we can use the toupperPipe which we had created before but how UsernameComponent know that the toupperPipe exist and how we can access and use it, here comes the declarations, we can declare UsernameComponent and toupperPipe.</li>
 <li>providers are to make services and values known to DI. They are added to the root scope and they are injected to other services or directives that have them as dependency.provider is used to inject the services required by components, directives, pipes in our module.</li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-02-27-MVP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018-02-27-MVP/" class="post-title-link" itemprop="url">Minium Viable Product</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418" target="_blank" rel="noopener">https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418</a></p>
+<p>What is a Minimum Viable Product (MVP)<br>A Minimum Viable Product is the smallest thing you can build that delivers customer value (and as a bonus captures some of that value back i.e. gets you paid).</p>
 
           
         
@@ -1633,150 +1791,6 @@
             <h2 id="Key-concept"><a href="#Key-concept" class="headerlink" title="Key concept"></a>Key concept</h2><p>In Scrum, a team is cross functional, meaning everyone is needed to take a feature from idea to implementation.</p>
 <p>Within agile development, Scrum teams are supported by two specific roles. The first is a ScrumMaster, who can be thought of as a coach for the team, helping team members use the Scrum process to perform at the highest level.</p>
 <p>The product owner (PO) is the other role, and in Scrum software development, represents the business, customers or users, and guides the team toward building the right product.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-09-FX/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018-06-09-FX/" class="post-title-link" itemprop="url">Foreign Exchange</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Foreign-Exchange-markets"><a href="#Foreign-Exchange-markets" class="headerlink" title="Foreign Exchange markets"></a>Foreign Exchange markets</h1><p>Generally, FX Swap is the biggest portion of FX market, followed by FX Spot, outright forward, Options.</p>
-<h2 id="Forward"><a href="#Forward" class="headerlink" title="Forward"></a>Forward</h2><p>forward contract or simply a forward is a non-standardized contract between two parties to buy or to sell an asset at a specified future time at a price agreed upon today, making it a type of derivative instrument</p>
-<p>A foreign exchange swap has two legs - a spot transaction and a forward transaction - that are executed simultaneously for the same quantity, and therefore offset each other. </p>
 
           
         

@@ -295,6 +295,307 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-07-Protractor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018-06-07-Protractor/" class="post-title-link" itemprop="url">Portactor</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Better-to-use-smart-wait"><a href="#Better-to-use-smart-wait" class="headerlink" title="Better to use smart wait"></a>Better to use smart wait</h2><p>If possible, you’d better to use <code>smart wait</code> in protractor e2e testing. Which could increase end to end testing efficiency. Normally dev tend to use sleep or wait to insert some stop during execution. What’s the difference of these two?<br>The difference between browser.sleep() and browser.wait() is that browser.wait() expects a specific value/condition. This wait condition is valid of Protractor or any WebDriver framework.</p>
+<p>An Expectation for checking an element is visible and enabled such that you can click it.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.elementToBeClickable($(‘#abc’)),5000);</span><br></pre></td></tr></table></figure>
+
+<p>Here are some protractor functions utilities.</p>
+<h3 id="textToBePresentInElement"><a href="#textToBePresentInElement" class="headerlink" title="textToBePresentInElement"></a>textToBePresentInElement</h3><p>An expectation for checking if the given text is present in the element.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.textToBePresentInElement($(‘#abc’),’foo’),5000);</span><br></pre></td></tr></table></figure>
+
+<h3 id="presenceOf"><a href="#presenceOf" class="headerlink" title="presenceOf"></a>presenceOf</h3><p>An expectation for checking that an element is present on the DOM of a page.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.presenceOf($(‘#abc’)),5000);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; go, click, see, below, slow, type &#125; <span class="keyword">from</span> <span class="string">'blue-harvest'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; browser, ExpectedConditions &#125; <span class="keyword">from</span> <span class="string">'protractor'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> client = <span class="string">'TEST CLIENT'</span>;</span><br><span class="line"><span class="keyword">const</span> clientFullName = <span class="string">'TEST CLIENT LTD'</span>;</span><br><span class="line"><span class="keyword">const</span> timeOut = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'Should show bell potter'</span>, () =&gt; &#123;</span><br><span class="line">    beforeEach(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">await</span> go(<span class="string">'http://localhost:4200/#/dashboard'</span>)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    it(<span class="string">'should be able to search bell potter'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> slow.click(<span class="string">'Search clients or accounts'</span>)</span><br><span class="line">        <span class="keyword">await</span> type(<span class="string">`TEST`</span>);</span><br><span class="line"></span><br><span class="line">        browser.wait(see(client), timeOut)</span><br><span class="line">        <span class="keyword">await</span> click(client)</span><br><span class="line"></span><br><span class="line">        browser.wait(see(clientFullName), timeOut)</span><br><span class="line">        expect(<span class="keyword">await</span> below(clientFullName).see(<span class="string">'GO'</span>)).toBeTruthy();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://medium.com/@ited.ro/how-to-use-smart-waits-with-protractor-how-to-use-expected-conditions-with-protractor-10c545c670be" target="_blank" rel="noopener">https://medium.com/@ited.ro/how-to-use-smart-waits-with-protractor-how-to-use-expected-conditions-with-protractor-10c545c670be</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-09-FX/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018-06-09-FX/" class="post-title-link" itemprop="url">Foreign Exchange</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Foreign-Exchange-markets"><a href="#Foreign-Exchange-markets" class="headerlink" title="Foreign Exchange markets"></a>Foreign Exchange markets</h1><p>Generally, FX Swap is the biggest portion of FX market, followed by FX Spot, outright forward, Options.</p>
+<h2 id="Forward"><a href="#Forward" class="headerlink" title="Forward"></a>Forward</h2><p>forward contract or simply a forward is a non-standardized contract between two parties to buy or to sell an asset at a specified future time at a price agreed upon today, making it a type of derivative instrument</p>
+<p>A foreign exchange swap has two legs - a spot transaction and a forward transaction - that are executed simultaneously for the same quantity, and therefore offset each other. </p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-10-JVM-Warm-up/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -496,7 +797,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-07-Protractor/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-12-Locking-And-Multithreading/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -516,7 +817,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018-06-07-Protractor/" class="post-title-link" itemprop="url">Portactor</a>
+                <a href="/2018-06-12-Locking-And-Multithreading/" class="post-title-link" itemprop="url">Locking and multithreading</a>
               
             
           </h1>
@@ -581,22 +882,49 @@
       
         
           
-            <h2 id="Better-to-use-smart-wait"><a href="#Better-to-use-smart-wait" class="headerlink" title="Better to use smart wait"></a>Better to use smart wait</h2><p>If possible, you’d better to use <code>smart wait</code> in protractor e2e testing. Which could increase end to end testing efficiency. Normally dev tend to use sleep or wait to insert some stop during execution. What’s the difference of these two?<br>The difference between browser.sleep() and browser.wait() is that browser.wait() expects a specific value/condition. This wait condition is valid of Protractor or any WebDriver framework.</p>
-<p>An Expectation for checking an element is visible and enabled such that you can click it.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.elementToBeClickable($(‘#abc’)),5000);</span><br></pre></td></tr></table></figure>
+            <h1 id="Single-Writer-principle"><a href="#Single-Writer-principle" class="headerlink" title="Single Writer principle"></a>Single Writer principle</h1><p>There is a lot of research in computer science for managing this contention that boils down to 2 basic approaches.  One is to provide mutual exclusion to the contended resource while the mutation takes place; the other is to take an optimistic strategy and swap in the changes if the underlying resource has not changed while you created the new copy.  </p>
+<h1 id="Memory-Barier"><a href="#Memory-Barier" class="headerlink" title="Memory Barier"></a>Memory Barier</h1><p>Memory barriers, or fences, are a set of processor instructions used to apply ordering limitations on memory operations. </p>
+<p>The keyword volatile prevents this problem because it establishes a happens before relationship between the write to the turn variable and the write to the intentFirst variable. The compiler cannot re-order these write operations and if necessary it must forbid the processor from doing so with a memory barrier.</p>
+<p>A memory barrier, also known as a <code>membar</code>, <code>memory fence</code> or fence instruction, is a type of barrier instruction that causes a central processing unit (CPU) or compiler to enforce an ordering constraint on memory operations issued before and after the barrier instruction. This typically means that operations issued prior to the barrier are guaranteed to be performed before operations issued after the barrier.</p>
+<p>Memory barriers are necessary because most modern CPUs employ performance optimizations that can result in out-of-order execution. This reordering of memory operations (loads and stores) normally goes unnoticed within a single thread of execution, but can cause unpredictable behaviour in concurrent programs and device drivers unless carefully controlled.</p>
+<h1 id="Non-blocking-programing"><a href="#Non-blocking-programing" class="headerlink" title="Non blocking programing"></a>Non blocking programing</h1><p>Implementation<br>With few exceptions, non-blocking algorithms use atomic <code>read-modify-write</code> primitives that the hardware must provide, the most notable of which is compare and swap (CAS).</p>
+<h2 id="Compare-And-Swap"><a href="#Compare-And-Swap" class="headerlink" title="Compare And Swap"></a>Compare And Swap</h2><p>It compares the contents of a memory location with a given value and, only if they are the same, modifies the contents of that memory location to a new given value. This is done as a single atomic operation. The atomicity guarantees that the new value is calculated based on up-to-date information; if the value had been updated by another thread in the meantime, the write would fail. The result of the operation must indicate whether it performed the substitution; this can be done either with a simple boolean response (this variant is often called compare-and-set), or by returning the value read from the memory location (not the value written to it).</p>
+<p>Here is the pseudo code</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">cas</span><span class="params">(p : pointer to <span class="keyword">int</span>, old : <span class="keyword">int</span>, <span class="keyword">new</span> : <span class="keyword">int</span>)</span> returns <span class="keyword">bool</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> *p ≠ old &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    *p ← <span class="keyword">new</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>Here are some protractor functions utilities.</p>
-<h3 id="textToBePresentInElement"><a href="#textToBePresentInElement" class="headerlink" title="textToBePresentInElement"></a>textToBePresentInElement</h3><p>An expectation for checking if the given text is present in the element.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.textToBePresentInElement($(‘#abc’),’foo’),5000);</span><br></pre></td></tr></table></figure>
+<p>This operation is used to implement synchronization primitives like semaphores and mutexes, as well as more sophisticated lock-free and wait-free algorithms.</p>
+<p>Algorithms built around CAS typically read some key memory location and remember the old value. Based on that old value, they compute some new value. Then they try to swap in the new value using CAS, where the comparison checks for the location still being equal to the old value. If CAS indicates that the attempt has failed, it has to be repeated from the beginning: the location is re-read, a new value is re-computed and the CAS is tried again.</p>
+<p>A common workaround is to add extra “tag” or “stamp” bits to the quantity being considered. For example, an algorithm using compare and swap on a pointer might use the low bits of the address to indicate how many times the pointer has been successfully modified. Because of this, the next compare-and-swap will fail, even if the addresses are the same, because the tag bits will not match. This does not completely solve the problem, as the tag bits will eventually wrap around, but helps to avoid it. Some architectures provide a double-word compare and swap, which allows for a larger tag. This is sometimes called ABAʹ since the second A is made slightly different from the first. Such tagged state references are also used in transactional memory.</p>
+<h2 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h2><p>Consider two tasks H and L, of high and low priority respectively, either of which can acquire exclusive use of a shared resource R. If H attempts to acquire R after L has acquired it, then H becomes blocked until L relinquishes the resource. Sharing an exclusive-use resource (R in this case) in a well-designed system typically involves L relinquishing R promptly so that H (a higher priority task) does not stay blocked for excessive periods of time. Despite good design, however, it is possible that a third task M of medium priority (p(L) &lt; p(M) &lt; p(H), where p(x) represents the priority for task (x)) becomes runnable during L’s use of R. At this point, M being higher in priority than L, preempts L, causing L to not be able to relinquish R promptly, in turn causing H—the highest priority process—to be unable to run. This is called priority inversion where a higher priority task is preempted by a lower priority one.</p>
+<h2 id="RCU"><a href="#RCU" class="headerlink" title="RCU"></a>RCU</h2><p>In computer science, read-copy-update (RCU) is a synchronization mechanism based on mutual exclusion. It is used when performance of reads is crucial and is an example of space–time tradeoff, enabling fast operations at the cost of more space.</p>
+<p>Read-copy-update allows multiple threads to efficiently read from shared memory by deferring updates after pre-existing reads to a later time while simultaneously marking the data, <code>ensuring new readers will read the updated data</code>. This makes all readers proceed as if there were no synchronization involved, hence they will be fast, but also making updates more difficult.</p>
+<h1 id="package-java-util-concurrent-atomic"><a href="#package-java-util-concurrent-atomic" class="headerlink" title="package java/util/concurrent/atomic"></a>package java/util/concurrent/atomic</h1><p>A small toolkit of classes that support lock-free thread-safe programming on single variables. In essence, the classes in this package extend the notion of volatile</p>
+<p>values, fields, and array elements to those that also provide an atomic conditional update operation of the form:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(expectedValue, updateValue)</span></span>;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"><span class="function">This <span class="title">method</span> <span class="params">(which varies in argument types across different classes)</span> atomically sets a variable to the updateValue <span class="keyword">if</span> it currently holds the expectedValue, reporting <span class="keyword">true</span> on success. The classes in <span class="keyword">this</span> <span class="keyword">package</span> also contain methods to get and unconditionally set values, as well as a weaker conditional atomic update operation weakCompareAndSet described below.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">The specifications of these methods enable implementations to employ efficient machine-level atomic instructions that are available on contemporary processors. However on some platforms, support may entail some form of internal locking. Thus the methods are not strictly guaranteed to be non-blocking -- a thread may block transiently before performing the operation. </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Instances of classes AtomicBoolean, AtomicInteger, AtomicLong, and AtomicReference each provide access and updates to a single variable of the corresponding type. Each class also provides appropriate utility methods <span class="keyword">for</span> that type. For example, classes AtomicLong and AtomicInteger provide atomic increment methods. One application is to generate sequence numbers, as in:</span></span><br><span class="line"><span class="function">```java</span></span><br><span class="line"><span class="function"> class Sequencer </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> AtomicLong sequenceNumber</span><br><span class="line">     = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> sequenceNumber.getAndIncrement();</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="presenceOf"><a href="#presenceOf" class="headerlink" title="presenceOf"></a>presenceOf</h3><p>An expectation for checking that an element is present on the DOM of a page.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.presenceOf($(‘#abc’)),5000);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; go, click, see, below, slow, type &#125; <span class="keyword">from</span> <span class="string">'blue-harvest'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; browser, ExpectedConditions &#125; <span class="keyword">from</span> <span class="string">'protractor'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> client = <span class="string">'TEST CLIENT'</span>;</span><br><span class="line"><span class="keyword">const</span> clientFullName = <span class="string">'TEST CLIENT LTD'</span>;</span><br><span class="line"><span class="keyword">const</span> timeOut = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'Should show bell potter'</span>, () =&gt; &#123;</span><br><span class="line">    beforeEach(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">await</span> go(<span class="string">'http://localhost:4200/#/dashboard'</span>)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    it(<span class="string">'should be able to search bell potter'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> slow.click(<span class="string">'Search clients or accounts'</span>)</span><br><span class="line">        <span class="keyword">await</span> type(<span class="string">`TEST`</span>);</span><br><span class="line"></span><br><span class="line">        browser.wait(see(client), timeOut)</span><br><span class="line">        <span class="keyword">await</span> click(client)</span><br><span class="line"></span><br><span class="line">        browser.wait(see(clientFullName), timeOut)</span><br><span class="line">        expect(<span class="keyword">await</span> below(clientFullName).see(<span class="string">'GO'</span>)).toBeTruthy();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://medium.com/@ited.ro/how-to-use-smart-waits-with-protractor-how-to-use-expected-conditions-with-protractor-10c545c670be" target="_blank" rel="noopener">https://medium.com/@ited.ro/how-to-use-smart-waits-with-protractor-how-to-use-expected-conditions-with-protractor-10c545c670be</a></li>
+<p> The AtomicIntegerArray, AtomicLongArray, and AtomicReferenceArray classes further extend atomic operation support to arrays of these types. These classes are also notable in providing volatile access semantics for their array elements, which is not supported for ordinary arrays. </p>
+<h1 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h1><p> The Java volatile keyword is used to mark a Java variable as “being stored in main memory”. More precisely that means, that every read of a volatile variable will be read from the computer’s main memory, and not from the CPU cache, and that every write to a volatile variable will be written to main memory, and not just to the CPU cache. </p>
+<h2 id="What’s-wrong-to-volatile"><a href="#What’s-wrong-to-volatile" class="headerlink" title="What’s wrong to volatile?"></a>What’s wrong to volatile?</h2><p>The Java <code>volatile keyword guarantees visibility of changes to variables across threads</code>. This may sound a bit abstract, so let me elaborate.</p>
+<p>In a multithreaded application where the threads operate on non-volatile variables, each thread may copy variables from main memory into a CPU cache while working on them, for performance reasons. If your computer contains more than one CPU, each thread may run on a different CPU. That means, that each thread may copy the variables into the CPU cache of different CPUs. </p>
+<p>With non-volatile variables there are no guarantees about when the Java Virtual Machine (JVM) reads data from main memory into CPU caches, or writes data from CPU caches to main memory. This can cause several problems.</p>
+<h3 id="visibility-problem"><a href="#visibility-problem" class="headerlink" title="visibility problem"></a>visibility problem</h3><p>The problem with threads not seeing the latest value of a variable because it has not yet been written back to main memory by another thread, is called a “visibility” problem. The updates of one thread are not visible to other threads. </p>
+<p>The Java volatile Visibility Guarantee</p>
+<p>The Java volatile keyword is intended to address variable visibility problems. By declaring the counter variable volatile all writes to the counter variable will be written back to main memory immediately. Also, all reads of the counter variable will be read directly from main memory. </p>
+<h3 id="Full-volatile-Visibility-Guarantee"><a href="#Full-volatile-Visibility-Guarantee" class="headerlink" title="Full volatile Visibility Guarantee"></a>Full volatile Visibility Guarantee</h3><p>Actually, the visibility guarantee of Java volatile goes beyond the volatile variable itself. The visibility guarantee is as follows:</p>
+<pre><code>If Thread A writes to a volatile variable and Thread B subsequently reads the same volatile variable, then all variables visible to Thread A before writing the volatile variable, will also be visible to Thread B after it has read the volatile variable.
+If Thread A reads a volatile variable, then all all variables visible to Thread A when reading the volatile variable will also be re-read from main memory.</code></pre><h3 id="The-Java-volatile-Happens-Before-Guarantee"><a href="#The-Java-volatile-Happens-Before-Guarantee" class="headerlink" title="The Java volatile Happens-Before Guarantee"></a>The Java volatile Happens-Before Guarantee</h3><p>To address the instruction reordering challenge, the Java volatile keyword gives a “happens-before” guarantee, in addition to the visibility guarantee. The happens-before guarantee guarantees that:</p>
+<ul>
+<li>Reads from and writes to other variables cannot be reordered to occur <code>after</code> a write to a volatile variable, if the reads / writes originally occurred <code>before</code> the write to the volatile variable.</li>
 </ul>
+<p>The reads / writes <code>before a write to a volatile</code> variable are guaranteed to <code>&quot;happen before&quot; the write to the volatile</code> variable. Notice that it is still possible for e.g. reads / writes of other variables located after a write to a volatile to be reordered to occur before that write to the volatile. Just not the other way around. <code>From after to before is allowed, but from before to after is not allowed</code>.</p>
+<ul>
+<li><p>Reads from and writes to other variables cannot be reordered to occur <code>before a read</code> of a volatile variable, if the reads / writes originally occurred <code>after the read</code> of the volatile variable. Notice that it is possible for reads of other variables that occur before the read of a volatile variable can be reordered to occur after the read of the volatile. Just not the other way around. <code>From before to after is allowed, but from after to before is not allowed</code>. </p>
+</li>
+<li><p>In short: ==before write,  after read==.</p>
+</li>
+</ul>
+<h2 id="Limitations-of-volatile"><a href="#Limitations-of-volatile" class="headerlink" title="Limitations of volatile"></a>Limitations of volatile</h2><p>Even if the volatile keyword guarantees that all reads of a volatile variable are read directly from main memory, and all writes to a volatile variable are written directly to main memory, there are still situations where it is not enough to declare a variable volatile</p>
+<h2 id="Performance-Considerations-of-volatile"><a href="#Performance-Considerations-of-volatile" class="headerlink" title="Performance Considerations of volatile"></a>Performance Considerations of volatile</h2><p>Reading and writing of volatile variables causes the variable to be read or written to main memory. Reading from and writing to main memory is more expensive than accessing the CPU cache. Accessing volatile variables also prevent instruction reordering which is a normal performance enhancement technique. Thus, you should only use volatile variables when you really need to enforce visibility of variables. </p>
 
           
         
@@ -746,190 +1074,6 @@
 
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">native-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">native</span>=<span class="string">"management-native"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">native-interface</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">http-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">http</span>=<span class="string">"management-http"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">http-interface</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">management</span>&gt;</span></span><br><span class="line">xxx</span><br><span class="line"><span class="tag">&lt;<span class="name">socket-binding-group</span> <span class="attr">name</span>=<span class="string">"standard-sockets"</span> <span class="attr">default-interface</span>=<span class="string">"public"</span> <span class="attr">port-offset</span>=<span class="string">"$&#123;jboss.socket.binding.port-offset:0&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-native"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.native.port:7373&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-http"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.http.port:7371&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-12-Locking-And-Multithreading/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018-06-12-Locking-And-Multithreading/" class="post-title-link" itemprop="url">Locking and multithreading</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Single-Writer-principle"><a href="#Single-Writer-principle" class="headerlink" title="Single Writer principle"></a>Single Writer principle</h1><p>There is a lot of research in computer science for managing this contention that boils down to 2 basic approaches.  One is to provide mutual exclusion to the contended resource while the mutation takes place; the other is to take an optimistic strategy and swap in the changes if the underlying resource has not changed while you created the new copy.  </p>
-<h1 id="Memory-Barier"><a href="#Memory-Barier" class="headerlink" title="Memory Barier"></a>Memory Barier</h1><p>Memory barriers, or fences, are a set of processor instructions used to apply ordering limitations on memory operations. </p>
-<p>The keyword volatile prevents this problem because it establishes a happens before relationship between the write to the turn variable and the write to the intentFirst variable. The compiler cannot re-order these write operations and if necessary it must forbid the processor from doing so with a memory barrier.</p>
-<p>A memory barrier, also known as a <code>membar</code>, <code>memory fence</code> or fence instruction, is a type of barrier instruction that causes a central processing unit (CPU) or compiler to enforce an ordering constraint on memory operations issued before and after the barrier instruction. This typically means that operations issued prior to the barrier are guaranteed to be performed before operations issued after the barrier.</p>
-<p>Memory barriers are necessary because most modern CPUs employ performance optimizations that can result in out-of-order execution. This reordering of memory operations (loads and stores) normally goes unnoticed within a single thread of execution, but can cause unpredictable behaviour in concurrent programs and device drivers unless carefully controlled.</p>
-<h1 id="Non-blocking-programing"><a href="#Non-blocking-programing" class="headerlink" title="Non blocking programing"></a>Non blocking programing</h1><p>Implementation<br>With few exceptions, non-blocking algorithms use atomic <code>read-modify-write</code> primitives that the hardware must provide, the most notable of which is compare and swap (CAS).</p>
-<h2 id="Compare-And-Swap"><a href="#Compare-And-Swap" class="headerlink" title="Compare And Swap"></a>Compare And Swap</h2><p>It compares the contents of a memory location with a given value and, only if they are the same, modifies the contents of that memory location to a new given value. This is done as a single atomic operation. The atomicity guarantees that the new value is calculated based on up-to-date information; if the value had been updated by another thread in the meantime, the write would fail. The result of the operation must indicate whether it performed the substitution; this can be done either with a simple boolean response (this variant is often called compare-and-set), or by returning the value read from the memory location (not the value written to it).</p>
-<p>Here is the pseudo code</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">cas</span><span class="params">(p : pointer to <span class="keyword">int</span>, old : <span class="keyword">int</span>, <span class="keyword">new</span> : <span class="keyword">int</span>)</span> returns <span class="keyword">bool</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> *p ≠ old &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    *p ← <span class="keyword">new</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>This operation is used to implement synchronization primitives like semaphores and mutexes, as well as more sophisticated lock-free and wait-free algorithms.</p>
-<p>Algorithms built around CAS typically read some key memory location and remember the old value. Based on that old value, they compute some new value. Then they try to swap in the new value using CAS, where the comparison checks for the location still being equal to the old value. If CAS indicates that the attempt has failed, it has to be repeated from the beginning: the location is re-read, a new value is re-computed and the CAS is tried again.</p>
-<p>A common workaround is to add extra “tag” or “stamp” bits to the quantity being considered. For example, an algorithm using compare and swap on a pointer might use the low bits of the address to indicate how many times the pointer has been successfully modified. Because of this, the next compare-and-swap will fail, even if the addresses are the same, because the tag bits will not match. This does not completely solve the problem, as the tag bits will eventually wrap around, but helps to avoid it. Some architectures provide a double-word compare and swap, which allows for a larger tag. This is sometimes called ABAʹ since the second A is made slightly different from the first. Such tagged state references are also used in transactional memory.</p>
-<h2 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h2><p>Consider two tasks H and L, of high and low priority respectively, either of which can acquire exclusive use of a shared resource R. If H attempts to acquire R after L has acquired it, then H becomes blocked until L relinquishes the resource. Sharing an exclusive-use resource (R in this case) in a well-designed system typically involves L relinquishing R promptly so that H (a higher priority task) does not stay blocked for excessive periods of time. Despite good design, however, it is possible that a third task M of medium priority (p(L) &lt; p(M) &lt; p(H), where p(x) represents the priority for task (x)) becomes runnable during L’s use of R. At this point, M being higher in priority than L, preempts L, causing L to not be able to relinquish R promptly, in turn causing H—the highest priority process—to be unable to run. This is called priority inversion where a higher priority task is preempted by a lower priority one.</p>
-<h2 id="RCU"><a href="#RCU" class="headerlink" title="RCU"></a>RCU</h2><p>In computer science, read-copy-update (RCU) is a synchronization mechanism based on mutual exclusion. It is used when performance of reads is crucial and is an example of space–time tradeoff, enabling fast operations at the cost of more space.</p>
-<p>Read-copy-update allows multiple threads to efficiently read from shared memory by deferring updates after pre-existing reads to a later time while simultaneously marking the data, <code>ensuring new readers will read the updated data</code>. This makes all readers proceed as if there were no synchronization involved, hence they will be fast, but also making updates more difficult.</p>
-<h1 id="package-java-util-concurrent-atomic"><a href="#package-java-util-concurrent-atomic" class="headerlink" title="package java/util/concurrent/atomic"></a>package java/util/concurrent/atomic</h1><p>A small toolkit of classes that support lock-free thread-safe programming on single variables. In essence, the classes in this package extend the notion of volatile</p>
-<p>values, fields, and array elements to those that also provide an atomic conditional update operation of the form:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(expectedValue, updateValue)</span></span>;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"><span class="function">This <span class="title">method</span> <span class="params">(which varies in argument types across different classes)</span> atomically sets a variable to the updateValue <span class="keyword">if</span> it currently holds the expectedValue, reporting <span class="keyword">true</span> on success. The classes in <span class="keyword">this</span> <span class="keyword">package</span> also contain methods to get and unconditionally set values, as well as a weaker conditional atomic update operation weakCompareAndSet described below.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">The specifications of these methods enable implementations to employ efficient machine-level atomic instructions that are available on contemporary processors. However on some platforms, support may entail some form of internal locking. Thus the methods are not strictly guaranteed to be non-blocking -- a thread may block transiently before performing the operation. </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Instances of classes AtomicBoolean, AtomicInteger, AtomicLong, and AtomicReference each provide access and updates to a single variable of the corresponding type. Each class also provides appropriate utility methods <span class="keyword">for</span> that type. For example, classes AtomicLong and AtomicInteger provide atomic increment methods. One application is to generate sequence numbers, as in:</span></span><br><span class="line"><span class="function">```java</span></span><br><span class="line"><span class="function"> class Sequencer </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> AtomicLong sequenceNumber</span><br><span class="line">     = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> sequenceNumber.getAndIncrement();</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p> The AtomicIntegerArray, AtomicLongArray, and AtomicReferenceArray classes further extend atomic operation support to arrays of these types. These classes are also notable in providing volatile access semantics for their array elements, which is not supported for ordinary arrays. </p>
-<h1 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h1><p> The Java volatile keyword is used to mark a Java variable as “being stored in main memory”. More precisely that means, that every read of a volatile variable will be read from the computer’s main memory, and not from the CPU cache, and that every write to a volatile variable will be written to main memory, and not just to the CPU cache. </p>
-<h2 id="What’s-wrong-to-volatile"><a href="#What’s-wrong-to-volatile" class="headerlink" title="What’s wrong to volatile?"></a>What’s wrong to volatile?</h2><p>The Java <code>volatile keyword guarantees visibility of changes to variables across threads</code>. This may sound a bit abstract, so let me elaborate.</p>
-<p>In a multithreaded application where the threads operate on non-volatile variables, each thread may copy variables from main memory into a CPU cache while working on them, for performance reasons. If your computer contains more than one CPU, each thread may run on a different CPU. That means, that each thread may copy the variables into the CPU cache of different CPUs. </p>
-<p>With non-volatile variables there are no guarantees about when the Java Virtual Machine (JVM) reads data from main memory into CPU caches, or writes data from CPU caches to main memory. This can cause several problems.</p>
-<h3 id="visibility-problem"><a href="#visibility-problem" class="headerlink" title="visibility problem"></a>visibility problem</h3><p>The problem with threads not seeing the latest value of a variable because it has not yet been written back to main memory by another thread, is called a “visibility” problem. The updates of one thread are not visible to other threads. </p>
-<p>The Java volatile Visibility Guarantee</p>
-<p>The Java volatile keyword is intended to address variable visibility problems. By declaring the counter variable volatile all writes to the counter variable will be written back to main memory immediately. Also, all reads of the counter variable will be read directly from main memory. </p>
-<h3 id="Full-volatile-Visibility-Guarantee"><a href="#Full-volatile-Visibility-Guarantee" class="headerlink" title="Full volatile Visibility Guarantee"></a>Full volatile Visibility Guarantee</h3><p>Actually, the visibility guarantee of Java volatile goes beyond the volatile variable itself. The visibility guarantee is as follows:</p>
-<pre><code>If Thread A writes to a volatile variable and Thread B subsequently reads the same volatile variable, then all variables visible to Thread A before writing the volatile variable, will also be visible to Thread B after it has read the volatile variable.
-If Thread A reads a volatile variable, then all all variables visible to Thread A when reading the volatile variable will also be re-read from main memory.</code></pre><h3 id="The-Java-volatile-Happens-Before-Guarantee"><a href="#The-Java-volatile-Happens-Before-Guarantee" class="headerlink" title="The Java volatile Happens-Before Guarantee"></a>The Java volatile Happens-Before Guarantee</h3><p>To address the instruction reordering challenge, the Java volatile keyword gives a “happens-before” guarantee, in addition to the visibility guarantee. The happens-before guarantee guarantees that:</p>
-<ul>
-<li>Reads from and writes to other variables cannot be reordered to occur <code>after</code> a write to a volatile variable, if the reads / writes originally occurred <code>before</code> the write to the volatile variable.</li>
-</ul>
-<p>The reads / writes <code>before a write to a volatile</code> variable are guaranteed to <code>&quot;happen before&quot; the write to the volatile</code> variable. Notice that it is still possible for e.g. reads / writes of other variables located after a write to a volatile to be reordered to occur before that write to the volatile. Just not the other way around. <code>From after to before is allowed, but from before to after is not allowed</code>.</p>
-<ul>
-<li><p>Reads from and writes to other variables cannot be reordered to occur <code>before a read</code> of a volatile variable, if the reads / writes originally occurred <code>after the read</code> of the volatile variable. Notice that it is possible for reads of other variables that occur before the read of a volatile variable can be reordered to occur after the read of the volatile. Just not the other way around. <code>From before to after is allowed, but from after to before is not allowed</code>. </p>
-</li>
-<li><p>In short: ==before write,  after read==.</p>
-</li>
-</ul>
-<h2 id="Limitations-of-volatile"><a href="#Limitations-of-volatile" class="headerlink" title="Limitations of volatile"></a>Limitations of volatile</h2><p>Even if the volatile keyword guarantees that all reads of a volatile variable are read directly from main memory, and all writes to a volatile variable are written directly to main memory, there are still situations where it is not enough to declare a variable volatile</p>
-<h2 id="Performance-Considerations-of-volatile"><a href="#Performance-Considerations-of-volatile" class="headerlink" title="Performance Considerations of volatile"></a>Performance Considerations of volatile</h2><p>Reading and writing of volatile variables causes the variable to be read or written to main memory. Reading from and writing to main memory is more expensive than accessing the CPU cache. Accessing volatile variables also prevent instruction reordering which is a normal performance enhancement technique. Thus, you should only use volatile variables when you really need to enforce visibility of variables. </p>
 
           
         
@@ -1581,6 +1725,160 @@ You have five commands at your disposal to use justify-content:</p>
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-04-Solace-MQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018-07-04-Solace-MQ/" class="post-title-link" itemprop="url">Solace MQ</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Solace-PubSub"><a href="#Solace-PubSub" class="headerlink" title="Solace PubSub+"></a>Solace PubSub+</h1><p>It is a message broker that lets you establish event-driven interactions between applications and microservices across hybrid cloud environments using open APIs and protocols.</p>
+<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>Cloud<br>PubSub+ Cloud is enterprise-grade messaging available as a fully managed service in your favorite public clouds.</p>
+<h2 id="What-do-we-mean-by-“enterprise-grade-”"><a href="#What-do-we-mean-by-“enterprise-grade-”" class="headerlink" title="What do we mean by “enterprise grade?”"></a>What do we mean by “enterprise grade?”</h2><h3 id="Unrivaled-Reliability"><a href="#Unrivaled-Reliability" class="headerlink" title="Unrivaled Reliability"></a>Unrivaled Reliability</h3><p>Intelligent routing protocols always identify best path and adapt around network issues to keep your applications humming, and automatic message buffering keeps bursts of data from affecting slow consumers or your system as a whole.</p>
+<p>Built-in high availability and disaster recovery capabilities mean your system will bounce back in a flash, without ever losing a message, even in the event of major system or network failures.</p>
+<h3 id="Serious-Security"><a href="#Serious-Security" class="headerlink" title="Serious Security"></a>Serious Security</h3><p>PubSub+ supports authentication and authorization mechanisms ranging from username and password and one-time passwords to sophisticated access control lists and robust integration with existing security policies and systems such as LDAP, Radius, Kerberos.</p>
+<p>To protect messages in transit, Solace supports transport-layer TLS encryption using a variety of cypher suites.</p>
+<h2 id="Messaging"><a href="#Messaging" class="headerlink" title="Messaging"></a>Messaging</h2><p>In application development terms, messaging, which is also commonly known as message-oriented middleware or just middleware, refers to technology that lets computer systems share information without requiring direct connections or awareness of one another’s location.</p>
+<h1 id="Docker-on-Solace"><a href="#Docker-on-Solace" class="headerlink" title="Docker on Solace"></a>Docker on Solace</h1><p>To bounce solace server:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 -p 55555:55555 --shm-size=2g --env <span class="string">'username_admin_globalaccesslevel=admin'</span> --env <span class="string">'username_admin_password=admin'</span> --name=solace solace-pubsub-standard:8.11.0.1029</span><br><span class="line"></span><br><span class="line"><span class="comment"># or bring up an existing one</span></span><br><span class="line">docker start solace</span><br></pre></td></tr></table></figure>
+
+<p>Solace CLI management access:<br>Enter the following docker exec command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it solace /usr/sw/loads/currentload/bin/cli -A</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-26-Core-Java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1682,317 +1980,6 @@ You have five commands at your disposal to use justify-content:</p>
 <h1 id="Target-typing"><a href="#Target-typing" class="headerlink" title="Target typing"></a>Target typing</h1><p>“What is implicit in all these examples is that a lambda expression’s type is context dependent. It gets inferred by the compiler. This target typing isn’t entirely new, either.”</p>
 <p>“This restriction is relaxed a bit in Java 8. It’s possible to refer to variables that aren’t final; however, they still have to be effectively final. Although you haven’t declared the variable(s) as final, you still cannot use them as nonfinal variable(s) if they are to be used in lambda expressions. If you do use them as nonfinal variables, then the compiler will show an error.”</p>
 <h1 id="Functional-interface"><a href="#Functional-interface" class="headerlink" title="Functional interface"></a>Functional interface</h1><p>“A functional interface is an interface with a single abstract method that is used as the type of a lambda expression.”</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-10-QuickFixJ/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018-07-10-QuickFixJ/" class="post-title-link" itemprop="url">QuickFixJ</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Settings"><a href="#Settings" class="headerlink" title="Settings"></a>Settings</h1><p>A settings file is set up with two types of heading, a [DEFAULT] and a [SESSION] heading. [SESSION] tells QuickFIX/J that a new Session is being defined. [DEFAULT] is a place that you can define settings which will be inherited by sessions that do not explicitly define them. If you do not provide a setting that QuickFIX/J needs, it will throw a ConfigError telling you what setting is missing or improperly formatted.</p>
-<h1 id="SSL-cipher"><a href="#SSL-cipher" class="headerlink" title="SSL cipher"></a>SSL cipher</h1><p>An SSL cipher specification in cipher-spec is composed of 4 major attributes plus a few extra minor ones.</p>
-<p>Key Exchange Algorithm:<br>RSA or Diffie-Hellman variants.</p>
-<p>Authentication Algorithm:<br>RSA, Diffie-Hellman, DSS or none.</p>
-<p>Cipher/Encryption Algorithm:<br>DES, Triple-DES, RC4, RC2, IDEA or none.</p>
-<p>MAC Digest Algorithm:<br>MD5, SHA or SHA1.</p>
-<h2 id="InOut-exchange"><a href="#InOut-exchange" class="headerlink" title="InOut exchange"></a>InOut exchange</h2><p>Although the <code>FIX protocol is event-driven and asynchronous</code>, there are specific pairs of messages<br>that represent a request-reply message exchange. To use an InOut exchange pattern, there should<br>be a single request message and single reply message to the request. Examples include an<br>OrderStatusRequest message and UserRequest.</p>
-<p>#FIX Sequence Number Management<br>If an application exception is thrown during synchronous exchange processing, this will cause QuickFIX/J to not increment incoming FIX message sequence numbers and will cause a resend of the counterparty message. This FIX protocol behavior is primarily intended to handle transport errors rather than application errors. There are risks associated with using this mechanism to handle application errors. The primary risk is that the message will repeatedly cause application errors each time it is re-received. A better solution is to persist the incoming message (database, JMS queue) immediately before processing it. This also allows the application to process messages asynchronously without losing messages when errors occur.</p>
-<p>Although it is possible to send messages to a FIX session before it is logged on (the messages will be sent at logon time), it is usually a better practice to wait until the session is logged on. This eliminates the required sequence number resynchronization steps at logon. Waiting for session logon can be done by setting up a route that processes the SessionLogon event category and signals the application to start sending messages.</p>
-<h1 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h1><h2 id="QuickFixJComponent-class"><a href="#QuickFixJComponent-class" class="headerlink" title="QuickFixJComponent.class"></a>QuickFixJComponent.class</h2><p>if (configuration != null) {<br>                        settings = configuration.createSessionSettings();<br>                    } else {<br>                        settings = QuickfixjEngine.loadSettings(remaining);<br>                    }</p>
-<h2 id="MessageStore"><a href="#MessageStore" class="headerlink" title="MessageStore"></a>MessageStore</h2><p>This interface Used by a Session to store and retrieve messages for resend purposes.</p>
-<ul>
-<li>boolean set(int sequence, String message) throws IOException;</li>
-<li>void get(int startSequence, int endSequence, Collection<string> messages) throws IOException;</string></li>
-</ul>
-<p>Implementations such as MemoryStore.java, it use one HashMap&lt;Integer, String&gt; to keep messages (string)</p>
-<h2 id="Parse-body"><a href="#Parse-body" class="headerlink" title="Parse body"></a>Parse body</h2><p>private void parseBody(DataDictionary dd, boolean doValidation) throws InvalidMessage {<br>        for(StringField field = this.extractField(dd, this); field != null; field = this.extractField(dd, this)) {<br>            if (isTrailerField(field.getField())) {<br>                this.pushBack(field);<br>                return;<br>            }</p>
-<h2 id="validate-check-sum"><a href="#validate-check-sum" class="headerlink" title="validate check sum"></a>validate check sum</h2><p>in message.class</p>
-<p>private void validateCheckSum(String messageData) throws InvalidMessage {<br>        try {<br>            int checksum = this.trailer.getInt(10);<br>            if (checksum != MessageUtils.checksum(messageData)) {<br>                throw new InvalidMessage(“Expected CheckSum=” + MessageUtils.checksum(messageData) + “, Received CheckSum=” + checksum + “ in “ + messageData);<br>            }<br>}</p>
-<p>the first checksum is 131</p>
-<p>in MessageUtils.checksum<br>public static int checksum</p>
-<p>int end = isEntireMessage ? data.lastIndexOf(“\u000110=”) : -1;<br>            int len = end &gt; -1 ? end + 1 : data.length();</p>
-<pre><code>for(int i = 0; i &lt; len; ++i) {
-    sum += data.charAt(i);
-}
-
-return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<br>?? how to get and set this.trailer.10=131 ?</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-10-JMX/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018-07-10-JMX/" class="post-title-link" itemprop="url">JXM</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Exporting-your-beans-to-JMX"><a href="#Exporting-your-beans-to-JMX" class="headerlink" title="Exporting your beans to JMX"></a>Exporting your beans to JMX</h1><p>The core class in Spring’s JMX framework is the MBeanExporter. This class is responsible for taking your Spring beans and registering them with a JMX MBeanServer. </p>
-<p>when running inside a container that does not provide an MBeanServer. To address this you can create an MBeanServer instance declaratively by adding an instance of the org.springframework.jmx.support.MBeanServerFactoryBean class to your configuration. You can also ensure that a specific MBeanServer is used by setting the value of the MBeanExporter’s server property to the MBeanServer value returned by an MBeanServerFactoryBean</p>
 
           
         
