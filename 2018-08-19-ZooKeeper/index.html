@@ -1,100 +1,12 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="en">
+<html lang=en>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-<link rel="stylesheet" href="/css/main.css?v=7.2.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.2.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
-    back2top: true,
-    back2top_sidebar: false,
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="ZK Motto the motto “ZooKeeper: Because Coordinating Distributed Systems is a Zoo.”  Features of Zookeeper Synchronization − Mutual exclusion and co-operation between server processes. Ordered Messages">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="ZK Motto the motto “ZooKeeper: Because Coordinating Distributed Systems is a Zoo.”  Features of Zookeeper Synchronization − Mutual exclusion and co-operation between server processes. Ordered Messages">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zoo-keeper">
 <meta property="og:url" content="http://www.todzhang.com/2018-08-19-ZooKeeper/index.html">
@@ -105,278 +17,131 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zoo-keeper">
 <meta name="twitter:description" content="ZK Motto the motto “ZooKeeper: Because Coordinating Distributed Systems is a Zoo.”  Features of Zookeeper Synchronization − Mutual exclusion and co-operation between server processes. Ordered Messages">
-
-
-
-
-
-  
-  
-  <link rel="canonical" href="http://www.todzhang.com/2018-08-19-ZooKeeper/">
-
-
-
-<script id="page.configurations">
-  CONFIG.page = {
-    sidebar: "",
-  };
-</script>
-
-  <title>Zoo-keeper | Clouds & Docker</title>
-  
-
-
-
-
-
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?5d908896b5a8b5c505cdf8bd885edc3a";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .motion-element,
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
-
-  .use-motion .logo,
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Zoo-keeper</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-  
+<body class="max-width mx-auto px3 ltr">
     
-  
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018-08-21-sudo/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018-08-23-protobuf/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.todzhang.com/2018-08-19-ZooKeeper/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&text=Zoo-keeper"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&is_video=false&description=Zoo-keeper"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Zoo-keeper&body=Check out this article: http://www.todzhang.com/2018-08-19-ZooKeeper/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&name=Zoo-keeper&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Clouds & Docker</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
     </div>
-    
-    
-  </div>
-
-  <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ZK-Motto"><span class="toc-number">1.</span> <span class="toc-text">ZK Motto</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Features-of-Zookeeper"><span class="toc-number">2.</span> <span class="toc-text">Features of Zookeeper</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Different-type-of-data"><span class="toc-number">2.1.</span> <span class="toc-text">Different type of data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-world-work-without-ZooKeeper"><span class="toc-number">2.2.</span> <span class="toc-text">How world work without ZooKeeper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-does-ZooKeeper-does-not-do"><span class="toc-number">2.3.</span> <span class="toc-text">What does ZooKeeper does not do</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tasks"><span class="toc-number">3.</span> <span class="toc-text">Tasks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CAP"><span class="toc-number">4.</span> <span class="toc-text">CAP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZooKeeper-Basics"><span class="toc-number">5.</span> <span class="toc-text">ZooKeeper Basics</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#znodes"><span class="toc-number">5.1.</span> <span class="toc-text">znodes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API"><span class="toc-number">5.2.</span> <span class="toc-text">API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-ZooKeeper-API-exposes-the-following-operations"><span class="toc-number">5.3.</span> <span class="toc-text">The ZooKeeper API exposes the following operations:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequential-znodes"><span class="toc-number">5.3.1.</span> <span class="toc-text">Sequential znodes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#watch"><span class="toc-number">5.3.2.</span> <span class="toc-text">watch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Versions"><span class="toc-number">5.4.</span> <span class="toc-text">Versions</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZooKeeper-Architecture"><span class="toc-number">6.</span> <span class="toc-text">ZooKeeper Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ZooKeeper-Quorums"><span class="toc-number">6.1.</span> <span class="toc-text">ZooKeeper Quorums</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sessions"><span class="toc-number">6.2.</span> <span class="toc-text">sessions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Commands"><span class="toc-number">6.3.</span> <span class="toc-text">Commands</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#link-master-and-workers"><span class="toc-number">6.4.</span> <span class="toc-text">link master and workers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tasks-workflows"><span class="toc-number">6.5.</span> <span class="toc-text">Tasks workflows</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZooKeeper-API"><span class="toc-number">7.</span> <span class="toc-text">ZooKeeper API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Setting-the-ZooKeeper-CLASSPATH"><span class="toc-number">7.1.</span> <span class="toc-text">Setting the ZooKeeper CLASSPATH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#handle"><span class="toc-number">7.2.</span> <span class="toc-text">handle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementing-a-Watcher"><span class="toc-number">7.2.1.</span> <span class="toc-text">Implementing a Watcher</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-ZooKeeper-handle"><span class="toc-number">7.2.2.</span> <span class="toc-text">Sample ZooKeeper handle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#disconnect"><span class="toc-number">7.3.</span> <span class="toc-text">disconnect</span></a></li></ol></li></ol>
+    </div>
+  </span>
 </div>
 
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Zoo-keeper
+    </h1>
 
 
-<nav class="site-nav">
-  
-    <ul id="menu" class="menu">
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Clouds & Docker</span>
+      </span>
       
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
-
-    
-    
+    <div class="postdate">
       
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
-
-  </li>
+        <time datetime="2019-05-31T13:03:27.000Z" itemprop="datePublished">2019-05-31</time>
         
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
       
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
-</nav>
+    </div>
 
 
-
-  
-
-
-
-</div>
-    </header>
-
-    
-
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-19-ZooKeeper/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Zoo-keeper
-
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        <h1 id="ZK-Motto"><a href="#ZK-Motto" class="headerlink" title="ZK Motto"></a>ZK Motto</h1><blockquote>
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="ZK-Motto"><a href="#ZK-Motto" class="headerlink" title="ZK Motto"></a>ZK Motto</h1><blockquote>
 <p>the motto “ZooKeeper: Because Coordinating Distributed Systems is a Zoo.”</p>
 </blockquote>
 <h1 id="Features-of-Zookeeper"><a href="#Features-of-Zookeeper" class="headerlink" title="Features of Zookeeper"></a>Features of Zookeeper</h1><ul>
@@ -455,610 +220,98 @@
 <p>nce we have connected to ZooKeeper, there will be a background thread that will maintain the ZooKeeper session. This thread is a daemon thread, which means that the program may exit even if the thread is still active. Here we sleep for a bit so that we can see some events come in before the program exits.<br>We can compile this simple example using the following:<br>$ javac -cp $CLASSPATH Master.java<br>Once we have compiled Master.java, we run it and see the following:<br>$ java -cp $CLASSPATH Master 127.0.0.1:2181</p>
 <h2 id="disconnect"><a href="#disconnect" class="headerlink" title="disconnect"></a>disconnect</h2><p>When developers see the Disconnected event, some think they need to create a new ZooKeeper handle to reconnect to the service. Do not do that! See what happens when you start the server, start the Master, and then stop and start the server while the Master is still running. You should see the SyncConnected event followed by the Disconnec ted event and then another SyncConnected event. The ZooKeeper client library takes care of reconnecting to the service for you. Unfortunately, network outages and server failures happen. Usually, ZooKeeper can deal with these failures.</p>
 
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018-08-21-sudo/" rel="next" title="Sudo in a Nutshell">
-                <i class="fa fa-chevron-left"></i> Sudo in a Nutshell
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018-08-08-Cucumber/" rel="prev" title="Cucumber">
-                Cucumber <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
+</article>
 
-
-  </div>
-
-
-          </div>
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Todd Zhang</p>
-              <div class="site-description motion-element" itemprop="description">Contact me via phray.zhang@gmail.com or wechat at helloworld_2000</div>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">147</span>
-                    <span class="site-state-item-name">posts</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                      <a href="/tags/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">124</span>
-                    <span class="site-state-item-name">tags</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ZK-Motto"><span class="nav-number">1.</span> <span class="nav-text">ZK Motto</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Features-of-Zookeeper"><span class="nav-number">2.</span> <span class="nav-text">Features of Zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Different-type-of-data"><span class="nav-number">2.1.</span> <span class="nav-text">Different type of data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-world-work-without-ZooKeeper"><span class="nav-number">2.2.</span> <span class="nav-text">How world work without ZooKeeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-does-ZooKeeper-does-not-do"><span class="nav-number">2.3.</span> <span class="nav-text">What does ZooKeeper does not do</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tasks"><span class="nav-number">3.</span> <span class="nav-text">Tasks</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CAP"><span class="nav-number">4.</span> <span class="nav-text">CAP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZooKeeper-Basics"><span class="nav-number">5.</span> <span class="nav-text">ZooKeeper Basics</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#znodes"><span class="nav-number">5.1.</span> <span class="nav-text">znodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">5.2.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-ZooKeeper-API-exposes-the-following-operations"><span class="nav-number">5.3.</span> <span class="nav-text">The ZooKeeper API exposes the following operations:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sequential-znodes"><span class="nav-number">5.3.1.</span> <span class="nav-text">Sequential znodes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#watch"><span class="nav-number">5.3.2.</span> <span class="nav-text">watch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Versions"><span class="nav-number">5.4.</span> <span class="nav-text">Versions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZooKeeper-Architecture"><span class="nav-number">6.</span> <span class="nav-text">ZooKeeper Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper-Quorums"><span class="nav-number">6.1.</span> <span class="nav-text">ZooKeeper Quorums</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sessions"><span class="nav-number">6.2.</span> <span class="nav-text">sessions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Commands"><span class="nav-number">6.3.</span> <span class="nav-text">Commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#link-master-and-workers"><span class="nav-number">6.4.</span> <span class="nav-text">link master and workers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tasks-workflows"><span class="nav-number">6.5.</span> <span class="nav-text">Tasks workflows</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZooKeeper-API"><span class="nav-number">7.</span> <span class="nav-text">ZooKeeper API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Setting-the-ZooKeeper-CLASSPATH"><span class="nav-number">7.1.</span> <span class="nav-text">Setting the ZooKeeper CLASSPATH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#handle"><span class="nav-number">7.2.</span> <span class="nav-text">handle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Implementing-a-Watcher"><span class="nav-number">7.2.1.</span> <span class="nav-text">Implementing a Watcher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-ZooKeeper-handle"><span class="nav-number">7.2.2.</span> <span class="nav-text">Sample ZooKeeper handle</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#disconnect"><span class="nav-number">7.3.</span> <span class="nav-text">disconnect</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-  
 
 
         
-      </div>
-    </main>
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Todd Zhang</span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
 
-  
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ZK-Motto"><span class="toc-number">1.</span> <span class="toc-text">ZK Motto</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Features-of-Zookeeper"><span class="toc-number">2.</span> <span class="toc-text">Features of Zookeeper</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Different-type-of-data"><span class="toc-number">2.1.</span> <span class="toc-text">Different type of data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-world-work-without-ZooKeeper"><span class="toc-number">2.2.</span> <span class="toc-text">How world work without ZooKeeper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-does-ZooKeeper-does-not-do"><span class="toc-number">2.3.</span> <span class="toc-text">What does ZooKeeper does not do</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tasks"><span class="toc-number">3.</span> <span class="toc-text">Tasks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CAP"><span class="toc-number">4.</span> <span class="toc-text">CAP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZooKeeper-Basics"><span class="toc-number">5.</span> <span class="toc-text">ZooKeeper Basics</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#znodes"><span class="toc-number">5.1.</span> <span class="toc-text">znodes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API"><span class="toc-number">5.2.</span> <span class="toc-text">API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-ZooKeeper-API-exposes-the-following-operations"><span class="toc-number">5.3.</span> <span class="toc-text">The ZooKeeper API exposes the following operations:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequential-znodes"><span class="toc-number">5.3.1.</span> <span class="toc-text">Sequential znodes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#watch"><span class="toc-number">5.3.2.</span> <span class="toc-text">watch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Versions"><span class="toc-number">5.4.</span> <span class="toc-text">Versions</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZooKeeper-Architecture"><span class="toc-number">6.</span> <span class="toc-text">ZooKeeper Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ZooKeeper-Quorums"><span class="toc-number">6.1.</span> <span class="toc-text">ZooKeeper Quorums</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sessions"><span class="toc-number">6.2.</span> <span class="toc-text">sessions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Commands"><span class="toc-number">6.3.</span> <span class="toc-text">Commands</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#link-master-and-workers"><span class="toc-number">6.4.</span> <span class="toc-text">link master and workers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tasks-workflows"><span class="toc-number">6.5.</span> <span class="toc-text">Tasks workflows</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZooKeeper-API"><span class="toc-number">7.</span> <span class="toc-text">ZooKeeper API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Setting-the-ZooKeeper-CLASSPATH"><span class="toc-number">7.1.</span> <span class="toc-text">Setting the ZooKeeper CLASSPATH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#handle"><span class="toc-number">7.2.</span> <span class="toc-text">handle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementing-a-Watcher"><span class="toc-number">7.2.1.</span> <span class="toc-text">Implementing a Watcher</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-ZooKeeper-handle"><span class="toc-number">7.2.2.</span> <span class="toc-text">Sample ZooKeeper handle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#disconnect"><span class="toc-number">7.3.</span> <span class="toc-text">disconnect</span></a></li></ol></li></ol>
+    </div>
 
-  
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.todzhang.com/2018-08-19-ZooKeeper/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&text=Zoo-keeper"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&is_video=false&description=Zoo-keeper"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Zoo-keeper&body=Check out this article: http://www.todzhang.com/2018-08-19-ZooKeeper/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&title=Zoo-keeper"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.todzhang.com/2018-08-19-ZooKeeper/&name=Zoo-keeper&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
 </div>
 
-
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
-
-
-
-
         
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Todd Zhang
   </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
 
-  
-
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/utils.js?v=7.2.0"></script>
-
-  <script src="/js/motion.js?v=7.2.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/schemes/muse.js?v=7.2.0"></script>
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.2.0"></script>
-<script src="/js/post-details.js?v=7.2.0"></script>
-
-
-
-  
-
-
-  <script src="/js/next-boot.js?v=7.2.0"></script>
-
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>
