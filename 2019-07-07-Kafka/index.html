@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.8.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="KafkaKafka is fast. A single node can handle hundreds of read/writes from thousands of clients in real time. Kafka is also distributed and scalable. It creates and takes down nodes in an elastic manne">
+<meta name="keywords" content="2018-08-16-Kafka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka">
+<meta property="og:url" content="http://www.todzhang.com/2019-07-07-Kafka/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="KafkaKafka is fast. A single node can handle hundreds of read/writes from thousands of clients in real time. Kafka is also distributed and scalable. It creates and takes down nodes in an elastic manne">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-07-07T06:57:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kafka">
+<meta name="twitter:description" content="KafkaKafka is fast. A single node can handle hundreds of read/writes from thousands of clients in real time. Kafka is also distributed and scalable. It creates and takes down nodes in an elastic manne">
+  <link rel="canonical" href="http://www.todzhang.com/2019-07-07-Kafka/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Kafka | Clouds & Docker</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Clouds & Docker</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2019-07-07-Kafka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Kafka
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-07-07 16:57:37" itemprop="dateCreated datePublished" datetime="2019-07-07T16:57:37+10:00">2019-07-07</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>Kafka is fast. A single node can handle hundreds of read/writes from thousands of clients in real time. Kafka is also distributed and scalable. It creates and takes down nodes in an elastic manner, without incurring any downtime. Data streams are split into partitions and spread over different brokers for capability and redundancy.</p>
+<h1 id="History-of-Kafka"><a href="#History-of-Kafka" class="headerlink" title="History of Kafka"></a>History of Kafka</h1><p>The result was a publish/subscribe messaging system that had an interface typical of messaging systems but a storage layer more like a log-aggregation system. Combined with the adoption of Apache Avro for message serialization, Kafka was effective for handling both metrics and user-activity tracking at a scale of billions of messages per day.</p>
+<h2 id="here-is-some-useful-terminology"><a href="#here-is-some-useful-terminology" class="headerlink" title="here is some useful terminology:"></a>here is some useful terminology:</h2><p>Topic: a feed of messages or packages<br>Partition: group of topics split for scalability and redundancy<br>Producer: process that introduces messages into the queue<br>Consumer: process that subscribes to various topics and processes from a feed of published messages<br>Broker: a node that is part of the Kafka cluster</p>
+<h2 id="Topics-and-Partitions"><a href="#Topics-and-Partitions" class="headerlink" title="Topics and Partitions"></a>Topics and Partitions</h2><p>Messages in Kafka are categorized into topics. The closest analogies for a topic are a database table or a folder in a filesystem. Topics are additionally broken down into a number of partitions. Going back to the “commit log” description, a partition is a sin‐ gle log. Messages are written to it in an append-only fashion, and are read in order from beginning to end. Note that as a topic typically has multiple partitions, there is no guarantee of message time-ordering across the entire topic, just within a single partition. </p>
+<p>Partitions are also the way that Kafka provides redundancy and scalability. Each partition can be hosted on a different server, which means that a single topic can be scaled horizontally across multiple servers to provide performance far beyond the ability of a single server.</p>
+<h1 id="Producers-and-consumers"><a href="#Producers-and-consumers" class="headerlink" title="Producers and consumers"></a>Producers and consumers</h1><p>Kafka clients are users of the system, and there are two basic types: producers and consumers. There are also advanced client APIs—Kafka Connect API for data inte‐ gration and Kafka Streams for stream processing. The advanced clients use producers and consumers as building blocks and provide higher-level functionality on top.</p>
+<h2 id="producers"><a href="#producers" class="headerlink" title="producers"></a>producers</h2><p>Producers create new messages. In other publish/subscribe systems, these may be called publishers or writers. In general, a message will be produced to a specific topic. By default, the producer does not care what partition a specific message is written to and will balance messages over all partitions of a topic evenly. In some cases, the pro‐ ducer will direct messages to specific partitions. This is typically done using the mes‐ sage key and a partitioner that will generate a hash of the key and map it to a specific partition. This assures that all messages produced with a given key will get written to the same partition. The producer could also use a custom partitioner that follows other business rules for mapping messages to partitions.</p>
+<h2 id="Consumers"><a href="#Consumers" class="headerlink" title="Consumers"></a>Consumers</h2><p>Consumers read messages. In other publish/subscribe systems, these clients may be called subscribers or readers. The consumer subscribes to one or more topics and reads the messages in the order in which they were produced. The consumer keeps track of which messages it has already consumed by keeping track of the offset of messages. The offset is another bit of metadata—an integer value that continually increases—that Kafka adds to each message as it is produced. Each message in a given partition has a unique offset. By storing the offset of the last consumed message for each partition, either in Zookeeper or in Kafka itself, a consumer can stop and restart without losing its place.</p>
+<p>Consumers work as part of a consumer group, which is one or more consumers that work together to consume a topic. The group assures that each partition is only con‐ sumed by one member. there are three consumers in a single group consuming a topic. Two of the consumers are working from one partition each, while the third consumer is working from two partitions. The mapping of a consumer to a partition is often called ownership of the partition by the consumer.</p>
+<h2 id="Brokers-and-Clusters"><a href="#Brokers-and-Clusters" class="headerlink" title="Brokers and Clusters"></a>Brokers and Clusters</h2><p>A single Kafka server is called a broker. The broker receives messages from producers, assigns offsets to them, and commits the messages to storage on disk. It also services consumers, responding to fetch requests for partitions and responding with the mes‐ sages that have been committed to disk. Depending on the specific hardware and its performance characteristics, a single broker can easily handle thousands of partitions and millions of messages per second.<br>Kafka brokers are designed to operate as part of a cluster. Within a cluster of brokers, one broker will also function as the cluster controller (elected automatically from the live members of the cluster). The controller is responsible for administrative operations, including assigning partitions to brokers and monitoring for broker failures. A partition is owned by a single broker in the cluster, and that broker is called the leader of the partition. A partition may be assigned to multiple brokers, which will result in the partition being replicated This provides redundancy of messages in the partition, such that another broker can take over leadership if there is a broker failure. However, all consumers and producers operating on that partition must connect to the leader. </p>
+<h2 id="retentions"><a href="#retentions" class="headerlink" title="retentions"></a>retentions</h2><p>A key feature of Apache Kafka is that of retention, which is the durable storage of messages for some period of time. Kafka brokers are configured with a default reten‐ tion setting for topics, either retaining messages for some period of time (e.g., 7 days) or until the topic reaches a certain size in bytes (e.g., 1 GB). Once these limits are reached, messages are expired and deleted so that the retention configuration is a minimum amount of data available at any time. Individual topics can also be config‐ ured with their own retention settings so that messages are stored for only as long as they are useful. For example, a tracking topic might be retained for several days, whereas application metrics might be retained for only a few hours. Topics can also be configured as log compacted, which means that Kafka will retain only the last mes‐ sage produced with a specific key. This can be useful for changelog-type data, where only the last update is interesting.</p>
+<h2 id="mirror-maker"><a href="#mirror-maker" class="headerlink" title="mirror maker"></a>mirror maker</h2><p>The Kafka project includes a tool called MirrorMaker, used for this purpose. At its core, MirrorMaker is simply a Kafka consumer and producer, linked together with a queue. Messages are consumed from one Kafka cluster and produced for another.</p>
+<h1 id="Why-Kafka"><a href="#Why-Kafka" class="headerlink" title="Why Kafka?"></a>Why Kafka?</h1><h2 id="Multiple-Producers"><a href="#Multiple-Producers" class="headerlink" title="Multiple Producers"></a>Multiple Producers</h2><p>Kafka is able to seamlessly handle multiple producers, whether those clients are using many topics or the same topic. </p>
+<h2 id="Multiple-Consumers"><a href="#Multiple-Consumers" class="headerlink" title="Multiple Consumers"></a>Multiple Consumers</h2><p>In addition to multiple producers, Kafka is designed for multiple consumers to read any single stream of messages without interfering with each other. This is in contrast to many queuing systems where once a message is consumed by one client, it is not available to any other. Multiple Kafka consumers can choose to operate as part of a group and share a stream, assuring that the entire group processes a given message only once.</p>
+<p>##Disk-Based Retention<br>Not only can Kafka handle multiple consumers, but durable message retention means that consumers do not always need to work in real time. Messages are committed to disk, and will be stored with configurable retention rules. </p>
+<h2 id="Scalable"><a href="#Scalable" class="headerlink" title="Scalable"></a>Scalable</h2><p>Kafka’s flexible scalability makes it easy to handle any amount of data. Users can start with a single broker as a proof of concept, expand to a small development cluster of three brokers, and move into production with a larger cluster of tens or even hun‐ dreds of brokers that grows over time as the data scales up.</p>
+<h2 id="High-Performance"><a href="#High-Performance" class="headerlink" title="High Performance"></a>High Performance</h2><p>All of these features come together to make Apache Kafka a publish/subscribe mes‐ saging system with excellent performance under high load. Producers, consumers, and brokers can all be scaled out to handle very large message streams with ease. This can be done while still providing subsecond message latency from producing a mes‐ sage to availability to consumers.</p>
+<h1 id="Process-of-producing-message"><a href="#Process-of-producing-message" class="headerlink" title="Process of producing message"></a>Process of producing message</h1><p>We start producing messages to Kafka by creating a ProducerRecord, which must include the topic we want to send the record to and a value. Optionally, we can also specify a key and/or a partition. Once we send the ProducerRecord, the first thing the producer will do is serialize the key and value objects to ByteArrays so they can be sent over the network.<br>Next, the data is sent to a partitioner. If we specified a partition in the ProducerRecord, the partitioner doesn’t do anything and simply returns the partition we specified. If we didn’t, the partitioner will choose a partition for us, usually based on the ProducerRecord key. Once a partition is selected, the producer knows which topic and partition the record will go to. It then adds the record to a batch of records that will also be sent to the same topic and partition. A separate thread is responsible for sending those batches of records to the appropriate Kafka brokers.<br>When the broker receives the messages, it sends back a response. If the messages were successfully written to Kafka, it will return a RecordMetadata object with the topic, partition, and the offset of the record within the partition. If the broker failed to write the messages, it will return an error. When the producer receives an error, it may retry sending the message a few more times before giving up and returning an error.</p>
+<h1 id="Constructing-a-Kafka-Producer"><a href="#Constructing-a-Kafka-Producer" class="headerlink" title="Constructing a Kafka Producer"></a>Constructing a Kafka Producer</h1><p>The first step in writing messages to Kafka is to create a producer object with the properties you want to pass to the producer. A Kafka producer has three mandatory properties:</p>
+<h2 id="bootstrap-servers"><a href="#bootstrap-servers" class="headerlink" title="bootstrap.servers"></a>bootstrap.servers</h2><p>List of host:port pairs of brokers that the producer will use to establish initial connection to the Kafka cluster. This list doesn’t need to include all brokers, since the producer will get more information after the initial connection. But it is rec‐ ommended to include at least two, so in case one broker goes down, the producer will still be able to connect to the cluster.</p>
+<h2 id="key-serializer"><a href="#key-serializer" class="headerlink" title="key.serializer"></a>key.serializer</h2><p>Name of a class that will be used to serialize the keys of the records we will pro‐ duce to Kafka. Kafka brokers expect byte arrays as keys and values of messages. However, the producer interface allows, using parameterized types, any Java object to be sent as a key and value. This makes for very readable code, but it also means that the producer has to know how to convert these objects to byte arrays. key.serializer should be set to a name of a class that implements the org.apache.kafka.common.serialization.Serializer interface. The producer will use this class to serialize the key object to a byte array. The Kafka client pack‐ age includes ByteArraySerializer (which doesn’t do much), StringSerializer, and IntegerSerializer, so if you use common types, there is no need to implement your own serializers. Setting key.serializer is required even if you intend to send only values.</p>
+<h2 id="value-serializer"><a href="#value-serializer" class="headerlink" title="value.serializer"></a>value.serializer</h2><p>Name of a class that will be used to serialize the values of the records we will pro‐ duce to Kafka. The same way you set key.serializer to a name of a class that will serialize the message key object to a byte array, you set value.serializer to a class that will serialize the message value object.</p>
+<h2 id="Sample-code-to-generate-producer-record"><a href="#Sample-code-to-generate-producer-record" class="headerlink" title="Sample code to generate producer record"></a>Sample code to generate producer record</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Properties kafkaProps = <span class="keyword">new</span> Properties();</span><br><span class="line">    kafkaProps.put(<span class="string">"bootstrap.servers"</span>, <span class="string">"broker1:9092,broker2:9092"</span>);</span><br><span class="line">    kafkaProps.put(<span class="string">"key.serializer"</span>,       <span class="string">"org.apache.kafka.common.serialization.StringSerializer"</span>);</span><br><span class="line">    kafkaProps.put(<span class="string">"value.serializer"</span>, <span class="string">"org.apache.kafka.common.serialization.StringSerializer"</span>);</span><br><span class="line">    producer = <span class="keyword">new</span> KafkaProducer&lt;String, String&gt;(kafkaProps);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Deliver-message"><a href="#Deliver-message" class="headerlink" title="Deliver message"></a>Deliver message</h2><p>Once we instantiate a producer, it is time to start sending messages. There are three primary methods of sending messages:</p>
+<h3 id="Fire-and-forget"><a href="#Fire-and-forget" class="headerlink" title="Fire-and-forget"></a>Fire-and-forget</h3><p>We send a message to the server and don’t really care if it arrives succesfully or not. Most of the time, it will arrive successfully, since Kafka is highly available and the producer will retry sending messages automatically. However, some mes‐ sages will get lost using this method.</p>
+<h3 id="Synchronous-send"><a href="#Synchronous-send" class="headerlink" title="Synchronous send"></a>Synchronous send</h3><p>We send a message, the send() method returns a Future object, and we use get() to wait on the future and see if the send() was successful or not.</p>
+<h3 id="Asynchronous-send"><a href="#Asynchronous-send" class="headerlink" title="Asynchronous send"></a>Asynchronous send</h3><p>We call the send() method with a callback function, which gets triggered when it receives a response from the Kafka broker.</p>
+<p>Sample code</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ProducerRecord&lt;String, String&gt; record =</span><br><span class="line">            <span class="keyword">new</span> ProducerRecord&lt;&gt;(<span class="string">"CustomerCountry"</span>, <span class="string">"Precision Products"</span>,</span><br><span class="line"><span class="string">"France"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      producer.send(record);  <span class="comment">//fire and forget</span></span><br><span class="line">      producer.send(record).get(); <span class="comment">// synchronously, calling Future.get()</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>We use the producer object send() method to send the ProducerRecord. As we’ve seen in the producer architecture diagram in Figure 3-1, the message will be placed in a buffer and will be sent to the broker in a separate thread. The send() method returns a Java Future object with RecordMetadata</p>
+<h3 id="Samle-code-of-asynchronous"><a href="#Samle-code-of-asynchronous" class="headerlink" title="Samle code of asynchronous"></a>Samle code of asynchronous</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoProducerCallback</span> <span class="keyword">implements</span> <span class="title">Callback</span> </span>&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompletion</span><span class="params">(RecordMetadata recordMetadata, Exception e)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">&#125; &#125;</span><br><span class="line">    ProducerRecord&lt;String, String&gt; record =</span><br><span class="line">            <span class="keyword">new</span> ProducerRecord&lt;&gt;(<span class="string">"CustomerCountry"</span>, <span class="string">"Biomedical Materials"</span>, <span class="string">"USA"</span>);</span><br><span class="line">    producer.send(record, <span class="keyword">new</span> DemoProducerCallback());</span><br></pre></td></tr></table></figure>
+
+<h2 id="Rebalancing"><a href="#Rebalancing" class="headerlink" title="Rebalancing"></a>Rebalancing</h2><p>Moving partition ownership from one consumer to another is called a rebalance. Rebalances are important because they provide the consumer group with high availa‐ bility and scalability (allowing us to easily and safely add and remove consumers), but in the normal course of events they are fairly undesirable. During a rebalance, con‐ sumers can’t consume messages, so a rebalance is basically a short window of unavail‐ ability of the entire consumer group. In addition, when partitions are moved from one consumer to another, the consumer loses its current state; if it was caching any data, it will need to refresh its caches—slowing down the application until the con‐ sumer sets up its state again. Throughout this chapter we will discuss how to safely handle rebalances and how to avoid unnecessary ones.</p>
+<h2 id="cosumber"><a href="#cosumber" class="headerlink" title="cosumber"></a>cosumber</h2><h3 id="Subscribing-to-Topics"><a href="#Subscribing-to-Topics" class="headerlink" title="Subscribing to Topics"></a>Subscribing to Topics</h3><p>Once we create a consumer, the next step is to subscribe to one or more topics. The subcribe() method takes a list of topics as a parameter, so it’s pretty simple to use:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">consumer.subscribe(Collections.singletonList(<span class="string">"customerCountries"</span>));</span><br></pre></td></tr></table></figure>
+
+<p>Here we simply create a list with a single element: the topic name customerCountries.</p>
+<h3 id="Sample-consumer-code"><a href="#Sample-consumer-code" class="headerlink" title="Sample consumer code"></a>Sample consumer code</h3><p>The Poll Loop<br>At the heart of the consumer API is a simple loop for polling the server for more data. Once the consumer subscribes to topics, the poll loop handles all details of coordina‐ tion, partition rebalances, heartbeats, and data fetching, leaving the developer with a clean API that simply returns available data from the assigned partitions. The main body of a consumer will look as follows:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">          ConsumerRecords&lt;String, String&gt; records = consumer.poll(<span class="number">100</span>);</span><br><span class="line">          <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records)</span><br><span class="line">          &#123;</span><br><span class="line">              log.debug(<span class="string">"topic = %s, partition = %s, offset = %d,</span></span><br><span class="line"><span class="string">                 customer = %s, country = %s\n"</span>,</span><br><span class="line">                 record.topic(), record.partition(), record.offset(),</span><br><span class="line">                 record.key(), record.value());</span><br><span class="line">              <span class="keyword">int</span> updatedCount = <span class="number">1</span>;</span><br><span class="line">              <span class="keyword">if</span> (custCountryMap.countainsValue(record.value())) &#123;</span><br><span class="line">                  updatedCount = custCountryMap.get(record.value()) + <span class="number">1</span>;</span><br><span class="line">              &#125;</span><br><span class="line">              custCountryMap.put(record.value(), updatedCount)</span><br><span class="line">              JSONObject json = <span class="keyword">new</span> JSONObject(custCountryMap);</span><br><span class="line">              System.out.println(json.toString(<span class="number">4</span>))</span><br><span class="line">          &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      consumer.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Thread-safety"><a href="#Thread-safety" class="headerlink" title="Thread safety"></a>Thread safety</h3><p>Thread Safety<br>You can’t have multiple consumers that belong to the same group in one thread and you can’t have multiple threads safely use the same consumer. One consumer per thread is the rule. To run mul‐ tiple consumers in the same group in one application, you will need to run each in its own thread. It is useful to wrap the con‐ sumer logic in its own object and then use Java’s ExecutorService to start multiple threads each with its own consumer. </p>
+<h2 id="Commit"><a href="#Commit" class="headerlink" title="Commit"></a>Commit</h2><p>As discussed before, one of Kafka’s unique characteristics is that it does not track acknowledgments from consumers the way many JMS queues do. Instead, it allows consumers to use Kafka to track their posi‐ tion (offset) in each partition.<br>We call the action of updating the current position in the partition a commit.</p>
+<p>How does a consumer commit an offset? It produces a message to Kafka, to a special <code>__consumer_offsets</code> topic, with the committed offset for each partition. As long as all your consumers are up, running, and churning away, this will have no impact. However, if a consumer crashes or a new consumer joins the consumer group, this will trigger a rebalance. After a rebalance, each consumer may be assigned a new set of partitions than the one it processed before. In order to know where to pick up the work, the consumer will read the latest committed offset of each partition and con‐ tinue from there.</p>
+<h3 id="Automatic-Commit"><a href="#Automatic-Commit" class="headerlink" title="Automatic Commit"></a>Automatic Commit</h3><p>With autocommit enabled, a call to poll will always commit the last offset returned by the previous poll. It doesn’t know which events were actually processed, so it is critical to always process all the events returned by poll() before calling poll() again. (Just like poll(), close() also commits offsets automatically.) This is usually not an issue, but pay attention when you handle exceptions or exit the poll loop prematurely.</p>
+<h3 id="Manual-commit"><a href="#Manual-commit" class="headerlink" title="Manual commit"></a>Manual commit</h3><p>It is important to remember that commitSync() will commit the latest offset returned by poll(), so make sure you call commitSync() after you are done processing all the records in the collection, or you risk missing messages as described previously. When rebalance is triggered, all the messages from the beginning of the most recent batch until the time of the rebalance will be processed twice.<br>Here is how we would use commitSync to commit offsets after we finished processing the latest batch of messages:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        ConsumerRecords&lt;String, String&gt; records = consumer.poll(<span class="number">100</span>);</span><br><span class="line">        <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.printf(<span class="string">"topic = %s, partition = %s, offset =</span></span><br><span class="line"><span class="string">              %d, customer = %s, country = %s\n"</span>,</span><br><span class="line">                 record.topic(), record.partition(),</span><br><span class="line">                 record.offset(), record.key(), record.value());</span><br><span class="line">&#125; <span class="keyword">try</span> &#123;</span><br><span class="line">          consumer.commitSync();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CommitFailedException e) &#123;</span><br><span class="line">            log.error(<span class="string">"commit failed"</span>, e)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Combining-Synchronous-and-Asynchronous-Commits"><a href="#Combining-Synchronous-and-Asynchronous-Commits" class="headerlink" title="Combining Synchronous and Asynchronous Commits"></a>Combining Synchronous and Asynchronous Commits</h2><p>Normally, occasional failures to commit without retrying are not a huge problem because if the problem is temporary, the following commit will be successful. But if we know that this is the last commit before we close the consumer, or before a reba‐ lance, we want to make extra sure that the commit succeeds.<br>Therefore, a common pattern is to combine commitAsync() with commitSync() just before shutdown. Here is how it works (we will discuss how to commit just before rebalance when we get to the section about rebalance listeners):</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            ConsumerRecords&lt;String, String&gt; records = consumer.poll(<span class="number">100</span>);</span><br><span class="line">            <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) &#123;</span><br><span class="line">                System.out.printf(<span class="string">"topic = %s, partition = %s, offset = %d,</span></span><br><span class="line"><span class="string">                customer = %s, country = %s\n"</span>,</span><br><span class="line">                record.topic(), record.partition(),</span><br><span class="line">                record.offset(), record.key(), record.value());</span><br><span class="line">&#125;</span><br><span class="line">            consumer.commitAsync();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        log.error(<span class="string">"Unexpected error"</span>, e);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            consumer.commitSync();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            consumer.close();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Exit"><a href="#Exit" class="headerlink" title="Exit"></a>Exit</h2><p>When you decide to exit the poll loop, you will need another thread to call con sumer.wakeup(). If you are running the consumer loop in the main thread, this can be done from ShutdownHook. <code>Note that consumer.wakeup() is the only consumer method that is safe to call from a different thread.</code> Calling wakeup will cause poll() to exit with WakeupException, or if consumer.wakeup() was called while the thread was not waiting on poll, the exception will be thrown on the next iteration when poll() is called. </p>
+<h1 id="The-Controller"><a href="#The-Controller" class="headerlink" title="The Controller"></a>The Controller</h1><p>The controller is one of the Kafka brokers that, in addition to the usual broker func‐ tionality, is responsible for electing partition leaders (we’ll discuss partition leaders and what they do in the next section). The first broker that starts in the cluster becomes the controller by creating an ephemeral node in ZooKeeper called /control ler. When other brokers start, they also try to create this node, but receive a “node already exists” exception, which causes them to “realize” that the controller node already exists and that the cluster already has a controller. </p>
+<h1 id="Replication"><a href="#Replication" class="headerlink" title="Replication"></a>Replication</h1><p>Replication is at the heart of Kafka’s architecture. The very first sentence in Kafka’s documentation describes it as “a distributed, partitioned, replicated commit log ser‐ vice.” Replication is critical because it is the way Kafka guarantees availability and durability when individual nodes inevitably fail.</p>
+<h2 id="Memeroy"><a href="#Memeroy" class="headerlink" title="Memeroy"></a>Memeroy</h2><p>Kafka should run entirely on RAM. JVM heap size shouldn’t be bigger than your available RAM. That is to avoid swapping.</p>
+<h3 id="Swap-usage"><a href="#Swap-usage" class="headerlink" title="Swap usage"></a>Swap usage</h3><p>Watch for swap usage, as it will degrade performance on Kafka and lead to operations timing out (set vm.swappiness = 0).    When used swap is &gt; 128MB.</p>
+<h1 id="Kafka-Monitoring-Tools"><a href="#Kafka-Monitoring-Tools" class="headerlink" title="Kafka Monitoring Tools"></a>Kafka Monitoring Tools</h1><p>Any monitoring tools with JMX support should be able to monitor a Kafka cluster. Here are 3 monitoring tools we liked:</p>
+<p>First one is check_kafka.pl from Hari Sekhon. It performs a complete end to end test, i.e. it inserts a message in Kafka as a producer and then extracts it as a consumer. This makes our life easier when measuring service times.</p>
+<p>Another useful tool is KafkaOffsetMonitor for monitoring Kafka consumers and their position (offset) in the queue. It aids our understanding of how our queue grows and which consumers groups are lagging behind.</p>
+<p>Last but not least, the LinkedIn folks have developed what we think is the smartest tool out there: Burrow. It analyzes consumer offsets and lags over a window of time and determines the consumer status. You can retrieve this status over an HTTP endpoint and then plug it into your favourite monitoring tool (Server Density for example).</p>
+<p>Oh, and we would be amiss if we didn’t mention Yahoo’s Kafka-Manager. While it does include some basic monitoring, it is more of a management tool. If you are just looking for a Kafka management tool, check out AirBnb’s kafkat.</p>
+<h1 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h1><h2 id="Start-zookeeper"><a href="#Start-zookeeper" class="headerlink" title="Start zookeeper"></a>Start zookeeper</h2><p>bin/zookeeper-server-start.sh config/zookeeper.properties</p>
+<p>bin/kafka-server-start.sh config/server.properties</p>
+<p>~/dev/git/kafka-demo/kafka_2.11-2.0.0/bin/kafka-topics.sh –create –zookeeper localhost:2181 –replication-factor 1 –partitions 1 –topic todtest<br> bin/kafka-topics.sh –list –zookeeper localhost:2181<br>bin/kafka-console-producer.sh –broker-list localhost:9092 –topic todtest<br>bin/kafka-console-consumer.sh –bootstrap-server localhost:9092 –topic todtest –from-beginning</p>
+<p>bin/kafka-topics.sh –describe –zookeeper localhost:2181 –topic test</p>
+<h2 id="list-topics"><a href="#list-topics" class="headerlink" title="list topics"></a>list topics</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./kafka-topics.sh --list --zookeeper localhost:2181</span><br></pre></td></tr></table></figure>
+
+<h2 id="describe-topics"><a href="#describe-topics" class="headerlink" title="describe topics"></a>describe topics</h2><p>./kafka-topics.sh –describe –zookeeper localhost:2181</p>
+<h3 id="using-connector"><a href="#using-connector" class="headerlink" title="using connector"></a>using connector</h3><p>bin/connect-standalone.sh config/connect-standalone.properties config/connect-file-source.properties config/connect-file-sink.properties</p>
+<p>mvn archetype:generate <br>    -DarchetypeGroupId=org.apache.kafka <br>    -DarchetypeArtifactId=streams-quickstart-java <br>    -DarchetypeVersion=2.0.0 <br>    -DgroupId=io <br>    -DartifactId=todzhang <br>    -Dversion=0.1 <br>    -Dpackage=todzhangapp</p>
+<h1 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h1><p>The keystore stores each machine’s own identity. The truststore stores all the certificates that the machine should trust. Importing a certificate into one’s truststore also means trusting all certificates that are signed by that certificate. As the analogy above, trusting the government (CA) also means trusting all passports (certificates) that it has issued. This attribute is called the chain of trust, and it is particularly useful when deploying SSL on a large Kafka cluster. You can sign all certificates in the cluster with a single CA, and have all machines share the same truststore that trusts the CA. That way all machines can authenticate all other machines.</p>
+<p>To deploy SSL, the general steps are:</p>
+<ul>
+<li>Generate the keys and certificates</li>
+<li>Create your own Certificate Authority (CA)</li>
+<li>Sign the certificate</li>
+</ul>
+<p>Generate the key and the certificate for each Kafka broker in the cluster. Generate the key into a keystore called kafka.server.keystore so that you can export and sign it later with CA. The keystore file contains the private key of the certificate; therefore, it needs to be kept safely.</p>
+<h2 id="With-user-prompts"><a href="#With-user-prompts" class="headerlink" title="With user prompts"></a>With user prompts</h2><p>keytool -keystore kafka.server.keystore.jks -alias localhost -genkey</p>
+<h2 id="Without-user-prompts-pass-command-line-arguments"><a href="#Without-user-prompts-pass-command-line-arguments" class="headerlink" title="Without user prompts, pass command line arguments"></a>Without user prompts, pass command line arguments</h2><p>keytool -keystore kafka.server.keystore.jks -alias localhost -validity {validity} -genkey -storepass {keystore-pass} -keypass {key-pass} -dname {distinguished-name} -ext SAN=DNS:{hostname}<br>Ensure that the common name (CN) exactly matches the fully qualified domain name (FQDN) of the server. The client compares the CN with the DNS domain name to ensure that it is indeed connecting to the desired server, not a malicious one. The hostname of the server can also be specified in the Subject Alternative Name (SAN). Since the distinguished name is used as the server principal when SSL is used as the inter-broker security protocol, it is useful to have hostname as a SAN rather than the CN.</p>
+<h2 id="Create-your-own-Certificate-Authority-CA"><a href="#Create-your-own-Certificate-Authority-CA" class="headerlink" title="Create your own Certificate Authority (CA)"></a>Create your own Certificate Authority (CA)</h2><p>Generate a CA that is simply a public-private key pair and certificate, and it is intended to sign other certificates.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -x509 -keyout ca-key -out ca-cert -days &#123;validity&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Add the generated CA to the clients’ truststore so that the clients can trust this CA:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -keystore kafka.client.truststore.jks -<span class="built_in">alias</span> CARoot -import -file ca-cert</span><br></pre></td></tr></table></figure>
+
+<p>Add the generated CA to the brokers’ truststore so that the brokers can trust this CA.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -keystore kafka.server.truststore.jks -<span class="built_in">alias</span> CARoot -import -file ca-cert</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sign-the-certificate"><a href="#Sign-the-certificate" class="headerlink" title="Sign the certificate"></a>Sign the certificate</h2><p>To sign all certificates in the keystore with the CA that you generated:</p>
+<p>Export the certificate from the keystore:</p>
+<p>keytool -keystore kafka.server.keystore.jks -alias localhost -certreq -file cert-file<br>Sign it with the CA:</p>
+<p>openssl x509 -req -CA ca-cert -CAkey ca-key -in cert-file -out cert-signed -days {validity} -CAcreateserial -passin pass:{ca-password}<br>Import both the certificate of the CA and the signed certificate into the broker keystore:</p>
+<p>keytool -keystore kafka.server.keystore.jks -alias CARoot -import -file ca-cert<br>keytool -keystore kafka.server.keystore.jks -alias localhost -import -file cert-signed</p>
+<h2 id="SASL"><a href="#SASL" class="headerlink" title="SASL"></a>SASL</h2><p>Simple Authentication and Security Layer (SASL) is a framework for authentication and data security in Internet protocols. It decouples authentication mechanisms from application protocols, in theory allowing any authentication mechanism supported by SASL to be used in any application protocol that uses SASL. Authentication mechanisms can also support proxy authorization, a facility allowing one user to assume the identity of another. They can also provide a data security layer offering data integrity and data confidentiality services. DIGEST-MD5 provides an example of mechanisms which can provide a data-security layer. Application protocols that support SASL typically also support Transport Layer Security (TLS) to complement the services offered by SASL.</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://blog.serverdensity.com/how-to-monitor-kafka/" target="_blank" rel="noopener">https://blog.serverdensity.com/how-to-monitor-kafka/</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/2018-08-16-Kafka/" rel="tag"># 2018-08-16-Kafka</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2016-06-10-Linux-Tips/" rel="next" title="Linux Tips">
+                  <i class="fa fa-chevron-left"></i> Linux Tips
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019-07-26-Terraform/" rel="prev" title="Terraform">
+                  Terraform <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Todd Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Contact me via phray.zhang@gmail.com or wechat at helloworld_2000</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">127</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka"><span class="nav-number">1.</span> <span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#History-of-Kafka"><span class="nav-number">2.</span> <span class="nav-text">History of Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#here-is-some-useful-terminology"><span class="nav-number">2.1.</span> <span class="nav-text">here is some useful terminology:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Topics-and-Partitions"><span class="nav-number">2.2.</span> <span class="nav-text">Topics and Partitions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Producers-and-consumers"><span class="nav-number">3.</span> <span class="nav-text">Producers and consumers</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#producers"><span class="nav-number">3.1.</span> <span class="nav-text">producers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consumers"><span class="nav-number">3.2.</span> <span class="nav-text">Consumers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Brokers-and-Clusters"><span class="nav-number">3.3.</span> <span class="nav-text">Brokers and Clusters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#retentions"><span class="nav-number">3.4.</span> <span class="nav-text">retentions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mirror-maker"><span class="nav-number">3.5.</span> <span class="nav-text">mirror maker</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Why-Kafka"><span class="nav-number">4.</span> <span class="nav-text">Why Kafka?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiple-Producers"><span class="nav-number">4.1.</span> <span class="nav-text">Multiple Producers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiple-Consumers"><span class="nav-number">4.2.</span> <span class="nav-text">Multiple Consumers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scalable"><span class="nav-number">4.3.</span> <span class="nav-text">Scalable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High-Performance"><span class="nav-number">4.4.</span> <span class="nav-text">High Performance</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Process-of-producing-message"><span class="nav-number">5.</span> <span class="nav-text">Process of producing message</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Constructing-a-Kafka-Producer"><span class="nav-number">6.</span> <span class="nav-text">Constructing a Kafka Producer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bootstrap-servers"><span class="nav-number">6.1.</span> <span class="nav-text">bootstrap.servers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key-serializer"><span class="nav-number">6.2.</span> <span class="nav-text">key.serializer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value-serializer"><span class="nav-number">6.3.</span> <span class="nav-text">value.serializer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-code-to-generate-producer-record"><span class="nav-number">6.4.</span> <span class="nav-text">Sample code to generate producer record</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deliver-message"><span class="nav-number">6.5.</span> <span class="nav-text">Deliver message</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fire-and-forget"><span class="nav-number">6.5.1.</span> <span class="nav-text">Fire-and-forget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Synchronous-send"><span class="nav-number">6.5.2.</span> <span class="nav-text">Synchronous send</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Asynchronous-send"><span class="nav-number">6.5.3.</span> <span class="nav-text">Asynchronous send</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Samle-code-of-asynchronous"><span class="nav-number">6.5.4.</span> <span class="nav-text">Samle code of asynchronous</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rebalancing"><span class="nav-number">6.6.</span> <span class="nav-text">Rebalancing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cosumber"><span class="nav-number">6.7.</span> <span class="nav-text">cosumber</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Subscribing-to-Topics"><span class="nav-number">6.7.1.</span> <span class="nav-text">Subscribing to Topics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-consumer-code"><span class="nav-number">6.7.2.</span> <span class="nav-text">Sample consumer code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thread-safety"><span class="nav-number">6.7.3.</span> <span class="nav-text">Thread safety</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Commit"><span class="nav-number">6.8.</span> <span class="nav-text">Commit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Automatic-Commit"><span class="nav-number">6.8.1.</span> <span class="nav-text">Automatic Commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Manual-commit"><span class="nav-number">6.8.2.</span> <span class="nav-text">Manual commit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combining-Synchronous-and-Asynchronous-Commits"><span class="nav-number">6.9.</span> <span class="nav-text">Combining Synchronous and Asynchronous Commits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exit"><span class="nav-number">6.10.</span> <span class="nav-text">Exit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Controller"><span class="nav-number">7.</span> <span class="nav-text">The Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Replication"><span class="nav-number">8.</span> <span class="nav-text">Replication</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Memeroy"><span class="nav-number">8.1.</span> <span class="nav-text">Memeroy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swap-usage"><span class="nav-number">8.1.1.</span> <span class="nav-text">Swap usage</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka-Monitoring-Tools"><span class="nav-number">9.</span> <span class="nav-text">Kafka Monitoring Tools</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#commands"><span class="nav-number">10.</span> <span class="nav-text">commands</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Start-zookeeper"><span class="nav-number">10.1.</span> <span class="nav-text">Start zookeeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list-topics"><span class="nav-number">10.2.</span> <span class="nav-text">list topics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#describe-topics"><span class="nav-number">10.3.</span> <span class="nav-text">describe topics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#using-connector"><span class="nav-number">10.3.1.</span> <span class="nav-text">using connector</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Security"><span class="nav-number">11.</span> <span class="nav-text">Security</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#With-user-prompts"><span class="nav-number">11.1.</span> <span class="nav-text">With user prompts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Without-user-prompts-pass-command-line-arguments"><span class="nav-number">11.2.</span> <span class="nav-text">Without user prompts, pass command line arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-your-own-Certificate-Authority-CA"><span class="nav-number">11.3.</span> <span class="nav-text">Create your own Certificate Authority (CA)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sign-the-certificate"><span class="nav-number">11.4.</span> <span class="nav-text">Sign the certificate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SASL"><span class="nav-number">11.5.</span> <span class="nav-text">SASL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">12.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Todd Zhang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>
