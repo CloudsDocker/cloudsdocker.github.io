@@ -105,19 +105,6 @@ Private Signing Key - Used to sign messages that I send to other people.
 Public Verify Key - Used to verify that a message was, in fact, signed by me.
 
 
-
-How do I request an Internal SSL Certificate?
-
-Expand/Collapse panel display
-To request or renew an internal SSL certificate go to the Venafi (Aperture) portal and log on with your NAB network ID and password.
-
-
-Venafi Trust Protection Platform
-
-
-Venafi is a made-up word created by combining two Latin roots—Vena (vein or root) and Fides (trust or faith). Venafi secures the root of trust—the encryption keys and certificates.
-
-
 https://en.wikipedia.org/wiki/Savvis
 
 Savvis - Wikipedia
