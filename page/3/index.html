@@ -275,93 +275,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-SQL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-14-SQL/" class="post-title-link" itemprop="url">SQL</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="Differences-between-not-in-not-exists-and-left-join-with-null"><a href="#Differences-between-not-in-not-exists-and-left-join-with-null" class="headerlink" title="Differences between not in, not exists , and left join with null"></a>Differences between not in, not exists , and left join with null</h2><blockquote>
-<p>It seems to me that you can do the same thing in a SQL query using either NOT EXISTS, NOT IN, or LEFT JOIN WHERE IS NULL. For example:</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT a FROM table1 WHERE a NOT IN (SELECT a FROM table2)</span><br><span class="line">SELECT a FROM table1 WHERE NOT EXISTS (SELECT * FROM table2 WHERE table1.a = table2.a)</span><br><span class="line">SELECT a FROM table1 LEFT JOIN table2 ON table1.a = table2.a WHERE table1.a IS NULL</span><br></pre></td></tr></table></figure>
-
-<p>I’m not sure if I got all the syntax correct, but these are the general techniques I’ve seen. Why would I choose to use one over the other? Does performance differ…? Which one of these is the fastest / most efficient? (If it depends on implementation, when would I use each one?)</p>
-<h2 id="answer"><a href="#answer" class="headerlink" title="answer"></a>answer</h2><p>In a nutshell:</p>
-<p>NOT IN is a little bit different: it never matches if there is but a single NULL in the list.</p>
-<p>In MySQL, NOT EXISTS is a little bit less efficient</p>
-<p>In SQL Server, LEFT JOIN / IS NULL is less efficient</p>
-<p>In PostgreSQL, NOT IN is less efficient</p>
-<p>In Oracle, all three methods are the same.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-github-pages/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -453,6 +366,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-HTTP-HTTPS2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-14-HTTP-HTTPS2/" class="post-title-link" itemprop="url">HTTPS/2</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="concepts"><a href="#concepts" class="headerlink" title="concepts"></a>concepts</h1><ul>
+<li>HTTP : 传统 HTTP 采用明文，完全开放的编码，缺少加解密功能，很容易遭受窃取、篡改等安全威胁。尤其涉及在线交易的网站，遭遇攻击如同家常便饭。</li>
+<li>HTTPS : HTTPS 协议传输过程全程加解密，相当于增加了一层 SSL/TSL 分层协议的 HTTP，让访问更加安全。</li>
+<li>HTTPS2 : HTTP/2 本身是 HTTP 协议自 1999 年发表后的第一次更新，于 2015 年 5 月正式发布。掐指一算，这个协议积累了 16 年才更新，憋了这么久，放的一定是大招，它的更新主要体现在多路复用，二进制传输，使用 HPACK 压缩头部信息，服务端 Push 。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-SQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-14-SQL/" class="post-title-link" itemprop="url">SQL</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Differences-between-not-in-not-exists-and-left-join-with-null"><a href="#Differences-between-not-in-not-exists-and-left-join-with-null" class="headerlink" title="Differences between not in, not exists , and left join with null"></a>Differences between not in, not exists , and left join with null</h2><blockquote>
+<p>It seems to me that you can do the same thing in a SQL query using either NOT EXISTS, NOT IN, or LEFT JOIN WHERE IS NULL. For example:</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT a FROM table1 WHERE a NOT IN (SELECT a FROM table2)</span><br><span class="line">SELECT a FROM table1 WHERE NOT EXISTS (SELECT * FROM table2 WHERE table1.a = table2.a)</span><br><span class="line">SELECT a FROM table1 LEFT JOIN table2 ON table1.a = table2.a WHERE table1.a IS NULL</span><br></pre></td></tr></table></figure>
+
+<p>I’m not sure if I got all the syntax correct, but these are the general techniques I’ve seen. Why would I choose to use one over the other? Does performance differ…? Which one of these is the fastest / most efficient? (If it depends on implementation, when would I use each one?)</p>
+<h2 id="answer"><a href="#answer" class="headerlink" title="answer"></a>answer</h2><p>In a nutshell:</p>
+<p>NOT IN is a little bit different: it never matches if there is but a single NULL in the list.</p>
+<p>In MySQL, NOT EXISTS is a little bit less efficient</p>
+<p>In SQL Server, LEFT JOIN / IS NULL is less efficient</p>
+<p>In PostgreSQL, NOT IN is less efficient</p>
+<p>In Oracle, all three methods are the same.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-23-Equity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -507,86 +587,6 @@
 <li>Hedge funds are avaiable to a specific group of sophisticated investotrs with high net worth. While mutul fund are more accessibale with minimal amoutns of money.</li>
 </ul>
 <h2 id="Differences-among-money-markets-and-capital-markets"><a href="#Differences-among-money-markets-and-capital-markets" class="headerlink" title="Differences among money markets and capital markets"></a>Differences among <code>money markets</code> and <code>capital markets</code></h2><p>The money markets are used for the raising of short term finance, sometimes for loans that are expected to be paid back as early as overnight. Whereas the capital markets are used for the raising of long term finance, such as the purchase of shares, or for loans that are not expected to be fully paid back for at least a year.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-HTTP-HTTPS2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-14-HTTP-HTTPS2/" class="post-title-link" itemprop="url">HTTPS/2</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="concepts"><a href="#concepts" class="headerlink" title="concepts"></a>concepts</h1><ul>
-<li>HTTP : 传统 HTTP 采用明文，完全开放的编码，缺少加解密功能，很容易遭受窃取、篡改等安全威胁。尤其涉及在线交易的网站，遭遇攻击如同家常便饭。</li>
-<li>HTTPS : HTTPS 协议传输过程全程加解密，相当于增加了一层 SSL/TSL 分层协议的 HTTP，让访问更加安全。</li>
-<li>HTTPS2 : HTTP/2 本身是 HTTP 协议自 1999 年发表后的第一次更新，于 2015 年 5 月正式发布。掐指一算，这个协议积累了 16 年才更新，憋了这么久，放的一定是大招，它的更新主要体现在多路复用，二进制传输，使用 HPACK 压缩头部信息，服务端 Push 。</li>
-</ul>
 
           
         

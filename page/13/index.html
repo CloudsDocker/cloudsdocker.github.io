@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-21-Ansible/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-21-Apigee/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-06-21-Ansible/" class="post-title-link" itemprop="url">Ansible</a>
+              <a href="/2018-06-21-Apigee/" class="post-title-link" itemprop="url">Apigee</a>
             
           </h1>
         
@@ -243,184 +243,27 @@
 
       
           
-            <h1 id="Ansible-What-Is-It-Good-For"><a href="#Ansible-What-Is-It-Good-For" class="headerlink" title="Ansible: What Is It Good For?"></a>Ansible: What Is It Good For?</h1><p>Ansible is often described as a configuration management tool, and is typically mentioned in the same breath as Chef, Puppet, and Salt. When we talk about configuration management, we are typically talking about writing some kind of state description for our servers, and then using a tool to enforce that the servers are, indeed, in that state: the right packages are installed, configuration files contain the expected values and have the expected permissions, the right services are running, and so on. Like other configuration management tools, Ansible exposes a domain-specific language (DSL) that you use to describe the state of your servers.</p>
-<p>These tools also can be used for doing deployment as well. When people talk about deployment, they are usually referring to the process of taking software that was written in-house, generating binaries or static assets (if necessary), copying the required files to the server(s), and then starting up the services. Capistrano and Fabric are two examples of open-source deployment tools. Ansible is a great tool for doing deployment as well as configuration management. Using a single tool for both configuration management and deployment makes life simpler for the folks responsible for operations.</p>
-<p>Some people talk about the need for orchestration of deployment. This is where multiple remote servers are involved, and things have to happen in a specific order. For example, you need to bring up the database before bringing up the web servers, or you need to take web servers out of the load balancer one at a time in order to upgrade them without downtime. Ansible’s good at this as well, and is designed from the ground up for performing actions on multiple servers. Ansible has a refreshingly simple model for controlling the order that actions happen in.</p>
-<p>Finally, you’ll hear people talk about provisioning new servers. In the context of public clouds such as Amazon EC2, this refers to spinning up a new virtual machine instance. Ansible’s got you covered here, with a number of modules for talking to clouds, including EC2, Azure, Digital Ocean, Google Compute Engine, Linode, and Rackspace, as well as any clouds that support the OpenStack APIs.</p>
-<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>As with most configuration management software, Ansible has two types of servers: controlling machines and nodes. First, there is a single controlling machine which is where orchestration begins. Nodes are managed by a controlling machine over SSH. The controlling machine describes the location of nodes through its inventory.</p>
-<h2 id="Agentless"><a href="#Agentless" class="headerlink" title="Agentless"></a>Agentless</h2><p>In contrast with popular configuration management software — such as Chef, Puppet, and CFEngine — Ansible uses an agentless architecture.[14] With an agent-based architecture, nodes must have a locally installed daemon that communicates with a controlling machine. With an agentless architecture, nodes are not required to install and run background daemons to connect with a controlling machine. This type of architecture reduces the overhead on the network by preventing the nodes from polling the controlling machine.</p>
-<h2 id="Playbook"><a href="#Playbook" class="headerlink" title="Playbook"></a>Playbook</h2><p>Playbooks are Ansible’s configuration, deployment, and orchestration language. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT process.</p>
-<p>I like to think of <code>Ansible playbooks as executable documentation</code>. It’s like the README file that describes the commands you had to type out to deploy your software, except that the instructions will never go out-of-date because they are also the code that gets executed directly.</p>
-<p>If Ansible modules are the tools in your workshop, playbooks are your instruction manuals, and your inventory of hosts are your raw material.</p>
-<p> In Ansible, a script is called a playbook. A playbook describes which hosts (what Ansible calls remote servers) to configure, and an ordered list of tasks to perform on those hosts.</p>
-<p> To execute the playbook using the ansible-playbook command. In the example, the playbook is named webservers.yml, and is executed by typing:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ansible-playbook webservers.yml</span><br></pre></td></tr></table></figure>
+            <p>App deployment, configuration management and orchestration - all from one system. Ansible is powerful IT automation that you can learn quickly.</p>
+<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>APIs are the glue that connect apps and act as the foundation for what we call the digital economy. Through every connection there is at least one API interacting with other applications and exchanging data. A business needs API management solutions that can support diverse users and not compromise the stability and reliability of back-end systems. Apigees intelligent API management platform allows companies to provide connected, seamless, digital experiences and increase the speed at which they innovate and adapt.</p>
+<h1 id="Apigee-Edge-Apigee’s-API-Management-platform-provides-a-unified-solution-that"><a href="#Apigee-Edge-Apigee’s-API-Management-platform-provides-a-unified-solution-that" class="headerlink" title="Apigee Edge, Apigee’s API Management platform, provides a unified solution that:"></a>Apigee Edge, Apigee’s API Management platform, provides a unified solution that:</h1><p>makes your APIs fail-proof<br>helps you grow your developer and partner ecosystem<br>enables you to run your APIs at scale<br>provides deep insights into your APIs and your business<br>Apigee Edge is the API management tool that offers the solutions today’s digital economy demands. For more information, download our Definitive Guide to API Management.</p>
+<h2 id="Build-RESTful-APIs"><a href="#Build-RESTful-APIs" class="headerlink" title="Build RESTful APIs"></a>Build RESTful APIs</h2><p>You have data, you have services, and you want to develop new business solutions quickly, both internally and externally.</p>
+<p>With Apigee, you can build API proxies—RESTful, HTTP-based APIs that interact with your services. With easy-to-use APIs, developers can be more productive, increasing your speed to market.</p>
+<p>API proxies give you the full power of Apigee’s API platform to secure API calls, throttle traffic, mediate messages, control error handling, cache things, build developer portals, document APIs, analyze API traffic data, make money on the use of your APIs, protect against bad bots, and more.</p>
+<h1 id="paybook"><a href="#paybook" class="headerlink" title="paybook"></a>paybook</h1><p><code>playbooks</code> contains <code>plays</code>, plays contains <code>tasks</code>, while taks call <code>modules</code>.
+<code>tasks</code> run sequentially<br><code>handlers</code> are trigered by tasks and are un once, at the end of plays.</p>
+<h2 id="Configuration-management"><a href="#Configuration-management" class="headerlink" title="Configuration management"></a>Configuration management</h2><p>Ansible configurations are simple data descriptions of your infrastructure (both human-readable and machine-parsable) - ensuring everyone on your team will be able to understand the meaning of each configuration task. New team members will be able to quickly dive in and make an impact. Existing team members can get work done faster - freeing up cycles to attend to more critical and strategic work instead of configuration management.</p>
+<p>Ansible requires nothing more than a password or SSH key in order to start managing systems and can start managing them without installing any agent software, avoiding the problem of “managing the management” common in many automation systems. There’s no more wondering why configuration management daemons are down, when to upgrade management agents, or when to patch security vulnerabilities in those agents.</p>
+<h3 id="GOAL-ORIENTED-NOT-SCRIPTED"><a href="#GOAL-ORIENTED-NOT-SCRIPTED" class="headerlink" title="GOAL-ORIENTED, NOT SCRIPTED"></a>GOAL-ORIENTED, NOT SCRIPTED</h3><p>Ansible features an state-driven resource model that describes the desired state of computer systems and services, not the paths to get them to this state. No matter what state a system is in, Ansible understands how to transform it to the desired state (and also supports a “dry run” mode to preview needed changes). This allows reliable and repeatable IT infrastructure configuration, avoiding the potential failures from scripting and script-based solutions that describe explicit and often irreversible actions rather than the end goal.</p>
+<h3 id="SECURE-amp-AGENTLESS"><a href="#SECURE-amp-AGENTLESS" class="headerlink" title="SECURE &amp; AGENTLESS"></a>SECURE &amp; AGENTLESS</h3><p>Ansible relies on the most secure remote configuration management system available as its default transport layer: OpenSSH. OpenSSH is available for a wide variety of platforms, is very lightweight and when security issues in OpenSSH are discovered, they are patched quickly.</p>
+<p>Further, Ansible does not require any remote agents. Ansible delivers all modules to remote systems and executes tasks, as needed, to enact the desired configuration. These modules run with user-supplied credentials, including support for sudo and even Kerberos and clean up after themselves when complete. Ansible does not require root login privileges, specific SSH keys, or dedicated users and respects the security model of the system under management.</p>
+<p>As a result, Ansible has a very low attack surface area and is quite easy to deploy into new environments.</p>
+<h2 id="EFFICIENT-ARCHITECTURE"><a href="#EFFICIENT-ARCHITECTURE" class="headerlink" title="EFFICIENT ARCHITECTURE"></a>EFFICIENT ARCHITECTURE</h2><p>Ansible works by connecting to your nodes and pushing out small programs, called “Ansible modules” to them. These programs are written to be resource models of the desired state of the system. Ansible then executes these modules (over SSH by default), and removes them when finished.</p>
+<p>Your library of modules can reside on any machine, and there are no servers, daemons, or databases required. Typically you’ll work with your favorite terminal program, a text editor, and probably a version control system to keep track of changes to your content.</p>
+<h1 id="MANAGE-YOUR-INVENTORY-IN-SIMPLE-TEXT-FILES"><a href="#MANAGE-YOUR-INVENTORY-IN-SIMPLE-TEXT-FILES" class="headerlink" title="MANAGE YOUR INVENTORY IN SIMPLE TEXT FILES"></a>MANAGE YOUR INVENTORY IN SIMPLE TEXT FILES</h1><p>By default, Ansible represents what machines it manages using a very simple INI file that puts all of your managed machines in groups of your own choosing.  </p>
+<p>To add new machines, there is no additional SSL signing server involved, so there’s never any hassle deciding why a particular machine didn’t get linked up due to obscure NTP or DNS issues.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[webservers]</span><br><span class="line">www1.example.com</span><br><span class="line">www2.example.com</span><br><span class="line"></span><br><span class="line">[dbservers]</span><br><span class="line">db0.example.com</span><br><span class="line">db1.example.com</span><br></pre></td></tr></table></figure>
 
-<p>Ansible will make SSH connections in parallel to web1, web2, and web3. It will execute the first task on the list on all three hosts simultaneously. In this example, the first task is installing the nginx apt package (since Ubuntu uses the apt package manager), so the task in the playbook would look something like this:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">  apt:</span> <span class="string">name=nginx</span></span><br></pre></td></tr></table></figure>
-
-<p>Ansible will:</p>
-<ol>
-<li>Generate a Python script that installs the nginx package.</li>
-<li>Copy the script to web1, web2, and web3.</li>
-<li>Execute the script on web1, web2, web3.</li>
-<li>Wait for the script to complete execution on all hosts.</li>
-</ol>
-<p>Ansible will then move to the next task in the list, and go through these same four steps. It’s important to note that:</p>
-<ul>
-<li>Ansible runs each task in parallel across all hosts.</li>
-<li>Ansible waits until all hosts have completed a task before moving to the next task.</li>
-<li>Ansible runs the tasks in the order that you specify them.</li>
-</ul>
-<h2 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h2><p>Variable names should be letters, numbers, and underscores. Variables should always start with a letter.</p>
-<p>foo_port is a great variable. foo5 is fine too.<br>foo-port, foo port, foo.port and 12 are not valid variable names.</p>
-<p>Defining Variables in Playbooks<br>The simplest way to define variables is to put a vars section in your playbook with the names and values of variables.</p>
-<p>Ansible also allows you to put variables into one or more files, using a section called vars_files. </p>
-<p>We would replace the vars section with a vars_files that looks like this:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">vars_files:</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">nginx.yml</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## nginx.yml</span></span><br><span class="line"><span class="attr">key_file:</span> <span class="string">/etc/nginx/ssl/nginx.key</span></span><br><span class="line"><span class="attr">cert_file:</span> <span class="string">/etc/nginx/ssl/nginx.crt</span></span><br><span class="line"><span class="attr">conf_file:</span> <span class="string">/etc/nginx/sites-available/default</span></span><br><span class="line"><span class="attr">server_name:</span> <span class="string">localhost</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="To-debug-variable"><a href="#To-debug-variable" class="headerlink" title="To debug variable"></a>To debug variable</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- debug:</span> <span class="string">var=myvarname</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Registering-Variables"><a href="#Registering-Variables" class="headerlink" title="Registering Variables"></a>Registering Variables</h2><p>Often, you’ll find that you need to set the value of a variable based on the result of a task. To do so, we create a registered variable using the register clause when invoking a module. </p>
-<p>In order to use the login variable later, we need to know what type of value to expect. The value of a variable set using the register clause is always a dictionary, but the specific keys of the dictionary are different, depending on the module that was invoked.</p>
-<p>ACCESSING DICTIONARY KEYS IN A VARIABLE<br>If a variable contains a dictionary, then you can access the keys of the dictionary using either a dot (.) or a subscript ([]).</p>
-<h3 id="facts"><a href="#facts" class="headerlink" title="facts"></a>facts</h3><p>When Ansible gathers facts, it connects to the host and queries the host for all kinds of details about the host: CPU architecture, operating system, IP addresses, memory info, disk info, and more. This information is stored in variables that are called facts, and they behave just like any other variable does.</p>
-<p>Here’s a simple playbook that will print out the operating system of each server:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">print</span> <span class="string">out</span> <span class="string">operating</span> <span class="string">system</span></span><br><span class="line"><span class="attr">  hosts:</span> <span class="string">all</span></span><br><span class="line"><span class="attr">  gather_facts:</span> <span class="literal">True</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - debug:</span> <span class="string">var=ansible_distribution</span></span><br></pre></td></tr></table></figure>
-
-<p>Viewing All Facts Associated with a Server<br>Ansible implements fact collecting through the use of a special module called the setup module. You don’t need to call this module in your playbooks because Ansible does that automatically when it gathers facts. However, if you invoke it manually with the ansible command-line tool, like this:</p>
-<p>$ ansible server1 -m setup</p>
-<h2 id="interactive-mode"><a href="#interactive-mode" class="headerlink" title="interactive mode"></a>interactive mode</h2><p>If Ansible did not succeed, add the -vvvv flag to see more details about the error:</p>
-<p>$ ansible testserver -i hosts -m ping -vvvv</p>
-<p>We can see that the module succeeded. The “changed”: false part of the output tells us that executing the module did not change the state of the server. The “ping”: “pong” text is output that is specific to the ping module.</p>
-<h2 id="Simplifying-with-the-ansible-cfg-File"><a href="#Simplifying-with-the-ansible-cfg-File" class="headerlink" title="Simplifying with the ansible.cfg File"></a>Simplifying with the ansible.cfg File</h2><p>We had to type a lot of text in the inventory file to tell Ansible about our test server. Fortunately, Ansible has a number of ways you can specify these sorts of variables so we don’t have to put them all in one place.</p>
-<p>Right now, we’ll use one such mechanism, the ansible.cfg file, to set some defaults so we don’t need to type as much.</p>
-<h3 id="WHERE-SHOULD-I-PUT-MY-ANSIBLE-CFG-FILE"><a href="#WHERE-SHOULD-I-PUT-MY-ANSIBLE-CFG-FILE" class="headerlink" title="WHERE SHOULD I PUT MY ANSIBLE.CFG FILE?"></a>WHERE SHOULD I PUT MY ANSIBLE.CFG FILE?</h3><p>Ansible looks for an ansible.cfg file in the following places, in this order:</p>
-<p>File specified by the ANSIBLE_CONFIG environment variable</p>
-<p>./ansible.cfg (ansible.cfg in the current directory)</p>
-<p>~/.ansible.cfg (.ansible.cfg in your home directory)</p>
-<p>/etc/ansible/ansible.cfg</p>
-<p>I typically put an ansible.cfg in the current directory, alongside my playbooks. That way, I can check it into the same version control repository my playbooks are in.</p>
-<h2 id="Run-command-remotely"><a href="#Run-command-remotely" class="headerlink" title="Run command remotely"></a>Run command remotely</h2><p>I like to use the ansible command-line tool to run arbitrary commands on remote machines, like parallel SSH. You can execute arbitrary commands with the command module. When invoking this module, you also need to pass an argument to the module with the -a flag, which is the command to run.</p>
-<p>For example, to check the uptime of our server, we can use:</p>
-<p>$ ansible testserver -m command -a uptime</p>
-<p>The command module is so commonly used that it’s the default module, so we can omit it:</p>
-<p>$ ansible testserver -a uptime<br>$ ansible testserver -a “tail /var/log/dmesg”</p>
-<h3 id="inventory"><a href="#inventory" class="headerlink" title="inventory"></a>inventory</h3><p>WARNING<br>Although Ansible adds the localhost to your inventory automatically, you have to have at least one other host in your inventory file; otherwise, ansible-playbook will terminate with the error:</p>
-<p>ERROR: provided hosts list is empty</p>
-<h3 id="property-“Changed”"><a href="#property-“Changed”" class="headerlink" title="property “Changed”"></a>property “Changed”</h3><p>The changed key is present in the return value of all Ansible modules, and Ansible uses it to determine whether a state change has occurred. For the command and shell module, this will always be set to true unless overridden with the changed_when clause</p>
-<h2 id="ignore-error"><a href="#ignore-error" class="headerlink" title="ignore error"></a>ignore error</h2><p>Ignoring when a module returns an error</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">Run</span> <span class="string">myprog</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">/opt/myprog</span></span><br><span class="line"><span class="attr">  register:</span> <span class="string">result</span></span><br><span class="line"><span class="attr">  ignore_errors:</span> <span class="literal">True</span></span><br><span class="line"><span class="attr">- debug:</span> <span class="string">var=result</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Data-type"><a href="#Data-type" class="headerlink" title="Data type"></a>Data type</h2><p>All members of a list are lines beginning at the same indentation level starting with a “- “ (a dash and a space):</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="comment"># A list of tasty fruits</span></span><br><span class="line"><span class="attr">fruits:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Apple</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Orange</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Strawberry</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Mango</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
-
-<p>A dictionary is represented in a simple key: value form (the colon must be followed by a space):</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># An employee record</span></span><br><span class="line"><span class="attr">martin:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">Martin</span> <span class="string">D'vloper</span></span><br><span class="line"><span class="attr">    job:</span> <span class="string">Developer</span></span><br><span class="line"><span class="attr">    skill:</span> <span class="string">Elite</span></span><br></pre></td></tr></table></figure>
-
-<p>More complicated data structures are possible, such as lists of dictionaries, dictionaries whose values are lists or a mix of both:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Employee records</span></span><br><span class="line"><span class="attr">-  martin:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">Martin</span> <span class="string">D'vloper</span></span><br><span class="line"><span class="attr">    job:</span> <span class="string">Developer</span></span><br><span class="line"><span class="attr">    skills:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">python</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">perl</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">pascal</span></span><br><span class="line"><span class="attr">-  tabitha:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">Tabitha</span> <span class="string">Bitumen</span></span><br><span class="line"><span class="attr">    job:</span> <span class="string">Developer</span></span><br><span class="line"><span class="attr">    skills:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">lisp</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">fortran</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">erlang</span></span><br></pre></td></tr></table></figure>
-
-<p>Dictionaries and lists can also be represented in an abbreviated form if you really want to:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">martin:</span> <span class="string">&#123;name:</span> <span class="string">Martin</span> <span class="string">D'vloper,</span> <span class="attr">job:</span> <span class="string">Developer,</span> <span class="attr">skill:</span> <span class="string">Elite&#125;</span></span><br><span class="line"><span class="attr">fruits:</span> <span class="string">['Apple',</span> <span class="string">'Orange'</span><span class="string">,</span> <span class="string">'Strawberry'</span><span class="string">,</span> <span class="string">'Mango'</span><span class="string">]</span></span><br></pre></td></tr></table></figure>
-
-<p>These are called “Flow collections”.</p>
-<h3 id="span-multiple-lines"><a href="#span-multiple-lines" class="headerlink" title="span multiple lines"></a>span multiple lines</h3><p>Values can span multiple lines using | or &gt;. Spanning multiple lines using a “Literal Block Scalar” | will include the newlines and any trailing spaces. Using a “Folded Block Scalar” &gt; will fold newlines to spaces; it’s used to make what would otherwise be a very long line easier to read and edit. In either case the indentation will be ignored. Examples are:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">include_newlines:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            exactly as you see</span></span><br><span class="line"><span class="string">            will appear these three</span></span><br><span class="line"><span class="string">            lines of poetry</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span><span class="attr">fold_newlines:</span> <span class="string">&gt;</span></span><br><span class="line"><span class="string">            this is really a</span></span><br><span class="line"><span class="string">            single line of text</span></span><br><span class="line"><span class="string">            despite appearances</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h1><h2 id="file"><a href="#file" class="headerlink" title="file"></a>file</h2><p>file - Sets attributes of files</p>
-<p>Sets attributes of files, symlinks, and directories, or removes files/symlinks/directories. Many other modules support the same options as the file module - including copy, template, and assemble.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># change file ownership, group and mode. When specifying mode using octal numbers, first digit should always be 0.</span></span><br><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/etc/foo.conf</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">0644</span></span><br><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/work</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">01777</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="delegation"><a href="#delegation" class="headerlink" title="delegation"></a>delegation</h2><p>This isn’t actually rolling update specific but comes up frequently in those cases.</p>
-<p>If you want to perform a task on one host with reference to other hosts, use the ‘delegate_to’ keyword on a task. This is ideal for placing nodes in a load balanced pool, or removing them. It is also very useful for controlling outage windows. Be aware that it does not make sense to delegate all tasks, debug, add_host, include, etc always get executed on the controller. Using this with the ‘serial’ keyword to control the number of hosts executing at one time is also a good idea:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- hosts:</span> <span class="string">webservers</span></span><br><span class="line"><span class="attr">  serial:</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">take</span> <span class="string">out</span> <span class="string">of</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">/usr/bin/take_out_of_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">    delegate_to:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">actual</span> <span class="string">steps</span> <span class="string">would</span> <span class="string">go</span> <span class="string">here</span></span><br><span class="line"><span class="attr">    yum:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">acme-web-stack</span></span><br><span class="line"><span class="attr">      state:</span> <span class="string">latest</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">add</span> <span class="string">back</span> <span class="string">to</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">/usr/bin/add_back_to_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">    delegate_to:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
-
-<p>These commands will run on 127.0.0.1, which is the machine running Ansible. There is also a shorthand syntax that you can use on a per-task basis: ‘local_action’. Here is the same playbook as above, but using the shorthand syntax for delegating to 127.0.0.1:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">take</span> <span class="string">out</span> <span class="string">of</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    local_action:</span> <span class="string">command</span> <span class="string">/usr/bin/take_out_of_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">add</span> <span class="string">back</span> <span class="string">to</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    local_action:</span> <span class="string">command</span> <span class="string">/usr/bin/add_back_to_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>A common pattern is to use a local action to call ‘rsync’ to recursively copy files to the managed servers. Here is an example:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">recursively</span> <span class="string">copy</span> <span class="string">files</span> <span class="string">from</span> <span class="string">management</span> <span class="string">server</span> <span class="string">to</span> <span class="string">target</span></span><br><span class="line"><span class="attr">    local_action:</span> <span class="string">command</span> <span class="string">rsync</span> <span class="bullet">-a</span> <span class="string">/path/to/files</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;:/path/to/target/</span></span><br></pre></td></tr></table></figure>
-
-<p>Note that you must have passphrase-less SSH keys or an ssh-agent configured for this to work, otherwise rsync will need to ask for a passphrase.</p>
-<p>dev experience<br>lead</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-10-JMX/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-10-JMX/" class="post-title-link" itemprop="url">JXM</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Exporting-your-beans-to-JMX"><a href="#Exporting-your-beans-to-JMX" class="headerlink" title="Exporting your beans to JMX"></a>Exporting your beans to JMX</h1><p>The core class in Spring’s JMX framework is the MBeanExporter. This class is responsible for taking your Spring beans and registering them with a JMX MBeanServer. </p>
-<p>when running inside a container that does not provide an MBeanServer. To address this you can create an MBeanServer instance declaratively by adding an instance of the org.springframework.jmx.support.MBeanServerFactoryBean class to your configuration. You can also ensure that a specific MBeanServer is used by setting the value of the MBeanExporter’s server property to the MBeanServer value returned by an MBeanServerFactoryBean</p>
+<h2 id="installation"><a href="#installation" class="headerlink" title="installation"></a>installation</h2><p>Once Ansible is installed, it will not add a database, and there will be no daemons to start or keep running. You only need to install it on one machine (which could easily be a laptop) and it can manage an entire fleet of remote machines from that central point. When Ansible manages remote machines, it does not leave software installed or running on them, so there’s no real question about how to upgrade Ansible when moving to a new version.</p>
 
           
         
@@ -550,7 +393,7 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-11-Camel/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-10-JMX/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -566,7 +409,7 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-07-11-Camel/" class="post-title-link" itemprop="url">Apache Camel</a>
+              <a href="/2018-07-10-JMX/" class="post-title-link" itemprop="url">JXM</a>
             
           </h1>
         
@@ -598,60 +441,8 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
 
       
           
-            <h1 id="Camel’s-message-model"><a href="#Camel’s-message-model" class="headerlink" title="Camel’s message model"></a>Camel’s message model</h1><p>In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.</p>
-<ul>
-<li>org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel</li>
-<li>org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message</li>
-</ul>
-<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><p>Messages are the entities used by systems to communicate with each other when using messaging channels. Messages flow in one direction from a sender to a receiver,  Messages have a body (a payload), headers, and optional attachments,</p>
-<p>Messages are uniquely identified with an identifier of type java.lang.String. The identifier’s uniqueness is enforced and guaranteed by the message creator, it’s protocol depen- dent, and it doesn’t have a guaranteed format.<br>For protocols that don’t define a unique message identification scheme, Camel uses its own UID generator.<br>HEADERS AND ATTACHMENTS<br>Headers are values associated with the message, such as sender identifiers, hints about content encoding, authentication infor- mation, and so on. Headers are name-value pairs; the name is a unique, case-insensitive string, and the value is of type java. lang.Object. This means that Camel imposes no constraints on the type of the headers. Headers are stored as a map within the message. A message can also have optional attachments, which are typically used for the web service and email components.</p>
-<h2 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h2><p>An exchange in Camel is the message’s container during routing. An exchange also provides support for the various types of interactions between systems, also known as message exchange patterns (MEPs). MEPs are used to differentiate between one-way and request-response messaging styles. The Camel exchange holds a pattern property that can be either</p>
-<ul>
-<li>InOnly—A one-way message (also known as an Event message). For example, JMS messaging is often one-way messaging.</li>
-<li>InOut—A request-response message. For example, HTTP-based transports are often request reply, where a client requests to retrieve a web page, waiting for the reply from the server.</li>
-</ul>
-<h1 id="Start-Camel-application"><a href="#Start-Camel-application" class="headerlink" title="Start Camel application"></a>Start Camel application</h1><p>Camel doesn’t start magically by itself. Often it’s the server (container) that Camel is running inside that invokes the start method on CamelContext, starting up Camel. This is also what you saw in chapter 1, where you used Camel inside a standalone Java application. A standalone Java application isn’t the only deployment choice—you can also run Camel inside a container such as Spring or OSGi.<br>Regardless of which container you use, the same principle applies. The container must prepare and create an instance of CamelContext up front, before Camel can be started.</p>
-<h2 id="Spring-container"><a href="#Spring-container" class="headerlink" title="Spring container"></a>Spring container</h2><p>Camel provides the CamelNamespaceHandler.<br>When using Camel in the Spring XML file, you would define the <camelcontext> tag as follows:<br><camelcontext xmlns="http://camel.apache.org/schema/spring"></camelcontext></camelcontext></p>
-<p>The <a href="http://camel.apache.org/schema/spring" target="_blank" rel="noopener">http://camel.apache.org/schema/spring</a> namespace is the Camel custom namespace. To let Spring know about this custom namespace, it must be identified in the META-INF/spring.handlers, where you map the namespace to the class implementation:<br>http://camel.apache.org/schema/spring=<br>     org.apache.camel.spring.handler.CamelNamespaceHandler</p>
-<p>The CamelNamespaceHandler is then responsible for parsing the XML and dele- gating to other factories for further pro- cessing. One of these factories is the Camel- ContextFactoryBean, which is responsible for creating the CamelContext that essen- tially is your Camel application.<br>When Spring is finished initializing, it signals to third-party frameworks that they can start by broadcasting the Context- RefreshedEvent event.</p>
-<h1 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h1><p>At this point, CamelContext is ready to be started. What happens next is the same regardless of which container or deploy- ment option you’re using with Camel. </p>
-<p>CamelContext is started by invoking its start method. The first step is to determines whether or not autostartup is enabled for Camel. If it’s disabled, the entire startup process is skipped. By default, Camel is set to autostart, which involves the following four steps.</p>
-<p>1 Start internal services—Prepares and starts internal services used by Camel, such as the type-converter mechanism.<br>2 Compute starting order—Computes the order in which the routes should be started. By default, Camel will start up all the routes in the order they are defined in the Spring XML files or the RouteBuilder classes. We’ll cover how to configure the order of routes in section 13.1.3.<br>3 Prepare routes—Prepares the routes before they’re started.<br>4 Start routes—Starts the routes by starting the consumers, which essentially opens<br>the gates to Camel and lets the messages start to flow in.</p>
-<p>After step 4, Camel writes a message to the log indicating that it has been started and that the startup process is complete.</p>
-<h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><h2 id="ENDPOINT"><a href="#ENDPOINT" class="headerlink" title="ENDPOINT"></a>ENDPOINT</h2><p>An endpoint is the Camel abstraction that models the end of a channel through which a system can send or receive messages.</p>
-<p>In Camel, you configure endpoints using URIs, such as </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:data/inbox?delay=5000</span><br></pre></td></tr></table></figure>
-
-<p> and you also refer to endpoints this way. At runtime, Camel will look up an endpoint based on the URI notation. </p>
-<p>The scheme  denotes which Camel component handles that type of endpoint. In this case,<br>the scheme of file selects the FileComponent.<br>The FileComponent then works as a factory creat-<br>ing the FileEndpoint based on the remaining parts of the URI.<br>The context path data/ inbox tells the FileComponent that the starting folder is data/inbox.<br>The option, delay=5000 indicates that files should be polled at a 5 second interval.</p>
-<p>There’s more to an endpoint than meets the eye. </p>
-<h2 id="JMS"><a href="#JMS" class="headerlink" title="JMS"></a>JMS</h2><p>Queues are strictly point-to-point, where each message has only one consumer. Topics operate on a publish/subscribe scheme; a single message may be delivered to many consumers if they have subscribed to the topic.</p>
-<p>JMS also provides a ConnectionFactory that clients (like Camel) can use to cre- ate a connection with a JMS provider. JMS providers are usually referred to as brokers because they manage the communication between a message producer and a mes- sage consumer.</p>
-<h3 id="HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER"><a href="#HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER" class="headerlink" title="HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER"></a>HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER</h3><p>To connect Camel to a specific JMS provider, you need to configure Camel’s JMS com- ponent with an appropriate ConnectionFactory.<br>Apache ActiveMQ is one of the most popular open source JMS providers, and it’s the primary JMS broker that the Camel team uses to test the JMS component. </p>
-<h3 id="JSM-destinations"><a href="#JSM-destinations" class="headerlink" title="JSM destinations"></a>JSM destinations</h3><p>There are two types of JMS destinations: queues and topics. The queue is a point-to-point channel, where each message has only one recipient. A topic delivers a copy of the message to all clients who have subscribed to receive it.</p>
-<h3 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h3><p>o in the case of Apache ActiveMQ, you can create an ActiveMQConnectionFactory<br>that points to the location of the running ActiveMQ broker:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConnectionFactory connectionFactory =</span><br><span class="line">  <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"vm://localhost"</span>);</span><br></pre></td></tr></table></figure>
-
-<p>The vm://localhost URI means that you should connect to an embedded broker named “localhost” running inside the current JVM. The vm transport connector in ActiveMQ creates a broker on demand if one isn’t running already, so it’s very handy for quickly testing JMS applications; for production scenarios, it’s recommended that you connect to a broker that’s already running. </p>
-<p>Next, when you create your CamelContext, you can add the JMS component as follows:<br>CamelContext context = new DefaultCamelContext();<br>context.addComponent(“jms”,<br>    JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));<br>The JMS component and the ActiveMQ-specific connection factory aren’t part of the camel-core module. In order to use these, you’ll need to add some dependencies to your Maven-based project. For the plain JMS component, all you have to add is this:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.camel<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>camel-jms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">The connection factory comes directly from ActiveMQ, so you’ll need the following dependency:</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="USING-URIS-TO-SPECIFY-THE-DESTINATION"><a href="#USING-URIS-TO-SPECIFY-THE-DESTINATION" class="headerlink" title="USING URIS TO SPECIFY THE DESTINATION"></a>USING URIS TO SPECIFY THE DESTINATION</h3><p>Once the JMS component is configured, you can start sending and receiving JMS mes- sages at your leisure. Because you’re using URIs, this is a real breeze to configure.<br>Let’s say you want to send a JMS message to the queue named incomingOrders. The URI in this case would be</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jms:queue:incomingOrders</span><br></pre></td></tr></table></figure>
-
-<p>This is pretty self-explanatory. The “jms” prefix indicates that you’re using the JMS component you configured before. By specifying “queue”, the JMS component knows to send to a queue named incomingOrders. You could even have omitted the queue<br>qualifier, because the default behavior is to send to a queue rather than a topic.</p>
-<p>NOTE Some endpoints can have an intimidating list of endpoint URI proper- ties. For instance, the JMS component has about 60 options, many of which are only used in specific JMS scenarios. Camel always tries to provide built-in defaults that fit most cases, and you can always find out what the default values are by browsing to the component’s page in the online Camel documentation. </p>
-<p>Using Camel’s Java DSL, you can send a message to the incomingOrders queue by using the to keyword like this:<br>…to(“jms:queue:incomingOrders”)<br>This can be read as sending to the JMS queue named incomingOrders.</p>
-<h2 id="FINDING-ROUTE-BUILDERS"><a href="#FINDING-ROUTE-BUILDERS" class="headerlink" title="FINDING ROUTE BUILDERS"></a>FINDING ROUTE BUILDERS</h2><p>Using the Spring CamelContext as a runtime and the Java DSL for route development is a great way of using Camel. In fact, it’s the most frequent usage of Camel.<br>You saw before that you can explicitly tell the Spring CamelContext what route builders to load. You can do this by using the routerBuilder element:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">routeBuilder</span> <span class="attr">ref</span>=<span class="string">"ftpToJmsRoute"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Being this explicit results in a clean and concise definition of what is being loaded into Camel.<br>Sometimes, though, you may need to be a bit more dynamic. This is where the packageScan and contextScan elements come in:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>This packageScan element will load all RouteBuilder classes found in the camelinac- tion.routes package, including all subpackages.<br>You can even be a bit more picky about what route builders are included:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">excludes</span>&gt;</span>**.*Test*<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">includes</span>&gt;</span>**.*<span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>In this case, you’re loading all route builders in the camelinaction.routes package, except for ones with “Test” in the class name. The matching syntax is similar to what is used in Apache Ant’s file pattern matchers.</p>
+            <h1 id="Exporting-your-beans-to-JMX"><a href="#Exporting-your-beans-to-JMX" class="headerlink" title="Exporting your beans to JMX"></a>Exporting your beans to JMX</h1><p>The core class in Spring’s JMX framework is the MBeanExporter. This class is responsible for taking your Spring beans and registering them with a JMX MBeanServer. </p>
+<p>when running inside a container that does not provide an MBeanServer. To address this you can create an MBeanServer instance declaratively by adding an instance of the org.springframework.jmx.support.MBeanServerFactoryBean class to your configuration. You can also ensure that a specific MBeanServer is used by setting the value of the MBeanExporter’s server property to the MBeanServer value returned by an MBeanServerFactoryBean</p>
 
           
         
@@ -818,6 +609,211 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
 <p>traverse array and check whether current is “..”, if so , call stack.pop<br>otherwise, stach.push(part)</p>
 <p>Then iterate stack and then combine them by a StringBuilder via provided addtional parameter separator</p>
 
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-11-Camel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-11-Camel/" class="post-title-link" itemprop="url">Apache Camel</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Camel’s-message-model"><a href="#Camel’s-message-model" class="headerlink" title="Camel’s message model"></a>Camel’s message model</h1><p>In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.</p>
+<ul>
+<li>org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel</li>
+<li>org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message</li>
+</ul>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><p>Messages are the entities used by systems to communicate with each other when using messaging channels. Messages flow in one direction from a sender to a receiver,  Messages have a body (a payload), headers, and optional attachments,</p>
+<p>Messages are uniquely identified with an identifier of type java.lang.String. The identifier’s uniqueness is enforced and guaranteed by the message creator, it’s protocol depen- dent, and it doesn’t have a guaranteed format.<br>For protocols that don’t define a unique message identification scheme, Camel uses its own UID generator.<br>HEADERS AND ATTACHMENTS<br>Headers are values associated with the message, such as sender identifiers, hints about content encoding, authentication infor- mation, and so on. Headers are name-value pairs; the name is a unique, case-insensitive string, and the value is of type java. lang.Object. This means that Camel imposes no constraints on the type of the headers. Headers are stored as a map within the message. A message can also have optional attachments, which are typically used for the web service and email components.</p>
+<h2 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h2><p>An exchange in Camel is the message’s container during routing. An exchange also provides support for the various types of interactions between systems, also known as message exchange patterns (MEPs). MEPs are used to differentiate between one-way and request-response messaging styles. The Camel exchange holds a pattern property that can be either</p>
+<ul>
+<li>InOnly—A one-way message (also known as an Event message). For example, JMS messaging is often one-way messaging.</li>
+<li>InOut—A request-response message. For example, HTTP-based transports are often request reply, where a client requests to retrieve a web page, waiting for the reply from the server.</li>
+</ul>
+<h1 id="Start-Camel-application"><a href="#Start-Camel-application" class="headerlink" title="Start Camel application"></a>Start Camel application</h1><p>Camel doesn’t start magically by itself. Often it’s the server (container) that Camel is running inside that invokes the start method on CamelContext, starting up Camel. This is also what you saw in chapter 1, where you used Camel inside a standalone Java application. A standalone Java application isn’t the only deployment choice—you can also run Camel inside a container such as Spring or OSGi.<br>Regardless of which container you use, the same principle applies. The container must prepare and create an instance of CamelContext up front, before Camel can be started.</p>
+<h2 id="Spring-container"><a href="#Spring-container" class="headerlink" title="Spring container"></a>Spring container</h2><p>Camel provides the CamelNamespaceHandler.<br>When using Camel in the Spring XML file, you would define the <camelcontext> tag as follows:<br><camelcontext xmlns="http://camel.apache.org/schema/spring"></camelcontext></camelcontext></p>
+<p>The <a href="http://camel.apache.org/schema/spring" target="_blank" rel="noopener">http://camel.apache.org/schema/spring</a> namespace is the Camel custom namespace. To let Spring know about this custom namespace, it must be identified in the META-INF/spring.handlers, where you map the namespace to the class implementation:<br>http://camel.apache.org/schema/spring=<br>     org.apache.camel.spring.handler.CamelNamespaceHandler</p>
+<p>The CamelNamespaceHandler is then responsible for parsing the XML and dele- gating to other factories for further pro- cessing. One of these factories is the Camel- ContextFactoryBean, which is responsible for creating the CamelContext that essen- tially is your Camel application.<br>When Spring is finished initializing, it signals to third-party frameworks that they can start by broadcasting the Context- RefreshedEvent event.</p>
+<h1 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h1><p>At this point, CamelContext is ready to be started. What happens next is the same regardless of which container or deploy- ment option you’re using with Camel. </p>
+<p>CamelContext is started by invoking its start method. The first step is to determines whether or not autostartup is enabled for Camel. If it’s disabled, the entire startup process is skipped. By default, Camel is set to autostart, which involves the following four steps.</p>
+<p>1 Start internal services—Prepares and starts internal services used by Camel, such as the type-converter mechanism.<br>2 Compute starting order—Computes the order in which the routes should be started. By default, Camel will start up all the routes in the order they are defined in the Spring XML files or the RouteBuilder classes. We’ll cover how to configure the order of routes in section 13.1.3.<br>3 Prepare routes—Prepares the routes before they’re started.<br>4 Start routes—Starts the routes by starting the consumers, which essentially opens<br>the gates to Camel and lets the messages start to flow in.</p>
+<p>After step 4, Camel writes a message to the log indicating that it has been started and that the startup process is complete.</p>
+<h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><h2 id="ENDPOINT"><a href="#ENDPOINT" class="headerlink" title="ENDPOINT"></a>ENDPOINT</h2><p>An endpoint is the Camel abstraction that models the end of a channel through which a system can send or receive messages.</p>
+<p>In Camel, you configure endpoints using URIs, such as </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:data/inbox?delay=5000</span><br></pre></td></tr></table></figure>
+
+<p> and you also refer to endpoints this way. At runtime, Camel will look up an endpoint based on the URI notation. </p>
+<p>The scheme  denotes which Camel component handles that type of endpoint. In this case,<br>the scheme of file selects the FileComponent.<br>The FileComponent then works as a factory creat-<br>ing the FileEndpoint based on the remaining parts of the URI.<br>The context path data/ inbox tells the FileComponent that the starting folder is data/inbox.<br>The option, delay=5000 indicates that files should be polled at a 5 second interval.</p>
+<p>There’s more to an endpoint than meets the eye. </p>
+<h2 id="JMS"><a href="#JMS" class="headerlink" title="JMS"></a>JMS</h2><p>Queues are strictly point-to-point, where each message has only one consumer. Topics operate on a publish/subscribe scheme; a single message may be delivered to many consumers if they have subscribed to the topic.</p>
+<p>JMS also provides a ConnectionFactory that clients (like Camel) can use to cre- ate a connection with a JMS provider. JMS providers are usually referred to as brokers because they manage the communication between a message producer and a mes- sage consumer.</p>
+<h3 id="HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER"><a href="#HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER" class="headerlink" title="HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER"></a>HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER</h3><p>To connect Camel to a specific JMS provider, you need to configure Camel’s JMS com- ponent with an appropriate ConnectionFactory.<br>Apache ActiveMQ is one of the most popular open source JMS providers, and it’s the primary JMS broker that the Camel team uses to test the JMS component. </p>
+<h3 id="JSM-destinations"><a href="#JSM-destinations" class="headerlink" title="JSM destinations"></a>JSM destinations</h3><p>There are two types of JMS destinations: queues and topics. The queue is a point-to-point channel, where each message has only one recipient. A topic delivers a copy of the message to all clients who have subscribed to receive it.</p>
+<h3 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h3><p>o in the case of Apache ActiveMQ, you can create an ActiveMQConnectionFactory<br>that points to the location of the running ActiveMQ broker:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConnectionFactory connectionFactory =</span><br><span class="line">  <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"vm://localhost"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>The vm://localhost URI means that you should connect to an embedded broker named “localhost” running inside the current JVM. The vm transport connector in ActiveMQ creates a broker on demand if one isn’t running already, so it’s very handy for quickly testing JMS applications; for production scenarios, it’s recommended that you connect to a broker that’s already running. </p>
+<p>Next, when you create your CamelContext, you can add the JMS component as follows:<br>CamelContext context = new DefaultCamelContext();<br>context.addComponent(“jms”,<br>    JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));<br>The JMS component and the ActiveMQ-specific connection factory aren’t part of the camel-core module. In order to use these, you’ll need to add some dependencies to your Maven-based project. For the plain JMS component, all you have to add is this:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.camel<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>camel-jms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">The connection factory comes directly from ActiveMQ, so you’ll need the following dependency:</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="USING-URIS-TO-SPECIFY-THE-DESTINATION"><a href="#USING-URIS-TO-SPECIFY-THE-DESTINATION" class="headerlink" title="USING URIS TO SPECIFY THE DESTINATION"></a>USING URIS TO SPECIFY THE DESTINATION</h3><p>Once the JMS component is configured, you can start sending and receiving JMS mes- sages at your leisure. Because you’re using URIs, this is a real breeze to configure.<br>Let’s say you want to send a JMS message to the queue named incomingOrders. The URI in this case would be</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jms:queue:incomingOrders</span><br></pre></td></tr></table></figure>
+
+<p>This is pretty self-explanatory. The “jms” prefix indicates that you’re using the JMS component you configured before. By specifying “queue”, the JMS component knows to send to a queue named incomingOrders. You could even have omitted the queue<br>qualifier, because the default behavior is to send to a queue rather than a topic.</p>
+<p>NOTE Some endpoints can have an intimidating list of endpoint URI proper- ties. For instance, the JMS component has about 60 options, many of which are only used in specific JMS scenarios. Camel always tries to provide built-in defaults that fit most cases, and you can always find out what the default values are by browsing to the component’s page in the online Camel documentation. </p>
+<p>Using Camel’s Java DSL, you can send a message to the incomingOrders queue by using the to keyword like this:<br>…to(“jms:queue:incomingOrders”)<br>This can be read as sending to the JMS queue named incomingOrders.</p>
+<h2 id="FINDING-ROUTE-BUILDERS"><a href="#FINDING-ROUTE-BUILDERS" class="headerlink" title="FINDING ROUTE BUILDERS"></a>FINDING ROUTE BUILDERS</h2><p>Using the Spring CamelContext as a runtime and the Java DSL for route development is a great way of using Camel. In fact, it’s the most frequent usage of Camel.<br>You saw before that you can explicitly tell the Spring CamelContext what route builders to load. You can do this by using the routerBuilder element:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">routeBuilder</span> <span class="attr">ref</span>=<span class="string">"ftpToJmsRoute"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Being this explicit results in a clean and concise definition of what is being loaded into Camel.<br>Sometimes, though, you may need to be a bit more dynamic. This is where the packageScan and contextScan elements come in:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>This packageScan element will load all RouteBuilder classes found in the camelinac- tion.routes package, including all subpackages.<br>You can even be a bit more picky about what route builders are included:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">excludes</span>&gt;</span>**.*Test*<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">includes</span>&gt;</span>**.*<span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>In this case, you’re loading all route builders in the camelinaction.routes package, except for ones with “Test” in the class name. The matching syntax is similar to what is used in Apache Ant’s file pattern matchers.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-28-Scala/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-28-Scala/" class="post-title-link" itemprop="url">Scala</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Scala-String"><a href="#Scala-String" class="headerlink" title="Scala String"></a>Scala String</h1><p>Scala offers the magic of implicit conver‐ sions, String instances also have access to all the methods of the StringOps class, so you can do many other things with them, such as treating a String instance as a sequence of characters. As a result, you can iterate over every character in the string using the foreach method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"hello"</span>.foreach(println) h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l o</span><br><span class="line"><span class="comment">//You can treat a String as a sequence of characters in a for loop:</span></span><br><span class="line">scala&gt; <span class="keyword">for</span> (c &lt;- <span class="string">"hello"</span>) println(c)</span><br><span class="line"></span><br><span class="line">scala&gt; val result = <span class="string">"hello world"</span>.filter(_ != <span class="string">'l'</span>) result: String = heo word</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1131,82 +1127,6 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-28-Scala/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-28-Scala/" class="post-title-link" itemprop="url">Scala</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Scala-String"><a href="#Scala-String" class="headerlink" title="Scala String"></a>Scala String</h1><p>Scala offers the magic of implicit conver‐ sions, String instances also have access to all the methods of the StringOps class, so you can do many other things with them, such as treating a String instance as a sequence of characters. As a result, you can iterate over every character in the string using the foreach method:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"hello"</span>.foreach(println) h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l o</span><br><span class="line"><span class="comment">//You can treat a String as a sequence of characters in a for loop:</span></span><br><span class="line">scala&gt; <span class="keyword">for</span> (c &lt;- <span class="string">"hello"</span>) println(c)</span><br><span class="line"></span><br><span class="line">scala&gt; val result = <span class="string">"hello world"</span>.filter(_ != <span class="string">'l'</span>) result: String = heo word</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-15-PrestoDB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1290,7 +1210,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-19-ZooKeeper/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-09-Chronicle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1306,7 +1226,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-08-19-ZooKeeper/" class="post-title-link" itemprop="url">Zoo-keeper</a>
+              <a href="/2018-08-09-Chronicle/" class="post-title-link" itemprop="url">Chronicle</a>
             
           </h1>
         
@@ -1338,84 +1258,216 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
 
       
           
-            <h1 id="ZK-Motto"><a href="#ZK-Motto" class="headerlink" title="ZK Motto"></a>ZK Motto</h1><blockquote>
-<p>the motto “ZooKeeper: Because Coordinating Distributed Systems is a Zoo.”</p>
+            <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Chronicle Software is about simplifying fast data.  It is a suite of libraries to make it easier to write, monitor and tune data processing systems where performance and scalability are concerned.</p>
+<h1 id="Writing-to-a-Queue"><a href="#Writing-to-a-Queue" class="headerlink" title="Writing to a Queue"></a>Writing to a Queue</h1><p>In Chronicle Queue we refer to the act of writing your data to the Chronicle queue, as storing an excerpt. This data could be made up from any data type, including text, numbers, or serialised blobs. Ultimately, all your data, regardless of what it is, is stored as a series of bytes.</p>
+<p>Just before storing your excerpt, Chronicle Queue reserves an 8-byte header. Chronicle Queue writes the length of your data into this header. This way, when Chronicle Queue comes to read your excerpt, it knows how long each blob of data is. We refer to this 8-byte header, along with your excerpt, as a document. So strictly speaking Chronicle Queue can be used to read and write documents.</p>
+<blockquote>
+<p>Within this 8-byte header we also reserve a few bits for a number of internal operations, such as locking, to make Chronicle Queue thread-safe across both processors and threads. The important thing to note is that because of this, you can’t strictly convert the 8 bytes to an integer to find the length of your data blob.</p>
 </blockquote>
-<h1 id="Features-of-Zookeeper"><a href="#Features-of-Zookeeper" class="headerlink" title="Features of Zookeeper"></a>Features of Zookeeper</h1><ul>
-<li>Synchronization − Mutual exclusion and co-operation between server processes.</li>
-<li>Ordered Messages - The strict ordering means that sophisticated synchronization primitives can be implemented at the client.</li>
-<li>Reliability - The reliability aspects keep it from being a single point of failure.</li>
-<li>Atomicity − Data transfer either succeeds or fails completely, but no transaction is partial.</li>
-<li>High performant - The performance aspects of Zookeeper means it can be used in large, distributed systems.</li>
-<li>Distributed.</li>
-<li>High avaliablity.</li>
-<li>Fault-tolerant.</li>
-<li>Loose coupling.</li>
-<li>Partial failure.</li>
-<li>High throughput and low latency - data is stored data in memory and on disk as well.</li>
-<li>Replicated.</li>
-<li>Automatic failover: When a Zookeeper dies, the session is automatically migrated over to another Zookeeper.</li>
+<p>To write data to a Chronicle-Queue, you must first create an Appender</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (ChronicleQueue queue = SingleChronicleQueueBuilder.binary(path + <span class="string">"/trades"</span>).build()) &#123;</span><br><span class="line">   <span class="keyword">final</span> ExcerptAppender appender = queue.acquireAppender();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Chronicle Queue uses the following low-level interface to write the data:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="keyword">final</span> DocumentContext dc = appender.writingDocument()) &#123;</span><br><span class="line">      dc.wire().write().text(“your text data“);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>So, Chronicle Queue uses an <code>Appender to write</code> to the queue and a <code>Tailer to read</code> from the queue. Unlike other java queuing solutions, messages are not lost when they are read with a Tailer. </p>
+<p>Each Chronicle Queue excerpt has a unique index.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="keyword">final</span> DocumentContext dc = appender.writingDocument()) &#123;</span><br><span class="line">    dc.wire().write().text(“your text data“);</span><br><span class="line">    System.out.println(<span class="string">"your data was store to index="</span>+ dc.index());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The high-level methods below such as writeText() are convenience methods on calling appender.writingDocument(), but both approaches essentially do the same thing. The actual code of writeText(CharSequence text) looks like this:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> text to write a message</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writeText</span><span class="params">(CharSequence text)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (DocumentContext dc = writingDocument()) &#123;</span><br><span class="line">        dc.wire().bytes().append8bit(text);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This is the highest-level API which hides the fact you are writing to messaging at all. The benefit is that you can swap calls to the interface with a real component, or an interface to a different protocol.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// using the method writer interface.</span></span><br><span class="line">RiskMonitor riskMonitor = appender.methodWriter(RiskMonitor.class);</span><br><span class="line"><span class="keyword">final</span> LocalDateTime now = LocalDateTime.now(Clock.systemUTC());</span><br><span class="line">riskMonitor.trade(<span class="keyword">new</span> TradeDetails(now, <span class="string">"GBPUSD"</span>, <span class="number">1.3095</span>, <span class="number">10e6</span>, Side.Buy, <span class="string">"peter"</span>));</span><br></pre></td></tr></table></figure>
+
+<p>You can write a “self-describing message”. Such messages can support schema changes. They are also easier to understand when debugging or diagnosing problems.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// writing a self describing message</span></span><br><span class="line">appender.writeDocument(w -&gt; w.write(<span class="string">"trade"</span>).marshallable(</span><br><span class="line">        m -&gt; m.write(<span class="string">"timestamp"</span>).dateTime(now)</span><br><span class="line">                .write(<span class="string">"symbol"</span>).text(<span class="string">"EURUSD"</span>)</span><br><span class="line">                .write(<span class="string">"price"</span>).float64(<span class="number">1.1101</span>)</span><br><span class="line">                .write(<span class="string">"quantity"</span>).float64(<span class="number">15e6</span>)</span><br><span class="line">                .write(<span class="string">"side"</span>).object(Side.class, Side.Sell)</span><br><span class="line">                .write(<span class="string">"trader"</span>).text(<span class="string">"peter"</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>You can write “raw data” which is self-describing. The types will always be correct; position is the only indication as to the meaning of those values.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// writing just data</span></span><br><span class="line">appender.writeDocument(w -&gt; w</span><br><span class="line">        .getValueOut().int32(<span class="number">0x123456</span>)</span><br><span class="line">        .getValueOut().int64(<span class="number">0x999000999000L</span>)</span><br><span class="line">        .getValueOut().text(<span class="string">"Hello World"</span>));</span><br></pre></td></tr></table></figure>
+
+<p>You can write “raw data” which is not self-describing. Your reader must know what this data means, and the types that were used.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// writing raw data</span></span><br><span class="line">appender.writeBytes(b -&gt; b</span><br><span class="line">        .writeByte((<span class="keyword">byte</span>) <span class="number">0x12</span>)</span><br><span class="line">        .writeInt(<span class="number">0x345678</span>)</span><br><span class="line">        .writeLong(<span class="number">0x999000999000L</span>)</span><br><span class="line">        .writeUtf8(<span class="string">"Hello World"</span>));</span><br></pre></td></tr></table></figure>
+
+<p>This is the lowest level way to write data. You get an address to raw memory and you can write what you want.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Unsafe low level</span></span><br><span class="line">appender.writeBytes(b -&gt; &#123;</span><br><span class="line">    <span class="keyword">long</span> address = b.address(b.writePosition());</span><br><span class="line">    Unsafe unsafe = UnsafeMemory.UNSAFE;</span><br><span class="line">    unsafe.putByte(address, (<span class="keyword">byte</span>) <span class="number">0x12</span>);</span><br><span class="line">    address += <span class="number">1</span>;</span><br><span class="line">    unsafe.putInt(address, <span class="number">0x345678</span>);</span><br><span class="line">    address += <span class="number">4</span>;</span><br><span class="line">    unsafe.putLong(address, <span class="number">0x999000999000L</span>);</span><br><span class="line">    address += <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = <span class="string">"Hello World"</span>.getBytes(StandardCharsets.ISO_8859_1);</span><br><span class="line">    unsafe.copyMemory(bytes, Unsafe.ARRAY_BYTE_BASE_OFFSET, <span class="keyword">null</span>, address, bytes.length);</span><br><span class="line">    b.writeSkip(<span class="number">1</span> + <span class="number">4</span> + <span class="number">8</span> + bytes.length);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>You can print the contents of the queue. You can see the first two, and last two messages store the same data.</p>
+<p>// dump the content of the queue<br>System.out.println(queue.dump());</p>
+<h1 id="position-262568-header-0"><a href="#position-262568-header-0" class="headerlink" title="position: 262568, header: 0"></a>position: 262568, header: 0</h1><p>— !!data #binary<br>trade: {<br>  timestamp: 2016-07-17T15:18:41.141,<br>  symbol: GBPUSD,<br>  price: 1.3095,<br>  quantity: 10000000.0,<br>  side: Buy,<br>  trader: peter<br>}</p>
+<h1 id="position-262684-header-1"><a href="#position-262684-header-1" class="headerlink" title="position: 262684, header: 1"></a>position: 262684, header: 1</h1><p>— !!data #binary<br>trade: {<br>  timestamp: 2016-07-17T15:18:41.141,<br>  symbol: EURUSD,<br>  price: 1.1101,<br>  quantity: 15000000.0,<br>  side: Sell,<br>  trader: peter<br>}</p>
+<h1 id="position-262800-header-2"><a href="#position-262800-header-2" class="headerlink" title="position: 262800, header: 2"></a>position: 262800, header: 2</h1><p>— !!data #binary<br>!int 1193046<br>168843764404224<br>Hello World</p>
+<h1 id="position-262830-header-3"><a href="#position-262830-header-3" class="headerlink" title="position: 262830, header: 3"></a>position: 262830, header: 3</h1><p>— !!data #binary<br>000402b0       12 78 56 34 00 00  90 99 00 90 99 00 00 0B   ·xV4·· ········<br>000402c0 48 65 6C 6C 6F 20 57 6F  72 6C 64                Hello Wo rld</p>
+<h1 id="position-262859-header-4"><a href="#position-262859-header-4" class="headerlink" title="position: 262859, header: 4"></a>position: 262859, header: 4</h1><p>— !!data #binary<br>000402c0                                               12                 ·<br>000402d0 78 56 34 00 00 90 99 00  90 99 00 00 0B 48 65 6C xV4····· ·····Hel<br>000402e0 6C 6F 20 57 6F 72 6C 64 </p>
+<h2 id="Finding-the-index-at-the-end-of-a-Chronicle-Queue"><a href="#Finding-the-index-at-the-end-of-a-Chronicle-Queue" class="headerlink" title="Finding the index at the end of a Chronicle Queue"></a>Finding the index at the end of a Chronicle Queue</h2><p>Chronicle Queue appenders are thread-local. In fact when you ask for:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> ExcerptAppender appender = queue.acquireAppender();</span><br></pre></td></tr></table></figure>
+
+<p>the acquireAppender() uses a thread-local pool to give you an appender which will be reused to reduce object creation.</p>
+<p>As such, the method call to:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> index = appender.lastIndexAppended();</span><br></pre></td></tr></table></figure>
+
+<p>will only give you the last index appended by this appender; not the last index appended by any appender.</p>
+<p>If you wish to find the index of the last record written, then you have to call:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> index = queue.createTailer().toEnd().index();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dumping-a-Chronicle-Queue-cq4-file-as-text-to-the-Command-Line"><a href="#Dumping-a-Chronicle-Queue-cq4-file-as-text-to-the-Command-Line" class="headerlink" title="Dumping a Chronicle Queue, cq4 file as text to the Command Line"></a>Dumping a Chronicle Queue, cq4 file as text to the Command Line</h2><p>Chronicle Queue stores its data in binary format, with a file extension of cq4:</p>
+<p>\��@π�header∂�SCQStoreÇE���»wireType∂�WireTypeÊBINARYÕwritePositionèèèèß��������ƒroll∂�SCQSRollÇ*���∆length¶ÄÓ6�∆format<br>ÎyyyyMMdd-HH≈epoch¶ÄÓ6�»indexing∂SCQSIndexingÇN��� indexCount•��ÃindexSpacing�Àindex2Indexé����ß��������…lastIndexé�<br>���ß��������ﬂlastAcknowledgedIndexReplicatedé������ßˇˇˇˇˇˇˇˇ»recovery∂�TimedStoreRecoveryÇ����…timeStampèèèß����������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������<br>This can often be a bit difficult to read, so it is better to dump the cq4 files as text. This can also help you fix your production issues, as it gives you the visibility as to what has been stored in the queue, and in what order.</p>
+<p>You have to use the chronicle-queue.jar, from any version 4.5.3 or later, and set up the dependent files in the class path. </p>
+<p>$ java -cp chronicle-queue-4.5.5.jar net.openhft.chronicle.queue.DumpQueueMain 19700101-02.cq4</p>
+<p>this will dump the 19700101-02.cq4 file out as text, as shown below:</p>
+<p>— !!meta-data #binary<br>header: !SCQStore {<br>  wireType: !WireType BINARY,<br>  writePosition: 0,<br>  roll: !SCQSRoll {<br>    length: !int 3600000,<br>    format: yyyyMMdd-HH,<br>    epoch: !int 3600000<br>  },<br>  indexing: !SCQSIndexing {<br>    indexCount: !short 4096,<br>    indexSpacing: 4,<br>    index2Index: 0,<br>    lastIndex: 0<br>  },<br>  lastAcknowledgedIndexReplicated: -1,<br>  recovery: !TimedStoreRecovery {<br>    timeStamp: 0<br>  }<br>}</p>
+<p>…<br>4198044 bytes remaining</p>
+<h2 id="Reading-from-a-Queue-using-a-Tailer"><a href="#Reading-from-a-Queue-using-a-Tailer" class="headerlink" title="Reading from a Queue using a Tailer"></a>Reading from a Queue using a Tailer</h2><p>Reading the queue follows the same pattern as writing, except there is a possibility there is not a message when you attempt to read it.</p>
+<p>Start Reading</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (ChronicleQueue queue = SingleChronicleQueueBuilder.binary(path + <span class="string">"/trades"</span>).build()) &#123;</span><br><span class="line">   <span class="keyword">final</span> ExcerptTailer tailer = queue.createTailer();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>You can turn each message into a method call based on the content of the message.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reading using method calls</span></span><br><span class="line">RiskMonitor monitor = System.out::println;</span><br><span class="line">MethodReader reader = tailer.methodReader(monitor);</span><br><span class="line"><span class="comment">// read one message</span></span><br><span class="line">assertTrue(reader.readOne());</span><br></pre></td></tr></table></figure>
+
+<p>You can decode the message yourself.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">assertTrue(tailer.readDocument(w -&gt; w.read(<span class="string">"trade"</span>).marshallable(</span><br><span class="line">        m -&gt; &#123;</span><br><span class="line">            LocalDateTime timestamp = m.read(<span class="string">"timestamp"</span>).dateTime();</span><br><span class="line">            String symbol = m.read(<span class="string">"symbol"</span>).text();</span><br><span class="line">            <span class="keyword">double</span> price = m.read(<span class="string">"price"</span>).float64();</span><br><span class="line">            <span class="keyword">double</span> quantity = m.read(<span class="string">"quantity"</span>).float64();</span><br><span class="line">            Side side = m.read(<span class="string">"side"</span>).object(Side.class);</span><br><span class="line">            String trader = m.read(<span class="string">"trader"</span>).text();</span><br><span class="line">            <span class="comment">// do something with values.</span></span><br><span class="line">        &#125;)));</span><br></pre></td></tr></table></figure>
+
+<p>You can read self-describing data values. This will check the types are correct, and convert as required.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">assertTrue(tailer.readDocument(w -&gt; &#123;</span><br><span class="line">    ValueIn in = w.getValueIn();</span><br><span class="line">    <span class="keyword">int</span> num = in.int32();</span><br><span class="line">    <span class="keyword">long</span> num2 = in.int64();</span><br><span class="line">    String text = in.text();</span><br><span class="line">    <span class="comment">// do something with values</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>You can read raw data as primitives and strings.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">assertTrue(tailer.readBytes(in -&gt; &#123;</span><br><span class="line">    <span class="keyword">int</span> code = in.readByte();</span><br><span class="line">    <span class="keyword">int</span> num = in.readInt();</span><br><span class="line">    <span class="keyword">long</span> num2 = in.readLong();</span><br><span class="line">    String text = in.readUtf8();</span><br><span class="line">    assertEquals(<span class="string">"Hello World"</span>, text);</span><br><span class="line">    <span class="comment">// do something with values</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>or, you can get the underlying memory address and access the native memory.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">assertTrue(tailer.readBytes(b -&gt; &#123;</span><br><span class="line">    <span class="keyword">long</span> address = b.address(b.readPosition());</span><br><span class="line">    Unsafe unsafe = UnsafeMemory.UNSAFE;</span><br><span class="line">    <span class="keyword">int</span> code = unsafe.getByte(address);</span><br><span class="line">    address++;</span><br><span class="line">    <span class="keyword">int</span> num = unsafe.getInt(address);</span><br><span class="line">    address += <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">long</span> num2 = unsafe.getLong(address);</span><br><span class="line">    address += <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">int</span> length = unsafe.getByte(address);</span><br><span class="line">    address++;</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[length];</span><br><span class="line">    unsafe.copyMemory(<span class="keyword">null</span>, address, bytes, Unsafe.ARRAY_BYTE_BASE_OFFSET, bytes.length);</span><br><span class="line">    String text = <span class="keyword">new</span> String(bytes, StandardCharsets.UTF_8);</span><br><span class="line">    assertEquals(<span class="string">"Hello World"</span>, text);</span><br><span class="line">    <span class="comment">// do something with values</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tailers-and-File-Handlers-Clean-up"><a href="#Tailers-and-File-Handlers-Clean-up" class="headerlink" title="Tailers and File Handlers Clean up"></a>Tailers and File Handlers Clean up</h3><p>Chronicle queue tailers may create file handlers, the file handlers are cleaned up whenever the associated chronicle queue is close() or whenever the Jvm runs a Garbage Collection. </p>
+<h3 id="ExcerptTailer-toEnd"><a href="#ExcerptTailer-toEnd" class="headerlink" title="ExcerptTailer.toEnd()"></a>ExcerptTailer.toEnd()</h3><p>In some applications, it may be necessary to start reading from the end of the queue (e.g. in a restart scenario). For this use-case, ExcerptTailer provides the toEnd() method.</p>
+<p>If it is necessary to read backwards through the queue from the end, then the tailer can be set to read backwards:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ExcerptTailer tailer = queue.createTailer();</span><br><span class="line">tailer.direction(TailerDirection.BACKWARD).toEnd();</span><br></pre></td></tr></table></figure>
+
+<p>When reading backwards, then the toEnd() method will move the tailer to the last record in the queue. If the queue is not empty, then there will be a DocumentContext available for reading:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// this will be true if there is at least one message in the queue</span></span><br><span class="line"><span class="keyword">boolean</span> messageAvailable = tailer.toEnd().direction(TailerDirection.BACKWARD).</span><br><span class="line">        readingDocument().isPresent();</span><br></pre></td></tr></table></figure>
+
+<h1 id="Low-GC"><a href="#Low-GC" class="headerlink" title="Low GC"></a>Low GC</h1><p>Ultra low GC means less than one minor collection per day.</p>
+<p>the principles of Zero-copy eliminating unnecessary garbage collection and increased speed. Runtime code generation that reduces code size for efficient CPU cache usage and increased speed. Smart ordering for optimal parsing and you guessed it increased speed. All these combine to allow Chronicle FIX to achieve excellent performance results.</p>
+<h1 id="Low-garbage-rate"><a href="#Low-garbage-rate" class="headerlink" title="Low garbage rate"></a>Low garbage rate</h1><p>Minimising garbage is key to avoiding GC pauses. To use your L1 and L2 cache efficiently, you need to keep your garbage rates very low.  If you are not using these cache efficiently your application can be 2-5x slower. </p>
+<p>The garbage from Chronicle is low enough that you can process one million events without jstat detecting you have created any garbage.  jstat only displays multiples of 4 KB, and only when a new TLAB is allocated.  Chronicle does create garbage, but it is extremely low. i.e. a few objects per million events processes.</p>
+<p>Once you make the GC pauses manageable, or non-existent, you start to see other sources of delay in your system.   Take away the boulders and you start to see the rocks.  Take away the rocks and you start to see the pebbles.</p>
+<h1 id="Chronicle-has-minimal-interaction-with-the-Operating-System"><a href="#Chronicle-has-minimal-interaction-with-the-Operating-System" class="headerlink" title="Chronicle has minimal interaction with the Operating System."></a>Chronicle has minimal interaction with the Operating System.</h1><p>System calls are slow, and if you can avoid call the OS, you can save significant amounts of latency. </p>
+<p>For example, if you send a message over TCP on loopback, this can add a 10 micro-seconds latency between writing and reading the data.  You can write to a chronicle, which is a plain write to memory, and read from chronicle, which is also a read from memory with a latency of 0.2 micro-seconds. (And as I mentioned before, you get persistence as well)</p>
+<h1 id="No-need-to-worry-about-running-out-of-heap"><a href="#No-need-to-worry-about-running-out-of-heap" class="headerlink" title="No need to worry about running out of heap."></a>No need to worry about running out of heap.</h1><p>A common problem with unbounded queues and this uses an open ended amount of heap.  </p>
+<p>Chronicle solves this by not using the heap to store data, but instead using memory mapped files.  This improve memory utilisation by making the data more compact but also means a 1 GB JVM can stream 1 TB of data over a day without worrying about the heap or how much main memory you have.  In this case, an unbounded queue becomes easier to manage.</p>
+<h1 id="how-it-works"><a href="#how-it-works" class="headerlink" title="how it works"></a>how it works</h1><p>Chronicle uses a memory mapped file to continuously journal messages, chronicles file-based storage will slowly grow in size as more data is written to the queue, the size of the queue can exceed your available memory, you are only constrained by the amount of disk space you have on your server. Chronicle writes data directly into off-heap memory which is shared between java processes on the same server.</p>
+<p>Chronicle is very fast, it is able to write and read a message in just two microseconds with no garbage. Typically at the end of each day, you archive the queue and start the next day with a fresh empty queue.</p>
+<h1 id="Chronicle-Queue-is-a-distributed-unbounded-persisted-queue"><a href="#Chronicle-Queue-is-a-distributed-unbounded-persisted-queue" class="headerlink" title="Chronicle Queue is a distributed unbounded persisted queue."></a>Chronicle Queue is a distributed unbounded persisted queue.</h1><p>Chronicle Queue:</p>
+<p>supports asynchronous RMI and Publish/Subscribe interfaces with microsecond latencies.</p>
+<p>passes messages between JVMs in under a microsecond (in optimised examples)</p>
+<p>passes messages between JVMs on different machines via replication in under 10 microseconds (in optimised examples)</p>
+<p>provides stable, soft, real time latencies into the millions of messages per second for a single thread to one queue; with total ordering of every event.</p>
+<h2 id="Queue-introduction"><a href="#Queue-introduction" class="headerlink" title="Queue introduction"></a>Queue introduction</h2><p>Chronicle Queue is a Java project focused on building a persisted low-latency messaging framework for high performance and critical applications.</p>
+<p>Chronicle diagram 005<br>At first glance Chronicle Queue can be seen as simply another queue implementation. However, it has major design choices that should be emphasised.</p>
+<p>Using non-heap storage options (RandomAccessFile), Chronicle Queue provides a processing environment where applications do not suffer from Garbage Collection (GC). When implementing high-performance and memory-intensive applications (you heard the fancy term “bigdata”?) in Java, one of the biggest problems is garbage collection.</p>
+<p>Garbage collection may slow down your critical operations non-deterministically at any time. In order to avoid non-determinism, and escape from garbage collection delays, off-heap memory solutions are ideal. The main idea is to manage your memory manually so it does not suffer from garbage collection. Chronicle Queue behaves like a management interface over off-heap memory so you can build your own solutions over it.</p>
+<p>Chronicle Queue uses RandomAccessFiles while managing memory and this choice brings lots of possibilities. RandomAccessFiles permit non-sequential, or random, access to a file’s contents. To access a file randomly, you open the file, seek a particular location, and read from or write to that file. RandomAccessFiles can be seen as “large” C-type byte arrays that you can access at any random index “directly” using pointers. File portions can be used as ByteBuffers if the portion is mapped into memory.</p>
+<p>This memory mapped file is also used for exceptionally fast interprocess communication (IPC) without affecting your system performance. There is no garbage collection as everything is done off-heap.</p>
+<h2 id="Message-type"><a href="#Message-type" class="headerlink" title="Message type"></a>Message type</h2><ul>
+<li>TCP: Stream-oriented </li>
+<li>UDP, SCTP: message-oriented .</li>
 </ul>
-<h2 id="Different-type-of-data"><a href="#Different-type-of-data" class="headerlink" title="Different type of data"></a>Different type of data</h2><p>When designing an application with ZooKeeper, one ideally separates application data from control or coordination data. For example, the users of a web-mail service are interested in their mailbox content, but not on which server is handling the requests of a particular mailbox. The mailbox content is application data, whereas the mapping of the mailbox to a specific mail server is part of the coordination data (or metadata). A ZooKeeper ensemble manages the latter.</p>
-<p>The multiple processes consequently need to implement mutual exclusion. We can actually think of the task of acquiring mastership as the one of acquiring a lock: the process that acquires the mastership lock exercises the role of master.</p>
-<p>Coordination does not always take the form of synchronization primitives like leader election or locks. Configuration metadata is often used as a way for a process to convey what others should be doing. For example, in a master-worker system, workers need to know the tasks that have been assigned to them, and this information must be available even if the master crashes.</p>
-<h2 id="How-world-work-without-ZooKeeper"><a href="#How-world-work-without-ZooKeeper" class="headerlink" title="How world work without ZooKeeper"></a>How world work without ZooKeeper</h2><p>It is certainly possible to build distributed systems without using ZooKeeper. ZooKeep‐ er, however, offers developers the possibility of focusing more on application logic rather than on arcane distributed systems concepts. Programming distributed systems without ZooKeeper is possible, but more difficult.</p>
-<h2 id="What-does-ZooKeeper-does-not-do"><a href="#What-does-ZooKeeper-does-not-do" class="headerlink" title="What does ZooKeeper does not do"></a>What does ZooKeeper does not do</h2><p>The ensemble of ZooKeeper servers manages critical application data related to coor‐ dination. ZooKeeper is not for bulk storage. For bulk storage of application data, there are a number of options available, such as databases and distributed file systems. When designing an application with ZooKeeper, one ideally separates application data from control or coordination data.</p>
-<p>ZooKeeper, however, does not implement the tasks for you. It does not elect a master or track live processes for the application out of the box. Instead, it provides the tools for implementing such tasks. The developer decides what coordination tasks to implement.</p>
-<p>Processes in a distributed system have two broad options for communication: they can exchange messages directly through a network, or read and write to some shared storage. ZooKeeper uses the shared storage model to let applications implement coordination and synchronization primitives. But shared storage itself requires network communi‐ cation between the processes and the storage. It is important to stress the role of network communication because it is an important source of complications in the design of a distributed system.</p>
-<p>This scenario leads to a problem commonly called split-brain: two or more parts of the system make progress independ‐ ently, leading to inconsistent behavior. As part of coming up with a way to cope with master failures, it is critical that we avoid split-brain scenarios.</p>
-<h1 id="Tasks"><a href="#Tasks" class="headerlink" title="Tasks"></a>Tasks</h1><p>The following requirements for our master-worker architecture:<br>Master election<br>It is critical for progress to have a master available to assign tasks to workers.<br>Crash detection<br>The master must be able to detect when workers crash or disconnect.<br>Group membership management<br>The master must be able to figure out which workers are available to execute tasks.<br>Metadata management<br>The master and the workers must be able to store assignments and execution sta‐ tuses in a reliable manner.</p>
-<h1 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h1><p>known as CAP, which stands for Consistency, Availability, and Partition-tolerance, says that when designing a distributed system we may want all three of those properties, but that no system can handle all three.2 Zoo‐ Keeper has been designed with mostly consistency and availability in mind, although it also provides read-only capability in the presence of network partitions.</p>
-<h1 id="ZooKeeper-Basics"><a href="#ZooKeeper-Basics" class="headerlink" title="ZooKeeper Basics"></a>ZooKeeper Basics</h1><p>Several primitives used for coordination are commonly shared across many applica‐ tions. Consequently, one way of designing a service used for coordination is to come up with a list of primitives, expose calls to create instances of each primitive, and ma‐ nipulate these instances directly. For example, we could say that distributed locks con‐ stitute an important primitive and expose calls to create, acquire, and release locks.<br>Such a design, however, suffers from a couple of important shortcomings. First, we need to either come up with an exhaustive list of primitives used beforehand, or keep ex‐ tending the API to introduce new primitives. Second, it does not give flexibility to the application using the service to implement primitives in the way that is most suitable for it.<br>We consequently have taken a different path with ZooKeeper. ZooKeeper does not ex‐ pose primitives directly. Instead, it exposes a file system-like API comprised of a small set of calls that enables applications to implement their own primitives. We typically use recipes to denote these implementations of primitives. Recipes include ZooKeeper operations that manipulate small data nodes, called znodes, that are organized hier‐ archically as a tree, just like in a file system.</p>
-<h2 id="znodes"><a href="#znodes" class="headerlink" title="znodes"></a>znodes</h2><p>a few other znodes that could be useful in a master- worker configuration:</p>
+<h2 id="On-heap-vs-off-heap-memory-usage"><a href="#On-heap-vs-off-heap-memory-usage" class="headerlink" title="On heap vs off heap memory usage"></a>On heap vs off heap memory usage</h2><p>Overview</p>
+<p>I was recently asked about the benefits and wisdom of using off heap memory in Java.  The answers may be of interest to others facing the same choices.</p>
+<p>Off heap memory is nothing special.  The thread stacks, application code, NIO buffers are all off heap.  In fact in C and C++, you only have unmanaged memory as it does not have a managed heap by default.  The use of managed memory or “heap” in Java is a special feature of the language. Note: Java is not the only language to do this.<br>new Object() vs Object pool vs Off Heap memory.</p>
+<p>new Object()</p>
+<p>Before Java 5.0, using object pools was very popular.  Creating objects was still very expensive.   However, from Java 5.0, object allocation and garbage cleanup was made much cheaper, and developers found they got a performance speed up and a simplification of their code by removing object pools and just creating new objects whenever needed.  Before Java 5.0, almost any object pool, even an object pool which used objects provided an improvement, from Java 5.0 pooling only expensive objects obviously made sense e.g. threads, socket and database connections.</p>
+<p>Object pools</p>
+<p>In the low latency space it was still apparent that recycling mutable objects improved performance by reduced pressure on your CPU caches.  These objects have to have simple life cycles and have a simple structure, but you could see significant improvements in performance and jitter by using them.<br>Another area where it made sense to use object pools is when loading large amounts of data with many duplicate objects. With a significant reduction in memory usage and a reduction in the number of objects the GC had to manage, you saw a reduction in GC times and an increase in throughput.<br>These object pools were designed to be more light weight than say using a synchronized HashMap, and so they still helped.</p>
+<p>Take this StringInterner class as an example. You pass it a recycled mutable StringBuilder of the text you want as a String and it will provide a String which matches.  Passing a String would be inefficient as you would have already created the object.  The StringBuilder can be recycled.<br>Note: this structure has an interesting property that requires no additional thread safety features, like volatile or synchronized, other than is provided by the minimum Java guarantees. i.e. you can see the final fields in a String correctly and only read consistent references.</p>
+<p>public class StringInterner {<br>    private final String[] interner;<br>    private final int mask;<br>    public StringInterner(int capacity) {<br>        int n = Maths.nextPower2(capacity, 128);<br>        interner = new String[n];<br>        mask = n - 1;<br>    }</p>
+<pre><code>private static boolean isEqual(@Nullable CharSequence s, @NotNull CharSequence cs) {
+    if (s == null) return false;
+    if (s.length() != cs.length()) return false;
+    for (int i = 0; i &lt; cs.length(); i++)
+        if (s.charAt(i) != cs.charAt(i))
+            return false;
+    return true;
+}
+
+@NotNull
+public String intern(@NotNull CharSequence cs) {
+    long hash = 0;
+    for (int i = 0; i &lt; cs.length(); i++)
+        hash = 57 * hash + cs.charAt(i);
+    int h = (int) Maths.hash(hash) &amp; mask;
+    String s = interner[h];
+    if (isEqual(s, cs))
+        return s;
+    String s2 = cs.toString();
+    return interner[h] = s2;
+}</code></pre><p>}
+Off heap memory usage</p>
+<p>Using off heap memory and using object pools both help reduce GC pauses, this is their only similarity.  Object pools are good for short lived mutable objects, expensive to create objects and long live immutable objects where there is a lot of duplication.  Medium lived mutable objects, or complex objects are more likely to be better left to the GC to handle.  However, medium to long lived mutable objects suffer in a number of ways which off heap memory solves.</p>
+<p>Off heap memory provides;</p>
+<p>Scalability to large memory sizes e.g. over 1 TB and larger than main memory.<br>Notional impact on GC pause times.<br>Sharing between processes, reducing duplication between JVMs, and making it easier to split JVMs.<br>Persistence for faster restarts or replying of production data in test.<br>The use of off heap memory gives you more options in terms of how you design your system.  The most important improvement is not performance, but determinism.</p>
+<p>Off heap and testing</p>
+<p>One of the biggest challenges in high performance computing is reproducing obscure bugs and being able to prove you have fixed them.  By storing all your input events and data off heap in a persisted way you can turn your critical systems into a series of complex state machines. (Or in simple cases, just one state machine) In this way you get reproducible behaviour and performance between test and production.</p>
+<p>A number of investment banks use this technique to replay a system reliably to any event in the day and work out exactly why that event was processed the way it was.  More importantly, once you have a fix you can show that you have fixed the issue which occurred in production, instead of finding an issue and hoping this was the issue.</p>
+<p>Along with deterministic behaviour comes deterministic performance.  In test environments, you can replay the events with realistic timings and show the latency distribution you expect to get in production.  Some system jitter can’t be reproduce esp if the hardware is not the same, but you can get pretty close when you take a statistical view.  To avoid taking a day to replay a day of data you can add a threshold. e.g. if the time between events is more than 10 ms you might only wait 10 ms.  This can allow you to replay a day of events with realistic timing in under an hour and see whether your changes have improved your latency distribution or not.</p>
+<p>By going more low level don’t you lose some of “compile once, run anywhere”?</p>
+<p>To some degree this is true, but it is far less than you might think.  When you are working closer the processor and so you are more dependant on how the processor, or OS behaves.  Fortunately, most systems use AMD/Intel processors and even ARM processors are becoming more compatible in terms of the low level guarantees they provide.  There is also differences in the OSes, and these techniques tend to work better on Linux than Windows.  However, if you develop on MacOSX or Windows and use Linux for production, you shouldn’t have any issues.  This is what we do at Higher Frequency Trading.</p>
+<p>What new problems are we creating by using off heap?</p>
+<p>Nothing comes for free, and this is the case with off heap.  The biggest issue with off heap is your data structures become less natural.  You either need a simple data structure which can be mapped directly to off heap, or you have a complex data structure which serializes and deserializes to put it off heap.  Obvious using serialization has its own headaches and performance hit.  Using serialization thus much slower than on heap objects.</p>
+<p>In the financial world, most high ticking data structure are flat and simple, full of primitives which maps nicely off heap with little overhead.</p>
+<h1 id="How-does-Chronicle-Queue-work"><a href="#How-does-Chronicle-Queue-work" class="headerlink" title="How does Chronicle Queue work"></a>How does Chronicle Queue work</h1><h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><ul>
+<li>Messages are grouped by topics. A topic can contain any number of sub-topics which are logically stored together under the queue/topic.</li>
+<li>An appender is the source of messages.</li>
+<li>A tailer is a receiver of messages.</li>
+<li>Chronicle Queue is <code>broker-less</code> by default. You can use Chronicle Engine to act as a broker for remote access.</li>
+</ul>
+<blockquote>
+<p>Note<br>We deliberately avoid the term consumer as messages are not consumed/destroyed by reading.</p>
+</blockquote>
+<h2 id="At-a-high-level"><a href="#At-a-high-level" class="headerlink" title="At a high level:"></a>At a high level:</h2><ul>
+<li><p>appenders write to the end of a queue. There is no way to insert, or delete excerpts.</p>
+</li>
+<li><p>tailers read the next available message each time they are called.</p>
+</li>
+</ul>
+<p>By using Chronicle Engine, a Java or C# client can publish to a queue to act as a remote appender, and you subscribe to a queue to act as a remote tailer.</p>
+<h2 id="Topics-and-Queue-files"><a href="#Topics-and-Queue-files" class="headerlink" title="Topics and Queue files"></a>Topics and Queue files</h2><p>Each topic is a directory of queues. There is a file for each roll cycle. If you have a topic called mytopic, the layout could look like this:</p>
+<p>mytopic/<br>    20160710.cq4<br>    20160711.cq4<br>    20160712.cq4<br>    20160713.cq4<br>To copy all the data for a single day (or cycle), you can copy the file for that day on to your development machine for replay testing.</p>
+<p>Appenders and tailers are cheap as they don’t even require a TCP connection; they are just a few Java objects.</p>
+<h2 id="File-Retention"><a href="#File-Retention" class="headerlink" title="File Retention"></a>File Retention</h2><p>You can add a StoreFileListener to notify you when a file is added, or no longer used. This can be used to delete files after a period of time. However, by default, files are retained forever. Our largest users have over 100 TB of data stored in queues.</p>
+<h2 id="Every-Tailer-sees-every-message"><a href="#Every-Tailer-sees-every-message" class="headerlink" title="Every Tailer sees every message."></a>Every Tailer sees every message.</h2><p>An abstraction can be added to filter messages, or assign messages to just one message processor. However, in general you only need one main tailer for a topic, with possibly, some supporting tailers for monitoring etc.</p>
+<p>As Chronicle Queue doesn’t partition its topics, you get total ordering of all messages within that topic. Across topics, there is no guarantee of ordering; if you want to replay deterministically from a system which consumes from multiple topics, we suggest replaying from that system’s output.</p>
+<h1 id="Guarantees"><a href="#Guarantees" class="headerlink" title="Guarantees"></a>Guarantees</h1><p>Chronicle Queue provides the following guarantees;</p>
+<p>for each appender, messages are written in the order the appender wrote them. Messages by different appenders are interleaved,</p>
+<p>for each tailer, it will see every message for a topic in the same order as every other tailer,</p>
+<p>when replicated, every replica has a copy of every message.</p>
+<h1 id="Use-Cases"><a href="#Use-Cases" class="headerlink" title="Use Cases"></a>Use Cases</h1><p>Chronicle Queue is most often used for producer-centric systems where you need to retain a lot of data for days or years.</p>
+<h2 id="What-is-a-producer-centric-system"><a href="#What-is-a-producer-centric-system" class="headerlink" title="What is a producer-centric system?"></a>What is a producer-centric system?</h2><p>Most messaging systems are consumer-centric. Flow control is implemented to avoid the consumer ever getting overloaded; even momentarily. A common example is a server supporting multiple GUI users. Those users might be on different machines (OS and hardware), different qualities of network (latency and bandwidth), doing a variety of other things at different times. For this reason it makes sense for the client consumer to tell the producer when to back off, delaying any data until the consumer is ready to take more data.</p>
+<p>Chronicle Queue is a producer-centric solution and does everything possible to never push back on the producer, or tell it to slow down. This makes it a powerful tool, providing a big buffer between your system, and an upstream producer over which you have little, or no, control.</p>
+<p>For market data in particular, real time means in a few microseconds; it doesn’t mean intra-day (during the day).</p>
+<p>Chronicle Queue is fast and efficient, and has been used to increase the speed that data is passed between threads. In addition, it also keeps a record of every message passed allowing you to significantly reduce the amount of logging that you need to do.</p>
+<h2 id="Latency-Sensitive-Micro-services"><a href="#Latency-Sensitive-Micro-services" class="headerlink" title="Latency Sensitive Micro-services"></a>Latency Sensitive Micro-services</h2><p>Chronicle Queue supports low latency IPC (Inter Process Communication) between JVMs on the same machine in the order of magnitude of 1 microsecond; as well as between machines with a typical latency of 10 microseconds for modest throughputs of a few hundred thousands. Chronicle Queue supports throughputs of millions of events per second, with stable microsecond latencies.</p>
+<h2 id="Log-Replacement"><a href="#Log-Replacement" class="headerlink" title="Log Replacement"></a>Log Replacement</h2><p>As Chronicle Queue can be used to build state machines. All the information about the state of those components can be reproduced externally, without direct access to the components, or to their state. This significantly reduces the need for additional logging.</p>
+<p>However, any logging you do need can be recorded in great detail. This makes enabling DEBUG logging in production practical. This is because the cost of logging is very low; less than 10 microseconds. Logs can be replicated centrally for log consolidation.</p>
+<p>Chronicle Queue is being used to store 100+ TB of data, which can be replayed from any point in time.</p>
+<h1 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h1><h2 id="MappedFile"><a href="#MappedFile" class="headerlink" title="MappedFile"></a>MappedFile</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> net.openhft.chronicle.bytes;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.Jvm;</span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.OS;</span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.ReferenceCounted;</span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.ReferenceCounter;</span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.io.IORuntimeException;</span><br><span class="line"><span class="keyword">import</span> org.jetbrains.annotations.NotNull;</span><br><span class="line"><span class="keyword">import</span> org.jetbrains.annotations.Nullable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.RandomAccessFile;</span><br><span class="line"><span class="keyword">import</span> java.lang.ref.WeakReference;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.FileChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.FileChannel.MapMode;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.FileLock;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicBoolean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> net.openhft.chronicle.core.io.Closeable.closeQuietly;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A memory mapped files which can be randomly accessed in chunks. It has overlapping regions to</span></span><br><span class="line"><span class="comment"> * avoid wasting bytes at the end of chunks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MappedFile</span> <span class="keyword">implements</span> <span class="title">ReferenceCounted</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> DEFAULT_CAPACITY = <span class="number">128L</span> &lt;&lt; <span class="number">40</span>;</span><br><span class="line">    <span class="comment">// A single JVM cannot lock a file more than once.</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object GLOBAL_FILE_LOCK = <span class="keyword">new</span> Object();</span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RandomAccessFile raf;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> FileChannel fileChannel;</span><br></pre></td></tr></table></figure>
+
+<p>public interface BytesStore extends RandomDataInput, RandomDataOutput, ReferencedCount, CharSequence</p>
+<p>public interface Memory {<br>    default long heapUsed() {<br>        Runtime runtime = Runtime.getRuntime();<br>        return runtime.totalMemory() - runtime.freeMemory();<br>    }</p>
+<pre><code>@Override
+@ForceInline
+public void writeByte(long address, byte b) {
+    UNSAFE.putByte(address, b);
+}</code></pre><p>/**</p>
 <ul>
-<li>The /workers znode is the parent znode to all znodes representing a worker avail‐ able in the system. Figure 2-1 shows that one worker (foo.com:2181) is available. If a worker becomes unavailable, its znode should be removed from /workers.</li>
-<li>The /tasks znode is the parent of all tasks created and waiting for workers to execute them. Clients of the master-worker application add new znodes as children of /tasks to represent new tasks and wait for znodes representing the status of the task.</li>
-<li>The /assign znode is the parent of all znodes representing an assignment of a task to a worker. When a master assigns a task to a worker, it adds a child znode to /assign.<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2>API Overview<br>Znodes may or may not contain data. If a znode contains any data, the data is stored as a byte array. The exact format of the byte array is specific to each application, and ZooKeeper does not directly provide support to parse it. Serialization packages such as Protocol Buffers, Thrift, Avro, and MessagePack may be handy for dealing with the format of the data stored in znodes, but sometimes string encodings such as UTF-8 or ASCII suffice.</li>
+<li>Marker annotation for some methods and constructors in the JSR 292 implementation.</li>
+<li><p></p></li>
+<li>To utilise this annotation se Chronicle Enterprise Warmup module.</li>
+<li>/
+@Target({ElementType.METHOD, ElementType.CONSTRUCTOR})<br>@Retention(RetentionPolicy.RUNTIME)<br>public @interface ForceInline {<br>}</li>
 </ul>
-<h2 id="The-ZooKeeper-API-exposes-the-following-operations"><a href="#The-ZooKeeper-API-exposes-the-following-operations" class="headerlink" title="The ZooKeeper API exposes the following operations:"></a>The ZooKeeper API exposes the following operations:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">create /path data</span><br><span class="line">Creates a znode named with /path and containing data</span><br><span class="line">delete /path</span><br><span class="line">Deletes the znode /path</span><br><span class="line">exists /path</span><br><span class="line">Checks whether /path exists</span><br><span class="line">setData /path data</span><br><span class="line">Sets the data of znode /path to data</span><br><span class="line">getData /path</span><br><span class="line">Returns the data in /path</span><br><span class="line">getChildren /path</span><br><span class="line">Returns the list of children under /path</span><br><span class="line">One important note is that ZooKeeper does not allow partial writes or reads of the znode data. When setting the data of a znode or reading it, the content of the znode is replaced or read entirely.</span><br></pre></td></tr></table></figure>
-
-<p>ZooKeeper clients connect to a ZooKeeper service and establish a session through which they make API calls. </p>
-<p>If a worker becomes unavailable, its session expires and its znode in /workers disappears automatically.</p>
-<p>An ephemeral znode can be deleted in two situations:</p>
-<ol>
-<li>When the session of the client creator ends, either by expiration or because it ex‐ plicitly closed.</li>
-<li>When a client, not necessarily the creator, deletes it.</li>
-</ol>
-<h3 id="Sequential-znodes"><a href="#Sequential-znodes" class="headerlink" title="Sequential znodes"></a>Sequential znodes</h3><p>A znode can also be set to be sequential. A sequential znode is assigned a unique, mo‐ notonically increasing integer. This sequence number is appended to the path used to create the znode. For example, if a client creates a sequential znode with the path /tasks/ task-, ZooKeeper assigns a sequence number, say 1, and appends it to the path. The path of the znode becomes /tasks/task-1. Sequential znodes provide an easy way to create znodes with unique names. They also provide a way to easily see the creation order of znodes.</p>
-<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><p>This is a common problem with polling. To replace the client polling, we have opted for a mechanism based on notifications: clients register with ZooKeeper to receive notifi‐ cations of changes to znodes. Registering to receive a notification for a given znode consists of setting a watch. A watch is a one-shot operation, which means that it triggers one notification. To receive multiple notifications over time, the client must set a new watch upon receiving each notification. </p>
-<h2 id="Versions"><a href="#Versions" class="headerlink" title="Versions"></a>Versions</h2><p>Each znode has a version number associated with it that is incremented every time its data changes. A couple of operations in the API can be executed conditionally: setDa ta and delete. Both calls take a version as an input parameter, and the operation suc‐ ceeds only if the version passed by the client matches the current version on the server. The use of versions is important when multiple ZooKeeper clients might be trying to perform operations over the same znode. For example, suppose that a client c1 writes a znode /config containing some configuration. If another client c2 concurrently updates the znode, the version c1 has is stale and the setData of c1 must not succeed. Using versions avoids such situations. In this case, the version that c1 uses when writing back doesn’t match and the operation fails. </p>
-<h1 id="ZooKeeper-Architecture"><a href="#ZooKeeper-Architecture" class="headerlink" title="ZooKeeper Architecture"></a>ZooKeeper Architecture</h1><p>Now that we have discussed at a high level the operations that ZooKeeper exposes to applications, we need to understand more of how the service actually works. Applica‐ tions make calls to ZooKeeper through a client library. The client library is responsible for the interaction with ZooKeeper servers.</p>
-<p>ZooKeeper servers run in two modes: standalone and quorum. Standalone mode is pretty much what the term says: there is a single server, and ZooKeeper state is not replicated. In quorum mode, a group of ZooKeeper servers, which we call a ZooKeeper ensemble, replicates the state, and together they serve client requests. From this point on, we use the term “ZooKeeper ensemble” to denote an installation of servers. This installation could contain a single server and operate in standalone mode or contain a group of servers and operate in quorum mode.</p>
-<h2 id="ZooKeeper-Quorums"><a href="#ZooKeeper-Quorums" class="headerlink" title="ZooKeeper Quorums"></a>ZooKeeper Quorums</h2><p>In quorum mode, ZooKeeper replicates its data tree across all servers in the ensemble. But if a client had to wait for every server to store its data before continuing, the delays might be unacceptable. In public administration, a quorum is the minimum number of legislators required to be present for a vote. In ZooKeeper, it is the minimum number of servers that have to be running and available in order for ZooKeeper to work. This number is also the minimum number of servers that have to store a client’s data before telling the client it is safely stored. For instance, we might have five ZooKeeper servers in total, but a quorum of three. So long as any three servers have stored the data, the client can continue, and the other two servers will eventually catch up and store the data.</p>
-<p>It is important to choose an adequate size for the quorum. Quorums must guarantee that, regardless of delays and crashes in the system, any update request the service pos‐ itively acknowledges will persist until another request supersedes it.</p>
-<p><code>The bottom line is that we should always shoot for an odd number of servers.</code></p>
-<h2 id="sessions"><a href="#sessions" class="headerlink" title="sessions"></a>sessions</h2><p>All operations a client submits to ZooKeeper are associated to a session. When a session ends for any reason, the ephemeral nodes created during that session disappear.</p>
-<p>the session may be moved to a different server if the client has not heard from its current server for some time. Moving a session to a different server is handled transparently by the ZooKeeper client library.</p>
-<p>Sessions offer order guarantees, which means that requests in a session are executed in FIFO (first in, first out) order. Typically, a client has only a single session open, so its requests are all executed in FIFO order. If a client has multiple concurrent sessions, FIFO ordering is not necessarily preserved across the sessions.</p>
-<h2 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 5] <span class="built_in">stat</span> /master</span><br><span class="line">cZxid = 0x4</span><br><span class="line">ctime = Mon Aug 20 21:10:23 AEST 2018</span><br><span class="line">mZxid = 0x4</span><br><span class="line">mtime = Mon Aug 20 21:10:23 AEST 2018</span><br><span class="line">pZxid = 0x4</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x10003c70e250001</span><br><span class="line">dataLength = 11</span><br><span class="line">numChildren = 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 8] create /workers <span class="string">""</span></span><br><span class="line">Created /workers</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 9] create /tasks <span class="string">""</span></span><br><span class="line">Created /tasks</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 10] create /assign <span class="string">""</span></span><br><span class="line">Created /assign</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 11] ls /</span><br><span class="line">[assign, master, tasks, workers, zookeeper]</span><br></pre></td></tr></table></figure>
-
-<h2 id="link-master-and-workers"><a href="#link-master-and-workers" class="headerlink" title="link master and workers"></a>link master and workers</h2><p>In a real application, these znodes need to be created either by a primary process before it starts assigning tasks or by some bootstrap procedure. Regardless of how they are created, once they exist, the master needs to watch for changes in the children of /workers and /tasks:<br>    [zk: localhost:2181(CONNECTED) 4] ls /workers true<br>    []<br>    [zk: localhost:2181(CONNECTED) 5] ls /tasks true<br>    []<br>    [zk: localhost:2181(CONNECTED) 6]<br>Note that we have used the optional true parameter with ls, as we did before with stat on the master. The true parameter, in this case, creates a watch for changes to the set of children of the corresponding znode.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 14] create -e /workers/todd-worker1 <span class="string">""</span></span><br><span class="line">Created /workers/todd-worker1</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeChildrenChanged path:/workers</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 15]</span><br></pre></td></tr></table></figure>
-
-<p>Recall that the master has set a watch for changes to the children of /workers. Once the worker creates a znode under /workers, the master observes the following notification:<br>    WATCHER::<br>    WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/workers</p>
-<h2 id="Tasks-workflows"><a href="#Tasks-workflows" class="headerlink" title="Tasks workflows"></a>Tasks workflows</h2><ul>
-<li>Clients add tasks to the system. Here we assume that the client asks the master-worker system to run a command cmd. To add a task to the system, a client executes the following:<br>  [zk: localhost:2181(CONNECTED) 0] create -s /tasks/task- “cmd”<br>  Created /tasks/task-0000000000</li>
-<li>The client now has to wait until the task is executed. </li>
-<li>The worker that executes the task creates a status znode for the task once the task completes. </li>
-<li>The client determines that the task has been executed when it sees that a status znode for the task has been created; </li>
-<li>the client consequently must watch for the creation of the status znode:</li>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://github.com/OpenHFT/Chronicle-Queue" target="_blank" rel="noopener">https://github.com/OpenHFT/Chronicle-Queue</a></li>
+<li><a href="http://vanillajava.blogspot.com/2015/08/what-does-chronicle-software-do.html" target="_blank" rel="noopener">http://vanillajava.blogspot.com/2015/08/what-does-chronicle-software-do.html</a></li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 18] create -s /tasks/task- <span class="string">"cmd"</span></span><br><span class="line">Created /tasks/task-0000000000</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 19] ls /tasks</span><br><span class="line">[task-0000000000]</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 20] ls -w /tasks/task-0000000000 </span><br><span class="line">[]</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 21] ls -w /workers</span><br><span class="line">[todd-worker1]</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 22] create /assign/todd-worker1/task-0000000000 <span class="string">""</span></span><br><span class="line">Ephemerals cannot have children: /assign/todd-worker1/task-0000000000</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 23] delete /assign/todd-worker1</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 24] create /assign/todd-worker1</span><br><span class="line">Created /assign/todd-worker1</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 25] create /assign/todd-worker1/task-0000000000 <span class="string">""</span></span><br><span class="line">Created /assign/todd-worker1/task-0000000000</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 26] ls /assign/todd-worker1</span><br><span class="line">[task-0000000000]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Once the worker finishes executing the task, it adds a status znode to /tasks:</span></span><br><span class="line">    [zk: localhost:2181(CONNECTED) 4] create /tasks/task-0000000000/status <span class="string">"done"</span></span><br><span class="line">    Created /tasks/task-0000000000/status</span><br><span class="line">    [zk: localhost:2181(CONNECTED) 5]</span><br><span class="line"><span class="comment"># and the client receives a notification and checks the result:</span></span><br><span class="line">WATCHER::</span><br><span class="line">    WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeChildrenChanged</span><br><span class="line">    path:/tasks/task-0000000000</span><br><span class="line">    [zk: localhost:2181(CONNECTED) 2] get /tasks/task-0000000000</span><br><span class="line">    <span class="string">"cmd"</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="ZooKeeper-API"><a href="#ZooKeeper-API" class="headerlink" title="ZooKeeper API"></a>ZooKeeper API</h1><h2 id="Setting-the-ZooKeeper-CLASSPATH"><a href="#Setting-the-ZooKeeper-CLASSPATH" class="headerlink" title="Setting the ZooKeeper CLASSPATH"></a>Setting the ZooKeeper CLASSPATH</h2><p> ZOOBINDIR=”<path_to_distro>/bin”<br>    . “$ZOOBINDIR”/zkEnv.sh</path_to_distro></p>
-<h2 id="handle"><a href="#handle" class="headerlink" title="handle"></a>handle</h2><p>The ZooKeeper API is built around a ZooKeeper handle that is passed to every API call. This handle represents a session with ZooKeeper. A session that is established with one ZooKeeper server will migrate to another ZooKeeper server if its connection is broken. As long as the session is alive, the handle will remain valid, and the ZooKeeper client library will continually try to keep an active connection to a ZooKeeper server to keep the session alive. If the handle is closed, the ZooKeeper client library will tell the ZooKeeper servers to kill the session. If ZooKeeper decides that a client has died, it will invalidate the session. If a client later tries to reconnect to a Zoo‐ Keeper server using the handle that corresponds to the invalidated session, the Zoo‐ Keeper server informs the client library that the session is no longer valid and the handle returns errors for all operations.</p>
-<p>The constructor that creates a ZooKeeper handle usually looks like:<br>ZooKeeper(<br>String connectString, int sessionTimeout, Watcher watcher)</p>
-<h3 id="Implementing-a-Watcher"><a href="#Implementing-a-Watcher" class="headerlink" title="Implementing a Watcher"></a>Implementing a Watcher</h3><p>To receive notifications from ZooKeeper, we need to implement watchers. Let’s look a bit more closely at the Watcher interface. It has the following declaration:<br>public interface Watcher {<br>void process(WatchedEvent event);<br>}</p>
-<h3 id="Sample-ZooKeeper-handle"><a href="#Sample-ZooKeeper-handle" class="headerlink" title="Sample ZooKeeper handle"></a>Sample ZooKeeper handle</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.zookeeper.ZooKeeper; </span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.Watcher;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Master</span> <span class="keyword">implements</span> <span class="title">Watcher</span> </span>&#123; </span><br><span class="line">  ZooKeeper zk;</span><br><span class="line">        String hostPort;</span><br><span class="line"></span><br><span class="line">Master(String hostPort) </span><br><span class="line">&#123; <span class="keyword">this</span>.hostPort = hostPort;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">startZK</span><span class="params">()</span> </span>&#123;</span><br><span class="line">zk = <span class="keyword">new</span> ZooKeeper(hostPort, <span class="number">15000</span>, <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent e)</span> </span>&#123; System.out.println(e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">Master m = <span class="keyword">new</span> Master(args[<span class="number">0</span>]);</span><br><span class="line">            m.startZK();</span><br><span class="line">            <span class="comment">// wait for a bit</span></span><br><span class="line">            Thread.sleep(<span class="number">60000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>nce we have connected to ZooKeeper, there will be a background thread that will maintain the ZooKeeper session. This thread is a daemon thread, which means that the program may exit even if the thread is still active. Here we sleep for a bit so that we can see some events come in before the program exits.<br>We can compile this simple example using the following:<br>$ javac -cp $CLASSPATH Master.java<br>Once we have compiled Master.java, we run it and see the following:<br>$ java -cp $CLASSPATH Master 127.0.0.1:2181</p>
-<h2 id="disconnect"><a href="#disconnect" class="headerlink" title="disconnect"></a>disconnect</h2><p>When developers see the Disconnected event, some think they need to create a new ZooKeeper handle to reconnect to the service. Do not do that! See what happens when you start the server, start the Master, and then stop and start the server while the Master is still running. You should see the SyncConnected event followed by the Disconnec ted event and then another SyncConnected event. The ZooKeeper client library takes care of reconnecting to the service for you. Unfortunately, network outages and server failures happen. Usually, ZooKeeper can deal with these failures.</p>
 
           
         

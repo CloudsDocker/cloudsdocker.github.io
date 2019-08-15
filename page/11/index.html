@@ -881,98 +881,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-11-Node-errors-DB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-05-11-Node-errors-DB/" class="post-title-link" itemprop="url">Node errors troubleshooting</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>Here is the typical erros log:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">node_modules/@types/node/index.d.ts(6202,55): error TS2304: Cannot find name <span class="string">'Map'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6209,55): error TS2304: Cannot find name <span class="string">'Set'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6213,64): error TS2304: Cannot find name <span class="string">'Symbol'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6219,59): error TS2304: Cannot find name <span class="string">'WeakMap'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6220,59): error TS2304: Cannot find name <span class="string">'WeakSet'</span>.</span><br></pre></td></tr></table></figure>
-
-<p>The main reason is above stuff are new to ES6, which are unavaiable in ES5. Hold no, you don’t need to change your typescript target to ES6, which may break projects and leads to tons of new regression testing.<br>Firsty, try to add following in tsconfig.json</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"lib": ["es2016", "dom"],</span><br></pre></td></tr></table></figure>
-
-<p>If no luck, try following in command line, it should resolve this issue.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tsc index.ts --lib <span class="string">"es6"</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="certificate-error"><a href="#certificate-error" class="headerlink" title="certificate error"></a>certificate error</h2><p>Typical errors</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">events.js:183</span><br><span class="line">      throw er; // Unhandled <span class="string">'error'</span> event</span><br><span class="line">      ^</span><br><span class="line"></span><br><span class="line">Error: unable to verify the first certificate</span><br><span class="line">    at TLSSocket.&lt;anonymous&gt; (_tls_wrap.js:1103:38)</span><br><span class="line">    at emitNone (events.js:106:13)</span><br><span class="line">    at TLSSocket.emit (events.js:208:7)</span><br><span class="line">    at TLSSocket._finishInit (_tls_wrap.js:637:8)</span><br><span class="line">    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:467:38)</span><br></pre></td></tr></table></figure>
-
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>add following to https request options<br> ,<br>      rejectUnauthorized: false,<br>        requestCert: true,<br>        agent: false</p>
-<h2 id="error-ECONNREFUSED"><a href="#error-ECONNREFUSED" class="headerlink" title="error ECONNREFUSED"></a>error ECONNREFUSED</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: connect ECONNREFUSED 127.0.0.1:443</span><br><span class="line">    at Object._errnoException (util.js:1022:11)</span><br><span class="line">    at _exceptionWithHostPort (util.js:1044:20)</span><br><span class="line">    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1182:14)</span><br></pre></td></tr></table></figure>
-
-<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution:"></a>Solution:</h3><p>in the http request, do not use ‘url’ but ‘host’ and path<br>host: <code>xxx.com</code>,
-    port: 443,<br>    path: <code>/login</code>,</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-15-rxjs-pipe-in-depth/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1075,6 +983,98 @@
 <p>— english—<br>it can safely prune unused exports.</p>
 <p>Trim (a tree, shrub, or bush) by cutting away dead or overgrown branches or stems, especially to encourage growth.</p>
 <p>‘now is the time to prune roses’</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-11-Node-errors-DB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-05-11-Node-errors-DB/" class="post-title-link" itemprop="url">Node errors troubleshooting</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>Here is the typical erros log:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">node_modules/@types/node/index.d.ts(6202,55): error TS2304: Cannot find name <span class="string">'Map'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6209,55): error TS2304: Cannot find name <span class="string">'Set'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6213,64): error TS2304: Cannot find name <span class="string">'Symbol'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6219,59): error TS2304: Cannot find name <span class="string">'WeakMap'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6220,59): error TS2304: Cannot find name <span class="string">'WeakSet'</span>.</span><br></pre></td></tr></table></figure>
+
+<p>The main reason is above stuff are new to ES6, which are unavaiable in ES5. Hold no, you don’t need to change your typescript target to ES6, which may break projects and leads to tons of new regression testing.<br>Firsty, try to add following in tsconfig.json</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"lib": ["es2016", "dom"],</span><br></pre></td></tr></table></figure>
+
+<p>If no luck, try following in command line, it should resolve this issue.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tsc index.ts --lib <span class="string">"es6"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="certificate-error"><a href="#certificate-error" class="headerlink" title="certificate error"></a>certificate error</h2><p>Typical errors</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">events.js:183</span><br><span class="line">      throw er; // Unhandled <span class="string">'error'</span> event</span><br><span class="line">      ^</span><br><span class="line"></span><br><span class="line">Error: unable to verify the first certificate</span><br><span class="line">    at TLSSocket.&lt;anonymous&gt; (_tls_wrap.js:1103:38)</span><br><span class="line">    at emitNone (events.js:106:13)</span><br><span class="line">    at TLSSocket.emit (events.js:208:7)</span><br><span class="line">    at TLSSocket._finishInit (_tls_wrap.js:637:8)</span><br><span class="line">    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:467:38)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>add following to https request options<br> ,<br>      rejectUnauthorized: false,<br>        requestCert: true,<br>        agent: false</p>
+<h2 id="error-ECONNREFUSED"><a href="#error-ECONNREFUSED" class="headerlink" title="error ECONNREFUSED"></a>error ECONNREFUSED</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: connect ECONNREFUSED 127.0.0.1:443</span><br><span class="line">    at Object._errnoException (util.js:1022:11)</span><br><span class="line">    at _exceptionWithHostPort (util.js:1044:20)</span><br><span class="line">    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1182:14)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution:"></a>Solution:</h3><p>in the http request, do not use ‘url’ but ‘host’ and path<br>host: <code>xxx.com</code>,
+    port: 443,<br>    path: <code>/login</code>,</p>
 
           
         

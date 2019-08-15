@@ -195,6 +195,145 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-02-Design-Principals/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-09-02-Design-Principals/" class="post-title-link" itemprop="url">漫谈开发设计中的一些‘原则’及'设计哲学'</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。</p>
+<h1 id="POLA"><a href="#POLA" class="headerlink" title="POLA"></a>POLA</h1><p>The principle of least astonishment (POLA) is: “If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature.”</p>
+<p>In general engineering design contexts, the principle means that a component of a system should behave in a way that users expect it to behave; that is, users should not be astonished by its behavior.</p>
+<p>A textbook formulation is: “People are part of the system. The design should match the user’s experience, expectations, and mental models.”</p>
+<p>In more practical terms, the principle aims to leverage the pre-existing knowledge of users to minimize the learning curve, for instance by designing interfaces that borrow heavily from “functionally similar or analogous programs with which your users are likely to be familiar”.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h2><p>A web site could declare an input that should autofocus when the page is loaded,[8] such as a search field (e.g., Google.com), or the username field of a login form.</p>
+<h1 id="DRY"><a href="#DRY" class="headerlink" title="DRY"></a>DRY</h1><p>这里的DRY是<code>Do Not Repeat Yourself</code>的缩写。具体解释参见 ,严谨的定义是　Every piece of knowledge must have a single, unambiguous, authoritative representation within a system，意思是：任何一部分知识在系统中必须只有单一的，清晰并且权威的展示。？？？这是啥意思，没懂。简单说就是不要重复自己任何一部分的工作。比如说，有一段代码是用于清除字条串中的HTML符号，在多个程序中会用到此功能，如果每个地方都使用如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">html = html.replaceAll(<span class="string">"\\&lt;.*?&gt;"</span>,<span class="string">""</span>) </span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;nbsp;"</span>,<span class="string">""</span>);</span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;amp;"</span>.<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果是只有２，３个地方用到(Martin曾经提到过Rule of three,意思是一段代码如果被copy３次以上就应该重构到一个单独的子方法中)，你可能就直接复制过来用，但是想想是２，３百个地方用到呢？如果上面需要再做个修改(如下)，你是不是要去这个２，３百个地方去改代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">html = html.replaceAll(<span class="string">"&amp;lt;"</span>.<span class="string">"&lt;"</span>);</span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;gt;"</span>.<span class="string">"&gt;"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>所以这个DRY的规则就是推荐使用 <code>子方法</code> 的方式，这样只需要修改一次即可. 与之类似的编程思想有 <code>DIE（Duplication is Evil）,SPoT(Single Point of Truth), SSOT (Singel Source of Truth)</code> 。 题外话，和DRY对应的是WET,意思是 “write everything twice”（任何东西都写两遍）或者”we enjoy typing” （我们就是喜欢打字编码）。　:-)。</p>
+<h1 id="KISS"><a href="#KISS" class="headerlink" title="KISS"></a>KISS</h1><p>KISS 是 Keep it simple, stupid （或者Keep it short and simple ）的简称。意思是在设计时保持简约，通俗。这个很像是现在推畅的“极简风”。<br>使用KISS有什么好处呢？如下是其中的一些：</p>
+<ul>
+<li>你可以更快的解决更多的问题</li>
+<li>你可以使用更少的代码来解决复杂的问题</li>
+<li>你可以写出更高质量的代码</li>
+<li>你可以创建更大的系统，更好的去运维</li>
+<li>你的代码将更加灵活，当有新需求时可以更好的支持扩展，修改或者重构</li>
+<li>等等</li>
+</ul>
+<p>在软件设计领域， 有一些技术具体实现这个精髓，比如 DDD (Domain Driven Design),TDD (Test Driven Develop),这个使代码集中在真正需要的功能上，而不需要其他额外的。另外一个建议是 <code>不要试图通过注释来提高代码的可读性</code>，而应该从代码本身提高。比如如下是不太好的变量定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// i is for 'counter' and j means total sum</span></span><br><span class="line"><span class="keyword">int</span> i, j;</span><br></pre></td></tr></table></figure>
+
+<p>而如下是好的设计 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// more intuitive one</span></span><br><span class="line"><span class="keyword">int</span> counter,sum;</span><br></pre></td></tr></table></figure>
+
+<p>与此相呼应的是称作 <code>奥卡姆剃刀</code> 或者 <code>简约之法则</code>：</p>
+<blockquote>
+<p>Occam’s razor<br>The simplest (explanation|solution) is usually the best one.<br>往往最简单的解决方案是最好的解决方案</p>
+</blockquote>
+<p>具体到以Java为例的程序设计，如下有一些实践KISS的建议</p>
+<ul>
+<li>首先，认清自己，不要认为自己是个天才，这往往是你犯的第一个错。</li>
+<li>把你的工作打散成几个子工作，每个部分不会耗费超过4-12个小时去完成</li>
+<li>把一个问题分成几个小的子问题，每个问题可以通过1个或者只要几个类就能解决。</li>
+<li>保持每个方法只做一件事，并且不要超过30-40行的代码量</li>
+<li>保持每个类的体积不要太大。</li>
+<li>不要害怕扔掉不用的代码。就像家里用不到的东西就及时扔掉一样。</li>
+</ul>
+<h1 id="New-Jersey-style-（Worse-is-better）"><a href="#New-Jersey-style-（Worse-is-better）" class="headerlink" title="New Jersey style （Worse is better）"></a>New Jersey style （Worse is better）</h1><p>新泽西风格，也叫做“Worse is better”。此原则指出，<code>系统的质量不会因为新功能的增多而提高</code>。 比如一个软件，只提供一些功能，但是用户很方便使用，有可能比一些提供了非常多令人眼花缭乱功能的“大杂烩”似的软件。比如像 Linux下面的 vi/vim, 浏览器中的Chrome.</p>
+<h1 id="SOLID"><a href="#SOLID" class="headerlink" title="SOLID"></a>SOLID</h1><p>SOLID是几个编程哲学的总称，即 SOLID (Single responsibility, Open-closed, Liskov substitution, Interface segregation and Dependency inversion) ，下面我们分别解释一下：</p>
+<h2 id="Single-responsibility-（SRP）"><a href="#Single-responsibility-（SRP）" class="headerlink" title="Single responsibility （SRP）"></a>Single responsibility （SRP）</h2><p>单一功能原则。Robert描述这个为“A class should have only one reason to change.”，即修改一个类（或者模块）有（且只能有）一个理由。简单说就是 <code>一个类或者模块只能负责一个功能</code>。举个例子，有一个模块负责生成一个报表，可以想像可能有两个理由去修改此模块，第一，报表的内容要变，第二，报表的格式要改。这两个改动是出于不同的理由，一个是内容的一个美化版面的。 而 “单一职责” 规则认为这是两个不同的职责，因此应该分成两个不同的子模块。如果把两件事情放在一起，并且不同的改动是出于不同的原因，这种设计是不好的。此规则方便系统各模块间解耦合。</p>
+<h2 id="Open-closed-principle-（OCP）"><a href="#Open-closed-principle-（OCP）" class="headerlink" title="Open/closed principle （OCP）"></a>Open/closed principle （OCP）</h2><p>开闭原则。Bertrand描述为“”software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification”;”，也就是说对于一个实体（类，模块，方法等）允许在不修改源代码的前提下扩展它的功能行为。即，你可以把 <code>新代码放到新的类或者方法中</code>，新类通过继承来重用已有代码及功能。而 <code>已有的代码只有在修bug时才去修改</code>。 此原则主要用于降低在添加新加功能时引入新的bug的风险。</p>
+<h2 id="The-Liskov-Substitution-Principle-（LSP）"><a href="#The-Liskov-Substitution-Principle-（LSP）" class="headerlink" title="The Liskov Substitution Principle （LSP）"></a>The Liskov Substitution Principle （LSP）</h2><p>里氏替换原则. 原文是 “Derived classes must be substitutable for their base classes.”，意思是，<code>派生类（子类）对象能够替换其基类（超类）对象被使用</code>。 比如说，如果 S 是T 的子类， 那么任何T类的具体实现对象都可以替换S的实现对象出现的地方，具体的调用者也不知道具体是父类还是子类，还不会出现任何错误。比如下图，调用者可以2来替换1的地方 。<br><img src="https://msdnshared.blob.core.windows.net/media/TNBlogsFS/BlogFileStorage/blogs_msdn/willy-peter_schaub/WindowsLiveWriter/SDLCSoftwareDevelopmentLifecycleflashbac_A707/image_4.png" alt></p>
+<h2 id="Interface-segregation-principle-（ISP）"><a href="#Interface-segregation-principle-（ISP）" class="headerlink" title="Interface segregation principle （ISP）"></a>Interface segregation principle （ISP）</h2><p>接口隔离。原文是 many client-specific interfaces are better than one general-purpose interface. 意思是多个特定客户端接口要好于一个宽泛用途的接口。Make fine grained interfaces that are client specific. 应该定义粒度合适的一系列接口(像下图)，以便于每个客户去实现具体的功能请求。换句话说是，客户（client）不应该必须去依赖于它用不到的功能方法。此原则的目的是系统解开耦合，从而容易重构，更改和重新部署。<br><img src="http://cdn.hackerchick.com/wp-content/uploads/2010/04/200806SOLIDIISP2.gif" alt></p>
+<h2 id="Dependency-inversion-principle-DIP"><a href="#Dependency-inversion-principle-DIP" class="headerlink" title="Dependency inversion principle (DIP)"></a>Dependency inversion principle (DIP)</h2><p>依赖反转原则. 原文是 One should “Depend upon Abstractions. Do not depend upon concretions.” 意思是 一个方法应该遵从“依赖于抽象而不是一个实例”。该原则规定：</p>
+<ol>
+<li>高层次的模块不应该依赖于低层次的模块，两者都应该依赖于抽象接口。</li>
+<li>抽象接口不应该依赖于具体实现。而具体实现则应该依赖于抽象接口。<br>这个就像是设计模式中的Adaptor适配器模式。<br>下图解释了这个原理。<br><a href="https://upload.wikimedia.org/wikipedia/commons/9/96/Dependency_inversion.png" target="_blank" rel="noopener"></a><br>图1中，高层对象A依赖于底层对象B的实现；图2中，把高层对象A对底层对象的需求抽象为一个接口A，底层对象B实现了接口A，这就是依赖反转。</li>
+</ol>
+<h1 id="SOC"><a href="#SOC" class="headerlink" title="SOC"></a>SOC</h1><p>Separation of concerns,?即关注点分离。 是处理复杂性的一个原则。由于关注点混杂在一起会导致复杂性大大增加，所以能够把不同的关注点分离开来，分别处理就是处理复杂性的一个原则，一种方法。这个与SOLID中的 SRP很类似。</p>
+<h1 id="YANGI"><a href="#YANGI" class="headerlink" title="YANGI"></a>YANGI</h1><p>是”You aren’t gonna need it”的缩写，直译是“你将来用不到它的”。这个是<a href="https://en.wikipedia.org/wiki/Extreme_programming" target="_blank" rel="noopener">极限编程</a>的一个编程思想。意思是说,永远不要因为 <code>预计</code>你会用到某个功能就去写一段代码去实现，总是只有问题出现了，<code>真的需要这个功能时才去写</code>。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Principle_of_least_astonishment" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Principle_of_least_astonishment</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank" rel="noopener">DRY</a></li>
+<li><a href="http://blog.csdn.net/sinat_20645961/article/details/47393737" target="_blank" rel="noopener"> 六大设计原则–里氏替换原则【Liskov Substitution Principle】</a></li>
+<li><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)" target="_blank" rel="noopener">SOLID</a></li>
+<li><a href="http://stackoverflow.com/questions/816130/how-to-keep-my-code-simple" target="_blank" rel="noopener">how to keep code simple</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Occam%27s_razor" target="_blank" rel="noopener">奥卡姆剃刀</a></li>
+<li><a href="http://people.apache.org/~fhanik/kiss.html" target="_blank" rel="noopener">Apache KISS</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Worse_is_better" target="_blank" rel="noopener">Worse is better</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-01-HTTP-Methods-RFC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -334,7 +473,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-02-Design-Principals/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-04-Kubernets-vs-Swarm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -350,7 +489,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-09-02-Design-Principals/" class="post-title-link" itemprop="url">漫谈开发设计中的一些‘原则’及'设计哲学'</a>
+              <a href="/2016-09-04-Kubernets-vs-Swarm/" class="post-title-link" itemprop="url">Kubernetes 与 Docker Swarm的对比</a>
             
           </h1>
         
@@ -382,70 +521,37 @@
 
       
           
-            <p>在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。</p>
-<h1 id="POLA"><a href="#POLA" class="headerlink" title="POLA"></a>POLA</h1><p>The principle of least astonishment (POLA) is: “If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature.”</p>
-<p>In general engineering design contexts, the principle means that a component of a system should behave in a way that users expect it to behave; that is, users should not be astonished by its behavior.</p>
-<p>A textbook formulation is: “People are part of the system. The design should match the user’s experience, expectations, and mental models.”</p>
-<p>In more practical terms, the principle aims to leverage the pre-existing knowledge of users to minimize the learning curve, for instance by designing interfaces that borrow heavily from “functionally similar or analogous programs with which your users are likely to be familiar”.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h2><p>A web site could declare an input that should autofocus when the page is loaded,[8] such as a search field (e.g., Google.com), or the username field of a login form.</p>
-<h1 id="DRY"><a href="#DRY" class="headerlink" title="DRY"></a>DRY</h1><p>这里的DRY是<code>Do Not Repeat Yourself</code>的缩写。具体解释参见 ,严谨的定义是　Every piece of knowledge must have a single, unambiguous, authoritative representation within a system，意思是：任何一部分知识在系统中必须只有单一的，清晰并且权威的展示。？？？这是啥意思，没懂。简单说就是不要重复自己任何一部分的工作。比如说，有一段代码是用于清除字条串中的HTML符号，在多个程序中会用到此功能，如果每个地方都使用如下代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">html = html.replaceAll(<span class="string">"\\&lt;.*?&gt;"</span>,<span class="string">""</span>) </span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;nbsp;"</span>,<span class="string">""</span>);</span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;amp;"</span>.<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
-
-<p>如果是只有２，３个地方用到(Martin曾经提到过Rule of three,意思是一段代码如果被copy３次以上就应该重构到一个单独的子方法中)，你可能就直接复制过来用，但是想想是２，３百个地方用到呢？如果上面需要再做个修改(如下)，你是不是要去这个２，３百个地方去改代码。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">html = html.replaceAll(<span class="string">"&amp;lt;"</span>.<span class="string">"&lt;"</span>);</span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;gt;"</span>.<span class="string">"&gt;"</span>);</span><br></pre></td></tr></table></figure>
-
-<p>所以这个DRY的规则就是推荐使用 <code>子方法</code> 的方式，这样只需要修改一次即可. 与之类似的编程思想有 <code>DIE（Duplication is Evil）,SPoT(Single Point of Truth), SSOT (Singel Source of Truth)</code> 。 题外话，和DRY对应的是WET,意思是 “write everything twice”（任何东西都写两遍）或者”we enjoy typing” （我们就是喜欢打字编码）。　:-)。</p>
-<h1 id="KISS"><a href="#KISS" class="headerlink" title="KISS"></a>KISS</h1><p>KISS 是 Keep it simple, stupid （或者Keep it short and simple ）的简称。意思是在设计时保持简约，通俗。这个很像是现在推畅的“极简风”。<br>使用KISS有什么好处呢？如下是其中的一些：</p>
-<ul>
-<li>你可以更快的解决更多的问题</li>
-<li>你可以使用更少的代码来解决复杂的问题</li>
-<li>你可以写出更高质量的代码</li>
-<li>你可以创建更大的系统，更好的去运维</li>
-<li>你的代码将更加灵活，当有新需求时可以更好的支持扩展，修改或者重构</li>
-<li>等等</li>
+            <p>Kubernetes 和Docker Swarm 可能是使用最广泛的工具，用于在集群环境中部署容器。但是这两个工具还是有很大的差别。</p>
+<h2 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h2><p><img src="https://technologyconversations.files.wordpress.com/2015/10/kubernetes.png?w=600&h=532" alt><br>Google根据其在Linux上容器管理经验，改造到docker管理上，就是kubernetes。他的在许多方面表现良好。最重要的是构造于Google多年的宝贵经验只上。</p>
+<p>如果你从docker1.0以上开始使用kubernetes，你得到的用户体验会非常良好。比如你会发现kubernetes解决一些docker自身的问题。例如你可以mount（绑定）持久化存储卷（volume），以便于在迁移docker时不至于丢失数据。</p>
+<p>kubernetes使用<code>flannel</code>（一个使用go写的虚拟网络的开源系统）构造容器间的网络通信。它还内置有负载均衡。除此之外，它的“服务发现”使用了etcd（一个使用golang编写的开源虚拟网络系统）。然而，使用kubernetes是有代价的。首先，它用一个不同的命令行接口，不同的编程接口及不同的YAML文件定义等。换言之，你不能使用docker命令行接口也不能用docker compose来定义容器。为了使用kubernetes，所有所有的东西都需要从头开始。这就好像这个工具并不是为了docker写的一样（这个在某种程度上确实是）。kubernetes把集群带到了一个全新的高度，代价是学习曲线比较陡。</p>
+<h2 id="Docker-Swarm"><a href="#Docker-Swarm" class="headerlink" title="Docker Swarm"></a>Docker Swarm</h2><p><img src="https://technologyconversations.files.wordpress.com/2015/11/docker-swarm.png?w=438&h=600" alt><br>docker-swarm 使用了一个不同的方式。它是docker原生的集群工具。</p>
+<p>最方便的部分是它暴露了docker标准的编程接口，意味着你之前一直在使用的任何与docker沟通的工具（docker命令行接口，docker compose，dokku，krane等等），都可以无缝的在docker swarm上使用。</p>
+<p>这个其实是个双刃剑，毁誉参半。一直可以使用自己得心应手熟悉的工具，这再好不过了，然而，这样意味着我们又被docker紧紧的“耦合”了（而非业界一直追求的松耦合”）。如果你需要的都能满足，那皆大欢喜。可是如果不是呢，要是你有特殊需求这些API满足不了怎么办？这是就不得不去耍一些“小聪明”。</p>
+<p>我们来仔细剖析下这两个工具，主要会从如何在集群中运行容器，这两个工具分别如何安装以及他们提供的功能。</p>
+<h2 id="安装设置"><a href="#安装设置" class="headerlink" title="安装设置"></a>安装设置</h2><p>安装设置swarm非常简单，简单明了并且很灵活。我们需要做的就是安装一个服务发现工具，然后在所有的节点上安装swarm容器。因为它自己就是以一个docker容器来部署的，因此它在不同的操作系统上运行方式都是没有差别的。我们运行swarm容器，开放一个端口，然后告知服务发现模块的地址。这不能再简单了。我们甚至可以在没有任何服务发现模块的情况下开始使用，来看看我们是否喜欢它，当开始真正认真的要使用时再去添加etcd，consul或者其他支持的工具。</p>
+<p>相比较而言，kubernetes的安装就有点复杂晦涩了。不同的操作系统上安装都不同。每个操作系统都有自己的独立安装指令和运维团队。比如说，如果你选择使用vagrant来试用，然后在Fedora这里遇到问题卡住了，但这不是意味着其他的（比如Ubuntu或者coreos）也不能用。你可以，不过要开始在kubernetes官方以外到处搜索. 你所需要的很可能在某个社区论坛里提供的解决方案，但是你需要时间去查询，运气好的话可以在第一次尝试就能用。一个严重的问题是安装kubernetes依赖于bash脚本。如果我们是处于配置管理不是必须的情况下是，这个本身可能不是大问题。我们可能不希望运行一个脚本，而是希望kubernetes成为puppet，chef或者ansible的一部分。同样，这个也是可以解决的。你可以找到ansible 的安装手册来动行kubernetes或者你自己去写。跟swarm比这些都不是什么大问题,只是一点点的小痛苦而已。使用刀砍请不要期待任何的安装文档，除非都可使用docker命令行的时候运行的参数而已。我们打算去运行容器，swarm可以实现这个，但kubernetes 没有。有些人可能并不在意具体是使用哪个服务发现的工具。我喜欢swarm背后提倡的那种极简风格，以及他背后的逻辑，内置电池，拆留由已。任何东西都是拆箱可用但是我们还提供了选项让你去替换其中的任一个模块。</p>
+<p>与swarm不同的是，kubernetes 是一个可配置的工具。你需要跟kubernetes提供的各个选项来共生存。例如，如果你打算使用kubernets,你必须要使用etcd.我不是说etcd不好(实际上正好相反)，但是如果你习惯于，比如你在非常复杂的业务场景下使用consul，如果要使用服务发现，必须特别针对kubernets使用一个，而剩下的其他部分使用其他一个产品。另外一个对使用Kubernets觉得不方便的地方就是你需要在事先了解各种事情。比如，你需要告诉他要用到的所有节点的地址，每个节点的职责是什么,这个集群有多少个“小黄人” (minion,是kubernet对于一个集群中机器之前叫的名字)，等等。<br>而使用Swarm，我们只需要启动一个节点，告诉他加入网络，就可以了。我们不需要提前告诉关于集群其他的信息，因为这些信息会通过各个节点间的 “八卦”（gossip protocol）来传输。</p>
+<p>配置本身也许并不是这些工具之间最大的差别。不管你使用哪个工具，或早或晚，所有都会配置好并运行起来，到时候你们就会忘掉在配置时的痛苦经历。你可能会说我们之所以选择某个工具就是因为它安装配置简单吧。很公平的。我们继续往下讨论如何定义容器及之上的这些工具。</p>
+<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><p>如果使用Swarm来运行Docker容器，你如何去定义所有的参数呢？<br>实际上你根本不需要！你所做的跟使用Swarm之前没有什么不同。比如，你习惯于使用Docker CLI（命令行接口），你可以继续使用几乎相同的命令。如果你习惯于使用Docker Componse来运行容器，你可以继续在Swarm集群中使用。不管你之前习惯于怎么使用容器，你仍旧可以使用，只是在更大级别的集群中使用。</p>
+<p>Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你不能使用你之前创建的docker-compose.yml配置，你必须要去新建与Kubernetes对应的配置。你也不能使用之前学习的Docker CLI（命令行接口）。你必须要去学习 Kubernetes CLI（命令行接口），并且很有可能，确保你整个公司机构也要去学习。</p>
+<p>不管你选择哪个工具来部署集群，你都要先熟悉Docker。你可能已经习惯于使用 使用Docker Compose来定义你运行容器的参数。如果你曾经使用它超过几个小时，你可能就会直接使用它而扔掉Docker CLI。你可以使用它运行容器，跟踪日志变化，等等。另外一方面，你可能是Docker的  “死忠”，看不上 Docker Compose，而是任何事都使用Docker CLI，或者你甚至自己写bash脚本来运行容器。不管哪种方式，这些都可以在Docker Swarm上使用。</p>
+<p>如果你选择Kubernetes，请先准备好同一件事需要有多个定义配置。你需要使用 Docker Compose来运行Kubernetes范围外的容器。开发人员需要继续在他们的笔记本电脑上运行容器，你的测试环境可能也不是一个大集群，等等。换言之，如果你选择了Docker，那么 Docker Compose 和 Docker CLI将是不可避免的。你肯定会在某些地方或者以某种方式用到它们。一旦你开始使用 Kubernetes，你就会发现你所有的 Docker Compose的配置都要翻译成 Kubernetes的方式，从这个时候，你也要开始<code>维护这两个版本了</code>。使用 Kubernetes，这些重复的事情意味着维护成本的提高。重复只是一个问题，另外的是你在集群中运行的命令将于集群外使用的命令不一样了。你之前学习并喜爱的Docker的所有命令在 Kubernetes集群内将是完全行不通了。</p>
+<p>Kubernetes的开发团队强制你去按照他们的办事方式行事，其实不是为了让你过的那么苦。如此巨大差别的主要原因是 Swarm 和 Kubernetes针对同一问题采取了不同的处理手段。 Swarm团队决定使用跟Docker相同的API接口，因此我们看到这些之前有如此好的兼容性。结果就是，你可以使用几乎所有之前的东西，只是在更大级别的集群中使用而已。没有新的东西要去做，不需要去重复配置参数，也不需要去新学习什么。不管你是直接使用Docker CLIgipj使用Swarm，这些API接口是基本上一致的。不好的方面是如果你想Swarm去做某件事，但是这个在Docker API中没有，这样你就悲催了。简单来说，如果你在找一个工具，<code>可以部署使用Docker API的容器到集群中，那么 Swarm就是解决方案</code>。另一方面，如果你想要一个工具，<code>可以解决Docker API办不到的事情，你就应该去试试 Kubernetes</code>了。这就是功能性（ Kubernetes）VS. 简易性（Swarm）。</p>
+<p>这里唯一还没有回答的问题就是这些限制是什么。主要的限制中有两个，网络配置和持续化存储卷。走到Swarm1.0，我们不能连接运行于不同服务器上的容器。事实上，现在我们仍然不能连接他们，但是我们可能通过跨主机网络来协助连接运行于不同服务器上的容器。这是个非常强大的功能。而 Kubernetes使用 flannel（一个使用go写的虚拟网络的开源系统）来实现网络路由。目前自从Docker1.0开始， 这个功能也成为Docker CLI的一部分了。</p>
+<p>另外一个问题是持续化存储卷。Docker在1.9版本中引入此功能。直到最近，如果你持久化一个数据卷，这个容器就绑定到这个持续化卷所在的服务器上了。它不能再次移动，除非你使用一些恶心的小花招，比如在不同的服务器间复制这些数据卷文件。这些本身是一些比较慢的操作，这与Swarm等工具的初衷也是相违背的。即便你有时间去复制，你也不知道从哪里去复制，因为集群工具会认为你整个数据中心是一个实体。你的容器会部署到它认为最合适的地方（比如，运行最少容器，CPU或者内容使用率最低，等等）。现在已经有Docker内置的持久化卷了。网络和持久化卷缺失曾经是许多人放弃Swarm而去选择 Kubernetes。自从Docker1.9，这此已经成为过去式。</p>
+<h2 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h2><p>当需要在Docker Swarm 和 Kubernetes做出选择时，可以考虑如下几点。你是否想依赖于Docker自己来解决集群的问题。如果是，选择Swarm。如果某些功能在Docker中不支持，那它也非常可能在Swarm中找不到，因为Swarm是依赖于Docker API的。另外一方面，如果你想要一个工具可以解决Docker的限制，Kubernetes将是不错的选择。Kubernetes不是基于Docker，而是基于Google多年对于管理容器的经验。它是按照自己的方式来行事。</p>
+<p>真正的问题是Kubernetes这种自我的方式（与Docker非常的不同）相比于它提供的优点是否值得。或者，我们是不是应该押宝在Docker本身上，期待Docker将来会解决这些难题。在回答这些问题之前，请先看一下Docker1.9之后的版本。它已经有个网络配置及持久化卷。也有了所谓的“除非死掉 才去重启”的策略，这次方便去管理那些讨厌的错误。现在Kubernetes 和 Swarm之间的差异又少了3个。实际上，现如今，Kubernetes 相对于 Swarm的优势很少了。另一方面，Swarm使用了Docker API意味着你可以共用命令的配置。个人认为，我倾向于押宝于Docker引擎变得越来越好，这样Docker Swarm也会受益。这两者之间的差异已经非常小。两个都是可用于生产环境，但是Swarm更易于去配置，易于使用，并且可以重用在上集群之前的配置，不需要在集群和非集群环境下重复工作。</p>
+<p>我个人的建议是使用Docker Swarm。而 Kubernetes太“任性”了，不易于配置，与Docker CLI，API差别太大，并且在Docker1.0之后，相对于Swarm来说没有太多的优势。<code>他们之间其他的差距影响真的是不太大</code>。但是Docker Swarm更易于配置。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>使用kubernetes的好处是在其前后基于Google对container管理几十年的经验，比如Borg。</li>
+<li>使用某个特定容器其实并不是特别重要的事，最主要的还是集群技术。kubernetes类似于数据库操作领域的hibernate/ibates，即解耦合。在需要的时候我们可以使用Rocket替换Docker，对使用者透明。kubernetes这个功能在swarm中是找不到的。在生产环境中，如果需要，对于上层是透明的，没有任何影响。</li>
+<li>不得不承认，Swarm更多的是一个部署工具，而Kubernetes是用于HA（高可用）架构的大规模的编配平台。</li>
+<li>Kubernetes是介于中间的产品，没有Swarm那么简单友好，也没有Mesos那么功能强大。因此很有可能是在Mesos上层使用Docker，而非与Kubernetes集成。</li>
+<li>人们使用Mesos是因为它本身不是为了Docker或者容器设计的，它只是个集群抽象层。人们用就是因为它是唯一一个既支持部署应用程序又可以同时管理hadoop。（将来有可能不一定）</li>
+<li>如果我是个开发人员，我会选择 Compose+Swarm,它简单易用。但是如果我是CTO，我会选择k8s，因为这样我就不用关于Docker API的兼容性问题了。</li>
 </ul>
-<p>在软件设计领域， 有一些技术具体实现这个精髓，比如 DDD (Domain Driven Design),TDD (Test Driven Develop),这个使代码集中在真正需要的功能上，而不需要其他额外的。另外一个建议是 <code>不要试图通过注释来提高代码的可读性</code>，而应该从代码本身提高。比如如下是不太好的变量定义</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// i is for 'counter' and j means total sum</span></span><br><span class="line"><span class="keyword">int</span> i, j;</span><br></pre></td></tr></table></figure>
-
-<p>而如下是好的设计 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// more intuitive one</span></span><br><span class="line"><span class="keyword">int</span> counter,sum;</span><br></pre></td></tr></table></figure>
-
-<p>与此相呼应的是称作 <code>奥卡姆剃刀</code> 或者 <code>简约之法则</code>：</p>
-<blockquote>
-<p>Occam’s razor<br>The simplest (explanation|solution) is usually the best one.<br>往往最简单的解决方案是最好的解决方案</p>
-</blockquote>
-<p>具体到以Java为例的程序设计，如下有一些实践KISS的建议</p>
-<ul>
-<li>首先，认清自己，不要认为自己是个天才，这往往是你犯的第一个错。</li>
-<li>把你的工作打散成几个子工作，每个部分不会耗费超过4-12个小时去完成</li>
-<li>把一个问题分成几个小的子问题，每个问题可以通过1个或者只要几个类就能解决。</li>
-<li>保持每个方法只做一件事，并且不要超过30-40行的代码量</li>
-<li>保持每个类的体积不要太大。</li>
-<li>不要害怕扔掉不用的代码。就像家里用不到的东西就及时扔掉一样。</li>
-</ul>
-<h1 id="New-Jersey-style-（Worse-is-better）"><a href="#New-Jersey-style-（Worse-is-better）" class="headerlink" title="New Jersey style （Worse is better）"></a>New Jersey style （Worse is better）</h1><p>新泽西风格，也叫做“Worse is better”。此原则指出，<code>系统的质量不会因为新功能的增多而提高</code>。 比如一个软件，只提供一些功能，但是用户很方便使用，有可能比一些提供了非常多令人眼花缭乱功能的“大杂烩”似的软件。比如像 Linux下面的 vi/vim, 浏览器中的Chrome.</p>
-<h1 id="SOLID"><a href="#SOLID" class="headerlink" title="SOLID"></a>SOLID</h1><p>SOLID是几个编程哲学的总称，即 SOLID (Single responsibility, Open-closed, Liskov substitution, Interface segregation and Dependency inversion) ，下面我们分别解释一下：</p>
-<h2 id="Single-responsibility-（SRP）"><a href="#Single-responsibility-（SRP）" class="headerlink" title="Single responsibility （SRP）"></a>Single responsibility （SRP）</h2><p>单一功能原则。Robert描述这个为“A class should have only one reason to change.”，即修改一个类（或者模块）有（且只能有）一个理由。简单说就是 <code>一个类或者模块只能负责一个功能</code>。举个例子，有一个模块负责生成一个报表，可以想像可能有两个理由去修改此模块，第一，报表的内容要变，第二，报表的格式要改。这两个改动是出于不同的理由，一个是内容的一个美化版面的。 而 “单一职责” 规则认为这是两个不同的职责，因此应该分成两个不同的子模块。如果把两件事情放在一起，并且不同的改动是出于不同的原因，这种设计是不好的。此规则方便系统各模块间解耦合。</p>
-<h2 id="Open-closed-principle-（OCP）"><a href="#Open-closed-principle-（OCP）" class="headerlink" title="Open/closed principle （OCP）"></a>Open/closed principle （OCP）</h2><p>开闭原则。Bertrand描述为“”software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification”;”，也就是说对于一个实体（类，模块，方法等）允许在不修改源代码的前提下扩展它的功能行为。即，你可以把 <code>新代码放到新的类或者方法中</code>，新类通过继承来重用已有代码及功能。而 <code>已有的代码只有在修bug时才去修改</code>。 此原则主要用于降低在添加新加功能时引入新的bug的风险。</p>
-<h2 id="The-Liskov-Substitution-Principle-（LSP）"><a href="#The-Liskov-Substitution-Principle-（LSP）" class="headerlink" title="The Liskov Substitution Principle （LSP）"></a>The Liskov Substitution Principle （LSP）</h2><p>里氏替换原则. 原文是 “Derived classes must be substitutable for their base classes.”，意思是，<code>派生类（子类）对象能够替换其基类（超类）对象被使用</code>。 比如说，如果 S 是T 的子类， 那么任何T类的具体实现对象都可以替换S的实现对象出现的地方，具体的调用者也不知道具体是父类还是子类，还不会出现任何错误。比如下图，调用者可以2来替换1的地方 。<br><img src="https://msdnshared.blob.core.windows.net/media/TNBlogsFS/BlogFileStorage/blogs_msdn/willy-peter_schaub/WindowsLiveWriter/SDLCSoftwareDevelopmentLifecycleflashbac_A707/image_4.png" alt></p>
-<h2 id="Interface-segregation-principle-（ISP）"><a href="#Interface-segregation-principle-（ISP）" class="headerlink" title="Interface segregation principle （ISP）"></a>Interface segregation principle （ISP）</h2><p>接口隔离。原文是 many client-specific interfaces are better than one general-purpose interface. 意思是多个特定客户端接口要好于一个宽泛用途的接口。Make fine grained interfaces that are client specific. 应该定义粒度合适的一系列接口(像下图)，以便于每个客户去实现具体的功能请求。换句话说是，客户（client）不应该必须去依赖于它用不到的功能方法。此原则的目的是系统解开耦合，从而容易重构，更改和重新部署。<br><img src="http://cdn.hackerchick.com/wp-content/uploads/2010/04/200806SOLIDIISP2.gif" alt></p>
-<h2 id="Dependency-inversion-principle-DIP"><a href="#Dependency-inversion-principle-DIP" class="headerlink" title="Dependency inversion principle (DIP)"></a>Dependency inversion principle (DIP)</h2><p>依赖反转原则. 原文是 One should “Depend upon Abstractions. Do not depend upon concretions.” 意思是 一个方法应该遵从“依赖于抽象而不是一个实例”。该原则规定：</p>
-<ol>
-<li>高层次的模块不应该依赖于低层次的模块，两者都应该依赖于抽象接口。</li>
-<li>抽象接口不应该依赖于具体实现。而具体实现则应该依赖于抽象接口。<br>这个就像是设计模式中的Adaptor适配器模式。<br>下图解释了这个原理。<br><a href="https://upload.wikimedia.org/wikipedia/commons/9/96/Dependency_inversion.png" target="_blank" rel="noopener"></a><br>图1中，高层对象A依赖于底层对象B的实现；图2中，把高层对象A对底层对象的需求抽象为一个接口A，底层对象B实现了接口A，这就是依赖反转。</li>
-</ol>
-<h1 id="SOC"><a href="#SOC" class="headerlink" title="SOC"></a>SOC</h1><p>Separation of concerns,?即关注点分离。 是处理复杂性的一个原则。由于关注点混杂在一起会导致复杂性大大增加，所以能够把不同的关注点分离开来，分别处理就是处理复杂性的一个原则，一种方法。这个与SOLID中的 SRP很类似。</p>
-<h1 id="YANGI"><a href="#YANGI" class="headerlink" title="YANGI"></a>YANGI</h1><p>是”You aren’t gonna need it”的缩写，直译是“你将来用不到它的”。这个是<a href="https://en.wikipedia.org/wiki/Extreme_programming" target="_blank" rel="noopener">极限编程</a>的一个编程思想。意思是说,永远不要因为 <code>预计</code>你会用到某个功能就去写一段代码去实现，总是只有问题出现了，<code>真的需要这个功能时才去写</code>。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://en.wikipedia.org/wiki/Principle_of_least_astonishment" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Principle_of_least_astonishment</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank" rel="noopener">DRY</a></li>
-<li><a href="http://blog.csdn.net/sinat_20645961/article/details/47393737" target="_blank" rel="noopener"> 六大设计原则–里氏替换原则【Liskov Substitution Principle】</a></li>
-<li><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)" target="_blank" rel="noopener">SOLID</a></li>
-<li><a href="http://stackoverflow.com/questions/816130/how-to-keep-my-code-simple" target="_blank" rel="noopener">how to keep code simple</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Occam%27s_razor" target="_blank" rel="noopener">奥卡姆剃刀</a></li>
-<li><a href="http://people.apache.org/~fhanik/kiss.html" target="_blank" rel="noopener">Apache KISS</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Worse_is_better" target="_blank" rel="noopener">Worse is better</a></li>
-</ul>
+<p>原文地址 ： <a href="https://technologyconversations.com/2015/11/04/docker-clustering-tools-compared-kubernetes-vs-docker-swarm/" target="_blank" rel="noopener">https://technologyconversations.com/2015/11/04/docker-clustering-tools-compared-kubernetes-vs-docker-swarm/</a></p>
 
           
         
@@ -587,7 +693,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-04-Kubernets-vs-Swarm/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-14-JetBrains-Tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -603,7 +709,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-09-04-Kubernets-vs-Swarm/" class="post-title-link" itemprop="url">Kubernetes 与 Docker Swarm的对比</a>
+              <a href="/2016-09-14-JetBrains-Tips/" class="post-title-link" itemprop="url">JetBrains/IntelliJ tips</a>
             
           </h1>
         
@@ -635,37 +741,10 @@
 
       
           
-            <p>Kubernetes 和Docker Swarm 可能是使用最广泛的工具，用于在集群环境中部署容器。但是这两个工具还是有很大的差别。</p>
-<h2 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h2><p><img src="https://technologyconversations.files.wordpress.com/2015/10/kubernetes.png?w=600&h=532" alt><br>Google根据其在Linux上容器管理经验，改造到docker管理上，就是kubernetes。他的在许多方面表现良好。最重要的是构造于Google多年的宝贵经验只上。</p>
-<p>如果你从docker1.0以上开始使用kubernetes，你得到的用户体验会非常良好。比如你会发现kubernetes解决一些docker自身的问题。例如你可以mount（绑定）持久化存储卷（volume），以便于在迁移docker时不至于丢失数据。</p>
-<p>kubernetes使用<code>flannel</code>（一个使用go写的虚拟网络的开源系统）构造容器间的网络通信。它还内置有负载均衡。除此之外，它的“服务发现”使用了etcd（一个使用golang编写的开源虚拟网络系统）。然而，使用kubernetes是有代价的。首先，它用一个不同的命令行接口，不同的编程接口及不同的YAML文件定义等。换言之，你不能使用docker命令行接口也不能用docker compose来定义容器。为了使用kubernetes，所有所有的东西都需要从头开始。这就好像这个工具并不是为了docker写的一样（这个在某种程度上确实是）。kubernetes把集群带到了一个全新的高度，代价是学习曲线比较陡。</p>
-<h2 id="Docker-Swarm"><a href="#Docker-Swarm" class="headerlink" title="Docker Swarm"></a>Docker Swarm</h2><p><img src="https://technologyconversations.files.wordpress.com/2015/11/docker-swarm.png?w=438&h=600" alt><br>docker-swarm 使用了一个不同的方式。它是docker原生的集群工具。</p>
-<p>最方便的部分是它暴露了docker标准的编程接口，意味着你之前一直在使用的任何与docker沟通的工具（docker命令行接口，docker compose，dokku，krane等等），都可以无缝的在docker swarm上使用。</p>
-<p>这个其实是个双刃剑，毁誉参半。一直可以使用自己得心应手熟悉的工具，这再好不过了，然而，这样意味着我们又被docker紧紧的“耦合”了（而非业界一直追求的松耦合”）。如果你需要的都能满足，那皆大欢喜。可是如果不是呢，要是你有特殊需求这些API满足不了怎么办？这是就不得不去耍一些“小聪明”。</p>
-<p>我们来仔细剖析下这两个工具，主要会从如何在集群中运行容器，这两个工具分别如何安装以及他们提供的功能。</p>
-<h2 id="安装设置"><a href="#安装设置" class="headerlink" title="安装设置"></a>安装设置</h2><p>安装设置swarm非常简单，简单明了并且很灵活。我们需要做的就是安装一个服务发现工具，然后在所有的节点上安装swarm容器。因为它自己就是以一个docker容器来部署的，因此它在不同的操作系统上运行方式都是没有差别的。我们运行swarm容器，开放一个端口，然后告知服务发现模块的地址。这不能再简单了。我们甚至可以在没有任何服务发现模块的情况下开始使用，来看看我们是否喜欢它，当开始真正认真的要使用时再去添加etcd，consul或者其他支持的工具。</p>
-<p>相比较而言，kubernetes的安装就有点复杂晦涩了。不同的操作系统上安装都不同。每个操作系统都有自己的独立安装指令和运维团队。比如说，如果你选择使用vagrant来试用，然后在Fedora这里遇到问题卡住了，但这不是意味着其他的（比如Ubuntu或者coreos）也不能用。你可以，不过要开始在kubernetes官方以外到处搜索. 你所需要的很可能在某个社区论坛里提供的解决方案，但是你需要时间去查询，运气好的话可以在第一次尝试就能用。一个严重的问题是安装kubernetes依赖于bash脚本。如果我们是处于配置管理不是必须的情况下是，这个本身可能不是大问题。我们可能不希望运行一个脚本，而是希望kubernetes成为puppet，chef或者ansible的一部分。同样，这个也是可以解决的。你可以找到ansible 的安装手册来动行kubernetes或者你自己去写。跟swarm比这些都不是什么大问题,只是一点点的小痛苦而已。使用刀砍请不要期待任何的安装文档，除非都可使用docker命令行的时候运行的参数而已。我们打算去运行容器，swarm可以实现这个，但kubernetes 没有。有些人可能并不在意具体是使用哪个服务发现的工具。我喜欢swarm背后提倡的那种极简风格，以及他背后的逻辑，内置电池，拆留由已。任何东西都是拆箱可用但是我们还提供了选项让你去替换其中的任一个模块。</p>
-<p>与swarm不同的是，kubernetes 是一个可配置的工具。你需要跟kubernetes提供的各个选项来共生存。例如，如果你打算使用kubernets,你必须要使用etcd.我不是说etcd不好(实际上正好相反)，但是如果你习惯于，比如你在非常复杂的业务场景下使用consul，如果要使用服务发现，必须特别针对kubernets使用一个，而剩下的其他部分使用其他一个产品。另外一个对使用Kubernets觉得不方便的地方就是你需要在事先了解各种事情。比如，你需要告诉他要用到的所有节点的地址，每个节点的职责是什么,这个集群有多少个“小黄人” (minion,是kubernet对于一个集群中机器之前叫的名字)，等等。<br>而使用Swarm，我们只需要启动一个节点，告诉他加入网络，就可以了。我们不需要提前告诉关于集群其他的信息，因为这些信息会通过各个节点间的 “八卦”（gossip protocol）来传输。</p>
-<p>配置本身也许并不是这些工具之间最大的差别。不管你使用哪个工具，或早或晚，所有都会配置好并运行起来，到时候你们就会忘掉在配置时的痛苦经历。你可能会说我们之所以选择某个工具就是因为它安装配置简单吧。很公平的。我们继续往下讨论如何定义容器及之上的这些工具。</p>
-<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><p>如果使用Swarm来运行Docker容器，你如何去定义所有的参数呢？<br>实际上你根本不需要！你所做的跟使用Swarm之前没有什么不同。比如，你习惯于使用Docker CLI（命令行接口），你可以继续使用几乎相同的命令。如果你习惯于使用Docker Componse来运行容器，你可以继续在Swarm集群中使用。不管你之前习惯于怎么使用容器，你仍旧可以使用，只是在更大级别的集群中使用。</p>
-<p>Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你不能使用你之前创建的docker-compose.yml配置，你必须要去新建与Kubernetes对应的配置。你也不能使用之前学习的Docker CLI（命令行接口）。你必须要去学习 Kubernetes CLI（命令行接口），并且很有可能，确保你整个公司机构也要去学习。</p>
-<p>不管你选择哪个工具来部署集群，你都要先熟悉Docker。你可能已经习惯于使用 使用Docker Compose来定义你运行容器的参数。如果你曾经使用它超过几个小时，你可能就会直接使用它而扔掉Docker CLI。你可以使用它运行容器，跟踪日志变化，等等。另外一方面，你可能是Docker的  “死忠”，看不上 Docker Compose，而是任何事都使用Docker CLI，或者你甚至自己写bash脚本来运行容器。不管哪种方式，这些都可以在Docker Swarm上使用。</p>
-<p>如果你选择Kubernetes，请先准备好同一件事需要有多个定义配置。你需要使用 Docker Compose来运行Kubernetes范围外的容器。开发人员需要继续在他们的笔记本电脑上运行容器，你的测试环境可能也不是一个大集群，等等。换言之，如果你选择了Docker，那么 Docker Compose 和 Docker CLI将是不可避免的。你肯定会在某些地方或者以某种方式用到它们。一旦你开始使用 Kubernetes，你就会发现你所有的 Docker Compose的配置都要翻译成 Kubernetes的方式，从这个时候，你也要开始<code>维护这两个版本了</code>。使用 Kubernetes，这些重复的事情意味着维护成本的提高。重复只是一个问题，另外的是你在集群中运行的命令将于集群外使用的命令不一样了。你之前学习并喜爱的Docker的所有命令在 Kubernetes集群内将是完全行不通了。</p>
-<p>Kubernetes的开发团队强制你去按照他们的办事方式行事，其实不是为了让你过的那么苦。如此巨大差别的主要原因是 Swarm 和 Kubernetes针对同一问题采取了不同的处理手段。 Swarm团队决定使用跟Docker相同的API接口，因此我们看到这些之前有如此好的兼容性。结果就是，你可以使用几乎所有之前的东西，只是在更大级别的集群中使用而已。没有新的东西要去做，不需要去重复配置参数，也不需要去新学习什么。不管你是直接使用Docker CLIgipj使用Swarm，这些API接口是基本上一致的。不好的方面是如果你想Swarm去做某件事，但是这个在Docker API中没有，这样你就悲催了。简单来说，如果你在找一个工具，<code>可以部署使用Docker API的容器到集群中，那么 Swarm就是解决方案</code>。另一方面，如果你想要一个工具，<code>可以解决Docker API办不到的事情，你就应该去试试 Kubernetes</code>了。这就是功能性（ Kubernetes）VS. 简易性（Swarm）。</p>
-<p>这里唯一还没有回答的问题就是这些限制是什么。主要的限制中有两个，网络配置和持续化存储卷。走到Swarm1.0，我们不能连接运行于不同服务器上的容器。事实上，现在我们仍然不能连接他们，但是我们可能通过跨主机网络来协助连接运行于不同服务器上的容器。这是个非常强大的功能。而 Kubernetes使用 flannel（一个使用go写的虚拟网络的开源系统）来实现网络路由。目前自从Docker1.0开始， 这个功能也成为Docker CLI的一部分了。</p>
-<p>另外一个问题是持续化存储卷。Docker在1.9版本中引入此功能。直到最近，如果你持久化一个数据卷，这个容器就绑定到这个持续化卷所在的服务器上了。它不能再次移动，除非你使用一些恶心的小花招，比如在不同的服务器间复制这些数据卷文件。这些本身是一些比较慢的操作，这与Swarm等工具的初衷也是相违背的。即便你有时间去复制，你也不知道从哪里去复制，因为集群工具会认为你整个数据中心是一个实体。你的容器会部署到它认为最合适的地方（比如，运行最少容器，CPU或者内容使用率最低，等等）。现在已经有Docker内置的持久化卷了。网络和持久化卷缺失曾经是许多人放弃Swarm而去选择 Kubernetes。自从Docker1.9，这此已经成为过去式。</p>
-<h2 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h2><p>当需要在Docker Swarm 和 Kubernetes做出选择时，可以考虑如下几点。你是否想依赖于Docker自己来解决集群的问题。如果是，选择Swarm。如果某些功能在Docker中不支持，那它也非常可能在Swarm中找不到，因为Swarm是依赖于Docker API的。另外一方面，如果你想要一个工具可以解决Docker的限制，Kubernetes将是不错的选择。Kubernetes不是基于Docker，而是基于Google多年对于管理容器的经验。它是按照自己的方式来行事。</p>
-<p>真正的问题是Kubernetes这种自我的方式（与Docker非常的不同）相比于它提供的优点是否值得。或者，我们是不是应该押宝在Docker本身上，期待Docker将来会解决这些难题。在回答这些问题之前，请先看一下Docker1.9之后的版本。它已经有个网络配置及持久化卷。也有了所谓的“除非死掉 才去重启”的策略，这次方便去管理那些讨厌的错误。现在Kubernetes 和 Swarm之间的差异又少了3个。实际上，现如今，Kubernetes 相对于 Swarm的优势很少了。另一方面，Swarm使用了Docker API意味着你可以共用命令的配置。个人认为，我倾向于押宝于Docker引擎变得越来越好，这样Docker Swarm也会受益。这两者之间的差异已经非常小。两个都是可用于生产环境，但是Swarm更易于去配置，易于使用，并且可以重用在上集群之前的配置，不需要在集群和非集群环境下重复工作。</p>
-<p>我个人的建议是使用Docker Swarm。而 Kubernetes太“任性”了，不易于配置，与Docker CLI，API差别太大，并且在Docker1.0之后，相对于Swarm来说没有太多的优势。<code>他们之间其他的差距影响真的是不太大</code>。但是Docker Swarm更易于配置。</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>使用kubernetes的好处是在其前后基于Google对container管理几十年的经验，比如Borg。</li>
-<li>使用某个特定容器其实并不是特别重要的事，最主要的还是集群技术。kubernetes类似于数据库操作领域的hibernate/ibates，即解耦合。在需要的时候我们可以使用Rocket替换Docker，对使用者透明。kubernetes这个功能在swarm中是找不到的。在生产环境中，如果需要，对于上层是透明的，没有任何影响。</li>
-<li>不得不承认，Swarm更多的是一个部署工具，而Kubernetes是用于HA（高可用）架构的大规模的编配平台。</li>
-<li>Kubernetes是介于中间的产品，没有Swarm那么简单友好，也没有Mesos那么功能强大。因此很有可能是在Mesos上层使用Docker，而非与Kubernetes集成。</li>
-<li>人们使用Mesos是因为它本身不是为了Docker或者容器设计的，它只是个集群抽象层。人们用就是因为它是唯一一个既支持部署应用程序又可以同时管理hadoop。（将来有可能不一定）</li>
-<li>如果我是个开发人员，我会选择 Compose+Swarm,它简单易用。但是如果我是CTO，我会选择k8s，因为这样我就不用关于Docker API的兼容性问题了。</li>
-</ul>
-<p>原文地址 ： <a href="https://technologyconversations.com/2015/11/04/docker-clustering-tools-compared-kubernetes-vs-docker-swarm/" target="_blank" rel="noopener">https://technologyconversations.com/2015/11/04/docker-clustering-tools-compared-kubernetes-vs-docker-swarm/</a></p>
+            <h1 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h1><h2 id="Open-files-by-name"><a href="#Open-files-by-name" class="headerlink" title="Open files by name"></a>Open files by name</h2><p>To navigate to a class, file or symbol with the specified name:</p>
+<p>On the main menu, point to Navigate, and then choose Class, File, or Symbol respectively, or use the following shortcuts:<br>Class: ⌘O<br>File (directory): ⇧⌘O<br>Symbol: ⌥⌘O</p>
+<h2 id="Search-keywords-in-files"><a href="#Search-keywords-in-files" class="headerlink" title="Search keywords in files"></a>Search keywords in files</h2><p>Shift+Command+F: Fine in path</p>
+<h2 id="Re-open-files"><a href="#Re-open-files" class="headerlink" title="Re-open files"></a>Re-open files</h2><p>Command +E</p>
 
           
         
@@ -790,85 +869,6 @@
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><ul>
 <li><a href="https://objectpartners.com/2013/09/18/the-benefits-of-using-assertthat-over-other-assert-methods-in-unit-tests/" target="_blank" rel="noopener">benefit of assertThat</a></li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-14-JetBrains-Tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-09-14-JetBrains-Tips/" class="post-title-link" itemprop="url">JetBrains/IntelliJ tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h1><h2 id="Open-files-by-name"><a href="#Open-files-by-name" class="headerlink" title="Open files by name"></a>Open files by name</h2><p>To navigate to a class, file or symbol with the specified name:</p>
-<p>On the main menu, point to Navigate, and then choose Class, File, or Symbol respectively, or use the following shortcuts:<br>Class: ⌘O<br>File (directory): ⇧⌘O<br>Symbol: ⌥⌘O</p>
-<h2 id="Search-keywords-in-files"><a href="#Search-keywords-in-files" class="headerlink" title="Search keywords in files"></a>Search keywords in files</h2><p>Shift+Command+F: Fine in path</p>
-<h2 id="Re-open-files"><a href="#Re-open-files" class="headerlink" title="Re-open files"></a>Re-open files</h2><p>Command +E</p>
 
           
         
