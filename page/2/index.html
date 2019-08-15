@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-05-31-Microservices-Vs-SOA/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-01-Docker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-05-31-Microservices-Vs-SOA/" class="post-title-link" itemprop="url">Microservices vs. SOA</a>
+              <a href="/2016-06-01-Docker/" class="post-title-link" itemprop="url">Docker</a>
             
           </h1>
         
@@ -243,34 +243,49 @@
 
       
           
-            <h1 id="Microservice"><a href="#Microservice" class="headerlink" title="Microservice"></a>Microservice</h1><ul>
-<li>Services are organized around capabilities, e.g., user interface front-end, recommendation, logistics, billing, etc.</li>
-<li>Services are small in size, messaging enabled, bounded by contexts, autonomously developed, independently deployable, decentralized and built and released with automated processes.</li>
-<li>resource-oriented computing (ROC) as a generalized form of the Web abstraction. If in the Unix abstraction “everything is a file”, in ROC, everything is a “Micro-Web-Service”</li>
-</ul>
-<h2 id="Philosophy"><a href="#Philosophy" class="headerlink" title="Philosophy"></a>Philosophy</h2><p>The philosophy of the microservices architecture essentially equates to the Unix philosophy of “Do one thing and do it well”. It is described as follows:</p>
-<ul>
-<li>The services are small - fine-grained to perform a single function.</li>
-<li>The organization culture must embrace automation of testing and deployment. This eases the burden on management and operations and allows for different development teams to work on independently deployable units of code.</li>
-<li>The culture and design principles must embrace failure and faults, similar to anti-fragile systems.</li>
-<li>Each service is elastic, resilient, composable, minimal, and complete.</li>
-</ul>
-<h2 id="service-mesh"><a href="#service-mesh" class="headerlink" title="service mesh"></a>service mesh</h2><p>In a service mesh, each service instance is paired with an instance of a reverse proxy server, called a service proxy, sidecar proxy, or sidecar. The service instance and sidecar proxy share a container, and the containers are managed by a container orchestration tool such as Kubernetes.</p>
-<h1 id="Differences-between-Microservices-and-SOA"><a href="#Differences-between-Microservices-and-SOA" class="headerlink" title="Differences between Microservices and SOA"></a>Differences between Microservices and SOA</h1><h2 id="Definitaion-of-SOA"><a href="#Definitaion-of-SOA" class="headerlink" title="Definitaion of SOA"></a>Definitaion of SOA</h2><ul>
-<li><code>Boundaries</code> are explicit</li>
-<li>Services are <code>autonomous</code></li>
-<li>Services share __ schema __ and <strong>contract</strong>, not class</li>
-<li>Service compatibility is based on policy</li>
-</ul>
-<hr>
-<blockquote>
-<p>In short, the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. There is a bare mininum of centralized management of these services, which may be written in different programming languages and use different data storage technologies.</p>
+            <h1 id="Dockers-Concepts"><a href="#Dockers-Concepts" class="headerlink" title="Dockers Concepts"></a>Dockers Concepts</h1><h2 id="Official-Definition"><a href="#Official-Definition" class="headerlink" title="Official Definition"></a>Official Definition</h2><blockquote>
+<p>Docker is an open platform for developers and sysadmins to build,ship and run distributed applications</p>
 </blockquote>
-<h3 id="Related-links"><a href="#Related-links" class="headerlink" title="Related links:"></a>Related links:</h3><ul>
-<li><a href="https://www.infoq.com/news/2015/12/soa-v-microservices" target="_blank" rel="noopener">InfoQ Discussions</a></li>
-<li><a href="http://stackoverflow.com/questions/25501098/difference-between-microservices-architecture-and-soa" target="_blank" rel="noopener">StackOverFlow</a></li>
-<li><a href="http://stackoverflow.com/tags/microservices/info" target="_blank" rel="noopener">Microservices tag desc</a></li>
-<li><a href="http://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">MartinFowler</a></li>
+<blockquote>
+<p>Docker’s philosophy is “build-&gt;ship-&gt;run”.</p>
+</blockquote>
+<p>In contemporary IT industry, there are two major usage of <code>Docker</code>.</p>
+<ol>
+<li>Focus on Build &amp; Ship, to leverage Docker to setup a platform of “CI/CD”, for develop, test enviornment.</li>
+<li>Make use of Docker as light weight VM (virtual machine), focus on <code>Run</code>, apply it in large scale production environment.</li>
+</ol>
+<h1 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h1><p>the access control in docker is rely on iptables, the firewall software shipped in almost all Linux release.</p>
+<h1 id="Sample-Commands"><a href="#Sample-Commands" class="headerlink" title="Sample Commands"></a>Sample Commands</h1><p>List all images</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker version</span><br></pre></td></tr></table></figure>
+
+<h2 id="remove-all-exited-containers"><a href="#remove-all-exited-containers" class="headerlink" title="remove all exited containers"></a>remove all exited containers</h2><p>docker rm $(docker ps -a -f status=exited -q)</p>
+<h2 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run IMAGE_NAME [COMMAND] <span class="comment"># run a command in new container</span></span><br><span class="line">docker run -t -i f2d8ce9fa988 /bin/bash <span class="comment"># run bash in console and interactive mode</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="View-docker-details-e-g-start-up-script-working-dir"><a href="#View-docker-details-e-g-start-up-script-working-dir" class="headerlink" title="View docker details, e.g. start up script, working dir"></a>View docker details, e.g. start up script, working dir</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect containerid</span><br></pre></td></tr></table></figure>
+
+<h2 id="Start-bash-to-view-files-inside-docker"><a href="#Start-bash-to-view-files-inside-docker" class="headerlink" title="Start bash to view files inside docker"></a>Start bash to view files inside docker</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -t -i imageFile /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="Map-hosts-between-host-and-contains"><a href="#Map-hosts-between-host-and-contains" class="headerlink" title="Map hosts between host and contains"></a>Map hosts between host and contains</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker -P xxx</span><br><span class="line">docker ps -l</span><br></pre></td></tr></table></figure>
+
+<p>You’ll see</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.0.0.0:32768-&gt;5000/tcp</span><br></pre></td></tr></table></figure>
+
+<p>It means host port 32768 map to port 5000 in contains</p>
+<h2 id="To-list-docker-containers-including-histories"><a href="#To-list-docker-containers-including-histories" class="headerlink" title="To list docker containers including histories"></a>To list docker containers including histories</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a <span class="comment"># show all containers instead of only running as default</span></span><br><span class="line">docker ps -l <span class="comment"># show latest created container</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="removes-containers-once-return-from-one-run"><a href="#removes-containers-once-return-from-one-run" class="headerlink" title="removes containers once return from one run"></a>removes containers once return from one run</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -name myApp1  -link  db:db training/webapp env</span><br></pre></td></tr></table></figure>
+
+<h2 id="to-ping-other-containers"><a href="#to-ping-other-containers" class="headerlink" title="to ping other containers"></a>to ping other containers</h2><p>Be advised there is no built-in ping for containers, therefore it’s requried manually install one. As following sample:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install -yqq inetutils-ping</span><br></pre></td></tr></table></figure>
+
+<h1 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h1><ul>
+<li><a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">GitBook Docker —— 从入门到实践</a></li>
+<li><a href="https://www.zhihu.com/question/27227492" target="_blank" rel="noopener">知乎 docker</a></li>
+<li><a href="http://dockone.io/article/626" target="_blank" rel="noopener">Yelp Docker -中文版</a></li>
+<li><a href="http://engineeringblog.yelp.com/2015/08/docker-in-the-real-world-at-yelp.html" target="_blank" rel="noopener">Yelp Docker -英文版</a></li>
+<li><a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/1784397938?ie=UTF8&camp=536&creative=3132&creativeASIN=1784397938&linkCode=as2&ref_=as_li_ss_tl&tag=flamingtop-23" target="_blank" rel="noopener">Amazon Docker books</a></li>
 </ul>
 
           
@@ -299,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-01-DB-Sharding/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-01-Setup-Git-In-Mint/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -315,7 +330,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-01-DB-Sharding/" class="post-title-link" itemprop="url">Database sharding</a>
+              <a href="/2016-06-01-Setup-Git-In-Mint/" class="post-title-link" itemprop="url">Setup Git in Mint Linux</a>
             
           </h1>
         
@@ -347,223 +362,23 @@
 
       
           
-            <h1 id="DB-sharding-in-YHD"><a href="#DB-sharding-in-YHD" class="headerlink" title="DB sharding in YHD"></a>DB sharding in YHD</h1><p>There are two solutions when DB becoming bottleneck in yihaodian. </p>
+            <h1 id="How-to-setup-Git-in-Mint-Linux"><a href="#How-to-setup-Git-in-Mint-Linux" class="headerlink" title="How to setup Git in Mint Linux"></a>How to setup Git in Mint Linux</h1><p>=================================================</p>
 <ul>
-<li>Scale up<br>Upgrade Oracle DB, adding more CPU , Disk and memory to incrase I/O performance. This is for short term only, high cost.</li>
-<li>Scale out<br>Divide the order table to multiple DBs, which is support horizontal extension, for long term purpose.</li>
+<li>git config –global user.name “Todd Zhang”</li>
+<li>git config –global user.email <a href="mailto:phray.zhang@gmail.com" target="_blank" rel="noopener">phray.zhang@gmail.com</a></li>
+<li>git config –list</li>
+<li>git clone <a href="https://github.com/todzhanglei/todzhanglei.github.io" target="_blank" rel="noopener">https://github.com/todzhanglei/todzhanglei.github.io</a> </li>
+<li>git config –global credential.helper cache</li>
+<li>git config –global credential.helper ‘cache –timeout=36000’</li>
 </ul>
-<p>Orgional Oracle is replaced by multiple MySQL DB, supporintg one master and multiple slaves, supporitng segratation of read and write. Leveraging <code>MySQL built-in</code> Master-slave replication (SLA&lt;1 second)</p>
-<h2 id="sharding-dimensions"><a href="#sharding-dimensions" class="headerlink" title="sharding dimensions"></a>sharding dimensions</h2><ul>
-<li>DB Field chosing, it should chose the filed that lead to least SQL and code change, to make the access fall in <code>one database</code>, instead of multiple DBs, which result in high I/O and significant logic change. </li>
-<li>Here is one practice</li>
-<li><ul>
-<li>Get all SQL</li>
-</ul>
-</li>
-<li><ul>
-<li>Pick up top fields appear in <code>where</code> clause.</li>
-</ul>
-</li>
-<li><ul>
-<li>List break down from three categories</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li>Single ID, i.e. userID=?</li>
-<li>Multiple ID. i.e. userID in (?,?,?)</li>
-<li>Not show</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th align="left">Field</th>
-<th align="right">Single ID</th>
-<th align="right">Multiple ID</th>
-<th align="right">Not show</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">userID</td>
-<td align="right">120</td>
-<td align="right">40</td>
-<td align="right">330</td>
-</tr>
-<tr>
-<td align="left">orderID</td>
-<td align="right">60</td>
-<td align="right">80</td>
-<td align="right">360</td>
-</tr>
-<tr>
-<td align="left">shopID</td>
-<td align="right">15</td>
-<td align="right">0</td>
-<td align="right">485</td>
-</tr>
-<tr>
-<td align="left">It’s obviously we should chose userID for sharding. Hold on, this is just <strong>static</strong> analysis, we should conduct <em>dynamic*</em> study as well, so list most executed SQLs, e.g. top 15 SQL (account to 85% of SQL calls), if we conduct sharding by user ID, 85% of those SQL will fall in single DB and 13% fall in multiple DB, and only 2% will scan all DB, so the performance is must better than sharding on other ID fields.</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-</tbody></table>
-<h2 id="sharding-strategy"><a href="#sharding-strategy" class="headerlink" title="sharding strategy"></a>sharding strategy</h2><p>There are two type of strategies</p>
-<ol>
-<li>By value range, e.g. user ID 1-9999 to DB1, and 10000-20000 to DB2. For this option, </li>
-<li>By value mod, e.g. userID mod n, when reminder is 0, go to DB1, reminder is 1, to DB2, etc.</li>
-</ol>
-<p>Pros and Cons:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Criteria</th>
-<th align="left">By Range</th>
-<th align="left">By Mod</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">number of DBs</td>
-<td align="left">initially only require small amount of DBs, can increasse by business requests</td>
-<td align="left">initially number based on mod number, normally a big number</td>
-</tr>
-<tr>
-<td align="left">Accessibility</td>
-<td align="left">initially only few DBs, perforamce cost is small, single DB performance query is poor</td>
-<td align="left">initially big number of DBs, query acorss DBs may consume many resources, better for query on single DB</td>
-</tr>
-<tr>
-<td align="left">DBs adjustment</td>
-<td align="left">easy, just add new DB, and impact is limit when split existing DB</td>
-<td align="left">not easy, change mod value  may result in DB migration across DBs</td>
-</tr>
-<tr>
-<td align="left">Data hotspot</td>
-<td align="left">there are data hotspot issues</td>
-<td align="left">no data hotspot issues</td>
-</tr>
-</tbody></table>
-<p>In practice, for the sake of simplicity, mod sharding is often used. To manage further sharding, and for smooth data migration, normally new DBs are added by folds, e.g. intially 4 DBs, furhter split will be 8 DBs, then 16 DBs. This is becuase only half of data in existing DB will be migrated to new DB, while the rest half will be remain unchanged. However, there are some super IDs, e.g. one big shop with massive records than normal, if we shard DB by user ID, there will one DB will many records than others. For this case, we need to provide separate DB for those super IDs.</p>
-<h2 id="sharding-numbers"><a href="#sharding-numbers" class="headerlink" title="sharding numbers"></a>sharding numbers</h2><p>Firslty, that’s depends on the ability of single DB, e.g. normally one MySQL DB can support upto 50mio records, and Oracle can support 100mio. Normally multiple DBs may leads to certain perforamnce issues, when data query across multiple DBs, if there are multithreading call, it will cost precious thread resource, while it’s single thread, the wating time will be unacceptable. Normally, the initial sharding is 4-8 DBs.</p>
-<h2 id="Router-transparency"><a href="#Router-transparency" class="headerlink" title="Router transparency"></a>Router transparency</h2><p>To certain extent, DB sharding means change of DBSChema, which inevitable result in application, however, this is irrelavent to business logic, so the DB sharding should be transparent to business logic code, therefore, DB sharding should be handled at DAL (Data Access Layer) or DDAL (Distributed Data Access Layer).</p>
-<ol>
-<li>For access to single DB, e.g. query by certain user id, DAL will automatically route to that DB, even further split by mod, still no applicaiton logic code change impacted.</li>
-<li>For simple across DB query, DAL in charge to aggregate results from every DB query, still transparent to upper application logic.</li>
-<li>For query involves multiple DBs with aggretation functions, e.g. groupBy, order by, min, max, avg. It’s recommended DAL consolidate request from single DB, while upper layers do further processing. That’s becuase if rely on DAL, it would be too complex, and such case is relatively rare case, so leave it to upper layer.</li>
-</ol>
-<h1 id="Oracle-Sharding"><a href="#Oracle-Sharding" class="headerlink" title="Oracle Sharding"></a>Oracle Sharding</h1><p>It’s required in Web 2.0 and high availability technologies</p>
-<p>Shardingis an application-managed scaling technique using many (hundreds /thousands of) independent databases </p>
-<ul>
-<li>Data is split into multiple databases (shards)</li>
-<li>Each database holds a subset (either range or hash) of the data</li>
-<li>Split the shards as data volume or access grows</li>
-<li>Shards are replicated for availability and scalability</li>
-</ul>
-<p>Sharding is the dominant approach for scaling massive websites</p>
-<ul>
-<li>Application code dispatches request to a specific database based on key value</li>
-<li>Queries are constrained -simple queries on shard-key</li>
-<li>Data isdenormalizedto avoid cross-shard operations (no joins)</li>
-<li>Each database holds all the data</li>
-<li>Request dispatched to a specific database based on read/write,key value</li>
-<li>Updates go to one database, changes are replicated to the other databases. The other databases are available for reads</li>
-<li>Provides read scalability</li>
-<li>Can be combined with horizontal sharding so that each shard is replicated to a different degree</li>
-<li>Main benefit is that you do not need to reshard</li>
-</ul>
-<h2 id="Downsides-of-DB-replica"><a href="#Downsides-of-DB-replica" class="headerlink" title="Downsides of DB replica"></a>Downsides of DB replica</h2><ul>
-<li>Only async log shipping which can lose data in case of failure</li>
-<li>Slaves can return inconsistent data</li>
-<li>Statement based replication has correctness issues &amp; row-based replication is immature</li>
-<li>Replication is slow (high overhead on each reader, slaves are single-threaded)</li>
-<li>No support for failover between master (primary) &amp; slaves (backup)</li>
-<li>Does not handle failure conditions such as missing or damaged logs</li>
-<li>Storage engine and replication state may become inconsistent after a crash</li>
-<li>Bringing a failed master back requires copying the database</li>
-</ul>
-<p>–End–</p>
+<h2 id="To-add-remote"><a href="#To-add-remote" class="headerlink" title="To add remote"></a>To add remote</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/CloudsDocker/cloudsdocker.github.io.git</span><br></pre></td></tr></table></figure>
 
-          
-        
-      
-    </div>
+<p>Above command will add the remote URL with alias “origin”</p>
+<h2 id="To-pull-specific-branch"><a href="#To-pull-specific-branch" class="headerlink" title="To pull specific branch"></a>To pull specific branch</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin blogSrc</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
+<h1 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h1><h2 id="Error-The-following-untracked-working-tree-files-would-be-overwritten-by-checkout"><a href="#Error-The-following-untracked-working-tree-files-would-be-overwritten-by-checkout" class="headerlink" title="Error: The following untracked working tree files would be overwritten by checkout"></a>Error: The following untracked working tree files would be overwritten by checkout</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean  -d  -fx <span class="string">""</span></span><br></pre></td></tr></table></figure>
 
-    
-      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-03-CI-CD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-03-CI-CD/" class="post-title-link" itemprop="url">CI and CD</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><p><code>CI/CD</code> are usage of Docker, <code>CI</code> is continuous integration, is the process of eliciting fast, automated feedback on the <em>correctness</em> of your application every time there is a change to the code, while <code>CD</code> means continuous delivery, build upon the earlier concept by providing fast, automated feedback on the <em>correctness</em> and <em>production readiness</em> of your application every time there is a chance to <em>code, infrastructure, or configuration</em>.</p>
-<h1 id="Some-“best-practices”"><a href="#Some-“best-practices”" class="headerlink" title="Some “best practices”"></a>Some “best practices”</h1><ul>
-<li>Frequent commits to a common code stream</li>
-<li>Disallow commits into a “broken” build</li>
-<li>A “broken” build on CI should be attended to immediately and its resolutin should be of utmost priority</li>
-</ul>
-<h1 id="Use-cases"><a href="#Use-cases" class="headerlink" title="Use cases"></a>Use cases</h1>
           
         
       
@@ -682,7 +497,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-09-Docker-Errors-Fixes/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-03-CI-CD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -698,7 +513,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-09-Docker-Errors-Fixes/" class="post-title-link" itemprop="url">Docker Errors and Fixes</a>
+              <a href="/2016-06-03-CI-CD/" class="post-title-link" itemprop="url">CI and CD</a>
             
           </h1>
         
@@ -730,17 +545,13 @@
 
       
           
-            <h1 id="Docker-Errors"><a href="#Docker-Errors" class="headerlink" title="Docker Errors"></a>Docker Errors</h1><ol>
-<li>Cannot connect to the Docker daemon. Is the docker daemon running on this host?<br>The solution is to run under root user, e.g. </li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>Docker service</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker status</span><br><span class="line">sudo service docker start</span><br><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-
+            <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><p><code>CI/CD</code> are usage of Docker, <code>CI</code> is continuous integration, is the process of eliciting fast, automated feedback on the <em>correctness</em> of your application every time there is a change to the code, while <code>CD</code> means continuous delivery, build upon the earlier concept by providing fast, automated feedback on the <em>correctness</em> and <em>production readiness</em> of your application every time there is a chance to <em>code, infrastructure, or configuration</em>.</p>
+<h1 id="Some-“best-practices”"><a href="#Some-“best-practices”" class="headerlink" title="Some “best practices”"></a>Some “best practices”</h1><ul>
+<li>Frequent commits to a common code stream</li>
+<li>Disallow commits into a “broken” build</li>
+<li>A “broken” build on CI should be attended to immediately and its resolutin should be of utmost priority</li>
+</ul>
+<h1 id="Use-cases"><a href="#Use-cases" class="headerlink" title="Use cases"></a>Use cases</h1>
           
         
       
@@ -1023,6 +834,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-12-JavaScript-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-12-JavaScript-tips/" class="post-title-link" itemprop="url">JavaScript tips</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="includes-vs-some"><a href="#includes-vs-some" class="headerlink" title="includes() vs some()"></a>includes() vs some()</h1><ul>
+<li><p>The includes() method is used to check if a specific string exists in a collection, and returns true or false. Keep in mind that it is case sensitive: if the item inside the collection is SCHOOL, and you search for school, it will return false.</p>
+</li>
+<li><p>The some() method checks if some elements exists in an array, and returns true or false. This is somewhat similar to the concept of the includes() method, <code>the key diffence is the argument is a function</code> but not a string.</p>
+</li>
+</ul>
+<h1 id="splice-vs-slice"><a href="#splice-vs-slice" class="headerlink" title="splice vs slice"></a>splice vs slice</h1><p>splice: Join or connect (a rope or ropes) by interweaving the strands at the ends.</p>
+<p>‘we learned how to weave and splice ropes’</p>
+<p>slice: Cut (something, especially food) into slices.</p>
+<p>‘slice the onion into rings’</p>
+<ol>
+<li><p>The splice() method returns the removed item(s) in an array and slice() method returns the selected element(s) in an array, as a new array object.</p>
+</li>
+<li><p>The splice() method changes the original array and slice() method doesn’t change the original array.</p>
+</li>
+<li><p>The splice() method can take n number of arguments:</p>
+</li>
+</ol>
+<p>Argument 1: Index, Required. An integer that specifies at what position to add /remove items, Use negative values to specify the position from the end of the array.</p>
+<p>Argument 2: Optional. The number of items to be removed. If set to 0(zero), no items will be removed. And if not passed, all item(s) from provided index will be removed.</p>
+<p>Argument 3…n: Optional. The new item(s) to be added to the array.</p>
+<pre><code>-5 -4 -3 -2 -1
+ |  |  |  |  |</code></pre><p>var array4=[16,17,18,19,20];<br>             |  |  |  |  |<br>             0  1  2  3  4</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">console</span>.log(array4.splice(<span class="number">-2</span>,<span class="number">1</span>,<span class="string">"me"</span>));</span><br><span class="line"><span class="comment">// shows  [19]</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(array4);</span><br><span class="line"><span class="comment">// shows [16, 17, 18, "me", 20]</span></span><br></pre></td></tr></table></figure>
+
+<p>The slice() method can take 2 arguments:</p>
+<p>Argument 1: Required. An integer that specifies where to start the selection (The first element has an index of 0). Use negative numbers to select from the end of an array.</p>
+<p>Argument 2: Optional. An integer that specifies where to end the selection. If omitted, all elements from the start position and to the end of the array will be selected. Use negative numbers to select from the end of an array.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="built_in">console</span>.log(array.slice(<span class="number">2</span>));</span><br><span class="line"><span class="comment">// shows [3, 4, 5], returned selected element(s).</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Observable-is-lazy"><a href="#Observable-is-lazy" class="headerlink" title="Observable is lazy"></a>Observable is <code>lazy</code></h1><p>Remember that observables are lazy — if we want to pull a value out of an observable, we must subscribe().</p>
+<h1 id="mergeAll-vs-mergeMap-in-redux"><a href="#mergeAll-vs-mergeMap-in-redux" class="headerlink" title="mergeAll vs mergeMap in redux"></a>mergeAll vs mergeMap in redux</h1><h2 id="mergeAll"><a href="#mergeAll" class="headerlink" title="mergeAll"></a>mergeAll</h2><p>When the inner observable emits, let me know by merging the value to the outer observable.</p>
+<p>Under the hood, the mergeAll() operator basically does takes the inner observable, subscribes to it, and pushes the value to the observer. Here is one sample:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> click$ = Observable.fromEvent(button, ‘click’);</span><br><span class="line"><span class="keyword">const</span> interval$ = Observable.interval(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable$ = click$.map(<span class="function"><span class="params">event</span> =&gt;</span> &#123; </span><br><span class="line">   <span class="keyword">return</span> interval$;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">observable$.mergeAll().subscribe(<span class="function"><span class="params">num</span> =&gt;</span> <span class="built_in">console</span>.log(num));</span><br><span class="line"></span><br><span class="line">Because <span class="keyword">this</span> is a common pattern <span class="keyword">in</span> Rx, there is a shortcut that achieves the same behaviour — mergeMap().</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> click$ = Observable.fromEvent(button, ‘click’);</span><br><span class="line"><span class="keyword">const</span> interval$ = Observable.interval(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable$ = click$.mergeMap(<span class="function"><span class="params">event</span> =&gt;</span> &#123; </span><br><span class="line">   <span class="keyword">return</span> interval$;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">observable$.subscribe(<span class="function"><span class="params">num</span> =&gt;</span> <span class="built_in">console</span>.log(num));</span><br></pre></td></tr></table></figure>
+
+<h1 id="more-elegant-concise-and-flexible-approach-to-check-host-string-belongs-to-multiple-value-choices"><a href="#more-elegant-concise-and-flexible-approach-to-check-host-string-belongs-to-multiple-value-choices" class="headerlink" title="more elegant, concise and flexible approach to check host string belongs to multiple value choices"></a>more elegant, concise and flexible approach to check host string belongs to multiple value choices</h1><p>checkStringAgainstMultipleLiteralValues.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (host.match(<span class="regexp">/["uat" , "beta", "lab"].(api.)?yourdomain.(com.)?["au","io"]/</span>)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'matched'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="closure"><a href="#closure" class="headerlink" title="closure"></a>closure</h1><p>闭包就是一个函数引用另外一个函数的变量，因为变量被引用着所以不会被回收，因此可以用来封装一个私有变量。这是优点也是缺点，不必要的闭包只会徒增内存消耗！另外使用闭包也要注意变量的值是否符合你的要求，因为他就像一个静态私有变量一样。</p>
+<p> In JavaScript, if you use the function keyword inside another function, you are creating a closure.</p>
+<p> Two one sentence summaries about closure</p>
+<ul>
+<li><p>closure is the local variable for a function — kept alive after the function has returned, or</p>
+</li>
+<li><p>closure is a stack-frame which is not deallocated when the function returns (as if a ‘stack-frame’ were malloc’ed instead of being on the stack!).</p>
+<p>In JavaScript, if you declare a function within another function, then the local variables can remain accessible after returning from the function you called. </p>
+</li>
+</ul>
+<h1 id="Tips-to-redirect-page"><a href="#Tips-to-redirect-page" class="headerlink" title="Tips to redirect page"></a>Tips to redirect page</h1><p>It’s better to use <code>window.location.replace(&quot;httpxxx&quot;)&#39;, rather than window.location.href=&quot;xxx&quot;. Because</code>replace` will not save the page in the session history, so users won’t get stufy in never-ending back-button fiasco.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-09-Docker-Errors-Fixes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-09-Docker-Errors-Fixes/" class="post-title-link" itemprop="url">Docker Errors and Fixes</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Docker-Errors"><a href="#Docker-Errors" class="headerlink" title="Docker Errors"></a>Docker Errors</h1><ol>
+<li>Cannot connect to the Docker daemon. Is the docker daemon running on this host?<br>The solution is to run under root user, e.g. </li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>Docker service</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker status</span><br><span class="line">sudo service docker start</span><br><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-GIT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1100,86 +1120,6 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
 <h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h4><p>That’s because one extra space required after semi colon in _config.yml of Next, as following config</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Duoshuo ShortName</span><br><span class="line">duoshuo_shortname: cloudsdocker</span><br></pre></td></tr></table></figure>
 
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-RQFII/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-13-RQFII/" class="post-title-link" itemprop="url">RenMinBi International</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="RQFII"><a href="#RQFII" class="headerlink" title="RQFII"></a>RQFII</h1><p><code>RQFII</code> stands for Renminbi Qualified Foreign Institutional Investor. RQFII was introduced in 2011 to allow qualified foreign institutional investors to use RMB to buy securities such as bonds and shares and other investment instruments listed on the Chinese market. RQFII is an extension of the Qualified Foreign Institutional Investor (QFII) scheme established in 2002.</p>
-<h1 id="What-is-the-difference-between-QFII-and-RQFII"><a href="#What-is-the-difference-between-QFII-and-RQFII" class="headerlink" title="What is the difference between QFII and RQFII?"></a>What is the difference between QFII and RQFII?</h1><p>QFII (Qualified Foreign Institutional Investor) allows institutional investors to buy shares in mainland Chinese companies (A-shares) listed on stock exchanges in China. But they have to invest in their home currency, which is then converted. RQFII enables investors to buy into China using RMB. The government introduced it to facilitate the flow of offshore RMB into the country as the currency became more widely used globally.</p>
-<h1 id="Who-can-use-these-investment-programmes"><a href="#Who-can-use-these-investment-programmes" class="headerlink" title="Who can use these investment programmes?"></a>Who can use these investment programmes?</h1><p>Although China’s financial system is opening up, there are limits to who can invest. For a foreign institutional investor to qualify, it has to be licensed within its home country, demonstrate its capital strength, and have a track record in investments and asset management.</p>
-<h1 id="How-much-can-be-invested"><a href="#How-much-can-be-invested" class="headerlink" title="How much can be invested?"></a>How much can be invested?</h1><p>The Chinese government decides how much can be invested by allocating quotas to different countries. The limit is largely determined by demand. The RQFII quota for all countries is currently RMB970 billion (USD156 billion).</p>
-<h1 id="Which-countries-have-been-granted-an-RQFII-quota"><a href="#Which-countries-have-been-granted-an-RQFII-quota" class="headerlink" title="Which countries have been granted an RQFII quota?"></a>Which countries have been granted an RQFII quota?</h1><p>Thirteen countries have been granted RMB quotas: Australia, Canada, Chile, France, Germany, Hong Kong, Hungary, Luxembourg, Qatar, South Korea, Singapore, Switzerland and the UK. The QFII programme is open to more than 60 countries.</p>
 
           
         

@@ -195,6 +195,119 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-11-29-OpenShift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-11-29-OpenShift/" class="post-title-link" itemprop="url">Openshift tips</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Commands-bible"><a href="#Commands-bible" class="headerlink" title="Commands bible"></a>Commands bible</h1><h2 id="install-cli-in-Mac"><a href="#install-cli-in-Mac" class="headerlink" title="install cli in Mac"></a>install cli in Mac</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install openshift-cli</span><br></pre></td></tr></table></figure>
+
+<h2 id="Frequently-used-commands"><a href="#Frequently-used-commands" class="headerlink" title="Frequently used commands"></a>Frequently used commands</h2><h3 id="Start-mini-shift"><a href="#Start-mini-shift" class="headerlink" title="Start mini shift"></a>Start mini shift</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minishift start</span><br></pre></td></tr></table></figure>
+
+<h3 id="OC-commands"><a href="#OC-commands" class="headerlink" title="OC commands"></a>OC commands</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc config view</span><br></pre></td></tr></table></figure>
+
+<h4 id="Start-a-new-application"><a href="#Start-a-new-application" class="headerlink" title="Start a new application"></a>Start a new application</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc new-app https://github.com/openshift/nodejs-ex -l name=toddapp</span><br></pre></td></tr></table></figure>
+
+<h4 id="To-switch-project"><a href="#To-switch-project" class="headerlink" title="To switch project"></a>To switch project</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc project</span><br></pre></td></tr></table></figure>
+
+<h4 id="Show-a-high-level-overview-of-the-current-project"><a href="#Show-a-high-level-overview-of-the-current-project" class="headerlink" title="Show a high level overview of the current project"></a>Show a high level overview of the current project</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">oc status</span><br><span class="line"><span class="comment"># Export the overview of the current project in an svg file.</span></span><br><span class="line">  oc status -o dot | dot -T svg -o project.svg</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># See an overview of the current project including details for any identified issues.</span></span><br><span class="line">  oc status -v</span><br></pre></td></tr></table></figure>
+
+<p>This command will show services, deployment configs, build configurations, and active deployments.<br>If you have any misconfigured components information about them will be shown. For more information<br>about individual items, use the describe command (e.g. oc describe buildConfig, oc describe<br>deploymentConfig, oc describe service). </p>
+<p>You can specify an output format of “-o dot” to have this command output the generated status graph<br>in DOT format that is suitable for use by the “dot” command.</p>
+<h2 id="OpenShift-command-line-tool"><a href="#OpenShift-command-line-tool" class="headerlink" title="OpenShift command-line tool"></a>OpenShift command-line tool</h2><p>The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster. </p>
+<h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p>The most basic unit in OpenShift are pods. A pod is one or more containers guaranteed to be running on the same host. The containers within a pod share a unique IP address. They can communicate with each other via the “localhost” and also all share any volumes (persistent storage). The containers themselves are started from an image, which in our case is a Docker image.    </p>
+<p>OpenShift Origin leverages the Kubernetes concept of a pod, which is one or more containers deployed together on one host, and the smallest compute unit that can be defined, deployed, and managed.</p>
+<p>Pods are the rough equivalent of a machine instance (physical or virtual) to a container. Each pod is allocated its own internal IP address, therefore owning its entire port space, and containers within pods can share their local storage and networking.</p>
+<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
+<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
+<p>OpenShift Origin treats pods as largely immutable; changes cannot be made to a pod definition while it is running. OpenShift Origin implements changes by terminating an existing pod and recreating it with modified configuration, base image(s), or both. Pods are also treated as expendable, and do not maintain state when recreated. Therefore pods should usually be managed by higher-level controllers, rather than directly by users.</p>
+<h2 id="Scale-up"><a href="#Scale-up" class="headerlink" title="Scale up"></a>Scale up</h2><p>When scaled up, an application will have more than one copy of itself, and each copy will have its own local state. Each copy corresponds to a different instance of a pod with the pods being managed by the replication controller. As each pod has a unique IP, we need an easy way to address the set of all pods as a whole. This is where a service comes into play. The service gets its own IP and a DNS name. When making a connection to a service, OpenShift will automatically route the connection to one of the pods associated with that service.</p>
+<p>caling from the Web Console<br>Scaling up the number of instances of your application running can be done from the Overview page for your application in the OpenShift web console (the page with those tell-tale up and down arrows we saw previously). Jump to that page and click the up arrow key twice to increase the replica count to 3<br>If your application is a web application that adheres to the 12-factor methodology, or what might also be called a cloud native application, then it would generally be safe to scale up.</p>
+<p>Applications that can’t usually be able to be scaled up include traditional relational databases backed by persistent storage. Databases cannot be scaled in the traditional way as only the primary instance of the database should have the ability to update data. Scaling can still be performed, but usually only on read-only instances of the database.</p>
+<h2 id="Kubernetes-and-Openshift"><a href="#Kubernetes-and-Openshift" class="headerlink" title="Kubernetes and Openshift"></a>Kubernetes and Openshift</h2><p>The basic concepts of Kubernetes and discuss how OpenShift builds on them. In general, you can view Kubernetes as being aimed at Ops teams, providing them with a tool for running containers at scale in production. OpenShift adds to this by also supporting the work of a Dev team and others by making the job of the Ops team easier, which helps to bridge the gap between Dev and Ops and thus enable the latest DevOps philosophy.OpenShift provides a number of different ways to interact with an OpenShift cluster. The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster.<br>If you want to avoid using the command line tool, or you want to automate your interactions with the OpenShift cluster, you can always use the REST API directly.</p>
+<p>You may be wondering: “Is a namespace the same thing as an application?” OpenShift has no formal concept of an application, thereby allowing an application to be flexible depending on a user’s needs.</p>
+<p>You can dedicate one to everything related to just one application. Or, so long as you label all the resources making up an application so you know what goes with what, you can also use the namespace to hold more than one.</p>
+<h1 id="Secrets"><a href="#Secrets" class="headerlink" title="Secrets"></a>Secrets</h1><p>This topic discusses important properties of secrets and provides an overview on how developers can use them.</p>
+<p>The Secret object type provides a mechanism to hold sensitive information such as passwords, OpenShift Origin client configuration files, dockercfg files, private source repository credentials, and so on. Secrets decouple sensitive content from the pods. You can mount secrets into containers using a volume plug-in or the system can use secrets to perform actions on behalf of a pod.</p>
+<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>Although a service has a DNS name, it is still only accessible within the OpenShift cluster and is not accessible externally. To make a service externally accessible, a route needs to be created. Creating a route automatically sets up haproxy or a hardware-based router, with an externally addressable DNS name, exposing the service and load-balancing inbound traffic across the pods.</p>
+<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>The output of the build process is an image, which is stored in an integrated Docker registry ready for distribution out to nodes when the application is deployed. The image stream is how the image and its versions are tracked by OpenShift. If you already have an existing Docker image on an external registry such as Docker Hub, it can also be referenced by an image stream instead of building it locally.</p>
+<p>use the handy online cheat sheet available by running the oc types command. It gives you a quick summary of the different conceptual types and definitions used in OpenShift like those we covered here:</p>
+<h2 id="Vagrant"><a href="#Vagrant" class="headerlink" title="Vagrant"></a>Vagrant</h2><p>Vagrant is a software tool that allows users to create and configure lightweight, reproducible, and portable development environments. It works in conjunction with virtualization (both VMs and IaaS) to automate all the steps necessary to get your dev environment going</p>
+<p>One of the advantages of creating and deploying applications from the web console is that a route is automatically created for you. When deploying new containers while using the oc tool, you will need to expose the service manually</p>
+<h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><p>One of the great features of the OpenShift platform is the ability to provide persistent volumes for your running pods. This ensures that data in your database doesn’t suddenly disappear if the container is restarted. Another important aspect of persistent volumes is the ability to run both stateful and stateless applications on the platform. This is sometimes referred to as mode 1 and mode 2 applications as well as legacy and 12-factor applications.</p>
+<h2 id="webhooks"><a href="#webhooks" class="headerlink" title="webhooks"></a>webhooks</h2><p>Automatic Deployments Using Webhooks<br>A webhook (also called a web callback or HTTP push API) is a way an application can provide other applications with real-time information or notifications.</p>
+<p>We can configure the GitHub code hosting service to trigger a webhook each time we push a set of changes to your project code repository. Using this tool, we can notify OpenShift when you have made code changes and thus initiate rebuild and redeployment of our application.</p>
+<h2 id="Deployment-Strategies"><a href="#Deployment-Strategies" class="headerlink" title="Deployment Strategies"></a>Deployment Strategies</h2><p>A deployment strategy defines the process by which a new version of your application is started and the existing instances shut down. By default OpenShift uses a rolling deployment strategy that enables you to perform an update with no apparent down time.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-01-Promise-vs-Observable/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -446,119 +559,6 @@ npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-11-29-OpenShift/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-11-29-OpenShift/" class="post-title-link" itemprop="url">Openshift tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Commands-bible"><a href="#Commands-bible" class="headerlink" title="Commands bible"></a>Commands bible</h1><h2 id="install-cli-in-Mac"><a href="#install-cli-in-Mac" class="headerlink" title="install cli in Mac"></a>install cli in Mac</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install openshift-cli</span><br></pre></td></tr></table></figure>
-
-<h2 id="Frequently-used-commands"><a href="#Frequently-used-commands" class="headerlink" title="Frequently used commands"></a>Frequently used commands</h2><h3 id="Start-mini-shift"><a href="#Start-mini-shift" class="headerlink" title="Start mini shift"></a>Start mini shift</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minishift start</span><br></pre></td></tr></table></figure>
-
-<h3 id="OC-commands"><a href="#OC-commands" class="headerlink" title="OC commands"></a>OC commands</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc config view</span><br></pre></td></tr></table></figure>
-
-<h4 id="Start-a-new-application"><a href="#Start-a-new-application" class="headerlink" title="Start a new application"></a>Start a new application</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc new-app https://github.com/openshift/nodejs-ex -l name=toddapp</span><br></pre></td></tr></table></figure>
-
-<h4 id="To-switch-project"><a href="#To-switch-project" class="headerlink" title="To switch project"></a>To switch project</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc project</span><br></pre></td></tr></table></figure>
-
-<h4 id="Show-a-high-level-overview-of-the-current-project"><a href="#Show-a-high-level-overview-of-the-current-project" class="headerlink" title="Show a high level overview of the current project"></a>Show a high level overview of the current project</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">oc status</span><br><span class="line"><span class="comment"># Export the overview of the current project in an svg file.</span></span><br><span class="line">  oc status -o dot | dot -T svg -o project.svg</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># See an overview of the current project including details for any identified issues.</span></span><br><span class="line">  oc status -v</span><br></pre></td></tr></table></figure>
-
-<p>This command will show services, deployment configs, build configurations, and active deployments.<br>If you have any misconfigured components information about them will be shown. For more information<br>about individual items, use the describe command (e.g. oc describe buildConfig, oc describe<br>deploymentConfig, oc describe service). </p>
-<p>You can specify an output format of “-o dot” to have this command output the generated status graph<br>in DOT format that is suitable for use by the “dot” command.</p>
-<h2 id="OpenShift-command-line-tool"><a href="#OpenShift-command-line-tool" class="headerlink" title="OpenShift command-line tool"></a>OpenShift command-line tool</h2><p>The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster. </p>
-<h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p>The most basic unit in OpenShift are pods. A pod is one or more containers guaranteed to be running on the same host. The containers within a pod share a unique IP address. They can communicate with each other via the “localhost” and also all share any volumes (persistent storage). The containers themselves are started from an image, which in our case is a Docker image.    </p>
-<p>OpenShift Origin leverages the Kubernetes concept of a pod, which is one or more containers deployed together on one host, and the smallest compute unit that can be defined, deployed, and managed.</p>
-<p>Pods are the rough equivalent of a machine instance (physical or virtual) to a container. Each pod is allocated its own internal IP address, therefore owning its entire port space, and containers within pods can share their local storage and networking.</p>
-<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
-<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
-<p>OpenShift Origin treats pods as largely immutable; changes cannot be made to a pod definition while it is running. OpenShift Origin implements changes by terminating an existing pod and recreating it with modified configuration, base image(s), or both. Pods are also treated as expendable, and do not maintain state when recreated. Therefore pods should usually be managed by higher-level controllers, rather than directly by users.</p>
-<h2 id="Scale-up"><a href="#Scale-up" class="headerlink" title="Scale up"></a>Scale up</h2><p>When scaled up, an application will have more than one copy of itself, and each copy will have its own local state. Each copy corresponds to a different instance of a pod with the pods being managed by the replication controller. As each pod has a unique IP, we need an easy way to address the set of all pods as a whole. This is where a service comes into play. The service gets its own IP and a DNS name. When making a connection to a service, OpenShift will automatically route the connection to one of the pods associated with that service.</p>
-<p>caling from the Web Console<br>Scaling up the number of instances of your application running can be done from the Overview page for your application in the OpenShift web console (the page with those tell-tale up and down arrows we saw previously). Jump to that page and click the up arrow key twice to increase the replica count to 3<br>If your application is a web application that adheres to the 12-factor methodology, or what might also be called a cloud native application, then it would generally be safe to scale up.</p>
-<p>Applications that can’t usually be able to be scaled up include traditional relational databases backed by persistent storage. Databases cannot be scaled in the traditional way as only the primary instance of the database should have the ability to update data. Scaling can still be performed, but usually only on read-only instances of the database.</p>
-<h2 id="Kubernetes-and-Openshift"><a href="#Kubernetes-and-Openshift" class="headerlink" title="Kubernetes and Openshift"></a>Kubernetes and Openshift</h2><p>The basic concepts of Kubernetes and discuss how OpenShift builds on them. In general, you can view Kubernetes as being aimed at Ops teams, providing them with a tool for running containers at scale in production. OpenShift adds to this by also supporting the work of a Dev team and others by making the job of the Ops team easier, which helps to bridge the gap between Dev and Ops and thus enable the latest DevOps philosophy.OpenShift provides a number of different ways to interact with an OpenShift cluster. The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster.<br>If you want to avoid using the command line tool, or you want to automate your interactions with the OpenShift cluster, you can always use the REST API directly.</p>
-<p>You may be wondering: “Is a namespace the same thing as an application?” OpenShift has no formal concept of an application, thereby allowing an application to be flexible depending on a user’s needs.</p>
-<p>You can dedicate one to everything related to just one application. Or, so long as you label all the resources making up an application so you know what goes with what, you can also use the namespace to hold more than one.</p>
-<h1 id="Secrets"><a href="#Secrets" class="headerlink" title="Secrets"></a>Secrets</h1><p>This topic discusses important properties of secrets and provides an overview on how developers can use them.</p>
-<p>The Secret object type provides a mechanism to hold sensitive information such as passwords, OpenShift Origin client configuration files, dockercfg files, private source repository credentials, and so on. Secrets decouple sensitive content from the pods. You can mount secrets into containers using a volume plug-in or the system can use secrets to perform actions on behalf of a pod.</p>
-<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>Although a service has a DNS name, it is still only accessible within the OpenShift cluster and is not accessible externally. To make a service externally accessible, a route needs to be created. Creating a route automatically sets up haproxy or a hardware-based router, with an externally addressable DNS name, exposing the service and load-balancing inbound traffic across the pods.</p>
-<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>The output of the build process is an image, which is stored in an integrated Docker registry ready for distribution out to nodes when the application is deployed. The image stream is how the image and its versions are tracked by OpenShift. If you already have an existing Docker image on an external registry such as Docker Hub, it can also be referenced by an image stream instead of building it locally.</p>
-<p>use the handy online cheat sheet available by running the oc types command. It gives you a quick summary of the different conceptual types and definitions used in OpenShift like those we covered here:</p>
-<h2 id="Vagrant"><a href="#Vagrant" class="headerlink" title="Vagrant"></a>Vagrant</h2><p>Vagrant is a software tool that allows users to create and configure lightweight, reproducible, and portable development environments. It works in conjunction with virtualization (both VMs and IaaS) to automate all the steps necessary to get your dev environment going</p>
-<p>One of the advantages of creating and deploying applications from the web console is that a route is automatically created for you. When deploying new containers while using the oc tool, you will need to expose the service manually</p>
-<h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><p>One of the great features of the OpenShift platform is the ability to provide persistent volumes for your running pods. This ensures that data in your database doesn’t suddenly disappear if the container is restarted. Another important aspect of persistent volumes is the ability to run both stateful and stateless applications on the platform. This is sometimes referred to as mode 1 and mode 2 applications as well as legacy and 12-factor applications.</p>
-<h2 id="webhooks"><a href="#webhooks" class="headerlink" title="webhooks"></a>webhooks</h2><p>Automatic Deployments Using Webhooks<br>A webhook (also called a web callback or HTTP push API) is a way an application can provide other applications with real-time information or notifications.</p>
-<p>We can configure the GitHub code hosting service to trigger a webhook each time we push a set of changes to your project code repository. Using this tool, we can notify OpenShift when you have made code changes and thus initiate rebuild and redeployment of our application.</p>
-<h2 id="Deployment-Strategies"><a href="#Deployment-Strategies" class="headerlink" title="Deployment Strategies"></a>Deployment Strategies</h2><p>A deployment strategy defines the process by which a new version of your application is started and the existing instances shut down. By default OpenShift uses a rolling deployment strategy that enables you to perform an update with no apparent down time.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-08-Router-In-Angular/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -657,159 +657,6 @@ This tells you that a custom pipe class must implement just one method with the 
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://angular.io/guide/router" target="_blank" rel="noopener">https://angular.io/guide/router</a></li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-12-Redux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-12-12-Redux/" class="post-title-link" itemprop="url">Redux</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="whats-Effects"><a href="#whats-Effects" class="headerlink" title="whats @Effects"></a>whats @Effects</h1><p>You can almost think of your Effects as special kinds of reducer functions that are meant to be a place for you to put your async calls in such a way that the returned data can then be easily inserted into the store’s internal state for the application.</p>
-<h1 id="rule-of-a-thumb-for-actions"><a href="#rule-of-a-thumb-for-actions" class="headerlink" title="rule of a thumb for actions"></a>rule of a thumb for actions</h1><p>As a good rule of thumb, try not to make one reducer that handles all the actions, but also do not make a separate reducer for each action. Group them in a way that makes sense for the application structure. </p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-11-Why-Reactive-programming-is-outpermant/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-12-11-Why-Reactive-programming-is-outpermant/" class="post-title-link" itemprop="url">reactive programing</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>The second advantage to a lazy subscription is that the observable doesn’t hold onto data by default. In the previous example, each event generated by the interval will be processed and then dropped. This is what we mean when we say that the observable is streaming in nature rather than pooled. This discard-by-default semantic means that you never have to worry about unbounded memory growth sneaking up on you, causing memory leaks. When writing native event-driven JavaScript code, especially in older browsers, memory leaks can occur if you neglect event management and disposal.</p>
 
           
         
@@ -1014,7 +861,7 @@ This tells you that a custom pipe class must implement just one method with the 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-18-OpenStack-vs-OpenShift/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-11-Why-Reactive-programming-is-outpermant/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1030,7 +877,7 @@ This tells you that a custom pipe class must implement just one method with the 
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-12-18-OpenStack-vs-OpenShift/" class="post-title-link" itemprop="url">cloud computering</a>
+              <a href="/2017-12-11-Why-Reactive-programming-is-outpermant/" class="post-title-link" itemprop="url">reactive programing</a>
             
           </h1>
         
@@ -1062,9 +909,84 @@ This tells you that a custom pipe class must implement just one method with the 
 
       
           
-            <h1 id="openshift-vs-openstack"><a href="#openshift-vs-openstack" class="headerlink" title="openshift vs openstack"></a>openshift vs openstack</h1><p>The shoft and direct answer is `OpenShift Origin can run on top of OpenStack. They are complementary projects that work well together. OpenShift Origin is not presently part of OpenStack, and does not compete with OpenStack. If you stand up your own OpenStack system, you can make it even more useful by installing OpenShift Origin on top of it.’</p>
-<h2 id="OpenStack-is-IAAS"><a href="#OpenStack-is-IAAS" class="headerlink" title="OpenStack is IAAS"></a>OpenStack is IAAS</h2><p>OpenStack provides “Infrastructure-as-a-Service”, or “IaaS”. It provides bootable virtual machines, networking, block storage, object storage, and so forth. Some IaaS service providers based on OpenStack are HP Cloud and Rackspace Cloud. </p>
-<h2 id="OpenShift-is-PAAS"><a href="#OpenShift-is-PAAS" class="headerlink" title="OpenShift is PAAS"></a>OpenShift is PAAS</h2><p>The OpenShift hosted service provides “Platform-as-a-Service” or “PaaS”. It provides the necessary parts to quickly deploy and run a LAMP application: the web server, application server, application runtimes and libraries, database service, and so forth.</p>
+            <p>The second advantage to a lazy subscription is that the observable doesn’t hold onto data by default. In the previous example, each event generated by the interval will be processed and then dropped. This is what we mean when we say that the observable is streaming in nature rather than pooled. This discard-by-default semantic means that you never have to worry about unbounded memory growth sneaking up on you, causing memory leaks. When writing native event-driven JavaScript code, especially in older browsers, memory leaks can occur if you neglect event management and disposal.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-12-Redux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-12-12-Redux/" class="post-title-link" itemprop="url">Redux</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="whats-Effects"><a href="#whats-Effects" class="headerlink" title="whats @Effects"></a>whats @Effects</h1><p>You can almost think of your Effects as special kinds of reducer functions that are meant to be a place for you to put your async calls in such a way that the returned data can then be easily inserted into the store’s internal state for the application.</p>
+<h1 id="rule-of-a-thumb-for-actions"><a href="#rule-of-a-thumb-for-actions" class="headerlink" title="rule of a thumb for actions"></a>rule of a thumb for actions</h1><p>As a good rule of thumb, try not to make one reducer that handles all the actions, but also do not make a separate reducer for each action. Group them in a way that makes sense for the application structure. </p>
 
           
         
@@ -1189,6 +1111,84 @@ This tells you that a custom pipe class must implement just one method with the 
 <h1 id="openshift-vs-openstack"><a href="#openshift-vs-openstack" class="headerlink" title="openshift vs openstack"></a>openshift vs openstack</h1><p>“How does OpenShift relate to OpenStack?”, I answer “OpenShift Origin can run on top of OpenStack. They are complementary projects that work well together. OpenShift Origin is not presently part of OpenStack, and does not compete with OpenStack. If you stand up your own OpenStack system, you can make it even more useful by installing OpenShift Origin on top of it.”</p>
 <p>OpenStack provides “Infrastructure-as-a-Service”, or “IaaS”. It provides bootable virtual machines, networking, block storage, object storage, and so forth. Some IaaS service providers based on OpenStack are HP Cloud and Rackspace Cloud. </p>
 <p>The OpenShift hosted service provides “Platform-as-a-Service” or “PaaS”. It provides the necessary parts to quickly deploy and run a LAMP application: the web server, application server, application runtimes and libraries, database service, and so forth.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-18-OpenStack-vs-OpenShift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-12-18-OpenStack-vs-OpenShift/" class="post-title-link" itemprop="url">cloud computering</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="openshift-vs-openstack"><a href="#openshift-vs-openstack" class="headerlink" title="openshift vs openstack"></a>openshift vs openstack</h1><p>The shoft and direct answer is `OpenShift Origin can run on top of OpenStack. They are complementary projects that work well together. OpenShift Origin is not presently part of OpenStack, and does not compete with OpenStack. If you stand up your own OpenStack system, you can make it even more useful by installing OpenShift Origin on top of it.’</p>
+<h2 id="OpenStack-is-IAAS"><a href="#OpenStack-is-IAAS" class="headerlink" title="OpenStack is IAAS"></a>OpenStack is IAAS</h2><p>OpenStack provides “Infrastructure-as-a-Service”, or “IaaS”. It provides bootable virtual machines, networking, block storage, object storage, and so forth. Some IaaS service providers based on OpenStack are HP Cloud and Rackspace Cloud. </p>
+<h2 id="OpenShift-is-PAAS"><a href="#OpenShift-is-PAAS" class="headerlink" title="OpenShift is PAAS"></a>OpenShift is PAAS</h2><p>The OpenShift hosted service provides “Platform-as-a-Service” or “PaaS”. It provides the necessary parts to quickly deploy and run a LAMP application: the web server, application server, application runtimes and libraries, database service, and so forth.</p>
 
           
         

@@ -577,6 +577,89 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-14-JBoss-Console/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-06-14-JBoss-Console/" class="post-title-link" itemprop="url">Jboss tips</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="commands"><a href="#commands" class="headerlink" title="commands:"></a>commands:</h1><h2 id="to-list-all-deployed-applications"><a href="#to-list-all-deployed-applications" class="headerlink" title="to list all deployed applications"></a>to list all deployed applications</h2><p>jboss\jboss-eap-6.4\bin\jboss-cli.bat –connect –controller=localhost:7373 –command=/deployment=*:read-attribute(name=name)</p>
+<h2 id="to-list-JNDI-tree"><a href="#to-list-JNDI-tree" class="headerlink" title="to list JNDI tree:"></a>to list JNDI tree:</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /subsystem=mail</span><br><span class="line">ls</span><br><span class="line">/subsystem=mail/mail-session=java:jboss/mail/payment_mail</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> /subsystem=naming:jndi-view()</span><br><span class="line"></span><br><span class="line"> &#125;,</span><br><span class="line"><span class="string">"mail"</span> =&gt; &#123;</span><br><span class="line">    <span class="string">"class-name"</span> =&gt; <span class="string">"javax.naming.Context"</span>,</span><br><span class="line">    <span class="string">"children"</span> =&gt; &#123;</span><br><span class="line">        <span class="string">"Default"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@22951e8f"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"payment_mail"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@548df9e2"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">native-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">native</span>=<span class="string">"management-native"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">native-interface</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">http-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">http</span>=<span class="string">"management-http"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">http-interface</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">management</span>&gt;</span></span><br><span class="line">xxx</span><br><span class="line"><span class="tag">&lt;<span class="name">socket-binding-group</span> <span class="attr">name</span>=<span class="string">"standard-sockets"</span> <span class="attr">default-interface</span>=<span class="string">"public"</span> <span class="attr">port-offset</span>=<span class="string">"$&#123;jboss.socket.binding.port-offset:0&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-native"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.native.port:7373&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-http"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.http.port:7371&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-12-Locking-And-Multithreading/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -668,265 +751,6 @@ If Thread A reads a volatile variable, then all all variables visible to Thread 
 </ul>
 <h2 id="Limitations-of-volatile"><a href="#Limitations-of-volatile" class="headerlink" title="Limitations of volatile"></a>Limitations of volatile</h2><p>Even if the volatile keyword guarantees that all reads of a volatile variable are read directly from main memory, and all writes to a volatile variable are written directly to main memory, there are still situations where it is not enough to declare a variable volatile</p>
 <h2 id="Performance-Considerations-of-volatile"><a href="#Performance-Considerations-of-volatile" class="headerlink" title="Performance Considerations of volatile"></a>Performance Considerations of volatile</h2><p>Reading and writing of volatile variables causes the variable to be read or written to main memory. Reading from and writing to main memory is more expensive than accessing the CPU cache. Accessing volatile variables also prevent instruction reordering which is a normal performance enhancement technique. Thus, you should only use volatile variables when you really need to enforce visibility of variables. </p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-14-JBoss-Console/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-06-14-JBoss-Console/" class="post-title-link" itemprop="url">Jboss tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="commands"><a href="#commands" class="headerlink" title="commands:"></a>commands:</h1><h2 id="to-list-all-deployed-applications"><a href="#to-list-all-deployed-applications" class="headerlink" title="to list all deployed applications"></a>to list all deployed applications</h2><p>jboss\jboss-eap-6.4\bin\jboss-cli.bat –connect –controller=localhost:7373 –command=/deployment=*:read-attribute(name=name)</p>
-<h2 id="to-list-JNDI-tree"><a href="#to-list-JNDI-tree" class="headerlink" title="to list JNDI tree:"></a>to list JNDI tree:</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /subsystem=mail</span><br><span class="line">ls</span><br><span class="line">/subsystem=mail/mail-session=java:jboss/mail/payment_mail</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> /subsystem=naming:jndi-view()</span><br><span class="line"></span><br><span class="line"> &#125;,</span><br><span class="line"><span class="string">"mail"</span> =&gt; &#123;</span><br><span class="line">    <span class="string">"class-name"</span> =&gt; <span class="string">"javax.naming.Context"</span>,</span><br><span class="line">    <span class="string">"children"</span> =&gt; &#123;</span><br><span class="line">        <span class="string">"Default"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@22951e8f"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"payment_mail"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@548df9e2"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-
-
-
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">native-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">native</span>=<span class="string">"management-native"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">native-interface</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">http-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">http</span>=<span class="string">"management-http"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">http-interface</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">management</span>&gt;</span></span><br><span class="line">xxx</span><br><span class="line"><span class="tag">&lt;<span class="name">socket-binding-group</span> <span class="attr">name</span>=<span class="string">"standard-sockets"</span> <span class="attr">default-interface</span>=<span class="string">"public"</span> <span class="attr">port-offset</span>=<span class="string">"$&#123;jboss.socket.binding.port-offset:0&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-native"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.native.port:7373&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-http"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.http.port:7371&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-21-Ansible/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-06-21-Ansible/" class="post-title-link" itemprop="url">Ansible</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Ansible-What-Is-It-Good-For"><a href="#Ansible-What-Is-It-Good-For" class="headerlink" title="Ansible: What Is It Good For?"></a>Ansible: What Is It Good For?</h1><p>Ansible is often described as a configuration management tool, and is typically mentioned in the same breath as Chef, Puppet, and Salt. When we talk about configuration management, we are typically talking about writing some kind of state description for our servers, and then using a tool to enforce that the servers are, indeed, in that state: the right packages are installed, configuration files contain the expected values and have the expected permissions, the right services are running, and so on. Like other configuration management tools, Ansible exposes a domain-specific language (DSL) that you use to describe the state of your servers.</p>
-<p>These tools also can be used for doing deployment as well. When people talk about deployment, they are usually referring to the process of taking software that was written in-house, generating binaries or static assets (if necessary), copying the required files to the server(s), and then starting up the services. Capistrano and Fabric are two examples of open-source deployment tools. Ansible is a great tool for doing deployment as well as configuration management. Using a single tool for both configuration management and deployment makes life simpler for the folks responsible for operations.</p>
-<p>Some people talk about the need for orchestration of deployment. This is where multiple remote servers are involved, and things have to happen in a specific order. For example, you need to bring up the database before bringing up the web servers, or you need to take web servers out of the load balancer one at a time in order to upgrade them without downtime. Ansible’s good at this as well, and is designed from the ground up for performing actions on multiple servers. Ansible has a refreshingly simple model for controlling the order that actions happen in.</p>
-<p>Finally, you’ll hear people talk about provisioning new servers. In the context of public clouds such as Amazon EC2, this refers to spinning up a new virtual machine instance. Ansible’s got you covered here, with a number of modules for talking to clouds, including EC2, Azure, Digital Ocean, Google Compute Engine, Linode, and Rackspace, as well as any clouds that support the OpenStack APIs.</p>
-<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>As with most configuration management software, Ansible has two types of servers: controlling machines and nodes. First, there is a single controlling machine which is where orchestration begins. Nodes are managed by a controlling machine over SSH. The controlling machine describes the location of nodes through its inventory.</p>
-<h2 id="Agentless"><a href="#Agentless" class="headerlink" title="Agentless"></a>Agentless</h2><p>In contrast with popular configuration management software — such as Chef, Puppet, and CFEngine — Ansible uses an agentless architecture.[14] With an agent-based architecture, nodes must have a locally installed daemon that communicates with a controlling machine. With an agentless architecture, nodes are not required to install and run background daemons to connect with a controlling machine. This type of architecture reduces the overhead on the network by preventing the nodes from polling the controlling machine.</p>
-<h2 id="Playbook"><a href="#Playbook" class="headerlink" title="Playbook"></a>Playbook</h2><p>Playbooks are Ansible’s configuration, deployment, and orchestration language. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT process.</p>
-<p>I like to think of <code>Ansible playbooks as executable documentation</code>. It’s like the README file that describes the commands you had to type out to deploy your software, except that the instructions will never go out-of-date because they are also the code that gets executed directly.</p>
-<p>If Ansible modules are the tools in your workshop, playbooks are your instruction manuals, and your inventory of hosts are your raw material.</p>
-<p> In Ansible, a script is called a playbook. A playbook describes which hosts (what Ansible calls remote servers) to configure, and an ordered list of tasks to perform on those hosts.</p>
-<p> To execute the playbook using the ansible-playbook command. In the example, the playbook is named webservers.yml, and is executed by typing:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ansible-playbook webservers.yml</span><br></pre></td></tr></table></figure>
-
-<p>Ansible will make SSH connections in parallel to web1, web2, and web3. It will execute the first task on the list on all three hosts simultaneously. In this example, the first task is installing the nginx apt package (since Ubuntu uses the apt package manager), so the task in the playbook would look something like this:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">  apt:</span> <span class="string">name=nginx</span></span><br></pre></td></tr></table></figure>
-
-<p>Ansible will:</p>
-<ol>
-<li>Generate a Python script that installs the nginx package.</li>
-<li>Copy the script to web1, web2, and web3.</li>
-<li>Execute the script on web1, web2, web3.</li>
-<li>Wait for the script to complete execution on all hosts.</li>
-</ol>
-<p>Ansible will then move to the next task in the list, and go through these same four steps. It’s important to note that:</p>
-<ul>
-<li>Ansible runs each task in parallel across all hosts.</li>
-<li>Ansible waits until all hosts have completed a task before moving to the next task.</li>
-<li>Ansible runs the tasks in the order that you specify them.</li>
-</ul>
-<h2 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h2><p>Variable names should be letters, numbers, and underscores. Variables should always start with a letter.</p>
-<p>foo_port is a great variable. foo5 is fine too.<br>foo-port, foo port, foo.port and 12 are not valid variable names.</p>
-<p>Defining Variables in Playbooks<br>The simplest way to define variables is to put a vars section in your playbook with the names and values of variables.</p>
-<p>Ansible also allows you to put variables into one or more files, using a section called vars_files. </p>
-<p>We would replace the vars section with a vars_files that looks like this:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">vars_files:</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">nginx.yml</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## nginx.yml</span></span><br><span class="line"><span class="attr">key_file:</span> <span class="string">/etc/nginx/ssl/nginx.key</span></span><br><span class="line"><span class="attr">cert_file:</span> <span class="string">/etc/nginx/ssl/nginx.crt</span></span><br><span class="line"><span class="attr">conf_file:</span> <span class="string">/etc/nginx/sites-available/default</span></span><br><span class="line"><span class="attr">server_name:</span> <span class="string">localhost</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="To-debug-variable"><a href="#To-debug-variable" class="headerlink" title="To debug variable"></a>To debug variable</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- debug:</span> <span class="string">var=myvarname</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Registering-Variables"><a href="#Registering-Variables" class="headerlink" title="Registering Variables"></a>Registering Variables</h2><p>Often, you’ll find that you need to set the value of a variable based on the result of a task. To do so, we create a registered variable using the register clause when invoking a module. </p>
-<p>In order to use the login variable later, we need to know what type of value to expect. The value of a variable set using the register clause is always a dictionary, but the specific keys of the dictionary are different, depending on the module that was invoked.</p>
-<p>ACCESSING DICTIONARY KEYS IN A VARIABLE<br>If a variable contains a dictionary, then you can access the keys of the dictionary using either a dot (.) or a subscript ([]).</p>
-<h3 id="facts"><a href="#facts" class="headerlink" title="facts"></a>facts</h3><p>When Ansible gathers facts, it connects to the host and queries the host for all kinds of details about the host: CPU architecture, operating system, IP addresses, memory info, disk info, and more. This information is stored in variables that are called facts, and they behave just like any other variable does.</p>
-<p>Here’s a simple playbook that will print out the operating system of each server:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">print</span> <span class="string">out</span> <span class="string">operating</span> <span class="string">system</span></span><br><span class="line"><span class="attr">  hosts:</span> <span class="string">all</span></span><br><span class="line"><span class="attr">  gather_facts:</span> <span class="literal">True</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - debug:</span> <span class="string">var=ansible_distribution</span></span><br></pre></td></tr></table></figure>
-
-<p>Viewing All Facts Associated with a Server<br>Ansible implements fact collecting through the use of a special module called the setup module. You don’t need to call this module in your playbooks because Ansible does that automatically when it gathers facts. However, if you invoke it manually with the ansible command-line tool, like this:</p>
-<p>$ ansible server1 -m setup</p>
-<h2 id="interactive-mode"><a href="#interactive-mode" class="headerlink" title="interactive mode"></a>interactive mode</h2><p>If Ansible did not succeed, add the -vvvv flag to see more details about the error:</p>
-<p>$ ansible testserver -i hosts -m ping -vvvv</p>
-<p>We can see that the module succeeded. The “changed”: false part of the output tells us that executing the module did not change the state of the server. The “ping”: “pong” text is output that is specific to the ping module.</p>
-<h2 id="Simplifying-with-the-ansible-cfg-File"><a href="#Simplifying-with-the-ansible-cfg-File" class="headerlink" title="Simplifying with the ansible.cfg File"></a>Simplifying with the ansible.cfg File</h2><p>We had to type a lot of text in the inventory file to tell Ansible about our test server. Fortunately, Ansible has a number of ways you can specify these sorts of variables so we don’t have to put them all in one place.</p>
-<p>Right now, we’ll use one such mechanism, the ansible.cfg file, to set some defaults so we don’t need to type as much.</p>
-<h3 id="WHERE-SHOULD-I-PUT-MY-ANSIBLE-CFG-FILE"><a href="#WHERE-SHOULD-I-PUT-MY-ANSIBLE-CFG-FILE" class="headerlink" title="WHERE SHOULD I PUT MY ANSIBLE.CFG FILE?"></a>WHERE SHOULD I PUT MY ANSIBLE.CFG FILE?</h3><p>Ansible looks for an ansible.cfg file in the following places, in this order:</p>
-<p>File specified by the ANSIBLE_CONFIG environment variable</p>
-<p>./ansible.cfg (ansible.cfg in the current directory)</p>
-<p>~/.ansible.cfg (.ansible.cfg in your home directory)</p>
-<p>/etc/ansible/ansible.cfg</p>
-<p>I typically put an ansible.cfg in the current directory, alongside my playbooks. That way, I can check it into the same version control repository my playbooks are in.</p>
-<h2 id="Run-command-remotely"><a href="#Run-command-remotely" class="headerlink" title="Run command remotely"></a>Run command remotely</h2><p>I like to use the ansible command-line tool to run arbitrary commands on remote machines, like parallel SSH. You can execute arbitrary commands with the command module. When invoking this module, you also need to pass an argument to the module with the -a flag, which is the command to run.</p>
-<p>For example, to check the uptime of our server, we can use:</p>
-<p>$ ansible testserver -m command -a uptime</p>
-<p>The command module is so commonly used that it’s the default module, so we can omit it:</p>
-<p>$ ansible testserver -a uptime<br>$ ansible testserver -a “tail /var/log/dmesg”</p>
-<h3 id="inventory"><a href="#inventory" class="headerlink" title="inventory"></a>inventory</h3><p>WARNING<br>Although Ansible adds the localhost to your inventory automatically, you have to have at least one other host in your inventory file; otherwise, ansible-playbook will terminate with the error:</p>
-<p>ERROR: provided hosts list is empty</p>
-<h3 id="property-“Changed”"><a href="#property-“Changed”" class="headerlink" title="property “Changed”"></a>property “Changed”</h3><p>The changed key is present in the return value of all Ansible modules, and Ansible uses it to determine whether a state change has occurred. For the command and shell module, this will always be set to true unless overridden with the changed_when clause</p>
-<h2 id="ignore-error"><a href="#ignore-error" class="headerlink" title="ignore error"></a>ignore error</h2><p>Ignoring when a module returns an error</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">Run</span> <span class="string">myprog</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">/opt/myprog</span></span><br><span class="line"><span class="attr">  register:</span> <span class="string">result</span></span><br><span class="line"><span class="attr">  ignore_errors:</span> <span class="literal">True</span></span><br><span class="line"><span class="attr">- debug:</span> <span class="string">var=result</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Data-type"><a href="#Data-type" class="headerlink" title="Data type"></a>Data type</h2><p>All members of a list are lines beginning at the same indentation level starting with a “- “ (a dash and a space):</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="comment"># A list of tasty fruits</span></span><br><span class="line"><span class="attr">fruits:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Apple</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Orange</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Strawberry</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Mango</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
-
-<p>A dictionary is represented in a simple key: value form (the colon must be followed by a space):</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># An employee record</span></span><br><span class="line"><span class="attr">martin:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">Martin</span> <span class="string">D'vloper</span></span><br><span class="line"><span class="attr">    job:</span> <span class="string">Developer</span></span><br><span class="line"><span class="attr">    skill:</span> <span class="string">Elite</span></span><br></pre></td></tr></table></figure>
-
-<p>More complicated data structures are possible, such as lists of dictionaries, dictionaries whose values are lists or a mix of both:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Employee records</span></span><br><span class="line"><span class="attr">-  martin:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">Martin</span> <span class="string">D'vloper</span></span><br><span class="line"><span class="attr">    job:</span> <span class="string">Developer</span></span><br><span class="line"><span class="attr">    skills:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">python</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">perl</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">pascal</span></span><br><span class="line"><span class="attr">-  tabitha:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">Tabitha</span> <span class="string">Bitumen</span></span><br><span class="line"><span class="attr">    job:</span> <span class="string">Developer</span></span><br><span class="line"><span class="attr">    skills:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">lisp</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">fortran</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">erlang</span></span><br></pre></td></tr></table></figure>
-
-<p>Dictionaries and lists can also be represented in an abbreviated form if you really want to:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">martin:</span> <span class="string">&#123;name:</span> <span class="string">Martin</span> <span class="string">D'vloper,</span> <span class="attr">job:</span> <span class="string">Developer,</span> <span class="attr">skill:</span> <span class="string">Elite&#125;</span></span><br><span class="line"><span class="attr">fruits:</span> <span class="string">['Apple',</span> <span class="string">'Orange'</span><span class="string">,</span> <span class="string">'Strawberry'</span><span class="string">,</span> <span class="string">'Mango'</span><span class="string">]</span></span><br></pre></td></tr></table></figure>
-
-<p>These are called “Flow collections”.</p>
-<h3 id="span-multiple-lines"><a href="#span-multiple-lines" class="headerlink" title="span multiple lines"></a>span multiple lines</h3><p>Values can span multiple lines using | or &gt;. Spanning multiple lines using a “Literal Block Scalar” | will include the newlines and any trailing spaces. Using a “Folded Block Scalar” &gt; will fold newlines to spaces; it’s used to make what would otherwise be a very long line easier to read and edit. In either case the indentation will be ignored. Examples are:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">include_newlines:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            exactly as you see</span></span><br><span class="line"><span class="string">            will appear these three</span></span><br><span class="line"><span class="string">            lines of poetry</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span><span class="attr">fold_newlines:</span> <span class="string">&gt;</span></span><br><span class="line"><span class="string">            this is really a</span></span><br><span class="line"><span class="string">            single line of text</span></span><br><span class="line"><span class="string">            despite appearances</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h1><h2 id="file"><a href="#file" class="headerlink" title="file"></a>file</h2><p>file - Sets attributes of files</p>
-<p>Sets attributes of files, symlinks, and directories, or removes files/symlinks/directories. Many other modules support the same options as the file module - including copy, template, and assemble.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># change file ownership, group and mode. When specifying mode using octal numbers, first digit should always be 0.</span></span><br><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/etc/foo.conf</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">0644</span></span><br><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/work</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">01777</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="delegation"><a href="#delegation" class="headerlink" title="delegation"></a>delegation</h2><p>This isn’t actually rolling update specific but comes up frequently in those cases.</p>
-<p>If you want to perform a task on one host with reference to other hosts, use the ‘delegate_to’ keyword on a task. This is ideal for placing nodes in a load balanced pool, or removing them. It is also very useful for controlling outage windows. Be aware that it does not make sense to delegate all tasks, debug, add_host, include, etc always get executed on the controller. Using this with the ‘serial’ keyword to control the number of hosts executing at one time is also a good idea:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- hosts:</span> <span class="string">webservers</span></span><br><span class="line"><span class="attr">  serial:</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">take</span> <span class="string">out</span> <span class="string">of</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">/usr/bin/take_out_of_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">    delegate_to:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">actual</span> <span class="string">steps</span> <span class="string">would</span> <span class="string">go</span> <span class="string">here</span></span><br><span class="line"><span class="attr">    yum:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">acme-web-stack</span></span><br><span class="line"><span class="attr">      state:</span> <span class="string">latest</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">add</span> <span class="string">back</span> <span class="string">to</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">/usr/bin/add_back_to_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">    delegate_to:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
-
-<p>These commands will run on 127.0.0.1, which is the machine running Ansible. There is also a shorthand syntax that you can use on a per-task basis: ‘local_action’. Here is the same playbook as above, but using the shorthand syntax for delegating to 127.0.0.1:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">take</span> <span class="string">out</span> <span class="string">of</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    local_action:</span> <span class="string">command</span> <span class="string">/usr/bin/take_out_of_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">add</span> <span class="string">back</span> <span class="string">to</span> <span class="string">load</span> <span class="string">balancer</span> <span class="string">pool</span></span><br><span class="line"><span class="attr">    local_action:</span> <span class="string">command</span> <span class="string">/usr/bin/add_back_to_pool</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>A common pattern is to use a local action to call ‘rsync’ to recursively copy files to the managed servers. Here is an example:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">recursively</span> <span class="string">copy</span> <span class="string">files</span> <span class="string">from</span> <span class="string">management</span> <span class="string">server</span> <span class="string">to</span> <span class="string">target</span></span><br><span class="line"><span class="attr">    local_action:</span> <span class="string">command</span> <span class="string">rsync</span> <span class="bullet">-a</span> <span class="string">/path/to/files</span> <span class="string">&#123;&#123;</span> <span class="string">inventory_hostname</span> <span class="string">&#125;&#125;:/path/to/target/</span></span><br></pre></td></tr></table></figure>
-
-<p>Note that you must have passphrase-less SSH keys or an ssh-agent configured for this to work, otherwise rsync will need to ask for a passphrase.</p>
-<p>dev experience<br>lead</p>
 
           
         
@@ -1148,6 +972,94 @@ You have five commands at your disposal to use justify-content:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[webservers]</span><br><span class="line">www1.example.com</span><br><span class="line">www2.example.com</span><br><span class="line"></span><br><span class="line">[dbservers]</span><br><span class="line">db0.example.com</span><br><span class="line">db1.example.com</span><br></pre></td></tr></table></figure>
 
 <h2 id="installation"><a href="#installation" class="headerlink" title="installation"></a>installation</h2><p>Once Ansible is installed, it will not add a database, and there will be no daemons to start or keep running. You only need to install it on one machine (which could easily be a laptop) and it can manage an entire fleet of remote machines from that central point. When Ansible manages remote machines, it does not leave software installed or running on them, so there’s no real question about how to upgrade Ansible when moving to a new version.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-04-Solace-MQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-04-Solace-MQ/" class="post-title-link" itemprop="url">Solace MQ</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Solace-PubSub"><a href="#Solace-PubSub" class="headerlink" title="Solace PubSub+"></a>Solace PubSub+</h1><p>It is a message broker that lets you establish event-driven interactions between applications and microservices across hybrid cloud environments using open APIs and protocols.</p>
+<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>Cloud<br>PubSub+ Cloud is enterprise-grade messaging available as a fully managed service in your favorite public clouds.</p>
+<h2 id="What-do-we-mean-by-“enterprise-grade-”"><a href="#What-do-we-mean-by-“enterprise-grade-”" class="headerlink" title="What do we mean by “enterprise grade?”"></a>What do we mean by “enterprise grade?”</h2><h3 id="Unrivaled-Reliability"><a href="#Unrivaled-Reliability" class="headerlink" title="Unrivaled Reliability"></a>Unrivaled Reliability</h3><p>Intelligent routing protocols always identify best path and adapt around network issues to keep your applications humming, and automatic message buffering keeps bursts of data from affecting slow consumers or your system as a whole.</p>
+<p>Built-in high availability and disaster recovery capabilities mean your system will bounce back in a flash, without ever losing a message, even in the event of major system or network failures.</p>
+<h3 id="Serious-Security"><a href="#Serious-Security" class="headerlink" title="Serious Security"></a>Serious Security</h3><p>PubSub+ supports authentication and authorization mechanisms ranging from username and password and one-time passwords to sophisticated access control lists and robust integration with existing security policies and systems such as LDAP, Radius, Kerberos.</p>
+<p>To protect messages in transit, Solace supports transport-layer TLS encryption using a variety of cypher suites.</p>
+<h2 id="Messaging"><a href="#Messaging" class="headerlink" title="Messaging"></a>Messaging</h2><p>In application development terms, messaging, which is also commonly known as message-oriented middleware or just middleware, refers to technology that lets computer systems share information without requiring direct connections or awareness of one another’s location.</p>
+<h1 id="Docker-on-Solace"><a href="#Docker-on-Solace" class="headerlink" title="Docker on Solace"></a>Docker on Solace</h1><p>To bounce solace server:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 -p 55555:55555 --shm-size=2g --env <span class="string">'username_admin_globalaccesslevel=admin'</span> --env <span class="string">'username_admin_password=admin'</span> --name=solace solace-pubsub-standard:8.11.0.1029</span><br><span class="line"></span><br><span class="line"><span class="comment"># or bring up an existing one</span></span><br><span class="line">docker start solace</span><br></pre></td></tr></table></figure>
+
+<p>Solace CLI management access:<br>Enter the following docker exec command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it solace /usr/sw/loads/currentload/bin/cli -A</span><br></pre></td></tr></table></figure>
+
 
           
         

@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-26-IT-Architect/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-21-Algorithm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-01-26-IT-Architect/" class="post-title-link" itemprop="url">IT-Architect</a>
+              <a href="/2017-01-21-Algorithm/" class="post-title-link" itemprop="url">Algorithm</a>
             
           </h1>
         
@@ -243,18 +243,163 @@
 
       
           
-            <h1 id="SOA"><a href="#SOA" class="headerlink" title="SOA"></a>SOA</h1><ul>
-<li>SOA is a set of design principles for building a suite of interoperable, flexible and reusable services based architecture.</li>
-<li>top-down and bottom-up approach SOA patterns</li>
+            <h1 id="This-page-is-about-key-points-about-Algorithm"><a href="#This-page-is-about-key-points-about-Algorithm" class="headerlink" title="This page is about key points about Algorithm"></a>This page is about key points about Algorithm</h1><h2 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h2><ul>
+<li>The easiest way to improve search efficiency on a set of data is to put it in a data structure that allows more efficient searching.<br>What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1)).</li>
+<li>Then need to determine which data structure to be used. If the underlying characters are just ASCII, then a array[128] would be enough. But characters are UNICODe, then it need 100,000 (100K) array, which is a concern of memory, so hash table would be a better option, which only keep exist characters.<br>In general, arrays are a better choice for long strings with a limited set of possible characters values, hash tables are more efficient for shorter strings or when there are many possible character values.  </li>
+<li>For some problems, obvious iterative alternatives like the one just shown don’t exist, but it’s always possible to implement a recursive algorithm without using recursive calls.</li>
+<li>For a simple recursive function like factorial, many computer architectures spend more time on call overhead than on the actual calculation. Iterative functions, which use looping constructs instead of recursive function calls, do not suffer from this overhead and are frequently more efficient.</li>
+<li>NOTE Iterative solutions are usually more efficient than recursive solutions.</li>
+<li>NOTE Every recursive case must eventually lead to a base case.</li>
+<li>NOTE Recursive algorithms have two cases: recursive cases and base cases</li>
 </ul>
-<h1 id="Design-Patterns"><a href="#Design-Patterns" class="headerlink" title="Design Patterns"></a>Design Patterns</h1><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><ul>
-<li>Being single sometimes has its advantages you know. I’m often used to manage pools of resources, like connection or thread pools.</li>
-<li>The Singleton Pattern ensures a class has only one instance, and provides <strong>a global point of access to it</strong>.</li>
-<li>WATCH IT!</li>
+<h1 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h1><h2 id="I-collections-sort"><a href="#I-collections-sort" class="headerlink" title="I collections.sort()"></a>I collections.sort()</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object[] a = list.toArray();</span><br><span class="line">        Arrays.sort(a);</span><br><span class="line">        ListIterator&lt;T&gt; i = list.listIterator();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;a.length; j++) &#123;</span><br><span class="line">            i.next();</span><br><span class="line">            i.set((T)a[j]);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Arrays-sort"><a href="#Arrays-sort" class="headerlink" title="Arrays.sort"></a>Arrays.sort</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Object[] a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (LegacyMergeSort.userRequested)</span><br><span class="line">            legacyMergeSort(a);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ComparableTimSort.sort(a);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(Object[] src,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  Object[] dest,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> low,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> high,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> off)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = high - low;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Insertion sort on smallest arrays</span></span><br><span class="line">        <span class="keyword">if</span> (length &lt; INSERTIONSORT_THRESHOLD) &#123; <span class="comment">// threshold is 7</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=low; i&lt;high; i++)</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j=i; j&gt;low &amp;&amp;</span><br><span class="line">                         ((Comparable) dest[j-<span class="number">1</span>]).compareTo(dest[j])&gt;<span class="number">0</span>; j--)</span><br><span class="line">                    swap(dest, j, j-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// else use mergeSort</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Self-review"><a href="#Self-review" class="headerlink" title="Self review"></a>Self review</h1><h2 id="CeasarCipher"><a href="#CeasarCipher" class="headerlink" title="CeasarCipher:"></a>CeasarCipher:</h2><p>Generally: it’s a rotation of English alphabic. E.g. if rotation is 2, the encode is start from A+2, i.e. A is at -2 of the encode array.<br>And decode is start with 26-2, and “A” start at positon 2, then the increase by 1 character to constitute the array<br>That’s why need to “%26”, to make it loop across 26 characters</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">If rotation is 2:</span><br><span class="line">--- encrytpion code is:[C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B]</span><br><span class="line">--- decrytpion code is:[Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X]</span><br><span class="line">If rotation is 4:</span><br><span class="line">--- encrytpion code is:[E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B, C, D]</span><br><span class="line">--- decrytpion code is:[W, X, Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ABC:</span><br><span class="line">Msg =&#123;‘A’,’B’,’C’&#125;;</span><br><span class="line">Char[] encode=’A’+(k+rotation)%<span class="number">26</span>);</span><br><span class="line">Char[] decode=’A’+(k-rotation+<span class="number">26</span>)%<span class="number">26</span>); <span class="comment">// +26 to avoid negative</span></span><br><span class="line"></span><br><span class="line">Encode=&#123;‘C’,’D’,’E’&#125;; <span class="comment">// rotation=3, so A+3, A+4,A+5,xxx, A+26=&gt;3,4,5,6,xxx,0</span></span><br><span class="line">Decode=&#123;‘M’,’N’,’O’&#125;;<span class="comment">//as k-rotation+26 % 26, so it’s 26-3+0,26-3+1 ,xx: =&gt; 23,24,25,0,1,2,3,4,is: A+23,A+24,A+25=&gt;‘M’,’N’,’O’. that’s rotation, rotain-1, rotaion -2 xxxx</span></span><br><span class="line">For(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;msg.length;i++)&#123;</span><br><span class="line">  Int j=msg[i]-‘A’; <span class="comment">// to remove the base ‘A”, so sync with the “k” in encode, 3,4,5,xxx 3+26</span></span><br><span class="line">  Msg[i]=codes[j];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// encode</span></span><br><span class="line">Int j=’A’-‘A’; <span class="comment">//0</span></span><br><span class="line">Msg[<span class="number">0</span>]=’C’;</span><br><span class="line">Msg[<span class="number">1</span>]=’D’;</span><br><span class="line">Msg[<span class="number">2</span>]=’E’;</span><br><span class="line"></span><br><span class="line"><span class="comment">//decode</span></span><br><span class="line">Int j=msg[i]-‘A’; <span class="comment">//’C’-‘A’=3</span></span><br><span class="line">Msg[i]=decode[j]; <span class="comment">// correspoindg to the postion 0,-xxx, 26 in decode, </span></span><br><span class="line">Msg[<span class="number">0</span>]=</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>If you says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.</li>
 </ul>
-<p><strong>Double-checked locking doesn’t work in Java 1.4 or earlier</strong>!
-Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementations of the <strong>volatile keyword that allow improper synchronization for double-checked locking</strong>. If you must use a JVM earlier than Java 5, consider other methods of implementing your Singleton.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>
+<h1 id="To-print-content-of-Array"><a href="#To-print-content-of-Array" class="headerlink" title="To print content of Array"></a>To print content of Array</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import java.util.Arrays;</span><br><span class="line">Arrays.toString(ary);</span><br><span class="line">Arrays.deepToString(ary);</span><br></pre></td></tr></table></figure>
+
+<h1 id="search-without-recursive"><a href="#search-without-recursive" class="headerlink" title="search without recursive"></a>search without recursive</h1><p>Node findNode( Node root, int value ){<br>    while( root != null ){<br>        int currval = root.getValue();<br>        if( currval == value ) break;<br>        if( currval &lt; value ){<br>            root = root.getRight();<br>        } else { // currval &gt; value<br>            root = root.getLeft();<br>        }<br>    }</p>
+<pre><code>return root;</code></pre><p>}</p>
+<ul>
+<li><p>preceding lookup operation can be reimplemented recursively as follows:<br>Node findNode( Node root, int value ){<br>  if( root == null ) return null;<br>  int currval = root.getValue();<br>  if( currval == value ) return root;<br>  if( currval &lt; value ){</p>
+<pre><code>return findNode( root.getRight(), value );</code></pre><p>  } else { // currval &gt; value</p>
+<pre><code>return findNode( root.getLeft(), value );</code></pre><p>  }<br>}</p>
+</li>
+<li><p>This subtree property is conducive to recursion because recursion generally involves solving a problem in terms of similar subproblems and a base case. </p>
+</li>
+</ul>
+<h1 id="Big-O-sequencey"><a href="#Big-O-sequencey" class="headerlink" title="Big O sequencey"></a>Big O sequencey</h1><p>1, logn, n, n log n, n2, n3, 2n(2 power n).</p>
+<h1 id="Big-O"><a href="#Big-O" class="headerlink" title="Big O"></a>Big O</h1><ul>
+<li>It is also considered poor taste to include constant factors and lower-order terms in the big-Oh notation. For example, it is not fashionable to say that the function 2n2 is O(4n2 + 6n log n), although this is completely correct. We should strive instead to describe the function in the big-Oh <strong>in simplest terms</strong>.</li>
+<li>So, for example, we would say that an algorithm that runs in worst-case time 4n2 + n log n is a quadratic-time algorithm, since it runs in O(n2) time. Likewise, an algorithm running in time at most 5n + 20logn + 4 would be called a linear-time algorithm.</li>
+</ul>
+<h1 id="Big-Omega"><a href="#Big-Omega" class="headerlink" title="Big Omega"></a>Big Omega</h1><ul>
+<li>Just as the big-Oh notation provides an asymptotic way of saying that a function is “less than or equal to” another function, the following notations provide <strong>an asymptotic way</strong> of saying that a function grows at a rate that is “<strong>greater than or equal to</strong>” that of another.</li>
+<li>Example 4.14: 3n log n ? 2n is Ω(n log n).</li>
+</ul>
+<h1 id="Big-Theta"><a href="#Big-Theta" class="headerlink" title="Big-Theta"></a>Big-Theta</h1><ul>
+<li>In addition, there is a notation that allows us to say that two functions grow at the same rate, up to constant factors. We say that f(n) is Θ(g(n)), pronounced “f(n) is big-Theta of g(n),”</li>
+</ul>
+<h1 id="Comparative-Analysis"><a href="#Comparative-Analysis" class="headerlink" title="Comparative Analysis"></a>Comparative Analysis</h1><ul>
+<li>asymptotically[,?simp’t?tik,-k?l] better</li>
+<li>Suppose two algorithms solving the same problem are available: an algorithm A, which has a running time of O(n), and an algorithm B, which has a running time of O(n2). Which algorithm is better? We know that n is O(n2), which implies that algorithm A <strong>is asymptotically better</strong> than algorithm B, although for a small value of n, B may have a lower running time than A.</li>
+</ul>
+<h1 id="Some-Words-of-Caution"><a href="#Some-Words-of-Caution" class="headerlink" title="Some Words of Caution"></a>Some Words of Caution</h1><ul>
+<li>First, note that the use of the big-Oh and related notations can be somewhat misleading should the constant factors they “hide” be very large. For example, while it is true that the function 10100n is O(n), if this is the running time of an algorithm being compared to one whose running time is 10n log n, we should prefer the O(nlog n)-time algorithm, even though the linear-time algorithm is asymptotically faster. This preference is because the constant factor, 10100, which is called “one googol,” is believed by many astronomers to be an upper bound on the number of atoms in the observable universe. So we are unlikely to ever have a real-world problem that has this number as its input size.</li>
+</ul>
+<h1 id="Exponential-eksp-’nen-l-Running-Times"><a href="#Exponential-eksp-’nen-l-Running-Times" class="headerlink" title="Exponential [,eksp?’nen?(?)l] Running Times"></a>Exponential [,eksp?’nen?(?)l] Running Times</h1><ul>
+<li>To see how fast the function 2n grows, consider the famous story about the inventor of the game of chess. He asked only that his king pay him 1 grain of rice for the first square on the board, 2 grains for the second, 4 grains for the third, 8 for the fourth, and so on. The number of grains in the 64th square would be<br>263 = 9, 223, 372, 036, 854, 775, 808,<br>which is about nine billion billions!</li>
+<li>If we must draw a line between efficient and inefficient algorithms, therefore, it is natural to make this distinction be that between those algorithms running in <strong>polynomial [,p?l?’n??m??l] time</strong> and those running in <strong>exponential time</strong>. That is, make the distinction between algorithms with a running time that is <strong>O(nc)</strong> (power c based on n), for some constant c &gt; 1, and those with a running time that is <strong>O(bn)</strong> (power n based on b), for some constant b &gt; 1. Like so many notions we have discussed in this section, this too should be taken with a “grain of salt,” for an algorithm running in O(n100) time should probably not be considered “efficient.” Even so, the distinction between polynomial-time and exponential-time algorithms is considered a robust measure of tractability.</li>
+</ul>
+<h1 id="Examples-of-Algorithm-Analysis"><a href="#Examples-of-Algorithm-Analysis" class="headerlink" title="Examples of Algorithm Analysis"></a>Examples of Algorithm Analysis</h1><h2 id="constant-time-operation"><a href="#constant-time-operation" class="headerlink" title="constant time operation"></a>constant time operation</h2><ul>
+<li>All of the primitive operations, originally described on page 154, are assumed to run in constant time; Assume that variable A is an array of n elements. The expression A.length in Java is evaluated in constant time, because arrays are represented internally with an explicit variable that records the length of the array. Another central behavior of arrays is that for any valid index j, the individual element, A[j], can be accessed in constant time. This is because an array uses a consecutive block of memory. The jth element can be found, not by iterating through the array one element at a time, but by validating the index, and using it as an offset from the beginning of the array in determining the appropriate memory address. Therefore, we say that the expression A[j] is evaluated in O(1) time for an array.</li>
+</ul>
+<h2 id="Finding-the-Maximum-of-an-Array"><a href="#Finding-the-Maximum-of-an-Array" class="headerlink" title="Finding the Maximum of an Array"></a>Finding the Maximum of an Array</h2><p>Proposition 4.16: The algorithm, arrayMax, for computing the maximum element of an array of n numbers, runs in O(n) time.</p>
+<p>Justification: The initialization at lines 3 and 4 and the return statement at line 8 require only a constant number of primitive operations. Each iteration of the loop also requires only a constant number of primitive operations, and the loop executes n ? 1 times.</p>
+<h2 id="Composing-Long-Strings"><a href="#Composing-Long-Strings" class="headerlink" title="Composing Long Strings"></a>Composing Long Strings</h2><ul>
+<li><p>Therefore, the overall time taken by this algorithm is proportional to<br>1 + 2 + ··· + n,<br>which we recognize as the familiar O(n<sup>2</sup>) summation from Proposition 4.3. Therefore, the total time complexity of the repeat1 algorithm is O(n<sup>2</sup>).</p>
+</li>
+<li><p>x = logbn if and only if bx = n.<br>The value b is known as the base of the logarithm. Note that by the above definition, for any base b &gt; 0, we have that logb 1 = 0.</p>
+</li>
+</ul>
+<h1 id="Three-Way-Set-Disjointness"><a href="#Three-Way-Set-Disjointness" class="headerlink" title="Three-Way Set Disjointness"></a>Three-Way Set Disjointness</h1><h2 id="Origional-solution"><a href="#Origional-solution" class="headerlink" title="Origional solution"></a>Origional solution</h2><p>Suppose we are given three sets, A, B, and C, stored in three different integer arrays. We will assume that no individual set contains duplicate values, but that there may be some numbers that are in two or three of the sets. The three-way set disjointness problem is to determine if the intersection of the three sets is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">disjoint1</span><span class="params">(<span class="keyword">int</span>[]  groupA, <span class="keyword">int</span>[] groupB, <span class="keyword">int</span>[] groupC)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> i : groupA) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j : groupB) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k : groupC) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j &amp;&amp; j==k)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>This simple algorithm loops through each possible triple of values from the three sets to see if those values are equivalent. If each of the original sets has size n, then the worst-case running time of this method is O(n<sup>3</sup>) .<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">disjoint2</span><span class="params">(<span class="keyword">int</span>[]  groupA, <span class="keyword">int</span>[] groupB, <span class="keyword">int</span>[] groupC)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> i : groupA) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j : groupB) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j)&#123;</span><br><span class="line">                    <span class="comment">// add this checking to reduce complexitiy</span></span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k : groupC) &#123;</span><br><span class="line">                        <span class="keyword">if</span>(j==k)&#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>In the improved version, it is not simply that we save time if we get lucky. We claim that the worst-case running time for disjoint2 is O(n<sup>2</sup>).</p>
+<h1 id="by-sorting"><a href="#by-sorting" class="headerlink" title="by sorting"></a>by sorting</h1><p>Sorting algorithms will be the focus of Chapter 12. The best sorting algorithms (including those used by Array.sort in Java) guarantee a worst-case running time of O(nlog n). Once the data is sorted, the subsequent loop runs in O(n) time, and so the entire unique2 algorithm runs in O(n log n) time. Exercise C-4.35 explores the use of sorting to solve the three-way set disjointness problem in O(n log n) time.</p>
+<h1 id="prefixAverage"><a href="#prefixAverage" class="headerlink" title="prefixAverage"></a>prefixAverage</h1><p>Check the source code at PrefixAverage.java, the inital implementation is two for loop, which is O(n<sup>2</sup>), while the better approach is reuse existing total sum.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// naiive approach,</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="keyword">double</span> total=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;=i; j++) &#123; <span class="comment">// be awre it's &lt;=, instead of "&lt;"</span></span><br><span class="line">				total+=x[j];				</span><br><span class="line">			&#125;</span><br><span class="line">			a[i]=total/(i+<span class="number">1</span>);			</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">// better approach</span></span><br><span class="line"><span class="keyword">double</span> total=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			total += x[i];</span><br><span class="line">			a[i]=total/(i+<span class="number">1</span>);			</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Recursive"><a href="#Recursive" class="headerlink" title="Recursive"></a>Recursive</h1><h2 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h2><ol>
+<li>We have one or more <strong>base cases</strong>, which refer to fixed values of the function. e.g. for n!=1 as  n=1 is base.</li>
+<li>Then we have one or more <strong>recursive cases</strong>, which define the function in terms of itself. for n!, it’s =n*(n-1)! for n&gt;=1</li>
+</ol>
+<ul>
+<li>Repetition is achieved through repeated recursive invocations of the method. The process i finite because each time the method is invoked, its argument is smaller by one, and when a base case is reached, no further recursive calls are made.</li>
+<li>In the case of computing the factorial function, there is no compelling reason for prefereing recursion over a direct iteration with a loop.</li>
+</ul>
+<h1 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h1><h2 id="ADT-Abstract-Data-Type"><a href="#ADT-Abstract-Data-Type" class="headerlink" title="ADT (Abstract Data Type)"></a>ADT (Abstract Data Type)</h2><ul>
+<li>we define a tree ADT using the concept of a position as an abstraction for a node of a tree. An element is stored at each position, and positions satisfy parent-child relationships that define the tree structure. </li>
+</ul>
+<h2 id="Depth-and-Height"><a href="#Depth-and-Height" class="headerlink" title="Depth and Height"></a>Depth and Height</h2><h3 id="Depth"><a href="#Depth" class="headerlink" title="Depth"></a>Depth</h3><ul>
+<li>The depth of p is the number of ancestors of p, other than p itself.</li>
+<li>The running time of depth(p) for position p is O(dp + 1), where dp denotes the depth of p in the tree, because the algorithm performs a constant-time recursive step for each ancestor of p. Thus, algorithm depth(p) runs in O(n) worst-case time, where n is the total number of positions of T, because a position of T may have depth n - 1 <strong>if all nodes form a single branch</strong>. </li>
+<li>Method depth, as implemented within the AbstractTree class.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">depth</span><span class="params">(Position&lt;E&gt; p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(isRoot(p))</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>+depth(parent(p));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Height"><a href="#Height" class="headerlink" title="Height"></a>Height</h3><ul>
+<li>We next define the height of a tree to be equal to the maximum of the depths of its positions (or zero, if the tree is empty).</li>
+<li>Folloing worst time cost is O(n), it progresses in a <strong>top-down</strong> fashion.</li>
+<li>If the method is initially called on the root of T, it will eventually be called once for each position of T. This is because the root eventually invokes the recursion on each of its children, which in turn invokes the recursion on each of their children, and so on.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">height</span><span class="params">(Position&lt;E&gt; p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> h=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(Position&lt;E&gt; c: children(p))</span><br><span class="line">		h=Math.max(h,<span class="number">1</span>+height(c));</span><br><span class="line">	<span class="keyword">return</span> h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h2><ul>
+<li><p>A binary tree is an ordered tree with the following properties:</p>
+<ul>
+<li>Every node has at most two children.</li>
+<li>Each child node is labeled as being either a left child or a right child.</li>
+<li>A left child precedes a right child in the order of children of a node.</li>
+</ul>
+</li>
+<li><p>A binary <strong>tree is proper if each node has either zero or two children</strong>. Some people also refer to <strong>such trees as being full binary trees</strong>. Thus, <strong>in a proper binary tree, every internal node has exactly two children</strong>. A binary tree that is not proper is <strong>improper</strong>.</p>
+<h3 id="Some-binary-trees"><a href="#Some-binary-trees" class="headerlink" title="Some binary trees"></a>Some binary trees</h3><h4 id="decision-tree"><a href="#decision-tree" class="headerlink" title="decision tree"></a>decision tree</h4></li>
+<li><p>An important class of binary trees arises in contexts where we wish to represent a number of different outcomes that can result from answering a series of yes-or-no questions. Each internal node is associated with a question. Starting at the root, we go to the left or right child of the current node, depending on whether the answer to the question is “Yes” or “No.” With each decision, we follow an edge from a parent to a child, eventually tracing a path in the tree from the root to a leaf. Such binary trees are known as decision trees, because a leaf position p in such a tree represents a decision of what to do if the questions associated with p’s ancestors are answered in a way that leads to p. <strong>A decision tree is a proper binary tree</strong>. </p>
+<h4 id="Arithmetic-expression"><a href="#Arithmetic-expression" class="headerlink" title="Arithmetic expression"></a>Arithmetic expression</h4></li>
+<li><p>An arithmetic expression can be represented by a binary tree whose leaves are associated with variables or constants, and whose internal nodes are associated with one of the operators +, ?, *, and /, as demonstrated in Figure 8.6. Each node in such a tree has a value associated with it.</p>
+<ul>
+<li>If a node is leaf, then its value is that of its variable or constant.</li>
+<li>If a node is internal, then its value is defined by applying its operation to the values of its children.<h3 id="Properties-of-Binary-trees"><a href="#Properties-of-Binary-trees" class="headerlink" title="Properties of Binary trees"></a>Properties of Binary trees</h3></li>
+</ul>
+</li>
+<li><p>level d has at most 2<sup>d</sup> nodes</p>
+</li>
+<li><p>Let T be a nonempty binary tree, and let n, nE, nI, and h denote the number of nodes, number of external nodes, number of internal nodes, and height of T, respectively. Then T has the following properties:</p>
+<ul>
+<li>h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1</li>
+<li>1 ≤ nE ≤ 2<sup>h</sup></li>
+<li>h ≤ nI ≤ 2<sup>h</sup> - 1</li>
+<li>log(n + 1) - 1 ≤ h ≤ n - 1</li>
+</ul>
+</li>
+<li><p>Also, if T is proper, then T has the following properties:</p>
+<ul>
+<li>2h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1</li>
+<li>h + 1 ≤ nE ≤ 2<sup>h</sup></li>
+<li>h ≤ nI ≤ 2<sup>h</sup> - 1</li>
+<li>log(n + 1) - 1 ≤ h ≤ (n - 1)/2</li>
+</ul>
+</li>
+<li><p>In a nonempty proper binary tree T, with nE external nodes and nI internal nodes, we have nE = nI + 1.</p>
+</li>
+</ul>
+<h1 id="Why-use-tree"><a href="#Why-use-tree" class="headerlink" title="Why use tree"></a>Why use tree</h1><ul>
+<li>You can search, insert/delete items quickly in a tree</li>
+<li>Ordered Arrays are bad at Insertions/Deletions</li>
+<li>Finding items in a Linkedlist is slow</li>
+<li>Time needed to perform an operation on a tree is O(log N)</li>
+<li>On average a tree is more efficient if you need to perform many different types of operations.</li>
+</ul>
+<h1 id="Code-practice"><a href="#Code-practice" class="headerlink" title="Code practice"></a>Code practice</h1><p><a href="http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159" target="_blank" rel="noopener">http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159</a></p>
+<h1 id="Geek-IDE"><a href="#Geek-IDE" class="headerlink" title="Geek IDE"></a>Geek IDE</h1><p><a href="http://code.geeksforgeeks.org/index.php" target="_blank" rel="noopener">http://code.geeksforgeeks.org/index.php</a></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/" target="_blank" rel="noopener">http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/</a></li>
+</ul>
+
           
         
       
@@ -439,93 +584,6 @@ Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementation
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-05-JVM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-02-05-JVM/" class="post-title-link" itemprop="url">Java JVM</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Class-loading-subsystem"><a href="#Class-loading-subsystem" class="headerlink" title="Class loading subsystem"></a>Class loading subsystem</h1><p>Consist of three sections</p>
-<h2 id="load"><a href="#load" class="headerlink" title="load"></a>load</h2><p>There are three class loaders</p>
-<ul>
-<li>bootstrap class loader, e.g. rt.jar</li>
-<li>extension class loader, e.g. jre/lib/ext</li>
-<li>application class loader, e.g. -cp<h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2></li>
-<li>Verify</li>
-<li>Prepare</li>
-<li>Resolve<h2 id="Initialize"><a href="#Initialize" class="headerlink" title="Initialize"></a>Initialize</h2></li>
-<li>While deadlock is the most widely encountered liveness hazard, there are sev- eral other liveness hazards you may encounter in concurrent programs including starvation, missed signals, and livelock.</li>
-</ul>
-<h1 id="Metaspace"><a href="#Metaspace" class="headerlink" title="Metaspace"></a>Metaspace</h1><p>Since Java 8, the introduce of metaspace is kind of using memory or even virtual memory in OS, so theriotically there is no limit of metaspace. But PermGen is part of Method area, so that is upper limit for PermGen.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-06-Eclipse-tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -576,247 +634,6 @@ Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementation
           
             <h1 id="How-do-I-remove-a-plug-in"><a href="#How-do-I-remove-a-plug-in" class="headerlink" title="How do I remove a plug-in?"></a>How do I remove a plug-in?</h1><p>Run Help &gt; About Eclipse &gt; Installation Details, select the software you no longer want and click Uninstall. (On Macintosh it is Eclipse &gt; About Eclipse &gt; Installation Details.)</p>
 <h1 id="Where-is-the-Eclipse-Plugin-update-error-log"><a href="#Where-is-the-Eclipse-Plugin-update-error-log" class="headerlink" title="Where is the Eclipse Plugin update error log?"></a>Where is the Eclipse Plugin update error log?</h1><p>The log is located at current workspace: {workspace_path}/.metadata/.log - also you can view this log in view “Error Log”: Window &gt; Show View &gt; Other &gt; Find here “Error Log”</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-02-01-Concurrent-In-Java-col-2/" class="post-title-link" itemprop="url">Java Concurrent Column 2</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="This-is-the-second-half-about-Java-Concurrent-of-my-blog"><a href="#This-is-the-second-half-about-Java-Concurrent-of-my-blog" class="headerlink" title="This is the second half about Java Concurrent of my blog"></a>This is the second half about Java Concurrent of my blog</h1><h2 id="non-blocking-synchronization"><a href="#non-blocking-synchronization" class="headerlink" title="non-blocking synchronization"></a>non-blocking synchronization</h2><ul>
-<li>Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures.</li>
-<li>Nonblocking algorithms are considerably more complicated to design and im- plement than lock-based alternatives, but they can <strong>offer significant scalability and liveness advantages</strong>. They coordinate at a finer level of granularity and can greatly reduce scheduling overhead because they don’t block when multiple threads contend for the same data. Further, they are <code>immune to deadlock and other liveness problems</code>. In lock-based algorithms, other threads cannot make progress if a thread goes to sleep or spins while holding a lock, whereas <code>nonblocking algorithms are impervious to individual thread failures</code>. As of Java 5.0, it is possible to build efficient <strong>nonblocking algorithms in Java using the atomic variable classes such as AtomicInteger and AtomicReference</strong>.</li>
-<li>Atomic variables can also be used as <strong>“better volatile variables”</strong> even if you are not developing nonblocking algorithms. <code>Atomic variables offer the same memory semantics as volatile variables</code>, but with additional support for atomic updates— making them ideal for counters, sequence generators, and statistics gathering while offering better scalability than lock-based alternatives.</li>
-<li>Coordinating access to shared state using a consistent locking protocol ensures that whichever thread holds the lock guarding a set of variables has exclusive access to those variables, and that any changes made to those variables are visible to other threads that subsequently acquire the lock.</li>
-<li><code>Volatile variables are a lighter-weight synchronization mechanism</code> than locking <code>because they do not involve context switches or thread scheduling</code>. However, volatile variables have some limitations compared to locking: while they provide similar visibility guarantees, they <code>cannot be used to construct atomic compound actions</code>. This means that volatile variables cannot be used when one variable de- pends on another, or when the new value of a variable depends on its old value. This limits when volatile variables are appropriate, since they cannot be used to reliably implement common tools such as counters or mutexes.</li>
-<li>This can be a serious problem <strong>if the blocked thread is a high-priority thread but the thread holding the lock is a lower-priority thread—a performance hazard known as priority inversion</strong>. Even though the higher-priority thread should have precedence, it must wait until the lock is released, and this effectively down- grades its priority to that of the lower-priority thread. If a thread holding a lock is permanently blocked (due to an infinite loop, deadlock, livelock, or other liveness failure), any threads waiting for that lock can never make progress.</li>
-</ul>
-<h1 id="hardware"><a href="#hardware" class="headerlink" title="hardware"></a>hardware</h1><ul>
-<li><code>Exclusive locking is a pessimistic technique</code>—it assumes the worst (if you don’t lock your door, gremlins will come in and rearrange your stuff) and doesn’t proceed until you can guarantee, by acquiring the appropriate locks, that other threads will not interfere.</li>
-<li>For fine-grained operations, there is an alternate approach that is often more efficient—<code>the optimistic approach</code>, whereby you proceed with an update, hopeful that you can complete it without interference. <code>This approach relies on collision detection to determine if there has been interference from other parties during the update</code>, in which case the operation fails and can be retried (or not). The optimistic approach is like the old saying, <code>“It is easier to obtain forgiveness than permission”</code>, where “easier” here means “more efficient”.</li>
-<li>Processors designed for multiprocessor operation provide special instructions for managing concurrent access to shared variables. Early processors had atomic <strong>test-and-set, fetch-and-increment, or swap</strong> instructions sufficient for implementing mutexes that could in turn be used to implement more sophisticated concurrent objects. Today, nearly every modern processor has some form of atomic read- modify-write instruction, such as <strong>compare-and-swap or load-linked/store-conditional</strong>. Operating systems and JVMs use these instructions to implement locks and con- current data structures, but until Java 5.0 they had not been available directly to Java classes.</li>
-</ul>
-<h1 id="Compare-and-swap"><a href="#Compare-and-swap" class="headerlink" title="Compare and swap"></a>Compare and swap</h1><ul>
-<li>The approach taken by most processor architectures, including IA32 and Sparc, is to implement a <strong>compare-and-swap (CAS)</strong> instruction. (Other processors, such as PowerPC, implement the same functionality with a pair of instructions: load- linked and store-conditional.) <code>CAS has three operands—a memory location V on which to operate, the expected old value A, and the new value B. CAS atomically updates V to the new value B, but only if the value in V matches the expected old value A; otherwise it does nothing</code>. In either case, it returns the value currently in V. (The <code>variant called compare-and-set instead returns whether the operation succeeded</code>.) <strong>CAS means “I think V should have the value A; if it does, put B there, otherwise don’t change it but tell me I was wrong.” CAS is an optimistic technique</strong>—<code>it proceeds with the update in the hope of success</code>, and can detect failure if another thread has updated the variable since it was last examined. SimulatedCAS in Listing 15.1 illustrates the semantics (but not the implementation or performance) of CAS.</li>
-<li><code>When multiple threads attempt to update the same variable simultaneously using CAS, one wins and updates the variable’s value, and the rest lose</code>. But the losers are not punished by suspension, as they could be if they failed to acquire a lock; instead, they are told that they didn’t win the race this time but can try again. Because a thread that loses a CAS is not blocked, it can decide whether it wants to try again, take some other recovery action, or do nothing.3 This flexibility eliminates many of the liveness hazards associated with locking (though in unusual cases can introduce the risk of livelock—see Section 10.3.3).</li>
-<li>CAS addresses the problem of <strong>implementing atomic read-modify-write sequences without locking</strong>, <code>because it can detect interference from other threads</code>.</li>
-</ul>
-<h2 id="counter-implemented-by-CAS"><a href="#counter-implemented-by-CAS" class="headerlink" title="counter implemented by CAS"></a>counter implemented by CAS</h2><ul>
-<li>At first glance, the CAS-based counter looks as if it should perform worse than a lock-based counter; it has more operations and a more complicated control flow, and depends on the seemingly complicated CAS operation. But in reality, CAS-based counters significantly outperform lock-based counters if there is even a small amount of contention, and often even if there is no contention. The fast path for uncontended lock acquisition typically requires at least one CAS plus other lock-related housekeeping, so more work is going on in the best case for a lock-based counter than in the normal case for the CAS-based counter. Since the CAS succeeds most of the time (assuming low to moderate contention), the hardware will correctly predict the branch implicit in the while loop, minimizing the overhead of the more complicated control logic.</li>
-<li>The language syntax for locking may be compact, but the work done by the JVM and OS to manage locks is not. Locking entails traversing a relatively com- plicated code path in the JVM and may entail OS-level locking, thread suspension, and context switches. In the best case, locking requires at least one CAS, so using locks moves the CAS out of sight but doesn’t save any actual execution cost. On the other hand, executing a CAS from within the program involves no JVM code, system calls, or scheduling activity. What looks like a longer code path at the ap- plication level is in fact a much shorter code path when JVM and OS activity are taken into account. <code>The primary disadvantage of CAS is that it forces the caller to deal with contention (by retrying, backing off, or giving up), whereas locks deal with contention automatically by blocking until the lock is available</code>.</li>
-<li>Competitive forces will likely result in continued CAS performance improvement over the next sev- eral years. A good rule of thumb is that the <strong>cost of the “fast path” for uncontended lock acquisition and release on most processors is approximately twice the cost of a CAS</strong>.</li>
-</ul>
-<h2 id="CAS-support-in-JVM"><a href="#CAS-support-in-JVM" class="headerlink" title="CAS support in JVM"></a>CAS support in JVM</h2><ul>
-<li>So, how does Java code convince the processor to execute a CAS on its behalf? Prior to Java 5.0, there was no way to do this short of writing native code. <code>In Java 5.0, low-level support was added to expose CAS operations on int, long, and object references</code>, and the <code>JVM compiles these into the most efficient means provided by the underlying hardware</code>. On platforms supporting CAS, the run- time inlines them into the appropriate machine instruction(s); <code>in the worst case, if a CAS-like instruction is not available the JVM uses a spin lock</code>. This low-level JVM support is used by the atomic variable classes (AtomicXxx in java.util.con- current.atomic) to provide an efficient CAS operation on numeric and reference types; these atomic variable classes are used, directly or indirectly, to implement most of the classes in java.util.concurrent.</li>
-</ul>
-<h1 id="Other-liveness-hazards"><a href="#Other-liveness-hazards" class="headerlink" title="Other liveness hazards"></a>Other liveness hazards</h1><ul>
-<li>While deadlock is the most widely encountered liveness hazard, there are sev- eral other liveness hazards you may encounter in concurrent programs including starvation, missed signals, and livelock.</li>
-</ul>
-<h2 id="Starvation"><a href="#Starvation" class="headerlink" title="Starvation"></a>Starvation</h2><ul>
-<li>Starvation occurs when a thread is perpetually denied access to resources it needs in order to make progress; the most commonly starved resource is CPU cycles. Starvation in Java applications can be caused by inappropriate use of thread prior- ities. It can also be caused by executing nonterminating constructs (infinite loops or resource waits that do not terminate) with a lock held, since other threads that need that lock will never be able to acquire it.</li>
-<li>The thread priorities defined in the Thread API are merely scheduling hints. The Thread API defines ten priority levels that the JVM can map to operating system scheduling priorities as it sees fit. This mapping is platform-specific, so two Java priorities can map to the same OS priority on one system and different OS priorities on another.</li>
-<li><strong>Avoid the temptation to use thread priorities, since they increase platform dependence and can cause liveness problems</strong>. Most concurrent applica- tions can use the default priority for all threads.</li>
-</ul>
-<h2 id="Poor-responsiveness"><a href="#Poor-responsiveness" class="headerlink" title="Poor responsiveness"></a>Poor responsiveness</h2><ul>
-<li>One step removed from starvation is poor responsiveness, which is not uncom- mon in GUI applications using background threads.</li>
-<li>If the work done by other threads are truly background tasks, lowering their priority can make the foreground tasks more responsive.</li>
-</ul>
-<h2 id="Livelock"><a href="#Livelock" class="headerlink" title="Livelock"></a>Livelock</h2><ul>
-<li><strong>Livelock is a form of liveness failure</strong> in which a thread, while <strong>not blocked</strong>, still <strong>cannot make progress</strong> because it keeps retrying an operation that <strong>will always fail</strong>. </li>
-<li>Livelock often occurs in transactional messaging applications, where the messaging infrastructure rolls back a transaction if a message cannot be processed successfully, and puts it back at the head of the queue. If a bug in the message handler for a particular type of message causes it to fail, <strong>every time the message is dequeued and passed to the buggy handler, the transaction is rolled back</strong>. Since the message is now back at the head of the queue, the <strong>handler is called over and over with the same result</strong>. (This is sometimes called the <strong>poison message</strong> problem.) The <strong>message handling thread is not blocked, but it will never make progress either</strong>. This form of livelock often comes from <strong>overeager error-recovery code that mistakenly treats an unrecoverable error as a recoverable one</strong>.</li>
-<li>This is similar to what happens when <strong>two overly polite people</strong> are walking in opposite directions in a hallway: each steps out of the other’s way, and now they are again in each other’s way. So they both step aside again, and again, and again. . .</li>
-</ul>
-<h3 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h3><ul>
-<li>The solution for this variety of livelock is <strong>to introduce some randomness into the retry mechanism</strong>. For example, when two stations in an ethernet network try to send a packet on the shared carrier at the same time, the packets collide. The stations detect the collision, and each tries to send their packet again later. If they each retry exactly one second later, they collide over and over, and neither packet ever goes out, even if there is plenty of available bandwidth. To avoid this, we make each wait an amount of time that includes a random component. (The ethernet protocol also includes exponential backoff after repeated collisions, reducing both congestion and the risk of repeated failure with multiple colliding stations.) Retrying with random waits and backoffs can be equally effective for avoiding livelock in concurrent applications.</li>
-</ul>
-<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><ul>
-<li>Liveness failures are a serious problem because there is no way to recover from them short of aborting the application. The most common form of liveness failure is lock-ordering deadlock. Avoiding lock ordering deadlock starts at design time: ensure that when threads acquire multiple locks, they do so in a consistent order. The best way to do this is by using open calls throughout your program. This greatly reduces the number of places where multiple locks are held at once, and makes it more obvious where those places are.<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1></li>
-</ul>
-<h1 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h1><ul>
-<li>One of the primary reasons to use threads is to improve performance.</li>
-<li>First make your program right, then make it fast—and then only if your performance requirements and measurements tell you it needs to be faster. In designing a con- current application, squeezing out the last bit of performance is often the least of your concerns.</li>
-<li>When the performance of an activity is limited by availability of a par- ticular resource, we say it is bound by that resource: CPU-bound, database-bound, etc.</li>
-<li>using multiple threads always introduces some performance costs compared to the single-threaded approach. These include the overhead associated with coordinating between threads (locking, signaling, and memory synchronization), increased context switching,thread creation and teardown, and scheduling overhead. When threading is employed effectively, these costs are more than made up for by greater throughput, responsiveness, or capacity. On the other hand, a poorly designed concurrent application can perform even worse than a comparable sequential one.</li>
-<li>we want to keep the CPUs busy with <strong>useful</strong> work</li>
-</ul>
-<h2 id="Scalability"><a href="#Scalability" class="headerlink" title="Scalability"></a>Scalability</h2><ul>
-<li>Scalability describes the ability to improve throughput or capacity when additional computing resources (such as additional CPUs, memory, stor- age, or I/O bandwidth) are added.</li>
-<li>Nearly all engineering decisions involve some form of tradeoff. </li>
-<li>This is one of the reasons why most optimizations are premature: <strong>they are often undertaken before a clear set of requirements is available</strong>.</li>
-<li>Avoid premature optimization. <strong>First make it right, then make it fast</strong>—if it is not already fast enough.</li>
-<li>Measure, don’t guess.</li>
-</ul>
-<h3 id="Amdahl’s-law"><a href="#Amdahl’s-law" class="headerlink" title="Amdahl’s law"></a>Amdahl’s law</h3><ul>
-<li>the theoretical speedup is always limited by the part of the task that cannot benefit from the improvement.</li>
-<li>If F is the fraction of the calculation that must be executed serially, then Amdahl’s law says that on a machine with N processors, we can achieve a speedup of at most:<br>Speedup ≤ 1 / (F + (1 − F)/N)</li>
-<li>As N approaches infinity, the maximum speedup converges to 1/F, meaning that <strong>a program in which fifty percent of the processing must be executed serially can be sped up only by a factor of two</strong>, regardless of how many processors are available, and a program in which ten percent must be executed serially can be sped up by at most a factor of ten. </li>
-<li>Amdahl’s law also quantifies the efficiency cost of serialization. With ten processors, a program with 10% serialization can achieve at most a speedup of 5.3 (at 53% utilization), and with 100 processors it can achieve at most a speedup of 9.2 (at 9% utilization). It takes a lot of inefficiently utilized CPUs to never get to that factor of ten.</li>
-<li>It is clear that as processor counts increase, even a small percentage of serialized execution limits how much throughput can be increased with additional computing resources.</li>
-<li>All concurrent applications have some sources of serialization; if you think yours does not, look again.</li>
-<li>Amdahl’s law tells us that the scalability of an application is driven by the proportion of code that must be executed serially. Since the primary source of serialization in Java programs is the exclusive resource lock, scalability can often be improved by spending less time holding locks, either by reducing lock granu- larity, reducing the duration for which locks are held, or replacing exclusive locks with nonexclusive or nonblocking alternatives.</li>
-</ul>
-<h1 id="Costs-introduced-by-threads"><a href="#Costs-introduced-by-threads" class="headerlink" title="Costs introduced by threads"></a>Costs introduced by threads</h1><h2 id="Context-switching"><a href="#Context-switching" class="headerlink" title="Context switching"></a>Context switching</h2><ul>
-<li>Context switches are not free; thread scheduling requires manipulating shared data structures in the OS and JVM. The OS and JVM use the same CPUs your pro- gram does; more CPU time spent in JVM and OS code means less is available for your program.</li>
-<li>When a new thread is switched in, the data it needs is unlikely to be in the local processor cache, so a context switch causes a flurry of cache misses, and thus threads run a little more slowly when they are first scheduled.</li>
-<li>The actual cost of context switching varies across platforms, but a good rule of thumb is that a <strong>context switch costs the equivalent of 5,000 to 10,000 clock cycles</strong>, or several microseconds on most current processors.</li>
-</ul>
-<h2 id="memory-synchronization"><a href="#memory-synchronization" class="headerlink" title="memory synchronization"></a>memory synchronization</h2><ul>
-<li>The performance cost of synchronization comes from several sources. The visibility guarantees provided by synchronized and volatile may entail using <strong>special instructions called memory barriers</strong> that can flush or invalidate caches, flush hard- ware write buffers, and stall execution pipelines. <strong>Memory barriers</strong> may also have indirect performance consequences because they <strong>inhibit other compiler optimizations</strong>; most operations cannot be reordered with memory barriers.</li>
-<li>When assessing the performance impact of synchronization, it is <strong>important to distinguish between contended and uncontended synchronization</strong>. The synchronized mechanism is optimized for the uncontended case (<strong>volatile is always uncontended</strong>), and at this writing, the performance cost of <strong>a “fast-path” uncontended synchronization ranges from 20 to 250 clock cycles</strong> for most systems. While this is certainly not zero, the effect of needed, uncontended synchronization is rarely significant in overall application performance, and the alternative involves compromising safety and potentially signing yourself (or your succes- sor) up for some very painful bug hunting later.</li>
-<li>Modern <strong>JVMs can reduce the cost of incidental synchronization</strong> by optimizing away locking that can be proven never to contend. If a lock object is accessible only to the current thread, the JVM is permitted to optimize away a lock acquisi- tion because there is no way another thread could synchronize on the same lock. For example, the lock acquisition in following Listing can always be eliminated by the JVM.</li>
-</ul>
-<p>Following synchronization has no effect</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (<span class="keyword">new</span> Object()) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>More sophisticated JVMs can use <strong>escape analysis</strong> to identify when a local object reference is never published to the heap and is therefore thread-local. As below sample:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getStoogeNames</span><span class="params">()</span> </span>&#123;</span><br><span class="line">List&lt;String&gt; stooges = <span class="keyword">new</span> Vector&lt;String&gt;(); stooges.add(<span class="string">"Moe"</span>);</span><br><span class="line">stooges.add(<span class="string">"Larry"</span>);</span><br><span class="line">stooges.add(<span class="string">"Curly"</span>);</span><br><span class="line"><span class="keyword">return</span> stooges.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>the only reference to the List is the local variable stooges, and <strong>stack-confined variables are automatically thread-local</strong>. A naive execution of getStoogeNames would acquire and release the lock on the Vector four times, once for each call to add or toString. However, a smart runtime compiler can inline these calls and then see <strong>that stooges and its internal state never escape</strong>, and therefore that <strong>all four lock acquisitions can be eliminated</strong>.</p>
-</li>
-<li><p>Even without escape analysis, compilers can also perform <strong>lock coarsening</strong>, the <strong>merging of adjacent synchronized blocks using the same lock</strong>. For getStooge- Names, a JVM that performs lock coarsening might combine the three calls to add and the call to toString into a single lock acquisition and release, using heuristics on the relative cost of synchronization versus the instructions inside the synch- ronized block.5 Not only does this reduce the synchronization overhead, but it also gives the optimizer a much larger block to work with, likely enabling other optimizations.</p>
-</li>
-</ul>
-<blockquote>
-<p>Don’t worry excessively about the cost of uncontended synchronization. The basic mechanism is already quite fast, and JVMs can perform addi- tional optimizations that further reduce or eliminate the cost. Instead, focus optimization efforts on areas where lock contention actually occurs.</p>
-</blockquote>
-<ul>
-<li>Synchronization by one thread can also affect the performance of other threads. Synchronization creates traffic on the shared memory bus; this bus has a limited bandwidth and is shared across all processors. If threads must compete for synchronization bandwidth, all threads using synchronization will suffer.</li>
-</ul>
-<h2 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h2><ul>
-<li><strong>Uncontended synchronization</strong> can be handled <strong>entirely within the JVM</strong> (Bacon et al., 1998); <strong>contended synchronization may require OS activity</strong>, which adds to the cost. When locking is contended, the losing thread(s) must block. The JVM can implement blocking either via spin-waiting (repeatedly trying to acquire the lock until it succeeds) or by suspending the blocked thread through the operating system. Which is more efficient depends on the relationship between context switch overhead and the time until the lock becomes available; spin-waiting is preferable for short waits and suspension is preferable for long waits. Some JVMs choose between the two adaptively based on profiling data of past wait times, but most just suspend threads waiting for a lock.</li>
-</ul>
-<h2 id="Reducing-lock-contention"><a href="#Reducing-lock-contention" class="headerlink" title="Reducing lock contention"></a>Reducing lock contention</h2><ul>
-<li>We’ve seen that <strong>serialization hurts scalability</strong> and that <strong>context switches hurt performance</strong>. <strong>Contended locking causes both</strong>, so <strong>reducing lock contention can improve both performance and scalability</strong>.
-Access to resources guarded by an exclusive lock is serialized—only one thread at a time may access it. Of course, we use locks for good reasons, such as preventing data corruption, but this safety comes at a price. Persistent contention for a lock limits scalability.</li>
-<li>The principal threat to scalability in concurrent applications is the exclu- sive resource lock.</li>
-<li>Two factors influence the likelihood of contention for a lock: how often that lock is requested and how long it is held once acquired.7 If the product of these factors is sufficiently small, then most attempts to acquire the lock will be uncon- tended, and lock contention will not pose a significant scalability impediment.</li>
-</ul>
-<h3 id="There-are-three-ways-to-reduce-lock-contention"><a href="#There-are-three-ways-to-reduce-lock-contention" class="headerlink" title="There are three ways to reduce lock contention:"></a>There are three ways to reduce lock contention:</h3><ul>
-<li>Reduce the duration for which locks are held;</li>
-<li>Reduce the frequency with which locks are requested; or</li>
-<li>Replace exclusive locks with coordination mechanisms that permit<br>greater concurrency.</li>
-</ul>
-<h2 id="Narrowing-lock-scope"><a href="#Narrowing-lock-scope" class="headerlink" title="Narrowing lock scope"></a>Narrowing lock scope</h2><ul>
-<li><strong>An effective way to reduce the likelihood of contention is to hold locks as briefly as possible</strong>. This can be done by moving code that doesn’t require the lock out of synchronized blocks, especially for expensive operations and potentially block- ing operations such as I/O.</li>
-<li>It is easy to see how holding a “hot” lock for too long can limit scalability</li>
-<li>Reducing the scope of the lock in userLocationMatches substantially reduces the number of instructions that are executed with the lock held. <strong>By Amdahl’s law, this removes an impediment to scalability because the amount of serialized code is reduced</strong>.</li>
-<li>Because AttributeStore has only one state variable, attributes, we can im- prove it further by the technique of <strong>delegating thread safety</strong> (Section 4.3). By replacing attributes with a thread-safe Map (a Hashtable, synchronizedMap, or Con- currentHashMap), AttributeStore can delegate all its thread safety obligations to the underlying thread-safe collection.</li>
-</ul>
-<h2 id="Reducing-lock-granularity"><a href="#Reducing-lock-granularity" class="headerlink" title="Reducing lock granularity"></a>Reducing lock granularity</h2><ul>
-<li>The other way to reduce the fraction of time that a lock is held (and therefore the likelihood that it will be contended) is to <strong>have threads ask for it less often</strong>. This can be accomplished <strong>by lock splitting and lock striping</strong>, which involve <strong>using separate locks to guard multiple independent state variables previously guarded by a single lock</strong>. These techniques reduce the granularity at which locking occurs, potentially allowing greater scalability—but using more locks also increases the risk of deadlock.</li>
-<li>If a lock guards more than one <strong>independent</strong> state variable, you may be able to improve scalability by splitting it into multiple locks that each guard different variables. This results in each lock being requested less often.</li>
-<li>After splitting the lock, each new finer-grained lock will see less locking traffic than the original coarser lock would have.</li>
-</ul>
-<h2 id="Lock-stripping"><a href="#Lock-stripping" class="headerlink" title="Lock stripping"></a>Lock stripping</h2><ul>
-<li>Splitting a heavily contended lock into two is likely to result in two heavily contended locks. </li>
-<li>Lock splitting can sometimes be extended to partition locking on a variable- sized set of independent objects, in which case it is called lock striping. For exam- ple, the implementation of ConcurrentHashMap uses an array of 16 locks, each of which guards 1/16 of the hash buckets; bucket N is guarded by lock N mod 16.</li>
-<li>One of the downsides of lock striping is that locking the collection for ex- clusive access is more difficult and costly than with a single lock. Usually <strong>an operation can be performed by acquiring at most one lock</strong>, but <strong>occasionally you need to lock the entire collection</strong>, as when ConcurrentHashMap needs <strong>to expand the map and rehash the values</strong> into a larger set of buckets. This is typically done by acquiring all of the locks in the stripe set</li>
-<li>common optimizations such as caching frequently computed values can introduce “hot fields” that limit scalability.</li>
-<li>A common optimization is to update a separate counter as entries are added or removed; this slightly increases the cost of a put or remove operation to keep the counter up-to-date, but reduces the cost of the size operation from O(n) to O(1).</li>
-<li>In this case, the counter is called a <strong>hot field</strong> because every mutative operation needs to access it.</li>
-<li>ConcurrentHashMap avoids this problem by having size enumerate the stripes and add up the number of elements in each stripe, instead of maintaining a global count. To avoid enumerating every element, ConcurrentHashMap maintains a separate count field for each stripe, also guarded by the stripe lock.</li>
-</ul>
-<h2 id="Alternative-to-exclusive-lock"><a href="#Alternative-to-exclusive-lock" class="headerlink" title="Alternative to exclusive lock"></a>Alternative to exclusive lock</h2><ul>
-<li>A third technique for mitigating the effect of lock contention <strong>is to forego the use of exclusive locks</strong> in favor of a more concurrency-friendly means of managing shared state. These include <strong>using the concurrent collections, read-write locks, immutable objects and atomic variables</strong>.</li>
-</ul>
-<h3 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h3><ul>
-<li>enforces a <strong>multiple-reader, single-writer</strong> locking discipline: more than one reader can access the shared resource concurrently so long as none of them wants to modify it, but writers must acquire the lock excusively. For read-mostly data structures, ReadWriteLock can offer greater concurrency than exclusive locking; <strong>for read-only data structures, immutability can eliminate the need for locking entirely</strong>.</li>
-<li>Atomic variables (see Chapter 15) offer a means of reducing the cost of updat- ing “hot fields” such as statistics counters, sequence generators, or the reference</li>
-<li>If size is called frequently compared to mutative operations, striped data structures can optimize for this by caching the collection size in a volatile whenever size is called and invalidating the cache (setting it to -1) whenever the collection is modified. If the cached value is nonnegative on entry to size, it is accurate and can be returned; otherwise it is recomputed.</li>
-<li>The atomic variable classes pro- vide very fine-grained (and therefore more scalable) atomic operations on integers or object references, and are implemented using low-level concurrency primitives (such as compare-and-swap) provided by most modern processors. If your class has a small number of hot fields that do not participate in invariants with other variables, replacing them with atomic variables may improve scalability.</li>
-</ul>
-<h1 id="Comparing-Map"><a href="#Comparing-Map" class="headerlink" title="Comparing Map"></a>Comparing Map</h1><ul>
-<li>The single-threaded performance of ConcurrentHashMap is slightly better than that of a synchronized HashMap, but it is in concurrent use that it really shines. The implementation of ConcurrentHashMap assumes the most common operation is retrieving a value that already exists, and is therefore optimized to <strong>provide highest performance and concurrency for successful get operations</strong>.</li>
-<li>The major scalability impediment for the synchronized Map implementations is that there is a single lock for the entire map, so only one thread can access the map at a time. On the other hand, ConcurrentHashMap does no locking for most successful read operations, and <strong>uses lock striping for write operations</strong> and those few read operations that do require locking. As a result, multiple threads can access the Map concurrently without blocking.</li>
-<li>The numbers for the synchronized collections are not as encouraging. Perfor- mance for the one-thread case is comparable to ConcurrentHashMap, but once the load transitions from mostly uncontended to mostly contended—which happens here at two threads—the synchronized collections suffer badly. This is common behavior for code whose scalability is limited by lock contention. So long as contention is low, time per operation is dominated by the time to actually do the work and throughput may improve as threads are added. Once contention becomes significant, time per operation is dominated by context switch and scheduling delays, and adding more threads has little effect on throughput.</li>
-</ul>
-<h1 id="Building-a-asynchronous-log"><a href="#Building-a-asynchronous-log" class="headerlink" title="Building a asynchronous log"></a>Building a asynchronous log</h1><ul>
-<li>Building a logger that moves the I/O to another thread may improve performance, but it also introduces a number of design complications, such as interruption (what happens if a thread blocked in a logging operation is interrupted?), service guarantees (does the logger guarantee that a success- fully queued log message will be logged prior to service shutdown?), saturation policy (what happens when the producers log messages faster than the logger thread can handle them?), and service lifecycle (how do we shut down the logger, and how do we communicate the service state to producers?).</li>
-</ul>
-<h1 id="Reducing-context-switching"><a href="#Reducing-context-switching" class="headerlink" title="Reducing context switching"></a>Reducing context switching</h1><ul>
-<li>The “get in, get out” principle of Section 11.4.1 tells us that <strong>we should hold locks as briefly as possible</strong>, because <strong>the longer a lock is held, the more likely that lock will be contended</strong>. If a thread blocks waiting for I/O while holding a lock, another thread is more likely to want the lock while the first thread is holding it. Concurrent systems perform much better when most lock acquisitions are uncontended, because contended lock acquisition means more context switches. A coding style that encourages more context switches thus yields lower overall throughput.</li>
-</ul>
-<h1 id="Testing-concurrency"><a href="#Testing-concurrency" class="headerlink" title="Testing concurrency"></a>Testing concurrency</h1><ul>
-<li>we defined safety as “nothing bad ever happens” and liveness as “something good eventually happens”.</li>
-<li>when interrupted, it throws InterruptedException. This is one of the few cases in which it is appropriate to subclass Thread explicitly instead of using a Runnable in a pool: in order to test proper termination with join.</li>
-<li>The result of <strong>Thread.getState should not be used</strong> for concurrency control, and is of limited usefulness for testing—its primary utility is as a source of debugging information.</li>
-<li>a common error in implementing semaphore-controlled buffers is to forget that the code actually doing the insertion and extraction requires mutual exclu- sion (using synchronized or ReentrantLock). A sample run of PutTakeTest with a version of BoundedBuffer that omits making doInsert and doExtract synch- ronized fails fairly quickly. </li>
-<li><strong>Tests should be run on multiprocessor systems to increase the diversity of potential interleavings. However, having more than a few CPUs does not necessarily make tests more effective. To maximize the chance of detecting timing-sensitive data races, there should be more active threads than CPUs, so that at any given time some threads are running and some are switched out, thus reducing the predicatability of interactions between threads</strong>.</li>
-<li>Tests like PutTakeTest tend to be good at finding safety violations. For exam- ple, a common error in implementing semaphore-controlled buffers is to forget that the code actually doing the insertion and extraction requires mutual exclu- sion (using synchronized or ReentrantLock). A sample run of PutTakeTest with a version of BoundedBuffer that omits making doInsert and doExtract synch- ronized fails fairly quickly. Running PutTakeTest with a few dozen threads iterating a few million times on buffers of various capacity on various systems increases our confidence about the lack of data corruption in put and take.</li>
-<li>The source code <strong>PutTakeTest.java</strong> demonstreated aforesaid logic.</li>
-</ul>
-<h2 id="Test-resource-management"><a href="#Test-resource-management" class="headerlink" title="Test resource management"></a>Test resource management</h2><ul>
-<li><strong>The tests so far have been concerned with a class’s adherence to its specifica- tion—that it does what it is supposed to do. A secondary aspect to test is that it does not do things it is not supposed to do</strong>, such as leak resources. Any object that holds or manages other objects should not continue to maintain references to those objects longer than necessary. Such storage leaks prevent garbage collectors from reclaiming memory (or threads, file handles, sockets, database connections, or other limited resources) and can lead to resource exhaustion and application failure.</li>
-</ul>
 
           
         
@@ -1249,7 +1066,7 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-09-R-Lang/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1265,7 +1082,7 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-02-09-R-Lang/" class="post-title-link" itemprop="url">R Language</a>
+              <a href="/2017-02-01-Concurrent-In-Java-col-2/" class="post-title-link" itemprop="url">Java Concurrent Column 2</a>
             
           </h1>
         
@@ -1297,8 +1114,259 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
 
       
           
-            <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s&lt;-read.csv(<span class="string">"C:/Users/xxx/dev/R/IRS/SHH_SCHISHG.csv"</span>)</span><br><span class="line"><span class="comment"># aggregate </span></span><br><span class="line">s2&lt;-table(s$Original.CP)</span><br><span class="line">s3&lt;-as.data.frame(s2)</span><br><span class="line"><span class="comment"># extract by Frequency ordered </span></span><br><span class="line">s3[order(-s3$Freq),]</span><br></pre></td></tr></table></figure>
+            <h1 id="This-is-the-second-half-about-Java-Concurrent-of-my-blog"><a href="#This-is-the-second-half-about-Java-Concurrent-of-my-blog" class="headerlink" title="This is the second half about Java Concurrent of my blog"></a>This is the second half about Java Concurrent of my blog</h1><h2 id="non-blocking-synchronization"><a href="#non-blocking-synchronization" class="headerlink" title="non-blocking synchronization"></a>non-blocking synchronization</h2><ul>
+<li>Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures.</li>
+<li>Nonblocking algorithms are considerably more complicated to design and im- plement than lock-based alternatives, but they can <strong>offer significant scalability and liveness advantages</strong>. They coordinate at a finer level of granularity and can greatly reduce scheduling overhead because they don’t block when multiple threads contend for the same data. Further, they are <code>immune to deadlock and other liveness problems</code>. In lock-based algorithms, other threads cannot make progress if a thread goes to sleep or spins while holding a lock, whereas <code>nonblocking algorithms are impervious to individual thread failures</code>. As of Java 5.0, it is possible to build efficient <strong>nonblocking algorithms in Java using the atomic variable classes such as AtomicInteger and AtomicReference</strong>.</li>
+<li>Atomic variables can also be used as <strong>“better volatile variables”</strong> even if you are not developing nonblocking algorithms. <code>Atomic variables offer the same memory semantics as volatile variables</code>, but with additional support for atomic updates— making them ideal for counters, sequence generators, and statistics gathering while offering better scalability than lock-based alternatives.</li>
+<li>Coordinating access to shared state using a consistent locking protocol ensures that whichever thread holds the lock guarding a set of variables has exclusive access to those variables, and that any changes made to those variables are visible to other threads that subsequently acquire the lock.</li>
+<li><code>Volatile variables are a lighter-weight synchronization mechanism</code> than locking <code>because they do not involve context switches or thread scheduling</code>. However, volatile variables have some limitations compared to locking: while they provide similar visibility guarantees, they <code>cannot be used to construct atomic compound actions</code>. This means that volatile variables cannot be used when one variable de- pends on another, or when the new value of a variable depends on its old value. This limits when volatile variables are appropriate, since they cannot be used to reliably implement common tools such as counters or mutexes.</li>
+<li>This can be a serious problem <strong>if the blocked thread is a high-priority thread but the thread holding the lock is a lower-priority thread—a performance hazard known as priority inversion</strong>. Even though the higher-priority thread should have precedence, it must wait until the lock is released, and this effectively down- grades its priority to that of the lower-priority thread. If a thread holding a lock is permanently blocked (due to an infinite loop, deadlock, livelock, or other liveness failure), any threads waiting for that lock can never make progress.</li>
+</ul>
+<h1 id="hardware"><a href="#hardware" class="headerlink" title="hardware"></a>hardware</h1><ul>
+<li><code>Exclusive locking is a pessimistic technique</code>—it assumes the worst (if you don’t lock your door, gremlins will come in and rearrange your stuff) and doesn’t proceed until you can guarantee, by acquiring the appropriate locks, that other threads will not interfere.</li>
+<li>For fine-grained operations, there is an alternate approach that is often more efficient—<code>the optimistic approach</code>, whereby you proceed with an update, hopeful that you can complete it without interference. <code>This approach relies on collision detection to determine if there has been interference from other parties during the update</code>, in which case the operation fails and can be retried (or not). The optimistic approach is like the old saying, <code>“It is easier to obtain forgiveness than permission”</code>, where “easier” here means “more efficient”.</li>
+<li>Processors designed for multiprocessor operation provide special instructions for managing concurrent access to shared variables. Early processors had atomic <strong>test-and-set, fetch-and-increment, or swap</strong> instructions sufficient for implementing mutexes that could in turn be used to implement more sophisticated concurrent objects. Today, nearly every modern processor has some form of atomic read- modify-write instruction, such as <strong>compare-and-swap or load-linked/store-conditional</strong>. Operating systems and JVMs use these instructions to implement locks and con- current data structures, but until Java 5.0 they had not been available directly to Java classes.</li>
+</ul>
+<h1 id="Compare-and-swap"><a href="#Compare-and-swap" class="headerlink" title="Compare and swap"></a>Compare and swap</h1><ul>
+<li>The approach taken by most processor architectures, including IA32 and Sparc, is to implement a <strong>compare-and-swap (CAS)</strong> instruction. (Other processors, such as PowerPC, implement the same functionality with a pair of instructions: load- linked and store-conditional.) <code>CAS has three operands—a memory location V on which to operate, the expected old value A, and the new value B. CAS atomically updates V to the new value B, but only if the value in V matches the expected old value A; otherwise it does nothing</code>. In either case, it returns the value currently in V. (The <code>variant called compare-and-set instead returns whether the operation succeeded</code>.) <strong>CAS means “I think V should have the value A; if it does, put B there, otherwise don’t change it but tell me I was wrong.” CAS is an optimistic technique</strong>—<code>it proceeds with the update in the hope of success</code>, and can detect failure if another thread has updated the variable since it was last examined. SimulatedCAS in Listing 15.1 illustrates the semantics (but not the implementation or performance) of CAS.</li>
+<li><code>When multiple threads attempt to update the same variable simultaneously using CAS, one wins and updates the variable’s value, and the rest lose</code>. But the losers are not punished by suspension, as they could be if they failed to acquire a lock; instead, they are told that they didn’t win the race this time but can try again. Because a thread that loses a CAS is not blocked, it can decide whether it wants to try again, take some other recovery action, or do nothing.3 This flexibility eliminates many of the liveness hazards associated with locking (though in unusual cases can introduce the risk of livelock—see Section 10.3.3).</li>
+<li>CAS addresses the problem of <strong>implementing atomic read-modify-write sequences without locking</strong>, <code>because it can detect interference from other threads</code>.</li>
+</ul>
+<h2 id="counter-implemented-by-CAS"><a href="#counter-implemented-by-CAS" class="headerlink" title="counter implemented by CAS"></a>counter implemented by CAS</h2><ul>
+<li>At first glance, the CAS-based counter looks as if it should perform worse than a lock-based counter; it has more operations and a more complicated control flow, and depends on the seemingly complicated CAS operation. But in reality, CAS-based counters significantly outperform lock-based counters if there is even a small amount of contention, and often even if there is no contention. The fast path for uncontended lock acquisition typically requires at least one CAS plus other lock-related housekeeping, so more work is going on in the best case for a lock-based counter than in the normal case for the CAS-based counter. Since the CAS succeeds most of the time (assuming low to moderate contention), the hardware will correctly predict the branch implicit in the while loop, minimizing the overhead of the more complicated control logic.</li>
+<li>The language syntax for locking may be compact, but the work done by the JVM and OS to manage locks is not. Locking entails traversing a relatively com- plicated code path in the JVM and may entail OS-level locking, thread suspension, and context switches. In the best case, locking requires at least one CAS, so using locks moves the CAS out of sight but doesn’t save any actual execution cost. On the other hand, executing a CAS from within the program involves no JVM code, system calls, or scheduling activity. What looks like a longer code path at the ap- plication level is in fact a much shorter code path when JVM and OS activity are taken into account. <code>The primary disadvantage of CAS is that it forces the caller to deal with contention (by retrying, backing off, or giving up), whereas locks deal with contention automatically by blocking until the lock is available</code>.</li>
+<li>Competitive forces will likely result in continued CAS performance improvement over the next sev- eral years. A good rule of thumb is that the <strong>cost of the “fast path” for uncontended lock acquisition and release on most processors is approximately twice the cost of a CAS</strong>.</li>
+</ul>
+<h2 id="CAS-support-in-JVM"><a href="#CAS-support-in-JVM" class="headerlink" title="CAS support in JVM"></a>CAS support in JVM</h2><ul>
+<li>So, how does Java code convince the processor to execute a CAS on its behalf? Prior to Java 5.0, there was no way to do this short of writing native code. <code>In Java 5.0, low-level support was added to expose CAS operations on int, long, and object references</code>, and the <code>JVM compiles these into the most efficient means provided by the underlying hardware</code>. On platforms supporting CAS, the run- time inlines them into the appropriate machine instruction(s); <code>in the worst case, if a CAS-like instruction is not available the JVM uses a spin lock</code>. This low-level JVM support is used by the atomic variable classes (AtomicXxx in java.util.con- current.atomic) to provide an efficient CAS operation on numeric and reference types; these atomic variable classes are used, directly or indirectly, to implement most of the classes in java.util.concurrent.</li>
+</ul>
+<h1 id="Other-liveness-hazards"><a href="#Other-liveness-hazards" class="headerlink" title="Other liveness hazards"></a>Other liveness hazards</h1><ul>
+<li>While deadlock is the most widely encountered liveness hazard, there are sev- eral other liveness hazards you may encounter in concurrent programs including starvation, missed signals, and livelock.</li>
+</ul>
+<h2 id="Starvation"><a href="#Starvation" class="headerlink" title="Starvation"></a>Starvation</h2><ul>
+<li>Starvation occurs when a thread is perpetually denied access to resources it needs in order to make progress; the most commonly starved resource is CPU cycles. Starvation in Java applications can be caused by inappropriate use of thread prior- ities. It can also be caused by executing nonterminating constructs (infinite loops or resource waits that do not terminate) with a lock held, since other threads that need that lock will never be able to acquire it.</li>
+<li>The thread priorities defined in the Thread API are merely scheduling hints. The Thread API defines ten priority levels that the JVM can map to operating system scheduling priorities as it sees fit. This mapping is platform-specific, so two Java priorities can map to the same OS priority on one system and different OS priorities on another.</li>
+<li><strong>Avoid the temptation to use thread priorities, since they increase platform dependence and can cause liveness problems</strong>. Most concurrent applica- tions can use the default priority for all threads.</li>
+</ul>
+<h2 id="Poor-responsiveness"><a href="#Poor-responsiveness" class="headerlink" title="Poor responsiveness"></a>Poor responsiveness</h2><ul>
+<li>One step removed from starvation is poor responsiveness, which is not uncom- mon in GUI applications using background threads.</li>
+<li>If the work done by other threads are truly background tasks, lowering their priority can make the foreground tasks more responsive.</li>
+</ul>
+<h2 id="Livelock"><a href="#Livelock" class="headerlink" title="Livelock"></a>Livelock</h2><ul>
+<li><strong>Livelock is a form of liveness failure</strong> in which a thread, while <strong>not blocked</strong>, still <strong>cannot make progress</strong> because it keeps retrying an operation that <strong>will always fail</strong>. </li>
+<li>Livelock often occurs in transactional messaging applications, where the messaging infrastructure rolls back a transaction if a message cannot be processed successfully, and puts it back at the head of the queue. If a bug in the message handler for a particular type of message causes it to fail, <strong>every time the message is dequeued and passed to the buggy handler, the transaction is rolled back</strong>. Since the message is now back at the head of the queue, the <strong>handler is called over and over with the same result</strong>. (This is sometimes called the <strong>poison message</strong> problem.) The <strong>message handling thread is not blocked, but it will never make progress either</strong>. This form of livelock often comes from <strong>overeager error-recovery code that mistakenly treats an unrecoverable error as a recoverable one</strong>.</li>
+<li>This is similar to what happens when <strong>two overly polite people</strong> are walking in opposite directions in a hallway: each steps out of the other’s way, and now they are again in each other’s way. So they both step aside again, and again, and again. . .</li>
+</ul>
+<h3 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h3><ul>
+<li>The solution for this variety of livelock is <strong>to introduce some randomness into the retry mechanism</strong>. For example, when two stations in an ethernet network try to send a packet on the shared carrier at the same time, the packets collide. The stations detect the collision, and each tries to send their packet again later. If they each retry exactly one second later, they collide over and over, and neither packet ever goes out, even if there is plenty of available bandwidth. To avoid this, we make each wait an amount of time that includes a random component. (The ethernet protocol also includes exponential backoff after repeated collisions, reducing both congestion and the risk of repeated failure with multiple colliding stations.) Retrying with random waits and backoffs can be equally effective for avoiding livelock in concurrent applications.</li>
+</ul>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><ul>
+<li>Liveness failures are a serious problem because there is no way to recover from them short of aborting the application. The most common form of liveness failure is lock-ordering deadlock. Avoiding lock ordering deadlock starts at design time: ensure that when threads acquire multiple locks, they do so in a consistent order. The best way to do this is by using open calls throughout your program. This greatly reduces the number of places where multiple locks are held at once, and makes it more obvious where those places are.<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1></li>
+</ul>
+<h1 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h1><ul>
+<li>One of the primary reasons to use threads is to improve performance.</li>
+<li>First make your program right, then make it fast—and then only if your performance requirements and measurements tell you it needs to be faster. In designing a con- current application, squeezing out the last bit of performance is often the least of your concerns.</li>
+<li>When the performance of an activity is limited by availability of a par- ticular resource, we say it is bound by that resource: CPU-bound, database-bound, etc.</li>
+<li>using multiple threads always introduces some performance costs compared to the single-threaded approach. These include the overhead associated with coordinating between threads (locking, signaling, and memory synchronization), increased context switching,thread creation and teardown, and scheduling overhead. When threading is employed effectively, these costs are more than made up for by greater throughput, responsiveness, or capacity. On the other hand, a poorly designed concurrent application can perform even worse than a comparable sequential one.</li>
+<li>we want to keep the CPUs busy with <strong>useful</strong> work</li>
+</ul>
+<h2 id="Scalability"><a href="#Scalability" class="headerlink" title="Scalability"></a>Scalability</h2><ul>
+<li>Scalability describes the ability to improve throughput or capacity when additional computing resources (such as additional CPUs, memory, stor- age, or I/O bandwidth) are added.</li>
+<li>Nearly all engineering decisions involve some form of tradeoff. </li>
+<li>This is one of the reasons why most optimizations are premature: <strong>they are often undertaken before a clear set of requirements is available</strong>.</li>
+<li>Avoid premature optimization. <strong>First make it right, then make it fast</strong>—if it is not already fast enough.</li>
+<li>Measure, don’t guess.</li>
+</ul>
+<h3 id="Amdahl’s-law"><a href="#Amdahl’s-law" class="headerlink" title="Amdahl’s law"></a>Amdahl’s law</h3><ul>
+<li>the theoretical speedup is always limited by the part of the task that cannot benefit from the improvement.</li>
+<li>If F is the fraction of the calculation that must be executed serially, then Amdahl’s law says that on a machine with N processors, we can achieve a speedup of at most:<br>Speedup ≤ 1 / (F + (1 − F)/N)</li>
+<li>As N approaches infinity, the maximum speedup converges to 1/F, meaning that <strong>a program in which fifty percent of the processing must be executed serially can be sped up only by a factor of two</strong>, regardless of how many processors are available, and a program in which ten percent must be executed serially can be sped up by at most a factor of ten. </li>
+<li>Amdahl’s law also quantifies the efficiency cost of serialization. With ten processors, a program with 10% serialization can achieve at most a speedup of 5.3 (at 53% utilization), and with 100 processors it can achieve at most a speedup of 9.2 (at 9% utilization). It takes a lot of inefficiently utilized CPUs to never get to that factor of ten.</li>
+<li>It is clear that as processor counts increase, even a small percentage of serialized execution limits how much throughput can be increased with additional computing resources.</li>
+<li>All concurrent applications have some sources of serialization; if you think yours does not, look again.</li>
+<li>Amdahl’s law tells us that the scalability of an application is driven by the proportion of code that must be executed serially. Since the primary source of serialization in Java programs is the exclusive resource lock, scalability can often be improved by spending less time holding locks, either by reducing lock granu- larity, reducing the duration for which locks are held, or replacing exclusive locks with nonexclusive or nonblocking alternatives.</li>
+</ul>
+<h1 id="Costs-introduced-by-threads"><a href="#Costs-introduced-by-threads" class="headerlink" title="Costs introduced by threads"></a>Costs introduced by threads</h1><h2 id="Context-switching"><a href="#Context-switching" class="headerlink" title="Context switching"></a>Context switching</h2><ul>
+<li>Context switches are not free; thread scheduling requires manipulating shared data structures in the OS and JVM. The OS and JVM use the same CPUs your pro- gram does; more CPU time spent in JVM and OS code means less is available for your program.</li>
+<li>When a new thread is switched in, the data it needs is unlikely to be in the local processor cache, so a context switch causes a flurry of cache misses, and thus threads run a little more slowly when they are first scheduled.</li>
+<li>The actual cost of context switching varies across platforms, but a good rule of thumb is that a <strong>context switch costs the equivalent of 5,000 to 10,000 clock cycles</strong>, or several microseconds on most current processors.</li>
+</ul>
+<h2 id="memory-synchronization"><a href="#memory-synchronization" class="headerlink" title="memory synchronization"></a>memory synchronization</h2><ul>
+<li>The performance cost of synchronization comes from several sources. The visibility guarantees provided by synchronized and volatile may entail using <strong>special instructions called memory barriers</strong> that can flush or invalidate caches, flush hard- ware write buffers, and stall execution pipelines. <strong>Memory barriers</strong> may also have indirect performance consequences because they <strong>inhibit other compiler optimizations</strong>; most operations cannot be reordered with memory barriers.</li>
+<li>When assessing the performance impact of synchronization, it is <strong>important to distinguish between contended and uncontended synchronization</strong>. The synchronized mechanism is optimized for the uncontended case (<strong>volatile is always uncontended</strong>), and at this writing, the performance cost of <strong>a “fast-path” uncontended synchronization ranges from 20 to 250 clock cycles</strong> for most systems. While this is certainly not zero, the effect of needed, uncontended synchronization is rarely significant in overall application performance, and the alternative involves compromising safety and potentially signing yourself (or your succes- sor) up for some very painful bug hunting later.</li>
+<li>Modern <strong>JVMs can reduce the cost of incidental synchronization</strong> by optimizing away locking that can be proven never to contend. If a lock object is accessible only to the current thread, the JVM is permitted to optimize away a lock acquisi- tion because there is no way another thread could synchronize on the same lock. For example, the lock acquisition in following Listing can always be eliminated by the JVM.</li>
+</ul>
+<p>Following synchronization has no effect</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (<span class="keyword">new</span> Object()) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><p>More sophisticated JVMs can use <strong>escape analysis</strong> to identify when a local object reference is never published to the heap and is therefore thread-local. As below sample:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getStoogeNames</span><span class="params">()</span> </span>&#123;</span><br><span class="line">List&lt;String&gt; stooges = <span class="keyword">new</span> Vector&lt;String&gt;(); stooges.add(<span class="string">"Moe"</span>);</span><br><span class="line">stooges.add(<span class="string">"Larry"</span>);</span><br><span class="line">stooges.add(<span class="string">"Curly"</span>);</span><br><span class="line"><span class="keyword">return</span> stooges.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>the only reference to the List is the local variable stooges, and <strong>stack-confined variables are automatically thread-local</strong>. A naive execution of getStoogeNames would acquire and release the lock on the Vector four times, once for each call to add or toString. However, a smart runtime compiler can inline these calls and then see <strong>that stooges and its internal state never escape</strong>, and therefore that <strong>all four lock acquisitions can be eliminated</strong>.</p>
+</li>
+<li><p>Even without escape analysis, compilers can also perform <strong>lock coarsening</strong>, the <strong>merging of adjacent synchronized blocks using the same lock</strong>. For getStooge- Names, a JVM that performs lock coarsening might combine the three calls to add and the call to toString into a single lock acquisition and release, using heuristics on the relative cost of synchronization versus the instructions inside the synch- ronized block.5 Not only does this reduce the synchronization overhead, but it also gives the optimizer a much larger block to work with, likely enabling other optimizations.</p>
+</li>
+</ul>
+<blockquote>
+<p>Don’t worry excessively about the cost of uncontended synchronization. The basic mechanism is already quite fast, and JVMs can perform addi- tional optimizations that further reduce or eliminate the cost. Instead, focus optimization efforts on areas where lock contention actually occurs.</p>
+</blockquote>
+<ul>
+<li>Synchronization by one thread can also affect the performance of other threads. Synchronization creates traffic on the shared memory bus; this bus has a limited bandwidth and is shared across all processors. If threads must compete for synchronization bandwidth, all threads using synchronization will suffer.</li>
+</ul>
+<h2 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h2><ul>
+<li><strong>Uncontended synchronization</strong> can be handled <strong>entirely within the JVM</strong> (Bacon et al., 1998); <strong>contended synchronization may require OS activity</strong>, which adds to the cost. When locking is contended, the losing thread(s) must block. The JVM can implement blocking either via spin-waiting (repeatedly trying to acquire the lock until it succeeds) or by suspending the blocked thread through the operating system. Which is more efficient depends on the relationship between context switch overhead and the time until the lock becomes available; spin-waiting is preferable for short waits and suspension is preferable for long waits. Some JVMs choose between the two adaptively based on profiling data of past wait times, but most just suspend threads waiting for a lock.</li>
+</ul>
+<h2 id="Reducing-lock-contention"><a href="#Reducing-lock-contention" class="headerlink" title="Reducing lock contention"></a>Reducing lock contention</h2><ul>
+<li>We’ve seen that <strong>serialization hurts scalability</strong> and that <strong>context switches hurt performance</strong>. <strong>Contended locking causes both</strong>, so <strong>reducing lock contention can improve both performance and scalability</strong>.
+Access to resources guarded by an exclusive lock is serialized—only one thread at a time may access it. Of course, we use locks for good reasons, such as preventing data corruption, but this safety comes at a price. Persistent contention for a lock limits scalability.</li>
+<li>The principal threat to scalability in concurrent applications is the exclu- sive resource lock.</li>
+<li>Two factors influence the likelihood of contention for a lock: how often that lock is requested and how long it is held once acquired.7 If the product of these factors is sufficiently small, then most attempts to acquire the lock will be uncon- tended, and lock contention will not pose a significant scalability impediment.</li>
+</ul>
+<h3 id="There-are-three-ways-to-reduce-lock-contention"><a href="#There-are-three-ways-to-reduce-lock-contention" class="headerlink" title="There are three ways to reduce lock contention:"></a>There are three ways to reduce lock contention:</h3><ul>
+<li>Reduce the duration for which locks are held;</li>
+<li>Reduce the frequency with which locks are requested; or</li>
+<li>Replace exclusive locks with coordination mechanisms that permit<br>greater concurrency.</li>
+</ul>
+<h2 id="Narrowing-lock-scope"><a href="#Narrowing-lock-scope" class="headerlink" title="Narrowing lock scope"></a>Narrowing lock scope</h2><ul>
+<li><strong>An effective way to reduce the likelihood of contention is to hold locks as briefly as possible</strong>. This can be done by moving code that doesn’t require the lock out of synchronized blocks, especially for expensive operations and potentially block- ing operations such as I/O.</li>
+<li>It is easy to see how holding a “hot” lock for too long can limit scalability</li>
+<li>Reducing the scope of the lock in userLocationMatches substantially reduces the number of instructions that are executed with the lock held. <strong>By Amdahl’s law, this removes an impediment to scalability because the amount of serialized code is reduced</strong>.</li>
+<li>Because AttributeStore has only one state variable, attributes, we can im- prove it further by the technique of <strong>delegating thread safety</strong> (Section 4.3). By replacing attributes with a thread-safe Map (a Hashtable, synchronizedMap, or Con- currentHashMap), AttributeStore can delegate all its thread safety obligations to the underlying thread-safe collection.</li>
+</ul>
+<h2 id="Reducing-lock-granularity"><a href="#Reducing-lock-granularity" class="headerlink" title="Reducing lock granularity"></a>Reducing lock granularity</h2><ul>
+<li>The other way to reduce the fraction of time that a lock is held (and therefore the likelihood that it will be contended) is to <strong>have threads ask for it less often</strong>. This can be accomplished <strong>by lock splitting and lock striping</strong>, which involve <strong>using separate locks to guard multiple independent state variables previously guarded by a single lock</strong>. These techniques reduce the granularity at which locking occurs, potentially allowing greater scalability—but using more locks also increases the risk of deadlock.</li>
+<li>If a lock guards more than one <strong>independent</strong> state variable, you may be able to improve scalability by splitting it into multiple locks that each guard different variables. This results in each lock being requested less often.</li>
+<li>After splitting the lock, each new finer-grained lock will see less locking traffic than the original coarser lock would have.</li>
+</ul>
+<h2 id="Lock-stripping"><a href="#Lock-stripping" class="headerlink" title="Lock stripping"></a>Lock stripping</h2><ul>
+<li>Splitting a heavily contended lock into two is likely to result in two heavily contended locks. </li>
+<li>Lock splitting can sometimes be extended to partition locking on a variable- sized set of independent objects, in which case it is called lock striping. For exam- ple, the implementation of ConcurrentHashMap uses an array of 16 locks, each of which guards 1/16 of the hash buckets; bucket N is guarded by lock N mod 16.</li>
+<li>One of the downsides of lock striping is that locking the collection for ex- clusive access is more difficult and costly than with a single lock. Usually <strong>an operation can be performed by acquiring at most one lock</strong>, but <strong>occasionally you need to lock the entire collection</strong>, as when ConcurrentHashMap needs <strong>to expand the map and rehash the values</strong> into a larger set of buckets. This is typically done by acquiring all of the locks in the stripe set</li>
+<li>common optimizations such as caching frequently computed values can introduce “hot fields” that limit scalability.</li>
+<li>A common optimization is to update a separate counter as entries are added or removed; this slightly increases the cost of a put or remove operation to keep the counter up-to-date, but reduces the cost of the size operation from O(n) to O(1).</li>
+<li>In this case, the counter is called a <strong>hot field</strong> because every mutative operation needs to access it.</li>
+<li>ConcurrentHashMap avoids this problem by having size enumerate the stripes and add up the number of elements in each stripe, instead of maintaining a global count. To avoid enumerating every element, ConcurrentHashMap maintains a separate count field for each stripe, also guarded by the stripe lock.</li>
+</ul>
+<h2 id="Alternative-to-exclusive-lock"><a href="#Alternative-to-exclusive-lock" class="headerlink" title="Alternative to exclusive lock"></a>Alternative to exclusive lock</h2><ul>
+<li>A third technique for mitigating the effect of lock contention <strong>is to forego the use of exclusive locks</strong> in favor of a more concurrency-friendly means of managing shared state. These include <strong>using the concurrent collections, read-write locks, immutable objects and atomic variables</strong>.</li>
+</ul>
+<h3 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h3><ul>
+<li>enforces a <strong>multiple-reader, single-writer</strong> locking discipline: more than one reader can access the shared resource concurrently so long as none of them wants to modify it, but writers must acquire the lock excusively. For read-mostly data structures, ReadWriteLock can offer greater concurrency than exclusive locking; <strong>for read-only data structures, immutability can eliminate the need for locking entirely</strong>.</li>
+<li>Atomic variables (see Chapter 15) offer a means of reducing the cost of updat- ing “hot fields” such as statistics counters, sequence generators, or the reference</li>
+<li>If size is called frequently compared to mutative operations, striped data structures can optimize for this by caching the collection size in a volatile whenever size is called and invalidating the cache (setting it to -1) whenever the collection is modified. If the cached value is nonnegative on entry to size, it is accurate and can be returned; otherwise it is recomputed.</li>
+<li>The atomic variable classes pro- vide very fine-grained (and therefore more scalable) atomic operations on integers or object references, and are implemented using low-level concurrency primitives (such as compare-and-swap) provided by most modern processors. If your class has a small number of hot fields that do not participate in invariants with other variables, replacing them with atomic variables may improve scalability.</li>
+</ul>
+<h1 id="Comparing-Map"><a href="#Comparing-Map" class="headerlink" title="Comparing Map"></a>Comparing Map</h1><ul>
+<li>The single-threaded performance of ConcurrentHashMap is slightly better than that of a synchronized HashMap, but it is in concurrent use that it really shines. The implementation of ConcurrentHashMap assumes the most common operation is retrieving a value that already exists, and is therefore optimized to <strong>provide highest performance and concurrency for successful get operations</strong>.</li>
+<li>The major scalability impediment for the synchronized Map implementations is that there is a single lock for the entire map, so only one thread can access the map at a time. On the other hand, ConcurrentHashMap does no locking for most successful read operations, and <strong>uses lock striping for write operations</strong> and those few read operations that do require locking. As a result, multiple threads can access the Map concurrently without blocking.</li>
+<li>The numbers for the synchronized collections are not as encouraging. Perfor- mance for the one-thread case is comparable to ConcurrentHashMap, but once the load transitions from mostly uncontended to mostly contended—which happens here at two threads—the synchronized collections suffer badly. This is common behavior for code whose scalability is limited by lock contention. So long as contention is low, time per operation is dominated by the time to actually do the work and throughput may improve as threads are added. Once contention becomes significant, time per operation is dominated by context switch and scheduling delays, and adding more threads has little effect on throughput.</li>
+</ul>
+<h1 id="Building-a-asynchronous-log"><a href="#Building-a-asynchronous-log" class="headerlink" title="Building a asynchronous log"></a>Building a asynchronous log</h1><ul>
+<li>Building a logger that moves the I/O to another thread may improve performance, but it also introduces a number of design complications, such as interruption (what happens if a thread blocked in a logging operation is interrupted?), service guarantees (does the logger guarantee that a success- fully queued log message will be logged prior to service shutdown?), saturation policy (what happens when the producers log messages faster than the logger thread can handle them?), and service lifecycle (how do we shut down the logger, and how do we communicate the service state to producers?).</li>
+</ul>
+<h1 id="Reducing-context-switching"><a href="#Reducing-context-switching" class="headerlink" title="Reducing context switching"></a>Reducing context switching</h1><ul>
+<li>The “get in, get out” principle of Section 11.4.1 tells us that <strong>we should hold locks as briefly as possible</strong>, because <strong>the longer a lock is held, the more likely that lock will be contended</strong>. If a thread blocks waiting for I/O while holding a lock, another thread is more likely to want the lock while the first thread is holding it. Concurrent systems perform much better when most lock acquisitions are uncontended, because contended lock acquisition means more context switches. A coding style that encourages more context switches thus yields lower overall throughput.</li>
+</ul>
+<h1 id="Testing-concurrency"><a href="#Testing-concurrency" class="headerlink" title="Testing concurrency"></a>Testing concurrency</h1><ul>
+<li>we defined safety as “nothing bad ever happens” and liveness as “something good eventually happens”.</li>
+<li>when interrupted, it throws InterruptedException. This is one of the few cases in which it is appropriate to subclass Thread explicitly instead of using a Runnable in a pool: in order to test proper termination with join.</li>
+<li>The result of <strong>Thread.getState should not be used</strong> for concurrency control, and is of limited usefulness for testing—its primary utility is as a source of debugging information.</li>
+<li>a common error in implementing semaphore-controlled buffers is to forget that the code actually doing the insertion and extraction requires mutual exclu- sion (using synchronized or ReentrantLock). A sample run of PutTakeTest with a version of BoundedBuffer that omits making doInsert and doExtract synch- ronized fails fairly quickly. </li>
+<li><strong>Tests should be run on multiprocessor systems to increase the diversity of potential interleavings. However, having more than a few CPUs does not necessarily make tests more effective. To maximize the chance of detecting timing-sensitive data races, there should be more active threads than CPUs, so that at any given time some threads are running and some are switched out, thus reducing the predicatability of interactions between threads</strong>.</li>
+<li>Tests like PutTakeTest tend to be good at finding safety violations. For exam- ple, a common error in implementing semaphore-controlled buffers is to forget that the code actually doing the insertion and extraction requires mutual exclu- sion (using synchronized or ReentrantLock). A sample run of PutTakeTest with a version of BoundedBuffer that omits making doInsert and doExtract synch- ronized fails fairly quickly. Running PutTakeTest with a few dozen threads iterating a few million times on buffers of various capacity on various systems increases our confidence about the lack of data corruption in put and take.</li>
+<li>The source code <strong>PutTakeTest.java</strong> demonstreated aforesaid logic.</li>
+</ul>
+<h2 id="Test-resource-management"><a href="#Test-resource-management" class="headerlink" title="Test resource management"></a>Test resource management</h2><ul>
+<li><strong>The tests so far have been concerned with a class’s adherence to its specifica- tion—that it does what it is supposed to do. A secondary aspect to test is that it does not do things it is not supposed to do</strong>, such as leak resources. Any object that holds or manages other objects should not continue to maintain references to those objects longer than necessary. Such storage leaks prevent garbage collectors from reclaiming memory (or threads, file handles, sockets, database connections, or other limited resources) and can lead to resource exhaustion and application failure.</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-05-JVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-05-JVM/" class="post-title-link" itemprop="url">Java JVM</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Class-loading-subsystem"><a href="#Class-loading-subsystem" class="headerlink" title="Class loading subsystem"></a>Class loading subsystem</h1><p>Consist of three sections</p>
+<h2 id="load"><a href="#load" class="headerlink" title="load"></a>load</h2><p>There are three class loaders</p>
+<ul>
+<li>bootstrap class loader, e.g. rt.jar</li>
+<li>extension class loader, e.g. jre/lib/ext</li>
+<li>application class loader, e.g. -cp<h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2></li>
+<li>Verify</li>
+<li>Prepare</li>
+<li>Resolve<h2 id="Initialize"><a href="#Initialize" class="headerlink" title="Initialize"></a>Initialize</h2></li>
+<li>While deadlock is the most widely encountered liveness hazard, there are sev- eral other liveness hazards you may encounter in concurrent programs including starvation, missed signals, and livelock.</li>
+</ul>
+<h1 id="Metaspace"><a href="#Metaspace" class="headerlink" title="Metaspace"></a>Metaspace</h1><p>Since Java 8, the introduce of metaspace is kind of using memory or even virtual memory in OS, so theriotically there is no limit of metaspace. But PermGen is part of Method area, so that is upper limit for PermGen.</p>
 
           
         
@@ -1641,7 +1709,7 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-15-Java-Security/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-21-Java-JIT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1657,7 +1725,7 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-02-15-Java-Security/" class="post-title-link" itemprop="url">Java Security Notes</a>
+              <a href="/2017-02-21-Java-JIT/" class="post-title-link" itemprop="url">Java JIT compiler</a>
             
           </h1>
         
@@ -1689,118 +1757,143 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
 
       
           
-            <h1 id="Java-Security"><a href="#Java-Security" class="headerlink" title="Java Security"></a>Java Security</h1><ul>
-<li><code>well-behaved</code>: programs should be prevent from consuming too much system resources</li>
+            <h1 id="This-is-talking-about-Java-JIT-Just-In-Time-compiler"><a href="#This-is-talking-about-Java-JIT-Just-In-Time-compiler" class="headerlink" title="This is talking about Java JIT (Just-In-Time) compiler"></a>This is talking about Java JIT (Just-In-Time) compiler</h1><ul>
+<li><p>That trade-off is one reason that the compiler executes the interpreted code first—the compiler can figure out which methods are called frequently enough to warrant their compilation.<br>The second reason is one of optimization: the more times that the JVM executes a particular method or loop, the more information it has about that code. This allows the JVM to make a number of optimizations when it compiles the code.</p>
+</li>
+<li><p>At some point in time, the suminstance variable must reside in main memory, but retrieving a value from main memory is an expensive operation that takes multiple cycles to complete. If the value of sumwere to be retrieved from (and stored back to) main memory on every iteration of this loop, performance would be dismal. Instead, the compiler will load a register with the initial value of sum, perform the loop using that value in the register, and then (at an indeterminate point in time) store the final result from the register back to main memory.<br>This kind of optimization is very effective, but it means that the semantics of thread synchronization (see Chapter 9) are crucial to the behavior of the application</p>
+</li>
+<li><p>One thread cannot see the value of a variable stored in the register used by another thread; synchronization makes it possible to know exactly when the register is stored to main memory and available to other threads.<br>Register usage is a general optimization of the compiler, and when escape analysis is enabled (see the end of this chapter), register use is quite aggressive.</p>
+</li>
 </ul>
-<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><ul>
-<li>JCE: Java Cryptography Extension</li>
-<li>JSSE: Java Secure Socketets Extension</li>
-<li>JAAS: Java Authentication and Authorization Service</li>
-</ul>
-<h1 id="Anatomy-of-a-Java-Application"><a href="#Anatomy-of-a-Java-Application" class="headerlink" title="Anatomy of a Java Application"></a>Anatomy of a Java Application</h1><h2 id="the-bytecode-verifier"><a href="#the-bytecode-verifier" class="headerlink" title="the bytecode verifier"></a>the bytecode verifier</h2><p>The bytecode verifier ensures that Java class files follow the rules of the Java language. As the figure implies, not all classes are subject to bytecode verification.</p>
-<h2 id="the-class-loader"><a href="#the-class-loader" class="headerlink" title="the class loader"></a>the class loader</h2><p>One or more class loaders load all Java classes. Programatically, the class loader can set permissions for each class it loads.</p>
-<h2 id="the-access-controller"><a href="#the-access-controller" class="headerlink" title="the access controller"></a>the access controller</h2><p>The access controller allows (or prevents) most access from the core API to the operating system, based upon policies set by the end user or system administrator.</p>
-<h2 id="the-security-manager"><a href="#the-security-manager" class="headerlink" title="the security manager"></a>the security manager</h2><p>The security manager is the primary interface between the core API and the operating system; it has the ultimate responsibility for allowing or preventing access to all system resources. However, it exists mostly for historical reasons; it defers its actions to the access controller.</p>
-<h2 id="The-security-package"><a href="#The-security-package" class="headerlink" title="The security package"></a>The security package</h2><p> the security package is a complex API. This includes discussions of:</p>
 <ul>
-<li>The security provider interface −− the means by which different security implementations may be plugged into the security package</li>
-<li>Message digests</li>
-<li>Keys and certificates</li>
-<li>Digital signatures</li>
-<li>Encryption (through JCE and JSSE)</li>
-<li>Authentication (through JAAS)</li>
+<li><p>If the size of your heap will be less than about 3 GB, the 32-bit version of Java will be faster and have a smaller footprint. This is because the memory references within the JVM will be only 32 bits, and manipulating those memory references is less expensive than manipulating 64-bit references (even if you have a 64-bit CPU). The 32-bit references also use less memory.</p>
+</li>
+<li><p>JVM developers (and even some tools) often refer to the compilers by the names C1<br>(compiler 1, client compiler) and C2 (compiler 2, server compiler).</p>
+</li>
+<li><p>The primary difference between the two compilers is their aggressiveness in compiling<br>code. The client compiler begins compiling sooner than the server compiler does. This<br>means that during the beginning of code execution, the client compiler will be faster,<br>because it will have compiled correspondingly more code than the server compiler.</p>
+</li>
+<li><p>The engineering trade-off here is the knowledge the server compiler gains while it waits:<br>that knowledge allows the server compiler to make better optimizations in the compiled<br>code. Ultimately, code produced by the server compiler will be faster than that produced<br>by the client compiler. From a user’s perspective, the benefit to that trade-off is based<br>on how long the program will run, and how important the startup time of the program<br>is.</p>
+</li>
+<li><p>The obvious question here is why there needs to be a choice at all: couldn’t the JVM<br>start with the client compiler, and then use the server compiler as code gets hotter? That<br>technique is known as tiered compilation. With tiered compilation, code is first compiled<br>by the client compiler; as it becomes hot, it is recompiled by the server compiler.</p>
+</li>
+<li><p>To use tiered compilation, specify<br>the server compiler (either with -server or by ensuring it is the default for the particular<br>Java installation being used), and ensure that the Java command line includes the flag</p>
+</li>
+<li><p>XX:+TieredCompilation (the default value of which is false). In Java 8, tiered compilation<br>is enabled by default.</p>
+</li>
+<li><p>The client compiler is most often used when fast startup is the primary objective.</p>
+</li>
 </ul>
-<h2 id="The-key-database"><a href="#The-key-database" class="headerlink" title="The key database"></a>The key database</h2><p>The key database is a set of keys used by the security infrastructure to create or verify digital signatures. In the Java architecture, it is part of the security package, though it may be manifested as an external file or database.</p>
-<h2 id="Trusted-and-Untrusted-Classes"><a href="#Trusted-and-Untrusted-Classes" class="headerlink" title="Trusted and Untrusted Classes"></a>Trusted and Untrusted Classes</h2><ul>
-<li>In Java 2, only classes in the core API are considered trusted. Other classes must be given explicit permission to perform the operations we’ve discussed.</li>
-</ul>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Although the security manager is the most commonly known feature of Java’s security story, it’s often misunderstood: there is no standard security manager among Java implementations, and Java applications, by default, have no security manager at all.</p>
-<h1 id="Access-Controller"><a href="#Access-Controller" class="headerlink" title="Access Controller"></a>Access Controller</h1><ul>
-<li>The implementation of most security managers, however, is based entirely upon the access controller.</li>
-</ul>
-<h2 id="Permissions"><a href="#Permissions" class="headerlink" title="Permissions"></a>Permissions</h2><ul>
-<li>The basic entity that the access controller operates on is a permission object −− an instance of the Permission class (java.security.Permission). This class, of course, is the basis of the types that are listed in a policy file for the default security policy. The Permission class itself is an abstract class that represents a particular operation. The nomenclature here is a little misleading because a permission object can reflect two things. When it is associated with a class (through a code source and a protection domain), a permission object represents an actual permission that has been granted to that class. Otherwise, a permission object allows us to ask if we have a specific permission.</li>
-<li>For example, if we construct a permission object that represents access to a file, possession of that object does not mean we have permission to access the file. Rather, possession of the object allows us to ask if we have permission to access the file.</li>
-</ul>
-<h2 id="The-access-controller-is-built-upon-the-four-concepts"><a href="#The-access-controller-is-built-upon-the-four-concepts" class="headerlink" title="The access controller is built upon the four concepts"></a>The access controller is built upon the four concepts</h2><ul>
-<li>Code sources<br>An encapsulation of the location from which certain Java classes were obtained.</li>
-<li>Permissions<br>An encapsulation of a request to perform a particular operation.</li>
-<li>Policies<br>An encapsulation of all the specific permissions that should be granted to specific code sources.</li>
-<li>Protection domains<br>An encapsulation of a particular code source and the permissions granted to that code source.</li>
-</ul>
-<h1 id="Byte-code-verifier"><a href="#Byte-code-verifier" class="headerlink" title="Byte code verifier"></a>Byte code verifier</h1><ul>
-<li>The verifier is often referred to as a <code>mini−theorem prover</code> (a term first used in several documents from Sun). This sounds somewhat more impressive than it is; it’s not a generic, all−purpose theorem prover by any means. Instead, it’s a piece of code that can prove one (and only one) thing −− that a given series of ( Java) bytecodes represents a legal set of ( Java) instructions.</li>
-</ul>
-<h1 id="Shifting"><a href="#Shifting" class="headerlink" title="Shifting"></a>Shifting</h1><p>Java and JavaScript perform sign extension when shift¬ing right, filling the empty spaces with 1’s for negative numbers, so 10100110 &gt;&gt; 5 becomes 11111101.<br>The &gt;&gt;&gt; operator is unique to Java and JavaScript. It does a logical shift right, filling the empty spaces with 0 no matter what the value, so 10100110 &gt;&gt;&gt; 5 becomes 00000101.</p>
-<p>The shift operators enable you to multiply and divide by powers of 2 very quickly. For non-negative numbers, shifting to the right one bit is equivalent to dividing by 2, and shifting to the left one bit is equivalent to multiplying by 2. For negative numbers, it obviously depends on the language being used.</p>
-<h2 id="Specifically-the-bytecode-verifier-can-prove-the-following"><a href="#Specifically-the-bytecode-verifier-can-prove-the-following" class="headerlink" title="Specifically, the bytecode verifier can prove the following:"></a>Specifically, the bytecode verifier can prove the following:</h2><ul>
-<li>The class file has the correct format. The full definition of the class file format may be found in the Java virtual machine specification; the bytecode verifier is responsible for making sure that the class file has the right length, the correct magic numbers in the correct places, and so on.</li>
-<li>Final classes are not subclassed, and final methods are not overridden.</li>
-<li>Every class (except for java.lang.Object) has a single superclass.</li>
-<li>There is no illegal data conversion of primitive data types (e.g., int to Object).</li>
-<li>No illegal data conversion of objects occurs. Because the casting of a superclass to its subclass may<br>be a valid operation (depending on the actual type of the object being cast), the verifier cannot ensure that such casting is not attempted −− it can only ensure that before each such attempt is made, the legality of the cast is tested.</li>
-<li>There are no operand stack overflows or underflows.</li>
-</ul>
-<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><ul>
-<li>In Java, there are two stacks for each thread. One stack holds a series of method frames, where each method frame holds the local variables and other storage for a particular method invocation. This stack is known as the data stack and is what we normally think of as the stack within a traditional program. The bytecode verifier cannot prevent overflow of this stack −− an infinitely recursive method call will cause this stack to overflow. However, each method invocation requires a second stack (which itself is allocated on the data stack) that is referred to as the operand stack; the operand stack holds the values that the Java bytecodes operate on. This secondary stack is the stack that the bytecode verifier can ensure will not overflow or underflow.</li>
-</ul>
-<h1 id="Security-Manager"><a href="#Security-Manager" class="headerlink" title="Security Manager"></a>Security Manager</h1><ul>
-<li>The implementation of the sandbox depends on three things:</li>
-<li>The security manager, which provides the mechanism that the Java API uses to see if security−related operations are allowed.</li>
-<li>The access controller, which provides the basis of the default implementation of the security manager. </li>
-<li>The class loader, which encapsulates information about security policies and classes.</li>
-</ul>
-<p>We’ll start by examining the security manager. From the perspective of the Java API, there is a security manager that actually is in control of the security policy of an application. The purpose of the security manager is to determine whether particular operations should be permitted or denied. In truth, the purpose of the access controller is really the same: it decides whether access to a critical system resource should be permitted or denied. Hence, the access controller can do everything the security manager can do.</p>
-<p><strong>The reason there is both an access controller and a security manager is mainly historical</strong>: the access controller is only available in Java 2 and subsequent releases. Before the access controller existed, the security manager relied on its internal logic to determine the security policy that should be in effect, and changing the security policy required changing the security manager itself. Starting with Java 2, the security manager defers these decisions to the access controller. Since the security policy enforced by the access controller can be specified by using policy files, this allows a much more flexible mechanism for determining policies. The access controller also gives us a much simpler method of granting fine−grained, specific permissions to specific classes. That process was theoretically possibly with the security manager alone, but it was simply too hard to implement.</p>
-<h2 id="The-BasicPermission-class"><a href="#The-BasicPermission-class" class="headerlink" title="The BasicPermission class"></a>The BasicPermission class</h2><ul>
-<li><p>If you need to implement your own permission class, the BasicPermission class (java.security.BasicPermission) provides some useful semantics. This class implements a basic permission −− that is, a permission that doesn’t have actions. Basic permissions can be thought of as binary permissions −− you either have them or you don’t. However, this restriction does not prevent you from implementing actions in your subclasses of the BasicPermission class (as the PropertyPermission class does).</p>
-</li>
-<li><p>The prime benefit of this class is the manner in which it implements wildcards. Names in basic permissions are considered to be hierarchical, following a dot−separated convention. For example, if the XYZ corporation wanted to create a set of basic permissions, they might use the convention that the first word of the permission always be xyz: xyz.readDatabase, xyz.writeDatabase, xyz.runPayrollProgram, xyz.HRDepartment.accessCheck, and so on. These permissions can then be specified by their full name, or they can be specified with an asterisk wildcard: xyz.* would match each of these (no matter what depth), and * would match every possible basic permission.</p>
-</li>
-<li><p><a href="http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351" target="_blank" rel="noopener">http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351</a></p>
-</li>
-<li><p>保护密码的最好办法是使用加盐密码哈希（ salted password hashing）。</p>
-</li>
-<li><p>永远不要告诉用户输错的究竟是用户名还是密码。就像通用的提示那样，始终显示：“无效的用户名或密码。”就行了。这样可以防止攻击者在不知道密码的情况下枚举出有效的用户名。</p>
-</li>
-<li><p>应当注意的是，用来保护密码的哈希函数，和数据结构课学到的哈希函数是不同的。例如，实现哈希表的哈希函数设计目的是快速查找，而非安全性。只有加密哈希函数（ cryptographic hash function）才可以用来进行密码哈希加密。像 SHA256 、 SHA512 、 RIPEMD 和 WHIRLPOOL 都是加密哈希函数。</p>
-</li>
-<li><p>破解哈希加密最简单的方法是尝试猜测密码，哈希每个猜测的密码，并对比猜测密码的哈希值是否等于被破解的哈希值。如果相等，则猜中。猜测密码攻击的两种最常见的方法是字典攻击和暴力攻击 。</p>
-</li>
-<li><p>字典攻击使用包含单词、短语、常用密码和其他可能用做密码的字符串的字典文件。对文件中的每个词都进行哈希加密，将这些哈希值和要破解的密码哈希值比较。如果它们相同，这个词就是密码。字典文件是通过大段文本中提取的单词构成，甚至还包括一些数据库中真实的密码。还可以对字典文件进一步处理以使其更为有效：如单词 “hello” 按网络用语写法转成 “h3110” 。</p>
-</li>
-<li><p>暴力攻击是对于给定的密码长度，尝试每一种可能的字符组合。这种方式会消耗大量的计算，也是破解哈希加密效率最低的办法，但最终会找出正确的密码。因此密码应该足够长，以至于遍历所有可能的字符组合，耗费的时间太长令人无法承受，从而放弃破解。</p>
-</li>
-<li><p>目前没有办法来组织字典攻击或暴力攻击。只能想办法让它们变得低效。如果密码哈希系统设计是安全的，破解哈希的唯一方法就是进行字典攻击或暴力攻击遍历每一个哈希值了。</p>
-</li>
-<li><p>我们可以通过在密码中加入一段随机字符串再进行哈希加密，这个被加的字符串称之为盐值。如上例所示，这使得相同的密码每次都被加密为完全不同的字符串。我们需要盐值来校验密码是否正确。通常和密码哈希值一同存储在帐号数据库中，或者作为哈希字符串的一部分。</p>
-</li>
-<li><p>盐值无需加密。由于随机化了哈希值，查表法、反向查表法和彩虹表都会失效。因为攻击者无法事先知道盐值，所以他们就没有办法预先计算查询表或彩虹表。如果每个用户的密码用不同的盐再进行哈希加密，那么反向查表法攻击也将不能奏效。</p>
-</li>
-<li><p>一个常见的错误是每次都使用相同的盐值进行哈希加密，这个盐值要么被硬编码到程序里，要么只在第一次使用时随机获得。这样的做法是无效的，因为如果两个用户有相同的密码，他们仍然会有相同的哈希值。攻击者仍然可以使用反向查表法对每个哈希值进行字典攻击。他们只是在哈希密码之前，将固定的盐值应用到每个猜测的密码就可以了。如果盐值被硬编码到一个流行的软件里，那么查询表和彩虹表可以内置该盐值，以使其更容易破解它产生的哈希值。</p>
-</li>
-<li><p>用户创建帐号或者更改密码时，都应该用新的随机盐值进行加密。</p>
-</li>
-<li><p>出于同样的原因，不应该将用户名用作盐值。对每一个服务来说，用户名是唯一的，但它们是可预测的，并且经常重复应用于其他服务。攻击者可以用常见用户名作为盐值来建立查询表和彩虹表来破解密码哈希。</p>
-</li>
-<li><p>为使攻击者无法构造包含所有可能盐值的查询表，盐值必须足够长。一个好的经验是使用和哈希函数输出的字符串等长的盐值。例如， SHA256 的输出为256位（32字节），所以该盐也应该是32个随机字节。</p>
-</li>
-<li><p>每个用户的每一个密码都要使用独一无二的盐值。用户每次创建帐号或更改密码时，密码应采用一个新的随机盐值。永远不要重复使用某个盐值。这个盐值也应该足够长，以使有足够多的盐值能用于哈希加密。一个经验规则是，盐值至少要跟哈希函数的输出一样长。该盐应和密码哈希一起存储在用户帐号表中。</p>
-</li>
-<li><p>存储密码的步骤：</p>
+<ol>
+<li>The client compiler is most useful when the startup of an application<br>is the overriding performance concern.</li>
+<li>Tiered compilation can achieve startup times very close to those<br>obtained from the client compiler.</li>
+</ol>
 <ul>
-<li>使用 CSPRNG 生成足够长的随机盐值。</li>
-<li>将盐值混入密码，并使用标准的密码哈希函数进行加密，如Argon2、 bcrypt 、 scrypt 或 PBKDF2 。</li>
-<li>将盐值和对应的哈希值一起存入用户数据库。</li>
+<li>It is also interesting that tiered compilation is always slightly better than the standard<br>server compiler. In theory, once the program has run enough to compile all the hot<br>spots, the server compiler might be expected to achieve the best (or at least equal) performance.<br>But in any application, there will almost always be some small section of code<br>that is infrequently executed. It is better to compile that code—even if the compilation<br>is not the best that might be achieved—than to execute that code in interpreted mode.</li>
 </ul>
-</li>
-<li><p>校验密码的步骤：</p>
+<ol>
+<li>For jobs that run in a fixed amount of time, choose the compiler<br>based on which one is the fastest at executing the actual job.</li>
+<li>Tiered compilation provides a reasonable default choice for batch<br>jobs.</li>
+</ol>
 <ul>
-<li>从数据库检索出用户的盐值和对应的哈希值。</li>
-<li>将盐值混入用户输入的密码，并且使用通用的哈希函数进行加密。</li>
-<li>比较上一步的结果，是否和数据库存储的哈希值相同。如果它们相同，则表明密码是正确的；否则，该密码错误。</li>
+<li>For long-running applications, always choose the server compiler, preferably in conjunction with tiered compilation.</li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-14-SerialVersionUID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-14-SerialVersionUID/" class="post-title-link" itemprop="url">SeriableVersionUID</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Noteworthy-points-about-SeriableVersionUID-in-Java"><a href="#Noteworthy-points-about-SeriableVersionUID-in-Java" class="headerlink" title="Noteworthy points about SeriableVersionUID in Java"></a>Noteworthy points about SeriableVersionUID in Java</h1><h2 id="Preventing-ClassCastExceptions-with-SerialVersionUID-Problem"><a href="#Preventing-ClassCastExceptions-with-SerialVersionUID-Problem" class="headerlink" title="Preventing ClassCastExceptions with SerialVersionUID Problem"></a>Preventing ClassCastExceptions with SerialVersionUID Problem</h2><ul>
+<li>Your classes were recompiled, and you’re getting ClassCastExceptions that you shouldn’t.<br>Solution</li>
+<li>Run serialver to generate a “serial version UUID” and paste its output into your classes before you start. Or use your IDE’s tools for this purpose.<br>Discussion</li>
+<li>When a class is undergoing a period of evolution—particularly a class being used in a networking context such as RMI or servlets—it may be useful to provide a serialVersionUID value in this class. This is a long that is basically a hash of the methods and fields in the class. Both the object serialization API (see Saving and Restoring Java Objects) and the JVM, when asked to cast one object to another (common when using collections, as in Chapter 7), either look up or, if not found, compute this value. If the value on the source and destination do not match, a ClassCastException is thrown. Most of the time, this is the correct thing for Java to do.<br>However, sometimes you may want to allow a class to evolve in a compatible way, but you can’t immediately replace all instances in circulation. You must be willing to write code to account for the additional fields being discarded if restoring from the longer format to the shorter and having the default value (null for objects, 0 for numbers, and false for Boolean) if you’re restoring from the shorter format to the longer. If you are only adding fields and methods in a reasonably compatible way, you can control the compatibility by providing a long int named serialVersionUID. The initial value should be obtained from a JDK tool called serialver, which takes just the class name. Consider a simple class called SerializableUser:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializableUser</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> String address;</span><br><span class="line">    <span class="keyword">public</span> String country;</span><br><span class="line">    <span class="keyword">public</span> String phoneNum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other fields, and methods, here...</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 </li>
+</ul>
+<p>I first compiled it with two different compilers to ensure that the value is a product of the class structure, not of some minor differences in class file format that different compilers might emit:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$ jikes +E SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br></pre></td></tr></table></figure>
+
+<p>Sure enough, the class file from both compilers has the same hash. Now let’s change the file. I go in with an editor and add a new field, phoneNum, right after country:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> String country;</span><br><span class="line"><span class="keyword">public</span> String phoneNum;      <span class="comment">// Added this line.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -8339341455288589756L;</span><br></pre></td></tr></table></figure>
+
+<p>Notice how the addition of the field changed the serialVersionUID! Now, if I had wanted this class to evolve in a compatible fashion, here’s what I should have done before I started expanding it. I copy and paste the original serialver output into the source file (again using an editor to insert a line before the last line):</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// The following is the line I added to SerializableUser.java</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Now all is well: I can interchange serialized versions of this file.<br>Note that serialver is part of the “object serialization” mechanism, and, therefore, it is meaningful only on classes that implement the Serializable interface described in Saving and Restoring Java Objects.<br>Note also that some developers use serialVersionUID values that start at 1 (a choice offered by some IDEs when they note that a class that appears to be serializable lacks a serialVersionUID), and then simply increment it by one each time the class changes in an incompatible way.</li>
 </ul>
 
           

@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-12-JavaScript-tips/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-RQFII/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-12-JavaScript-tips/" class="post-title-link" itemprop="url">JavaScript tips</a>
+              <a href="/2016-06-13-RQFII/" class="post-title-link" itemprop="url">RenMinBi International</a>
             
           </h1>
         
@@ -243,55 +243,11 @@
 
       
           
-            <h1 id="includes-vs-some"><a href="#includes-vs-some" class="headerlink" title="includes() vs some()"></a>includes() vs some()</h1><ul>
-<li><p>The includes() method is used to check if a specific string exists in a collection, and returns true or false. Keep in mind that it is case sensitive: if the item inside the collection is SCHOOL, and you search for school, it will return false.</p>
-</li>
-<li><p>The some() method checks if some elements exists in an array, and returns true or false. This is somewhat similar to the concept of the includes() method, <code>the key diffence is the argument is a function</code> but not a string.</p>
-</li>
-</ul>
-<h1 id="splice-vs-slice"><a href="#splice-vs-slice" class="headerlink" title="splice vs slice"></a>splice vs slice</h1><p>splice: Join or connect (a rope or ropes) by interweaving the strands at the ends.</p>
-<p>‘we learned how to weave and splice ropes’</p>
-<p>slice: Cut (something, especially food) into slices.</p>
-<p>‘slice the onion into rings’</p>
-<ol>
-<li><p>The splice() method returns the removed item(s) in an array and slice() method returns the selected element(s) in an array, as a new array object.</p>
-</li>
-<li><p>The splice() method changes the original array and slice() method doesn’t change the original array.</p>
-</li>
-<li><p>The splice() method can take n number of arguments:</p>
-</li>
-</ol>
-<p>Argument 1: Index, Required. An integer that specifies at what position to add /remove items, Use negative values to specify the position from the end of the array.</p>
-<p>Argument 2: Optional. The number of items to be removed. If set to 0(zero), no items will be removed. And if not passed, all item(s) from provided index will be removed.</p>
-<p>Argument 3…n: Optional. The new item(s) to be added to the array.</p>
-<pre><code>-5 -4 -3 -2 -1
- |  |  |  |  |</code></pre><p>var array4=[16,17,18,19,20];<br>             |  |  |  |  |<br>             0  1  2  3  4</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">console</span>.log(array4.splice(<span class="number">-2</span>,<span class="number">1</span>,<span class="string">"me"</span>));</span><br><span class="line"><span class="comment">// shows  [19]</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(array4);</span><br><span class="line"><span class="comment">// shows [16, 17, 18, "me", 20]</span></span><br></pre></td></tr></table></figure>
-
-<p>The slice() method can take 2 arguments:</p>
-<p>Argument 1: Required. An integer that specifies where to start the selection (The first element has an index of 0). Use negative numbers to select from the end of an array.</p>
-<p>Argument 2: Optional. An integer that specifies where to end the selection. If omitted, all elements from the start position and to the end of the array will be selected. Use negative numbers to select from the end of an array.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="built_in">console</span>.log(array.slice(<span class="number">2</span>));</span><br><span class="line"><span class="comment">// shows [3, 4, 5], returned selected element(s).</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Observable-is-lazy"><a href="#Observable-is-lazy" class="headerlink" title="Observable is lazy"></a>Observable is <code>lazy</code></h1><p>Remember that observables are lazy — if we want to pull a value out of an observable, we must subscribe().</p>
-<h1 id="mergeAll-vs-mergeMap-in-redux"><a href="#mergeAll-vs-mergeMap-in-redux" class="headerlink" title="mergeAll vs mergeMap in redux"></a>mergeAll vs mergeMap in redux</h1><h2 id="mergeAll"><a href="#mergeAll" class="headerlink" title="mergeAll"></a>mergeAll</h2><p>When the inner observable emits, let me know by merging the value to the outer observable.</p>
-<p>Under the hood, the mergeAll() operator basically does takes the inner observable, subscribes to it, and pushes the value to the observer. Here is one sample:</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> click$ = Observable.fromEvent(button, ‘click’);</span><br><span class="line"><span class="keyword">const</span> interval$ = Observable.interval(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable$ = click$.map(<span class="function"><span class="params">event</span> =&gt;</span> &#123; </span><br><span class="line">   <span class="keyword">return</span> interval$;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">observable$.mergeAll().subscribe(<span class="function"><span class="params">num</span> =&gt;</span> <span class="built_in">console</span>.log(num));</span><br><span class="line"></span><br><span class="line">Because <span class="keyword">this</span> is a common pattern <span class="keyword">in</span> Rx, there is a shortcut that achieves the same behaviour — mergeMap().</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> click$ = Observable.fromEvent(button, ‘click’);</span><br><span class="line"><span class="keyword">const</span> interval$ = Observable.interval(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable$ = click$.mergeMap(<span class="function"><span class="params">event</span> =&gt;</span> &#123; </span><br><span class="line">   <span class="keyword">return</span> interval$;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">observable$.subscribe(<span class="function"><span class="params">num</span> =&gt;</span> <span class="built_in">console</span>.log(num));</span><br></pre></td></tr></table></figure>
-
-<h1 id="more-elegant-concise-and-flexible-approach-to-check-host-string-belongs-to-multiple-value-choices"><a href="#more-elegant-concise-and-flexible-approach-to-check-host-string-belongs-to-multiple-value-choices" class="headerlink" title="more elegant, concise and flexible approach to check host string belongs to multiple value choices"></a>more elegant, concise and flexible approach to check host string belongs to multiple value choices</h1><p>checkStringAgainstMultipleLiteralValues.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (host.match(<span class="regexp">/["uat" , "beta", "lab"].(api.)?yourdomain.(com.)?["au","io"]/</span>)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'matched'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="closure"><a href="#closure" class="headerlink" title="closure"></a>closure</h1><p>闭包就是一个函数引用另外一个函数的变量，因为变量被引用着所以不会被回收，因此可以用来封装一个私有变量。这是优点也是缺点，不必要的闭包只会徒增内存消耗！另外使用闭包也要注意变量的值是否符合你的要求，因为他就像一个静态私有变量一样。</p>
-<p> In JavaScript, if you use the function keyword inside another function, you are creating a closure.</p>
-<p> Two one sentence summaries about closure</p>
-<ul>
-<li><p>closure is the local variable for a function — kept alive after the function has returned, or</p>
-</li>
-<li><p>closure is a stack-frame which is not deallocated when the function returns (as if a ‘stack-frame’ were malloc’ed instead of being on the stack!).</p>
-<p>In JavaScript, if you declare a function within another function, then the local variables can remain accessible after returning from the function you called. </p>
-</li>
-</ul>
-<h1 id="Tips-to-redirect-page"><a href="#Tips-to-redirect-page" class="headerlink" title="Tips to redirect page"></a>Tips to redirect page</h1><p>It’s better to use <code>window.location.replace(&quot;httpxxx&quot;)&#39;, rather than window.location.href=&quot;xxx&quot;. Because</code>replace` will not save the page in the session history, so users won’t get stufy in never-ending back-button fiasco.</p>
+            <h1 id="RQFII"><a href="#RQFII" class="headerlink" title="RQFII"></a>RQFII</h1><p><code>RQFII</code> stands for Renminbi Qualified Foreign Institutional Investor. RQFII was introduced in 2011 to allow qualified foreign institutional investors to use RMB to buy securities such as bonds and shares and other investment instruments listed on the Chinese market. RQFII is an extension of the Qualified Foreign Institutional Investor (QFII) scheme established in 2002.</p>
+<h1 id="What-is-the-difference-between-QFII-and-RQFII"><a href="#What-is-the-difference-between-QFII-and-RQFII" class="headerlink" title="What is the difference between QFII and RQFII?"></a>What is the difference between QFII and RQFII?</h1><p>QFII (Qualified Foreign Institutional Investor) allows institutional investors to buy shares in mainland Chinese companies (A-shares) listed on stock exchanges in China. But they have to invest in their home currency, which is then converted. RQFII enables investors to buy into China using RMB. The government introduced it to facilitate the flow of offshore RMB into the country as the currency became more widely used globally.</p>
+<h1 id="Who-can-use-these-investment-programmes"><a href="#Who-can-use-these-investment-programmes" class="headerlink" title="Who can use these investment programmes?"></a>Who can use these investment programmes?</h1><p>Although China’s financial system is opening up, there are limits to who can invest. For a foreign institutional investor to qualify, it has to be licensed within its home country, demonstrate its capital strength, and have a track record in investments and asset management.</p>
+<h1 id="How-much-can-be-invested"><a href="#How-much-can-be-invested" class="headerlink" title="How much can be invested?"></a>How much can be invested?</h1><p>The Chinese government decides how much can be invested by allocating quotas to different countries. The limit is largely determined by demand. The RQFII quota for all countries is currently RMB970 billion (USD156 billion).</p>
+<h1 id="Which-countries-have-been-granted-an-RQFII-quota"><a href="#Which-countries-have-been-granted-an-RQFII-quota" class="headerlink" title="Which countries have been granted an RQFII quota?"></a>Which countries have been granted an RQFII quota?</h1><p>Thirteen countries have been granted RMB quotas: Australia, Canada, Chile, France, Germany, Hong Kong, Hungary, Luxembourg, Qatar, South Korea, Singapore, Switzerland and the UK. The QFII programme is open to more than 60 countries.</p>
 
           
         
@@ -379,6 +335,97 @@
 <p>In SQL Server, LEFT JOIN / IS NULL is less efficient</p>
 <p>In PostgreSQL, NOT IN is less efficient</p>
 <p>In Oracle, all three methods are the same.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-github-pages/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-13-github-pages/" class="post-title-link" itemprop="url">Github page commands notes</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="404-error-for-customized-domain-such-as-godday"><a href="#404-error-for-customized-domain-such-as-godday" class="headerlink" title="404 error for customized domain (such as godday)"></a>404 error for customized domain (such as godday)</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">404</span><br><span class="line">There is not a GitHub Pages site here.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Go to github master branch for gitpages site, manually add CNAME file</li>
+</ul>
+<h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
+<li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
+<li>gihub</li>
+</ul>
+<h1 id="Travis-errors"><a href="#Travis-errors" class="headerlink" title="Travis errors:"></a>Travis errors:</h1><p> Got following errors in Travis page:</p>
+<h2 id="branch-not-included-or-excluded"><a href="#branch-not-included-or-excluded" class="headerlink" title="branch not included or excluded"></a>branch not included or excluded</h2><p><code>solution</code>: that’s because your source branch, such as ‘blogSrc’ should be added in whitelist of .travis.yml, for instance</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">  - blogSrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="fatal-empty-ident-name"><a href="#fatal-empty-ident-name" class="headerlink" title="fatal: empty ident name"></a>fatal: empty ident name</h2><p>Because <em>–global</em> is requried when setting up travis , below is the sample</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email abc@def.com</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -567,97 +614,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-github-pages/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-13-github-pages/" class="post-title-link" itemprop="url">Github page commands notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="404-error-for-customized-domain-such-as-godday"><a href="#404-error-for-customized-domain-such-as-godday" class="headerlink" title="404 error for customized domain (such as godday)"></a>404 error for customized domain (such as godday)</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">404</span><br><span class="line">There is not a GitHub Pages site here.</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Go to github master branch for gitpages site, manually add CNAME file</li>
-</ul>
-<h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
-<li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
-<li>gihub</li>
-</ul>
-<h1 id="Travis-errors"><a href="#Travis-errors" class="headerlink" title="Travis errors:"></a>Travis errors:</h1><p> Got following errors in Travis page:</p>
-<h2 id="branch-not-included-or-excluded"><a href="#branch-not-included-or-excluded" class="headerlink" title="branch not included or excluded"></a>branch not included or excluded</h2><p><code>solution</code>: that’s because your source branch, such as ‘blogSrc’ should be added in whitelist of .travis.yml, for instance</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">  - blogSrc</span><br></pre></td></tr></table></figure>
-
-<h2 id="fatal-empty-ident-name"><a href="#fatal-empty-ident-name" class="headerlink" title="fatal: empty ident name"></a>fatal: empty ident name</h2><p>Because <em>–global</em> is requried when setting up travis , below is the sample</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email abc@def.com</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-SOMETHING-ABOUT-AUTHENTICATION/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -708,6 +664,166 @@
           
             <p>It’s annoying to keep on repeating typing same login and password when you access multiple systems within office or for systems in external Internet. There are bunch of  tools / technicles to cater for such. To my best knowledge, I’ll illustrate some as below.</p>
 <h1 id="SSO-Single-Sign-On"><a href="#SSO-Single-Sign-On" class="headerlink" title="SSO (Single Sign On)"></a>SSO (Single Sign On)</h1><p>After you successfully log into one system,  when you hop onto other systems, so you’ll no need to furhter re-enter your user name and password, and you’ll in ‘logged in status’. Under the scene, its sync up your login information among systems. The transferred details is typically called ‘tickets’. One of the implementation logic is ‘kerberos’, which is one protocol developed by MIT and is widely used in such domain. In general, kerberos is supported by various systems and software, for instance, you log onto your windows desktop, your user name and password will be validated in LDAP via either client or API, you</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-TIPS-AS400-IBM-EMULATOR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-29-TIPS-AS400-IBM-EMULATOR/" class="post-title-link" itemprop="url">tips in as400 IBM Emulator</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Toggle-crosshair"><a href="#Toggle-crosshair" class="headerlink" title="Toggle crosshair"></a>Toggle crosshair</h1><ol>
+<li>Open IBM personal communication client</li>
+<li>Go to menu Edit-&gt;Preference-&gt;Apperance-&gt;Display settings-&gt;Ruler</li>
+<li>change Rule style to crosshair or turn it off</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-heavy-load-web-app/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-29-heavy-load-web-app/" class="post-title-link" itemprop="url">heavy load web application</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Common-solutions"><a href="#Common-solutions" class="headerlink" title="Common solutions"></a>Common solutions</h1><p>With <code>cache</code> + <code>hash</code>, seems nothing is impossible.</p>
+<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>When involving big data, heavey load and concurrent, the ultimate solution is <code>hash</code>, such as random insert, time complexity O(1) etc, the only downside is waste of space, however, storage is cheap recently. <code>hash</code> is one must-have for concurrent systems.</p>
+<h2 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h2><p>There are many mature cache mechanism, such as KV DB like memcache, redis, and they are supporting clusters, operatibility is good as well.</p>
+<h2 id="read-write-segaration"><a href="#read-write-segaration" class="headerlink" title="read-write segaration"></a>read-write segaration</h2><p>In most cases, there are more read than write operation, so separate database to acccept write request to master DB, and redirect read request to slave DBs. At the same time, multiple salve DBs can be smoothly <code>scale out</code>, data replicate can leverage log bin.</p>
+<h2 id="Database-separation-and-sharding"><a href="#Database-separation-and-sharding" class="headerlink" title="Database separation and sharding"></a>Database separation and sharding</h2><p>For DB sharding, leverage hash to direct to corresponding DB shard. To ease the load on single host.</p>
 
           
         
@@ -818,86 +934,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-heavy-load-web-app/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-29-heavy-load-web-app/" class="post-title-link" itemprop="url">heavy load web application</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Common-solutions"><a href="#Common-solutions" class="headerlink" title="Common solutions"></a>Common solutions</h1><p>With <code>cache</code> + <code>hash</code>, seems nothing is impossible.</p>
-<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>When involving big data, heavey load and concurrent, the ultimate solution is <code>hash</code>, such as random insert, time complexity O(1) etc, the only downside is waste of space, however, storage is cheap recently. <code>hash</code> is one must-have for concurrent systems.</p>
-<h2 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h2><p>There are many mature cache mechanism, such as KV DB like memcache, redis, and they are supporting clusters, operatibility is good as well.</p>
-<h2 id="read-write-segaration"><a href="#read-write-segaration" class="headerlink" title="read-write segaration"></a>read-write segaration</h2><p>In most cases, there are more read than write operation, so separate database to acccept write request to master DB, and redirect read request to slave DBs. At the same time, multiple salve DBs can be smoothly <code>scale out</code>, data replicate can leverage log bin.</p>
-<h2 id="Database-separation-and-sharding"><a href="#Database-separation-and-sharding" class="headerlink" title="Database separation and sharding"></a>Database separation and sharding</h2><p>For DB sharding, leverage hash to direct to corresponding DB shard. To ease the load on single host.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-07-24-Bookmarks/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -948,86 +984,6 @@
           
             <h2 id="eBooks"><a href="#eBooks" class="headerlink" title="eBooks"></a>eBooks</h2><p><a href="http://www.open-open.com/lib/view/open1387100263499.html" target="_blank" rel="noopener">list of various books</a></p>
 <h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><p><a href="http://abdelraoof.com/blog/2014/11/11/install-nodejs-without-admin-rights/" target="_blank" rel="noopener">install nodejs without admin access</a></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-TIPS-AS400-IBM-EMULATOR/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-29-TIPS-AS400-IBM-EMULATOR/" class="post-title-link" itemprop="url">tips in as400 IBM Emulator</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Toggle-crosshair"><a href="#Toggle-crosshair" class="headerlink" title="Toggle crosshair"></a>Toggle crosshair</h1><ol>
-<li>Open IBM personal communication client</li>
-<li>Go to menu Edit-&gt;Preference-&gt;Apperance-&gt;Display settings-&gt;Ruler</li>
-<li>change Rule style to crosshair or turn it off</li>
-</ol>
 
           
         
