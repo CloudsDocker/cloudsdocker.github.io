@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-RQFII/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-12-JavaScript-tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-13-RQFII/" class="post-title-link" itemprop="url">RenMinBi International</a>
+              <a href="/2016-06-12-JavaScript-tips/" class="post-title-link" itemprop="url">JavaScript tips</a>
             
           </h1>
         
@@ -243,11 +243,159 @@
 
       
           
-            <h1 id="RQFII"><a href="#RQFII" class="headerlink" title="RQFII"></a>RQFII</h1><p><code>RQFII</code> stands for Renminbi Qualified Foreign Institutional Investor. RQFII was introduced in 2011 to allow qualified foreign institutional investors to use RMB to buy securities such as bonds and shares and other investment instruments listed on the Chinese market. RQFII is an extension of the Qualified Foreign Institutional Investor (QFII) scheme established in 2002.</p>
-<h1 id="What-is-the-difference-between-QFII-and-RQFII"><a href="#What-is-the-difference-between-QFII-and-RQFII" class="headerlink" title="What is the difference between QFII and RQFII?"></a>What is the difference between QFII and RQFII?</h1><p>QFII (Qualified Foreign Institutional Investor) allows institutional investors to buy shares in mainland Chinese companies (A-shares) listed on stock exchanges in China. But they have to invest in their home currency, which is then converted. RQFII enables investors to buy into China using RMB. The government introduced it to facilitate the flow of offshore RMB into the country as the currency became more widely used globally.</p>
-<h1 id="Who-can-use-these-investment-programmes"><a href="#Who-can-use-these-investment-programmes" class="headerlink" title="Who can use these investment programmes?"></a>Who can use these investment programmes?</h1><p>Although China’s financial system is opening up, there are limits to who can invest. For a foreign institutional investor to qualify, it has to be licensed within its home country, demonstrate its capital strength, and have a track record in investments and asset management.</p>
-<h1 id="How-much-can-be-invested"><a href="#How-much-can-be-invested" class="headerlink" title="How much can be invested?"></a>How much can be invested?</h1><p>The Chinese government decides how much can be invested by allocating quotas to different countries. The limit is largely determined by demand. The RQFII quota for all countries is currently RMB970 billion (USD156 billion).</p>
-<h1 id="Which-countries-have-been-granted-an-RQFII-quota"><a href="#Which-countries-have-been-granted-an-RQFII-quota" class="headerlink" title="Which countries have been granted an RQFII quota?"></a>Which countries have been granted an RQFII quota?</h1><p>Thirteen countries have been granted RMB quotas: Australia, Canada, Chile, France, Germany, Hong Kong, Hungary, Luxembourg, Qatar, South Korea, Singapore, Switzerland and the UK. The QFII programme is open to more than 60 countries.</p>
+            <h1 id="includes-vs-some"><a href="#includes-vs-some" class="headerlink" title="includes() vs some()"></a>includes() vs some()</h1><ul>
+<li><p>The includes() method is used to check if a specific string exists in a collection, and returns true or false. Keep in mind that it is case sensitive: if the item inside the collection is SCHOOL, and you search for school, it will return false.</p>
+</li>
+<li><p>The some() method checks if some elements exists in an array, and returns true or false. This is somewhat similar to the concept of the includes() method, <code>the key diffence is the argument is a function</code> but not a string.</p>
+</li>
+</ul>
+<h1 id="splice-vs-slice"><a href="#splice-vs-slice" class="headerlink" title="splice vs slice"></a>splice vs slice</h1><p>splice: Join or connect (a rope or ropes) by interweaving the strands at the ends.</p>
+<p>‘we learned how to weave and splice ropes’</p>
+<p>slice: Cut (something, especially food) into slices.</p>
+<p>‘slice the onion into rings’</p>
+<ol>
+<li><p>The splice() method returns the removed item(s) in an array and slice() method returns the selected element(s) in an array, as a new array object.</p>
+</li>
+<li><p>The splice() method changes the original array and slice() method doesn’t change the original array.</p>
+</li>
+<li><p>The splice() method can take n number of arguments:</p>
+</li>
+</ol>
+<p>Argument 1: Index, Required. An integer that specifies at what position to add /remove items, Use negative values to specify the position from the end of the array.</p>
+<p>Argument 2: Optional. The number of items to be removed. If set to 0(zero), no items will be removed. And if not passed, all item(s) from provided index will be removed.</p>
+<p>Argument 3…n: Optional. The new item(s) to be added to the array.</p>
+<pre><code>-5 -4 -3 -2 -1
+ |  |  |  |  |</code></pre><p>var array4=[16,17,18,19,20];<br>             |  |  |  |  |<br>             0  1  2  3  4</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">console</span>.log(array4.splice(<span class="number">-2</span>,<span class="number">1</span>,<span class="string">"me"</span>));</span><br><span class="line"><span class="comment">// shows  [19]</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(array4);</span><br><span class="line"><span class="comment">// shows [16, 17, 18, "me", 20]</span></span><br></pre></td></tr></table></figure>
+
+<p>The slice() method can take 2 arguments:</p>
+<p>Argument 1: Required. An integer that specifies where to start the selection (The first element has an index of 0). Use negative numbers to select from the end of an array.</p>
+<p>Argument 2: Optional. An integer that specifies where to end the selection. If omitted, all elements from the start position and to the end of the array will be selected. Use negative numbers to select from the end of an array.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="built_in">console</span>.log(array.slice(<span class="number">2</span>));</span><br><span class="line"><span class="comment">// shows [3, 4, 5], returned selected element(s).</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Observable-is-lazy"><a href="#Observable-is-lazy" class="headerlink" title="Observable is lazy"></a>Observable is <code>lazy</code></h1><p>Remember that observables are lazy — if we want to pull a value out of an observable, we must subscribe().</p>
+<h1 id="mergeAll-vs-mergeMap-in-redux"><a href="#mergeAll-vs-mergeMap-in-redux" class="headerlink" title="mergeAll vs mergeMap in redux"></a>mergeAll vs mergeMap in redux</h1><h2 id="mergeAll"><a href="#mergeAll" class="headerlink" title="mergeAll"></a>mergeAll</h2><p>When the inner observable emits, let me know by merging the value to the outer observable.</p>
+<p>Under the hood, the mergeAll() operator basically does takes the inner observable, subscribes to it, and pushes the value to the observer. Here is one sample:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> click$ = Observable.fromEvent(button, ‘click’);</span><br><span class="line"><span class="keyword">const</span> interval$ = Observable.interval(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable$ = click$.map(<span class="function"><span class="params">event</span> =&gt;</span> &#123; </span><br><span class="line">   <span class="keyword">return</span> interval$;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">observable$.mergeAll().subscribe(<span class="function"><span class="params">num</span> =&gt;</span> <span class="built_in">console</span>.log(num));</span><br><span class="line"></span><br><span class="line">Because <span class="keyword">this</span> is a common pattern <span class="keyword">in</span> Rx, there is a shortcut that achieves the same behaviour — mergeMap().</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> click$ = Observable.fromEvent(button, ‘click’);</span><br><span class="line"><span class="keyword">const</span> interval$ = Observable.interval(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable$ = click$.mergeMap(<span class="function"><span class="params">event</span> =&gt;</span> &#123; </span><br><span class="line">   <span class="keyword">return</span> interval$;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">observable$.subscribe(<span class="function"><span class="params">num</span> =&gt;</span> <span class="built_in">console</span>.log(num));</span><br></pre></td></tr></table></figure>
+
+<h1 id="more-elegant-concise-and-flexible-approach-to-check-host-string-belongs-to-multiple-value-choices"><a href="#more-elegant-concise-and-flexible-approach-to-check-host-string-belongs-to-multiple-value-choices" class="headerlink" title="more elegant, concise and flexible approach to check host string belongs to multiple value choices"></a>more elegant, concise and flexible approach to check host string belongs to multiple value choices</h1><p>checkStringAgainstMultipleLiteralValues.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (host.match(<span class="regexp">/["uat" , "beta", "lab"].(api.)?yourdomain.(com.)?["au","io"]/</span>)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'matched'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="closure"><a href="#closure" class="headerlink" title="closure"></a>closure</h1><p>闭包就是一个函数引用另外一个函数的变量，因为变量被引用着所以不会被回收，因此可以用来封装一个私有变量。这是优点也是缺点，不必要的闭包只会徒增内存消耗！另外使用闭包也要注意变量的值是否符合你的要求，因为他就像一个静态私有变量一样。</p>
+<p> In JavaScript, if you use the function keyword inside another function, you are creating a closure.</p>
+<p> Two one sentence summaries about closure</p>
+<ul>
+<li><p>closure is the local variable for a function — kept alive after the function has returned, or</p>
+</li>
+<li><p>closure is a stack-frame which is not deallocated when the function returns (as if a ‘stack-frame’ were malloc’ed instead of being on the stack!).</p>
+<p>In JavaScript, if you declare a function within another function, then the local variables can remain accessible after returning from the function you called. </p>
+</li>
+</ul>
+<h1 id="Tips-to-redirect-page"><a href="#Tips-to-redirect-page" class="headerlink" title="Tips to redirect page"></a>Tips to redirect page</h1><p>It’s better to use <code>window.location.replace(&quot;httpxxx&quot;)&#39;, rather than window.location.href=&quot;xxx&quot;. Because</code>replace` will not save the page in the session history, so users won’t get stufy in never-ending back-button fiasco.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-GIT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-13-GIT/" class="post-title-link" itemprop="url">Git commands notes</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="How-to-to-list-of-what-branch-for-a-given-commit"><a href="#How-to-to-list-of-what-branch-for-a-given-commit" class="headerlink" title="How to to list of what branch for a given commit"></a>How to to list of what branch for a given commit</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author todd --grep e2e</span><br><span class="line">$ git name-rev 78a4c4c340de70c726844e97233c58fa4738fea9</span><br><span class="line"></span><br><span class="line">78a4c4c340de70c726844e97233c58fa4738fea9 remotes/origin/feature/term-deposit-protractors~1</span><br></pre></td></tr></table></figure>
+
+<h1 id="To-search-keywords-in-js-files-only"><a href="#To-search-keywords-in-js-files-only" class="headerlink" title="To search keywords in js files only"></a>To search keywords in js files only</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name <span class="string">'*.js'</span> | xargs grep -r <span class="string">'SearchKeywords'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="One-line-command-to-add-and-commit-file"><a href="#One-line-command-to-add-and-commit-file" class="headerlink" title="One line command to add and commit file"></a>One line command to add and commit file</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status --short | awk <span class="string">'&#123;split($0, a);print a[2]&#125;'</span> | xargs git add &amp;&amp; git commit -m <span class="string">'summit status'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="to-show-files-commited-but-not-pushed"><a href="#to-show-files-commited-but-not-pushed" class="headerlink" title="to show files commited but not pushed"></a>to show files commited but not pushed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --<span class="built_in">stat</span> --cached origin/feature/BRANCH_NAME</span><br></pre></td></tr></table></figure>
+
+<h1 id="to-view-file-content-changed"><a href="#to-view-file-content-changed" class="headerlink" title="to view file content changed"></a>to view file content changed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show PATH/FILE.sql</span><br></pre></td></tr></table></figure>
+
+<h1 id="One-line-to-fetch-checkout-newly-created-branch"><a href="#One-line-to-fetch-checkout-newly-created-branch" class="headerlink" title="One line to fetch, checkout newly created branch"></a>One line to fetch, checkout newly created branch</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch &amp;&amp; git <span class="keyword">for</span>-each-ref | grep <span class="string">'AO-106'</span>  | awk <span class="string">'&#123;split($0,a);print a[3]&#125;'</span> | awk <span class="string">"&#123;split(<span class="variable">$0</span>,a, '/');print a[-1]&#125;"</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="To-get-changed-files-NOT-contains-keyword"><a href="#To-get-changed-files-NOT-contains-keyword" class="headerlink" title="To get changed files NOT contains keyword"></a>To get changed files <code>NOT</code> contains keyword</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status | grep -v <span class="string">"node_"</span></span><br></pre></td></tr></table></figure>
+
+<p>-v is for reverse</p>
+<h1 id="Cherry-picking"><a href="#Cherry-picking" class="headerlink" title="Cherry picking"></a>Cherry picking</h1><p>Cherry picking in Git is designed to <code>apply some commit from one branch into another branch</code>. 
+It can be done if you eg. made a mistake and committed a change into wrong branch, but do not want to merge the whole branch. You can just eg. revert the commit and cherry-pick it on another branch.</p>
+<p>To use it, you just need git cherry-pick hash, where hash is a commit hash from other branch.</p>
+<h2 id="Differences-among-Git-and-subversion"><a href="#Differences-among-Git-and-subversion" class="headerlink" title="Differences among Git and subversion"></a>Differences among Git and subversion</h2><p> The differences between git and other source control (like subversion) is Git have to merge conflict before upload to server, while subversion will merge conflicts at server side</p>
+<h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
+<li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
+<li>gihub</li>
+</ul>
+<h2 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h2><p>WARN  No layout: index.html</p>
+<h3 id="Following-errors-when-run-hexo-g"><a href="#Following-errors-when-run-hexo-g" class="headerlink" title="Following errors when run hexo g"></a>Following errors when run <code>hexo g</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Unhandled rejection Error: ENOENT: no such file or directory, open <span class="string">'/Users/todzhang/dev/git/blogSrc/themes/next/layout/_scripts/schemes/.swig'</span></span><br><span class="line">    at Error (native)</span><br><span class="line">    at Object.fs.openSync (fs.js:549:18)</span><br><span class="line">    at Object.fs.readFileSync (fs.js:397:15)</span><br><span class="line">    at Object.ret.load (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/loaders/filesystem.js:55:15)</span><br><span class="line">    at compileFile (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:695:31)</span><br><span class="line">    at Object.eval [as tpl] (<span class="built_in">eval</span> at &lt;anonymous&gt; (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:498:13), &lt;anonymous&gt;:338:18)</span><br><span class="line">    at compiled [as _compiledSync] (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:619:18)</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at null._compiled (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34)</span><br><span class="line">    at View.render (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/theme/view.js:29:15)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/index.js:387:25</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34</span><br><span class="line">    at RouteStream._read (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/router.js:134:3)</span><br><span class="line">    at RouteStream.Readable.read (_stream_readable.js:336:10)</span><br><span class="line">    at resume_ (_stream_readable.js:733:12)</span><br><span class="line">    at nextTickCallbackWith2Args (node.js:442:9)</span><br><span class="line">    at process._tickCallback (node.js:356:17)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h4><p>That’s because one extra space required after semi colon in _config.yml of Next, as following config</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Duoshuo ShortName</span><br><span class="line">duoshuo_shortname: cloudsdocker</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -339,6 +487,86 @@
 <h2 id="fatal-empty-ident-name"><a href="#fatal-empty-ident-name" class="headerlink" title="fatal: empty ident name"></a>fatal: empty ident name</h2><p>Because <em>–global</em> is requried when setting up travis , below is the sample</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email abc@def.com</span><br></pre></td></tr></table></figure>
 
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-RQFII/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-13-RQFII/" class="post-title-link" itemprop="url">RenMinBi International</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="RQFII"><a href="#RQFII" class="headerlink" title="RQFII"></a>RQFII</h1><p><code>RQFII</code> stands for Renminbi Qualified Foreign Institutional Investor. RQFII was introduced in 2011 to allow qualified foreign institutional investors to use RMB to buy securities such as bonds and shares and other investment instruments listed on the Chinese market. RQFII is an extension of the Qualified Foreign Institutional Investor (QFII) scheme established in 2002.</p>
+<h1 id="What-is-the-difference-between-QFII-and-RQFII"><a href="#What-is-the-difference-between-QFII-and-RQFII" class="headerlink" title="What is the difference between QFII and RQFII?"></a>What is the difference between QFII and RQFII?</h1><p>QFII (Qualified Foreign Institutional Investor) allows institutional investors to buy shares in mainland Chinese companies (A-shares) listed on stock exchanges in China. But they have to invest in their home currency, which is then converted. RQFII enables investors to buy into China using RMB. The government introduced it to facilitate the flow of offshore RMB into the country as the currency became more widely used globally.</p>
+<h1 id="Who-can-use-these-investment-programmes"><a href="#Who-can-use-these-investment-programmes" class="headerlink" title="Who can use these investment programmes?"></a>Who can use these investment programmes?</h1><p>Although China’s financial system is opening up, there are limits to who can invest. For a foreign institutional investor to qualify, it has to be licensed within its home country, demonstrate its capital strength, and have a track record in investments and asset management.</p>
+<h1 id="How-much-can-be-invested"><a href="#How-much-can-be-invested" class="headerlink" title="How much can be invested?"></a>How much can be invested?</h1><p>The Chinese government decides how much can be invested by allocating quotas to different countries. The limit is largely determined by demand. The RQFII quota for all countries is currently RMB970 billion (USD156 billion).</p>
+<h1 id="Which-countries-have-been-granted-an-RQFII-quota"><a href="#Which-countries-have-been-granted-an-RQFII-quota" class="headerlink" title="Which countries have been granted an RQFII quota?"></a>Which countries have been granted an RQFII quota?</h1><p>Thirteen countries have been granted RMB quotas: Australia, Canada, Chile, France, Germany, Hong Kong, Hungary, Luxembourg, Qatar, South Korea, Singapore, Switzerland and the UK. The QFII programme is open to more than 60 countries.</p>
 
           
         
@@ -844,166 +1072,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-07-02-file-name-too-long-when-git-checkout/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-07-02-file-name-too-long-when-git-checkout/" class="post-title-link" itemprop="url">git raise error filename too long when checkout</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Symptoms"><a href="#Symptoms" class="headerlink" title="Symptoms:"></a>Symptoms:</h1><p>node_modules/grunt-contrib-imagemin/node_modules/pngquant-bin/node_modules/bin-wrapper/node_modules/download/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-handle-source-errors.js: <strong>Filename too long</strong></p>
-<h1 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h1><ol>
-<li><p>Execute following command</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config core.longpaths <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>retry checkoutpap</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-07-24-Bookmarks/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-07-24-Bookmarks/" class="post-title-link" itemprop="url">Useful bookmarks</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="eBooks"><a href="#eBooks" class="headerlink" title="eBooks"></a>eBooks</h2><p><a href="http://www.open-open.com/lib/view/open1387100263499.html" target="_blank" rel="noopener">list of various books</a></p>
-<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><p><a href="http://abdelraoof.com/blog/2014/11/11/install-nodejs-without-admin-rights/" target="_blank" rel="noopener">install nodejs without admin access</a></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1042,7 +1110,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

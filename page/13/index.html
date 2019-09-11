@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-10-QuickFixJ/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-26-Core-Java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -307,7 +307,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-07-10-QuickFixJ/" class="post-title-link" itemprop="url">QuickFixJ</a>
+              <a href="/2018-06-26-Core-Java/" class="post-title-link" itemprop="url">Core Java</a>
             
           </h1>
         
@@ -339,33 +339,110 @@
 
       
           
-            <h1 id="Settings"><a href="#Settings" class="headerlink" title="Settings"></a>Settings</h1><p>A settings file is set up with two types of heading, a [DEFAULT] and a [SESSION] heading. [SESSION] tells QuickFIX/J that a new Session is being defined. [DEFAULT] is a place that you can define settings which will be inherited by sessions that do not explicitly define them. If you do not provide a setting that QuickFIX/J needs, it will throw a ConfigError telling you what setting is missing or improperly formatted.</p>
-<h1 id="SSL-cipher"><a href="#SSL-cipher" class="headerlink" title="SSL cipher"></a>SSL cipher</h1><p>An SSL cipher specification in cipher-spec is composed of 4 major attributes plus a few extra minor ones.</p>
-<p>Key Exchange Algorithm:<br>RSA or Diffie-Hellman variants.</p>
-<p>Authentication Algorithm:<br>RSA, Diffie-Hellman, DSS or none.</p>
-<p>Cipher/Encryption Algorithm:<br>DES, Triple-DES, RC4, RC2, IDEA or none.</p>
-<p>MAC Digest Algorithm:<br>MD5, SHA or SHA1.</p>
-<h2 id="InOut-exchange"><a href="#InOut-exchange" class="headerlink" title="InOut exchange"></a>InOut exchange</h2><p>Although the <code>FIX protocol is event-driven and asynchronous</code>, there are specific pairs of messages<br>that represent a request-reply message exchange. To use an InOut exchange pattern, there should<br>be a single request message and single reply message to the request. Examples include an<br>OrderStatusRequest message and UserRequest.</p>
-<p>#FIX Sequence Number Management<br>If an application exception is thrown during synchronous exchange processing, this will cause QuickFIX/J to not increment incoming FIX message sequence numbers and will cause a resend of the counterparty message. This FIX protocol behavior is primarily intended to handle transport errors rather than application errors. There are risks associated with using this mechanism to handle application errors. The primary risk is that the message will repeatedly cause application errors each time it is re-received. A better solution is to persist the incoming message (database, JMS queue) immediately before processing it. This also allows the application to process messages asynchronously without losing messages when errors occur.</p>
-<p>Although it is possible to send messages to a FIX session before it is logged on (the messages will be sent at logon time), it is usually a better practice to wait until the session is logged on. This eliminates the required sequence number resynchronization steps at logon. Waiting for session logon can be done by setting up a route that processes the SessionLogon event category and signals the application to start sending messages.</p>
-<h1 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h1><h2 id="QuickFixJComponent-class"><a href="#QuickFixJComponent-class" class="headerlink" title="QuickFixJComponent.class"></a>QuickFixJComponent.class</h2><p>if (configuration != null) {<br>                        settings = configuration.createSessionSettings();<br>                    } else {<br>                        settings = QuickfixjEngine.loadSettings(remaining);<br>                    }</p>
-<h2 id="MessageStore"><a href="#MessageStore" class="headerlink" title="MessageStore"></a>MessageStore</h2><p>This interface Used by a Session to store and retrieve messages for resend purposes.</p>
-<ul>
-<li>boolean set(int sequence, String message) throws IOException;</li>
-<li>void get(int startSequence, int endSequence, Collection<string> messages) throws IOException;</string></li>
-</ul>
-<p>Implementations such as MemoryStore.java, it use one HashMap&lt;Integer, String&gt; to keep messages (string)</p>
-<h2 id="Parse-body"><a href="#Parse-body" class="headerlink" title="Parse body"></a>Parse body</h2><p>private void parseBody(DataDictionary dd, boolean doValidation) throws InvalidMessage {<br>        for(StringField field = this.extractField(dd, this); field != null; field = this.extractField(dd, this)) {<br>            if (isTrailerField(field.getField())) {<br>                this.pushBack(field);<br>                return;<br>            }</p>
-<h2 id="validate-check-sum"><a href="#validate-check-sum" class="headerlink" title="validate check sum"></a>validate check sum</h2><p>in message.class</p>
-<p>private void validateCheckSum(String messageData) throws InvalidMessage {<br>        try {<br>            int checksum = this.trailer.getInt(10);<br>            if (checksum != MessageUtils.checksum(messageData)) {<br>                throw new InvalidMessage(“Expected CheckSum=” + MessageUtils.checksum(messageData) + “, Received CheckSum=” + checksum + “ in “ + messageData);<br>            }<br>}</p>
-<p>the first checksum is 131</p>
-<p>in MessageUtils.checksum<br>public static int checksum</p>
-<p>int end = isEntireMessage ? data.lastIndexOf(“\u000110=”) : -1;<br>            int len = end &gt; -1 ? end + 1 : data.length();</p>
-<pre><code>for(int i = 0; i &lt; len; ++i) {
-    sum += data.charAt(i);
-}
+            <h1 id="Annotation-retention-policy"><a href="#Annotation-retention-policy" class="headerlink" title="Annotation retention policy"></a>Annotation retention policy</h1><p>What is Retention policy in java annotations?</p>
+<p>A retention policy determines at what point annotation should be discarded.<br>Java defined 3 types of retention policies through java.lang.annotation.RetentionPolicy enumeration. It has SOURCE, CLASS and RUNTIME.<br>Annotation with retention policy SOURCE will be retained only with source code, and discarded during compile time.<br>Annotation with retention policy CLASS will be retained till compiling the code, and discarded during runtime.<br>Annotation with retention policy RUNTIME will be available to the JVM through runtime.<br>The retention policy will be specified by using java built-in annotation @Retention, and we have to pass the retention policy type.<br>The default retention policy type is CLASS.</p>
+<h1 id="overload-and-override"><a href="#overload-and-override" class="headerlink" title="overload and override"></a>overload and override</h1><p>“selection among overloaded methods is static, while selection among overridden methods is dynamic. ”</p>
+<p>“a method is overridden when a subclass contains a method declaration with the same signature as a method declaration in an ancestor.”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">“<span class="comment">// Broken! - What does this program print?</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CollectionClassifier</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Set&lt;?&gt; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Set"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(List&lt;?&gt; lst)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"List"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Collection&lt;?&gt; c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Unknown Collection"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Collection&lt;?&gt;[] collections = &#123;</span><br><span class="line">            <span class="keyword">new</span> HashSet&lt;String&gt;(),</span><br><span class="line">            <span class="keyword">new</span> ArrayList&lt;BigInteger&gt;(),</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;String, String&gt;().values()</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Collection&lt;?&gt; c : collections)</span><br><span class="line">            System.out.println(classify(c));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<br>?? how to get and set this.trailer.10=131 ?</p>
+<p>You might expect this program to print Set, followed by List and Unknown Collection, but it doesn’t. It prints Unknown Collection three times. Why does this happen? Because the classify method is overloaded, and the choice of which overloading to invoke is made at compile time.”</p>
+<p>“the best way to fix the program is to replace all three overloadings of classify with a single method that does an explicit instanceof test:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Collection&lt;?&gt; c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> c <span class="keyword">instanceof</span> Set  ? <span class="string">"Set"</span> :</span><br><span class="line">           c <span class="keyword">instanceof</span> List ? <span class="string">"List"</span> : <span class="string">"Unknown Collection"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Because overriding is the norm and overloading is the exception, overriding sets people’s expectations for the behavior of method invocation. As demonstrated by the CollectionClassifier example, overloading can easily confound these expectations. It is bad practice to write code whose behavior is likely to confuse programmers. This is especially true for APIs.”</p>
+<p>“Exactly what constitutes a confusing use of overloading is open to some debate. A safe, conservative policy is never to export two overloadings with the same number of parameters. If a method uses varargs, a conservative policy is not to overload it at all,”</p>
+<p>“Functional programming is a term that means different things to different people.”<br>“At the heart of functional programming is thinking about your problem domain in terms of immutable values and functions that translate between them.”</p>
+<h1 id="Target-typing"><a href="#Target-typing" class="headerlink" title="Target typing"></a>Target typing</h1><p>“What is implicit in all these examples is that a lambda expression’s type is context dependent. It gets inferred by the compiler. This target typing isn’t entirely new, either.”</p>
+<p>“This restriction is relaxed a bit in Java 8. It’s possible to refer to variables that aren’t final; however, they still have to be effectively final. Although you haven’t declared the variable(s) as final, you still cannot use them as nonfinal variable(s) if they are to be used in lambda expressions. If you do use them as nonfinal variables, then the compiler will show an error.”</p>
+<h1 id="Functional-interface"><a href="#Functional-interface" class="headerlink" title="Functional interface"></a>Functional interface</h1><p>“A functional interface is an interface with a single abstract method that is used as the type of a lambda expression.”</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-04-Solace-MQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-04-Solace-MQ/" class="post-title-link" itemprop="url">Solace MQ</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Solace-PubSub"><a href="#Solace-PubSub" class="headerlink" title="Solace PubSub+"></a>Solace PubSub+</h1><p>It is a message broker that lets you establish event-driven interactions between applications and microservices across hybrid cloud environments using open APIs and protocols.</p>
+<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>Cloud<br>PubSub+ Cloud is enterprise-grade messaging available as a fully managed service in your favorite public clouds.</p>
+<h2 id="What-do-we-mean-by-“enterprise-grade-”"><a href="#What-do-we-mean-by-“enterprise-grade-”" class="headerlink" title="What do we mean by “enterprise grade?”"></a>What do we mean by “enterprise grade?”</h2><h3 id="Unrivaled-Reliability"><a href="#Unrivaled-Reliability" class="headerlink" title="Unrivaled Reliability"></a>Unrivaled Reliability</h3><p>Intelligent routing protocols always identify best path and adapt around network issues to keep your applications humming, and automatic message buffering keeps bursts of data from affecting slow consumers or your system as a whole.</p>
+<p>Built-in high availability and disaster recovery capabilities mean your system will bounce back in a flash, without ever losing a message, even in the event of major system or network failures.</p>
+<h3 id="Serious-Security"><a href="#Serious-Security" class="headerlink" title="Serious Security"></a>Serious Security</h3><p>PubSub+ supports authentication and authorization mechanisms ranging from username and password and one-time passwords to sophisticated access control lists and robust integration with existing security policies and systems such as LDAP, Radius, Kerberos.</p>
+<p>To protect messages in transit, Solace supports transport-layer TLS encryption using a variety of cypher suites.</p>
+<h2 id="Messaging"><a href="#Messaging" class="headerlink" title="Messaging"></a>Messaging</h2><p>In application development terms, messaging, which is also commonly known as message-oriented middleware or just middleware, refers to technology that lets computer systems share information without requiring direct connections or awareness of one another’s location.</p>
+<h1 id="Docker-on-Solace"><a href="#Docker-on-Solace" class="headerlink" title="Docker on Solace"></a>Docker on Solace</h1><p>To bounce solace server:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 -p 55555:55555 --shm-size=2g --env <span class="string">'username_admin_globalaccesslevel=admin'</span> --env <span class="string">'username_admin_password=admin'</span> --name=solace solace-pubsub-standard:8.11.0.1029</span><br><span class="line"></span><br><span class="line"><span class="comment"># or bring up an existing one</span></span><br><span class="line">docker start solace</span><br></pre></td></tr></table></figure>
+
+<p>Solace CLI management access:<br>Enter the following docker exec command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it solace /usr/sw/loads/currentload/bin/cli -A</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -443,6 +520,237 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
           
             <h1 id="Exporting-your-beans-to-JMX"><a href="#Exporting-your-beans-to-JMX" class="headerlink" title="Exporting your beans to JMX"></a>Exporting your beans to JMX</h1><p>The core class in Spring’s JMX framework is the MBeanExporter. This class is responsible for taking your Spring beans and registering them with a JMX MBeanServer. </p>
 <p>when running inside a container that does not provide an MBeanServer. To address this you can create an MBeanServer instance declaratively by adding an instance of the org.springframework.jmx.support.MBeanServerFactoryBean class to your configuration. You can also ensure that a specific MBeanServer is used by setting the value of the MBeanExporter’s server property to the MBeanServer value returned by an MBeanServerFactoryBean</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-11-Camel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-11-Camel/" class="post-title-link" itemprop="url">Apache Camel</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Camel’s-message-model"><a href="#Camel’s-message-model" class="headerlink" title="Camel’s message model"></a>Camel’s message model</h1><p>In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.</p>
+<ul>
+<li>org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel</li>
+<li>org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message</li>
+</ul>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><p>Messages are the entities used by systems to communicate with each other when using messaging channels. Messages flow in one direction from a sender to a receiver,  Messages have a body (a payload), headers, and optional attachments,</p>
+<p>Messages are uniquely identified with an identifier of type java.lang.String. The identifier’s uniqueness is enforced and guaranteed by the message creator, it’s protocol depen- dent, and it doesn’t have a guaranteed format.<br>For protocols that don’t define a unique message identification scheme, Camel uses its own UID generator.<br>HEADERS AND ATTACHMENTS<br>Headers are values associated with the message, such as sender identifiers, hints about content encoding, authentication infor- mation, and so on. Headers are name-value pairs; the name is a unique, case-insensitive string, and the value is of type java. lang.Object. This means that Camel imposes no constraints on the type of the headers. Headers are stored as a map within the message. A message can also have optional attachments, which are typically used for the web service and email components.</p>
+<h2 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h2><p>An exchange in Camel is the message’s container during routing. An exchange also provides support for the various types of interactions between systems, also known as message exchange patterns (MEPs). MEPs are used to differentiate between one-way and request-response messaging styles. The Camel exchange holds a pattern property that can be either</p>
+<ul>
+<li>InOnly—A one-way message (also known as an Event message). For example, JMS messaging is often one-way messaging.</li>
+<li>InOut—A request-response message. For example, HTTP-based transports are often request reply, where a client requests to retrieve a web page, waiting for the reply from the server.</li>
+</ul>
+<h1 id="Start-Camel-application"><a href="#Start-Camel-application" class="headerlink" title="Start Camel application"></a>Start Camel application</h1><p>Camel doesn’t start magically by itself. Often it’s the server (container) that Camel is running inside that invokes the start method on CamelContext, starting up Camel. This is also what you saw in chapter 1, where you used Camel inside a standalone Java application. A standalone Java application isn’t the only deployment choice—you can also run Camel inside a container such as Spring or OSGi.<br>Regardless of which container you use, the same principle applies. The container must prepare and create an instance of CamelContext up front, before Camel can be started.</p>
+<h2 id="Spring-container"><a href="#Spring-container" class="headerlink" title="Spring container"></a>Spring container</h2><p>Camel provides the CamelNamespaceHandler.<br>When using Camel in the Spring XML file, you would define the <camelcontext> tag as follows:<br><camelcontext xmlns="http://camel.apache.org/schema/spring"></camelcontext></camelcontext></p>
+<p>The <a href="http://camel.apache.org/schema/spring" target="_blank" rel="noopener">http://camel.apache.org/schema/spring</a> namespace is the Camel custom namespace. To let Spring know about this custom namespace, it must be identified in the META-INF/spring.handlers, where you map the namespace to the class implementation:<br>http://camel.apache.org/schema/spring=<br>     org.apache.camel.spring.handler.CamelNamespaceHandler</p>
+<p>The CamelNamespaceHandler is then responsible for parsing the XML and dele- gating to other factories for further pro- cessing. One of these factories is the Camel- ContextFactoryBean, which is responsible for creating the CamelContext that essen- tially is your Camel application.<br>When Spring is finished initializing, it signals to third-party frameworks that they can start by broadcasting the Context- RefreshedEvent event.</p>
+<h1 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h1><p>At this point, CamelContext is ready to be started. What happens next is the same regardless of which container or deploy- ment option you’re using with Camel. </p>
+<p>CamelContext is started by invoking its start method. The first step is to determines whether or not autostartup is enabled for Camel. If it’s disabled, the entire startup process is skipped. By default, Camel is set to autostart, which involves the following four steps.</p>
+<p>1 Start internal services—Prepares and starts internal services used by Camel, such as the type-converter mechanism.<br>2 Compute starting order—Computes the order in which the routes should be started. By default, Camel will start up all the routes in the order they are defined in the Spring XML files or the RouteBuilder classes. We’ll cover how to configure the order of routes in section 13.1.3.<br>3 Prepare routes—Prepares the routes before they’re started.<br>4 Start routes—Starts the routes by starting the consumers, which essentially opens<br>the gates to Camel and lets the messages start to flow in.</p>
+<p>After step 4, Camel writes a message to the log indicating that it has been started and that the startup process is complete.</p>
+<h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><h2 id="ENDPOINT"><a href="#ENDPOINT" class="headerlink" title="ENDPOINT"></a>ENDPOINT</h2><p>An endpoint is the Camel abstraction that models the end of a channel through which a system can send or receive messages.</p>
+<p>In Camel, you configure endpoints using URIs, such as </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:data/inbox?delay=5000</span><br></pre></td></tr></table></figure>
+
+<p> and you also refer to endpoints this way. At runtime, Camel will look up an endpoint based on the URI notation. </p>
+<p>The scheme  denotes which Camel component handles that type of endpoint. In this case,<br>the scheme of file selects the FileComponent.<br>The FileComponent then works as a factory creat-<br>ing the FileEndpoint based on the remaining parts of the URI.<br>The context path data/ inbox tells the FileComponent that the starting folder is data/inbox.<br>The option, delay=5000 indicates that files should be polled at a 5 second interval.</p>
+<p>There’s more to an endpoint than meets the eye. </p>
+<h2 id="JMS"><a href="#JMS" class="headerlink" title="JMS"></a>JMS</h2><p>Queues are strictly point-to-point, where each message has only one consumer. Topics operate on a publish/subscribe scheme; a single message may be delivered to many consumers if they have subscribed to the topic.</p>
+<p>JMS also provides a ConnectionFactory that clients (like Camel) can use to cre- ate a connection with a JMS provider. JMS providers are usually referred to as brokers because they manage the communication between a message producer and a mes- sage consumer.</p>
+<h3 id="HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER"><a href="#HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER" class="headerlink" title="HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER"></a>HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER</h3><p>To connect Camel to a specific JMS provider, you need to configure Camel’s JMS com- ponent with an appropriate ConnectionFactory.<br>Apache ActiveMQ is one of the most popular open source JMS providers, and it’s the primary JMS broker that the Camel team uses to test the JMS component. </p>
+<h3 id="JSM-destinations"><a href="#JSM-destinations" class="headerlink" title="JSM destinations"></a>JSM destinations</h3><p>There are two types of JMS destinations: queues and topics. The queue is a point-to-point channel, where each message has only one recipient. A topic delivers a copy of the message to all clients who have subscribed to receive it.</p>
+<h3 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h3><p>o in the case of Apache ActiveMQ, you can create an ActiveMQConnectionFactory<br>that points to the location of the running ActiveMQ broker:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConnectionFactory connectionFactory =</span><br><span class="line">  <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"vm://localhost"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>The vm://localhost URI means that you should connect to an embedded broker named “localhost” running inside the current JVM. The vm transport connector in ActiveMQ creates a broker on demand if one isn’t running already, so it’s very handy for quickly testing JMS applications; for production scenarios, it’s recommended that you connect to a broker that’s already running. </p>
+<p>Next, when you create your CamelContext, you can add the JMS component as follows:<br>CamelContext context = new DefaultCamelContext();<br>context.addComponent(“jms”,<br>    JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));<br>The JMS component and the ActiveMQ-specific connection factory aren’t part of the camel-core module. In order to use these, you’ll need to add some dependencies to your Maven-based project. For the plain JMS component, all you have to add is this:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.camel<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>camel-jms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">The connection factory comes directly from ActiveMQ, so you’ll need the following dependency:</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="USING-URIS-TO-SPECIFY-THE-DESTINATION"><a href="#USING-URIS-TO-SPECIFY-THE-DESTINATION" class="headerlink" title="USING URIS TO SPECIFY THE DESTINATION"></a>USING URIS TO SPECIFY THE DESTINATION</h3><p>Once the JMS component is configured, you can start sending and receiving JMS mes- sages at your leisure. Because you’re using URIs, this is a real breeze to configure.<br>Let’s say you want to send a JMS message to the queue named incomingOrders. The URI in this case would be</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jms:queue:incomingOrders</span><br></pre></td></tr></table></figure>
+
+<p>This is pretty self-explanatory. The “jms” prefix indicates that you’re using the JMS component you configured before. By specifying “queue”, the JMS component knows to send to a queue named incomingOrders. You could even have omitted the queue<br>qualifier, because the default behavior is to send to a queue rather than a topic.</p>
+<p>NOTE Some endpoints can have an intimidating list of endpoint URI proper- ties. For instance, the JMS component has about 60 options, many of which are only used in specific JMS scenarios. Camel always tries to provide built-in defaults that fit most cases, and you can always find out what the default values are by browsing to the component’s page in the online Camel documentation. </p>
+<p>Using Camel’s Java DSL, you can send a message to the incomingOrders queue by using the to keyword like this:<br>…to(“jms:queue:incomingOrders”)<br>This can be read as sending to the JMS queue named incomingOrders.</p>
+<h2 id="FINDING-ROUTE-BUILDERS"><a href="#FINDING-ROUTE-BUILDERS" class="headerlink" title="FINDING ROUTE BUILDERS"></a>FINDING ROUTE BUILDERS</h2><p>Using the Spring CamelContext as a runtime and the Java DSL for route development is a great way of using Camel. In fact, it’s the most frequent usage of Camel.<br>You saw before that you can explicitly tell the Spring CamelContext what route builders to load. You can do this by using the routerBuilder element:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">routeBuilder</span> <span class="attr">ref</span>=<span class="string">"ftpToJmsRoute"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Being this explicit results in a clean and concise definition of what is being loaded into Camel.<br>Sometimes, though, you may need to be a bit more dynamic. This is where the packageScan and contextScan elements come in:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>This packageScan element will load all RouteBuilder classes found in the camelinac- tion.routes package, including all subpackages.<br>You can even be a bit more picky about what route builders are included:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">excludes</span>&gt;</span>**.*Test*<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">includes</span>&gt;</span>**.*<span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>In this case, you’re loading all route builders in the camelinaction.routes package, except for ones with “Test” in the class name. The matching syntax is similar to what is used in Apache Ant’s file pattern matchers.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-10-QuickFixJ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-10-QuickFixJ/" class="post-title-link" itemprop="url">QuickFixJ</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Settings"><a href="#Settings" class="headerlink" title="Settings"></a>Settings</h1><p>A settings file is set up with two types of heading, a [DEFAULT] and a [SESSION] heading. [SESSION] tells QuickFIX/J that a new Session is being defined. [DEFAULT] is a place that you can define settings which will be inherited by sessions that do not explicitly define them. If you do not provide a setting that QuickFIX/J needs, it will throw a ConfigError telling you what setting is missing or improperly formatted.</p>
+<h1 id="SSL-cipher"><a href="#SSL-cipher" class="headerlink" title="SSL cipher"></a>SSL cipher</h1><p>An SSL cipher specification in cipher-spec is composed of 4 major attributes plus a few extra minor ones.</p>
+<p>Key Exchange Algorithm:<br>RSA or Diffie-Hellman variants.</p>
+<p>Authentication Algorithm:<br>RSA, Diffie-Hellman, DSS or none.</p>
+<p>Cipher/Encryption Algorithm:<br>DES, Triple-DES, RC4, RC2, IDEA or none.</p>
+<p>MAC Digest Algorithm:<br>MD5, SHA or SHA1.</p>
+<h2 id="InOut-exchange"><a href="#InOut-exchange" class="headerlink" title="InOut exchange"></a>InOut exchange</h2><p>Although the <code>FIX protocol is event-driven and asynchronous</code>, there are specific pairs of messages<br>that represent a request-reply message exchange. To use an InOut exchange pattern, there should<br>be a single request message and single reply message to the request. Examples include an<br>OrderStatusRequest message and UserRequest.</p>
+<p>#FIX Sequence Number Management<br>If an application exception is thrown during synchronous exchange processing, this will cause QuickFIX/J to not increment incoming FIX message sequence numbers and will cause a resend of the counterparty message. This FIX protocol behavior is primarily intended to handle transport errors rather than application errors. There are risks associated with using this mechanism to handle application errors. The primary risk is that the message will repeatedly cause application errors each time it is re-received. A better solution is to persist the incoming message (database, JMS queue) immediately before processing it. This also allows the application to process messages asynchronously without losing messages when errors occur.</p>
+<p>Although it is possible to send messages to a FIX session before it is logged on (the messages will be sent at logon time), it is usually a better practice to wait until the session is logged on. This eliminates the required sequence number resynchronization steps at logon. Waiting for session logon can be done by setting up a route that processes the SessionLogon event category and signals the application to start sending messages.</p>
+<h1 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h1><h2 id="QuickFixJComponent-class"><a href="#QuickFixJComponent-class" class="headerlink" title="QuickFixJComponent.class"></a>QuickFixJComponent.class</h2><p>if (configuration != null) {<br>                        settings = configuration.createSessionSettings();<br>                    } else {<br>                        settings = QuickfixjEngine.loadSettings(remaining);<br>                    }</p>
+<h2 id="MessageStore"><a href="#MessageStore" class="headerlink" title="MessageStore"></a>MessageStore</h2><p>This interface Used by a Session to store and retrieve messages for resend purposes.</p>
+<ul>
+<li>boolean set(int sequence, String message) throws IOException;</li>
+<li>void get(int startSequence, int endSequence, Collection<string> messages) throws IOException;</string></li>
+</ul>
+<p>Implementations such as MemoryStore.java, it use one HashMap&lt;Integer, String&gt; to keep messages (string)</p>
+<h2 id="Parse-body"><a href="#Parse-body" class="headerlink" title="Parse body"></a>Parse body</h2><p>private void parseBody(DataDictionary dd, boolean doValidation) throws InvalidMessage {<br>        for(StringField field = this.extractField(dd, this); field != null; field = this.extractField(dd, this)) {<br>            if (isTrailerField(field.getField())) {<br>                this.pushBack(field);<br>                return;<br>            }</p>
+<h2 id="validate-check-sum"><a href="#validate-check-sum" class="headerlink" title="validate check sum"></a>validate check sum</h2><p>in message.class</p>
+<p>private void validateCheckSum(String messageData) throws InvalidMessage {<br>        try {<br>            int checksum = this.trailer.getInt(10);<br>            if (checksum != MessageUtils.checksum(messageData)) {<br>                throw new InvalidMessage(“Expected CheckSum=” + MessageUtils.checksum(messageData) + “, Received CheckSum=” + checksum + “ in “ + messageData);<br>            }<br>}</p>
+<p>the first checksum is 131</p>
+<p>in MessageUtils.checksum<br>public static int checksum</p>
+<p>int end = isEntireMessage ? data.lastIndexOf(“\u000110=”) : -1;<br>            int len = end &gt; -1 ? end + 1 : data.length();</p>
+<pre><code>for(int i = 0; i &lt; len; ++i) {
+    sum += data.charAt(i);
+}
+
+return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<br>?? how to get and set this.trailer.10=131 ?</p>
 
           
         
@@ -609,211 +917,6 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
 <p>traverse array and check whether current is “..”, if so , call stack.pop<br>otherwise, stach.push(part)</p>
 <p>Then iterate stack and then combine them by a StringBuilder via provided addtional parameter separator</p>
 
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-11-Camel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-11-Camel/" class="post-title-link" itemprop="url">Apache Camel</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Camel’s-message-model"><a href="#Camel’s-message-model" class="headerlink" title="Camel’s message model"></a>Camel’s message model</h1><p>In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.</p>
-<ul>
-<li>org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel</li>
-<li>org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message</li>
-</ul>
-<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><p>Messages are the entities used by systems to communicate with each other when using messaging channels. Messages flow in one direction from a sender to a receiver,  Messages have a body (a payload), headers, and optional attachments,</p>
-<p>Messages are uniquely identified with an identifier of type java.lang.String. The identifier’s uniqueness is enforced and guaranteed by the message creator, it’s protocol depen- dent, and it doesn’t have a guaranteed format.<br>For protocols that don’t define a unique message identification scheme, Camel uses its own UID generator.<br>HEADERS AND ATTACHMENTS<br>Headers are values associated with the message, such as sender identifiers, hints about content encoding, authentication infor- mation, and so on. Headers are name-value pairs; the name is a unique, case-insensitive string, and the value is of type java. lang.Object. This means that Camel imposes no constraints on the type of the headers. Headers are stored as a map within the message. A message can also have optional attachments, which are typically used for the web service and email components.</p>
-<h2 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h2><p>An exchange in Camel is the message’s container during routing. An exchange also provides support for the various types of interactions between systems, also known as message exchange patterns (MEPs). MEPs are used to differentiate between one-way and request-response messaging styles. The Camel exchange holds a pattern property that can be either</p>
-<ul>
-<li>InOnly—A one-way message (also known as an Event message). For example, JMS messaging is often one-way messaging.</li>
-<li>InOut—A request-response message. For example, HTTP-based transports are often request reply, where a client requests to retrieve a web page, waiting for the reply from the server.</li>
-</ul>
-<h1 id="Start-Camel-application"><a href="#Start-Camel-application" class="headerlink" title="Start Camel application"></a>Start Camel application</h1><p>Camel doesn’t start magically by itself. Often it’s the server (container) that Camel is running inside that invokes the start method on CamelContext, starting up Camel. This is also what you saw in chapter 1, where you used Camel inside a standalone Java application. A standalone Java application isn’t the only deployment choice—you can also run Camel inside a container such as Spring or OSGi.<br>Regardless of which container you use, the same principle applies. The container must prepare and create an instance of CamelContext up front, before Camel can be started.</p>
-<h2 id="Spring-container"><a href="#Spring-container" class="headerlink" title="Spring container"></a>Spring container</h2><p>Camel provides the CamelNamespaceHandler.<br>When using Camel in the Spring XML file, you would define the <camelcontext> tag as follows:<br><camelcontext xmlns="http://camel.apache.org/schema/spring"></camelcontext></camelcontext></p>
-<p>The <a href="http://camel.apache.org/schema/spring" target="_blank" rel="noopener">http://camel.apache.org/schema/spring</a> namespace is the Camel custom namespace. To let Spring know about this custom namespace, it must be identified in the META-INF/spring.handlers, where you map the namespace to the class implementation:<br>http://camel.apache.org/schema/spring=<br>     org.apache.camel.spring.handler.CamelNamespaceHandler</p>
-<p>The CamelNamespaceHandler is then responsible for parsing the XML and dele- gating to other factories for further pro- cessing. One of these factories is the Camel- ContextFactoryBean, which is responsible for creating the CamelContext that essen- tially is your Camel application.<br>When Spring is finished initializing, it signals to third-party frameworks that they can start by broadcasting the Context- RefreshedEvent event.</p>
-<h1 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h1><p>At this point, CamelContext is ready to be started. What happens next is the same regardless of which container or deploy- ment option you’re using with Camel. </p>
-<p>CamelContext is started by invoking its start method. The first step is to determines whether or not autostartup is enabled for Camel. If it’s disabled, the entire startup process is skipped. By default, Camel is set to autostart, which involves the following four steps.</p>
-<p>1 Start internal services—Prepares and starts internal services used by Camel, such as the type-converter mechanism.<br>2 Compute starting order—Computes the order in which the routes should be started. By default, Camel will start up all the routes in the order they are defined in the Spring XML files or the RouteBuilder classes. We’ll cover how to configure the order of routes in section 13.1.3.<br>3 Prepare routes—Prepares the routes before they’re started.<br>4 Start routes—Starts the routes by starting the consumers, which essentially opens<br>the gates to Camel and lets the messages start to flow in.</p>
-<p>After step 4, Camel writes a message to the log indicating that it has been started and that the startup process is complete.</p>
-<h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><h2 id="ENDPOINT"><a href="#ENDPOINT" class="headerlink" title="ENDPOINT"></a>ENDPOINT</h2><p>An endpoint is the Camel abstraction that models the end of a channel through which a system can send or receive messages.</p>
-<p>In Camel, you configure endpoints using URIs, such as </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:data/inbox?delay=5000</span><br></pre></td></tr></table></figure>
-
-<p> and you also refer to endpoints this way. At runtime, Camel will look up an endpoint based on the URI notation. </p>
-<p>The scheme  denotes which Camel component handles that type of endpoint. In this case,<br>the scheme of file selects the FileComponent.<br>The FileComponent then works as a factory creat-<br>ing the FileEndpoint based on the remaining parts of the URI.<br>The context path data/ inbox tells the FileComponent that the starting folder is data/inbox.<br>The option, delay=5000 indicates that files should be polled at a 5 second interval.</p>
-<p>There’s more to an endpoint than meets the eye. </p>
-<h2 id="JMS"><a href="#JMS" class="headerlink" title="JMS"></a>JMS</h2><p>Queues are strictly point-to-point, where each message has only one consumer. Topics operate on a publish/subscribe scheme; a single message may be delivered to many consumers if they have subscribed to the topic.</p>
-<p>JMS also provides a ConnectionFactory that clients (like Camel) can use to cre- ate a connection with a JMS provider. JMS providers are usually referred to as brokers because they manage the communication between a message producer and a mes- sage consumer.</p>
-<h3 id="HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER"><a href="#HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER" class="headerlink" title="HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER"></a>HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER</h3><p>To connect Camel to a specific JMS provider, you need to configure Camel’s JMS com- ponent with an appropriate ConnectionFactory.<br>Apache ActiveMQ is one of the most popular open source JMS providers, and it’s the primary JMS broker that the Camel team uses to test the JMS component. </p>
-<h3 id="JSM-destinations"><a href="#JSM-destinations" class="headerlink" title="JSM destinations"></a>JSM destinations</h3><p>There are two types of JMS destinations: queues and topics. The queue is a point-to-point channel, where each message has only one recipient. A topic delivers a copy of the message to all clients who have subscribed to receive it.</p>
-<h3 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h3><p>o in the case of Apache ActiveMQ, you can create an ActiveMQConnectionFactory<br>that points to the location of the running ActiveMQ broker:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConnectionFactory connectionFactory =</span><br><span class="line">  <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"vm://localhost"</span>);</span><br></pre></td></tr></table></figure>
-
-<p>The vm://localhost URI means that you should connect to an embedded broker named “localhost” running inside the current JVM. The vm transport connector in ActiveMQ creates a broker on demand if one isn’t running already, so it’s very handy for quickly testing JMS applications; for production scenarios, it’s recommended that you connect to a broker that’s already running. </p>
-<p>Next, when you create your CamelContext, you can add the JMS component as follows:<br>CamelContext context = new DefaultCamelContext();<br>context.addComponent(“jms”,<br>    JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));<br>The JMS component and the ActiveMQ-specific connection factory aren’t part of the camel-core module. In order to use these, you’ll need to add some dependencies to your Maven-based project. For the plain JMS component, all you have to add is this:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.camel<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>camel-jms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">The connection factory comes directly from ActiveMQ, so you’ll need the following dependency:</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="USING-URIS-TO-SPECIFY-THE-DESTINATION"><a href="#USING-URIS-TO-SPECIFY-THE-DESTINATION" class="headerlink" title="USING URIS TO SPECIFY THE DESTINATION"></a>USING URIS TO SPECIFY THE DESTINATION</h3><p>Once the JMS component is configured, you can start sending and receiving JMS mes- sages at your leisure. Because you’re using URIs, this is a real breeze to configure.<br>Let’s say you want to send a JMS message to the queue named incomingOrders. The URI in this case would be</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jms:queue:incomingOrders</span><br></pre></td></tr></table></figure>
-
-<p>This is pretty self-explanatory. The “jms” prefix indicates that you’re using the JMS component you configured before. By specifying “queue”, the JMS component knows to send to a queue named incomingOrders. You could even have omitted the queue<br>qualifier, because the default behavior is to send to a queue rather than a topic.</p>
-<p>NOTE Some endpoints can have an intimidating list of endpoint URI proper- ties. For instance, the JMS component has about 60 options, many of which are only used in specific JMS scenarios. Camel always tries to provide built-in defaults that fit most cases, and you can always find out what the default values are by browsing to the component’s page in the online Camel documentation. </p>
-<p>Using Camel’s Java DSL, you can send a message to the incomingOrders queue by using the to keyword like this:<br>…to(“jms:queue:incomingOrders”)<br>This can be read as sending to the JMS queue named incomingOrders.</p>
-<h2 id="FINDING-ROUTE-BUILDERS"><a href="#FINDING-ROUTE-BUILDERS" class="headerlink" title="FINDING ROUTE BUILDERS"></a>FINDING ROUTE BUILDERS</h2><p>Using the Spring CamelContext as a runtime and the Java DSL for route development is a great way of using Camel. In fact, it’s the most frequent usage of Camel.<br>You saw before that you can explicitly tell the Spring CamelContext what route builders to load. You can do this by using the routerBuilder element:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">routeBuilder</span> <span class="attr">ref</span>=<span class="string">"ftpToJmsRoute"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Being this explicit results in a clean and concise definition of what is being loaded into Camel.<br>Sometimes, though, you may need to be a bit more dynamic. This is where the packageScan and contextScan elements come in:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>This packageScan element will load all RouteBuilder classes found in the camelinac- tion.routes package, including all subpackages.<br>You can even be a bit more picky about what route builders are included:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">excludes</span>&gt;</span>**.*Test*<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">includes</span>&gt;</span>**.*<span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>In this case, you’re loading all route builders in the camelinaction.routes package, except for ones with “Test” in the class name. The matching syntax is similar to what is used in Apache Ant’s file pattern matchers.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-28-Scala/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-28-Scala/" class="post-title-link" itemprop="url">Scala</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Scala-String"><a href="#Scala-String" class="headerlink" title="Scala String"></a>Scala String</h1><p>Scala offers the magic of implicit conver‐ sions, String instances also have access to all the methods of the StringOps class, so you can do many other things with them, such as treating a String instance as a sequence of characters. As a result, you can iterate over every character in the string using the foreach method:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"hello"</span>.foreach(println) h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l o</span><br><span class="line"><span class="comment">//You can treat a String as a sequence of characters in a for loop:</span></span><br><span class="line">scala&gt; <span class="keyword">for</span> (c &lt;- <span class="string">"hello"</span>) println(c)</span><br><span class="line"></span><br><span class="line">scala&gt; val result = <span class="string">"hello world"</span>.filter(_ != <span class="string">'l'</span>) result: String = heo word</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1127,7 +1230,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-15-PrestoDB/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-28-Scala/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1143,7 +1246,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-08-15-PrestoDB/" class="post-title-link" itemprop="url">Presto DB</a>
+              <a href="/2018-07-28-Scala/" class="post-title-link" itemprop="url">Scala</a>
             
           </h1>
         
@@ -1175,300 +1278,8 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
 
       
           
-            <h1 id="WHAT-IS-PRESTO"><a href="#WHAT-IS-PRESTO" class="headerlink" title="WHAT IS PRESTO?"></a>WHAT IS PRESTO?</h1><p>Presto is an open source distributed SQL query engine for running interactive analytic queries against data sources of all sizes ranging from gigabytes to petabytes.</p>
-<p>Presto was designed and written from the ground up for interactive analytics and approaches the speed of commercial data warehouses while scaling to the size of organizations like Facebook.</p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Presto is a distributed system that runs on a cluster of machines. A full installation includes a coordinator and multiple workers. Queries are submitted from a client such as the Presto CLI to the coordinator. The coordinator parses, analyzes and plans the query execution, then distributes the processing to the workers.</p>
-<p>Presto does not use MapReduce and thus only requires HDFS.</p>
-<h2 id="Separation-of-Storage-and-Compute"><a href="#Separation-of-Storage-and-Compute" class="headerlink" title="Separation of Storage and Compute"></a>Separation of Storage and Compute</h2><p>Architected for separation of storage and compute, Presto can scale up and down based on your analytics demand to access this data. There’s no need to move your data and provisioning compute to the exact need results in significant cost savings.</p>
-<h3 id="Config-Properties"><a href="#Config-Properties" class="headerlink" title="Config Properties"></a>Config Properties</h3><p>The config properties file, etc/config.properties, contains the configuration for the Presto server. Every Presto server can function as both a coordinator and a worker, but dedicating a single machine to only perform coordination work provides the best performance on larger clusters.</p>
-<h3 id="Catalog-Properties"><a href="#Catalog-Properties" class="headerlink" title="Catalog Properties"></a>Catalog Properties</h3><p>Presto accesses data via connectors, which are mounted in catalogs. The connector provides all of the schemas and tables inside of the catalog. For example, the Hive connector maps each Hive database to a schema, so if the Hive connector is mounted as the hive catalog, and Hive contains a table clicks in database web, that table would be accessed in Presto as hive.web.clicks.</p>
-<p>Catalogs are registered by creating a catalog properties file in the etc/catalog directory. For example, create etc/catalog/jmx.properties with the following contents to mount the jmx connector as the jmx catalog:</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-09-Chronicle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-08-09-Chronicle/" class="post-title-link" itemprop="url">Chronicle</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Chronicle Software is about simplifying fast data.  It is a suite of libraries to make it easier to write, monitor and tune data processing systems where performance and scalability are concerned.</p>
-<h1 id="Writing-to-a-Queue"><a href="#Writing-to-a-Queue" class="headerlink" title="Writing to a Queue"></a>Writing to a Queue</h1><p>In Chronicle Queue we refer to the act of writing your data to the Chronicle queue, as storing an excerpt. This data could be made up from any data type, including text, numbers, or serialised blobs. Ultimately, all your data, regardless of what it is, is stored as a series of bytes.</p>
-<p>Just before storing your excerpt, Chronicle Queue reserves an 8-byte header. Chronicle Queue writes the length of your data into this header. This way, when Chronicle Queue comes to read your excerpt, it knows how long each blob of data is. We refer to this 8-byte header, along with your excerpt, as a document. So strictly speaking Chronicle Queue can be used to read and write documents.</p>
-<blockquote>
-<p>Within this 8-byte header we also reserve a few bits for a number of internal operations, such as locking, to make Chronicle Queue thread-safe across both processors and threads. The important thing to note is that because of this, you can’t strictly convert the 8 bytes to an integer to find the length of your data blob.</p>
-</blockquote>
-<p>To write data to a Chronicle-Queue, you must first create an Appender</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (ChronicleQueue queue = SingleChronicleQueueBuilder.binary(path + <span class="string">"/trades"</span>).build()) &#123;</span><br><span class="line">   <span class="keyword">final</span> ExcerptAppender appender = queue.acquireAppender();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Chronicle Queue uses the following low-level interface to write the data:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="keyword">final</span> DocumentContext dc = appender.writingDocument()) &#123;</span><br><span class="line">      dc.wire().write().text(“your text data“);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>So, Chronicle Queue uses an <code>Appender to write</code> to the queue and a <code>Tailer to read</code> from the queue. Unlike other java queuing solutions, messages are not lost when they are read with a Tailer. </p>
-<p>Each Chronicle Queue excerpt has a unique index.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="keyword">final</span> DocumentContext dc = appender.writingDocument()) &#123;</span><br><span class="line">    dc.wire().write().text(“your text data“);</span><br><span class="line">    System.out.println(<span class="string">"your data was store to index="</span>+ dc.index());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>The high-level methods below such as writeText() are convenience methods on calling appender.writingDocument(), but both approaches essentially do the same thing. The actual code of writeText(CharSequence text) looks like this:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> text to write a message</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writeText</span><span class="params">(CharSequence text)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (DocumentContext dc = writingDocument()) &#123;</span><br><span class="line">        dc.wire().bytes().append8bit(text);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>This is the highest-level API which hides the fact you are writing to messaging at all. The benefit is that you can swap calls to the interface with a real component, or an interface to a different protocol.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// using the method writer interface.</span></span><br><span class="line">RiskMonitor riskMonitor = appender.methodWriter(RiskMonitor.class);</span><br><span class="line"><span class="keyword">final</span> LocalDateTime now = LocalDateTime.now(Clock.systemUTC());</span><br><span class="line">riskMonitor.trade(<span class="keyword">new</span> TradeDetails(now, <span class="string">"GBPUSD"</span>, <span class="number">1.3095</span>, <span class="number">10e6</span>, Side.Buy, <span class="string">"peter"</span>));</span><br></pre></td></tr></table></figure>
-
-<p>You can write a “self-describing message”. Such messages can support schema changes. They are also easier to understand when debugging or diagnosing problems.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// writing a self describing message</span></span><br><span class="line">appender.writeDocument(w -&gt; w.write(<span class="string">"trade"</span>).marshallable(</span><br><span class="line">        m -&gt; m.write(<span class="string">"timestamp"</span>).dateTime(now)</span><br><span class="line">                .write(<span class="string">"symbol"</span>).text(<span class="string">"EURUSD"</span>)</span><br><span class="line">                .write(<span class="string">"price"</span>).float64(<span class="number">1.1101</span>)</span><br><span class="line">                .write(<span class="string">"quantity"</span>).float64(<span class="number">15e6</span>)</span><br><span class="line">                .write(<span class="string">"side"</span>).object(Side.class, Side.Sell)</span><br><span class="line">                .write(<span class="string">"trader"</span>).text(<span class="string">"peter"</span>)));</span><br></pre></td></tr></table></figure>
-
-<p>You can write “raw data” which is self-describing. The types will always be correct; position is the only indication as to the meaning of those values.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// writing just data</span></span><br><span class="line">appender.writeDocument(w -&gt; w</span><br><span class="line">        .getValueOut().int32(<span class="number">0x123456</span>)</span><br><span class="line">        .getValueOut().int64(<span class="number">0x999000999000L</span>)</span><br><span class="line">        .getValueOut().text(<span class="string">"Hello World"</span>));</span><br></pre></td></tr></table></figure>
-
-<p>You can write “raw data” which is not self-describing. Your reader must know what this data means, and the types that were used.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// writing raw data</span></span><br><span class="line">appender.writeBytes(b -&gt; b</span><br><span class="line">        .writeByte((<span class="keyword">byte</span>) <span class="number">0x12</span>)</span><br><span class="line">        .writeInt(<span class="number">0x345678</span>)</span><br><span class="line">        .writeLong(<span class="number">0x999000999000L</span>)</span><br><span class="line">        .writeUtf8(<span class="string">"Hello World"</span>));</span><br></pre></td></tr></table></figure>
-
-<p>This is the lowest level way to write data. You get an address to raw memory and you can write what you want.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Unsafe low level</span></span><br><span class="line">appender.writeBytes(b -&gt; &#123;</span><br><span class="line">    <span class="keyword">long</span> address = b.address(b.writePosition());</span><br><span class="line">    Unsafe unsafe = UnsafeMemory.UNSAFE;</span><br><span class="line">    unsafe.putByte(address, (<span class="keyword">byte</span>) <span class="number">0x12</span>);</span><br><span class="line">    address += <span class="number">1</span>;</span><br><span class="line">    unsafe.putInt(address, <span class="number">0x345678</span>);</span><br><span class="line">    address += <span class="number">4</span>;</span><br><span class="line">    unsafe.putLong(address, <span class="number">0x999000999000L</span>);</span><br><span class="line">    address += <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = <span class="string">"Hello World"</span>.getBytes(StandardCharsets.ISO_8859_1);</span><br><span class="line">    unsafe.copyMemory(bytes, Unsafe.ARRAY_BYTE_BASE_OFFSET, <span class="keyword">null</span>, address, bytes.length);</span><br><span class="line">    b.writeSkip(<span class="number">1</span> + <span class="number">4</span> + <span class="number">8</span> + bytes.length);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>You can print the contents of the queue. You can see the first two, and last two messages store the same data.</p>
-<p>// dump the content of the queue<br>System.out.println(queue.dump());</p>
-<h1 id="position-262568-header-0"><a href="#position-262568-header-0" class="headerlink" title="position: 262568, header: 0"></a>position: 262568, header: 0</h1><p>— !!data #binary<br>trade: {<br>  timestamp: 2016-07-17T15:18:41.141,<br>  symbol: GBPUSD,<br>  price: 1.3095,<br>  quantity: 10000000.0,<br>  side: Buy,<br>  trader: peter<br>}</p>
-<h1 id="position-262684-header-1"><a href="#position-262684-header-1" class="headerlink" title="position: 262684, header: 1"></a>position: 262684, header: 1</h1><p>— !!data #binary<br>trade: {<br>  timestamp: 2016-07-17T15:18:41.141,<br>  symbol: EURUSD,<br>  price: 1.1101,<br>  quantity: 15000000.0,<br>  side: Sell,<br>  trader: peter<br>}</p>
-<h1 id="position-262800-header-2"><a href="#position-262800-header-2" class="headerlink" title="position: 262800, header: 2"></a>position: 262800, header: 2</h1><p>— !!data #binary<br>!int 1193046<br>168843764404224<br>Hello World</p>
-<h1 id="position-262830-header-3"><a href="#position-262830-header-3" class="headerlink" title="position: 262830, header: 3"></a>position: 262830, header: 3</h1><p>— !!data #binary<br>000402b0       12 78 56 34 00 00  90 99 00 90 99 00 00 0B   ·xV4·· ········<br>000402c0 48 65 6C 6C 6F 20 57 6F  72 6C 64                Hello Wo rld</p>
-<h1 id="position-262859-header-4"><a href="#position-262859-header-4" class="headerlink" title="position: 262859, header: 4"></a>position: 262859, header: 4</h1><p>— !!data #binary<br>000402c0                                               12                 ·<br>000402d0 78 56 34 00 00 90 99 00  90 99 00 00 0B 48 65 6C xV4····· ·····Hel<br>000402e0 6C 6F 20 57 6F 72 6C 64 </p>
-<h2 id="Finding-the-index-at-the-end-of-a-Chronicle-Queue"><a href="#Finding-the-index-at-the-end-of-a-Chronicle-Queue" class="headerlink" title="Finding the index at the end of a Chronicle Queue"></a>Finding the index at the end of a Chronicle Queue</h2><p>Chronicle Queue appenders are thread-local. In fact when you ask for:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> ExcerptAppender appender = queue.acquireAppender();</span><br></pre></td></tr></table></figure>
-
-<p>the acquireAppender() uses a thread-local pool to give you an appender which will be reused to reduce object creation.</p>
-<p>As such, the method call to:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> index = appender.lastIndexAppended();</span><br></pre></td></tr></table></figure>
-
-<p>will only give you the last index appended by this appender; not the last index appended by any appender.</p>
-<p>If you wish to find the index of the last record written, then you have to call:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> index = queue.createTailer().toEnd().index();</span><br></pre></td></tr></table></figure>
-
-<h2 id="Dumping-a-Chronicle-Queue-cq4-file-as-text-to-the-Command-Line"><a href="#Dumping-a-Chronicle-Queue-cq4-file-as-text-to-the-Command-Line" class="headerlink" title="Dumping a Chronicle Queue, cq4 file as text to the Command Line"></a>Dumping a Chronicle Queue, cq4 file as text to the Command Line</h2><p>Chronicle Queue stores its data in binary format, with a file extension of cq4:</p>
-<p>\��@π�header∂�SCQStoreÇE���»wireType∂�WireTypeÊBINARYÕwritePositionèèèèß��������ƒroll∂�SCQSRollÇ*���∆length¶ÄÓ6�∆format<br>ÎyyyyMMdd-HH≈epoch¶ÄÓ6�»indexing∂SCQSIndexingÇN��� indexCount•��ÃindexSpacing�Àindex2Indexé����ß��������…lastIndexé�<br>���ß��������ﬂlastAcknowledgedIndexReplicatedé������ßˇˇˇˇˇˇˇˇ»recovery∂�TimedStoreRecoveryÇ����…timeStampèèèß����������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������<br>This can often be a bit difficult to read, so it is better to dump the cq4 files as text. This can also help you fix your production issues, as it gives you the visibility as to what has been stored in the queue, and in what order.</p>
-<p>You have to use the chronicle-queue.jar, from any version 4.5.3 or later, and set up the dependent files in the class path. </p>
-<p>$ java -cp chronicle-queue-4.5.5.jar net.openhft.chronicle.queue.DumpQueueMain 19700101-02.cq4</p>
-<p>this will dump the 19700101-02.cq4 file out as text, as shown below:</p>
-<p>— !!meta-data #binary<br>header: !SCQStore {<br>  wireType: !WireType BINARY,<br>  writePosition: 0,<br>  roll: !SCQSRoll {<br>    length: !int 3600000,<br>    format: yyyyMMdd-HH,<br>    epoch: !int 3600000<br>  },<br>  indexing: !SCQSIndexing {<br>    indexCount: !short 4096,<br>    indexSpacing: 4,<br>    index2Index: 0,<br>    lastIndex: 0<br>  },<br>  lastAcknowledgedIndexReplicated: -1,<br>  recovery: !TimedStoreRecovery {<br>    timeStamp: 0<br>  }<br>}</p>
-<p>…<br>4198044 bytes remaining</p>
-<h2 id="Reading-from-a-Queue-using-a-Tailer"><a href="#Reading-from-a-Queue-using-a-Tailer" class="headerlink" title="Reading from a Queue using a Tailer"></a>Reading from a Queue using a Tailer</h2><p>Reading the queue follows the same pattern as writing, except there is a possibility there is not a message when you attempt to read it.</p>
-<p>Start Reading</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (ChronicleQueue queue = SingleChronicleQueueBuilder.binary(path + <span class="string">"/trades"</span>).build()) &#123;</span><br><span class="line">   <span class="keyword">final</span> ExcerptTailer tailer = queue.createTailer();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>You can turn each message into a method call based on the content of the message.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reading using method calls</span></span><br><span class="line">RiskMonitor monitor = System.out::println;</span><br><span class="line">MethodReader reader = tailer.methodReader(monitor);</span><br><span class="line"><span class="comment">// read one message</span></span><br><span class="line">assertTrue(reader.readOne());</span><br></pre></td></tr></table></figure>
-
-<p>You can decode the message yourself.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">assertTrue(tailer.readDocument(w -&gt; w.read(<span class="string">"trade"</span>).marshallable(</span><br><span class="line">        m -&gt; &#123;</span><br><span class="line">            LocalDateTime timestamp = m.read(<span class="string">"timestamp"</span>).dateTime();</span><br><span class="line">            String symbol = m.read(<span class="string">"symbol"</span>).text();</span><br><span class="line">            <span class="keyword">double</span> price = m.read(<span class="string">"price"</span>).float64();</span><br><span class="line">            <span class="keyword">double</span> quantity = m.read(<span class="string">"quantity"</span>).float64();</span><br><span class="line">            Side side = m.read(<span class="string">"side"</span>).object(Side.class);</span><br><span class="line">            String trader = m.read(<span class="string">"trader"</span>).text();</span><br><span class="line">            <span class="comment">// do something with values.</span></span><br><span class="line">        &#125;)));</span><br></pre></td></tr></table></figure>
-
-<p>You can read self-describing data values. This will check the types are correct, and convert as required.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">assertTrue(tailer.readDocument(w -&gt; &#123;</span><br><span class="line">    ValueIn in = w.getValueIn();</span><br><span class="line">    <span class="keyword">int</span> num = in.int32();</span><br><span class="line">    <span class="keyword">long</span> num2 = in.int64();</span><br><span class="line">    String text = in.text();</span><br><span class="line">    <span class="comment">// do something with values</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-
-<p>You can read raw data as primitives and strings.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">assertTrue(tailer.readBytes(in -&gt; &#123;</span><br><span class="line">    <span class="keyword">int</span> code = in.readByte();</span><br><span class="line">    <span class="keyword">int</span> num = in.readInt();</span><br><span class="line">    <span class="keyword">long</span> num2 = in.readLong();</span><br><span class="line">    String text = in.readUtf8();</span><br><span class="line">    assertEquals(<span class="string">"Hello World"</span>, text);</span><br><span class="line">    <span class="comment">// do something with values</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-
-<p>or, you can get the underlying memory address and access the native memory.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">assertTrue(tailer.readBytes(b -&gt; &#123;</span><br><span class="line">    <span class="keyword">long</span> address = b.address(b.readPosition());</span><br><span class="line">    Unsafe unsafe = UnsafeMemory.UNSAFE;</span><br><span class="line">    <span class="keyword">int</span> code = unsafe.getByte(address);</span><br><span class="line">    address++;</span><br><span class="line">    <span class="keyword">int</span> num = unsafe.getInt(address);</span><br><span class="line">    address += <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">long</span> num2 = unsafe.getLong(address);</span><br><span class="line">    address += <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">int</span> length = unsafe.getByte(address);</span><br><span class="line">    address++;</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[length];</span><br><span class="line">    unsafe.copyMemory(<span class="keyword">null</span>, address, bytes, Unsafe.ARRAY_BYTE_BASE_OFFSET, bytes.length);</span><br><span class="line">    String text = <span class="keyword">new</span> String(bytes, StandardCharsets.UTF_8);</span><br><span class="line">    assertEquals(<span class="string">"Hello World"</span>, text);</span><br><span class="line">    <span class="comment">// do something with values</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-
-<h3 id="Tailers-and-File-Handlers-Clean-up"><a href="#Tailers-and-File-Handlers-Clean-up" class="headerlink" title="Tailers and File Handlers Clean up"></a>Tailers and File Handlers Clean up</h3><p>Chronicle queue tailers may create file handlers, the file handlers are cleaned up whenever the associated chronicle queue is close() or whenever the Jvm runs a Garbage Collection. </p>
-<h3 id="ExcerptTailer-toEnd"><a href="#ExcerptTailer-toEnd" class="headerlink" title="ExcerptTailer.toEnd()"></a>ExcerptTailer.toEnd()</h3><p>In some applications, it may be necessary to start reading from the end of the queue (e.g. in a restart scenario). For this use-case, ExcerptTailer provides the toEnd() method.</p>
-<p>If it is necessary to read backwards through the queue from the end, then the tailer can be set to read backwards:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ExcerptTailer tailer = queue.createTailer();</span><br><span class="line">tailer.direction(TailerDirection.BACKWARD).toEnd();</span><br></pre></td></tr></table></figure>
-
-<p>When reading backwards, then the toEnd() method will move the tailer to the last record in the queue. If the queue is not empty, then there will be a DocumentContext available for reading:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// this will be true if there is at least one message in the queue</span></span><br><span class="line"><span class="keyword">boolean</span> messageAvailable = tailer.toEnd().direction(TailerDirection.BACKWARD).</span><br><span class="line">        readingDocument().isPresent();</span><br></pre></td></tr></table></figure>
-
-<h1 id="Low-GC"><a href="#Low-GC" class="headerlink" title="Low GC"></a>Low GC</h1><p>Ultra low GC means less than one minor collection per day.</p>
-<p>the principles of Zero-copy eliminating unnecessary garbage collection and increased speed. Runtime code generation that reduces code size for efficient CPU cache usage and increased speed. Smart ordering for optimal parsing and you guessed it increased speed. All these combine to allow Chronicle FIX to achieve excellent performance results.</p>
-<h1 id="Low-garbage-rate"><a href="#Low-garbage-rate" class="headerlink" title="Low garbage rate"></a>Low garbage rate</h1><p>Minimising garbage is key to avoiding GC pauses. To use your L1 and L2 cache efficiently, you need to keep your garbage rates very low.  If you are not using these cache efficiently your application can be 2-5x slower. </p>
-<p>The garbage from Chronicle is low enough that you can process one million events without jstat detecting you have created any garbage.  jstat only displays multiples of 4 KB, and only when a new TLAB is allocated.  Chronicle does create garbage, but it is extremely low. i.e. a few objects per million events processes.</p>
-<p>Once you make the GC pauses manageable, or non-existent, you start to see other sources of delay in your system.   Take away the boulders and you start to see the rocks.  Take away the rocks and you start to see the pebbles.</p>
-<h1 id="Chronicle-has-minimal-interaction-with-the-Operating-System"><a href="#Chronicle-has-minimal-interaction-with-the-Operating-System" class="headerlink" title="Chronicle has minimal interaction with the Operating System."></a>Chronicle has minimal interaction with the Operating System.</h1><p>System calls are slow, and if you can avoid call the OS, you can save significant amounts of latency. </p>
-<p>For example, if you send a message over TCP on loopback, this can add a 10 micro-seconds latency between writing and reading the data.  You can write to a chronicle, which is a plain write to memory, and read from chronicle, which is also a read from memory with a latency of 0.2 micro-seconds. (And as I mentioned before, you get persistence as well)</p>
-<h1 id="No-need-to-worry-about-running-out-of-heap"><a href="#No-need-to-worry-about-running-out-of-heap" class="headerlink" title="No need to worry about running out of heap."></a>No need to worry about running out of heap.</h1><p>A common problem with unbounded queues and this uses an open ended amount of heap.  </p>
-<p>Chronicle solves this by not using the heap to store data, but instead using memory mapped files.  This improve memory utilisation by making the data more compact but also means a 1 GB JVM can stream 1 TB of data over a day without worrying about the heap or how much main memory you have.  In this case, an unbounded queue becomes easier to manage.</p>
-<h1 id="how-it-works"><a href="#how-it-works" class="headerlink" title="how it works"></a>how it works</h1><p>Chronicle uses a memory mapped file to continuously journal messages, chronicles file-based storage will slowly grow in size as more data is written to the queue, the size of the queue can exceed your available memory, you are only constrained by the amount of disk space you have on your server. Chronicle writes data directly into off-heap memory which is shared between java processes on the same server.</p>
-<p>Chronicle is very fast, it is able to write and read a message in just two microseconds with no garbage. Typically at the end of each day, you archive the queue and start the next day with a fresh empty queue.</p>
-<h1 id="Chronicle-Queue-is-a-distributed-unbounded-persisted-queue"><a href="#Chronicle-Queue-is-a-distributed-unbounded-persisted-queue" class="headerlink" title="Chronicle Queue is a distributed unbounded persisted queue."></a>Chronicle Queue is a distributed unbounded persisted queue.</h1><p>Chronicle Queue:</p>
-<p>supports asynchronous RMI and Publish/Subscribe interfaces with microsecond latencies.</p>
-<p>passes messages between JVMs in under a microsecond (in optimised examples)</p>
-<p>passes messages between JVMs on different machines via replication in under 10 microseconds (in optimised examples)</p>
-<p>provides stable, soft, real time latencies into the millions of messages per second for a single thread to one queue; with total ordering of every event.</p>
-<h2 id="Queue-introduction"><a href="#Queue-introduction" class="headerlink" title="Queue introduction"></a>Queue introduction</h2><p>Chronicle Queue is a Java project focused on building a persisted low-latency messaging framework for high performance and critical applications.</p>
-<p>Chronicle diagram 005<br>At first glance Chronicle Queue can be seen as simply another queue implementation. However, it has major design choices that should be emphasised.</p>
-<p>Using non-heap storage options (RandomAccessFile), Chronicle Queue provides a processing environment where applications do not suffer from Garbage Collection (GC). When implementing high-performance and memory-intensive applications (you heard the fancy term “bigdata”?) in Java, one of the biggest problems is garbage collection.</p>
-<p>Garbage collection may slow down your critical operations non-deterministically at any time. In order to avoid non-determinism, and escape from garbage collection delays, off-heap memory solutions are ideal. The main idea is to manage your memory manually so it does not suffer from garbage collection. Chronicle Queue behaves like a management interface over off-heap memory so you can build your own solutions over it.</p>
-<p>Chronicle Queue uses RandomAccessFiles while managing memory and this choice brings lots of possibilities. RandomAccessFiles permit non-sequential, or random, access to a file’s contents. To access a file randomly, you open the file, seek a particular location, and read from or write to that file. RandomAccessFiles can be seen as “large” C-type byte arrays that you can access at any random index “directly” using pointers. File portions can be used as ByteBuffers if the portion is mapped into memory.</p>
-<p>This memory mapped file is also used for exceptionally fast interprocess communication (IPC) without affecting your system performance. There is no garbage collection as everything is done off-heap.</p>
-<h2 id="Message-type"><a href="#Message-type" class="headerlink" title="Message type"></a>Message type</h2><ul>
-<li>TCP: Stream-oriented </li>
-<li>UDP, SCTP: message-oriented .</li>
-</ul>
-<h2 id="On-heap-vs-off-heap-memory-usage"><a href="#On-heap-vs-off-heap-memory-usage" class="headerlink" title="On heap vs off heap memory usage"></a>On heap vs off heap memory usage</h2><p>Overview</p>
-<p>I was recently asked about the benefits and wisdom of using off heap memory in Java.  The answers may be of interest to others facing the same choices.</p>
-<p>Off heap memory is nothing special.  The thread stacks, application code, NIO buffers are all off heap.  In fact in C and C++, you only have unmanaged memory as it does not have a managed heap by default.  The use of managed memory or “heap” in Java is a special feature of the language. Note: Java is not the only language to do this.<br>new Object() vs Object pool vs Off Heap memory.</p>
-<p>new Object()</p>
-<p>Before Java 5.0, using object pools was very popular.  Creating objects was still very expensive.   However, from Java 5.0, object allocation and garbage cleanup was made much cheaper, and developers found they got a performance speed up and a simplification of their code by removing object pools and just creating new objects whenever needed.  Before Java 5.0, almost any object pool, even an object pool which used objects provided an improvement, from Java 5.0 pooling only expensive objects obviously made sense e.g. threads, socket and database connections.</p>
-<p>Object pools</p>
-<p>In the low latency space it was still apparent that recycling mutable objects improved performance by reduced pressure on your CPU caches.  These objects have to have simple life cycles and have a simple structure, but you could see significant improvements in performance and jitter by using them.<br>Another area where it made sense to use object pools is when loading large amounts of data with many duplicate objects. With a significant reduction in memory usage and a reduction in the number of objects the GC had to manage, you saw a reduction in GC times and an increase in throughput.<br>These object pools were designed to be more light weight than say using a synchronized HashMap, and so they still helped.</p>
-<p>Take this StringInterner class as an example. You pass it a recycled mutable StringBuilder of the text you want as a String and it will provide a String which matches.  Passing a String would be inefficient as you would have already created the object.  The StringBuilder can be recycled.<br>Note: this structure has an interesting property that requires no additional thread safety features, like volatile or synchronized, other than is provided by the minimum Java guarantees. i.e. you can see the final fields in a String correctly and only read consistent references.</p>
-<p>public class StringInterner {<br>    private final String[] interner;<br>    private final int mask;<br>    public StringInterner(int capacity) {<br>        int n = Maths.nextPower2(capacity, 128);<br>        interner = new String[n];<br>        mask = n - 1;<br>    }</p>
-<pre><code>private static boolean isEqual(@Nullable CharSequence s, @NotNull CharSequence cs) {
-    if (s == null) return false;
-    if (s.length() != cs.length()) return false;
-    for (int i = 0; i &lt; cs.length(); i++)
-        if (s.charAt(i) != cs.charAt(i))
-            return false;
-    return true;
-}
-
-@NotNull
-public String intern(@NotNull CharSequence cs) {
-    long hash = 0;
-    for (int i = 0; i &lt; cs.length(); i++)
-        hash = 57 * hash + cs.charAt(i);
-    int h = (int) Maths.hash(hash) &amp; mask;
-    String s = interner[h];
-    if (isEqual(s, cs))
-        return s;
-    String s2 = cs.toString();
-    return interner[h] = s2;
-}</code></pre><p>}
-Off heap memory usage</p>
-<p>Using off heap memory and using object pools both help reduce GC pauses, this is their only similarity.  Object pools are good for short lived mutable objects, expensive to create objects and long live immutable objects where there is a lot of duplication.  Medium lived mutable objects, or complex objects are more likely to be better left to the GC to handle.  However, medium to long lived mutable objects suffer in a number of ways which off heap memory solves.</p>
-<p>Off heap memory provides;</p>
-<p>Scalability to large memory sizes e.g. over 1 TB and larger than main memory.<br>Notional impact on GC pause times.<br>Sharing between processes, reducing duplication between JVMs, and making it easier to split JVMs.<br>Persistence for faster restarts or replying of production data in test.<br>The use of off heap memory gives you more options in terms of how you design your system.  The most important improvement is not performance, but determinism.</p>
-<p>Off heap and testing</p>
-<p>One of the biggest challenges in high performance computing is reproducing obscure bugs and being able to prove you have fixed them.  By storing all your input events and data off heap in a persisted way you can turn your critical systems into a series of complex state machines. (Or in simple cases, just one state machine) In this way you get reproducible behaviour and performance between test and production.</p>
-<p>A number of investment banks use this technique to replay a system reliably to any event in the day and work out exactly why that event was processed the way it was.  More importantly, once you have a fix you can show that you have fixed the issue which occurred in production, instead of finding an issue and hoping this was the issue.</p>
-<p>Along with deterministic behaviour comes deterministic performance.  In test environments, you can replay the events with realistic timings and show the latency distribution you expect to get in production.  Some system jitter can’t be reproduce esp if the hardware is not the same, but you can get pretty close when you take a statistical view.  To avoid taking a day to replay a day of data you can add a threshold. e.g. if the time between events is more than 10 ms you might only wait 10 ms.  This can allow you to replay a day of events with realistic timing in under an hour and see whether your changes have improved your latency distribution or not.</p>
-<p>By going more low level don’t you lose some of “compile once, run anywhere”?</p>
-<p>To some degree this is true, but it is far less than you might think.  When you are working closer the processor and so you are more dependant on how the processor, or OS behaves.  Fortunately, most systems use AMD/Intel processors and even ARM processors are becoming more compatible in terms of the low level guarantees they provide.  There is also differences in the OSes, and these techniques tend to work better on Linux than Windows.  However, if you develop on MacOSX or Windows and use Linux for production, you shouldn’t have any issues.  This is what we do at Higher Frequency Trading.</p>
-<p>What new problems are we creating by using off heap?</p>
-<p>Nothing comes for free, and this is the case with off heap.  The biggest issue with off heap is your data structures become less natural.  You either need a simple data structure which can be mapped directly to off heap, or you have a complex data structure which serializes and deserializes to put it off heap.  Obvious using serialization has its own headaches and performance hit.  Using serialization thus much slower than on heap objects.</p>
-<p>In the financial world, most high ticking data structure are flat and simple, full of primitives which maps nicely off heap with little overhead.</p>
-<h1 id="How-does-Chronicle-Queue-work"><a href="#How-does-Chronicle-Queue-work" class="headerlink" title="How does Chronicle Queue work"></a>How does Chronicle Queue work</h1><h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><ul>
-<li>Messages are grouped by topics. A topic can contain any number of sub-topics which are logically stored together under the queue/topic.</li>
-<li>An appender is the source of messages.</li>
-<li>A tailer is a receiver of messages.</li>
-<li>Chronicle Queue is <code>broker-less</code> by default. You can use Chronicle Engine to act as a broker for remote access.</li>
-</ul>
-<blockquote>
-<p>Note<br>We deliberately avoid the term consumer as messages are not consumed/destroyed by reading.</p>
-</blockquote>
-<h2 id="At-a-high-level"><a href="#At-a-high-level" class="headerlink" title="At a high level:"></a>At a high level:</h2><ul>
-<li><p>appenders write to the end of a queue. There is no way to insert, or delete excerpts.</p>
-</li>
-<li><p>tailers read the next available message each time they are called.</p>
-</li>
-</ul>
-<p>By using Chronicle Engine, a Java or C# client can publish to a queue to act as a remote appender, and you subscribe to a queue to act as a remote tailer.</p>
-<h2 id="Topics-and-Queue-files"><a href="#Topics-and-Queue-files" class="headerlink" title="Topics and Queue files"></a>Topics and Queue files</h2><p>Each topic is a directory of queues. There is a file for each roll cycle. If you have a topic called mytopic, the layout could look like this:</p>
-<p>mytopic/<br>    20160710.cq4<br>    20160711.cq4<br>    20160712.cq4<br>    20160713.cq4<br>To copy all the data for a single day (or cycle), you can copy the file for that day on to your development machine for replay testing.</p>
-<p>Appenders and tailers are cheap as they don’t even require a TCP connection; they are just a few Java objects.</p>
-<h2 id="File-Retention"><a href="#File-Retention" class="headerlink" title="File Retention"></a>File Retention</h2><p>You can add a StoreFileListener to notify you when a file is added, or no longer used. This can be used to delete files after a period of time. However, by default, files are retained forever. Our largest users have over 100 TB of data stored in queues.</p>
-<h2 id="Every-Tailer-sees-every-message"><a href="#Every-Tailer-sees-every-message" class="headerlink" title="Every Tailer sees every message."></a>Every Tailer sees every message.</h2><p>An abstraction can be added to filter messages, or assign messages to just one message processor. However, in general you only need one main tailer for a topic, with possibly, some supporting tailers for monitoring etc.</p>
-<p>As Chronicle Queue doesn’t partition its topics, you get total ordering of all messages within that topic. Across topics, there is no guarantee of ordering; if you want to replay deterministically from a system which consumes from multiple topics, we suggest replaying from that system’s output.</p>
-<h1 id="Guarantees"><a href="#Guarantees" class="headerlink" title="Guarantees"></a>Guarantees</h1><p>Chronicle Queue provides the following guarantees;</p>
-<p>for each appender, messages are written in the order the appender wrote them. Messages by different appenders are interleaved,</p>
-<p>for each tailer, it will see every message for a topic in the same order as every other tailer,</p>
-<p>when replicated, every replica has a copy of every message.</p>
-<h1 id="Use-Cases"><a href="#Use-Cases" class="headerlink" title="Use Cases"></a>Use Cases</h1><p>Chronicle Queue is most often used for producer-centric systems where you need to retain a lot of data for days or years.</p>
-<h2 id="What-is-a-producer-centric-system"><a href="#What-is-a-producer-centric-system" class="headerlink" title="What is a producer-centric system?"></a>What is a producer-centric system?</h2><p>Most messaging systems are consumer-centric. Flow control is implemented to avoid the consumer ever getting overloaded; even momentarily. A common example is a server supporting multiple GUI users. Those users might be on different machines (OS and hardware), different qualities of network (latency and bandwidth), doing a variety of other things at different times. For this reason it makes sense for the client consumer to tell the producer when to back off, delaying any data until the consumer is ready to take more data.</p>
-<p>Chronicle Queue is a producer-centric solution and does everything possible to never push back on the producer, or tell it to slow down. This makes it a powerful tool, providing a big buffer between your system, and an upstream producer over which you have little, or no, control.</p>
-<p>For market data in particular, real time means in a few microseconds; it doesn’t mean intra-day (during the day).</p>
-<p>Chronicle Queue is fast and efficient, and has been used to increase the speed that data is passed between threads. In addition, it also keeps a record of every message passed allowing you to significantly reduce the amount of logging that you need to do.</p>
-<h2 id="Latency-Sensitive-Micro-services"><a href="#Latency-Sensitive-Micro-services" class="headerlink" title="Latency Sensitive Micro-services"></a>Latency Sensitive Micro-services</h2><p>Chronicle Queue supports low latency IPC (Inter Process Communication) between JVMs on the same machine in the order of magnitude of 1 microsecond; as well as between machines with a typical latency of 10 microseconds for modest throughputs of a few hundred thousands. Chronicle Queue supports throughputs of millions of events per second, with stable microsecond latencies.</p>
-<h2 id="Log-Replacement"><a href="#Log-Replacement" class="headerlink" title="Log Replacement"></a>Log Replacement</h2><p>As Chronicle Queue can be used to build state machines. All the information about the state of those components can be reproduced externally, without direct access to the components, or to their state. This significantly reduces the need for additional logging.</p>
-<p>However, any logging you do need can be recorded in great detail. This makes enabling DEBUG logging in production practical. This is because the cost of logging is very low; less than 10 microseconds. Logs can be replicated centrally for log consolidation.</p>
-<p>Chronicle Queue is being used to store 100+ TB of data, which can be replayed from any point in time.</p>
-<h1 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h1><h2 id="MappedFile"><a href="#MappedFile" class="headerlink" title="MappedFile"></a>MappedFile</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> net.openhft.chronicle.bytes;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.Jvm;</span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.OS;</span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.ReferenceCounted;</span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.ReferenceCounter;</span><br><span class="line"><span class="keyword">import</span> net.openhft.chronicle.core.io.IORuntimeException;</span><br><span class="line"><span class="keyword">import</span> org.jetbrains.annotations.NotNull;</span><br><span class="line"><span class="keyword">import</span> org.jetbrains.annotations.Nullable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.RandomAccessFile;</span><br><span class="line"><span class="keyword">import</span> java.lang.ref.WeakReference;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.FileChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.FileChannel.MapMode;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.FileLock;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicBoolean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> net.openhft.chronicle.core.io.Closeable.closeQuietly;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A memory mapped files which can be randomly accessed in chunks. It has overlapping regions to</span></span><br><span class="line"><span class="comment"> * avoid wasting bytes at the end of chunks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MappedFile</span> <span class="keyword">implements</span> <span class="title">ReferenceCounted</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> DEFAULT_CAPACITY = <span class="number">128L</span> &lt;&lt; <span class="number">40</span>;</span><br><span class="line">    <span class="comment">// A single JVM cannot lock a file more than once.</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object GLOBAL_FILE_LOCK = <span class="keyword">new</span> Object();</span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RandomAccessFile raf;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> FileChannel fileChannel;</span><br></pre></td></tr></table></figure>
-
-<p>public interface BytesStore extends RandomDataInput, RandomDataOutput, ReferencedCount, CharSequence</p>
-<p>public interface Memory {<br>    default long heapUsed() {<br>        Runtime runtime = Runtime.getRuntime();<br>        return runtime.totalMemory() - runtime.freeMemory();<br>    }</p>
-<pre><code>@Override
-@ForceInline
-public void writeByte(long address, byte b) {
-    UNSAFE.putByte(address, b);
-}</code></pre><p>/**</p>
-<ul>
-<li>Marker annotation for some methods and constructors in the JSR 292 implementation.</li>
-<li><p></p></li>
-<li>To utilise this annotation se Chronicle Enterprise Warmup module.</li>
-<li>/
-@Target({ElementType.METHOD, ElementType.CONSTRUCTOR})<br>@Retention(RetentionPolicy.RUNTIME)<br>public @interface ForceInline {<br>}</li>
-</ul>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://github.com/OpenHFT/Chronicle-Queue" target="_blank" rel="noopener">https://github.com/OpenHFT/Chronicle-Queue</a></li>
-<li><a href="http://vanillajava.blogspot.com/2015/08/what-does-chronicle-software-do.html" target="_blank" rel="noopener">http://vanillajava.blogspot.com/2015/08/what-does-chronicle-software-do.html</a></li>
-</ul>
-
+            <h1 id="Scala-String"><a href="#Scala-String" class="headerlink" title="Scala String"></a>Scala String</h1><p>Scala offers the magic of implicit conver‐ sions, String instances also have access to all the methods of the StringOps class, so you can do many other things with them, such as treating a String instance as a sequence of characters. As a result, you can iterate over every character in the string using the foreach method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"hello"</span>.foreach(println) h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l o</span><br><span class="line"><span class="comment">//You can treat a String as a sequence of characters in a for loop:</span></span><br><span class="line">scala&gt; <span class="keyword">for</span> (c &lt;- <span class="string">"hello"</span>) println(c)</span><br><span class="line"></span><br><span class="line">scala&gt; val result = <span class="string">"hello world"</span>.filter(_ != <span class="string">'l'</span>) result: String = heo word</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1526,7 +1337,7 @@ public void writeByte(long address, byte b) {
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

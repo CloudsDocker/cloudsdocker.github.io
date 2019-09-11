@@ -195,6 +195,90 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-20-DeadLock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-20-DeadLock/" class="post-title-link" itemprop="url">Dead Lock</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><ul>
+<li>Two or more threads are <strong>waiting</strong> for <strong>each other</strong> to <strong>release lock</strong> and get <strong>stuck for infinite time</strong>.</li>
+<li>It will only happen in case of <strong>multitasking</strong>.</li>
+</ul>
+<h2 id="One-screnario-of-dead-lock"><a href="#One-screnario-of-dead-lock" class="headerlink" title="One screnario of dead lock"></a>One screnario of dead lock</h2><p>If method1() and method2() both will be called by two or many threads , there is a good chance of deadlock because if thread 1 acquires lock on Sting object while executing method1() and thread 2 acquires lock on Integer object while executing method2() both will be waiting for each other to release lock on Integer and String to proceed further which will never happen.</p>
+<h3 id="The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock"><a href="#The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock" class="headerlink" title="The root cause is NOT multithreading, but the way they are requiring lock"></a>The root cause is NOT multithreading, but <strong>the way they are requiring lock</strong></h3><p>Now there would not be any deadlock because both methods are accessing lock on Integer and String class literal in same order. So, if thread A acquires lock on Integer object , thread B will not proceed until thread A releases Integer lock, same way thread A will not be blocked even if thread B holds String lock because now thread B will not expect thread A to release Integer lock to proceed further.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-21-Algorithm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -400,6 +484,92 @@
 <li><a href="http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/" target="_blank" rel="noopener">http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/</a></li>
 </ul>
 
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-26-IT-Architect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-26-IT-Architect/" class="post-title-link" itemprop="url">IT-Architect</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="SOA"><a href="#SOA" class="headerlink" title="SOA"></a>SOA</h1><ul>
+<li>SOA is a set of design principles for building a suite of interoperable, flexible and reusable services based architecture.</li>
+<li>top-down and bottom-up approach SOA patterns</li>
+</ul>
+<h1 id="Design-Patterns"><a href="#Design-Patterns" class="headerlink" title="Design Patterns"></a>Design Patterns</h1><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><ul>
+<li>Being single sometimes has its advantages you know. I’m often used to manage pools of resources, like connection or thread pools.</li>
+<li>The Singleton Pattern ensures a class has only one instance, and provides <strong>a global point of access to it</strong>.</li>
+<li>WATCH IT!</li>
+</ul>
+<p><strong>Double-checked locking doesn’t work in Java 1.4 or earlier</strong>!
+Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementations of the <strong>volatile keyword that allow improper synchronization for double-checked locking</strong>. If you must use a JVM earlier than Java 5, consider other methods of implementing your Singleton.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>
           
         
       
@@ -912,83 +1082,6 @@ Access to resources guarded by an exclusive lock is serialized—only one thread
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-06-Eclipse-tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-02-06-Eclipse-tips/" class="post-title-link" itemprop="url">Eclipse notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="How-do-I-remove-a-plug-in"><a href="#How-do-I-remove-a-plug-in" class="headerlink" title="How do I remove a plug-in?"></a>How do I remove a plug-in?</h1><p>Run Help &gt; About Eclipse &gt; Installation Details, select the software you no longer want and click Uninstall. (On Macintosh it is Eclipse &gt; About Eclipse &gt; Installation Details.)</p>
-<h1 id="Where-is-the-Eclipse-Plugin-update-error-log"><a href="#Where-is-the-Eclipse-Plugin-update-error-log" class="headerlink" title="Where is the Eclipse Plugin update error log?"></a>Where is the Eclipse Plugin update error log?</h1><p>The log is located at current workspace: {workspace_path}/.metadata/.log - also you can view this log in view “Error Log”: Window &gt; Show View &gt; Other &gt; Find here “Error Log”</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-03-Maven-Notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1394,7 +1487,7 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-09-R-Lang/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-06-Eclipse-tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1410,7 +1503,7 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-02-09-R-Lang/" class="post-title-link" itemprop="url">R Language</a>
+              <a href="/2017-02-06-Eclipse-tips/" class="post-title-link" itemprop="url">Eclipse notes</a>
             
           </h1>
         
@@ -1442,8 +1535,8 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
 
       
           
-            <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s&lt;-read.csv(<span class="string">"C:/Users/xxx/dev/R/IRS/SHH_SCHISHG.csv"</span>)</span><br><span class="line"><span class="comment"># aggregate </span></span><br><span class="line">s2&lt;-table(s$Original.CP)</span><br><span class="line">s3&lt;-as.data.frame(s2)</span><br><span class="line"><span class="comment"># extract by Frequency ordered </span></span><br><span class="line">s3[order(-s3$Freq),]</span><br></pre></td></tr></table></figure>
-
+            <h1 id="How-do-I-remove-a-plug-in"><a href="#How-do-I-remove-a-plug-in" class="headerlink" title="How do I remove a plug-in?"></a>How do I remove a plug-in?</h1><p>Run Help &gt; About Eclipse &gt; Installation Details, select the software you no longer want and click Uninstall. (On Macintosh it is Eclipse &gt; About Eclipse &gt; Installation Details.)</p>
+<h1 id="Where-is-the-Eclipse-Plugin-update-error-log"><a href="#Where-is-the-Eclipse-Plugin-update-error-log" class="headerlink" title="Where is the Eclipse Plugin update error log?"></a>Where is the Eclipse Plugin update error log?</h1><p>The log is located at current workspace: {workspace_path}/.metadata/.log - also you can view this log in view “Error Log”: Window &gt; Show View &gt; Other &gt; Find here “Error Log”</p>
 
           
         
@@ -1779,104 +1872,6 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-14-SerialVersionUID/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-02-14-SerialVersionUID/" class="post-title-link" itemprop="url">SeriableVersionUID</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Noteworthy-points-about-SeriableVersionUID-in-Java"><a href="#Noteworthy-points-about-SeriableVersionUID-in-Java" class="headerlink" title="Noteworthy points about SeriableVersionUID in Java"></a>Noteworthy points about SeriableVersionUID in Java</h1><h2 id="Preventing-ClassCastExceptions-with-SerialVersionUID-Problem"><a href="#Preventing-ClassCastExceptions-with-SerialVersionUID-Problem" class="headerlink" title="Preventing ClassCastExceptions with SerialVersionUID Problem"></a>Preventing ClassCastExceptions with SerialVersionUID Problem</h2><ul>
-<li>Your classes were recompiled, and you’re getting ClassCastExceptions that you shouldn’t.<br>Solution</li>
-<li>Run serialver to generate a “serial version UUID” and paste its output into your classes before you start. Or use your IDE’s tools for this purpose.<br>Discussion</li>
-<li>When a class is undergoing a period of evolution—particularly a class being used in a networking context such as RMI or servlets—it may be useful to provide a serialVersionUID value in this class. This is a long that is basically a hash of the methods and fields in the class. Both the object serialization API (see Saving and Restoring Java Objects) and the JVM, when asked to cast one object to another (common when using collections, as in Chapter 7), either look up or, if not found, compute this value. If the value on the source and destination do not match, a ClassCastException is thrown. Most of the time, this is the correct thing for Java to do.<br>However, sometimes you may want to allow a class to evolve in a compatible way, but you can’t immediately replace all instances in circulation. You must be willing to write code to account for the additional fields being discarded if restoring from the longer format to the shorter and having the default value (null for objects, 0 for numbers, and false for Boolean) if you’re restoring from the shorter format to the longer. If you are only adding fields and methods in a reasonably compatible way, you can control the compatibility by providing a long int named serialVersionUID. The initial value should be obtained from a JDK tool called serialver, which takes just the class name. Consider a simple class called SerializableUser:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializableUser</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> String address;</span><br><span class="line">    <span class="keyword">public</span> String country;</span><br><span class="line">    <span class="keyword">public</span> String phoneNum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other fields, and methods, here...</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>I first compiled it with two different compilers to ensure that the value is a product of the class structure, not of some minor differences in class file format that different compilers might emit:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$ jikes +E SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br></pre></td></tr></table></figure>
-
-<p>Sure enough, the class file from both compilers has the same hash. Now let’s change the file. I go in with an editor and add a new field, phoneNum, right after country:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> String country;</span><br><span class="line"><span class="keyword">public</span> String phoneNum;      <span class="comment">// Added this line.</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -8339341455288589756L;</span><br></pre></td></tr></table></figure>
-
-<p>Notice how the addition of the field changed the serialVersionUID! Now, if I had wanted this class to evolve in a compatible fashion, here’s what I should have done before I started expanding it. I copy and paste the original serialver output into the source file (again using an editor to insert a line before the last line):</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// The following is the line I added to SerializableUser.java</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Now all is well: I can interchange serialized versions of this file.<br>Note that serialver is part of the “object serialization” mechanism, and, therefore, it is meaningful only on classes that implement the Serializable interface described in Saving and Restoring Java Objects.<br>Note also that some developers use serialVersionUID values that start at 1 (a choice offered by some IDEs when they note that a class that appears to be serializable lacks a serialVersionUID), and then simply increment it by one each time the class changes in an incompatible way.</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1915,7 +1910,7 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

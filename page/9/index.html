@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-21-Java-JIT/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-09-R-Lang/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-02-21-Java-JIT/" class="post-title-link" itemprop="url">Java JIT compiler</a>
+              <a href="/2017-02-09-R-Lang/" class="post-title-link" itemprop="url">R Language</a>
             
           </h1>
         
@@ -243,46 +243,8 @@
 
       
           
-            <h1 id="This-is-talking-about-Java-JIT-Just-In-Time-compiler"><a href="#This-is-talking-about-Java-JIT-Just-In-Time-compiler" class="headerlink" title="This is talking about Java JIT (Just-In-Time) compiler"></a>This is talking about Java JIT (Just-In-Time) compiler</h1><ul>
-<li><p>That trade-off is one reason that the compiler executes the interpreted code first—the compiler can figure out which methods are called frequently enough to warrant their compilation.<br>The second reason is one of optimization: the more times that the JVM executes a particular method or loop, the more information it has about that code. This allows the JVM to make a number of optimizations when it compiles the code.</p>
-</li>
-<li><p>At some point in time, the suminstance variable must reside in main memory, but retrieving a value from main memory is an expensive operation that takes multiple cycles to complete. If the value of sumwere to be retrieved from (and stored back to) main memory on every iteration of this loop, performance would be dismal. Instead, the compiler will load a register with the initial value of sum, perform the loop using that value in the register, and then (at an indeterminate point in time) store the final result from the register back to main memory.<br>This kind of optimization is very effective, but it means that the semantics of thread synchronization (see Chapter 9) are crucial to the behavior of the application</p>
-</li>
-<li><p>One thread cannot see the value of a variable stored in the register used by another thread; synchronization makes it possible to know exactly when the register is stored to main memory and available to other threads.<br>Register usage is a general optimization of the compiler, and when escape analysis is enabled (see the end of this chapter), register use is quite aggressive.</p>
-</li>
-</ul>
-<ul>
-<li><p>If the size of your heap will be less than about 3 GB, the 32-bit version of Java will be faster and have a smaller footprint. This is because the memory references within the JVM will be only 32 bits, and manipulating those memory references is less expensive than manipulating 64-bit references (even if you have a 64-bit CPU). The 32-bit references also use less memory.</p>
-</li>
-<li><p>JVM developers (and even some tools) often refer to the compilers by the names C1<br>(compiler 1, client compiler) and C2 (compiler 2, server compiler).</p>
-</li>
-<li><p>The primary difference between the two compilers is their aggressiveness in compiling<br>code. The client compiler begins compiling sooner than the server compiler does. This<br>means that during the beginning of code execution, the client compiler will be faster,<br>because it will have compiled correspondingly more code than the server compiler.</p>
-</li>
-<li><p>The engineering trade-off here is the knowledge the server compiler gains while it waits:<br>that knowledge allows the server compiler to make better optimizations in the compiled<br>code. Ultimately, code produced by the server compiler will be faster than that produced<br>by the client compiler. From a user’s perspective, the benefit to that trade-off is based<br>on how long the program will run, and how important the startup time of the program<br>is.</p>
-</li>
-<li><p>The obvious question here is why there needs to be a choice at all: couldn’t the JVM<br>start with the client compiler, and then use the server compiler as code gets hotter? That<br>technique is known as tiered compilation. With tiered compilation, code is first compiled<br>by the client compiler; as it becomes hot, it is recompiled by the server compiler.</p>
-</li>
-<li><p>To use tiered compilation, specify<br>the server compiler (either with -server or by ensuring it is the default for the particular<br>Java installation being used), and ensure that the Java command line includes the flag</p>
-</li>
-<li><p>XX:+TieredCompilation (the default value of which is false). In Java 8, tiered compilation<br>is enabled by default.</p>
-</li>
-<li><p>The client compiler is most often used when fast startup is the primary objective.</p>
-</li>
-</ul>
-<ol>
-<li>The client compiler is most useful when the startup of an application<br>is the overriding performance concern.</li>
-<li>Tiered compilation can achieve startup times very close to those<br>obtained from the client compiler.</li>
-</ol>
-<ul>
-<li>It is also interesting that tiered compilation is always slightly better than the standard<br>server compiler. In theory, once the program has run enough to compile all the hot<br>spots, the server compiler might be expected to achieve the best (or at least equal) performance.<br>But in any application, there will almost always be some small section of code<br>that is infrequently executed. It is better to compile that code—even if the compilation<br>is not the best that might be achieved—than to execute that code in interpreted mode.</li>
-</ul>
-<ol>
-<li>For jobs that run in a fixed amount of time, choose the compiler<br>based on which one is the fastest at executing the actual job.</li>
-<li>Tiered compilation provides a reasonable default choice for batch<br>jobs.</li>
-</ol>
-<ul>
-<li>For long-running applications, always choose the server compiler, preferably in conjunction with tiered compilation.</li>
-</ul>
+            <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s&lt;-read.csv(<span class="string">"C:/Users/xxx/dev/R/IRS/SHH_SCHISHG.csv"</span>)</span><br><span class="line"><span class="comment"># aggregate </span></span><br><span class="line">s2&lt;-table(s$Original.CP)</span><br><span class="line">s3&lt;-as.data.frame(s2)</span><br><span class="line"><span class="comment"># extract by Frequency ordered </span></span><br><span class="line">s3[order(-s3$Freq),]</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -310,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-21-aws/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-14-SerialVersionUID/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -326,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-03-21-aws/" class="post-title-link" itemprop="url">AWS Tips</a>
+              <a href="/2017-02-14-SerialVersionUID/" class="post-title-link" itemprop="url">SeriableVersionUID</a>
             
           </h1>
         
@@ -358,7 +320,29 @@
 
       
           
-            <p>After establishing a SSH session, you can install a default web server by executing sudo yum install httpd -y. To start the web server, type sudo service httpd start and press Return to execute the command. Your web browser should show a placeholder site if you open http://$PublicIp with $PublicIp replaced by the public IP address of your virtual server.</p>
+            <h1 id="Noteworthy-points-about-SeriableVersionUID-in-Java"><a href="#Noteworthy-points-about-SeriableVersionUID-in-Java" class="headerlink" title="Noteworthy points about SeriableVersionUID in Java"></a>Noteworthy points about SeriableVersionUID in Java</h1><h2 id="Preventing-ClassCastExceptions-with-SerialVersionUID-Problem"><a href="#Preventing-ClassCastExceptions-with-SerialVersionUID-Problem" class="headerlink" title="Preventing ClassCastExceptions with SerialVersionUID Problem"></a>Preventing ClassCastExceptions with SerialVersionUID Problem</h2><ul>
+<li>Your classes were recompiled, and you’re getting ClassCastExceptions that you shouldn’t.<br>Solution</li>
+<li>Run serialver to generate a “serial version UUID” and paste its output into your classes before you start. Or use your IDE’s tools for this purpose.<br>Discussion</li>
+<li>When a class is undergoing a period of evolution—particularly a class being used in a networking context such as RMI or servlets—it may be useful to provide a serialVersionUID value in this class. This is a long that is basically a hash of the methods and fields in the class. Both the object serialization API (see Saving and Restoring Java Objects) and the JVM, when asked to cast one object to another (common when using collections, as in Chapter 7), either look up or, if not found, compute this value. If the value on the source and destination do not match, a ClassCastException is thrown. Most of the time, this is the correct thing for Java to do.<br>However, sometimes you may want to allow a class to evolve in a compatible way, but you can’t immediately replace all instances in circulation. You must be willing to write code to account for the additional fields being discarded if restoring from the longer format to the shorter and having the default value (null for objects, 0 for numbers, and false for Boolean) if you’re restoring from the shorter format to the longer. If you are only adding fields and methods in a reasonably compatible way, you can control the compatibility by providing a long int named serialVersionUID. The initial value should be obtained from a JDK tool called serialver, which takes just the class name. Consider a simple class called SerializableUser:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializableUser</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> String address;</span><br><span class="line">    <span class="keyword">public</span> String country;</span><br><span class="line">    <span class="keyword">public</span> String phoneNum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other fields, and methods, here...</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>I first compiled it with two different compilers to ensure that the value is a product of the class structure, not of some minor differences in class file format that different compilers might emit:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$ jikes +E SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br></pre></td></tr></table></figure>
+
+<p>Sure enough, the class file from both compilers has the same hash. Now let’s change the file. I go in with an editor and add a new field, phoneNum, right after country:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> String country;</span><br><span class="line"><span class="keyword">public</span> String phoneNum;      <span class="comment">// Added this line.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -8339341455288589756L;</span><br></pre></td></tr></table></figure>
+
+<p>Notice how the addition of the field changed the serialVersionUID! Now, if I had wanted this class to evolve in a compatible fashion, here’s what I should have done before I started expanding it. I copy and paste the original serialver output into the source file (again using an editor to insert a line before the last line):</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// The following is the line I added to SerializableUser.java</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Now all is well: I can interchange serialized versions of this file.<br>Note that serialver is part of the “object serialization” mechanism, and, therefore, it is meaningful only on classes that implement the Serializable interface described in Saving and Restoring Java Objects.<br>Note also that some developers use serialVersionUID values that start at 1 (a choice offered by some IDEs when they note that a class that appears to be serializable lacks a serialVersionUID), and then simply increment it by one each time the class changes in an incompatible way.</li>
+</ul>
 
           
         
@@ -574,6 +558,121 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-21-Java-JIT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-21-Java-JIT/" class="post-title-link" itemprop="url">Java JIT compiler</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="This-is-talking-about-Java-JIT-Just-In-Time-compiler"><a href="#This-is-talking-about-Java-JIT-Just-In-Time-compiler" class="headerlink" title="This is talking about Java JIT (Just-In-Time) compiler"></a>This is talking about Java JIT (Just-In-Time) compiler</h1><ul>
+<li><p>That trade-off is one reason that the compiler executes the interpreted code first—the compiler can figure out which methods are called frequently enough to warrant their compilation.<br>The second reason is one of optimization: the more times that the JVM executes a particular method or loop, the more information it has about that code. This allows the JVM to make a number of optimizations when it compiles the code.</p>
+</li>
+<li><p>At some point in time, the suminstance variable must reside in main memory, but retrieving a value from main memory is an expensive operation that takes multiple cycles to complete. If the value of sumwere to be retrieved from (and stored back to) main memory on every iteration of this loop, performance would be dismal. Instead, the compiler will load a register with the initial value of sum, perform the loop using that value in the register, and then (at an indeterminate point in time) store the final result from the register back to main memory.<br>This kind of optimization is very effective, but it means that the semantics of thread synchronization (see Chapter 9) are crucial to the behavior of the application</p>
+</li>
+<li><p>One thread cannot see the value of a variable stored in the register used by another thread; synchronization makes it possible to know exactly when the register is stored to main memory and available to other threads.<br>Register usage is a general optimization of the compiler, and when escape analysis is enabled (see the end of this chapter), register use is quite aggressive.</p>
+</li>
+</ul>
+<ul>
+<li><p>If the size of your heap will be less than about 3 GB, the 32-bit version of Java will be faster and have a smaller footprint. This is because the memory references within the JVM will be only 32 bits, and manipulating those memory references is less expensive than manipulating 64-bit references (even if you have a 64-bit CPU). The 32-bit references also use less memory.</p>
+</li>
+<li><p>JVM developers (and even some tools) often refer to the compilers by the names C1<br>(compiler 1, client compiler) and C2 (compiler 2, server compiler).</p>
+</li>
+<li><p>The primary difference between the two compilers is their aggressiveness in compiling<br>code. The client compiler begins compiling sooner than the server compiler does. This<br>means that during the beginning of code execution, the client compiler will be faster,<br>because it will have compiled correspondingly more code than the server compiler.</p>
+</li>
+<li><p>The engineering trade-off here is the knowledge the server compiler gains while it waits:<br>that knowledge allows the server compiler to make better optimizations in the compiled<br>code. Ultimately, code produced by the server compiler will be faster than that produced<br>by the client compiler. From a user’s perspective, the benefit to that trade-off is based<br>on how long the program will run, and how important the startup time of the program<br>is.</p>
+</li>
+<li><p>The obvious question here is why there needs to be a choice at all: couldn’t the JVM<br>start with the client compiler, and then use the server compiler as code gets hotter? That<br>technique is known as tiered compilation. With tiered compilation, code is first compiled<br>by the client compiler; as it becomes hot, it is recompiled by the server compiler.</p>
+</li>
+<li><p>To use tiered compilation, specify<br>the server compiler (either with -server or by ensuring it is the default for the particular<br>Java installation being used), and ensure that the Java command line includes the flag</p>
+</li>
+<li><p>XX:+TieredCompilation (the default value of which is false). In Java 8, tiered compilation<br>is enabled by default.</p>
+</li>
+<li><p>The client compiler is most often used when fast startup is the primary objective.</p>
+</li>
+</ul>
+<ol>
+<li>The client compiler is most useful when the startup of an application<br>is the overriding performance concern.</li>
+<li>Tiered compilation can achieve startup times very close to those<br>obtained from the client compiler.</li>
+</ol>
+<ul>
+<li>It is also interesting that tiered compilation is always slightly better than the standard<br>server compiler. In theory, once the program has run enough to compile all the hot<br>spots, the server compiler might be expected to achieve the best (or at least equal) performance.<br>But in any application, there will almost always be some small section of code<br>that is infrequently executed. It is better to compile that code—even if the compilation<br>is not the best that might be achieved—than to execute that code in interpreted mode.</li>
+</ul>
+<ol>
+<li>For jobs that run in a fixed amount of time, choose the compiler<br>based on which one is the fastest at executing the actual job.</li>
+<li>Tiered compilation provides a reasonable default choice for batch<br>jobs.</li>
+</ol>
+<ul>
+<li>For long-running applications, always choose the server compiler, preferably in conjunction with tiered compilation.</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-13-oracle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -627,6 +726,82 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT value$ FROM sys.props$ WHERE name = 'NLS_CHARACTERSET' ;</span><br><span class="line"></span><br><span class="line">VALUE$</span><br><span class="line"><span class="comment">-------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">AL32UTF8</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> NLS_DATABASE_PARAMETERS</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">u43888859@hkl105482$  lsnrctl services DHKCUSTD</span><br><span class="line"></span><br><span class="line">LSNRCTL for Linux: Version 12.1.0.2.0 - Production on 28-FEB-2017 06:40:53</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hkl105482.hk.hsbc)(PORT=2001))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=DHKCUSTD.hk.hsbc)))</span><br><span class="line">Services Summary...</span><br><span class="line">Service "DHKCUSTD.hk.hsbc" has 1 instance(s).</span><br><span class="line">  Instance "DHKCUSTD", status READY, has 1 <span class="keyword">handler</span>(s) <span class="keyword">for</span> this service...</span><br><span class="line">    <span class="keyword">Handler</span>(s):</span><br><span class="line">      <span class="string">"DEDICATED"</span> established:<span class="number">15</span> refused:<span class="number">0</span> state:ready</span><br><span class="line">         <span class="keyword">LOCAL</span> <span class="keyword">SERVER</span></span><br><span class="line">The command completed successfully</span><br></pre></td></tr></table></figure>
 
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-21-aws/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-03-21-aws/" class="post-title-link" itemprop="url">AWS Tips</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>After establishing a SSH session, you can install a default web server by executing sudo yum install httpd -y. To start the web server, type sudo service httpd start and press Return to execute the command. Your web browser should show a placeholder site if you open http://$PublicIp with $PublicIp replaced by the public IP address of your virtual server.</p>
 
           
         
@@ -1308,165 +1483,6 @@ Spring scans the application context for bean methods annotated with @Transactio
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-11-27-TypeScript/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-11-27-TypeScript/" class="post-title-link" itemprop="url">TypeScript noteworthy notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Async-Await-keywords"><a href="#Async-Await-keywords" class="headerlink" title="Async Await keywords"></a>Async Await keywords</h1><p>Async Await Support in TypeScript<br>Async - Await has been supported by TypeScript since version 1.7. Asynchronous functions are prefixed with the async keyword; await suspends the execution until an asynchronous function return promise is fulfilled and unwraps the value from the Promise returned. It was only supported for target es6 transpiling directly to ES6 generators.</p>
-<h1 id="Troubleshotting"><a href="#Troubleshotting" class="headerlink" title="Troubleshotting"></a>Troubleshotting</h1><h2 id="Unexpected-token-…"><a href="#Unexpected-token-…" class="headerlink" title="Unexpected token …"></a>Unexpected token …</h2><p>That’s because your node version is lower (e.g. node v4.x), which don’t support spread operator. You’d firstly check your node version </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
-
-<p>If above result say node is v4.x, then you should run following commands to upgrade your node. Normally you can leverage Node Package Manager <code>n</code> as below:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g n</span><br><span class="line">sudo n stable</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-01-Promise-vs-Observable/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-12-01-Promise-vs-Observable/" class="post-title-link" itemprop="url">promise vs observiable</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>The drawback of using Promises is that they’re unable to handle data sources that produce more than one value, like mouse movements or sequences of bytes in a file stream. Also, they lack the ability to retry from failure—all present in RxJS. </p>
-<p>The most important downside, moreover, is that because Promises are immutable, they can’t be cancelled. So, for instance, if you use a Promise to wrap the value of a remote HTTP call, there’s no hook or mechanism for you to cancel that work. This is unfortunate because HTTP calls, based on the XmlHttpRequest object, can be aborted,[3] but this feature isn’t honored through the Promise interface</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1505,7 +1521,7 @@ Spring scans the application context for bean methods annotated with @Transactio
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-02-Design-Principals/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-24-microservices/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-09-02-Design-Principals/" class="post-title-link" itemprop="url">漫谈开发设计中的一些‘原则’及'设计哲学'</a>
+              <a href="/2016-08-24-microservices/" class="post-title-link" itemprop="url">微服务</a>
             
           </h1>
         
@@ -243,70 +243,85 @@
 
       
           
-            <p>在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。</p>
-<h1 id="POLA"><a href="#POLA" class="headerlink" title="POLA"></a>POLA</h1><p>The principle of least astonishment (POLA) is: “If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature.”</p>
-<p>In general engineering design contexts, the principle means that a component of a system should behave in a way that users expect it to behave; that is, users should not be astonished by its behavior.</p>
-<p>A textbook formulation is: “People are part of the system. The design should match the user’s experience, expectations, and mental models.”</p>
-<p>In more practical terms, the principle aims to leverage the pre-existing knowledge of users to minimize the learning curve, for instance by designing interfaces that borrow heavily from “functionally similar or analogous programs with which your users are likely to be familiar”.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h2><p>A web site could declare an input that should autofocus when the page is loaded,[8] such as a search field (e.g., Google.com), or the username field of a login form.</p>
-<h1 id="DRY"><a href="#DRY" class="headerlink" title="DRY"></a>DRY</h1><p>这里的DRY是<code>Do Not Repeat Yourself</code>的缩写。具体解释参见 ,严谨的定义是　Every piece of knowledge must have a single, unambiguous, authoritative representation within a system，意思是：任何一部分知识在系统中必须只有单一的，清晰并且权威的展示。？？？这是啥意思，没懂。简单说就是不要重复自己任何一部分的工作。比如说，有一段代码是用于清除字条串中的HTML符号，在多个程序中会用到此功能，如果每个地方都使用如下代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">html = html.replaceAll(<span class="string">"\\&lt;.*?&gt;"</span>,<span class="string">""</span>) </span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;nbsp;"</span>,<span class="string">""</span>);</span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;amp;"</span>.<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+            <p>可以想像一下，之前的传统应用系统，像是一个大办公室里面，有各个部门，销售部，采购部，财务部。办一件事情效率比较高。但是也有一些弊端，首先，各部门都在一个房间里。</p>
 
-<p>如果是只有２，３个地方用到(Martin曾经提到过Rule of three,意思是一段代码如果被copy３次以上就应该重构到一个单独的子方法中)，你可能就直接复制过来用，但是想想是２，３百个地方用到呢？如果上面需要再做个修改(如下)，你是不是要去这个２，３百个地方去改代码。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">html = html.replaceAll(<span class="string">"&amp;lt;"</span>.<span class="string">"&lt;"</span>);</span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;gt;"</span>.<span class="string">"&gt;"</span>);</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
 
-<p>所以这个DRY的规则就是推荐使用 <code>子方法</code> 的方式，这样只需要修改一次即可. 与之类似的编程思想有 <code>DIE（Duplication is Evil）,SPoT(Single Point of Truth), SSOT (Singel Source of Truth)</code> 。 题外话，和DRY对应的是WET,意思是 “write everything twice”（任何东西都写两遍）或者”we enjoy typing” （我们就是喜欢打字编码）。　:-)。</p>
-<h1 id="KISS"><a href="#KISS" class="headerlink" title="KISS"></a>KISS</h1><p>KISS 是 Keep it simple, stupid （或者Keep it short and simple ）的简称。意思是在设计时保持简约，通俗。这个很像是现在推畅的“极简风”。<br>使用KISS有什么好处呢？如下是其中的一些：</p>
-<ul>
-<li>你可以更快的解决更多的问题</li>
-<li>你可以使用更少的代码来解决复杂的问题</li>
-<li>你可以写出更高质量的代码</li>
-<li>你可以创建更大的系统，更好的去运维</li>
-<li>你的代码将更加灵活，当有新需求时可以更好的支持扩展，修改或者重构</li>
-<li>等等</li>
-</ul>
-<p>在软件设计领域， 有一些技术具体实现这个精髓，比如 DDD (Domain Driven Design),TDD (Test Driven Develop),这个使代码集中在真正需要的功能上，而不需要其他额外的。另外一个建议是 <code>不要试图通过注释来提高代码的可读性</code>，而应该从代码本身提高。比如如下是不太好的变量定义</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// i is for 'counter' and j means total sum</span></span><br><span class="line"><span class="keyword">int</span> i, j;</span><br></pre></td></tr></table></figure>
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
 
-<p>而如下是好的设计 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// more intuitive one</span></span><br><span class="line"><span class="keyword">int</span> counter,sum;</span><br></pre></td></tr></table></figure>
+    
+      
 
-<p>与此相呼应的是称作 <code>奥卡姆剃刀</code> 或者 <code>简约之法则</code>：</p>
-<blockquote>
-<p>Occam’s razor<br>The simplest (explanation|solution) is usually the best one.<br>往往最简单的解决方案是最好的解决方案</p>
-</blockquote>
-<p>具体到以Java为例的程序设计，如下有一些实践KISS的建议</p>
-<ul>
-<li>首先，认清自己，不要认为自己是个天才，这往往是你犯的第一个错。</li>
-<li>把你的工作打散成几个子工作，每个部分不会耗费超过4-12个小时去完成</li>
-<li>把一个问题分成几个小的子问题，每个问题可以通过1个或者只要几个类就能解决。</li>
-<li>保持每个方法只做一件事，并且不要超过30-40行的代码量</li>
-<li>保持每个类的体积不要太大。</li>
-<li>不要害怕扔掉不用的代码。就像家里用不到的东西就及时扔掉一样。</li>
-</ul>
-<h1 id="New-Jersey-style-（Worse-is-better）"><a href="#New-Jersey-style-（Worse-is-better）" class="headerlink" title="New Jersey style （Worse is better）"></a>New Jersey style （Worse is better）</h1><p>新泽西风格，也叫做“Worse is better”。此原则指出，<code>系统的质量不会因为新功能的增多而提高</code>。 比如一个软件，只提供一些功能，但是用户很方便使用，有可能比一些提供了非常多令人眼花缭乱功能的“大杂烩”似的软件。比如像 Linux下面的 vi/vim, 浏览器中的Chrome.</p>
-<h1 id="SOLID"><a href="#SOLID" class="headerlink" title="SOLID"></a>SOLID</h1><p>SOLID是几个编程哲学的总称，即 SOLID (Single responsibility, Open-closed, Liskov substitution, Interface segregation and Dependency inversion) ，下面我们分别解释一下：</p>
-<h2 id="Single-responsibility-（SRP）"><a href="#Single-responsibility-（SRP）" class="headerlink" title="Single responsibility （SRP）"></a>Single responsibility （SRP）</h2><p>单一功能原则。Robert描述这个为“A class should have only one reason to change.”，即修改一个类（或者模块）有（且只能有）一个理由。简单说就是 <code>一个类或者模块只能负责一个功能</code>。举个例子，有一个模块负责生成一个报表，可以想像可能有两个理由去修改此模块，第一，报表的内容要变，第二，报表的格式要改。这两个改动是出于不同的理由，一个是内容的一个美化版面的。 而 “单一职责” 规则认为这是两个不同的职责，因此应该分成两个不同的子模块。如果把两件事情放在一起，并且不同的改动是出于不同的原因，这种设计是不好的。此规则方便系统各模块间解耦合。</p>
-<h2 id="Open-closed-principle-（OCP）"><a href="#Open-closed-principle-（OCP）" class="headerlink" title="Open/closed principle （OCP）"></a>Open/closed principle （OCP）</h2><p>开闭原则。Bertrand描述为“”software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification”;”，也就是说对于一个实体（类，模块，方法等）允许在不修改源代码的前提下扩展它的功能行为。即，你可以把 <code>新代码放到新的类或者方法中</code>，新类通过继承来重用已有代码及功能。而 <code>已有的代码只有在修bug时才去修改</code>。 此原则主要用于降低在添加新加功能时引入新的bug的风险。</p>
-<h2 id="The-Liskov-Substitution-Principle-（LSP）"><a href="#The-Liskov-Substitution-Principle-（LSP）" class="headerlink" title="The Liskov Substitution Principle （LSP）"></a>The Liskov Substitution Principle （LSP）</h2><p>里氏替换原则. 原文是 “Derived classes must be substitutable for their base classes.”，意思是，<code>派生类（子类）对象能够替换其基类（超类）对象被使用</code>。 比如说，如果 S 是T 的子类， 那么任何T类的具体实现对象都可以替换S的实现对象出现的地方，具体的调用者也不知道具体是父类还是子类，还不会出现任何错误。比如下图，调用者可以2来替换1的地方 。<br><img src="https://msdnshared.blob.core.windows.net/media/TNBlogsFS/BlogFileStorage/blogs_msdn/willy-peter_schaub/WindowsLiveWriter/SDLCSoftwareDevelopmentLifecycleflashbac_A707/image_4.png" alt></p>
-<h2 id="Interface-segregation-principle-（ISP）"><a href="#Interface-segregation-principle-（ISP）" class="headerlink" title="Interface segregation principle （ISP）"></a>Interface segregation principle （ISP）</h2><p>接口隔离。原文是 many client-specific interfaces are better than one general-purpose interface. 意思是多个特定客户端接口要好于一个宽泛用途的接口。Make fine grained interfaces that are client specific. 应该定义粒度合适的一系列接口(像下图)，以便于每个客户去实现具体的功能请求。换句话说是，客户（client）不应该必须去依赖于它用不到的功能方法。此原则的目的是系统解开耦合，从而容易重构，更改和重新部署。<br><img src="http://cdn.hackerchick.com/wp-content/uploads/2010/04/200806SOLIDIISP2.gif" alt></p>
-<h2 id="Dependency-inversion-principle-DIP"><a href="#Dependency-inversion-principle-DIP" class="headerlink" title="Dependency inversion principle (DIP)"></a>Dependency inversion principle (DIP)</h2><p>依赖反转原则. 原文是 One should “Depend upon Abstractions. Do not depend upon concretions.” 意思是 一个方法应该遵从“依赖于抽象而不是一个实例”。该原则规定：</p>
-<ol>
-<li>高层次的模块不应该依赖于低层次的模块，两者都应该依赖于抽象接口。</li>
-<li>抽象接口不应该依赖于具体实现。而具体实现则应该依赖于抽象接口。<br>这个就像是设计模式中的Adaptor适配器模式。<br>下图解释了这个原理。<br><a href="https://upload.wikimedia.org/wikipedia/commons/9/96/Dependency_inversion.png" target="_blank" rel="noopener"></a><br>图1中，高层对象A依赖于底层对象B的实现；图2中，把高层对象A对底层对象的需求抽象为一个接口A，底层对象B实现了接口A，这就是依赖反转。</li>
-</ol>
-<h1 id="SOC"><a href="#SOC" class="headerlink" title="SOC"></a>SOC</h1><p>Separation of concerns,?即关注点分离。 是处理复杂性的一个原则。由于关注点混杂在一起会导致复杂性大大增加，所以能够把不同的关注点分离开来，分别处理就是处理复杂性的一个原则，一种方法。这个与SOLID中的 SRP很类似。</p>
-<h1 id="YANGI"><a href="#YANGI" class="headerlink" title="YANGI"></a>YANGI</h1><p>是”You aren’t gonna need it”的缩写，直译是“你将来用不到它的”。这个是<a href="https://en.wikipedia.org/wiki/Extreme_programming" target="_blank" rel="noopener">极限编程</a>的一个编程思想。意思是说,永远不要因为 <code>预计</code>你会用到某个功能就去写一段代码去实现，总是只有问题出现了，<code>真的需要这个功能时才去写</code>。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://en.wikipedia.org/wiki/Principle_of_least_astonishment" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Principle_of_least_astonishment</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank" rel="noopener">DRY</a></li>
-<li><a href="http://blog.csdn.net/sinat_20645961/article/details/47393737" target="_blank" rel="noopener"> 六大设计原则–里氏替换原则【Liskov Substitution Principle】</a></li>
-<li><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)" target="_blank" rel="noopener">SOLID</a></li>
-<li><a href="http://stackoverflow.com/questions/816130/how-to-keep-my-code-simple" target="_blank" rel="noopener">how to keep code simple</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Occam%27s_razor" target="_blank" rel="noopener">奥卡姆剃刀</a></li>
-<li><a href="http://people.apache.org/~fhanik/kiss.html" target="_blank" rel="noopener">Apache KISS</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Worse_is_better" target="_blank" rel="noopener">Worse is better</a></li>
-</ul>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-30-Spark-vs-Storm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-08-30-Spark-vs-Storm/" class="post-title-link" itemprop="url">Spark-vs-Storm</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>The stark difference among Spark and Storm. Although both are claimed to process the streaming data in real time. But Spark processes it as micro-batches; whereas Storm processes per message - meaning if you intend to process things like social data, log data, etc.. you can actually apply CEP (Complex Event Processing) per tuples (i.e each social message in your example).  Spark, on other hand is good at processing small blocks of data, for instance if you are streaming a whole blobs of data (say some huge files of medical record, for example).</p>
+<p>So, obviously, I would say, give your usecase, Storm may be a better fit for your needs.</p>
+<p>And last, between distributions, I have found Hortonworks to be more easier in standing up and managing the cluster than other distribution (please take this comment with a grain of salt, as I may be slightly biased towards HWX given my comfort-zone of working around this distribution more than others)</p>
 
           
         
@@ -446,6 +461,145 @@
 <p>If the request is valid, the response SHOULD contain the entire request message in the entity-body, with a Content-Type of “message/http”. Responses to this method MUST NOT be cached.</p>
 <p>9.9 CONNECT</p>
 <p>This specification reserves the method name CONNECT for use with a proxy that can dynamically switch to being a tunnel (e.g. SSL tunneling [44]).</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-02-Design-Principals/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-09-02-Design-Principals/" class="post-title-link" itemprop="url">漫谈开发设计中的一些‘原则’及'设计哲学'</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。</p>
+<h1 id="POLA"><a href="#POLA" class="headerlink" title="POLA"></a>POLA</h1><p>The principle of least astonishment (POLA) is: “If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature.”</p>
+<p>In general engineering design contexts, the principle means that a component of a system should behave in a way that users expect it to behave; that is, users should not be astonished by its behavior.</p>
+<p>A textbook formulation is: “People are part of the system. The design should match the user’s experience, expectations, and mental models.”</p>
+<p>In more practical terms, the principle aims to leverage the pre-existing knowledge of users to minimize the learning curve, for instance by designing interfaces that borrow heavily from “functionally similar or analogous programs with which your users are likely to be familiar”.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h2><p>A web site could declare an input that should autofocus when the page is loaded,[8] such as a search field (e.g., Google.com), or the username field of a login form.</p>
+<h1 id="DRY"><a href="#DRY" class="headerlink" title="DRY"></a>DRY</h1><p>这里的DRY是<code>Do Not Repeat Yourself</code>的缩写。具体解释参见 ,严谨的定义是　Every piece of knowledge must have a single, unambiguous, authoritative representation within a system，意思是：任何一部分知识在系统中必须只有单一的，清晰并且权威的展示。？？？这是啥意思，没懂。简单说就是不要重复自己任何一部分的工作。比如说，有一段代码是用于清除字条串中的HTML符号，在多个程序中会用到此功能，如果每个地方都使用如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">html = html.replaceAll(<span class="string">"\\&lt;.*?&gt;"</span>,<span class="string">""</span>) </span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;nbsp;"</span>,<span class="string">""</span>);</span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;amp;"</span>.<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果是只有２，３个地方用到(Martin曾经提到过Rule of three,意思是一段代码如果被copy３次以上就应该重构到一个单独的子方法中)，你可能就直接复制过来用，但是想想是２，３百个地方用到呢？如果上面需要再做个修改(如下)，你是不是要去这个２，３百个地方去改代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">html = html.replaceAll(<span class="string">"&amp;lt;"</span>.<span class="string">"&lt;"</span>);</span><br><span class="line">html = html.replaceAll(<span class="string">"&amp;gt;"</span>.<span class="string">"&gt;"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>所以这个DRY的规则就是推荐使用 <code>子方法</code> 的方式，这样只需要修改一次即可. 与之类似的编程思想有 <code>DIE（Duplication is Evil）,SPoT(Single Point of Truth), SSOT (Singel Source of Truth)</code> 。 题外话，和DRY对应的是WET,意思是 “write everything twice”（任何东西都写两遍）或者”we enjoy typing” （我们就是喜欢打字编码）。　:-)。</p>
+<h1 id="KISS"><a href="#KISS" class="headerlink" title="KISS"></a>KISS</h1><p>KISS 是 Keep it simple, stupid （或者Keep it short and simple ）的简称。意思是在设计时保持简约，通俗。这个很像是现在推畅的“极简风”。<br>使用KISS有什么好处呢？如下是其中的一些：</p>
+<ul>
+<li>你可以更快的解决更多的问题</li>
+<li>你可以使用更少的代码来解决复杂的问题</li>
+<li>你可以写出更高质量的代码</li>
+<li>你可以创建更大的系统，更好的去运维</li>
+<li>你的代码将更加灵活，当有新需求时可以更好的支持扩展，修改或者重构</li>
+<li>等等</li>
+</ul>
+<p>在软件设计领域， 有一些技术具体实现这个精髓，比如 DDD (Domain Driven Design),TDD (Test Driven Develop),这个使代码集中在真正需要的功能上，而不需要其他额外的。另外一个建议是 <code>不要试图通过注释来提高代码的可读性</code>，而应该从代码本身提高。比如如下是不太好的变量定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// i is for 'counter' and j means total sum</span></span><br><span class="line"><span class="keyword">int</span> i, j;</span><br></pre></td></tr></table></figure>
+
+<p>而如下是好的设计 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// more intuitive one</span></span><br><span class="line"><span class="keyword">int</span> counter,sum;</span><br></pre></td></tr></table></figure>
+
+<p>与此相呼应的是称作 <code>奥卡姆剃刀</code> 或者 <code>简约之法则</code>：</p>
+<blockquote>
+<p>Occam’s razor<br>The simplest (explanation|solution) is usually the best one.<br>往往最简单的解决方案是最好的解决方案</p>
+</blockquote>
+<p>具体到以Java为例的程序设计，如下有一些实践KISS的建议</p>
+<ul>
+<li>首先，认清自己，不要认为自己是个天才，这往往是你犯的第一个错。</li>
+<li>把你的工作打散成几个子工作，每个部分不会耗费超过4-12个小时去完成</li>
+<li>把一个问题分成几个小的子问题，每个问题可以通过1个或者只要几个类就能解决。</li>
+<li>保持每个方法只做一件事，并且不要超过30-40行的代码量</li>
+<li>保持每个类的体积不要太大。</li>
+<li>不要害怕扔掉不用的代码。就像家里用不到的东西就及时扔掉一样。</li>
+</ul>
+<h1 id="New-Jersey-style-（Worse-is-better）"><a href="#New-Jersey-style-（Worse-is-better）" class="headerlink" title="New Jersey style （Worse is better）"></a>New Jersey style （Worse is better）</h1><p>新泽西风格，也叫做“Worse is better”。此原则指出，<code>系统的质量不会因为新功能的增多而提高</code>。 比如一个软件，只提供一些功能，但是用户很方便使用，有可能比一些提供了非常多令人眼花缭乱功能的“大杂烩”似的软件。比如像 Linux下面的 vi/vim, 浏览器中的Chrome.</p>
+<h1 id="SOLID"><a href="#SOLID" class="headerlink" title="SOLID"></a>SOLID</h1><p>SOLID是几个编程哲学的总称，即 SOLID (Single responsibility, Open-closed, Liskov substitution, Interface segregation and Dependency inversion) ，下面我们分别解释一下：</p>
+<h2 id="Single-responsibility-（SRP）"><a href="#Single-responsibility-（SRP）" class="headerlink" title="Single responsibility （SRP）"></a>Single responsibility （SRP）</h2><p>单一功能原则。Robert描述这个为“A class should have only one reason to change.”，即修改一个类（或者模块）有（且只能有）一个理由。简单说就是 <code>一个类或者模块只能负责一个功能</code>。举个例子，有一个模块负责生成一个报表，可以想像可能有两个理由去修改此模块，第一，报表的内容要变，第二，报表的格式要改。这两个改动是出于不同的理由，一个是内容的一个美化版面的。 而 “单一职责” 规则认为这是两个不同的职责，因此应该分成两个不同的子模块。如果把两件事情放在一起，并且不同的改动是出于不同的原因，这种设计是不好的。此规则方便系统各模块间解耦合。</p>
+<h2 id="Open-closed-principle-（OCP）"><a href="#Open-closed-principle-（OCP）" class="headerlink" title="Open/closed principle （OCP）"></a>Open/closed principle （OCP）</h2><p>开闭原则。Bertrand描述为“”software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification”;”，也就是说对于一个实体（类，模块，方法等）允许在不修改源代码的前提下扩展它的功能行为。即，你可以把 <code>新代码放到新的类或者方法中</code>，新类通过继承来重用已有代码及功能。而 <code>已有的代码只有在修bug时才去修改</code>。 此原则主要用于降低在添加新加功能时引入新的bug的风险。</p>
+<h2 id="The-Liskov-Substitution-Principle-（LSP）"><a href="#The-Liskov-Substitution-Principle-（LSP）" class="headerlink" title="The Liskov Substitution Principle （LSP）"></a>The Liskov Substitution Principle （LSP）</h2><p>里氏替换原则. 原文是 “Derived classes must be substitutable for their base classes.”，意思是，<code>派生类（子类）对象能够替换其基类（超类）对象被使用</code>。 比如说，如果 S 是T 的子类， 那么任何T类的具体实现对象都可以替换S的实现对象出现的地方，具体的调用者也不知道具体是父类还是子类，还不会出现任何错误。比如下图，调用者可以2来替换1的地方 。<br><img src="https://msdnshared.blob.core.windows.net/media/TNBlogsFS/BlogFileStorage/blogs_msdn/willy-peter_schaub/WindowsLiveWriter/SDLCSoftwareDevelopmentLifecycleflashbac_A707/image_4.png" alt></p>
+<h2 id="Interface-segregation-principle-（ISP）"><a href="#Interface-segregation-principle-（ISP）" class="headerlink" title="Interface segregation principle （ISP）"></a>Interface segregation principle （ISP）</h2><p>接口隔离。原文是 many client-specific interfaces are better than one general-purpose interface. 意思是多个特定客户端接口要好于一个宽泛用途的接口。Make fine grained interfaces that are client specific. 应该定义粒度合适的一系列接口(像下图)，以便于每个客户去实现具体的功能请求。换句话说是，客户（client）不应该必须去依赖于它用不到的功能方法。此原则的目的是系统解开耦合，从而容易重构，更改和重新部署。<br><img src="http://cdn.hackerchick.com/wp-content/uploads/2010/04/200806SOLIDIISP2.gif" alt></p>
+<h2 id="Dependency-inversion-principle-DIP"><a href="#Dependency-inversion-principle-DIP" class="headerlink" title="Dependency inversion principle (DIP)"></a>Dependency inversion principle (DIP)</h2><p>依赖反转原则. 原文是 One should “Depend upon Abstractions. Do not depend upon concretions.” 意思是 一个方法应该遵从“依赖于抽象而不是一个实例”。该原则规定：</p>
+<ol>
+<li>高层次的模块不应该依赖于低层次的模块，两者都应该依赖于抽象接口。</li>
+<li>抽象接口不应该依赖于具体实现。而具体实现则应该依赖于抽象接口。<br>这个就像是设计模式中的Adaptor适配器模式。<br>下图解释了这个原理。<br><a href="https://upload.wikimedia.org/wikipedia/commons/9/96/Dependency_inversion.png" target="_blank" rel="noopener"></a><br>图1中，高层对象A依赖于底层对象B的实现；图2中，把高层对象A对底层对象的需求抽象为一个接口A，底层对象B实现了接口A，这就是依赖反转。</li>
+</ol>
+<h1 id="SOC"><a href="#SOC" class="headerlink" title="SOC"></a>SOC</h1><p>Separation of concerns,?即关注点分离。 是处理复杂性的一个原则。由于关注点混杂在一起会导致复杂性大大增加，所以能够把不同的关注点分离开来，分别处理就是处理复杂性的一个原则，一种方法。这个与SOLID中的 SRP很类似。</p>
+<h1 id="YANGI"><a href="#YANGI" class="headerlink" title="YANGI"></a>YANGI</h1><p>是”You aren’t gonna need it”的缩写，直译是“你将来用不到它的”。这个是<a href="https://en.wikipedia.org/wiki/Extreme_programming" target="_blank" rel="noopener">极限编程</a>的一个编程思想。意思是说,永远不要因为 <code>预计</code>你会用到某个功能就去写一段代码去实现，总是只有问题出现了，<code>真的需要这个功能时才去写</code>。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Principle_of_least_astonishment" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Principle_of_least_astonishment</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank" rel="noopener">DRY</a></li>
+<li><a href="http://blog.csdn.net/sinat_20645961/article/details/47393737" target="_blank" rel="noopener"> 六大设计原则–里氏替换原则【Liskov Substitution Principle】</a></li>
+<li><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)" target="_blank" rel="noopener">SOLID</a></li>
+<li><a href="http://stackoverflow.com/questions/816130/how-to-keep-my-code-simple" target="_blank" rel="noopener">how to keep code simple</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Occam%27s_razor" target="_blank" rel="noopener">奥卡姆剃刀</a></li>
+<li><a href="http://people.apache.org/~fhanik/kiss.html" target="_blank" rel="noopener">Apache KISS</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Worse_is_better" target="_blank" rel="noopener">Worse is better</a></li>
+</ul>
 
           
         
@@ -1116,255 +1270,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-10-19-head-first-blockchian-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-10-19-head-first-blockchian-3/" class="post-title-link" itemprop="url">Head First Blockchina 3</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <blockquote>
-<p>Hyperledger Fabric for Mortals</p>
-</blockquote>
-<p>HyperLedger, from Arvind Krishna, Director of IBM research lab, meant to cross borders. e.g. for credit ledger, the importer and exporter in China need to make preparations few months beforehand, this is similiar to Marco Polo went to China 300 years ago.</p>
-<p>Another usage in stock market is stock loan, by using blockchain, we are going to know whose the stock came from. And the borrowers need to know who can borrow, and I need to prepare collaterials, need to check whether it comply with the processes, when I pay it back, etc. there are lots of things. right now they are handled by people manually, so going forward, if I have some stocks and I want to borrow it to earn some money, those can be programmed in blockchain. they’ll be processed by machines automatically.  this will help to show there are no inside tradings, etc. </p>
-<p>but initially as blockchian are annoymous, we are not sure whthere there are any money laundering, regulators may have concerns. So we need permisisoned blockchains. we need to one identity put aside of the transactions, so if reuiqred, can be recorded and checked, e.g. whether this is dealing with corrupted governments, etc. in addtion, it’s not requried that only one player or government to provide identity, there are many entities can provide identity service, but off couse need to follow some standards agreed.</p>
-<p>JPMorgan Chase &amp; Co has announced its second entrant into the blockchain fray, this time utilizing the smart contract enabled ethereum blockchain in creating a system called Quorum.</p>
-<p>前面第一章讲过了基本概念，可能有此抽象。接下来我们来看一些目前已经存在的真实项目和案例，好有一些形象的理解，以便为后面深入一些概念准备。</p>
-<ol>
-<li>JPMorgan 的 Juno</li>
-<li>Ripple 全球化交割网络</li>
-<li>R3 DEV</li>
-<li>以态坊</li>
-<li>万象Lab</li>
-</ol>
-<p>All of the advantages derived from basic blockchain technology can be boiled down to only two benefits; corruption resistance and redundancy.</p>
-<p>All of the advantages derived from basic blockchain technology can be boiled down to only two benefits; corruption resistance and redundancy.</p>
-<p>The crux of the issue comes down to whether or not private blockchains can ever be made secure enough to use for large amounts of value. No hacker is going to bother to attack your blockchain if it’s only being used for bingo night at a retirement home. However, the moment the world finds out that your blockchain has millions of dollars worth of payments flowing across it, you’ve basically just launched the latest hackathon, complete with a multi-million dollar, winner-take-all grand prize.</p>
-<p>For instance, a public blockchain is a transparency engine. In Vitalik Buterin’s blog post ‘On Public and Private Blockchains’ ‘On Public and Private Blockchains’ written last August, he pointed out that public blockchains “protect the users of an application from the developers, establishing that there are certain things that even the developers of an application have no authority to do.” A good example of this is a user of a social network or some other membership site where the owner changing </p>
-<p><a href="http://www.youtube.com/watch?v=810aKcfM__Q" target="_blank" rel="noopener">http://www.youtube.com/watch?v=810aKcfM__Q</a></p>
-<p>The main takeaway is that permissioned blockchains create an environment where malware has an advantage,so security problems are constant and sometimes completely overcome your network.</p>
-<p>First of all, the transaction speed of a privately-run blockchain can be faster than any other blockchain solution, approaching even the speeds of a normal database that isn’t a blockchain. This is because there are few nodes all with high trust levels. No need for every node to verify a transaction, in fact, they’re all mostly trusted so there is no need to do all of the meticulous work.</p>
-<p>Complete agreement between nodes isn’t required, so fewer nodes need to do the work for any one transaction. Lastly, and perhaps most importantly in the current environment of banks embracing private blockchains so readily, choosing a private blockchain can help protect their underlying product from disruption.</p>
-<p>Lastly, there is the desktop route, deploying a private blockchain on your desktop computer, even in a windows environment, with Multichain. It allows rapid design, deployment and operation of private blockchains to your custom specification.</p>
-<p><a href="http://r3members.com/" target="_blank" rel="noopener">http://r3members.com/</a></p>
-<p>like unique keys and check constraints cannot protect a database against malicious modifications. The bottom line is this:<br>We need a whole bunch of new stuff for shared write databases to work, and it just so happens that blockchains provide them.</p>
-<p>Some key elements include regular peer-to-peer techniques, grouping transactions into blocks, one-way cryptographic hash functions, a multi-party consensus algorithm, Some key elements include regular peer-to-peer techniques, grouping transactions into blocks, one-way cryptographic hash functions, a multi-party consensus algorithm,</p>
-<p>These types of rules can be expressed as bitcoin-style transaction constraints or Ethereum-style enforced stored procedures (“smart contracts”), each of which has advantages and disadvantages.</p>
-<p>One key difference is that private blockchains don’t need proof of work mining,since blocks are created by a closed set of identified participants.</p>
-<p>First, fear of the loss of raw power they would sustain if they went with public blockchains. Second, the fear of being supplanted by a new rising, bitcoin-centric financial industry. In fact, they would prefer that blockchain technology had never been invented.    </p>
-<p>区块链都足以产生影响和改变金融业的力量。这是由于区块链具有以下特点：（1）去中心化：区块链技术不依赖额外的第三方管理机构或硬件设施，没有中心管制，除了自成一体的区块链本身，通过分布式核算和存储，各个节点实现了信息自我验证、传递和管理。（2）开放性：区块链技术基础是开源的，除了交易各方的私有信息被加密外，区块链的数据对所有人开放，任何人都可以通过公开的接口查询区块链数据和开发相关应用，因此整个系统信息高度透明。（3）独立性：基于协商一致的规范和协议（类似比特币采用的哈希算法等各种数学算法），整个区块链系统不依赖其他第三方，所有节点能够在系统内自动安全地验证、交换数据，不需要任何人为的干预。（4）安全性：只要不能掌控全部数据节点的51%，就无法肆意操控修改网络数据，这是区块链本身变得相对安全，避免了主观人为的数据变更。（5）匿名 区块链都足以产生影响和改变金融业的力量。这是由于区块链具有以下特点：（1）去中心化：区块链技术不依赖额外的第三方管理机构或硬件设施，没有中心管制，除了自成一体的区块链本身，通过分布式核算和存储，各个节点实现了信息自我验证、传递和管理。（2）开放性：区块链技术基础是开源的，除了交易各方的私有信息被加密外，区块链的数据对所有人开放，任何人都可以通过公开的接口查询区块链数据和开发相关应用，因此整个系统信息高度透明。（3）独立性：基于协商一致的规范和协议（类似比特币采用的哈希算法等各种数学算法），整个区块链系统不依赖其他第三方，所有节点能够在系统内自动安全地验证、交换数据，不需要任何人为的干预。（4）安全性：只要不能掌控全部数据节点的51%，就无法肆意操控修改网络数据，这是区块链本身变得相对安全，避免了主观人为的数据变更。（5）匿名.  正是这些优势特点，决定区块链技术能够提高系统的追责性，降低系统的信任风险，对优化金融机构业务流程、提高金融机构的竞争力具有相当重要的意义；通过使用区块链技术，金融信息和金融价值能够得到更加严格的保护，能够实现更加高效、更低成本的流动，从而实现价值和信息的共享。</p>
-<p>区块链技术可通过程序化记录、存储、传递、核实、分析信息数据，从而形成信用，可以大量省去人力成本、中介成本，信用记录完整、难以造假，同时摧毁某些节点对系统没有影响。目前最大区块链比特币链存在费用增加、容量限制、确认时间变长、能耗走高的缺点。但例如Ripple、以太坊等另类区块链，以及公共、私有、联盟链等多种形式的涌现将区块链在金融领域造成颠覆式创新变成可能。</p>
-<p><a href="https://ripple.com/" target="_blank" rel="noopener">https://ripple.com/</a></p>
-<p>只要诚实的节点所控制的计算能力的总和，大于有合作关系的(cooperating)攻击者的计算能力的总和，该系统就是安全的</p>
-<p>Retail Giant Overstock to Issue its Own Stock on Blockchain Platform    </p>
-<h1 id="Referece"><a href="#Referece" class="headerlink" title="Referece"></a>Referece</h1><ul>
-<li><a href="https://docs.google.com/document/d/1Z4M_qwILLRehPbVRUsJ3OF8Iir-gqS-ZYe7W-LE9gnE/pub?cm_mc_uid=46896667284114692531747&cm_mc_sid_50200000=1477673527" target="_blank" rel="noopener">Hyperledger Whitepaper</a></li>
-<li><a href="https://console.ng.bluemix.net/docs/services/blockchain/ibmblockchain_overview.html" target="_blank" rel="noopener">About blockchain</a></li>
-<li><a href="https://developer.ibm.com/courses/all-courses/blockchain-for-developers/" target="_blank" rel="noopener">IBM Blockchain for developers</a></li>
-<li><a href="https://console.ng.bluemix.net/docs/services/blockchain/index.html" target="_blank" rel="noopener">Getting started with IBM Blockchain</a></li>
-<li><a href="https://www.ibm.com/developerworks/cloud/library/cl-ibm-blockchain-101-quick-start-guide-for-developers-bluemix-trs/index.html" target="_blank" rel="noopener">IBM Blockchain 101: Quick-start guide for developers</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-10-26-Continuous-Integretaion-Simpler-Chronicle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-10-26-Continuous-Integretaion-Simpler-Chronicle/" class="post-title-link" itemprop="url">Simpler chronicle of CI(Continuous Integration) “乱弹系列”之持续集成工具</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>有句话说<code>有人的地方就有江湖</code>，同样，有江湖的地方就有恩怨。在软件行业历史长河（虽然相对于其他行业来说，软件行业的历史实在太短了，但是确是充满了智慧的碰撞也是十分的精彩）中有一些恩怨情愁，分分合合的小故事，比如类似的有，从一套代码发展出来后面由于合同到期就分道扬镳，然后各自发展成独门产品的Sybase DB和微软的SQL Server；另外一个例子是，当时JBPM的两个主要开发的小伙伴离开当时的RedHat，在JBPM基础上自立门户新创建的Java工作流管理软件Activiti，等等。在持续集成工具龙头老大这个宝座，也曾经发生过合作合并，吵架分家，再对着干的事情，今天分享一下这前前后后有趣的故事。</p>
-<h1 id="DevOps"><a href="#DevOps" class="headerlink" title="DevOps"></a>DevOps</h1><p>首先，防止<strong><code>先入为主</code></strong>,以为大家都知道这个那个的。先普及下相关背景知识，如果已经了解的同学可以跳过。目前在软件工程领域已经火了好几年的<code>DevOps</code>领域，核心的模块就是<code>CI</code>与’CD’，即Continuous Integration与Continuous Deployment,也就是持续集成与持续部署，这个对于处于<code>敏捷</code>开发环境下尤其是互联网等需要高速迭代是个核心的功能，可以说没有CI，就不可能达到像Google或者Facebook这些一天有多个release的情况。</p>
-<h1 id="CI"><a href="#CI" class="headerlink" title="CI"></a>CI</h1><p>CI(Continuous Integration) 持续集成起源于 XP(极限编程)与 TDD (Test Driven Develop)也就是<strong>以测试驱动</strong>的开发模式，是防止出现所谓的’集成地狱’,即防止程序员在正常编码工作中，需要写新的业务逻辑，添加新的代码，但是同时也新引入了bug。CI会持续的（重复的）进行一些小的工作，比如不断的跑测试用例，去扫描代码等工作。以减轻或者很大程度上避免这个个新引入的bug对软件交付质量引起的负面影响。目前，市场上有很多的CI解决方案及工具，常用的如下几个，</p>
-<p><img src="http://cloudsdocker.github.io/images/travis-ci.jpg" alt><br><img src="http://cloudsdocker.github.io/images/Jenkins-Logo.png" alt><br><img src="http://cloudsdocker.github.io/images/Hudson-Logo.jpg" alt></p>
-<h1 id="CI-的进化史"><a href="#CI-的进化史" class="headerlink" title="CI 的进化史"></a>CI 的进化史</h1><p>世界上本来没有CI,用的人多了也就成就了CI。本来软件工程里是没有这个概念的。最开始，就像下图中描述的帝国时代里，整个社会节奏平稳而缓慢，每个程序员自己做自己的开发，然后各自把自己的工作上次（提交），整个团队把代码放在一起，然后整个人过来，启动make/build，后面有个人去把编译好的代码放到测试机器上，每个程序员自己或者单独的测试团队去测试程序，如果没有问题，另外的人去发布到生产环境上。这些都是或多或少由人手工去做的。</p>
-<p><img src="http://cloudsdocker.github.io/images/newcheats.gif" alt></p>
-<p>但是就像很多人类的发明就是为了人类”偷懒”一样，CI慢慢在一些想偷懒的牛人脑子里形成。这其中就有Kent Beck （多说一句，这个现在工作于Facebook的牛人，还发明创造了很多到现在还在流行的东西，比如Agile敏捷开发，以JUnit为代码的xUnit测试理念，TDD测试驱动开发等等），在上个世纪最后几年，Kent Beck创造了XP（注意这个不是Bill的那个XP操作系统），是eXtreme Programming，即极限编程。虽然现在看起来极限编程有很多很诡异不太现实的方式，比如两个程序员坐在一起，使用一台电脑一起写一段程序等天马行空的想法。但是其中一个理念就是“持续集成”（CI)。以此理念，后面出现了使用各种语言写的CI的工具，其中的老大是CruiseControl。这个就像是上图中那个跑车一样，在当时整个缓慢的大环境下其提升工作效率的效果十分的吸眼。</p>
-<p><img src="http://cloudsdocker.github.io/images/kohsuke-kawaguchi_2.jpg" alt></p>
-<p>到了2005年，当时就职于Sun(没错，就是创造了Java的那家公司)的一个叫川口浩介（Kohsuke Kawaguchi）的日本人，就是上图这位“霓虹金”，敢于冒险，重新“发明轮子”，不顾如日中天的CruiseControl，设计并开发了一个新的持续集成的软件，起名叫做Hudson。它提供了很多强大的功能，比如提供插件机制，这样就使其几乎集成了市面上所有的源代码管理工具，比如CVS, Subversion, Git, Perforce等。除此之外，它还提供了界面的扩展能力，另外还支持基于Apache Ant 和 Apache Maven的项目，除了xNix,还支持Windows环境等一众强大功能。听起来这么牛逼的工具，很快，在大约2007年的时候Hudson已经超越CruiseControl。然后在2008年5月的JavaOne大会上，Hudson获得了开发解决方案类的Duke’s Choice奖项。从此，小弟翻身做大哥，Hudson成为CI的代名词。其主要开发者 Kohsuke Kawaguchi 还获得了Google-O’Reilly Open Source Award。他后来也不用自己苦逼的写代码了，只要到处受邀去演讲做是如何受什么启发创造并发明了这么好的工具，造福大批程序员。再后来他还离职创立了公司CloudBees，出任CEO，迎娶白富美，走上人生新巅峰。（也难怪上图中他笑的如此开心）</p>
-<p>一切看起来都是那么美好。但是，天有不测风云，在2009年6月，Oracle收购Sun，所有人都蒙逼了，是不是写反了？一个传统数据库的公司收购了在Java及开源老大的Sun？！！这个消息公布之后，两个公司内部各个产品及项目就被整合，调整，Hudson也不例外。这也就算了，反正谁给钱不是干活哪，但是在2010年9月，Oracle竟然暗戳啜的把Hudson变成了注册商标。2010年11月，Hudson社区的核心开发人员发现了这个事情，他们觉得这对于一个一直标榜自己是开源CI领域“诚实可靠小郎君”的Hudson来说是个玷污。双方进行了会谈，过程不太友好，然后就不出意料的谈崩了。2011年圣诞节过后，几个秃顶的大叔觉得不要再跟Oracle的律师在这里瞎扯淡了，他们决定自立门户，自己起个新的名字叫Jenkins。然后凑钱注册网址，买服务器，列出下面的清单，统统改名，</p>
-<ul>
-<li>hudson-labs.org -&gt; jenkins-ci.org</li>
-<li>@hudsonci -&gt; @jenkinsci</li>
-<li><a href="http://github.com/hudson" target="_blank" rel="noopener">http://github.com/hudson</a> -&gt; <a href="http://github.com/jenkinsci" target="_blank" rel="noopener">http://github.com/jenkinsci</a></li>
-<li>hudson-dev -&gt; jenkins-dev</li>
-<li>hudson-users -&gt; jenkins-users</li>
-<li>hudson-commits -&gt; jenkins-commits</li>
-<li>hudson-issues -&gt; jenkins-issues</li>
-</ul>
-<p>然后把代码fork出一份来（这里好笑的是Hudson与Jenkins都声称对方是自己这里的子分叉，都跟孩子斗气似的），即便分出来了，但是绝大部分还是基于之前的核心代码，所以你可以通过下图看到Hudson与Jenkins的界面都十分类似。</p>
-<h2 id="Jenkins的界面"><a href="#Jenkins的界面" class="headerlink" title="Jenkins的界面"></a>Jenkins的界面</h2><p><img src="http://cloudsdocker.github.io/images/jenkins_jobs.png" alt></p>
-<h2 id="Hudson的界面"><a href="#Hudson的界面" class="headerlink" title="Hudson的界面"></a>Hudson的界面</h2><p><img src="http://cloudsdocker.github.io/images/hudson_gui.jpg" alt></p>
-<p>但是有一个值得注意的地方就是两个系统的logo，其中Hudson是一个高傲的老头子，而Jenkins是一个谦卑为你服务的老头子。</p>
-<p><img src="http://cloudsdocker.github.io/images/Jenkins-Logo.png" alt><br><img src="http://cloudsdocker.github.io/images/Hudson-Logo.jpg" alt></p>
-<p>分家之后，Hudson有Oracle和Sonatype’s corporate的支持和Hudson的注册商标，而Jenkins拥有的是大多数的核心开发者，社区，和后续更多的commit。比如下图是分家之后两个软件的对比。两个软件的活跃程度十分明显，Jenkins遥遥领先。</p>
-<p><img src="http://cloudsdocker.github.io/images/hudson_vs_jenkins_submit.png" alt></p>
-<h1 id="CI持续集成的工作原理"><a href="#CI持续集成的工作原理" class="headerlink" title="CI持续集成的工作原理"></a>CI持续集成的工作原理</h1><p>上面讲完了主流CI工具的江湖故事后，我们来看下这类工具本身的技术情况。其实这类工具的工作原理大同小异，比如下图，一个典型的用例是</p>
-<ul>
-<li>程序员在本地开发完成后把代码提交到VCS (Version Control System)比如SVN, Git, Perforce, RTS等</li>
-<li>CI工具发现有新的check in 自动启动去抓取最新的代码。当然这里有很多不同的配置，比如除了主动监视VSC外，还可以使用CRON等配置按时启动，比如每隔一个小时启动一次，或者每两次check in 启动一次，等等很多的策略。</li>
-<li>CI可以配置使用集群的编译机器，去选择最合适的机器（有不同的策略，比如找到最清闲或者离代码文件距离最近的机器等）来编译源代码</li>
-<li>根据不同的配置，CI有可能会调用配置好的测试用例，如果测试失败，根据策略（比如少于几个错误就先忽略）要么通知用户，要么继续跑测试用例</li>
-<li>根据配置，CI可能会去执行其他操作，比如静态源代码分析，如代码有没有不符合公司安全要求，把连接密码写在代码里面等等，还有比如生成文档，测试报告，等。</li>
-<li>如果所有定义好的jobs跑完，去生成最终报告并送给用户</li>
-<li>生成一些分析报表，比如最近成功率，最近哪些程序员造成的错误最多等等。</li>
-<li>一些高级的CI,比如Jenkinsg还支持自定义扩展，也会去按配置去执行。</li>
-</ul>
-<p><img src="http://cloudsdocker.github.io/images/jenkins-plugin-diagram-saci.png" alt="jenkins-plugin-diagram-saci"></p>
-<p>这其中如果任何一步出现了错误，比如某个程序员在提交代码时忘记同时提交一个新写的类，造成失败，首先在CI（比如Jekins，或者Travis）上会显示错误 （比如下图），同时还可以配置CI工具会发出邮件提醒，甚至可以根据提交信息智能的显示出来是哪个程序员搞砸的。</p>
-<p><img src="http://cloudsdocker.github.io/images/0082OS_02_14.png" alt></p>
-<p>总而言之，这个自动化的过程就像是一个可以配置的流水线，在其上可以添加任意个不同类型的节点，在每个节点可以通过灵活的配置来设置需要完成的工作，还提供了统计及报表，邮件通知等功能，方便团队高效的管理软件的持续集成。</p>
-<h1 id="发展及未来"><a href="#发展及未来" class="headerlink" title="发展及未来"></a>发展及未来</h1><p>目前的CI也在处于高速发展期，比如最新的Jenkins 2 可以支持使用Groovy编写插件，pipeline等。同时也出现了像是开源的<strong>Travis</strong>之类的持续集成service，即你不用自己去安装调试Jenkins，直接写个YAML文件 （.travis.yaml）放到云上，自动就可以使用其提供的服务了。</p>
-<p>另外，持续集成也在跟其他新兴技术相结合使用，比如结合云计算及分布式处理，可以提高CI的运行速度和容错能力，比如下图中的各个服务器可以分别使用cluster(集群)而非一台机器，这样就可以避免所谓的SPOF (Single Point of Failure)单点故障。</p>
-<p><img src="http://cloudsdocker.github.io/images/ci-architecture-pantheon.png" alt></p>
-<p>如果有什么问题或者想要跟我讨论，请通过如下方式找到我。</p>
-<h2 id="联系我："><a href="#联系我：" class="headerlink" title="联系我："></a>联系我：</h2><ul>
-<li><a href="mailto:phray.zhang@gmail.com" target="_blank" rel="noopener">phray.zhang@gmail.com</a> (email/邮件，whatsapp, linkedin)</li>
-<li>helloworld_2000 (wechat/微信)</li>
-<li><a href="https://github.com/CloudsDocker/" target="_blank" rel="noopener">github</a></li>
-<li>[简书 jianshu]（<a href="http://www.jianshu.com/users/a9e7b971aafc）" target="_blank" rel="noopener">http://www.jianshu.com/users/a9e7b971aafc）</a></li>
-<li>微信公众号：vibex</li>
-<li><a href="http://weibo.com/cloudsdocker" target="_blank" rel="noopener">webo/微博</a>: cloudsdocker</li>
-</ul>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://en.wikipedia.org/wiki/Continuous_integration" target="_blank" rel="noopener">CI in wikipedia</a></li>
-<li><a href="http://image.slidesharecdn.com/continuousintegration-100503045436-phpapp01/95/continuous-integration-system-6-728.jpg?cb=1272862514" target="_blank" rel="noopener">Slide share</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1403,7 +1308,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
