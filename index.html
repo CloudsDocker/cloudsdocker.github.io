@@ -195,6 +195,201 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2019-08-25-AWS-Certificate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2019-08-25-AWS-Certificate/" class="post-title-link" itemprop="url">AWS certification</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-11-13 21:59:48" itemprop="dateCreated datePublished" datetime="2019-11-13T21:59:48+11:00">2019-11-13</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Concepting"><a href="#Concepting" class="headerlink" title="Concepting"></a>Concepting</h1><p>Cloud computing is the on-demand delivery of IT resources and applications via the Internet with pay-as-you-go pricing. Whether you run applications that share photos to millions of mobile users or deliver services that support the critical operations of your business, the cloud provides rapid access to flexible and low-cost IT resources.</p>
+<p>In its simplest form, cloud computing <code>provides an easy way to access servers, storage</code>, databases, and a broad set of application services <code>over the Internet</code>.</p>
+<h1 id="Benefits-of-AWS"><a href="#Benefits-of-AWS" class="headerlink" title="Benefits of AWS"></a>Benefits of AWS</h1><p>There are six advantages for AWS clouding</p>
+<ol>
+<li>Global in minutes</li>
+<li>Variable vs capital expense</li>
+<li>Economies of scale</li>
+<li>Stop guessing capacity</li>
+<li>Focus on business differentaiors</li>
+<li>Increate speed and agility </li>
+</ol>
+<h2 id="Cost-saving"><a href="#Cost-saving" class="headerlink" title="Cost saving"></a>Cost saving</h2><p>One of the key benefits of cloud computing is the opportunity to <code>replace up-front capital infrastructure expenses with low variable costs</code> that scale with your business. With the cloud, businesses no longer need to plan for and procure servers and other IT infrastructure weeks or months in advance. Instead, they can instantly spin up hundres or thousands of servers in minutes and deliver results faster.</p>
+<p>With pay-per-use billing, AWS clouding services <code>become an operational expense instead of a capital expense</code>.</p>
+<h1 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h1><p>Metadata, known as tags, that you can create and assign to your Amazon EC2 resources</p>
+<p>Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Location 152). Amazon Web Services. Kindle Edition. </p>
+<h1 id="AZ-Available-Zones"><a href="#AZ-Available-Zones" class="headerlink" title="AZ (Available Zones)"></a>AZ (Available Zones)</h1><ul>
+<li>Each availability zone is a physical data center in the region, but separate from the other ones (so that they’re isolated from disasters)</li>
+<li>AWS Consoles are region scoped (except IAM, S3 &amp; Route53)</li>
+</ul>
+<h1 id="IAM"><a href="#IAM" class="headerlink" title="IAM"></a>IAM</h1><p>Your whole AWS security is there:<br>• Users<br>• Groups<br>• Roles</p>
+<p>Policies are written in JSON (JavaScript Object Notation)</p>
+<p>IAM has a <code>global</code> view</p>
+<h2 id="IAM-Federation"><a href="#IAM-Federation" class="headerlink" title="IAM Federation"></a>IAM Federation</h2><p>• Big enterprises usually integrate their own repository of users with IAM<br>• This way, one can login into AWS using their company credentials<br>• Identity Federation uses the SAML standard (Active Directory)</p>
+<p>• One IAM User per PHYSICAL PERSON<br>• One IAM Role per Application</p>
+<h1 id="VPC"><a href="#VPC" class="headerlink" title="VPC"></a>VPC</h1><p>you can optionally connect to your own network, known as virtual private clouds (VPCs)</p>
+<p>Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Locations 153-154). Amazon Web Services. Kindle Edition. </p>
+<p>Amazon VPC lets you provision a logically isolated section of the Amazon Web Services (AWS) cloud where you can launch AWS resources in a virtual network that you define. You have complete control over your virtual networking environment, including selection of your own IP address ranges, creation of subnets, and configuration of route tables and network gateways. You can also create a hardware Virtual Private Network (VPN) connection between your corporate datacenter and your VPC and leverage the AWS cloud as an extension of your corporate datacenter.</p>
+<h2 id="NACL-Network-ACL"><a href="#NACL-Network-ACL" class="headerlink" title="NACL (Network ACL)"></a>NACL (Network ACL)</h2><p>NACL is stateless.</p>
+<p>• NACL are like a firewall which control traffic from and to subnet<br>• Default NACL allows everything outbound and everything inbound<br>• One NACL per Subnet, new Subnets are assigned the Default NACL<br>• Define NACL rules:<br>• Rules have a number (1-32766) and higher precedence with a lower number<br>• E.g. If you define #100 ALLOW <ip> and #200 DENY <ip> , IP will be allowed • Last rule is an asterisk (*) and denies a request in case of no rule match<br>• AWS recommends adding rules by increment of 100<br>• Newly created NACL will deny everything<br>• NACL are a great way of blocking a specific IP at the subnet level</ip></ip></p>
+<h3 id="NACL-noteworhty-points"><a href="#NACL-noteworhty-points" class="headerlink" title="NACL noteworhty points"></a>NACL noteworhty points</h3><p>Network ACL Basics</p>
+<ul>
+<li>Your VPC automatically comes with a modifiable default network ACL. By default, it allows all inbound and outbound IPv4 traffic and, if applicable, IPv6 traffic.</li>
+</ul>
+<h1 id="Elastic-Load-Balancing"><a href="#Elastic-Load-Balancing" class="headerlink" title="Elastic Load Balancing"></a>Elastic Load Balancing</h1><p>To automatically distribute incoming application traffic across multiple instances, use Elastic Load Balancing. </p>
+<h1 id="Amazon-CloudWatch"><a href="#Amazon-CloudWatch" class="headerlink" title="Amazon CloudWatch"></a>Amazon CloudWatch</h1><p>To monitor basic statistics for your instances and Amazon EBS volumes, use Amazon CloudWatch. </p>
+<p>Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Locations 180-184). Amazon Web Services. Kindle Edition. </p>
+<h1 id="CloudTrail"><a href="#CloudTrail" class="headerlink" title="CloudTrail"></a>CloudTrail</h1><p>To monitor the calls made to the Amazon EC2 API for your account, including calls made by the AWS Management Console, command line tools, and other services, use AWS CloudTrail.</p>
+<h2 id="Charge"><a href="#Charge" class="headerlink" title="Charge"></a>Charge</h2><p> the first copy of management events is free.</p>
+<h2 id="Cloud-Trail-retention-days"><a href="#Cloud-Trail-retention-days" class="headerlink" title="Cloud Trail retention days"></a>Cloud Trail retention days</h2><p>Management event activity is recorded by AWS CloudTrail for the last 90 days, and can be viewed and searched free of charge from the AWS CloudTrail console, or by using the AWS CLI.</p>
+<h1 id="AWS-ECS"><a href="#AWS-ECS" class="headerlink" title="AWS ECS"></a>AWS ECS</h1><h2 id="Summary-AWS-ECS-–-Elastic-Container-Service"><a href="#Summary-AWS-ECS-–-Elastic-Container-Service" class="headerlink" title="Summary: AWS ECS – Elastic Container Service"></a>Summary: AWS ECS – Elastic Container Service</h2><p>• ECS is a container orchestration service<br>• ECS helps you run Docker containers on EC2 machines<br>• ECS is complicated, and made of:<br>• “ECS Core”: Running ECS on user-provisioned EC2 instances<br>• Fargate: Running ECS tasks on AWS-provisioned compute (serverless)<br>• EKS: Running ECS on AWS-powered Kubernetes (running on EC2)<br>• ECR: Docker Container Registry hosted by AWS<br>• ECS &amp; Docker are very popular for microservices<br>• For now, for the exam, only “ECS Core” &amp; ECR is in scope<br>• IAM security and roles at the ECS task level</p>
+<h2 id="AWS-ECS-–-Concepts"><a href="#AWS-ECS-–-Concepts" class="headerlink" title="AWS ECS – Concepts"></a>AWS ECS – Concepts</h2><p>• ECS cluster: set of EC2 instances<br>• ECS service: applications definitions running on ECS cluster<br>• ECS tasks + definition: containers running to create the application<br>• ECS IAM roles: roles assigned to tasks to interact with AWS</p>
+<h2 id="AWS-ECS-–-ALB-integration"><a href="#AWS-ECS-–-ALB-integration" class="headerlink" title="AWS ECS – ALB integration"></a>AWS ECS – ALB integration</h2><p>• Application Load Balancer (ALB) has a direct integration feature with ECS called “port mapping”, This allows you to run multiple instances of the same application on the same EC2 machine</p>
+<h2 id="AWS-ECS-–-ECS-Setup-amp-Config-file"><a href="#AWS-ECS-–-ECS-Setup-amp-Config-file" class="headerlink" title="AWS ECS – ECS Setup &amp; Config file"></a>AWS ECS – ECS Setup &amp; Config file</h2><p>• Run an EC2 instance, install the ECS agent with ECS config file<br>• Or use an ECS-ready Linux AMI (still need to modify config file) • ECS Config file is at /etc/ecs/ecs.config</p>
+<h2 id="AWS-ECR-–-Elastic-Container-Registry"><a href="#AWS-ECR-–-Elastic-Container-Registry" class="headerlink" title="AWS ECR – Elastic Container Registry"></a>AWS ECR – Elastic Container Registry</h2><p>• Store, managed and deploy your containers on AWS<br>• Fully integrated with IAM &amp; ECS<br>• Sent over HTTPS (encryption in flight) and encrypted at rest</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2019-09-12-Conversations-with-God/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2019-09-12-Conversations-with-God/" class="post-title-link" itemprop="url">Conversations with God</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-12 08:43:10" itemprop="dateCreated datePublished" datetime="2019-09-12T08:43:10+10:00">2019-09-12</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>Feelings is the language of the soul.<br>If you want to know what’s true for you about something, look to how your’re feeling about.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2019-07-07-Kafka/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -480,89 +675,6 @@
 <h2 id="Blocking-Sync"><a href="#Blocking-Sync" class="headerlink" title="Blocking (Sync)."></a>Blocking (Sync).</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendToKafka</span><span class="params">(<span class="keyword">final</span> MyOutputData data)</span> </span>&#123;</span><br><span class="line"><span class="keyword">final</span> ProducerRecord&lt;String, String&gt; record = createRecord(data);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">template.send(record).get(<span class="number">10</span>, TimeUnit.SECONDS); handleSuccess(data);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">        handleFailure(data, record, e.getCause());</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">catch</span> (TimeoutException | InterruptedException e) &#123; handleFailure(data, record, e);</span><br><span class="line">&#125; &#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="KafkaTransactionManager"><a href="#KafkaTransactionManager" class="headerlink" title="KafkaTransactionManager"></a>KafkaTransactionManager</h2><p>The <code>KafkaTransactionManager</code> is an implementation of Spring Framework’s <code>PlatformTransactionManager</code>;</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2019-08-25-AWS-Certificate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2019-08-25-AWS-Certificate/" class="post-title-link" itemprop="url">AWS certification</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-08-25 20:36:16" itemprop="dateCreated datePublished" datetime="2019-08-25T20:36:16+10:00">2019-08-25</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h1><p>Metadata, known as tags, that you can create and assign to your Amazon EC2 resources</p>
-<p>Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Location 152). Amazon Web Services. Kindle Edition. </p>
-<h1 id="VPC"><a href="#VPC" class="headerlink" title="VPC"></a>VPC</h1><p>you can optionally connect to your own network, known as virtual private clouds (VPCs)</p>
-<p>Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Locations 153-154). Amazon Web Services. Kindle Edition. </p>
-<h1 id="Elastic-Load-Balancing"><a href="#Elastic-Load-Balancing" class="headerlink" title="Elastic Load Balancing"></a>Elastic Load Balancing</h1><p>To automatically distribute incoming application traffic across multiple instances, use Elastic Load Balancing. </p>
-<h1 id="Amazon-CloudWatch"><a href="#Amazon-CloudWatch" class="headerlink" title="Amazon CloudWatch"></a>Amazon CloudWatch</h1><p>To monitor basic statistics for your instances and Amazon EBS volumes, use Amazon CloudWatch. </p>
-<p>Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Locations 180-184). Amazon Web Services. Kindle Edition. </p>
-<h1 id="CloudTrail"><a href="#CloudTrail" class="headerlink" title="CloudTrail"></a>CloudTrail</h1><p>To monitor the calls made to the Amazon EC2 API for your account, including calls made by the AWS Management Console, command line tools, and other services, use AWS CloudTrail.</p>
 
           
         
@@ -1486,115 +1598,11 @@ q)</code>zaphod<br>_</p>
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-05-31-Microservices-Vs-SOA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-05-31-Microservices-Vs-SOA/" class="post-title-link" itemprop="url">Microservices vs. SOA</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Microservice"><a href="#Microservice" class="headerlink" title="Microservice"></a>Microservice</h1><ul>
-<li>Services are organized around capabilities, e.g., user interface front-end, recommendation, logistics, billing, etc.</li>
-<li>Services are small in size, messaging enabled, bounded by contexts, autonomously developed, independently deployable, decentralized and built and released with automated processes.</li>
-<li>resource-oriented computing (ROC) as a generalized form of the Web abstraction. If in the Unix abstraction “everything is a file”, in ROC, everything is a “Micro-Web-Service”</li>
-</ul>
-<h2 id="Philosophy"><a href="#Philosophy" class="headerlink" title="Philosophy"></a>Philosophy</h2><p>The philosophy of the microservices architecture essentially equates to the Unix philosophy of “Do one thing and do it well”. It is described as follows:</p>
-<ul>
-<li>The services are small - fine-grained to perform a single function.</li>
-<li>The organization culture must embrace automation of testing and deployment. This eases the burden on management and operations and allows for different development teams to work on independently deployable units of code.</li>
-<li>The culture and design principles must embrace failure and faults, similar to anti-fragile systems.</li>
-<li>Each service is elastic, resilient, composable, minimal, and complete.</li>
-</ul>
-<h2 id="service-mesh"><a href="#service-mesh" class="headerlink" title="service mesh"></a>service mesh</h2><p>In a service mesh, each service instance is paired with an instance of a reverse proxy server, called a service proxy, sidecar proxy, or sidecar. The service instance and sidecar proxy share a container, and the containers are managed by a container orchestration tool such as Kubernetes.</p>
-<h1 id="Differences-between-Microservices-and-SOA"><a href="#Differences-between-Microservices-and-SOA" class="headerlink" title="Differences between Microservices and SOA"></a>Differences between Microservices and SOA</h1><h2 id="Definitaion-of-SOA"><a href="#Definitaion-of-SOA" class="headerlink" title="Definitaion of SOA"></a>Definitaion of SOA</h2><ul>
-<li><code>Boundaries</code> are explicit</li>
-<li>Services are <code>autonomous</code></li>
-<li>Services share __ schema __ and <strong>contract</strong>, not class</li>
-<li>Service compatibility is based on policy</li>
-</ul>
-<hr>
-<blockquote>
-<p>In short, the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. There is a bare mininum of centralized management of these services, which may be written in different programming languages and use different data storage technologies.</p>
-</blockquote>
-<h3 id="Related-links"><a href="#Related-links" class="headerlink" title="Related links:"></a>Related links:</h3><ul>
-<li><a href="https://www.infoq.com/news/2015/12/soa-v-microservices" target="_blank" rel="noopener">InfoQ Discussions</a></li>
-<li><a href="http://stackoverflow.com/questions/25501098/difference-between-microservices-architecture-and-soa" target="_blank" rel="noopener">StackOverFlow</a></li>
-<li><a href="http://stackoverflow.com/tags/microservices/info" target="_blank" rel="noopener">Microservices tag desc</a></li>
-<li><a href="http://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">MartinFowler</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1628,7 +1636,7 @@ q)</code>zaphod<br>_</p>
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">151</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
