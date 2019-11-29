@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-09-Docker-Errors-Fixes/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-05-Python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-09-Docker-Errors-Fixes/" class="post-title-link" itemprop="url">Docker Errors and Fixes</a>
+              <a href="/2016-06-05-Python/" class="post-title-link" itemprop="url">Python</a>
             
           </h1>
         
@@ -243,17 +243,17 @@
 
       
           
-            <h1 id="Docker-Errors"><a href="#Docker-Errors" class="headerlink" title="Docker Errors"></a>Docker Errors</h1><ol>
-<li>Cannot connect to the Docker daemon. Is the docker daemon running on this host?<br>The solution is to run under root user, e.g. </li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+            <p>(‘—–Unexpected error:’, &lt;type ‘exceptions.TypeError’&gt;) datetime.datetime.now()</p>
+<h1 id="Python-items"><a href="#Python-items" class="headerlink" title="Python items"></a>Python items</h1><p>Test item,</p>
+<p>MapReduce的设计灵感来自于函数式编程，这里不打算提MapReduce，就拿python中的map()函数来学习一下</p>
+<h1 id="Single-Qutoe-vs-Double-Quote"><a href="#Single-Qutoe-vs-Double-Quote" class="headerlink" title="Single Qutoe vs Double Quote"></a>Single Qutoe vs Double Quote</h1><p>There is no difference between using single quotes and double quotes in Python</p>
+<h1 id="Generators-presentation"><a href="#Generators-presentation" class="headerlink" title="Generators presentation:"></a>Generators presentation:</h1><p><a href="http://www.dabeaz.com/generators/Generators.pdf" target="_blank" rel="noopener">http://www.dabeaz.com/generators/Generators.pdf</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wwwlog=open(<span class="string">'weblog.debug'</span>)</span><br><span class="line">bytecolumn=(line.rsplit(<span class="literal">None</span>,<span class="number">1</span>)[<span class="number">1</span>] <span class="keyword">for</span> line <span class="keyword">in</span> wwwlog)</span><br><span class="line">bytes=(int(x) <span class="keyword">for</span> x <span class="keyword">in</span> bytecolumn <span class="keyword">if</span> x!=<span class="string">'-'</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"total:"</span>, sum(bytes)</span><br></pre></td></tr></table></figure>
 
-<ol>
-<li>Docker service</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker status</span><br><span class="line">sudo service docker start</span><br><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-
+<h2 id="Generator-as-a-pipeline"><a href="#Generator-as-a-pipeline" class="headerlink" title="Generator as a pipeline"></a>Generator as a pipeline</h2><p>At each step, we declare an operation that will be applied to the entire input stream, like <code>rsplit</code> to all lines of the input log file. Rather than take a huge memory to process a huge file.</p>
+<p>The key is ‘think big’. Instead of focusing on the problem at a line-by-line level, you just break it down into big operations that operate on the whole file.</p>
+<h3 id="Iteration-is-the-glue"><a href="#Iteration-is-the-glue" class="headerlink" title="Iteration is the glue"></a>Iteration is the glue</h3><h1 id="rsplit"><a href="#rsplit" class="headerlink" title="rsplit"></a>rsplit</h1><p><a href="http://python-reference.readthedocs.io/en/latest/docs/str/rsplit.html" target="_blank" rel="noopener">API doc</a><br>Returns a list of the words in the string, separated by the delimiter string (starting from right).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">' a b c '</span>.rsplit(<span class="literal">None</span>, <span class="number">1</span>)</span><br><span class="line">[<span class="string">' a b'</span>, <span class="string">'c'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">' a b c '</span>.rsplit(<span class="literal">None</span>, <span class="number">2</span>)</span><br><span class="line">[<span class="string">' a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br></pre></td></tr></table></figure>
           
         
       
@@ -404,6 +404,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-GIT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-13-GIT/" class="post-title-link" itemprop="url">Git commands notes</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="How-to-to-list-of-what-branch-for-a-given-commit"><a href="#How-to-to-list-of-what-branch-for-a-given-commit" class="headerlink" title="How to to list of what branch for a given commit"></a>How to to list of what branch for a given commit</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author todd --grep e2e</span><br><span class="line">$ git name-rev 78a4c4c340de70c726844e97233c58fa4738fea9</span><br><span class="line"></span><br><span class="line">78a4c4c340de70c726844e97233c58fa4738fea9 remotes/origin/feature/term-deposit-protractors~1</span><br></pre></td></tr></table></figure>
+
+<h1 id="To-search-keywords-in-js-files-only"><a href="#To-search-keywords-in-js-files-only" class="headerlink" title="To search keywords in js files only"></a>To search keywords in js files only</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name <span class="string">'*.js'</span> | xargs grep -r <span class="string">'SearchKeywords'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="One-line-command-to-add-and-commit-file"><a href="#One-line-command-to-add-and-commit-file" class="headerlink" title="One line command to add and commit file"></a>One line command to add and commit file</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status --short | awk <span class="string">'&#123;split($0, a);print a[2]&#125;'</span> | xargs git add &amp;&amp; git commit -m <span class="string">'summit status'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="to-show-files-commited-but-not-pushed"><a href="#to-show-files-commited-but-not-pushed" class="headerlink" title="to show files commited but not pushed"></a>to show files commited but not pushed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --<span class="built_in">stat</span> --cached origin/feature/BRANCH_NAME</span><br></pre></td></tr></table></figure>
+
+<h1 id="to-view-file-content-changed"><a href="#to-view-file-content-changed" class="headerlink" title="to view file content changed"></a>to view file content changed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show PATH/FILE.sql</span><br></pre></td></tr></table></figure>
+
+<h1 id="One-line-to-fetch-checkout-newly-created-branch"><a href="#One-line-to-fetch-checkout-newly-created-branch" class="headerlink" title="One line to fetch, checkout newly created branch"></a>One line to fetch, checkout newly created branch</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch &amp;&amp; git <span class="keyword">for</span>-each-ref | grep <span class="string">'AO-106'</span>  | awk <span class="string">'&#123;split($0,a);print a[3]&#125;'</span> | awk <span class="string">"&#123;split(<span class="variable">$0</span>,a, '/');print a[-1]&#125;"</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="To-get-changed-files-NOT-contains-keyword"><a href="#To-get-changed-files-NOT-contains-keyword" class="headerlink" title="To get changed files NOT contains keyword"></a>To get changed files <code>NOT</code> contains keyword</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status | grep -v <span class="string">"node_"</span></span><br></pre></td></tr></table></figure>
+
+<p>-v is for reverse</p>
+<h1 id="Cherry-picking"><a href="#Cherry-picking" class="headerlink" title="Cherry picking"></a>Cherry picking</h1><p>Cherry picking in Git is designed to <code>apply some commit from one branch into another branch</code>. 
+It can be done if you eg. made a mistake and committed a change into wrong branch, but do not want to merge the whole branch. You can just eg. revert the commit and cherry-pick it on another branch.</p>
+<p>To use it, you just need git cherry-pick hash, where hash is a commit hash from other branch.</p>
+<h2 id="Differences-among-Git-and-subversion"><a href="#Differences-among-Git-and-subversion" class="headerlink" title="Differences among Git and subversion"></a>Differences among Git and subversion</h2><p> The differences between git and other source control (like subversion) is Git have to merge conflict before upload to server, while subversion will merge conflicts at server side</p>
+<h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
+<li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
+<li>gihub</li>
+</ul>
+<h2 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h2><p>WARN  No layout: index.html</p>
+<h3 id="Following-errors-when-run-hexo-g"><a href="#Following-errors-when-run-hexo-g" class="headerlink" title="Following errors when run hexo g"></a>Following errors when run <code>hexo g</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Unhandled rejection Error: ENOENT: no such file or directory, open <span class="string">'/Users/todzhang/dev/git/blogSrc/themes/next/layout/_scripts/schemes/.swig'</span></span><br><span class="line">    at Error (native)</span><br><span class="line">    at Object.fs.openSync (fs.js:549:18)</span><br><span class="line">    at Object.fs.readFileSync (fs.js:397:15)</span><br><span class="line">    at Object.ret.load (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/loaders/filesystem.js:55:15)</span><br><span class="line">    at compileFile (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:695:31)</span><br><span class="line">    at Object.eval [as tpl] (<span class="built_in">eval</span> at &lt;anonymous&gt; (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:498:13), &lt;anonymous&gt;:338:18)</span><br><span class="line">    at compiled [as _compiledSync] (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:619:18)</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at null._compiled (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34)</span><br><span class="line">    at View.render (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/theme/view.js:29:15)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/index.js:387:25</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34</span><br><span class="line">    at RouteStream._read (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/router.js:134:3)</span><br><span class="line">    at RouteStream.Readable.read (_stream_readable.js:336:10)</span><br><span class="line">    at resume_ (_stream_readable.js:733:12)</span><br><span class="line">    at nextTickCallbackWith2Args (node.js:442:9)</span><br><span class="line">    at process._tickCallback (node.js:356:17)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h4><p>That’s because one extra space required after semi colon in _config.yml of Next, as following config</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Duoshuo ShortName</span><br><span class="line">duoshuo_shortname: cloudsdocker</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-RQFII/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-13-RQFII/" class="post-title-link" itemprop="url">RenMinBi International</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="RQFII"><a href="#RQFII" class="headerlink" title="RQFII"></a>RQFII</h1><p><code>RQFII</code> stands for Renminbi Qualified Foreign Institutional Investor. RQFII was introduced in 2011 to allow qualified foreign institutional investors to use RMB to buy securities such as bonds and shares and other investment instruments listed on the Chinese market. RQFII is an extension of the Qualified Foreign Institutional Investor (QFII) scheme established in 2002.</p>
+<h1 id="What-is-the-difference-between-QFII-and-RQFII"><a href="#What-is-the-difference-between-QFII-and-RQFII" class="headerlink" title="What is the difference between QFII and RQFII?"></a>What is the difference between QFII and RQFII?</h1><p>QFII (Qualified Foreign Institutional Investor) allows institutional investors to buy shares in mainland Chinese companies (A-shares) listed on stock exchanges in China. But they have to invest in their home currency, which is then converted. RQFII enables investors to buy into China using RMB. The government introduced it to facilitate the flow of offshore RMB into the country as the currency became more widely used globally.</p>
+<h1 id="Who-can-use-these-investment-programmes"><a href="#Who-can-use-these-investment-programmes" class="headerlink" title="Who can use these investment programmes?"></a>Who can use these investment programmes?</h1><p>Although China’s financial system is opening up, there are limits to who can invest. For a foreign institutional investor to qualify, it has to be licensed within its home country, demonstrate its capital strength, and have a track record in investments and asset management.</p>
+<h1 id="How-much-can-be-invested"><a href="#How-much-can-be-invested" class="headerlink" title="How much can be invested?"></a>How much can be invested?</h1><p>The Chinese government decides how much can be invested by allocating quotas to different countries. The limit is largely determined by demand. The RQFII quota for all countries is currently RMB970 billion (USD156 billion).</p>
+<h1 id="Which-countries-have-been-granted-an-RQFII-quota"><a href="#Which-countries-have-been-granted-an-RQFII-quota" class="headerlink" title="Which countries have been granted an RQFII quota?"></a>Which countries have been granted an RQFII quota?</h1><p>Thirteen countries have been granted RMB quotas: Australia, Canada, Chile, France, Germany, Hong Kong, Hungary, Luxembourg, Qatar, South Korea, Singapore, Switzerland and the UK. The QFII programme is open to more than 60 countries.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-github-pages/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -495,7 +679,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-GIT/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-HTTP-HTTPS2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -511,7 +695,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-13-GIT/" class="post-title-link" itemprop="url">Git commands notes</a>
+              <a href="/2016-06-14-HTTP-HTTPS2/" class="post-title-link" itemprop="url">HTTPS/2</a>
             
           </h1>
         
@@ -543,35 +727,11 @@
 
       
           
-            <h1 id="How-to-to-list-of-what-branch-for-a-given-commit"><a href="#How-to-to-list-of-what-branch-for-a-given-commit" class="headerlink" title="How to to list of what branch for a given commit"></a>How to to list of what branch for a given commit</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author todd --grep e2e</span><br><span class="line">$ git name-rev 78a4c4c340de70c726844e97233c58fa4738fea9</span><br><span class="line"></span><br><span class="line">78a4c4c340de70c726844e97233c58fa4738fea9 remotes/origin/feature/term-deposit-protractors~1</span><br></pre></td></tr></table></figure>
-
-<h1 id="To-search-keywords-in-js-files-only"><a href="#To-search-keywords-in-js-files-only" class="headerlink" title="To search keywords in js files only"></a>To search keywords in js files only</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name <span class="string">'*.js'</span> | xargs grep -r <span class="string">'SearchKeywords'</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="One-line-command-to-add-and-commit-file"><a href="#One-line-command-to-add-and-commit-file" class="headerlink" title="One line command to add and commit file"></a>One line command to add and commit file</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status --short | awk <span class="string">'&#123;split($0, a);print a[2]&#125;'</span> | xargs git add &amp;&amp; git commit -m <span class="string">'summit status'</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="to-show-files-commited-but-not-pushed"><a href="#to-show-files-commited-but-not-pushed" class="headerlink" title="to show files commited but not pushed"></a>to show files commited but not pushed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --<span class="built_in">stat</span> --cached origin/feature/BRANCH_NAME</span><br></pre></td></tr></table></figure>
-
-<h1 id="to-view-file-content-changed"><a href="#to-view-file-content-changed" class="headerlink" title="to view file content changed"></a>to view file content changed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show PATH/FILE.sql</span><br></pre></td></tr></table></figure>
-
-<h1 id="One-line-to-fetch-checkout-newly-created-branch"><a href="#One-line-to-fetch-checkout-newly-created-branch" class="headerlink" title="One line to fetch, checkout newly created branch"></a>One line to fetch, checkout newly created branch</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch &amp;&amp; git <span class="keyword">for</span>-each-ref | grep <span class="string">'AO-106'</span>  | awk <span class="string">'&#123;split($0,a);print a[3]&#125;'</span> | awk <span class="string">"&#123;split(<span class="variable">$0</span>,a, '/');print a[-1]&#125;"</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="To-get-changed-files-NOT-contains-keyword"><a href="#To-get-changed-files-NOT-contains-keyword" class="headerlink" title="To get changed files NOT contains keyword"></a>To get changed files <code>NOT</code> contains keyword</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status | grep -v <span class="string">"node_"</span></span><br></pre></td></tr></table></figure>
-
-<p>-v is for reverse</p>
-<h1 id="Cherry-picking"><a href="#Cherry-picking" class="headerlink" title="Cherry picking"></a>Cherry picking</h1><p>Cherry picking in Git is designed to <code>apply some commit from one branch into another branch</code>. 
-It can be done if you eg. made a mistake and committed a change into wrong branch, but do not want to merge the whole branch. You can just eg. revert the commit and cherry-pick it on another branch.</p>
-<p>To use it, you just need git cherry-pick hash, where hash is a commit hash from other branch.</p>
-<h2 id="Differences-among-Git-and-subversion"><a href="#Differences-among-Git-and-subversion" class="headerlink" title="Differences among Git and subversion"></a>Differences among Git and subversion</h2><p> The differences between git and other source control (like subversion) is Git have to merge conflict before upload to server, while subversion will merge conflicts at server side</p>
-<h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
-<li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
-<li>gihub</li>
+            <h1 id="concepts"><a href="#concepts" class="headerlink" title="concepts"></a>concepts</h1><ul>
+<li>HTTP : 传统 HTTP 采用明文，完全开放的编码，缺少加解密功能，很容易遭受窃取、篡改等安全威胁。尤其涉及在线交易的网站，遭遇攻击如同家常便饭。</li>
+<li>HTTPS : HTTPS 协议传输过程全程加解密，相当于增加了一层 SSL/TSL 分层协议的 HTTP，让访问更加安全。</li>
+<li>HTTPS2 : HTTP/2 本身是 HTTP 协议自 1999 年发表后的第一次更新，于 2015 年 5 月正式发布。掐指一算，这个协议积累了 16 年才更新，憋了这么久，放的一定是大招，它的更新主要体现在多路复用，二进制传输，使用 HPACK 压缩头部信息，服务端 Push 。</li>
 </ul>
-<h2 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h2><p>WARN  No layout: index.html</p>
-<h3 id="Following-errors-when-run-hexo-g"><a href="#Following-errors-when-run-hexo-g" class="headerlink" title="Following errors when run hexo g"></a>Following errors when run <code>hexo g</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Unhandled rejection Error: ENOENT: no such file or directory, open <span class="string">'/Users/todzhang/dev/git/blogSrc/themes/next/layout/_scripts/schemes/.swig'</span></span><br><span class="line">    at Error (native)</span><br><span class="line">    at Object.fs.openSync (fs.js:549:18)</span><br><span class="line">    at Object.fs.readFileSync (fs.js:397:15)</span><br><span class="line">    at Object.ret.load (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/loaders/filesystem.js:55:15)</span><br><span class="line">    at compileFile (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:695:31)</span><br><span class="line">    at Object.eval [as tpl] (<span class="built_in">eval</span> at &lt;anonymous&gt; (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:498:13), &lt;anonymous&gt;:338:18)</span><br><span class="line">    at compiled [as _compiledSync] (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:619:18)</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at null._compiled (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34)</span><br><span class="line">    at View.render (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/theme/view.js:29:15)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/index.js:387:25</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34</span><br><span class="line">    at RouteStream._read (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/router.js:134:3)</span><br><span class="line">    at RouteStream.Readable.read (_stream_readable.js:336:10)</span><br><span class="line">    at resume_ (_stream_readable.js:733:12)</span><br><span class="line">    at nextTickCallbackWith2Args (node.js:442:9)</span><br><span class="line">    at process._tickCallback (node.js:356:17)</span><br></pre></td></tr></table></figure>
-
-<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h4><p>That’s because one extra space required after semi colon in _config.yml of Next, as following config</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Duoshuo ShortName</span><br><span class="line">duoshuo_shortname: cloudsdocker</span><br></pre></td></tr></table></figure>
-
 
           
         
@@ -686,7 +846,7 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-RQFII/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-23-Equity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -702,7 +862,7 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-13-RQFII/" class="post-title-link" itemprop="url">RenMinBi International</a>
+              <a href="/2016-06-23-Equity/" class="post-title-link" itemprop="url">equity trading</a>
             
           </h1>
         
@@ -734,11 +894,12 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
 
       
           
-            <h1 id="RQFII"><a href="#RQFII" class="headerlink" title="RQFII"></a>RQFII</h1><p><code>RQFII</code> stands for Renminbi Qualified Foreign Institutional Investor. RQFII was introduced in 2011 to allow qualified foreign institutional investors to use RMB to buy securities such as bonds and shares and other investment instruments listed on the Chinese market. RQFII is an extension of the Qualified Foreign Institutional Investor (QFII) scheme established in 2002.</p>
-<h1 id="What-is-the-difference-between-QFII-and-RQFII"><a href="#What-is-the-difference-between-QFII-and-RQFII" class="headerlink" title="What is the difference between QFII and RQFII?"></a>What is the difference between QFII and RQFII?</h1><p>QFII (Qualified Foreign Institutional Investor) allows institutional investors to buy shares in mainland Chinese companies (A-shares) listed on stock exchanges in China. But they have to invest in their home currency, which is then converted. RQFII enables investors to buy into China using RMB. The government introduced it to facilitate the flow of offshore RMB into the country as the currency became more widely used globally.</p>
-<h1 id="Who-can-use-these-investment-programmes"><a href="#Who-can-use-these-investment-programmes" class="headerlink" title="Who can use these investment programmes?"></a>Who can use these investment programmes?</h1><p>Although China’s financial system is opening up, there are limits to who can invest. For a foreign institutional investor to qualify, it has to be licensed within its home country, demonstrate its capital strength, and have a track record in investments and asset management.</p>
-<h1 id="How-much-can-be-invested"><a href="#How-much-can-be-invested" class="headerlink" title="How much can be invested?"></a>How much can be invested?</h1><p>The Chinese government decides how much can be invested by allocating quotas to different countries. The limit is largely determined by demand. The RQFII quota for all countries is currently RMB970 billion (USD156 billion).</p>
-<h1 id="Which-countries-have-been-granted-an-RQFII-quota"><a href="#Which-countries-have-been-granted-an-RQFII-quota" class="headerlink" title="Which countries have been granted an RQFII quota?"></a>Which countries have been granted an RQFII quota?</h1><p>Thirteen countries have been granted RMB quotas: Australia, Canada, Chile, France, Germany, Hong Kong, Hungary, Luxembourg, Qatar, South Korea, Singapore, Switzerland and the UK. The QFII programme is open to more than 60 countries.</p>
+            <h2 id="Difference-between-mutal-funds-and-hedge-funds"><a href="#Difference-between-mutal-funds-and-hedge-funds" class="headerlink" title="Difference between mutal funds and hedge funds"></a>Difference between mutal funds and hedge funds</h2><h3 id="Similarites"><a href="#Similarites" class="headerlink" title="Similarites:"></a>Similarites:</h3><p>Both are managed portfolios. There are manager (or managers) pick securities by certain strategy or algorithm.</p>
+<h3 id="Difference"><a href="#Difference" class="headerlink" title="Difference:"></a>Difference:</h3><ul>
+<li>Headge fund tend to aggressive, they take speculative postions in derviaties such as options are able to short sell. This iwll typically increase leverage (and also the risks). On the other hand, mutal fund are not permitted to take these highly leveraged postions and more safer as a result.</li>
+<li>Hedge funds are avaiable to a specific group of sophisticated investotrs with high net worth. While mutul fund are more accessibale with minimal amoutns of money.</li>
+</ul>
+<h2 id="Differences-among-money-markets-and-capital-markets"><a href="#Differences-among-money-markets-and-capital-markets" class="headerlink" title="Differences among money markets and capital markets"></a>Differences among <code>money markets</code> and <code>capital markets</code></h2><p>The money markets are used for the raising of short term finance, sometimes for loans that are expected to be paid back as early as overnight. Whereas the capital markets are used for the raising of long term finance, such as the purchase of shares, or for loans that are not expected to be fully paid back for at least a year.</p>
 
           
         
@@ -843,7 +1004,7 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-HTTP-HTTPS2/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-TIPS-AS400-IBM-EMULATOR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -859,7 +1020,7 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-14-HTTP-HTTPS2/" class="post-title-link" itemprop="url">HTTPS/2</a>
+              <a href="/2016-06-29-TIPS-AS400-IBM-EMULATOR/" class="post-title-link" itemprop="url">tips in as400 IBM Emulator</a>
             
           </h1>
         
@@ -891,172 +1052,11 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
 
       
           
-            <h1 id="concepts"><a href="#concepts" class="headerlink" title="concepts"></a>concepts</h1><ul>
-<li>HTTP : 传统 HTTP 采用明文，完全开放的编码，缺少加解密功能，很容易遭受窃取、篡改等安全威胁。尤其涉及在线交易的网站，遭遇攻击如同家常便饭。</li>
-<li>HTTPS : HTTPS 协议传输过程全程加解密，相当于增加了一层 SSL/TSL 分层协议的 HTTP，让访问更加安全。</li>
-<li>HTTPS2 : HTTP/2 本身是 HTTP 协议自 1999 年发表后的第一次更新，于 2015 年 5 月正式发布。掐指一算，这个协议积累了 16 年才更新，憋了这么久，放的一定是大招，它的更新主要体现在多路复用，二进制传输，使用 HPACK 压缩头部信息，服务端 Push 。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-23-Equity/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-23-Equity/" class="post-title-link" itemprop="url">equity trading</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="Difference-between-mutal-funds-and-hedge-funds"><a href="#Difference-between-mutal-funds-and-hedge-funds" class="headerlink" title="Difference between mutal funds and hedge funds"></a>Difference between mutal funds and hedge funds</h2><h3 id="Similarites"><a href="#Similarites" class="headerlink" title="Similarites:"></a>Similarites:</h3><p>Both are managed portfolios. There are manager (or managers) pick securities by certain strategy or algorithm.</p>
-<h3 id="Difference"><a href="#Difference" class="headerlink" title="Difference:"></a>Difference:</h3><ul>
-<li>Headge fund tend to aggressive, they take speculative postions in derviaties such as options are able to short sell. This iwll typically increase leverage (and also the risks). On the other hand, mutal fund are not permitted to take these highly leveraged postions and more safer as a result.</li>
-<li>Hedge funds are avaiable to a specific group of sophisticated investotrs with high net worth. While mutul fund are more accessibale with minimal amoutns of money.</li>
-</ul>
-<h2 id="Differences-among-money-markets-and-capital-markets"><a href="#Differences-among-money-markets-and-capital-markets" class="headerlink" title="Differences among money markets and capital markets"></a>Differences among <code>money markets</code> and <code>capital markets</code></h2><p>The money markets are used for the raising of short term finance, sometimes for loans that are expected to be paid back as early as overnight. Whereas the capital markets are used for the raising of long term finance, such as the purchase of shares, or for loans that are not expected to be fully paid back for at least a year.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-heavy-load-web-app/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-29-heavy-load-web-app/" class="post-title-link" itemprop="url">heavy load web application</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Common-solutions"><a href="#Common-solutions" class="headerlink" title="Common solutions"></a>Common solutions</h1><p>With <code>cache</code> + <code>hash</code>, seems nothing is impossible.</p>
-<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>When involving big data, heavey load and concurrent, the ultimate solution is <code>hash</code>, such as random insert, time complexity O(1) etc, the only downside is waste of space, however, storage is cheap recently. <code>hash</code> is one must-have for concurrent systems.</p>
-<h2 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h2><p>There are many mature cache mechanism, such as KV DB like memcache, redis, and they are supporting clusters, operatibility is good as well.</p>
-<h2 id="read-write-segaration"><a href="#read-write-segaration" class="headerlink" title="read-write segaration"></a>read-write segaration</h2><p>In most cases, there are more read than write operation, so separate database to acccept write request to master DB, and redirect read request to slave DBs. At the same time, multiple salve DBs can be smoothly <code>scale out</code>, data replicate can leverage log bin.</p>
-<h2 id="Database-separation-and-sharding"><a href="#Database-separation-and-sharding" class="headerlink" title="Database separation and sharding"></a>Database separation and sharding</h2><p>For DB sharding, leverage hash to direct to corresponding DB shard. To ease the load on single host.</p>
+            <h1 id="Toggle-crosshair"><a href="#Toggle-crosshair" class="headerlink" title="Toggle crosshair"></a>Toggle crosshair</h1><ol>
+<li>Open IBM personal communication client</li>
+<li>Go to menu Edit-&gt;Preference-&gt;Apperance-&gt;Display settings-&gt;Ruler</li>
+<li>change Rule style to crosshair or turn it off</li>
+</ol>
 
           
         
