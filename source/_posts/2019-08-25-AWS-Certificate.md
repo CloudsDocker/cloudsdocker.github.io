@@ -87,6 +87,14 @@ Generating S3 pre-signed URLs would bypass CloudFront, therefore we should use C
 
 As the file is greater than 5GB in size, you must use Multi Part upload to upload that file to S3.
 
+### OAI
+Don't make the S3 bucket public. You cannot attach IAM roles to the CloudFront distribution. S3 buckets don't have security groups. Here you need to use an OAI. Read more here: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
+
+Restricting Access to Amazon S3 Content by Using an Origin Access Identity
+To restrict access to content that you serve from Amazon S3 buckets, you create CloudFront signed URLs or signed cookies to limit access to files in your Amazon S3 bucket, and then you create a special CloudFront user called an origin access identity (OAI) and associate it with your distribution. Then you configure permissions so that CloudFront can use the OAI to access and serve files to your users, but users can't use a direct URL to the S3 bucket to access a file there. Taking these steps help you maintain secure access to the files that you serve through CloudFront.
+
+In general, if you're using an Amazon S3 bucket as the origin for a CloudFront distribution, you can either allow everyone to have access to the files there, or you can restrict access. If you limit access by using, for example, CloudFront signed URLs or signed cookies, you also won't want people to be able to view files by simply using the direct URL for the file. Instead, you want them to only access the files by using the CloudFront URL, so your protections work. For more information about using signed URLs and signed cookies, see Serving Private Content with Signed URLs and Signed Cookies
+
 ### Encryption
 With SSE-C, your company can still provide the encryption key but let AWS do the encryption
 
@@ -122,8 +130,12 @@ both
 ## EFS
 Instance Stores or EBS volumes are local disks and cannot be shared across instances. Here, we need a network file system (NFS), which is exactly what EFS is designed for.
 
-# VPC
 
+## Redshift
+Creating a smaller cluster with the cold data would not decrease the storage cost of Redshift, which will increase as we keep on creating data. Moving the data to S3 glacier will prevent us from being able to query it. Redshift's internal storage does not have "tiers". Therefore, we should migrate the data to S3 IA and use Athena (serverless SQL query engine on top of S3) to analyze the cold data.
+
+
+# VPC
 you can optionally connect to your own network, known as virtual private clouds (VPCs)
 
 Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Locations 153-154). Amazon Web Services. Kindle Edition. 
@@ -151,6 +163,10 @@ Network ACL Basics
 
 - Your VPC automatically comes with a modifiable default network ACL. By default, it allows all inbound and outbound IPv4 traffic and, if applicable, IPv6 traffic.
 
+### IGW (Internet GateWay)
+After creating an IGW, make sure the route tables are updated. Additionally, ensure the security group allow the ICMP protocol for ping requests
+
+
 ### NAT
 NAT Instances would work but won't scale and you would have to manage them (as they're EC2 instances). Egress-Only Internet Gateways are for IPv6, not IPv4. Internet Gateways must be deployed in a public subnet. Therefore you must use a NAT Gateway in your public subnet in order to provide internet access to your instances in your private subnets.
 
@@ -166,6 +182,15 @@ For HA, even though our ASG is deployed across 3 AZ, the minimum capacity to be 
 
 ## Application Load Balancer vs Network load balancer
 Path based routing and host based routing are only available for the Application Load Balancer (ALB). Deploying an NGINX load balancer on EC2 would work but would suffer management and scaling issues. Read more here: https://aws.amazon.com/blogs/aws/new-host-based-routing-support-for-aws-application-load-balancers/
+
+### ALB & ASG
+Adding the entire CIDR of the ALB would work, but wouldn't guarantee that only the ALB can access the EC2 instances that are part of the ASG. Here, the right solution is to add a rule on the ASG security group to allow incoming traffic from the security group configured for the ALB.
+
+### SNI
+support for multiple TLS/SSL certificates on Application Load Balancers (ALB) using Server Name Indication (SNI). You can now host multiple TLS secured applications, each with its own TLS certificate, behind a single load balancer. In order to use SNI, all you need to do is bind multiple certificates to the same secure listener on your load balancer. ALB will automatically choose the optimal TLS certificate for each client. These new features are provided at no additional charge.
+
+One of our most frequent requests on forums, reddit, and in my e-mail inbox has been to use the Server Name Indication (SNI) extension of TLS to choose a certificate for a client. Since TLS operates at the transport layer, below HTTP, it doesn’t see the hostname requested by a client. SNI works by having the client tell the server “This is the domain I expect to get a certificate for” when it first connects. The server can then choose the correct certificate to respond to the client. All modern web browsers and a large majority of other clients support SNI. In fact, today we see SNI supported by over 99.5% of clients connecting to CloudFront.
+
 
 # RDS
 RDS stands for Relational Database Service
@@ -186,6 +211,9 @@ IAM Auth is not supported by ElastiCache
 To monitor basic statistics for your instances and Amazon EBS volumes, use Amazon CloudWatch. 
 
 Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Locations 180-184). Amazon Web Services. Kindle Edition. 
+
+Disabling the Termination from the ASG would prevent our ASG to be Elastic and impact our costs. Making a snapshot of the EC2 instance before it gets terminated *could* work but it's tedious, not elastic and very expensive, as all we're interested about are log files. Using AWS Lambda would be extremely hard to use for this task. Here, the natural and by far easiest solution would be to use the CloudWatch Logs agents on the EC2 instances to automatically send log files into CloudWatch, so we can analyze them in the future easily should any problems arise.
+
 
 # CloudTrail
 
@@ -259,6 +287,11 @@ ElastiCache / RDS / Neptune are not serverless databases. DynamoDB is serverless
 ## DynamoDB
 DynamoDB Streams will contain a stream of all the changes that happen to a DynamoDB table. It can be chained with a Lambda function that will be triggered to react to these changes, one of which being a developer's milestone. DAX is a caching layer 
 
+### DAX
+DAX will be transparent and won't require an application refactoring, and will cache the "hot keys". ElastiCache could also be a solution, but it will require a lot of refactoring work on the AWS Lambda side.
+
+DynamoDB is horizontally scalable, has a DynamoDB streams capability and is multi AZ by default. On top of it, we can adjust the RCU and WCU automatically using Auto Scaling.
+
 ## Aurora
 
 Aurora Read Replicas can be deployed globally
@@ -269,8 +302,23 @@ Aurora Read Replicas can be deployed globally
 SQS FIFO will not work here as they cannot sustain thousands of messages per second. SNS cannot be used for data streaming. Lambda isn't meant to retain data. Kinesis is the right answer here, with providing a partition key in our message we can guarantee ordering for a specific sensor, even if our stream is sharded
 
 
+# BeanStalk
+When you create an AWS Elastic Beanstalk environment, you can specify an Amazon Machine Image (AMI) to use instead of the standard Elastic Beanstalk AMI included in your platform version. A custom AMI can improve provisioning times when instances are launched in your environment if you need to install a lot of software that isn't included in the standard AMIs. Read more here: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.customenv.html
+
+# MQ
+SNS, SQS and Kinesis are AWS' proprietary technologies and do not come with MQTT compatibility. Here the only possible answer is Amazon MQ
+
+
 # Q&A
 
 -  Lambda would time out after 15 minutes (2000*3=6000 seconds = 100 minutes). Glue is for performing ETL, but cannot run custom Python scripts. Kinesis Streams is for real time data (here we are in a batch setup), RDS could be used to run SQL queries on the data, but no Python script. The correct answer is EC2
 - Elastic Beanstalk cannot manage AWS Lambda functions, OpsWorks is for Chef / Puppet, and Trusted Advisor is to get recommendations regarding the 5 pillars of the well architected framework.
 - Kinesis cannot scale infinitely and we may have the same throughput issues. SNS won't keep our data if it cannot be delivered, and DAX is used for caching reads, not to help with writes. Here, using SQS as a middleware will help us sustain the write throughput during write peaks
+- CloudFront is not a good solution here as the content is highly dynamic, and CloudFront will cache things. Dynamic applications cannot be deployed to S3, and Route53 does not help in scaling your application. ASG is the correct answer here
+- Network Load Balancers expose a fixed IP to the public web, therefore allowing your application to be predictably reached using these IPs, while allowing you to scale your application behind the Network Load Balancer using an ASG. Application and Classic Load Balancers expose a fixed DNS (=URL). Finally, the ASG does not have a dynamic Elastic IPs attachment feature
+- Hosting the master pack into S3 will require an application code refactor. Upgrading the EC2 instances won't help save network cost and ELB does not have any caching capability. Here you need to create a CloudFront distribution to add a caching layer in front of your ELB. That caching layer will be very effective as the image pack is a static file, and tremendously save in network cost.
+- Adding Aurora Read Replicas would greatly increase the cost, switching to a Load Balancer would not improve the problems, and AWS Lambda has no native in memory caching capability. Here, using API Gateway Caching feature is the answer, as we can accept to serve stale data to our users
+- SQS will allow you to buffer the image compression requests and process them asynchronously. It also has a direct built-in mechanism for retries and scales seamlessly. To process these jobs, due to the unpredictable nature of their volume, and the desire to save on costs, Spot Instances are recommended.
+- Distributing the static content through S3 allows to offload most of the network usage to S3 and free up our applications running on ECS. EFS will not change anything as static content on EFS would still have to be distributed by our ECS instances
+- S3 does not work as overwrites are eventually consistent so the latest data will not always be read. Neptune is a graph database so it's not a good fit, ElastiCache could work but it's a better fit as a caching technology to enhance reads. Here, the best fit is RDS.
+- RDS Multi AZ helps with disaster recovery in case of an AZ failure. ElastiCache would definitely help with the read load, but would require a refactor of the application's core logic. DynamoDB with DAX would also probably help with the read load, but once again it would require a refactor of the application's core logic. Here, our only option to scale reads is to use RDS Read Replicas
