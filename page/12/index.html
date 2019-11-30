@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-14-Strategy-Of-Openshift-Releases/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-03-18-NodeJs-Notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-05-14-Strategy-Of-Openshift-Releases/" class="post-title-link" itemprop="url">Strategy-Of-Openshift-Releases</a>
+              <a href="/2018-03-18-NodeJs-Notes/" class="post-title-link" itemprop="url">NodeJs Notes</a>
             
           </h1>
         
@@ -243,23 +243,8 @@
 
       
           
-            <h1 id="Release-amp-Testing-Strategy"><a href="#Release-amp-Testing-Strategy" class="headerlink" title="Release &amp; Testing Strategy"></a>Release &amp; Testing Strategy</h1><p>There are various methods for safely releasing changes to Production. Each team must select what is appropriate for their own use case with consideration to risk, rollback approaches and testing approaches.</p>
-<h1 id="The-following-are-options"><a href="#The-following-are-options" class="headerlink" title="The following are options:"></a>The following are options:</h1><h2 id="Canary-Release"><a href="#Canary-Release" class="headerlink" title="Canary Release"></a>Canary Release</h2><p>This is the lowest risk strategy since it allows for testing on a subset of users, and it allows for fast rollback:</p>
-<ul>
-<li>Build a new Environment</li>
-<li>Use a routing tool (eg. Apigee) to test with a specific set of users</li>
-<li>Bleed traffic across</li>
-<li>Remove old environment</li>
-</ul>
-<h2 id="Blue-Green"><a href="#Blue-Green" class="headerlink" title="Blue Green"></a>Blue Green</h2><p> This is the classic zero-downtime deployment model that involves flipping traffic between two environments:</p>
-<ul>
-<li>Ensure your router has two entry points, one for Production Testing and one for Production traffic</li>
-<li>Have two environments: <code>blue</code> and <code>green</code></li>
-<li>If Production traffic is pointing to <code>blue</code> then deploy your changes on <code>green</code></li>
-<li>Point your Production Testing traffic to <code>green</code></li>
-<li>When verified, point Production traffic to <code>green</code></li>
-<li>On the next release, deploy changes to <code>blue</code></li>
-</ul>
+            <h2 id="commands-to-read-files"><a href="#commands-to-read-files" class="headerlink" title="commands to read files"></a>commands to read files</h2><p> var lineReader = require(‘readline’).createInterface({<br>    input: require(‘fs’).createReadStream(‘C:\dev\node\input\git_reset_files.txt’)<br> });</p>
+<p> lineReader.on(‘line’, function(line){<br>    console.log(‘git checkout ‘+line);<br> });</p>
 
           
         
@@ -762,6 +747,89 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-14-JBoss-Console/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-06-14-JBoss-Console/" class="post-title-link" itemprop="url">Jboss tips</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="commands"><a href="#commands" class="headerlink" title="commands:"></a>commands:</h1><h2 id="to-list-all-deployed-applications"><a href="#to-list-all-deployed-applications" class="headerlink" title="to list all deployed applications"></a>to list all deployed applications</h2><p>jboss\jboss-eap-6.4\bin\jboss-cli.bat –connect –controller=localhost:7373 –command=/deployment=*:read-attribute(name=name)</p>
+<h2 id="to-list-JNDI-tree"><a href="#to-list-JNDI-tree" class="headerlink" title="to list JNDI tree:"></a>to list JNDI tree:</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /subsystem=mail</span><br><span class="line">ls</span><br><span class="line">/subsystem=mail/mail-session=java:jboss/mail/payment_mail</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> /subsystem=naming:jndi-view()</span><br><span class="line"></span><br><span class="line"> &#125;,</span><br><span class="line"><span class="string">"mail"</span> =&gt; &#123;</span><br><span class="line">    <span class="string">"class-name"</span> =&gt; <span class="string">"javax.naming.Context"</span>,</span><br><span class="line">    <span class="string">"children"</span> =&gt; &#123;</span><br><span class="line">        <span class="string">"Default"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@22951e8f"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"payment_mail"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@548df9e2"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">native-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">native</span>=<span class="string">"management-native"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">native-interface</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">http-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">http</span>=<span class="string">"management-http"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">http-interface</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">management</span>&gt;</span></span><br><span class="line">xxx</span><br><span class="line"><span class="tag">&lt;<span class="name">socket-binding-group</span> <span class="attr">name</span>=<span class="string">"standard-sockets"</span> <span class="attr">default-interface</span>=<span class="string">"public"</span> <span class="attr">port-offset</span>=<span class="string">"$&#123;jboss.socket.binding.port-offset:0&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-native"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.native.port:7373&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-http"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.http.port:7371&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-10-JVM-Warm-up/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -870,89 +938,6 @@
 
 <h1 id="GC-less-Java"><a href="#GC-less-Java" class="headerlink" title="GC-less Java"></a>GC-less Java</h1><p>Java Development without GC<br>All products developed by Coral Blocks have the very important feature of leaving ZERO garbage behind. Because the latency imposed by the Java Garbage Collector (i.e. GC) is unacceptable for high-performance systems and because it is impossible to turn off the GC, the best option for real-time systems in Java is to not produce any garbage at all so that the GC never kicks in. Imagine a high-performance matching engine operating in the microsecond level, sending and receiving hundreds of thousands messages per second. If at any given time the GC decides to kick in with its 1+ millisecond latencies, the disruption in the system will be huge. Therefore, if you want to develop real-time systems in Java with minimal variance and latency, the best option is to do it right without creating any garbage for the GC. </p>
 <h2 id="Warming-up-Checking-the-GC-and-Sampling"><a href="#Warming-up-Checking-the-GC-and-Sampling" class="headerlink" title="Warming up, Checking the GC and Sampling"></a>Warming up, Checking the GC and Sampling</h2><p>The key to make sure your system is not creating any garbage is to warm up your critical path from start to finish a couple of million times and then check for memory allocation another couple of million times. If it is allocating memory linearly as the number of iterations increases, it is most likely creating garbage and you should use the stack trace </p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-14-JBoss-Console/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-06-14-JBoss-Console/" class="post-title-link" itemprop="url">Jboss tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="commands"><a href="#commands" class="headerlink" title="commands:"></a>commands:</h1><h2 id="to-list-all-deployed-applications"><a href="#to-list-all-deployed-applications" class="headerlink" title="to list all deployed applications"></a>to list all deployed applications</h2><p>jboss\jboss-eap-6.4\bin\jboss-cli.bat –connect –controller=localhost:7373 –command=/deployment=*:read-attribute(name=name)</p>
-<h2 id="to-list-JNDI-tree"><a href="#to-list-JNDI-tree" class="headerlink" title="to list JNDI tree:"></a>to list JNDI tree:</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /subsystem=mail</span><br><span class="line">ls</span><br><span class="line">/subsystem=mail/mail-session=java:jboss/mail/payment_mail</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> /subsystem=naming:jndi-view()</span><br><span class="line"></span><br><span class="line"> &#125;,</span><br><span class="line"><span class="string">"mail"</span> =&gt; &#123;</span><br><span class="line">    <span class="string">"class-name"</span> =&gt; <span class="string">"javax.naming.Context"</span>,</span><br><span class="line">    <span class="string">"children"</span> =&gt; &#123;</span><br><span class="line">        <span class="string">"Default"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@22951e8f"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"payment_mail"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@548df9e2"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-
-
-
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">native-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">native</span>=<span class="string">"management-native"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">native-interface</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">http-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">http</span>=<span class="string">"management-http"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">http-interface</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">management</span>&gt;</span></span><br><span class="line">xxx</span><br><span class="line"><span class="tag">&lt;<span class="name">socket-binding-group</span> <span class="attr">name</span>=<span class="string">"standard-sockets"</span> <span class="attr">default-interface</span>=<span class="string">"public"</span> <span class="attr">port-offset</span>=<span class="string">"$&#123;jboss.socket.binding.port-offset:0&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-native"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.native.port:7373&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-http"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.http.port:7371&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
 
           
         

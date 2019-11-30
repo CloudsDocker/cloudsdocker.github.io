@@ -272,194 +272,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-15-Java-Security/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-02-15-Java-Security/" class="post-title-link" itemprop="url">Java Security Notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Java-Security"><a href="#Java-Security" class="headerlink" title="Java Security"></a>Java Security</h1><ul>
-<li><code>well-behaved</code>: programs should be prevent from consuming too much system resources</li>
-</ul>
-<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><ul>
-<li>JCE: Java Cryptography Extension</li>
-<li>JSSE: Java Secure Socketets Extension</li>
-<li>JAAS: Java Authentication and Authorization Service</li>
-</ul>
-<h1 id="Anatomy-of-a-Java-Application"><a href="#Anatomy-of-a-Java-Application" class="headerlink" title="Anatomy of a Java Application"></a>Anatomy of a Java Application</h1><h2 id="the-bytecode-verifier"><a href="#the-bytecode-verifier" class="headerlink" title="the bytecode verifier"></a>the bytecode verifier</h2><p>The bytecode verifier ensures that Java class files follow the rules of the Java language. As the figure implies, not all classes are subject to bytecode verification.</p>
-<h2 id="the-class-loader"><a href="#the-class-loader" class="headerlink" title="the class loader"></a>the class loader</h2><p>One or more class loaders load all Java classes. Programatically, the class loader can set permissions for each class it loads.</p>
-<h2 id="the-access-controller"><a href="#the-access-controller" class="headerlink" title="the access controller"></a>the access controller</h2><p>The access controller allows (or prevents) most access from the core API to the operating system, based upon policies set by the end user or system administrator.</p>
-<h2 id="the-security-manager"><a href="#the-security-manager" class="headerlink" title="the security manager"></a>the security manager</h2><p>The security manager is the primary interface between the core API and the operating system; it has the ultimate responsibility for allowing or preventing access to all system resources. However, it exists mostly for historical reasons; it defers its actions to the access controller.</p>
-<h2 id="The-security-package"><a href="#The-security-package" class="headerlink" title="The security package"></a>The security package</h2><p> the security package is a complex API. This includes discussions of:</p>
-<ul>
-<li>The security provider interface −− the means by which different security implementations may be plugged into the security package</li>
-<li>Message digests</li>
-<li>Keys and certificates</li>
-<li>Digital signatures</li>
-<li>Encryption (through JCE and JSSE)</li>
-<li>Authentication (through JAAS)</li>
-</ul>
-<h2 id="The-key-database"><a href="#The-key-database" class="headerlink" title="The key database"></a>The key database</h2><p>The key database is a set of keys used by the security infrastructure to create or verify digital signatures. In the Java architecture, it is part of the security package, though it may be manifested as an external file or database.</p>
-<h2 id="Trusted-and-Untrusted-Classes"><a href="#Trusted-and-Untrusted-Classes" class="headerlink" title="Trusted and Untrusted Classes"></a>Trusted and Untrusted Classes</h2><ul>
-<li>In Java 2, only classes in the core API are considered trusted. Other classes must be given explicit permission to perform the operations we’ve discussed.</li>
-</ul>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Although the security manager is the most commonly known feature of Java’s security story, it’s often misunderstood: there is no standard security manager among Java implementations, and Java applications, by default, have no security manager at all.</p>
-<h1 id="Access-Controller"><a href="#Access-Controller" class="headerlink" title="Access Controller"></a>Access Controller</h1><ul>
-<li>The implementation of most security managers, however, is based entirely upon the access controller.</li>
-</ul>
-<h2 id="Permissions"><a href="#Permissions" class="headerlink" title="Permissions"></a>Permissions</h2><ul>
-<li>The basic entity that the access controller operates on is a permission object −− an instance of the Permission class (java.security.Permission). This class, of course, is the basis of the types that are listed in a policy file for the default security policy. The Permission class itself is an abstract class that represents a particular operation. The nomenclature here is a little misleading because a permission object can reflect two things. When it is associated with a class (through a code source and a protection domain), a permission object represents an actual permission that has been granted to that class. Otherwise, a permission object allows us to ask if we have a specific permission.</li>
-<li>For example, if we construct a permission object that represents access to a file, possession of that object does not mean we have permission to access the file. Rather, possession of the object allows us to ask if we have permission to access the file.</li>
-</ul>
-<h2 id="The-access-controller-is-built-upon-the-four-concepts"><a href="#The-access-controller-is-built-upon-the-four-concepts" class="headerlink" title="The access controller is built upon the four concepts"></a>The access controller is built upon the four concepts</h2><ul>
-<li>Code sources<br>An encapsulation of the location from which certain Java classes were obtained.</li>
-<li>Permissions<br>An encapsulation of a request to perform a particular operation.</li>
-<li>Policies<br>An encapsulation of all the specific permissions that should be granted to specific code sources.</li>
-<li>Protection domains<br>An encapsulation of a particular code source and the permissions granted to that code source.</li>
-</ul>
-<h1 id="Byte-code-verifier"><a href="#Byte-code-verifier" class="headerlink" title="Byte code verifier"></a>Byte code verifier</h1><ul>
-<li>The verifier is often referred to as a <code>mini−theorem prover</code> (a term first used in several documents from Sun). This sounds somewhat more impressive than it is; it’s not a generic, all−purpose theorem prover by any means. Instead, it’s a piece of code that can prove one (and only one) thing −− that a given series of ( Java) bytecodes represents a legal set of ( Java) instructions.</li>
-</ul>
-<h1 id="Shifting"><a href="#Shifting" class="headerlink" title="Shifting"></a>Shifting</h1><p>Java and JavaScript perform sign extension when shift¬ing right, filling the empty spaces with 1’s for negative numbers, so 10100110 &gt;&gt; 5 becomes 11111101.<br>The &gt;&gt;&gt; operator is unique to Java and JavaScript. It does a logical shift right, filling the empty spaces with 0 no matter what the value, so 10100110 &gt;&gt;&gt; 5 becomes 00000101.</p>
-<p>The shift operators enable you to multiply and divide by powers of 2 very quickly. For non-negative numbers, shifting to the right one bit is equivalent to dividing by 2, and shifting to the left one bit is equivalent to multiplying by 2. For negative numbers, it obviously depends on the language being used.</p>
-<h2 id="Specifically-the-bytecode-verifier-can-prove-the-following"><a href="#Specifically-the-bytecode-verifier-can-prove-the-following" class="headerlink" title="Specifically, the bytecode verifier can prove the following:"></a>Specifically, the bytecode verifier can prove the following:</h2><ul>
-<li>The class file has the correct format. The full definition of the class file format may be found in the Java virtual machine specification; the bytecode verifier is responsible for making sure that the class file has the right length, the correct magic numbers in the correct places, and so on.</li>
-<li>Final classes are not subclassed, and final methods are not overridden.</li>
-<li>Every class (except for java.lang.Object) has a single superclass.</li>
-<li>There is no illegal data conversion of primitive data types (e.g., int to Object).</li>
-<li>No illegal data conversion of objects occurs. Because the casting of a superclass to its subclass may<br>be a valid operation (depending on the actual type of the object being cast), the verifier cannot ensure that such casting is not attempted −− it can only ensure that before each such attempt is made, the legality of the cast is tested.</li>
-<li>There are no operand stack overflows or underflows.</li>
-</ul>
-<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><ul>
-<li>In Java, there are two stacks for each thread. One stack holds a series of method frames, where each method frame holds the local variables and other storage for a particular method invocation. This stack is known as the data stack and is what we normally think of as the stack within a traditional program. The bytecode verifier cannot prevent overflow of this stack −− an infinitely recursive method call will cause this stack to overflow. However, each method invocation requires a second stack (which itself is allocated on the data stack) that is referred to as the operand stack; the operand stack holds the values that the Java bytecodes operate on. This secondary stack is the stack that the bytecode verifier can ensure will not overflow or underflow.</li>
-</ul>
-<h1 id="Security-Manager"><a href="#Security-Manager" class="headerlink" title="Security Manager"></a>Security Manager</h1><ul>
-<li>The implementation of the sandbox depends on three things:</li>
-<li>The security manager, which provides the mechanism that the Java API uses to see if security−related operations are allowed.</li>
-<li>The access controller, which provides the basis of the default implementation of the security manager. </li>
-<li>The class loader, which encapsulates information about security policies and classes.</li>
-</ul>
-<p>We’ll start by examining the security manager. From the perspective of the Java API, there is a security manager that actually is in control of the security policy of an application. The purpose of the security manager is to determine whether particular operations should be permitted or denied. In truth, the purpose of the access controller is really the same: it decides whether access to a critical system resource should be permitted or denied. Hence, the access controller can do everything the security manager can do.</p>
-<p><strong>The reason there is both an access controller and a security manager is mainly historical</strong>: the access controller is only available in Java 2 and subsequent releases. Before the access controller existed, the security manager relied on its internal logic to determine the security policy that should be in effect, and changing the security policy required changing the security manager itself. Starting with Java 2, the security manager defers these decisions to the access controller. Since the security policy enforced by the access controller can be specified by using policy files, this allows a much more flexible mechanism for determining policies. The access controller also gives us a much simpler method of granting fine−grained, specific permissions to specific classes. That process was theoretically possibly with the security manager alone, but it was simply too hard to implement.</p>
-<h2 id="The-BasicPermission-class"><a href="#The-BasicPermission-class" class="headerlink" title="The BasicPermission class"></a>The BasicPermission class</h2><ul>
-<li><p>If you need to implement your own permission class, the BasicPermission class (java.security.BasicPermission) provides some useful semantics. This class implements a basic permission −− that is, a permission that doesn’t have actions. Basic permissions can be thought of as binary permissions −− you either have them or you don’t. However, this restriction does not prevent you from implementing actions in your subclasses of the BasicPermission class (as the PropertyPermission class does).</p>
-</li>
-<li><p>The prime benefit of this class is the manner in which it implements wildcards. Names in basic permissions are considered to be hierarchical, following a dot−separated convention. For example, if the XYZ corporation wanted to create a set of basic permissions, they might use the convention that the first word of the permission always be xyz: xyz.readDatabase, xyz.writeDatabase, xyz.runPayrollProgram, xyz.HRDepartment.accessCheck, and so on. These permissions can then be specified by their full name, or they can be specified with an asterisk wildcard: xyz.* would match each of these (no matter what depth), and * would match every possible basic permission.</p>
-</li>
-<li><p><a href="http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351" target="_blank" rel="noopener">http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351</a></p>
-</li>
-<li><p>保护密码的最好办法是使用加盐密码哈希（ salted password hashing）。</p>
-</li>
-<li><p>永远不要告诉用户输错的究竟是用户名还是密码。就像通用的提示那样，始终显示：“无效的用户名或密码。”就行了。这样可以防止攻击者在不知道密码的情况下枚举出有效的用户名。</p>
-</li>
-<li><p>应当注意的是，用来保护密码的哈希函数，和数据结构课学到的哈希函数是不同的。例如，实现哈希表的哈希函数设计目的是快速查找，而非安全性。只有加密哈希函数（ cryptographic hash function）才可以用来进行密码哈希加密。像 SHA256 、 SHA512 、 RIPEMD 和 WHIRLPOOL 都是加密哈希函数。</p>
-</li>
-<li><p>破解哈希加密最简单的方法是尝试猜测密码，哈希每个猜测的密码，并对比猜测密码的哈希值是否等于被破解的哈希值。如果相等，则猜中。猜测密码攻击的两种最常见的方法是字典攻击和暴力攻击 。</p>
-</li>
-<li><p>字典攻击使用包含单词、短语、常用密码和其他可能用做密码的字符串的字典文件。对文件中的每个词都进行哈希加密，将这些哈希值和要破解的密码哈希值比较。如果它们相同，这个词就是密码。字典文件是通过大段文本中提取的单词构成，甚至还包括一些数据库中真实的密码。还可以对字典文件进一步处理以使其更为有效：如单词 “hello” 按网络用语写法转成 “h3110” 。</p>
-</li>
-<li><p>暴力攻击是对于给定的密码长度，尝试每一种可能的字符组合。这种方式会消耗大量的计算，也是破解哈希加密效率最低的办法，但最终会找出正确的密码。因此密码应该足够长，以至于遍历所有可能的字符组合，耗费的时间太长令人无法承受，从而放弃破解。</p>
-</li>
-<li><p>目前没有办法来组织字典攻击或暴力攻击。只能想办法让它们变得低效。如果密码哈希系统设计是安全的，破解哈希的唯一方法就是进行字典攻击或暴力攻击遍历每一个哈希值了。</p>
-</li>
-<li><p>我们可以通过在密码中加入一段随机字符串再进行哈希加密，这个被加的字符串称之为盐值。如上例所示，这使得相同的密码每次都被加密为完全不同的字符串。我们需要盐值来校验密码是否正确。通常和密码哈希值一同存储在帐号数据库中，或者作为哈希字符串的一部分。</p>
-</li>
-<li><p>盐值无需加密。由于随机化了哈希值，查表法、反向查表法和彩虹表都会失效。因为攻击者无法事先知道盐值，所以他们就没有办法预先计算查询表或彩虹表。如果每个用户的密码用不同的盐再进行哈希加密，那么反向查表法攻击也将不能奏效。</p>
-</li>
-<li><p>一个常见的错误是每次都使用相同的盐值进行哈希加密，这个盐值要么被硬编码到程序里，要么只在第一次使用时随机获得。这样的做法是无效的，因为如果两个用户有相同的密码，他们仍然会有相同的哈希值。攻击者仍然可以使用反向查表法对每个哈希值进行字典攻击。他们只是在哈希密码之前，将固定的盐值应用到每个猜测的密码就可以了。如果盐值被硬编码到一个流行的软件里，那么查询表和彩虹表可以内置该盐值，以使其更容易破解它产生的哈希值。</p>
-</li>
-<li><p>用户创建帐号或者更改密码时，都应该用新的随机盐值进行加密。</p>
-</li>
-<li><p>出于同样的原因，不应该将用户名用作盐值。对每一个服务来说，用户名是唯一的，但它们是可预测的，并且经常重复应用于其他服务。攻击者可以用常见用户名作为盐值来建立查询表和彩虹表来破解密码哈希。</p>
-</li>
-<li><p>为使攻击者无法构造包含所有可能盐值的查询表，盐值必须足够长。一个好的经验是使用和哈希函数输出的字符串等长的盐值。例如， SHA256 的输出为256位（32字节），所以该盐也应该是32个随机字节。</p>
-</li>
-<li><p>每个用户的每一个密码都要使用独一无二的盐值。用户每次创建帐号或更改密码时，密码应采用一个新的随机盐值。永远不要重复使用某个盐值。这个盐值也应该足够长，以使有足够多的盐值能用于哈希加密。一个经验规则是，盐值至少要跟哈希函数的输出一样长。该盐应和密码哈希一起存储在用户帐号表中。</p>
-</li>
-<li><p>存储密码的步骤：</p>
-<ul>
-<li>使用 CSPRNG 生成足够长的随机盐值。</li>
-<li>将盐值混入密码，并使用标准的密码哈希函数进行加密，如Argon2、 bcrypt 、 scrypt 或 PBKDF2 。</li>
-<li>将盐值和对应的哈希值一起存入用户数据库。</li>
-</ul>
-</li>
-<li><p>校验密码的步骤：</p>
-<ul>
-<li>从数据库检索出用户的盐值和对应的哈希值。</li>
-<li>将盐值混入用户输入的密码，并且使用通用的哈希函数进行加密。</li>
-<li>比较上一步的结果，是否和数据库存储的哈希值相同。如果它们相同，则表明密码是正确的；否则，该密码错误。</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-14-SerialVersionUID/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -988,7 +800,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-21-aws/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-15-Java-Security/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1004,7 +816,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-03-21-aws/" class="post-title-link" itemprop="url">AWS Tips</a>
+              <a href="/2017-02-15-Java-Security/" class="post-title-link" itemprop="url">Java Security Notes</a>
             
           </h1>
         
@@ -1036,87 +848,119 @@
 
       
           
-            <p>After establishing a SSH session, you can install a default web server by executing sudo yum install httpd -y. To start the web server, type sudo service httpd start and press Return to execute the command. Your web browser should show a placeholder site if you open http://$PublicIp with $PublicIp replaced by the public IP address of your virtual server.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-13-oracle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-03-13-oracle/" class="post-title-link" itemprop="url">Oracle</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <ul>
-<li>ORA-12899: Value Too Large for Column</li>
+            <h1 id="Java-Security"><a href="#Java-Security" class="headerlink" title="Java Security"></a>Java Security</h1><ul>
+<li><code>well-behaved</code>: programs should be prevent from consuming too much system resources</li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT value$ FROM sys.props$ WHERE name = 'NLS_CHARACTERSET' ;</span><br><span class="line"></span><br><span class="line">VALUE$</span><br><span class="line"><span class="comment">-------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">AL32UTF8</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> NLS_DATABASE_PARAMETERS</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">u43888859@hkl105482$  lsnrctl services DHKCUSTD</span><br><span class="line"></span><br><span class="line">LSNRCTL for Linux: Version 12.1.0.2.0 - Production on 28-FEB-2017 06:40:53</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hkl105482.hk.hsbc)(PORT=2001))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=DHKCUSTD.hk.hsbc)))</span><br><span class="line">Services Summary...</span><br><span class="line">Service "DHKCUSTD.hk.hsbc" has 1 instance(s).</span><br><span class="line">  Instance "DHKCUSTD", status READY, has 1 <span class="keyword">handler</span>(s) <span class="keyword">for</span> this service...</span><br><span class="line">    <span class="keyword">Handler</span>(s):</span><br><span class="line">      <span class="string">"DEDICATED"</span> established:<span class="number">15</span> refused:<span class="number">0</span> state:ready</span><br><span class="line">         <span class="keyword">LOCAL</span> <span class="keyword">SERVER</span></span><br><span class="line">The command completed successfully</span><br></pre></td></tr></table></figure>
-
+<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><ul>
+<li>JCE: Java Cryptography Extension</li>
+<li>JSSE: Java Secure Socketets Extension</li>
+<li>JAAS: Java Authentication and Authorization Service</li>
+</ul>
+<h1 id="Anatomy-of-a-Java-Application"><a href="#Anatomy-of-a-Java-Application" class="headerlink" title="Anatomy of a Java Application"></a>Anatomy of a Java Application</h1><h2 id="the-bytecode-verifier"><a href="#the-bytecode-verifier" class="headerlink" title="the bytecode verifier"></a>the bytecode verifier</h2><p>The bytecode verifier ensures that Java class files follow the rules of the Java language. As the figure implies, not all classes are subject to bytecode verification.</p>
+<h2 id="the-class-loader"><a href="#the-class-loader" class="headerlink" title="the class loader"></a>the class loader</h2><p>One or more class loaders load all Java classes. Programatically, the class loader can set permissions for each class it loads.</p>
+<h2 id="the-access-controller"><a href="#the-access-controller" class="headerlink" title="the access controller"></a>the access controller</h2><p>The access controller allows (or prevents) most access from the core API to the operating system, based upon policies set by the end user or system administrator.</p>
+<h2 id="the-security-manager"><a href="#the-security-manager" class="headerlink" title="the security manager"></a>the security manager</h2><p>The security manager is the primary interface between the core API and the operating system; it has the ultimate responsibility for allowing or preventing access to all system resources. However, it exists mostly for historical reasons; it defers its actions to the access controller.</p>
+<h2 id="The-security-package"><a href="#The-security-package" class="headerlink" title="The security package"></a>The security package</h2><p> the security package is a complex API. This includes discussions of:</p>
+<ul>
+<li>The security provider interface −− the means by which different security implementations may be plugged into the security package</li>
+<li>Message digests</li>
+<li>Keys and certificates</li>
+<li>Digital signatures</li>
+<li>Encryption (through JCE and JSSE)</li>
+<li>Authentication (through JAAS)</li>
+</ul>
+<h2 id="The-key-database"><a href="#The-key-database" class="headerlink" title="The key database"></a>The key database</h2><p>The key database is a set of keys used by the security infrastructure to create or verify digital signatures. In the Java architecture, it is part of the security package, though it may be manifested as an external file or database.</p>
+<h2 id="Trusted-and-Untrusted-Classes"><a href="#Trusted-and-Untrusted-Classes" class="headerlink" title="Trusted and Untrusted Classes"></a>Trusted and Untrusted Classes</h2><ul>
+<li>In Java 2, only classes in the core API are considered trusted. Other classes must be given explicit permission to perform the operations we’ve discussed.</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Although the security manager is the most commonly known feature of Java’s security story, it’s often misunderstood: there is no standard security manager among Java implementations, and Java applications, by default, have no security manager at all.</p>
+<h1 id="Access-Controller"><a href="#Access-Controller" class="headerlink" title="Access Controller"></a>Access Controller</h1><ul>
+<li>The implementation of most security managers, however, is based entirely upon the access controller.</li>
+</ul>
+<h2 id="Permissions"><a href="#Permissions" class="headerlink" title="Permissions"></a>Permissions</h2><ul>
+<li>The basic entity that the access controller operates on is a permission object −− an instance of the Permission class (java.security.Permission). This class, of course, is the basis of the types that are listed in a policy file for the default security policy. The Permission class itself is an abstract class that represents a particular operation. The nomenclature here is a little misleading because a permission object can reflect two things. When it is associated with a class (through a code source and a protection domain), a permission object represents an actual permission that has been granted to that class. Otherwise, a permission object allows us to ask if we have a specific permission.</li>
+<li>For example, if we construct a permission object that represents access to a file, possession of that object does not mean we have permission to access the file. Rather, possession of the object allows us to ask if we have permission to access the file.</li>
+</ul>
+<h2 id="The-access-controller-is-built-upon-the-four-concepts"><a href="#The-access-controller-is-built-upon-the-four-concepts" class="headerlink" title="The access controller is built upon the four concepts"></a>The access controller is built upon the four concepts</h2><ul>
+<li>Code sources<br>An encapsulation of the location from which certain Java classes were obtained.</li>
+<li>Permissions<br>An encapsulation of a request to perform a particular operation.</li>
+<li>Policies<br>An encapsulation of all the specific permissions that should be granted to specific code sources.</li>
+<li>Protection domains<br>An encapsulation of a particular code source and the permissions granted to that code source.</li>
+</ul>
+<h1 id="Byte-code-verifier"><a href="#Byte-code-verifier" class="headerlink" title="Byte code verifier"></a>Byte code verifier</h1><ul>
+<li>The verifier is often referred to as a <code>mini−theorem prover</code> (a term first used in several documents from Sun). This sounds somewhat more impressive than it is; it’s not a generic, all−purpose theorem prover by any means. Instead, it’s a piece of code that can prove one (and only one) thing −− that a given series of ( Java) bytecodes represents a legal set of ( Java) instructions.</li>
+</ul>
+<h1 id="Shifting"><a href="#Shifting" class="headerlink" title="Shifting"></a>Shifting</h1><p>Java and JavaScript perform sign extension when shift¬ing right, filling the empty spaces with 1’s for negative numbers, so 10100110 &gt;&gt; 5 becomes 11111101.<br>The &gt;&gt;&gt; operator is unique to Java and JavaScript. It does a logical shift right, filling the empty spaces with 0 no matter what the value, so 10100110 &gt;&gt;&gt; 5 becomes 00000101.</p>
+<p>The shift operators enable you to multiply and divide by powers of 2 very quickly. For non-negative numbers, shifting to the right one bit is equivalent to dividing by 2, and shifting to the left one bit is equivalent to multiplying by 2. For negative numbers, it obviously depends on the language being used.</p>
+<h2 id="Specifically-the-bytecode-verifier-can-prove-the-following"><a href="#Specifically-the-bytecode-verifier-can-prove-the-following" class="headerlink" title="Specifically, the bytecode verifier can prove the following:"></a>Specifically, the bytecode verifier can prove the following:</h2><ul>
+<li>The class file has the correct format. The full definition of the class file format may be found in the Java virtual machine specification; the bytecode verifier is responsible for making sure that the class file has the right length, the correct magic numbers in the correct places, and so on.</li>
+<li>Final classes are not subclassed, and final methods are not overridden.</li>
+<li>Every class (except for java.lang.Object) has a single superclass.</li>
+<li>There is no illegal data conversion of primitive data types (e.g., int to Object).</li>
+<li>No illegal data conversion of objects occurs. Because the casting of a superclass to its subclass may<br>be a valid operation (depending on the actual type of the object being cast), the verifier cannot ensure that such casting is not attempted −− it can only ensure that before each such attempt is made, the legality of the cast is tested.</li>
+<li>There are no operand stack overflows or underflows.</li>
+</ul>
+<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><ul>
+<li>In Java, there are two stacks for each thread. One stack holds a series of method frames, where each method frame holds the local variables and other storage for a particular method invocation. This stack is known as the data stack and is what we normally think of as the stack within a traditional program. The bytecode verifier cannot prevent overflow of this stack −− an infinitely recursive method call will cause this stack to overflow. However, each method invocation requires a second stack (which itself is allocated on the data stack) that is referred to as the operand stack; the operand stack holds the values that the Java bytecodes operate on. This secondary stack is the stack that the bytecode verifier can ensure will not overflow or underflow.</li>
+</ul>
+<h1 id="Security-Manager"><a href="#Security-Manager" class="headerlink" title="Security Manager"></a>Security Manager</h1><ul>
+<li>The implementation of the sandbox depends on three things:</li>
+<li>The security manager, which provides the mechanism that the Java API uses to see if security−related operations are allowed.</li>
+<li>The access controller, which provides the basis of the default implementation of the security manager. </li>
+<li>The class loader, which encapsulates information about security policies and classes.</li>
+</ul>
+<p>We’ll start by examining the security manager. From the perspective of the Java API, there is a security manager that actually is in control of the security policy of an application. The purpose of the security manager is to determine whether particular operations should be permitted or denied. In truth, the purpose of the access controller is really the same: it decides whether access to a critical system resource should be permitted or denied. Hence, the access controller can do everything the security manager can do.</p>
+<p><strong>The reason there is both an access controller and a security manager is mainly historical</strong>: the access controller is only available in Java 2 and subsequent releases. Before the access controller existed, the security manager relied on its internal logic to determine the security policy that should be in effect, and changing the security policy required changing the security manager itself. Starting with Java 2, the security manager defers these decisions to the access controller. Since the security policy enforced by the access controller can be specified by using policy files, this allows a much more flexible mechanism for determining policies. The access controller also gives us a much simpler method of granting fine−grained, specific permissions to specific classes. That process was theoretically possibly with the security manager alone, but it was simply too hard to implement.</p>
+<h2 id="The-BasicPermission-class"><a href="#The-BasicPermission-class" class="headerlink" title="The BasicPermission class"></a>The BasicPermission class</h2><ul>
+<li><p>If you need to implement your own permission class, the BasicPermission class (java.security.BasicPermission) provides some useful semantics. This class implements a basic permission −− that is, a permission that doesn’t have actions. Basic permissions can be thought of as binary permissions −− you either have them or you don’t. However, this restriction does not prevent you from implementing actions in your subclasses of the BasicPermission class (as the PropertyPermission class does).</p>
+</li>
+<li><p>The prime benefit of this class is the manner in which it implements wildcards. Names in basic permissions are considered to be hierarchical, following a dot−separated convention. For example, if the XYZ corporation wanted to create a set of basic permissions, they might use the convention that the first word of the permission always be xyz: xyz.readDatabase, xyz.writeDatabase, xyz.runPayrollProgram, xyz.HRDepartment.accessCheck, and so on. These permissions can then be specified by their full name, or they can be specified with an asterisk wildcard: xyz.* would match each of these (no matter what depth), and * would match every possible basic permission.</p>
+</li>
+<li><p><a href="http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351" target="_blank" rel="noopener">http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351</a></p>
+</li>
+<li><p>保护密码的最好办法是使用加盐密码哈希（ salted password hashing）。</p>
+</li>
+<li><p>永远不要告诉用户输错的究竟是用户名还是密码。就像通用的提示那样，始终显示：“无效的用户名或密码。”就行了。这样可以防止攻击者在不知道密码的情况下枚举出有效的用户名。</p>
+</li>
+<li><p>应当注意的是，用来保护密码的哈希函数，和数据结构课学到的哈希函数是不同的。例如，实现哈希表的哈希函数设计目的是快速查找，而非安全性。只有加密哈希函数（ cryptographic hash function）才可以用来进行密码哈希加密。像 SHA256 、 SHA512 、 RIPEMD 和 WHIRLPOOL 都是加密哈希函数。</p>
+</li>
+<li><p>破解哈希加密最简单的方法是尝试猜测密码，哈希每个猜测的密码，并对比猜测密码的哈希值是否等于被破解的哈希值。如果相等，则猜中。猜测密码攻击的两种最常见的方法是字典攻击和暴力攻击 。</p>
+</li>
+<li><p>字典攻击使用包含单词、短语、常用密码和其他可能用做密码的字符串的字典文件。对文件中的每个词都进行哈希加密，将这些哈希值和要破解的密码哈希值比较。如果它们相同，这个词就是密码。字典文件是通过大段文本中提取的单词构成，甚至还包括一些数据库中真实的密码。还可以对字典文件进一步处理以使其更为有效：如单词 “hello” 按网络用语写法转成 “h3110” 。</p>
+</li>
+<li><p>暴力攻击是对于给定的密码长度，尝试每一种可能的字符组合。这种方式会消耗大量的计算，也是破解哈希加密效率最低的办法，但最终会找出正确的密码。因此密码应该足够长，以至于遍历所有可能的字符组合，耗费的时间太长令人无法承受，从而放弃破解。</p>
+</li>
+<li><p>目前没有办法来组织字典攻击或暴力攻击。只能想办法让它们变得低效。如果密码哈希系统设计是安全的，破解哈希的唯一方法就是进行字典攻击或暴力攻击遍历每一个哈希值了。</p>
+</li>
+<li><p>我们可以通过在密码中加入一段随机字符串再进行哈希加密，这个被加的字符串称之为盐值。如上例所示，这使得相同的密码每次都被加密为完全不同的字符串。我们需要盐值来校验密码是否正确。通常和密码哈希值一同存储在帐号数据库中，或者作为哈希字符串的一部分。</p>
+</li>
+<li><p>盐值无需加密。由于随机化了哈希值，查表法、反向查表法和彩虹表都会失效。因为攻击者无法事先知道盐值，所以他们就没有办法预先计算查询表或彩虹表。如果每个用户的密码用不同的盐再进行哈希加密，那么反向查表法攻击也将不能奏效。</p>
+</li>
+<li><p>一个常见的错误是每次都使用相同的盐值进行哈希加密，这个盐值要么被硬编码到程序里，要么只在第一次使用时随机获得。这样的做法是无效的，因为如果两个用户有相同的密码，他们仍然会有相同的哈希值。攻击者仍然可以使用反向查表法对每个哈希值进行字典攻击。他们只是在哈希密码之前，将固定的盐值应用到每个猜测的密码就可以了。如果盐值被硬编码到一个流行的软件里，那么查询表和彩虹表可以内置该盐值，以使其更容易破解它产生的哈希值。</p>
+</li>
+<li><p>用户创建帐号或者更改密码时，都应该用新的随机盐值进行加密。</p>
+</li>
+<li><p>出于同样的原因，不应该将用户名用作盐值。对每一个服务来说，用户名是唯一的，但它们是可预测的，并且经常重复应用于其他服务。攻击者可以用常见用户名作为盐值来建立查询表和彩虹表来破解密码哈希。</p>
+</li>
+<li><p>为使攻击者无法构造包含所有可能盐值的查询表，盐值必须足够长。一个好的经验是使用和哈希函数输出的字符串等长的盐值。例如， SHA256 的输出为256位（32字节），所以该盐也应该是32个随机字节。</p>
+</li>
+<li><p>每个用户的每一个密码都要使用独一无二的盐值。用户每次创建帐号或更改密码时，密码应采用一个新的随机盐值。永远不要重复使用某个盐值。这个盐值也应该足够长，以使有足够多的盐值能用于哈希加密。一个经验规则是，盐值至少要跟哈希函数的输出一样长。该盐应和密码哈希一起存储在用户帐号表中。</p>
+</li>
+<li><p>存储密码的步骤：</p>
+<ul>
+<li>使用 CSPRNG 生成足够长的随机盐值。</li>
+<li>将盐值混入密码，并使用标准的密码哈希函数进行加密，如Argon2、 bcrypt 、 scrypt 或 PBKDF2 。</li>
+<li>将盐值和对应的哈希值一起存入用户数据库。</li>
+</ul>
+</li>
+<li><p>校验密码的步骤：</p>
+<ul>
+<li>从数据库检索出用户的盐值和对应的哈希值。</li>
+<li>将盐值混入用户输入的密码，并且使用通用的哈希函数进行加密。</li>
+<li>比较上一步的结果，是否和数据库存储的哈希值相同。如果它们相同，则表明密码是正确的；否则，该密码错误。</li>
+</ul>
+</li>
+</ul>
 
           
         
@@ -1460,6 +1304,273 @@ Spring scans the application context for bean methods annotated with @Transactio
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-21-aws/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-03-21-aws/" class="post-title-link" itemprop="url">AWS Tips</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>After establishing a SSH session, you can install a default web server by executing sudo yum install httpd -y. To start the web server, type sudo service httpd start and press Return to execute the command. Your web browser should show a placeholder site if you open http://$PublicIp with $PublicIp replaced by the public IP address of your virtual server.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-13-oracle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-03-13-oracle/" class="post-title-link" itemprop="url">Oracle</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <ul>
+<li>ORA-12899: Value Too Large for Column</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT value$ FROM sys.props$ WHERE name = 'NLS_CHARACTERSET' ;</span><br><span class="line"></span><br><span class="line">VALUE$</span><br><span class="line"><span class="comment">-------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">AL32UTF8</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> NLS_DATABASE_PARAMETERS</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">u43888859@hkl105482$  lsnrctl services DHKCUSTD</span><br><span class="line"></span><br><span class="line">LSNRCTL for Linux: Version 12.1.0.2.0 - Production on 28-FEB-2017 06:40:53</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hkl105482.hk.hsbc)(PORT=2001))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=DHKCUSTD.hk.hsbc)))</span><br><span class="line">Services Summary...</span><br><span class="line">Service "DHKCUSTD.hk.hsbc" has 1 instance(s).</span><br><span class="line">  Instance "DHKCUSTD", status READY, has 1 <span class="keyword">handler</span>(s) <span class="keyword">for</span> this service...</span><br><span class="line">    <span class="keyword">Handler</span>(s):</span><br><span class="line">      <span class="string">"DEDICATED"</span> established:<span class="number">15</span> refused:<span class="number">0</span> state:ready</span><br><span class="line">         <span class="keyword">LOCAL</span> <span class="keyword">SERVER</span></span><br><span class="line">The command completed successfully</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-04-06-SSH/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-04-06-SSH/" class="post-title-link" itemprop="url">SSH SFTP</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Secure-FTP"><a href="#Secure-FTP" class="headerlink" title="Secure FTP"></a>Secure FTP</h1><blockquote>
+<p>SFTP over FTP is the equivalant of HTTPS over HTTP, the security version</p>
+</blockquote>
+<h2 id="SFTP-versus-FTPS"><a href="#SFTP-versus-FTPS" class="headerlink" title="SFTP versus FTPS"></a>SFTP versus FTPS</h2><ul>
+<li>An increasing number of our customers are looking to move away from standard FTP for transferring data, so we are often asked which secure FTP protocol we recommend. In the next few paragraphs, we will explain what options are available and their main differences.</li>
+<li>The two mainstream protocols available for Secure FTP transfers are named SFTP (FTP over SSH) and FTPS (FTP over SSL). Both SFTP and FTPS offer a high level of protection since they implement strong algorithms such as AES and Triple DES to encrypt any data transferred. Both options also support a wide variety of functionality with a broad command set for transferring and working with files. So the most notable differences between SFTP and FTPS is how connections are authenticated and managed.</li>
+</ul>
+<h2 id="Authentication-SFTP-vs-FTPS"><a href="#Authentication-SFTP-vs-FTPS" class="headerlink" title="Authentication: SFTP vs. FTPS"></a>Authentication: SFTP vs. FTPS</h2><ul>
+<li>With SFTP (FTP over SSH), a connection can be authenticated using a couple different techniques.  For basic authentication, you (or your trading partner) may just require a user id and password to connect to the SFTP server. Its important to note that any user ids and passwords supplied over the SFTP connection will be encrypted, which is a big advantage over standard FTP.</li>
+<li>SSH keys can also be used to authenticate SFTP connections in addition to, or instead of, passwords. With key-based authentication, you will first need to generate a SSH private key and public key beforehand. If you need to connect to a trading partner’s SFTP server, you would send your SSH public key to them, which they will load onto their server and associate with your account. When you connect to their SFTP server, your client software will transmit your public key to the server for authentication. If the keys match, along with any user/password supplied, then the authentication will succeed.</li>
+<li>With FTPS (FTP over SSL), a connection is authenticated using a user id, password and certificate(s).  Like SFTP, the users and passwords for FTPS connections will also be encrypted. When connecting to a trading partner’s FTPS server, your FTPS client will first check if the server’s certificate is trusted. The certificate is considered trusted if either the certificate was signed off by a known certificate authority (CA), like Verisign, or if the certificate was self-signed (by your partner) and you have a copy of their public certificate in your trusted key store.</li>
+<li>Your partner may also require that you supply a certificate when you connect to them.  Your certificate may be signed off by a 3rd party CA or your partner may allow you to just self-sign your certificate, as long as you send them the public portion of your certificate beforehand (which they will load in their trusted key store).</li>
+</ul>
+<h2 id="Implementation-SFTP-vs-FTPS"><a href="#Implementation-SFTP-vs-FTPS" class="headerlink" title="Implementation: SFTP vs. FTPS"></a>Implementation: SFTP vs. FTPS</h2><ul>
+<li>In regards to how easy each of the secure FTP protocols are to implement, SFTP is the clear winner since it is very firewall friendly. SFTP only needs a single port number (default of 22) to be opened through the firewall.  This port will be used for all SFTP communications, including the initial authentication, any commands issued, as well as any data transferred.</li>
+<li>On the other hand, FTPS can be very difficult to patch through a tightly secured firewall since FTPS uses multiple port numbers. The initial port number (default of 21) is used for authentication and passing any commands.  However, every time a file transfer request (get, put) or directory listing request is made, another port number needs to be opened.  You and your trading partners will therefore have to open a range of ports in your firewalls to allow for FTPS connections, which can be a security risk for your network.</li>
+</ul>
+<p>In summary, SFTP and FTPS are both very secure with strong authentication options.  However since SFTP is much easier to port through firewalls, and we are seeing an increasing percentage of trading partners adopting SFTP, we believe SFTP is the clear winner for your secure FTP needs.</p>
+<h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><ul>
+<li>There are several ways to use SSH; one is to use automatically generated public-private key pairs to simply encrypt a network connection, and then use password authentication to log on.</li>
+<li>Another is to use a manually generated public-private key pair to perform the authentication, allowing users or programs to log in without having to specify a password. In this scenario, anyone can produce a matching pair of different keys (public and private). The public key is placed on all computers that must allow access to the owner of the matching private key (the owner keeps the private key secret). While authentication is based on the private key, the key itself is never transferred through the network during authentication. SSH only verifies whether the same person offering the public key also owns the matching private key. In all versions of SSH it is important to verify unknown public keys, i.e. associate the public keys with identities, before accepting them as valid. Accepting an attacker’s public key without validation will authorize an unauthorized attacker as a valid user.</li>
+</ul>
+<h2 id="Key-management"><a href="#Key-management" class="headerlink" title="Key management"></a>Key management</h2><ul>
+<li>On Unix-like systems, the list of authorized public keys is typically stored in the home directory of the user that is allowed to log in remotely, in the file ~/.ssh/authorized_keys.</li>
+</ul>
+<h3 id="WinFTP"><a href="#WinFTP" class="headerlink" title="WinFTP"></a>WinFTP</h3><ul>
+<li>cryptographic protocol is SSH-2</li>
+<li>SSH implementation is OpenSSH_5.3</li>
+<li>Server fingerprint: File transfer protocol = SFTP-3<br>Cryptographic protocol = SSH-2<br>SSH implementation = OpenSSH_5.3<br>Encryption algorithm = aes<br>Compression = No</li>
+</ul>
+<hr>
+<p>Server host key fingerprint</p>
+<h2 id="ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc"><a href="#ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc" class="headerlink" title="ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc"></a>ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc</h2><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers" target="_blank" rel="noopener">https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Secure_Shell</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-30-WebSphere-setp-via-CLI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1588,117 +1699,6 @@ Spring scans the application context for bean methods annotated with @Transactio
 
 <h5 id="Check-networking-amp-port-on-WAS-server"><a href="#Check-networking-amp-port-on-WAS-server" class="headerlink" title="Check networking &amp; port on WAS server"></a>Check networking &amp; port on WAS server</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@cn000tst1129 Thu Mar 30 17:07:11 /  <span class="comment">#netstat -nptlev | grep java</span></span><br><span class="line">tcp        0      0 133.14.16.2:20962           0.0.0.0:*                   LISTEN      200000000  938007     252552/java</span><br><span class="line">tcp        0      0 127.0.0.1:9635              0.0.0.0:*                   LISTEN      200000000  1048485    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9445                0.0.0.0:*                   LISTEN      200000000  1048615    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9062                0.0.0.0:*                   LISTEN      200000000  1048613    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9102                0.0.0.0:*                   LISTEN      200000000  1048479    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:8882                0.0.0.0:*                   LISTEN      200000000  1048484    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9045                0.0.0.0:*                   LISTEN      200000000  1048616    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20950               0.0.0.0:*                   LISTEN      200000000  938036     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:20953               0.0.0.0:*                   LISTEN      200000000  937999     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9082                0.0.0.0:*                   LISTEN      200000000  1048614    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20954               0.0.0.0:*                   LISTEN      200000000  938118     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:2811                0.0.0.0:*                   LISTEN      200000000  1048482    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20957               0.0.0.0:*                   LISTEN      200000000  937992     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9407                0.0.0.0:*                   LISTEN      200000000  1048481    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20959               0.0.0.0:*                   LISTEN      200000000  938088     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9408                0.0.0.0:*                   LISTEN      200000000  1048480    254902/java</span><br><span class="line">tcp        0      0 127.0.0.1:20960             0.0.0.0:*                   LISTEN      200000000  938089     252552/java</span><br><span class="line">tcp        0      0 133.14.16.2:20961           0.0.0.0:*                   LISTEN      200000000  938047     252552/java</span><br></pre></td></tr></table></figure>
 
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-04-06-SSH/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-04-06-SSH/" class="post-title-link" itemprop="url">SSH SFTP</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Secure-FTP"><a href="#Secure-FTP" class="headerlink" title="Secure FTP"></a>Secure FTP</h1><blockquote>
-<p>SFTP over FTP is the equivalant of HTTPS over HTTP, the security version</p>
-</blockquote>
-<h2 id="SFTP-versus-FTPS"><a href="#SFTP-versus-FTPS" class="headerlink" title="SFTP versus FTPS"></a>SFTP versus FTPS</h2><ul>
-<li>An increasing number of our customers are looking to move away from standard FTP for transferring data, so we are often asked which secure FTP protocol we recommend. In the next few paragraphs, we will explain what options are available and their main differences.</li>
-<li>The two mainstream protocols available for Secure FTP transfers are named SFTP (FTP over SSH) and FTPS (FTP over SSL). Both SFTP and FTPS offer a high level of protection since they implement strong algorithms such as AES and Triple DES to encrypt any data transferred. Both options also support a wide variety of functionality with a broad command set for transferring and working with files. So the most notable differences between SFTP and FTPS is how connections are authenticated and managed.</li>
-</ul>
-<h2 id="Authentication-SFTP-vs-FTPS"><a href="#Authentication-SFTP-vs-FTPS" class="headerlink" title="Authentication: SFTP vs. FTPS"></a>Authentication: SFTP vs. FTPS</h2><ul>
-<li>With SFTP (FTP over SSH), a connection can be authenticated using a couple different techniques.  For basic authentication, you (or your trading partner) may just require a user id and password to connect to the SFTP server. Its important to note that any user ids and passwords supplied over the SFTP connection will be encrypted, which is a big advantage over standard FTP.</li>
-<li>SSH keys can also be used to authenticate SFTP connections in addition to, or instead of, passwords. With key-based authentication, you will first need to generate a SSH private key and public key beforehand. If you need to connect to a trading partner’s SFTP server, you would send your SSH public key to them, which they will load onto their server and associate with your account. When you connect to their SFTP server, your client software will transmit your public key to the server for authentication. If the keys match, along with any user/password supplied, then the authentication will succeed.</li>
-<li>With FTPS (FTP over SSL), a connection is authenticated using a user id, password and certificate(s).  Like SFTP, the users and passwords for FTPS connections will also be encrypted. When connecting to a trading partner’s FTPS server, your FTPS client will first check if the server’s certificate is trusted. The certificate is considered trusted if either the certificate was signed off by a known certificate authority (CA), like Verisign, or if the certificate was self-signed (by your partner) and you have a copy of their public certificate in your trusted key store.</li>
-<li>Your partner may also require that you supply a certificate when you connect to them.  Your certificate may be signed off by a 3rd party CA or your partner may allow you to just self-sign your certificate, as long as you send them the public portion of your certificate beforehand (which they will load in their trusted key store).</li>
-</ul>
-<h2 id="Implementation-SFTP-vs-FTPS"><a href="#Implementation-SFTP-vs-FTPS" class="headerlink" title="Implementation: SFTP vs. FTPS"></a>Implementation: SFTP vs. FTPS</h2><ul>
-<li>In regards to how easy each of the secure FTP protocols are to implement, SFTP is the clear winner since it is very firewall friendly. SFTP only needs a single port number (default of 22) to be opened through the firewall.  This port will be used for all SFTP communications, including the initial authentication, any commands issued, as well as any data transferred.</li>
-<li>On the other hand, FTPS can be very difficult to patch through a tightly secured firewall since FTPS uses multiple port numbers. The initial port number (default of 21) is used for authentication and passing any commands.  However, every time a file transfer request (get, put) or directory listing request is made, another port number needs to be opened.  You and your trading partners will therefore have to open a range of ports in your firewalls to allow for FTPS connections, which can be a security risk for your network.</li>
-</ul>
-<p>In summary, SFTP and FTPS are both very secure with strong authentication options.  However since SFTP is much easier to port through firewalls, and we are seeing an increasing percentage of trading partners adopting SFTP, we believe SFTP is the clear winner for your secure FTP needs.</p>
-<h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><ul>
-<li>There are several ways to use SSH; one is to use automatically generated public-private key pairs to simply encrypt a network connection, and then use password authentication to log on.</li>
-<li>Another is to use a manually generated public-private key pair to perform the authentication, allowing users or programs to log in without having to specify a password. In this scenario, anyone can produce a matching pair of different keys (public and private). The public key is placed on all computers that must allow access to the owner of the matching private key (the owner keeps the private key secret). While authentication is based on the private key, the key itself is never transferred through the network during authentication. SSH only verifies whether the same person offering the public key also owns the matching private key. In all versions of SSH it is important to verify unknown public keys, i.e. associate the public keys with identities, before accepting them as valid. Accepting an attacker’s public key without validation will authorize an unauthorized attacker as a valid user.</li>
-</ul>
-<h2 id="Key-management"><a href="#Key-management" class="headerlink" title="Key management"></a>Key management</h2><ul>
-<li>On Unix-like systems, the list of authorized public keys is typically stored in the home directory of the user that is allowed to log in remotely, in the file ~/.ssh/authorized_keys.</li>
-</ul>
-<h3 id="WinFTP"><a href="#WinFTP" class="headerlink" title="WinFTP"></a>WinFTP</h3><ul>
-<li>cryptographic protocol is SSH-2</li>
-<li>SSH implementation is OpenSSH_5.3</li>
-<li>Server fingerprint: File transfer protocol = SFTP-3<br>Cryptographic protocol = SSH-2<br>SSH implementation = OpenSSH_5.3<br>Encryption algorithm = aes<br>Compression = No</li>
-</ul>
-<hr>
-<p>Server host key fingerprint</p>
-<h2 id="ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc"><a href="#ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc" class="headerlink" title="ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc"></a>ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc</h2><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers" target="_blank" rel="noopener">https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Secure_Shell</a></li>
-</ul>
 
           
         
