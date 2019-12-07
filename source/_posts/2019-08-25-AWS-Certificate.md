@@ -46,6 +46,23 @@ Here you need to create an AMI, but because AMI are bounded in the regions they 
 ## Placement group
  Placements groups are the answer here, where "cluster" guarantees high network performance (correct answer), whereas "spread" would guarantee independent failures between instances.
 
+
+ When you launch a new EC2 instance, the EC2 service attempts to place the instance in such a way that all of your instances are spread out across underlying hardware to minimize correlated failures. You can use placement groups to influence the placement of a group of interdependent instances to meet the needs of your workload. Depending on the type of workload, you can create a placement group using one of the following placement strategies:
+
+ Cluster – packs instances close together inside an Availability Zone. This strategy enables workloads to achieve the low-latency network performance necessary for tightly-coupled node-to-node communication that is typical of HPC applications.
+
+ Partition – spreads your instances across logical partitions such that groups of instances in one partition do not share the underlying hardware with groups of instances in different partitions. This strategy is typically used by large distributed and replicated workloads, such as Hadoop, Cassandra, and Kafka.
+
+ Spread – strictly places a small group of instances across distinct underlying hardware to reduce correlated failures.
+
+ There is no charge for creating a placement group.
+
+### Cluster
+
+ Cluster Placement Groups
+
+A cluster placement group is a logical grouping of instances within a single Availability Zone. A placement group can span peered VPCs in the same Region. The chief benefit of a cluster placement group, in addition to a 10 Gbps flow limit, is the non-blocking, non-oversubscribed, fully bi-sectional nature of the connectivity. In other words, all nodes within the placement group can talk to all other nodes within the placement group at the full line rate of 10 Gbps flows and 100 Gbps aggregate without any slowing due to over-subscription.
+
 ## ASG
 
 ### ASG Lauch configuration
@@ -72,6 +89,14 @@ IAM has a `global` view
 
 • One IAM User per PHYSICAL PERSON
 • One IAM Role per Application
+
+## STS
+Temporary Security Credentials
+You can use the AWS Security Token Service (AWS STS) to create and provide trusted users with temporary security credentials that can control access to your AWS resources. Temporary security credentials work almost identically to the long-term access key credentials that your IAM users can use, with the following differences:
+
+Temporary security credentials are short-term, as the name implies. They can be configured to last for anywhere from a few minutes to several hours. After the credentials expire, AWS no longer recognizes them or allows any kind of access from API requests made with them.
+
+Temporary security credentials are not stored with the user but are generated dynamically and provided to the user when requested. When (or even before) the temporary security credentials expire, the user can request new credentials, as long as the user requesting them still has permissions to do so.
 
 
 # Storage
@@ -121,6 +146,20 @@ both
 
 ### EBS types
  keeping as io1 but reducing the iops may interfere with the burst of performance we need. The EC2 instance type changes won't affect the 90% of the costs that are incurred to us. CloudFormation is a free service to use. Therefore, gp2 is the right choice, allowing us to save on cost while keeping a burst in performance when needed
+
+
+You can now choose between three Amazon EBS volume types to best meet the needs of your workloads: General Purpose (SSD), Provisioned IOPS (SSD), and Magnetic volumes. 
+
+#### General Purpose (SSD) 
+GP2 volumes are suitable for a broad range of workloads, including small to medium-sized databases, development and test environments, and boot volumes. 
+#### Provisioned IOPS (SSD) 
+Such volumes offer storage with consistent and low-latency performance, are designed for I/O-intensive applications such as large relational or NoSQL databases, and allow you to choose the level of performance you need. 
+#### Magnetic volumes
+formerly known as Standard volumes, provide the lowest cost per gigabyte of all Amazon EBS volume types and are ideal for workloads where data is accessed infrequently and applications where the lowest storage cost is important.
+
+
+
+Backed by Solid-State Drives (SSDs), General Purpose (SSD) volumes provide the ability to burst to 3,000 IOPS per volume, independent of volume size, to meet the performance needs of most applications and also deliver a consistent baseline of 3 IOPS/GB. General Purpose (SSD) volumes offer the same five nines of availability and durable snapshot capabilities as other volume types. Pricing and performance for General Purpose (SSD) volumes are simple and predictable. You pay for each GB of storage you provision, and there are no additional charges for I/O performed on a volume. Prices start as low as $0.10/GB.
 
 
 #### Save network cost
@@ -221,6 +260,11 @@ To monitor the calls made to the Amazon EC2 API for your account, including call
 
 In general, to analyze any API calls made within your AWS account, you should use CloudTrail
 
+
+​
+Set up a new CloudTrail trail in a new S3 bucket using the AWS CLI and also pass both the --is-multi-region-trail and --include-global-service-events parameters then encrypt log files using KMS encryption. Apply Multi Factor Authentication (MFA) Delete on the S3 bucket and ensure that only authorized users can access the logs by configuring the bucket policies.
+
+
 ## Charge
  the first copy of management events is free.
 
@@ -307,6 +351,13 @@ When you create an AWS Elastic Beanstalk environment, you can specify an Amazon 
 
 # MQ
 SNS, SQS and Kinesis are AWS' proprietary technologies and do not come with MQTT compatibility. Here the only possible answer is Amazon MQ
+
+# X Ray
+ AWS X-Ray
+Analyze and debug production, distributed applications
+
+AWS X-Ray helps developers analyze and debug production, distributed applications, such as those built using a microservices architecture. With X-Ray, you can understand how your application and its underlying services are performing to identify and troubleshoot the root cause of performance issues and errors. X-Ray provides an end-to-end view of requests as they travel through your application, and shows a map of your application’s underlying components. You can use X-Ray to analyze both applications in development and in production, from simple three-tier applications to complex microservices applications consisting of thousands of services.
+
 
 
 # Q&A
