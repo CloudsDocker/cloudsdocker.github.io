@@ -195,83 +195,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-03-18-NodeJs-Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-03-18-NodeJs-Notes/" class="post-title-link" itemprop="url">NodeJs Notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="commands-to-read-files"><a href="#commands-to-read-files" class="headerlink" title="commands to read files"></a>commands to read files</h2><p> var lineReader = require(‘readline’).createInterface({<br>    input: require(‘fs’).createReadStream(‘C:\dev\node\input\git_reset_files.txt’)<br> });</p>
-<p> lineReader.on(‘line’, function(line){<br>    console.log(‘git checkout ‘+line);<br> });</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-15-how-to-setup-node-config-in-intranet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -344,6 +267,176 @@
 <p>If not exist, run below command to add it back.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy http://127.0.0.1:53128</span><br></pre></td></tr></table></figure>
 
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-14-Strategy-Of-Openshift-Releases/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-05-14-Strategy-Of-Openshift-Releases/" class="post-title-link" itemprop="url">Strategy-Of-Openshift-Releases</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Release-amp-Testing-Strategy"><a href="#Release-amp-Testing-Strategy" class="headerlink" title="Release &amp; Testing Strategy"></a>Release &amp; Testing Strategy</h1><p>There are various methods for safely releasing changes to Production. Each team must select what is appropriate for their own use case with consideration to risk, rollback approaches and testing approaches.</p>
+<h1 id="The-following-are-options"><a href="#The-following-are-options" class="headerlink" title="The following are options:"></a>The following are options:</h1><h2 id="Canary-Release"><a href="#Canary-Release" class="headerlink" title="Canary Release"></a>Canary Release</h2><p>This is the lowest risk strategy since it allows for testing on a subset of users, and it allows for fast rollback:</p>
+<ul>
+<li>Build a new Environment</li>
+<li>Use a routing tool (eg. Apigee) to test with a specific set of users</li>
+<li>Bleed traffic across</li>
+<li>Remove old environment</li>
+</ul>
+<h2 id="Blue-Green"><a href="#Blue-Green" class="headerlink" title="Blue Green"></a>Blue Green</h2><p> This is the classic zero-downtime deployment model that involves flipping traffic between two environments:</p>
+<ul>
+<li>Ensure your router has two entry points, one for Production Testing and one for Production traffic</li>
+<li>Have two environments: <code>blue</code> and <code>green</code></li>
+<li>If Production traffic is pointing to <code>blue</code> then deploy your changes on <code>green</code></li>
+<li>Point your Production Testing traffic to <code>green</code></li>
+<li>When verified, point Production traffic to <code>green</code></li>
+<li>On the next release, deploy changes to <code>blue</code></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-06-Scrum-Agile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-06-06-Scrum-Agile/" class="post-title-link" itemprop="url">Agile and SCRUM</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Key-concept"><a href="#Key-concept" class="headerlink" title="Key concept"></a>Key concept</h2><p>In Scrum, a team is cross functional, meaning everyone is needed to take a feature from idea to implementation.</p>
+<p>Within agile development, Scrum teams are supported by two specific roles. The first is a ScrumMaster, who can be thought of as a coach for the team, helping team members use the Scrum process to perform at the highest level.</p>
+<p>The product owner (PO) is the other role, and in Scrum software development, represents the business, customers or users, and guides the team toward building the right product.</p>
 
           
         
@@ -473,84 +566,6 @@
 <p>— english—<br>it can safely prune unused exports.</p>
 <p>Trim (a tree, shrub, or bush) by cutting away dead or overgrown branches or stems, especially to encourage growth.</p>
 <p>‘now is the time to prune roses’</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-06-Scrum-Agile/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-06-06-Scrum-Agile/" class="post-title-link" itemprop="url">Agile and SCRUM</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="Key-concept"><a href="#Key-concept" class="headerlink" title="Key concept"></a>Key concept</h2><p>In Scrum, a team is cross functional, meaning everyone is needed to take a feature from idea to implementation.</p>
-<p>Within agile development, Scrum teams are supported by two specific roles. The first is a ScrumMaster, who can be thought of as a coach for the team, helping team members use the Scrum process to perform at the highest level.</p>
-<p>The product owner (PO) is the other role, and in Scrum software development, represents the business, customers or users, and guides the team toward building the right product.</p>
 
           
         

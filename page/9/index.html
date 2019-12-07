@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-09-R-Lang/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-03-Maven-Notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-02-09-R-Lang/" class="post-title-link" itemprop="url">R Language</a>
+              <a href="/2017-02-03-Maven-Notes/" class="post-title-link" itemprop="url">Maven-Notes</a>
             
           </h1>
         
@@ -243,8 +243,336 @@
 
       
           
-            <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s&lt;-read.csv(<span class="string">"C:/Users/xxx/dev/R/IRS/SHH_SCHISHG.csv"</span>)</span><br><span class="line"><span class="comment"># aggregate </span></span><br><span class="line">s2&lt;-table(s$Original.CP)</span><br><span class="line">s3&lt;-as.data.frame(s2)</span><br><span class="line"><span class="comment"># extract by Frequency ordered </span></span><br><span class="line">s3[order(-s3$Freq),]</span><br></pre></td></tr></table></figure>
+            <h1 id="Maven-philosophy"><a href="#Maven-philosophy" class="headerlink" title="Maven philosophy"></a>Maven philosophy</h1><ul>
+<li>“It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies and their versions.”</li>
+</ul>
+<h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><h2 id="Life-cycles"><a href="#Life-cycles" class="headerlink" title="Life cycles"></a>Life cycles</h2><p>Maven defines three Lifecycles ֠default, clean and site and each Lifecycle consists of predefined Phases. </p>
+<p>The clean argument which we pass to mvn command is phase which is in lifecycle named clean.</p>
+<p>Maven Lifecycle Phases clean lifecycle<br>The clean lifecycle contains three phases pre-clean, clean and post-clean .<br>When we invoke command mvn clean, Maven loads Clean Lifecycle and executes the phases pre-clean and clean.<br>We can invoke any of these three phases and all preceding phases up to and including the invoked phase are executed sequentially.</p>
+<p>Lifecycle phases can’s do anything by themselves. For example, phase clean by itself doesnӴ have ability or functionality to delete the build directory. It delegate the task to a plugin named maven-clean-plugin. So, lifecycles phases are just some predefined steps which Maven invokes sequentially one after another. As we can see, phases are similar to the steps in a job which are executed one after another.</p>
+<h1 id="Concepts-summary"><a href="#Concepts-summary" class="headerlink" title="Concepts summary"></a>Concepts summary</h1><p>Lifecycles, Lifecycle Phases, Plugins and Plugin Goals are the core of Maven. and we summarize the concepts learned so far:<br>Maven comes with three lifecycles ֠default, clean and site.<br>each lifecycle is made up of lifecycle phases and in all, there are 28 phases ֠default 21, clean 3 and site 4.<br>when a lifecycle phase is invoked using mvn command, all preceding phases are executed sequentially one after another.<br>lifecycle phases by themselves doesnӴ have any capabilities to accomplish some task and they rely on plugins to carryout the task.<br>depending on project and packaging type, Maven binds various plugin goals to lifecycle phases and goals carryout the task entrusted to them.</p>
+<h3 id="default-lifecycle"><a href="#default-lifecycle" class="headerlink" title="default lifecycle"></a>default lifecycle</h3><p>Default Lifecycle<br>The most important of the three lifecycles is the Default Lifecycle . Maven uses default lifecycle to build, test and distribute the project. Default lifecycle contains 21 phases.</p>
+<p>Project may contain resources such as properties, XML configuration files etc., and phases process-resources and process-test-resources copy and process such resources files.<br>The phases compile and test-compile complies the source Java files and test files respectively.<br>The phases package, install, and deploy are used to distribute the project. As we have already seen, the package phase creates JAR file of resources and compiled classes for distribution. The phase install, installs the artifacts of the project i.e jar and pom.xml to the local repository at $HOME/.m2 so that other projects can use them as dependencies. The phase deploy installs the artifacts of the project to a remote repository (probably on Internet) so that a wider group of projects can use it as dependency. We will cover these phases in a later chapter.</p>
+<h2 id="goal"><a href="#goal" class="headerlink" title="goal"></a>goal</h2><p>If we see the usage description of mvn command, apart from the options it accepts only two things ֠goal or phase.<br>Maven Lifecycle Phases - mvn usage description</p>
+<p>mvn [options] [&lt;goal(s)&gt;] [&lt;phase(s)&gt;]</p>
+<p>For example, we can directly compile the source with the following command.<br>$ cd simple-app<br>$ mvn compiler:compile<br>To run a goal with mvn, use the format <plugin prefix>:<goal>. In the above example, compiler:compile, the compiler is plugin prefix of maven-compiler-plugin and compile is the goal name. We can get the prefix of all plugins from Maven Plugin Directory.</goal></plugin></p>
+<p>–<br>When we invoke a goal directly, Maven executes just that goal, whereas when we invoke a lifecycle phase all the phases up to that phase are executed. We can see this in action with following example.<br>$ cd simple-app<br>$ mvn clean<br>$ mvn surefire:test</p>
+<hr>
+<p>In very few situations we invoke plugin goals directly and more often than not, lifecycle phases are preferred.</p>
+<p>Lifecycle Phases and Plugin Goals<br>When a lifecycle phase is run, depending on project type and packaging type, Maven binds plugin goals to lifecycle phases.<br>When we run mvn package in a Java Project.</p>
+<hr>
+<p>To process-resources phase, Maven binds resources goal of maven-resources-plugin and to test phase, it binds test goal of maven-surefire-plugin and so on.<br>Whatӳ happens at package phase is bit interesting. In a Java Project, Maven binds jar goal of maven-jar-plugin. However, when we run the same command in a webapp project, up to test phase Maven binds same goals, but to the package phase Maven binds war goal of maven-war-plugin the war:war instead of jar:jar.</p>
+<h3 id="Samples"><a href="#Samples" class="headerlink" title="Samples"></a>Samples</h3><p>For example, consider the command below. The clean and package arguments are build phases, while the dependency:copy-dependencies is a goal (of a plugin).</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean dependency:copy-dependencies package</span><br></pre></td></tr></table></figure>
 
+<p>If this were to be executed, the clean phase will be executed first (meaning it will run all preceding phases of the clean lifecycle, plus the clean phase itself), and then the dependency:copy-dependencies goal, before finally executing the package phase (and all its preceding build phases of the default lifecycle).</p>
+<p>Moreover, if a goal is bound to one or more build phases, that goal will be called in all those phases.</p>
+<h3 id="To-see-what-goals-bined-to-lifecycle-phase"><a href="#To-see-what-goals-bined-to-lifecycle-phase" class="headerlink" title="To see what goals bined to lifecycle phase"></a>To see what goals bined to lifecycle phase</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn <span class="built_in">help</span>:describe -Dcmd=install</span><br></pre></td></tr></table></figure>
+
+<p>[INFO] ‘install’ is a phase corresponding to this plugin:<br>org.apache.maven.plugins:maven-install-plugin:2.4:install</p>
+<p>It is a part of the lifecycle for the POM packaging ‘pom’. This lifecycle includes the following phases:</p>
+<ul>
+<li>validate: Not defined</li>
+<li>initialize: Not defined</li>
+<li>generate-sources: Not defined</li>
+<li>process-sources: Not defined</li>
+<li>generate-resources: Not defined</li>
+<li>process-resources: Not defined</li>
+<li>compile: Not defined</li>
+<li>process-classes: Not defined</li>
+<li>generate-test-sources: Not defined</li>
+<li>process-test-sources: Not defined</li>
+<li>generate-test-resources: Not defined</li>
+<li>process-test-resources: Not defined</li>
+<li>test-compile: Not defined</li>
+<li>process-test-classes: Not defined</li>
+<li>test: Not defined</li>
+<li>prepare-package: Not defined</li>
+<li>package: Not defined</li>
+<li>pre-integration-test: Not defined</li>
+<li>integration-test: Not defined</li>
+<li>post-integration-test: Not defined</li>
+<li>verify: Not defined</li>
+<li>install: org.apache.maven.plugins:maven-install-plugin:2.4:install</li>
+<li>deploy: org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy</li>
+</ul>
+<h2 id="Plugin"><a href="#Plugin" class="headerlink" title="Plugin"></a>Plugin</h2><p>Maven is ֠at its heart ֠a plugin execution framework; all work is done by plugins.</p>
+<p>Plugins are broadly grouped as build plugins and reporting plugins. </p>
+<p>Plugins are artifacts that provide goals to Maven. Furthermore, a plugin may have one or more goals wherein each goal represents a capability of that plugin. For example, the Compiler plugin has two goals: compile and testCompile. The former compiles the source code of your main code, while the latter compiles the source code of your test code.</p>
+<p>Plugin Goals<br>Maven plugin is a collection of one or more goals which do some task or job. It is also known as Mojo ֠Maven Plain Old Java Object.</p>
+<p>Similarly, Maven uses maven-compiler-plugin to compile the source and test files and it provides three goals ֠compiler:compile, compiler:testCompile and compiler:help.</p>
+<p>Suffice it to say for now that a plugin is a collection of goals with a general common purpose. For example the jboss-maven-plugin, whose purpose is “deal with various jboss items”.</p>
+<p>To configure plugins, we use project build element in pom.xml. The next listing shows the top level elements used to configure a plugin.<br>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>...<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>...<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>...<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span>...<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span>        </span><br><span class="line">        <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">execution</span>&gt;</span>...<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>The elements are</p>
+<ul>
+<li>build : defines the project build.</li>
+<li>plugins : parent element for one or more <plugin> elements.</plugin></li>
+<li>plugin : the plugin to configure.</li>
+<li>groupId, artifactId, version : coordinates of the plugin to configure.</li>
+<li>configuration : holds the parameters and properties to be passed to the plugin.</li>
+<li>executions : parent element for one or more <execution> element.</execution></li>
+<li>execution : configures the execution of a goal of the plugin.</li>
+</ul>
+<p>In Maven, there are the build and the reporting plugins:</p>
+<ul>
+<li>Build plugins will be executed during the build and then, they should be configured in the <build> element.</build></li>
+<li>Reporting plugins will be executed during the site generation and they should be configured in the <reporting> element.</reporting></li>
+</ul>
+<h3 id="position"><a href="#position" class="headerlink" title="position"></a>position</h3><p>Normally, the <build> block is placed after the project coordinates block and before the dependencies block.</build></p>
+<h3 id="To-show-plugin-details-in-configuration"><a href="#To-show-plugin-details-in-configuration" class="headerlink" title="To show plugin details in configuration"></a>To show plugin details in configuration</h3><p>Easiest way to know the available parameters for a goal is to run plugin help goal.<br>$ mvn compiler:help -Dgoal=compile -Ddetail<br>It will list the available parameters for compile goal of compiler.<br>But it will not show the default value of the parameters and to know the available parameters and also, the default value for each parameter, run help:describe goal of Maven Help plugin (maven-help-plugin).<br>$ mvn help:describe -Dplugin=compiler -Dmojo=compile -Ddetail<br>Note that maven-help-plugins uses -Dmojo for goal, instead of -Dgoal,</p>
+<h3 id="Help-Goal"><a href="#Help-Goal" class="headerlink" title="Help Goal"></a>Help Goal</h3><p>Recent Maven plugins have generally an help goal to have in the command line the description of the plugin, with their parameters and types. For instance, to understand the javadoc goal, you need to call:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn javadoc:<span class="built_in">help</span> -Ddetail -Dgoal=javadoc</span><br></pre></td></tr></table></figure>
+
+<h4 id="Samples-1"><a href="#Samples-1" class="headerlink" title="Samples"></a>Samples</h4><ul>
+<li><p>To include or exclude certain files or directories in the project Jar, configure Maven Jar Plugin with <include> and <exclude> parameters.<br>simple-app/pom.xml<br>…</exclude></include></p>
+<build>
+  <plugins>
+    <plugin>
+      <groupid>org.apache.maven.plugins</groupid>
+      <artifactid>maven-jar-plugin</artifactid>
+      <configuration>
+        <includes>
+          <include>**/service/*</include>
+        </includes>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+...
+</li>
+<li><p>Maven Clean Plugin deletes the target directory by default and we may configure it to delete additional directories and files.<br>simple-app/pom.xml<br>…</p>
+<build>
+ <plugins>
+  <plugin>
+    <artifactid>maven-clean-plugin</artifactid>
+    <configuration>
+      <filesets>
+      <filesets>
+        <fileset>
+          <directory>src/main/generated</directory>
+          <followsymlinks>false</followsymlinks>
+          <usedefaultexcludes>true</usedefaultexcludes>
+          <includes>
+            <include>*.java</include>
+          </includes>
+          <excludes>
+            <exclude>Template*</exclude>
+          </excludes>
+        </fileset>
+      </filesets>
+    </filesets></configuration>
+  </plugin>
+ </plugins>
+</build>
+...
+The above configuration forces the clean plugin to delete *.java files in src/main/generated directory, but excludes the Template*.
+
+</li>
+</ul>
+<h3 id="plugin-execution"><a href="#plugin-execution" class="headerlink" title="plugin execution"></a>plugin execution</h3><p>Firstly demonstrate plugin execution with an example. In Apache Ant, itӳ quite easy to output echo any property or message during the build and many of us frequently use it to understand the build flow or to debug. But, Maven comes with no such feature, and only way to echo any message is to use Ant within Maven. The Apache AntRun Plugin provides the ability to run Ant tasks within Maven.<br>Letӳ configure maven-antrun-plugin to output message to console.<br>simple-app/pom.xml<br>  …<br>  <build><br>    <plugins><br>      <plugin><br>        <artifactid>maven-antrun-plugin</artifactid><br>        <executions><br>          <execution><br>            <goals><br>              <goal>run</goal><br>            </goals><br>            <phase>compile</phase><br>            <configuration><br>              <tasks><br>                <echo>Build Dir: ${project.build.directory}</echo><br>              </tasks><br>            </configuration><br>          </execution><br>        </executions><br>      </plugin><br>    </plugins><br>  </build><br>  …<br>Build the project with  mvn package and it echoes the build directory name in compile phase.</p>
+<h4 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h4><p>The clean and package arguments are build phases, while the dependency:copy-dependencies is a goal (of a plugin).</p>
+<p>mvn clean dependency:copy-dependencies package<br>If this were to be executed, the clean phase will be executed first (meaning it will run all preceding phases of the clean lifecycle, plus the clean phase itself), and then the dependency:copy-dependencies goal, before finally executing the package phase (and all its preceding build phases of the default lifecycle).</p>
+<h4 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h4><p>The element <executions>/<execution> allows you to configure the execution of a plugin goal. With it, you can accomplish the following things.<br>bind a plugin goal to a lifecycle phase.<br>configure plugin parameters of a specific goal.<br>configure plugin parameters of a specific goal such as compiler:compile, surefire:test etc., that are by default binds to a lifecycle phase</execution></executions></p>
+<ul>
+<li><h2 id="core-concepts"><a href="#core-concepts" class="headerlink" title="core concepts"></a>core concepts</h2><h2 id="phase"><a href="#phase" class="headerlink" title="phase"></a>phase</h2><p>you may notice the second is simply a single word - package. Rather than a goal, this is a phase. A phase is a step in the build lifecycle, which is an ordered sequence of phases. When a phase is given, Maven will execute every phase in the sequence up to and including the one defined. For example, if we execute the compile phase, the phases that actually get executed are:</p>
+</li>
+<li><p>validate</p>
+</li>
+<li><p>generate-sources</p>
+</li>
+<li><p>process-sources</p>
+</li>
+<li><p>generate-resources</p>
+</li>
+<li><p>process-resources</p>
+</li>
+<li><p>compile</p>
+</li>
+</ul>
+<p>Maven Phases<br>Although hardly a comprehensive list, these are the most common default lifecycle phases executed.</p>
+<ul>
+<li><p>validate: validate the project is correct and all necessary information is available</p>
+</li>
+<li><p>compile: compile the source code of the project</p>
+</li>
+<li><p>test: test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed</p>
+</li>
+<li><p>package: take the compiled code and package it in its distributable format, such as a JAR.</p>
+</li>
+<li><p>integration-test: process and deploy the package if necessary into an environment where integration tests can be run</p>
+</li>
+<li><p>verify: run any checks to verify the package is valid and meets quality criteria</p>
+</li>
+<li><p>install: install the package into the local repository, for use as a dependency in other projects locally</p>
+</li>
+<li><p>deploy: done in an integration or release environment, copies the final package to the remote repository for sharing with other developers and projects.<br>There are two other Maven lifecycles of note beyond the default list above. They are</p>
+</li>
+<li><p>clean: cleans up artifacts created by prior builds</p>
+</li>
+<li><p>site: generates site documentation for this project<br>Phases are actually mapped to underlying goals. The specific goals executed per phase is dependant upon the packaging type of the project. For example, package executes jar:jar if the project type is a JAR, and war:war if the project type is - you guessed it - a WAR.</p>
+</li>
+</ul>
+<p>An interesting thing to note is that phases and goals may be executed in sequence.</p>
+<p>mvn clean dependency:copy-dependencies package<br>This command will clean the project, copy dependencies, and package the project (executing all phases up to package, of course).</p>
+<p>–</p>
+<h2 id="Lifecycle-and-phases-are-just-formal-names-for-jobs-and-steps-Maven-calls-the-jobs-as-lifecycles-and-tasks-or-steps-as-phases"><a href="#Lifecycle-and-phases-are-just-formal-names-for-jobs-and-steps-Maven-calls-the-jobs-as-lifecycles-and-tasks-or-steps-as-phases" class="headerlink" title="Lifecycle and phases are just formal names for jobs and steps. Maven calls the jobs as lifecycles and tasks (or steps) as phases."></a>Lifecycle and phases are just formal names for jobs and steps. Maven calls the jobs as lifecycles and tasks (or steps) as phases.</h2><p>when a phase is invoked using mvn command, all preceding phases up to and including the invoked phase are executed sequentially. For example,<br>mvn compile ֠will run phases process-resources and then compile.<br>mvn test ֠will run phases process-resources, compile, process-test-resources, test-compile and finally test.<br>mvn install ֠will run phases process-resources, compile, process-test-resources, test-compile, test and finally install.<br>Like in clean lifecycle, in default lifecycle too, lifecycle phases by themselves donӴ have capabilities to accomplish some task. For example, compile phase by itself canӴ do anything but, it delegates compilation job to a plugin named maven-compiler-plugin.</p>
+<h3 id="Some-Phases-Are-Not-Usually-Called-From-the-Command-Line"><a href="#Some-Phases-Are-Not-Usually-Called-From-the-Command-Line" class="headerlink" title="Some Phases Are Not Usually Called From the Command Line"></a>Some Phases Are Not Usually Called From the Command Line</h3><p>The phases named with hyphenated-words (pre-<em>, post-</em>, or process-*) are not usually directly called from the command line. These phases sequence the build, producing intermediate results that are not useful outside the build. In the case of invoking integration-test, the environment may be left in a hanging state.</p>
+<h2 id="Maven-default-repository"><a href="#Maven-default-repository" class="headerlink" title="Maven default repository"></a>Maven default repository</h2><p><a href="http://repo.maven.apache.org/maven2/" target="_blank" rel="noopener">http://repo.maven.apache.org/maven2/</a></p>
+<h1 id="Maven-Settings"><a href="#Maven-Settings" class="headerlink" title="Maven Settings"></a>Maven Settings</h1><p>The settings element in the settings.xml file contains elements used to define values which configure Maven execution in various ways, like the pom.xml, but should not be bundled to any specific project, or distributed to an audience. These include values such as the local repository location, alternate remote repository servers, and authentication information.</p>
+<p>There are two locations where a settings.xml file may live:</p>
+<ul>
+<li>The Maven install: ${maven.home}/conf/settings.xml</li>
+<li>A user’s install: ${user.home}/.m2/settings.xml<br>The former settings.xml are also called <code>global settings</code>, the latter settings.xml are referred to as user settings. If both files exists, their contents gets merged, with the user-specific settings.xml being dominant.</li>
+</ul>
+<p>Tip: If you need to create user-specific settings from scratch, it’s easiest to copy the global settings from your Maven installation to your ${user.home}/.m2 directory. Maven’s default settings.xml is a template with comments and examples so you can quickly tweak it to match your needs.</p>
+<h2 id="The-contents-of-the-settings-xml-can-be-interpolated-using-the-following-expressions"><a href="#The-contents-of-the-settings-xml-can-be-interpolated-using-the-following-expressions" class="headerlink" title="The contents of the settings.xml can be interpolated using the following expressions:"></a>The contents of the settings.xml can be interpolated using the following expressions:</h2><p>${user.home} and all other system properties (since Maven 3.0)<br>${env.HOME} etc. for environment variables<br>Note that properties defined in profiles within the settings.xml cannot be used for interpolation.</p>
+<h2 id="All-Maven-pom-xml-inherits-from-super-POM"><a href="#All-Maven-pom-xml-inherits-from-super-POM" class="headerlink" title="All Maven pom.xml inherits from super POM"></a>All Maven pom.xml inherits from super POM</h2><h1 id="Coc-Convention-over-Configuration"><a href="#Coc-Convention-over-Configuration" class="headerlink" title="Coc: Convention over Configuration"></a>Coc: Convention over Configuration</h1><ul>
+<li>Convention over configuration is a simple concept. Systems, libraries, and frameworks should assume reasonable defaults without requiring that unnecessary configuration systems should “just work.” Popular frameworks such as Ruby on Rails and EJB3 have started to adhere to these principles in reaction to the configuration complexity of frameworks such as the initial Enterprise JavaBeans? (EJB) specifications. </li>
+<li>“Popularized by the Ruby on Rails community, CoC emphasizes sensible defaults, thereby reducing the number of decisions to be made.”</li>
+<li>“Gradle’s flexibility, like that of Ant, can be abused, which results in difficult and complex builds.<br>”</li>
+</ul>
+<h1 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h1><ul>
+<li>This is the Project Object Model (POM), a declarative description of a project. </li>
+</ul>
+<h2 id="Coordinate"><a href="#Coordinate" class="headerlink" title="Coordinate"></a>Coordinate</h2><ul>
+<li>“group, artifact, and version (<strong>GAV</strong>) coordinates”</li>
+<li>We’ve highlighted the Maven coordinates for this project: <strong>groupId, artifactId, version and packaging. These combined identifiers make up a project’s coordinates</strong>.[3] Just as in any other coordinate system, a Maven coordinate is an address for a specific point in “space”: from general to specific. Maven pinpoints a project via its coordinates when one project relates to another, either as a dependency, a plugin, or a parent project reference. </li>
+<li>Maven coordinates are often written using a colon as a delimiter in the following format: <strong>groupId:artifactId:packaging:version</strong>. </li>
+<li>Projects undergoing active development can use a special identifier that marks <strong>a version as a SNAPSHOT</strong>.</li>
+<li>The packaging format of a project is also an important component in the Maven coordinates, but it isn’t a part of a project’s unique identifiers. A project’s groupId:artifactId:version make that project unique; you can’t have a project with the same three groupId, artifactId, and version identifiers.</li>
+<li><strong>packaging: The type of project, defaulting to jar</strong>, describing the packaged output produced by a project. A project with packaging jar produces a JAR archive; a project with packaging war produces a web application.</li>
+<li>The core of Maven is pretty dumb; it doesn’t know how to do much beyond parsing a few XML documents and keeping track of a lifecycle and a few plugins. Maven has been designed to delegate most responsibility to a set of Maven plugins that can affect the Maven lifecycle and offer access to goals. Most of the action in Maven happens in plugin goals that take care of things like compiling source, packaging bytecode, publishing sites, and any other task that needs to happen in a build. </li>
+<li>You benefit from the fact that plugins are downloaded from a remote repository and maintained centrally. This is what is meant by universal reuse through Maven plugins.</li>
+<li>working developers are starting to realize that Maven not only simplifies the task of build management, it is helping to encourage a common interface between developers and software projects.</li>
+</ul>
+<h1 id="Maven-vs-Ant"><a href="#Maven-vs-Ant" class="headerlink" title="Maven vs Ant"></a>Maven vs Ant</h1><h2 id="The-differences-between-Ant-and-Maven-in-this-example-are"><a href="#The-differences-between-Ant-and-Maven-in-this-example-are" class="headerlink" title="The differences between Ant and Maven in this example are:"></a>The differences between Ant and Maven in this example are:</h2><h3 id="Apache-Ant"><a href="#Apache-Ant" class="headerlink" title="Apache Ant"></a>Apache Ant</h3><p>Ant doesn’t have formal conventions such as a common project directory structure; you have to tell Ant exactly where to find the source and where to put the output. Informal conventions have emerged over time, but they haven’t been codified into the product.</p>
+<ul>
+<li>Ant is procedural; you have to tell Ant exactly what to do and when to do it. You have to tell it to compile, then copy, then compress.</li>
+<li>Ant doesn’t have a lifecycle; you have to define goals and goal dependencies. You have to attach a sequence of tasks to each goal manually.<h3 id="Apache-Maven"><a href="#Apache-Maven" class="headerlink" title="Apache Maven"></a>Apache Maven</h3></li>
+<li>Maven has conventions: in the example, it already knew where your source code was because you followed the convention. It put the bytecode in target/classes, and it produced a JAR file in target.</li>
+<li>Maven is declarative; all you had to do was create a pom.xml file and put your source in the default directory. Maven took care of the rest.</li>
+<li>Maven has a lifecycle, which you invoked when you executed mvn install. This command told Maven to execute a series of sequence steps until it reached the lifecycle. As a side effect of this journey through the lifecycle, Maven executed a number of default plugin goals that did things such as compile and create a JAR.</li>
+<li>A Maven plugin is a collection of one or more goals (see Figure 3-1). Examples of Maven plugins can be simple core plugins such as the Jar plugin that contains goals for creating JAR files, the Compiler plugin that contains goals for compiling source code and unit tests, or the Surefire plugin that contains goals for executing unit tests and generating reports.</li>
+</ul>
+<h4 id="Maven-life-cycle"><a href="#Maven-life-cycle" class="headerlink" title="Maven life cycle"></a>Maven life cycle</h4><ul>
+<li>The second command we ran in the previous section was <strong>mvn install</strong>. This command didn’t specify a plugin goal; instead, it specified a Maven lifecycle phase. A phase is a step in what Maven calls the “build lifecycle.” The build lifecycle is an ordered sequence of phases involved in building a project.</li>
+<li><strong>Plugin goals can be attached to a lifecycle phase</strong>. As Maven moves through the phases in a lifecycle, it will execute the goals attached to each particular phase. Each phase may have zero or more goals bound to it. In the previous section, when you ran mvn install, you might have noticed that more than one goal was executed. Examine the output after running mvn install and take note of the various goals that are executed. </li>
+<li>Maven steps through the phases preceding package in the Maven lifecycle; <strong>executing a phase will first execute all proceeding phases in order</strong>, ending with the phase specified on the command line. Each phase corresponds to zero or more goals, and since we haven’t performed any plugin configuration or customization, this example binds a set of standard plugin goals to the default lifecycle. </li>
+</ul>
+<h1 id="Dependency"><a href="#Dependency" class="headerlink" title="Dependency"></a>Dependency</h1><ul>
+<li>“Maven provides <strong>declarative dependency management</strong>. With this approach, you declare your project’s dependencies in an external file called pom.xml. Maven will automatically download those dependencies and hand them over to your project for the purpose of building, testing, or packaging.”</li>
+<li>“The default remote repository with which Maven interacts is called Maven Central, and it is located at repo.maven.apache.org and uk.maven.org.”</li>
+<li>“The <strong>internal repository manager</strong> acts as a proxy to remote repositories. Because you have full control over the internal repository, you can regulate the types of artifacts allowed in your company. Additionally, you can also push your organization’s artifacts onto the server, thereby enabling collaboration. ”, such as Nexus</li>
+</ul>
+<h2 id="Transitive-Dependcies"><a href="#Transitive-Dependcies" class="headerlink" title="Transitive Dependcies"></a>Transitive Dependcies</h2><ul>
+<li>“A key benefit of Maven is that it automatically “deals with transitive dependencies and includes them in your project.</li>
+<li>“Maven uses a technique known as <strong>dependency mediation</strong> to resolve version conflicts. Simply stated, dependency mediation allows Maven to pull the dependency that <strong>is closest to the project in the tree</strong>. In Figure 3-3, there are two versions of dependency B: 0.0.8 and 1.0.0. In this scenario, version 0.0.8 of dependency B is included in the project, because it is a direct dependency and closest to the tree. Now look at the three versions of dependency F: 0.1.3, 1.0.0, and 2.2.0. All three dependencies are at the same depth. In this scenario, Maven will use the <strong>first-found dependency</strong>, which would be 0.1.3, and not the latest 2.2.0 version.”</li>
+</ul>
+<h2 id="Dependency-Scope"><a href="#Dependency-Scope" class="headerlink" title="Dependency Scope"></a>Dependency Scope</h2><ul>
+<li>“Maven uses the concept of scope, which allows you to specify <strong>when and where</strong> you need a particular dependency.” “Maven provides the following six scopes:”</li>
+<li>“<strong>compile</strong>: Dependencies with the compile scope are available in the class path in all phases on a project build, test, and run. This is the default scope.”</li>
+<li>“<strong>provided</strong>: Dependencies with the provided scope are available in the class path during the build and test phases. They don’t get bundled within the generated artifact. Examples of dependencies that use this scope include Servlet api, JSP api, and so on.”</li>
+<li>“<strong>runtime</strong>: Dependencies with the runtime scope are not available in the class path during the build phase. Instead they get bundled in the generated artifact and are available during runtime.”</li>
+<li>“<strong>test</strong>: Dependencies with the test scope are available during the test phase. JUnit and TestNG are good examples of dependencies with the test scope.”</li>
+<li>“<strong>system</strong>: Dependencies with the system scope are similar to dependencies with the provided scope, except that these dependencies are not retrieved from the repository. Instead, a hard-coded path to the file system is specified from which the dependencies are used.”</li>
+<li>“<strong>import</strong>: The import scope is applicable for .pom file dependencies only. It allows you to include dependency management information from a remote .pom file. The import scope is available only in Maven 2.0.9 or later.”</li>
+</ul>
+<h1 id="Common-errors"><a href="#Common-errors" class="headerlink" title="Common errors"></a>Common errors</h1><h2 id="Not-authorized-ReasonPhrase-Unauthorized"><a href="#Not-authorized-ReasonPhrase-Unauthorized" class="headerlink" title="Not authorized , ReasonPhrase:Unauthorized"></a>Not authorized , ReasonPhrase:Unauthorized</h2><p>This is likely you are behind corporate proxy, so you have to config to make Maven can connect to nexus successfully:</p>
+<ul>
+<li><p>Go to make sure your settings.xml is correct, normally, it’s under your home directory, e.g. tzhang/.m2/settings.xml to make sure the username and password same as the settings in nexus</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>my-nexus<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">username</span>&gt;</span>1jhAX6LZ<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">password</span>&gt;</span>V7MxFm3k9fiodhqNQDT/kSh8V81JT8bUWRHEel339rwq<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">server</span>&gt;</span>	</span><br><span class="line">	<span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>my-nexus<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://nexus.internal.abc.com/content/groups/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*,!sonar,!eclipse-misc,!m2-proxy,!eclipse-releases,!eclipse-snapshots,!mfs-m2-repository,!fsg_internal_repository,!fsg_snapshot_repository<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>double check your login token in nexus, log into nexus, click your login name in top right dropdown, chose “profile” and then trigger button “Access User Token”</p>
+<h2 id="Newly-added-dependency-in-pom-not-working-class-not-found"><a href="#Newly-added-dependency-in-pom-not-working-class-not-found" class="headerlink" title="Newly added dependency in pom not working, class not found"></a>Newly added dependency in pom not working, class not found</h2><p>If you are in intellij, please go to the exact module (the child module, rather than parent pom), right click the pom.xml, chose maven -&gt; Reinstall</p>
+<h1 id="Setup-Proxy"><a href="#Setup-Proxy" class="headerlink" title="Setup Proxy"></a>Setup Proxy</h1></li>
+<li><p>“Maven requires an Internet connection to download plug-ins and dependencies. Some companies employ HTTP proxies to restrict access to the Internet. In those scenarios, running Maven will result in Unable to download artifact errors. To address this, edit the settings.xml file and add the proxy information specific to your company.”</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0</span></span></span><br><span class="line"><span class="tag"><span class="string">                      http://maven.apache.org/xsd/settings-1.0.0.xsd"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">proxies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">proxy</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>companyProxy<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">active</span>&gt;</span>true<span class="tag">&lt;/<span class="name">active</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">protocol</span>&gt;</span>http<span class="tag">&lt;/<span class="name">protocol</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">host</span>&gt;</span>proxy.company.com<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span>&gt;</span>8080<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">username</span>&gt;</span>proxyusername<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">password</span>&gt;</span>proxypassword<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">nonProxyHosts</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">proxy</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">proxies</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="Multimodule-projects"><a href="#Multimodule-projects" class="headerlink" title="Multimodule projects"></a>Multimodule projects</h1><h2 id="Generate-parent"><a href="#Generate-parent" class="headerlink" title="Generate parent"></a>Generate parent</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=com.apress.gswmbook -DartifactId=gswm-parent -Dversion=1.0.0-SNAPSHOT -DarchetypeGroupId=org.codehaus.mojo.archetypes -DarchetypeArtifactId=pom-root</span><br></pre></td></tr></table></figure>
+
+<p>Listing 6-5. Parent pom.xml File with Modules</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.apress.gswmbook<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gswm-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>gswm-parent<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>gswm-web<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>gswm-service<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>gswm-repository<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Generate-web-module"><a href="#Generate-web-module" class="headerlink" title="Generate web module"></a>Generate web module</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=com.todzhang.mywebApp -DartifactId=main-web -Dversion=1.0.0-SNAPSHOT -Dpackage=war -DarchetypeArtifactId=maven-archetype-webapp</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.apress.gswmbook<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gswm-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.apress.gswmbook<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gswm-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>gswm-web Maven Webapp<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.apache.org<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>gswm-web<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Generate-a-service-jar-module"><a href="#Generate-a-service-jar-module" class="headerlink" title="Generate a service jar module"></a>Generate a service jar module</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=com.todzhang.mywebApp -DartifactId=back-service -Dversion=1.0.0-SNAPSHOT -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Notice that you didn’t provide the package parameter, as the maven-archetype-quickstart produces a JAR project by default.<h2 id="To-start-the-module"><a href="#To-start-the-module" class="headerlink" title="To start the module"></a>To start the module</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn packages</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="Create-archetype-from-project"><a href="#Create-archetype-from-project" class="headerlink" title="Create archetype from project"></a>Create archetype from project</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:create-from-project</span><br></pre></td></tr></table></figure>
+
+<h1 id="Site-life-cycle"><a href="#Site-life-cycle" class="headerlink" title="Site life cycle"></a>Site life cycle</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn site</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>The site life cycle uses Maven’s site plug-in to generate the site for a single project. Once this command completes, a site folder gets created under the project’s target.</li>
+<li>Open the index.html file to browse the generated site. You will notice that Maven used the information provided in the pom.xml file to generate most of the documentation. It also automatically applied the default skin and generated the corresponding images and CSS files. </li>
+<li>To regenerate site<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean site</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="JavaDoc"><a href="#JavaDoc" class="headerlink" title="JavaDoc"></a>JavaDoc</h1><ul>
+<li>Maven provides a Javadoc plug-in, which uses the Javadoc tool for generating Javadocs. Integrating the Javadoc plug-in simply involves declaring it in the reporting element of pom.xml file, as shown in Listing 7-4. Plug-ins declared in the pom reporting element are executed during site generation.<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">!—Content</span> <span class="attr">removed</span> <span class="attr">for</span> <span class="attr">brevity--</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">reporting</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-javadoc-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.10.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">reporting</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>Then run <strong>mvn clean site</strong> to generate javadoc,  the apidocs folder created under gswm /target/site</p>
+<h1 id="Unit-test-report"><a href="#Unit-test-report" class="headerlink" title="Unit test report"></a>Unit test report</h1><ul>
+<li><p>Maven offers the Surefire plug-in that provides a uniform interface for running tests created by frameworks such as JUnit or TestNG. It also generates execution results in various formats such as XML and HTML. These published results enable developers to find and fix broken tests quickly.<br>The Surefire plug-in is configured in the same way as the Javadoc plug-in in the reporting section of the pom file. Listing 7-5 shows the Surefire plug-in configuration.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">!—Content</span> <span class="attr">removed</span> <span class="attr">for</span> <span class="attr">brevity--</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">reporting</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-surefire-report-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">reporting</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>you will see a Surefire Reports folder generated under gswm\target. It contains the test execution results in XML and TXT formats. The same information will be available in HTML format in the surefire-report.html file under site folder.</p>
+</li>
+</ul>
+<h1 id="Code-coverate-report"><a href="#Code-coverate-report" class="headerlink" title="Code coverate report"></a>Code coverate report</h1><ul>
+<li>Code coverage is a measurement of how much source code is being exercised by automated tests. Essentially, it provides an indication of the quality of your tests. Emma and Cobertura are two popular open source code coverage tools for Java.<br>In this section, you will use Cobertura for measuring this project’s code coverage. Configuring Cobertura is similar to other plug-ins, as shown in<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">!—Content</span> <span class="attr">removed</span> <span class="attr">for</span> <span class="attr">brevity--</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">reporting</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.mojo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cobertura-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">reporting</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="Find-bug-reports"><a href="#Find-bug-reports" class="headerlink" title="Find bug reports"></a>Find bug reports</h1><ul>
+<li>FindBugs is a tool for detecting defects in Java code. It uses static analysis to detect bug patterns, such as infinite recursive loops and null pointer dereferences. Listing 7-7 shows the FindBugs configuration.</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">!—Content</span> <span class="attr">removed</span> <span class="attr">for</span> <span class="attr">brevity--</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">reporting</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.mojo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>findbugs-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">reporting</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Integration-with-Nexus"><a href="#Integration-with-Nexus" class="headerlink" title="Integration with Nexus"></a>Integration with Nexus</h1><ul>
+<li>Repository managers act as a proxy of public repositories, facilitate artifact sharing and team collaboration, ensure build stability, and enable the governance of artifacts used in the enterprise.</li>
+<li>Nexus is a popular open source repository manager from Sonatype. It is a web application that allows you to maintain internal repositories and access external repositories. It allows repositories to be grouped and accessed via a single URL. This enables the repository administrator to add and remove new repositories behind the scenes without requiring developers to change the configuration on their computers. Additionally, it provides hosting capabilities for sites generated using Maven site and artifact search capabilities.</li>
+</ul>
+<h2 id="To-enable-nexus-in-Maven"><a href="#To-enable-nexus-in-Maven" class="headerlink" title="To enable nexus in Maven"></a>To enable nexus in Maven</h2><ul>
+<li><p>You will start by adding a distributionManagement element in the pom.xml file, as shown in Listing 8-1. This element is used to declare the location where the project’s artifacts will be when deployed. The repository element indicates the location where released artifacts will be deployed. Similarly, the snapshotRepository element identifies the location where the SNAPSHOT versions of the project will be stored.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">http://www.w3.org/2001/XMLSchema-instance”</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>&gt;</span>  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- Content removed for brevity --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexusReleases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">name</span>&gt;</span>Releases<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://localhost:8081/nexus/content/repositories/releases<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexusSnapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">name</span>&gt;</span>Snapshots<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://localhost:8081/nexus/content/repositories/snapshots<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Content removed for brevity --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Out of the box, Nexus comes with <strong>Releases and Snapshots repositories</strong>. By default, SNAPSHOT artifacts will be stored in the Snapshots Repository, and release artifacts will be stored in the Releases repository.<br>Like most repository managers, deployment to Nexus is a protected operation. You provide the credentials needed to interact with Nexus in the <strong>settings.xml</strong> file.</p>
+</li>
+<li><p>Listing 8-2. Settings.xml File with Server Information</p>
+</li>
+<li><p>Listing 8-2 shows the settings.xml file with the server information. The Nexus deployment user with password deployment123 is provided out of the box. Notice that the IDs declared in the server tag — nexusReleases and nexusSnapshots must match the IDs of the repository and snapshotRepository declared in the pom.xml file. Replace the contents of the settings.xml file in the C:\Users&lt;<user_name>&gt;.m2 folder with the code in Listing 8-2.</user_name></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servers</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexusReleases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">username</span>&gt;</span>deployment<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">password</span>&gt;</span>deployment123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexusSnapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">username</span>&gt;</span>deployment<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">password</span>&gt;</span>deployment123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>This concludes the configuration steps for interacting with Nexus. At the command line, run the command mvn deploy under the directory C:\apress\gswm-book\chapter8\gswm. Upon successful execution of the command, you will see the SNAPSHOT artifact under Nexus </p>
+</li>
+</ul>
+<h1 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h1><h2 id="Effective-POM"><a href="#Effective-POM" class="headerlink" title="Effective POM"></a>Effective POM</h2><p>At the start of every build, Maven internally merges project pomx.ml with Super POM and constructs a new POM which is known as Effective POM .</p>
+<p>Earlier in Maven Lifecycle and Plugin Goals, we learned that Maven binds plugins goals to lifecycle phases. Actually, this magic happens in effective POM and it is highly instructive to go through the effective POM to know the what goes on under the hood.</p>
+<h3 id="To-dump-effective-POM"><a href="#To-dump-effective-POM" class="headerlink" title="To dump effective POM"></a>To dump effective POM</h3><p>use Maven Help Plugin to dump the effective POM to a file for investigation.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvn <span class="built_in">help</span>:effective-pom -Doutput=target/effective-pom.xml</span><br></pre></td></tr></table></figure>
+
+<h2 id="Packaging"><a href="#Packaging" class="headerlink" title="Packaging"></a>Packaging</h2><p>The first, and most common way, is to set the packaging for your project via the equally named POM element <packaging>. Some of the valid packaging values are jar, war, ear and pom. If no packaging value has been specified, it will default to jar.</packaging></p>
+<p>Each packaging contains a list of goals to bind to a particular phase. For example, the jar packaging will bind the following goals to build phases of the default lifecycle.</p>
+<h2 id="This-is-an-almost-standard-set-of-bindings-however-some-packagings-handle-them-differently-For-example-a-project-that-is-purely-metadata-packaging-value-is-pom-only-binds-goals-to-the-install-and-deploy-phases-for-a-complete-list-of-goal-to-build-phase-bindings-of-some-of-the-packaging-types-refer-to-the-Lifecycle-Reference"><a href="#This-is-an-almost-standard-set-of-bindings-however-some-packagings-handle-them-differently-For-example-a-project-that-is-purely-metadata-packaging-value-is-pom-only-binds-goals-to-the-install-and-deploy-phases-for-a-complete-list-of-goal-to-build-phase-bindings-of-some-of-the-packaging-types-refer-to-the-Lifecycle-Reference" class="headerlink" title="This is an almost standard set of bindings; however, some packagings handle them differently. For example, a project that is purely metadata (packaging value is pom) only binds goals to the install and deploy phases (for a complete list of goal-to-build-phase bindings of some of the packaging types, refer to the Lifecycle Reference)."></a>This is an almost standard set of bindings; however, some packagings handle them differently. For example, a project that is purely metadata (packaging value is pom) only binds goals to the install and deploy phases (for a complete list of goal-to-build-phase bindings of some of the packaging types, refer to the Lifecycle Reference).</h2><h1 id="build-tools-options"><a href="#build-tools-options" class="headerlink" title="build tools options"></a>build tools options</h1><p>Maven and Ant are just different approaches: imperative and declarative (see Imperative vs Declarative build systems)</p>
+<p>Maven is better for managing dependencies (but Ant is ok with them too, if you use Ant+Ivy) and build artefacts. The main benefit from maven - its lifecycle. You can just add specific actions on correct phase, which seems pretty logical: just launch you integration tests on integration-test phase for example. Also, there are many existing plugins, which can could almost everything. Maven archetype is powerful feature, which allows you to quickly create project.</p>
+<p>Ant is better for controlling of build process. Before your very first build you have to write you build.xml. If your build process is very specific, you have to create complicated scripts. For long-term projects support of ant-scripts could become really painful: scripts become too complicated, people, who has written them, could leave project, etc.</p>
+<p>Both of them use xml, which could become too big in big long-term projects.</p>
+<p>Anyway, you shoud read specific documentation (not hate-articles) on both. Also, there is ant-maven-plugin, which allow to launch ant-scripts with maven.</p>
+<p>P.S. You can take a look on Gradle, which for me could provide more freedom than Maven, but is easier to use than Ant.</p>
 
           
         
@@ -343,6 +671,389 @@
 <ul>
 <li>Now all is well: I can interchange serialized versions of this file.<br>Note that serialver is part of the “object serialization” mechanism, and, therefore, it is meaningful only on classes that implement the Serializable interface described in Saving and Restoring Java Objects.<br>Note also that some developers use serialVersionUID values that start at 1 (a choice offered by some IDEs when they note that a class that appears to be serializable lacks a serialVersionUID), and then simply increment it by one each time the class changes in an incompatible way.</li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-15-Java-Security/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-15-Java-Security/" class="post-title-link" itemprop="url">Java Security Notes</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Java-Security"><a href="#Java-Security" class="headerlink" title="Java Security"></a>Java Security</h1><ul>
+<li><code>well-behaved</code>: programs should be prevent from consuming too much system resources</li>
+</ul>
+<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><ul>
+<li>JCE: Java Cryptography Extension</li>
+<li>JSSE: Java Secure Socketets Extension</li>
+<li>JAAS: Java Authentication and Authorization Service</li>
+</ul>
+<h1 id="Anatomy-of-a-Java-Application"><a href="#Anatomy-of-a-Java-Application" class="headerlink" title="Anatomy of a Java Application"></a>Anatomy of a Java Application</h1><h2 id="the-bytecode-verifier"><a href="#the-bytecode-verifier" class="headerlink" title="the bytecode verifier"></a>the bytecode verifier</h2><p>The bytecode verifier ensures that Java class files follow the rules of the Java language. As the figure implies, not all classes are subject to bytecode verification.</p>
+<h2 id="the-class-loader"><a href="#the-class-loader" class="headerlink" title="the class loader"></a>the class loader</h2><p>One or more class loaders load all Java classes. Programatically, the class loader can set permissions for each class it loads.</p>
+<h2 id="the-access-controller"><a href="#the-access-controller" class="headerlink" title="the access controller"></a>the access controller</h2><p>The access controller allows (or prevents) most access from the core API to the operating system, based upon policies set by the end user or system administrator.</p>
+<h2 id="the-security-manager"><a href="#the-security-manager" class="headerlink" title="the security manager"></a>the security manager</h2><p>The security manager is the primary interface between the core API and the operating system; it has the ultimate responsibility for allowing or preventing access to all system resources. However, it exists mostly for historical reasons; it defers its actions to the access controller.</p>
+<h2 id="The-security-package"><a href="#The-security-package" class="headerlink" title="The security package"></a>The security package</h2><p> the security package is a complex API. This includes discussions of:</p>
+<ul>
+<li>The security provider interface −− the means by which different security implementations may be plugged into the security package</li>
+<li>Message digests</li>
+<li>Keys and certificates</li>
+<li>Digital signatures</li>
+<li>Encryption (through JCE and JSSE)</li>
+<li>Authentication (through JAAS)</li>
+</ul>
+<h2 id="The-key-database"><a href="#The-key-database" class="headerlink" title="The key database"></a>The key database</h2><p>The key database is a set of keys used by the security infrastructure to create or verify digital signatures. In the Java architecture, it is part of the security package, though it may be manifested as an external file or database.</p>
+<h2 id="Trusted-and-Untrusted-Classes"><a href="#Trusted-and-Untrusted-Classes" class="headerlink" title="Trusted and Untrusted Classes"></a>Trusted and Untrusted Classes</h2><ul>
+<li>In Java 2, only classes in the core API are considered trusted. Other classes must be given explicit permission to perform the operations we’ve discussed.</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Although the security manager is the most commonly known feature of Java’s security story, it’s often misunderstood: there is no standard security manager among Java implementations, and Java applications, by default, have no security manager at all.</p>
+<h1 id="Access-Controller"><a href="#Access-Controller" class="headerlink" title="Access Controller"></a>Access Controller</h1><ul>
+<li>The implementation of most security managers, however, is based entirely upon the access controller.</li>
+</ul>
+<h2 id="Permissions"><a href="#Permissions" class="headerlink" title="Permissions"></a>Permissions</h2><ul>
+<li>The basic entity that the access controller operates on is a permission object −− an instance of the Permission class (java.security.Permission). This class, of course, is the basis of the types that are listed in a policy file for the default security policy. The Permission class itself is an abstract class that represents a particular operation. The nomenclature here is a little misleading because a permission object can reflect two things. When it is associated with a class (through a code source and a protection domain), a permission object represents an actual permission that has been granted to that class. Otherwise, a permission object allows us to ask if we have a specific permission.</li>
+<li>For example, if we construct a permission object that represents access to a file, possession of that object does not mean we have permission to access the file. Rather, possession of the object allows us to ask if we have permission to access the file.</li>
+</ul>
+<h2 id="The-access-controller-is-built-upon-the-four-concepts"><a href="#The-access-controller-is-built-upon-the-four-concepts" class="headerlink" title="The access controller is built upon the four concepts"></a>The access controller is built upon the four concepts</h2><ul>
+<li>Code sources<br>An encapsulation of the location from which certain Java classes were obtained.</li>
+<li>Permissions<br>An encapsulation of a request to perform a particular operation.</li>
+<li>Policies<br>An encapsulation of all the specific permissions that should be granted to specific code sources.</li>
+<li>Protection domains<br>An encapsulation of a particular code source and the permissions granted to that code source.</li>
+</ul>
+<h1 id="Byte-code-verifier"><a href="#Byte-code-verifier" class="headerlink" title="Byte code verifier"></a>Byte code verifier</h1><ul>
+<li>The verifier is often referred to as a <code>mini−theorem prover</code> (a term first used in several documents from Sun). This sounds somewhat more impressive than it is; it’s not a generic, all−purpose theorem prover by any means. Instead, it’s a piece of code that can prove one (and only one) thing −− that a given series of ( Java) bytecodes represents a legal set of ( Java) instructions.</li>
+</ul>
+<h1 id="Shifting"><a href="#Shifting" class="headerlink" title="Shifting"></a>Shifting</h1><p>Java and JavaScript perform sign extension when shift¬ing right, filling the empty spaces with 1’s for negative numbers, so 10100110 &gt;&gt; 5 becomes 11111101.<br>The &gt;&gt;&gt; operator is unique to Java and JavaScript. It does a logical shift right, filling the empty spaces with 0 no matter what the value, so 10100110 &gt;&gt;&gt; 5 becomes 00000101.</p>
+<p>The shift operators enable you to multiply and divide by powers of 2 very quickly. For non-negative numbers, shifting to the right one bit is equivalent to dividing by 2, and shifting to the left one bit is equivalent to multiplying by 2. For negative numbers, it obviously depends on the language being used.</p>
+<h2 id="Specifically-the-bytecode-verifier-can-prove-the-following"><a href="#Specifically-the-bytecode-verifier-can-prove-the-following" class="headerlink" title="Specifically, the bytecode verifier can prove the following:"></a>Specifically, the bytecode verifier can prove the following:</h2><ul>
+<li>The class file has the correct format. The full definition of the class file format may be found in the Java virtual machine specification; the bytecode verifier is responsible for making sure that the class file has the right length, the correct magic numbers in the correct places, and so on.</li>
+<li>Final classes are not subclassed, and final methods are not overridden.</li>
+<li>Every class (except for java.lang.Object) has a single superclass.</li>
+<li>There is no illegal data conversion of primitive data types (e.g., int to Object).</li>
+<li>No illegal data conversion of objects occurs. Because the casting of a superclass to its subclass may<br>be a valid operation (depending on the actual type of the object being cast), the verifier cannot ensure that such casting is not attempted −− it can only ensure that before each such attempt is made, the legality of the cast is tested.</li>
+<li>There are no operand stack overflows or underflows.</li>
+</ul>
+<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><ul>
+<li>In Java, there are two stacks for each thread. One stack holds a series of method frames, where each method frame holds the local variables and other storage for a particular method invocation. This stack is known as the data stack and is what we normally think of as the stack within a traditional program. The bytecode verifier cannot prevent overflow of this stack −− an infinitely recursive method call will cause this stack to overflow. However, each method invocation requires a second stack (which itself is allocated on the data stack) that is referred to as the operand stack; the operand stack holds the values that the Java bytecodes operate on. This secondary stack is the stack that the bytecode verifier can ensure will not overflow or underflow.</li>
+</ul>
+<h1 id="Security-Manager"><a href="#Security-Manager" class="headerlink" title="Security Manager"></a>Security Manager</h1><ul>
+<li>The implementation of the sandbox depends on three things:</li>
+<li>The security manager, which provides the mechanism that the Java API uses to see if security−related operations are allowed.</li>
+<li>The access controller, which provides the basis of the default implementation of the security manager. </li>
+<li>The class loader, which encapsulates information about security policies and classes.</li>
+</ul>
+<p>We’ll start by examining the security manager. From the perspective of the Java API, there is a security manager that actually is in control of the security policy of an application. The purpose of the security manager is to determine whether particular operations should be permitted or denied. In truth, the purpose of the access controller is really the same: it decides whether access to a critical system resource should be permitted or denied. Hence, the access controller can do everything the security manager can do.</p>
+<p><strong>The reason there is both an access controller and a security manager is mainly historical</strong>: the access controller is only available in Java 2 and subsequent releases. Before the access controller existed, the security manager relied on its internal logic to determine the security policy that should be in effect, and changing the security policy required changing the security manager itself. Starting with Java 2, the security manager defers these decisions to the access controller. Since the security policy enforced by the access controller can be specified by using policy files, this allows a much more flexible mechanism for determining policies. The access controller also gives us a much simpler method of granting fine−grained, specific permissions to specific classes. That process was theoretically possibly with the security manager alone, but it was simply too hard to implement.</p>
+<h2 id="The-BasicPermission-class"><a href="#The-BasicPermission-class" class="headerlink" title="The BasicPermission class"></a>The BasicPermission class</h2><ul>
+<li><p>If you need to implement your own permission class, the BasicPermission class (java.security.BasicPermission) provides some useful semantics. This class implements a basic permission −− that is, a permission that doesn’t have actions. Basic permissions can be thought of as binary permissions −− you either have them or you don’t. However, this restriction does not prevent you from implementing actions in your subclasses of the BasicPermission class (as the PropertyPermission class does).</p>
+</li>
+<li><p>The prime benefit of this class is the manner in which it implements wildcards. Names in basic permissions are considered to be hierarchical, following a dot−separated convention. For example, if the XYZ corporation wanted to create a set of basic permissions, they might use the convention that the first word of the permission always be xyz: xyz.readDatabase, xyz.writeDatabase, xyz.runPayrollProgram, xyz.HRDepartment.accessCheck, and so on. These permissions can then be specified by their full name, or they can be specified with an asterisk wildcard: xyz.* would match each of these (no matter what depth), and * would match every possible basic permission.</p>
+</li>
+<li><p><a href="http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351" target="_blank" rel="noopener">http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351</a></p>
+</li>
+<li><p>保护密码的最好办法是使用加盐密码哈希（ salted password hashing）。</p>
+</li>
+<li><p>永远不要告诉用户输错的究竟是用户名还是密码。就像通用的提示那样，始终显示：“无效的用户名或密码。”就行了。这样可以防止攻击者在不知道密码的情况下枚举出有效的用户名。</p>
+</li>
+<li><p>应当注意的是，用来保护密码的哈希函数，和数据结构课学到的哈希函数是不同的。例如，实现哈希表的哈希函数设计目的是快速查找，而非安全性。只有加密哈希函数（ cryptographic hash function）才可以用来进行密码哈希加密。像 SHA256 、 SHA512 、 RIPEMD 和 WHIRLPOOL 都是加密哈希函数。</p>
+</li>
+<li><p>破解哈希加密最简单的方法是尝试猜测密码，哈希每个猜测的密码，并对比猜测密码的哈希值是否等于被破解的哈希值。如果相等，则猜中。猜测密码攻击的两种最常见的方法是字典攻击和暴力攻击 。</p>
+</li>
+<li><p>字典攻击使用包含单词、短语、常用密码和其他可能用做密码的字符串的字典文件。对文件中的每个词都进行哈希加密，将这些哈希值和要破解的密码哈希值比较。如果它们相同，这个词就是密码。字典文件是通过大段文本中提取的单词构成，甚至还包括一些数据库中真实的密码。还可以对字典文件进一步处理以使其更为有效：如单词 “hello” 按网络用语写法转成 “h3110” 。</p>
+</li>
+<li><p>暴力攻击是对于给定的密码长度，尝试每一种可能的字符组合。这种方式会消耗大量的计算，也是破解哈希加密效率最低的办法，但最终会找出正确的密码。因此密码应该足够长，以至于遍历所有可能的字符组合，耗费的时间太长令人无法承受，从而放弃破解。</p>
+</li>
+<li><p>目前没有办法来组织字典攻击或暴力攻击。只能想办法让它们变得低效。如果密码哈希系统设计是安全的，破解哈希的唯一方法就是进行字典攻击或暴力攻击遍历每一个哈希值了。</p>
+</li>
+<li><p>我们可以通过在密码中加入一段随机字符串再进行哈希加密，这个被加的字符串称之为盐值。如上例所示，这使得相同的密码每次都被加密为完全不同的字符串。我们需要盐值来校验密码是否正确。通常和密码哈希值一同存储在帐号数据库中，或者作为哈希字符串的一部分。</p>
+</li>
+<li><p>盐值无需加密。由于随机化了哈希值，查表法、反向查表法和彩虹表都会失效。因为攻击者无法事先知道盐值，所以他们就没有办法预先计算查询表或彩虹表。如果每个用户的密码用不同的盐再进行哈希加密，那么反向查表法攻击也将不能奏效。</p>
+</li>
+<li><p>一个常见的错误是每次都使用相同的盐值进行哈希加密，这个盐值要么被硬编码到程序里，要么只在第一次使用时随机获得。这样的做法是无效的，因为如果两个用户有相同的密码，他们仍然会有相同的哈希值。攻击者仍然可以使用反向查表法对每个哈希值进行字典攻击。他们只是在哈希密码之前，将固定的盐值应用到每个猜测的密码就可以了。如果盐值被硬编码到一个流行的软件里，那么查询表和彩虹表可以内置该盐值，以使其更容易破解它产生的哈希值。</p>
+</li>
+<li><p>用户创建帐号或者更改密码时，都应该用新的随机盐值进行加密。</p>
+</li>
+<li><p>出于同样的原因，不应该将用户名用作盐值。对每一个服务来说，用户名是唯一的，但它们是可预测的，并且经常重复应用于其他服务。攻击者可以用常见用户名作为盐值来建立查询表和彩虹表来破解密码哈希。</p>
+</li>
+<li><p>为使攻击者无法构造包含所有可能盐值的查询表，盐值必须足够长。一个好的经验是使用和哈希函数输出的字符串等长的盐值。例如， SHA256 的输出为256位（32字节），所以该盐也应该是32个随机字节。</p>
+</li>
+<li><p>每个用户的每一个密码都要使用独一无二的盐值。用户每次创建帐号或更改密码时，密码应采用一个新的随机盐值。永远不要重复使用某个盐值。这个盐值也应该足够长，以使有足够多的盐值能用于哈希加密。一个经验规则是，盐值至少要跟哈希函数的输出一样长。该盐应和密码哈希一起存储在用户帐号表中。</p>
+</li>
+<li><p>存储密码的步骤：</p>
+<ul>
+<li>使用 CSPRNG 生成足够长的随机盐值。</li>
+<li>将盐值混入密码，并使用标准的密码哈希函数进行加密，如Argon2、 bcrypt 、 scrypt 或 PBKDF2 。</li>
+<li>将盐值和对应的哈希值一起存入用户数据库。</li>
+</ul>
+</li>
+<li><p>校验密码的步骤：</p>
+<ul>
+<li>从数据库检索出用户的盐值和对应的哈希值。</li>
+<li>将盐值混入用户输入的密码，并且使用通用的哈希函数进行加密。</li>
+<li>比较上一步的结果，是否和数据库存储的哈希值相同。如果它们相同，则表明密码是正确的；否则，该密码错误。</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-21-Java-JIT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-21-Java-JIT/" class="post-title-link" itemprop="url">Java JIT compiler</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="This-is-talking-about-Java-JIT-Just-In-Time-compiler"><a href="#This-is-talking-about-Java-JIT-Just-In-Time-compiler" class="headerlink" title="This is talking about Java JIT (Just-In-Time) compiler"></a>This is talking about Java JIT (Just-In-Time) compiler</h1><ul>
+<li><p>That trade-off is one reason that the compiler executes the interpreted code first—the compiler can figure out which methods are called frequently enough to warrant their compilation.<br>The second reason is one of optimization: the more times that the JVM executes a particular method or loop, the more information it has about that code. This allows the JVM to make a number of optimizations when it compiles the code.</p>
+</li>
+<li><p>At some point in time, the suminstance variable must reside in main memory, but retrieving a value from main memory is an expensive operation that takes multiple cycles to complete. If the value of sumwere to be retrieved from (and stored back to) main memory on every iteration of this loop, performance would be dismal. Instead, the compiler will load a register with the initial value of sum, perform the loop using that value in the register, and then (at an indeterminate point in time) store the final result from the register back to main memory.<br>This kind of optimization is very effective, but it means that the semantics of thread synchronization (see Chapter 9) are crucial to the behavior of the application</p>
+</li>
+<li><p>One thread cannot see the value of a variable stored in the register used by another thread; synchronization makes it possible to know exactly when the register is stored to main memory and available to other threads.<br>Register usage is a general optimization of the compiler, and when escape analysis is enabled (see the end of this chapter), register use is quite aggressive.</p>
+</li>
+</ul>
+<ul>
+<li><p>If the size of your heap will be less than about 3 GB, the 32-bit version of Java will be faster and have a smaller footprint. This is because the memory references within the JVM will be only 32 bits, and manipulating those memory references is less expensive than manipulating 64-bit references (even if you have a 64-bit CPU). The 32-bit references also use less memory.</p>
+</li>
+<li><p>JVM developers (and even some tools) often refer to the compilers by the names C1<br>(compiler 1, client compiler) and C2 (compiler 2, server compiler).</p>
+</li>
+<li><p>The primary difference between the two compilers is their aggressiveness in compiling<br>code. The client compiler begins compiling sooner than the server compiler does. This<br>means that during the beginning of code execution, the client compiler will be faster,<br>because it will have compiled correspondingly more code than the server compiler.</p>
+</li>
+<li><p>The engineering trade-off here is the knowledge the server compiler gains while it waits:<br>that knowledge allows the server compiler to make better optimizations in the compiled<br>code. Ultimately, code produced by the server compiler will be faster than that produced<br>by the client compiler. From a user’s perspective, the benefit to that trade-off is based<br>on how long the program will run, and how important the startup time of the program<br>is.</p>
+</li>
+<li><p>The obvious question here is why there needs to be a choice at all: couldn’t the JVM<br>start with the client compiler, and then use the server compiler as code gets hotter? That<br>technique is known as tiered compilation. With tiered compilation, code is first compiled<br>by the client compiler; as it becomes hot, it is recompiled by the server compiler.</p>
+</li>
+<li><p>To use tiered compilation, specify<br>the server compiler (either with -server or by ensuring it is the default for the particular<br>Java installation being used), and ensure that the Java command line includes the flag</p>
+</li>
+<li><p>XX:+TieredCompilation (the default value of which is false). In Java 8, tiered compilation<br>is enabled by default.</p>
+</li>
+<li><p>The client compiler is most often used when fast startup is the primary objective.</p>
+</li>
+</ul>
+<ol>
+<li>The client compiler is most useful when the startup of an application<br>is the overriding performance concern.</li>
+<li>Tiered compilation can achieve startup times very close to those<br>obtained from the client compiler.</li>
+</ol>
+<ul>
+<li>It is also interesting that tiered compilation is always slightly better than the standard<br>server compiler. In theory, once the program has run enough to compile all the hot<br>spots, the server compiler might be expected to achieve the best (or at least equal) performance.<br>But in any application, there will almost always be some small section of code<br>that is infrequently executed. It is better to compile that code—even if the compilation<br>is not the best that might be achieved—than to execute that code in interpreted mode.</li>
+</ul>
+<ol>
+<li>For jobs that run in a fixed amount of time, choose the compiler<br>based on which one is the fastest at executing the actual job.</li>
+<li>Tiered compilation provides a reasonable default choice for batch<br>jobs.</li>
+</ol>
+<ul>
+<li>For long-running applications, always choose the server compiler, preferably in conjunction with tiered compilation.</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-13-oracle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-03-13-oracle/" class="post-title-link" itemprop="url">Oracle</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <ul>
+<li>ORA-12899: Value Too Large for Column</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT value$ FROM sys.props$ WHERE name = 'NLS_CHARACTERSET' ;</span><br><span class="line"></span><br><span class="line">VALUE$</span><br><span class="line"><span class="comment">-------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">AL32UTF8</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> NLS_DATABASE_PARAMETERS</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">u43888859@hkl105482$  lsnrctl services DHKCUSTD</span><br><span class="line"></span><br><span class="line">LSNRCTL for Linux: Version 12.1.0.2.0 - Production on 28-FEB-2017 06:40:53</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hkl105482.hk.hsbc)(PORT=2001))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=DHKCUSTD.hk.hsbc)))</span><br><span class="line">Services Summary...</span><br><span class="line">Service "DHKCUSTD.hk.hsbc" has 1 instance(s).</span><br><span class="line">  Instance "DHKCUSTD", status READY, has 1 <span class="keyword">handler</span>(s) <span class="keyword">for</span> this service...</span><br><span class="line">    <span class="keyword">Handler</span>(s):</span><br><span class="line">      <span class="string">"DEDICATED"</span> established:<span class="number">15</span> refused:<span class="number">0</span> state:ready</span><br><span class="line">         <span class="keyword">LOCAL</span> <span class="keyword">SERVER</span></span><br><span class="line">The command completed successfully</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -685,7 +1396,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-21-Java-JIT/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-21-aws/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -701,7 +1412,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-02-21-Java-JIT/" class="post-title-link" itemprop="url">Java JIT compiler</a>
+              <a href="/2017-03-21-aws/" class="post-title-link" itemprop="url">AWS Tips</a>
             
           </h1>
         
@@ -733,234 +1444,7 @@
 
       
           
-            <h1 id="This-is-talking-about-Java-JIT-Just-In-Time-compiler"><a href="#This-is-talking-about-Java-JIT-Just-In-Time-compiler" class="headerlink" title="This is talking about Java JIT (Just-In-Time) compiler"></a>This is talking about Java JIT (Just-In-Time) compiler</h1><ul>
-<li><p>That trade-off is one reason that the compiler executes the interpreted code first—the compiler can figure out which methods are called frequently enough to warrant their compilation.<br>The second reason is one of optimization: the more times that the JVM executes a particular method or loop, the more information it has about that code. This allows the JVM to make a number of optimizations when it compiles the code.</p>
-</li>
-<li><p>At some point in time, the suminstance variable must reside in main memory, but retrieving a value from main memory is an expensive operation that takes multiple cycles to complete. If the value of sumwere to be retrieved from (and stored back to) main memory on every iteration of this loop, performance would be dismal. Instead, the compiler will load a register with the initial value of sum, perform the loop using that value in the register, and then (at an indeterminate point in time) store the final result from the register back to main memory.<br>This kind of optimization is very effective, but it means that the semantics of thread synchronization (see Chapter 9) are crucial to the behavior of the application</p>
-</li>
-<li><p>One thread cannot see the value of a variable stored in the register used by another thread; synchronization makes it possible to know exactly when the register is stored to main memory and available to other threads.<br>Register usage is a general optimization of the compiler, and when escape analysis is enabled (see the end of this chapter), register use is quite aggressive.</p>
-</li>
-</ul>
-<ul>
-<li><p>If the size of your heap will be less than about 3 GB, the 32-bit version of Java will be faster and have a smaller footprint. This is because the memory references within the JVM will be only 32 bits, and manipulating those memory references is less expensive than manipulating 64-bit references (even if you have a 64-bit CPU). The 32-bit references also use less memory.</p>
-</li>
-<li><p>JVM developers (and even some tools) often refer to the compilers by the names C1<br>(compiler 1, client compiler) and C2 (compiler 2, server compiler).</p>
-</li>
-<li><p>The primary difference between the two compilers is their aggressiveness in compiling<br>code. The client compiler begins compiling sooner than the server compiler does. This<br>means that during the beginning of code execution, the client compiler will be faster,<br>because it will have compiled correspondingly more code than the server compiler.</p>
-</li>
-<li><p>The engineering trade-off here is the knowledge the server compiler gains while it waits:<br>that knowledge allows the server compiler to make better optimizations in the compiled<br>code. Ultimately, code produced by the server compiler will be faster than that produced<br>by the client compiler. From a user’s perspective, the benefit to that trade-off is based<br>on how long the program will run, and how important the startup time of the program<br>is.</p>
-</li>
-<li><p>The obvious question here is why there needs to be a choice at all: couldn’t the JVM<br>start with the client compiler, and then use the server compiler as code gets hotter? That<br>technique is known as tiered compilation. With tiered compilation, code is first compiled<br>by the client compiler; as it becomes hot, it is recompiled by the server compiler.</p>
-</li>
-<li><p>To use tiered compilation, specify<br>the server compiler (either with -server or by ensuring it is the default for the particular<br>Java installation being used), and ensure that the Java command line includes the flag</p>
-</li>
-<li><p>XX:+TieredCompilation (the default value of which is false). In Java 8, tiered compilation<br>is enabled by default.</p>
-</li>
-<li><p>The client compiler is most often used when fast startup is the primary objective.</p>
-</li>
-</ul>
-<ol>
-<li>The client compiler is most useful when the startup of an application<br>is the overriding performance concern.</li>
-<li>Tiered compilation can achieve startup times very close to those<br>obtained from the client compiler.</li>
-</ol>
-<ul>
-<li>It is also interesting that tiered compilation is always slightly better than the standard<br>server compiler. In theory, once the program has run enough to compile all the hot<br>spots, the server compiler might be expected to achieve the best (or at least equal) performance.<br>But in any application, there will almost always be some small section of code<br>that is infrequently executed. It is better to compile that code—even if the compilation<br>is not the best that might be achieved—than to execute that code in interpreted mode.</li>
-</ul>
-<ol>
-<li>For jobs that run in a fixed amount of time, choose the compiler<br>based on which one is the fastest at executing the actual job.</li>
-<li>Tiered compilation provides a reasonable default choice for batch<br>jobs.</li>
-</ol>
-<ul>
-<li>For long-running applications, always choose the server compiler, preferably in conjunction with tiered compilation.</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-15-Java-Security/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-02-15-Java-Security/" class="post-title-link" itemprop="url">Java Security Notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Java-Security"><a href="#Java-Security" class="headerlink" title="Java Security"></a>Java Security</h1><ul>
-<li><code>well-behaved</code>: programs should be prevent from consuming too much system resources</li>
-</ul>
-<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><ul>
-<li>JCE: Java Cryptography Extension</li>
-<li>JSSE: Java Secure Socketets Extension</li>
-<li>JAAS: Java Authentication and Authorization Service</li>
-</ul>
-<h1 id="Anatomy-of-a-Java-Application"><a href="#Anatomy-of-a-Java-Application" class="headerlink" title="Anatomy of a Java Application"></a>Anatomy of a Java Application</h1><h2 id="the-bytecode-verifier"><a href="#the-bytecode-verifier" class="headerlink" title="the bytecode verifier"></a>the bytecode verifier</h2><p>The bytecode verifier ensures that Java class files follow the rules of the Java language. As the figure implies, not all classes are subject to bytecode verification.</p>
-<h2 id="the-class-loader"><a href="#the-class-loader" class="headerlink" title="the class loader"></a>the class loader</h2><p>One or more class loaders load all Java classes. Programatically, the class loader can set permissions for each class it loads.</p>
-<h2 id="the-access-controller"><a href="#the-access-controller" class="headerlink" title="the access controller"></a>the access controller</h2><p>The access controller allows (or prevents) most access from the core API to the operating system, based upon policies set by the end user or system administrator.</p>
-<h2 id="the-security-manager"><a href="#the-security-manager" class="headerlink" title="the security manager"></a>the security manager</h2><p>The security manager is the primary interface between the core API and the operating system; it has the ultimate responsibility for allowing or preventing access to all system resources. However, it exists mostly for historical reasons; it defers its actions to the access controller.</p>
-<h2 id="The-security-package"><a href="#The-security-package" class="headerlink" title="The security package"></a>The security package</h2><p> the security package is a complex API. This includes discussions of:</p>
-<ul>
-<li>The security provider interface −− the means by which different security implementations may be plugged into the security package</li>
-<li>Message digests</li>
-<li>Keys and certificates</li>
-<li>Digital signatures</li>
-<li>Encryption (through JCE and JSSE)</li>
-<li>Authentication (through JAAS)</li>
-</ul>
-<h2 id="The-key-database"><a href="#The-key-database" class="headerlink" title="The key database"></a>The key database</h2><p>The key database is a set of keys used by the security infrastructure to create or verify digital signatures. In the Java architecture, it is part of the security package, though it may be manifested as an external file or database.</p>
-<h2 id="Trusted-and-Untrusted-Classes"><a href="#Trusted-and-Untrusted-Classes" class="headerlink" title="Trusted and Untrusted Classes"></a>Trusted and Untrusted Classes</h2><ul>
-<li>In Java 2, only classes in the core API are considered trusted. Other classes must be given explicit permission to perform the operations we’ve discussed.</li>
-</ul>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Although the security manager is the most commonly known feature of Java’s security story, it’s often misunderstood: there is no standard security manager among Java implementations, and Java applications, by default, have no security manager at all.</p>
-<h1 id="Access-Controller"><a href="#Access-Controller" class="headerlink" title="Access Controller"></a>Access Controller</h1><ul>
-<li>The implementation of most security managers, however, is based entirely upon the access controller.</li>
-</ul>
-<h2 id="Permissions"><a href="#Permissions" class="headerlink" title="Permissions"></a>Permissions</h2><ul>
-<li>The basic entity that the access controller operates on is a permission object −− an instance of the Permission class (java.security.Permission). This class, of course, is the basis of the types that are listed in a policy file for the default security policy. The Permission class itself is an abstract class that represents a particular operation. The nomenclature here is a little misleading because a permission object can reflect two things. When it is associated with a class (through a code source and a protection domain), a permission object represents an actual permission that has been granted to that class. Otherwise, a permission object allows us to ask if we have a specific permission.</li>
-<li>For example, if we construct a permission object that represents access to a file, possession of that object does not mean we have permission to access the file. Rather, possession of the object allows us to ask if we have permission to access the file.</li>
-</ul>
-<h2 id="The-access-controller-is-built-upon-the-four-concepts"><a href="#The-access-controller-is-built-upon-the-four-concepts" class="headerlink" title="The access controller is built upon the four concepts"></a>The access controller is built upon the four concepts</h2><ul>
-<li>Code sources<br>An encapsulation of the location from which certain Java classes were obtained.</li>
-<li>Permissions<br>An encapsulation of a request to perform a particular operation.</li>
-<li>Policies<br>An encapsulation of all the specific permissions that should be granted to specific code sources.</li>
-<li>Protection domains<br>An encapsulation of a particular code source and the permissions granted to that code source.</li>
-</ul>
-<h1 id="Byte-code-verifier"><a href="#Byte-code-verifier" class="headerlink" title="Byte code verifier"></a>Byte code verifier</h1><ul>
-<li>The verifier is often referred to as a <code>mini−theorem prover</code> (a term first used in several documents from Sun). This sounds somewhat more impressive than it is; it’s not a generic, all−purpose theorem prover by any means. Instead, it’s a piece of code that can prove one (and only one) thing −− that a given series of ( Java) bytecodes represents a legal set of ( Java) instructions.</li>
-</ul>
-<h1 id="Shifting"><a href="#Shifting" class="headerlink" title="Shifting"></a>Shifting</h1><p>Java and JavaScript perform sign extension when shift¬ing right, filling the empty spaces with 1’s for negative numbers, so 10100110 &gt;&gt; 5 becomes 11111101.<br>The &gt;&gt;&gt; operator is unique to Java and JavaScript. It does a logical shift right, filling the empty spaces with 0 no matter what the value, so 10100110 &gt;&gt;&gt; 5 becomes 00000101.</p>
-<p>The shift operators enable you to multiply and divide by powers of 2 very quickly. For non-negative numbers, shifting to the right one bit is equivalent to dividing by 2, and shifting to the left one bit is equivalent to multiplying by 2. For negative numbers, it obviously depends on the language being used.</p>
-<h2 id="Specifically-the-bytecode-verifier-can-prove-the-following"><a href="#Specifically-the-bytecode-verifier-can-prove-the-following" class="headerlink" title="Specifically, the bytecode verifier can prove the following:"></a>Specifically, the bytecode verifier can prove the following:</h2><ul>
-<li>The class file has the correct format. The full definition of the class file format may be found in the Java virtual machine specification; the bytecode verifier is responsible for making sure that the class file has the right length, the correct magic numbers in the correct places, and so on.</li>
-<li>Final classes are not subclassed, and final methods are not overridden.</li>
-<li>Every class (except for java.lang.Object) has a single superclass.</li>
-<li>There is no illegal data conversion of primitive data types (e.g., int to Object).</li>
-<li>No illegal data conversion of objects occurs. Because the casting of a superclass to its subclass may<br>be a valid operation (depending on the actual type of the object being cast), the verifier cannot ensure that such casting is not attempted −− it can only ensure that before each such attempt is made, the legality of the cast is tested.</li>
-<li>There are no operand stack overflows or underflows.</li>
-</ul>
-<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><ul>
-<li>In Java, there are two stacks for each thread. One stack holds a series of method frames, where each method frame holds the local variables and other storage for a particular method invocation. This stack is known as the data stack and is what we normally think of as the stack within a traditional program. The bytecode verifier cannot prevent overflow of this stack −− an infinitely recursive method call will cause this stack to overflow. However, each method invocation requires a second stack (which itself is allocated on the data stack) that is referred to as the operand stack; the operand stack holds the values that the Java bytecodes operate on. This secondary stack is the stack that the bytecode verifier can ensure will not overflow or underflow.</li>
-</ul>
-<h1 id="Security-Manager"><a href="#Security-Manager" class="headerlink" title="Security Manager"></a>Security Manager</h1><ul>
-<li>The implementation of the sandbox depends on three things:</li>
-<li>The security manager, which provides the mechanism that the Java API uses to see if security−related operations are allowed.</li>
-<li>The access controller, which provides the basis of the default implementation of the security manager. </li>
-<li>The class loader, which encapsulates information about security policies and classes.</li>
-</ul>
-<p>We’ll start by examining the security manager. From the perspective of the Java API, there is a security manager that actually is in control of the security policy of an application. The purpose of the security manager is to determine whether particular operations should be permitted or denied. In truth, the purpose of the access controller is really the same: it decides whether access to a critical system resource should be permitted or denied. Hence, the access controller can do everything the security manager can do.</p>
-<p><strong>The reason there is both an access controller and a security manager is mainly historical</strong>: the access controller is only available in Java 2 and subsequent releases. Before the access controller existed, the security manager relied on its internal logic to determine the security policy that should be in effect, and changing the security policy required changing the security manager itself. Starting with Java 2, the security manager defers these decisions to the access controller. Since the security policy enforced by the access controller can be specified by using policy files, this allows a much more flexible mechanism for determining policies. The access controller also gives us a much simpler method of granting fine−grained, specific permissions to specific classes. That process was theoretically possibly with the security manager alone, but it was simply too hard to implement.</p>
-<h2 id="The-BasicPermission-class"><a href="#The-BasicPermission-class" class="headerlink" title="The BasicPermission class"></a>The BasicPermission class</h2><ul>
-<li><p>If you need to implement your own permission class, the BasicPermission class (java.security.BasicPermission) provides some useful semantics. This class implements a basic permission −− that is, a permission that doesn’t have actions. Basic permissions can be thought of as binary permissions −− you either have them or you don’t. However, this restriction does not prevent you from implementing actions in your subclasses of the BasicPermission class (as the PropertyPermission class does).</p>
-</li>
-<li><p>The prime benefit of this class is the manner in which it implements wildcards. Names in basic permissions are considered to be hierarchical, following a dot−separated convention. For example, if the XYZ corporation wanted to create a set of basic permissions, they might use the convention that the first word of the permission always be xyz: xyz.readDatabase, xyz.writeDatabase, xyz.runPayrollProgram, xyz.HRDepartment.accessCheck, and so on. These permissions can then be specified by their full name, or they can be specified with an asterisk wildcard: xyz.* would match each of these (no matter what depth), and * would match every possible basic permission.</p>
-</li>
-<li><p><a href="http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351" target="_blank" rel="noopener">http://www.qidianlife.com/index.php?m=home&amp;c=discover&amp;a=article&amp;id=2351</a></p>
-</li>
-<li><p>保护密码的最好办法是使用加盐密码哈希（ salted password hashing）。</p>
-</li>
-<li><p>永远不要告诉用户输错的究竟是用户名还是密码。就像通用的提示那样，始终显示：“无效的用户名或密码。”就行了。这样可以防止攻击者在不知道密码的情况下枚举出有效的用户名。</p>
-</li>
-<li><p>应当注意的是，用来保护密码的哈希函数，和数据结构课学到的哈希函数是不同的。例如，实现哈希表的哈希函数设计目的是快速查找，而非安全性。只有加密哈希函数（ cryptographic hash function）才可以用来进行密码哈希加密。像 SHA256 、 SHA512 、 RIPEMD 和 WHIRLPOOL 都是加密哈希函数。</p>
-</li>
-<li><p>破解哈希加密最简单的方法是尝试猜测密码，哈希每个猜测的密码，并对比猜测密码的哈希值是否等于被破解的哈希值。如果相等，则猜中。猜测密码攻击的两种最常见的方法是字典攻击和暴力攻击 。</p>
-</li>
-<li><p>字典攻击使用包含单词、短语、常用密码和其他可能用做密码的字符串的字典文件。对文件中的每个词都进行哈希加密，将这些哈希值和要破解的密码哈希值比较。如果它们相同，这个词就是密码。字典文件是通过大段文本中提取的单词构成，甚至还包括一些数据库中真实的密码。还可以对字典文件进一步处理以使其更为有效：如单词 “hello” 按网络用语写法转成 “h3110” 。</p>
-</li>
-<li><p>暴力攻击是对于给定的密码长度，尝试每一种可能的字符组合。这种方式会消耗大量的计算，也是破解哈希加密效率最低的办法，但最终会找出正确的密码。因此密码应该足够长，以至于遍历所有可能的字符组合，耗费的时间太长令人无法承受，从而放弃破解。</p>
-</li>
-<li><p>目前没有办法来组织字典攻击或暴力攻击。只能想办法让它们变得低效。如果密码哈希系统设计是安全的，破解哈希的唯一方法就是进行字典攻击或暴力攻击遍历每一个哈希值了。</p>
-</li>
-<li><p>我们可以通过在密码中加入一段随机字符串再进行哈希加密，这个被加的字符串称之为盐值。如上例所示，这使得相同的密码每次都被加密为完全不同的字符串。我们需要盐值来校验密码是否正确。通常和密码哈希值一同存储在帐号数据库中，或者作为哈希字符串的一部分。</p>
-</li>
-<li><p>盐值无需加密。由于随机化了哈希值，查表法、反向查表法和彩虹表都会失效。因为攻击者无法事先知道盐值，所以他们就没有办法预先计算查询表或彩虹表。如果每个用户的密码用不同的盐再进行哈希加密，那么反向查表法攻击也将不能奏效。</p>
-</li>
-<li><p>一个常见的错误是每次都使用相同的盐值进行哈希加密，这个盐值要么被硬编码到程序里，要么只在第一次使用时随机获得。这样的做法是无效的，因为如果两个用户有相同的密码，他们仍然会有相同的哈希值。攻击者仍然可以使用反向查表法对每个哈希值进行字典攻击。他们只是在哈希密码之前，将固定的盐值应用到每个猜测的密码就可以了。如果盐值被硬编码到一个流行的软件里，那么查询表和彩虹表可以内置该盐值，以使其更容易破解它产生的哈希值。</p>
-</li>
-<li><p>用户创建帐号或者更改密码时，都应该用新的随机盐值进行加密。</p>
-</li>
-<li><p>出于同样的原因，不应该将用户名用作盐值。对每一个服务来说，用户名是唯一的，但它们是可预测的，并且经常重复应用于其他服务。攻击者可以用常见用户名作为盐值来建立查询表和彩虹表来破解密码哈希。</p>
-</li>
-<li><p>为使攻击者无法构造包含所有可能盐值的查询表，盐值必须足够长。一个好的经验是使用和哈希函数输出的字符串等长的盐值。例如， SHA256 的输出为256位（32字节），所以该盐也应该是32个随机字节。</p>
-</li>
-<li><p>每个用户的每一个密码都要使用独一无二的盐值。用户每次创建帐号或更改密码时，密码应采用一个新的随机盐值。永远不要重复使用某个盐值。这个盐值也应该足够长，以使有足够多的盐值能用于哈希加密。一个经验规则是，盐值至少要跟哈希函数的输出一样长。该盐应和密码哈希一起存储在用户帐号表中。</p>
-</li>
-<li><p>存储密码的步骤：</p>
-<ul>
-<li>使用 CSPRNG 生成足够长的随机盐值。</li>
-<li>将盐值混入密码，并使用标准的密码哈希函数进行加密，如Argon2、 bcrypt 、 scrypt 或 PBKDF2 。</li>
-<li>将盐值和对应的哈希值一起存入用户数据库。</li>
-</ul>
-</li>
-<li><p>校验密码的步骤：</p>
-<ul>
-<li>从数据库检索出用户的盐值和对应的哈希值。</li>
-<li>将盐值混入用户输入的密码，并且使用通用的哈希函数进行加密。</li>
-<li>比较上一步的结果，是否和数据库存储的哈希值相同。如果它们相同，则表明密码是正确的；否则，该密码错误。</li>
-</ul>
-</li>
-</ul>
+            <p>After establishing a SSH session, you can install a default web server by executing sudo yum install httpd -y. To start the web server, type sudo service httpd start and press Return to execute the command. Your web browser should show a placeholder site if you open http://$PublicIp with $PublicIp replaced by the public IP address of your virtual server.</p>
 
           
         
@@ -1304,273 +1788,6 @@ Spring scans the application context for bean methods annotated with @Transactio
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-21-aws/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-03-21-aws/" class="post-title-link" itemprop="url">AWS Tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>After establishing a SSH session, you can install a default web server by executing sudo yum install httpd -y. To start the web server, type sudo service httpd start and press Return to execute the command. Your web browser should show a placeholder site if you open http://$PublicIp with $PublicIp replaced by the public IP address of your virtual server.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-13-oracle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-03-13-oracle/" class="post-title-link" itemprop="url">Oracle</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <ul>
-<li>ORA-12899: Value Too Large for Column</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT value$ FROM sys.props$ WHERE name = 'NLS_CHARACTERSET' ;</span><br><span class="line"></span><br><span class="line">VALUE$</span><br><span class="line"><span class="comment">-------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">AL32UTF8</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> NLS_DATABASE_PARAMETERS</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">u43888859@hkl105482$  lsnrctl services DHKCUSTD</span><br><span class="line"></span><br><span class="line">LSNRCTL for Linux: Version 12.1.0.2.0 - Production on 28-FEB-2017 06:40:53</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hkl105482.hk.hsbc)(PORT=2001))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=DHKCUSTD.hk.hsbc)))</span><br><span class="line">Services Summary...</span><br><span class="line">Service "DHKCUSTD.hk.hsbc" has 1 instance(s).</span><br><span class="line">  Instance "DHKCUSTD", status READY, has 1 <span class="keyword">handler</span>(s) <span class="keyword">for</span> this service...</span><br><span class="line">    <span class="keyword">Handler</span>(s):</span><br><span class="line">      <span class="string">"DEDICATED"</span> established:<span class="number">15</span> refused:<span class="number">0</span> state:ready</span><br><span class="line">         <span class="keyword">LOCAL</span> <span class="keyword">SERVER</span></span><br><span class="line">The command completed successfully</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-04-06-SSH/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-04-06-SSH/" class="post-title-link" itemprop="url">SSH SFTP</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Secure-FTP"><a href="#Secure-FTP" class="headerlink" title="Secure FTP"></a>Secure FTP</h1><blockquote>
-<p>SFTP over FTP is the equivalant of HTTPS over HTTP, the security version</p>
-</blockquote>
-<h2 id="SFTP-versus-FTPS"><a href="#SFTP-versus-FTPS" class="headerlink" title="SFTP versus FTPS"></a>SFTP versus FTPS</h2><ul>
-<li>An increasing number of our customers are looking to move away from standard FTP for transferring data, so we are often asked which secure FTP protocol we recommend. In the next few paragraphs, we will explain what options are available and their main differences.</li>
-<li>The two mainstream protocols available for Secure FTP transfers are named SFTP (FTP over SSH) and FTPS (FTP over SSL). Both SFTP and FTPS offer a high level of protection since they implement strong algorithms such as AES and Triple DES to encrypt any data transferred. Both options also support a wide variety of functionality with a broad command set for transferring and working with files. So the most notable differences between SFTP and FTPS is how connections are authenticated and managed.</li>
-</ul>
-<h2 id="Authentication-SFTP-vs-FTPS"><a href="#Authentication-SFTP-vs-FTPS" class="headerlink" title="Authentication: SFTP vs. FTPS"></a>Authentication: SFTP vs. FTPS</h2><ul>
-<li>With SFTP (FTP over SSH), a connection can be authenticated using a couple different techniques.  For basic authentication, you (or your trading partner) may just require a user id and password to connect to the SFTP server. Its important to note that any user ids and passwords supplied over the SFTP connection will be encrypted, which is a big advantage over standard FTP.</li>
-<li>SSH keys can also be used to authenticate SFTP connections in addition to, or instead of, passwords. With key-based authentication, you will first need to generate a SSH private key and public key beforehand. If you need to connect to a trading partner’s SFTP server, you would send your SSH public key to them, which they will load onto their server and associate with your account. When you connect to their SFTP server, your client software will transmit your public key to the server for authentication. If the keys match, along with any user/password supplied, then the authentication will succeed.</li>
-<li>With FTPS (FTP over SSL), a connection is authenticated using a user id, password and certificate(s).  Like SFTP, the users and passwords for FTPS connections will also be encrypted. When connecting to a trading partner’s FTPS server, your FTPS client will first check if the server’s certificate is trusted. The certificate is considered trusted if either the certificate was signed off by a known certificate authority (CA), like Verisign, or if the certificate was self-signed (by your partner) and you have a copy of their public certificate in your trusted key store.</li>
-<li>Your partner may also require that you supply a certificate when you connect to them.  Your certificate may be signed off by a 3rd party CA or your partner may allow you to just self-sign your certificate, as long as you send them the public portion of your certificate beforehand (which they will load in their trusted key store).</li>
-</ul>
-<h2 id="Implementation-SFTP-vs-FTPS"><a href="#Implementation-SFTP-vs-FTPS" class="headerlink" title="Implementation: SFTP vs. FTPS"></a>Implementation: SFTP vs. FTPS</h2><ul>
-<li>In regards to how easy each of the secure FTP protocols are to implement, SFTP is the clear winner since it is very firewall friendly. SFTP only needs a single port number (default of 22) to be opened through the firewall.  This port will be used for all SFTP communications, including the initial authentication, any commands issued, as well as any data transferred.</li>
-<li>On the other hand, FTPS can be very difficult to patch through a tightly secured firewall since FTPS uses multiple port numbers. The initial port number (default of 21) is used for authentication and passing any commands.  However, every time a file transfer request (get, put) or directory listing request is made, another port number needs to be opened.  You and your trading partners will therefore have to open a range of ports in your firewalls to allow for FTPS connections, which can be a security risk for your network.</li>
-</ul>
-<p>In summary, SFTP and FTPS are both very secure with strong authentication options.  However since SFTP is much easier to port through firewalls, and we are seeing an increasing percentage of trading partners adopting SFTP, we believe SFTP is the clear winner for your secure FTP needs.</p>
-<h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><ul>
-<li>There are several ways to use SSH; one is to use automatically generated public-private key pairs to simply encrypt a network connection, and then use password authentication to log on.</li>
-<li>Another is to use a manually generated public-private key pair to perform the authentication, allowing users or programs to log in without having to specify a password. In this scenario, anyone can produce a matching pair of different keys (public and private). The public key is placed on all computers that must allow access to the owner of the matching private key (the owner keeps the private key secret). While authentication is based on the private key, the key itself is never transferred through the network during authentication. SSH only verifies whether the same person offering the public key also owns the matching private key. In all versions of SSH it is important to verify unknown public keys, i.e. associate the public keys with identities, before accepting them as valid. Accepting an attacker’s public key without validation will authorize an unauthorized attacker as a valid user.</li>
-</ul>
-<h2 id="Key-management"><a href="#Key-management" class="headerlink" title="Key management"></a>Key management</h2><ul>
-<li>On Unix-like systems, the list of authorized public keys is typically stored in the home directory of the user that is allowed to log in remotely, in the file ~/.ssh/authorized_keys.</li>
-</ul>
-<h3 id="WinFTP"><a href="#WinFTP" class="headerlink" title="WinFTP"></a>WinFTP</h3><ul>
-<li>cryptographic protocol is SSH-2</li>
-<li>SSH implementation is OpenSSH_5.3</li>
-<li>Server fingerprint: File transfer protocol = SFTP-3<br>Cryptographic protocol = SSH-2<br>SSH implementation = OpenSSH_5.3<br>Encryption algorithm = aes<br>Compression = No</li>
-</ul>
-<hr>
-<p>Server host key fingerprint</p>
-<h2 id="ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc"><a href="#ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc" class="headerlink" title="ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc"></a>ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc</h2><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers" target="_blank" rel="noopener">https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Secure_Shell</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-30-WebSphere-setp-via-CLI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1699,6 +1916,117 @@ Spring scans the application context for bean methods annotated with @Transactio
 
 <h5 id="Check-networking-amp-port-on-WAS-server"><a href="#Check-networking-amp-port-on-WAS-server" class="headerlink" title="Check networking &amp; port on WAS server"></a>Check networking &amp; port on WAS server</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@cn000tst1129 Thu Mar 30 17:07:11 /  <span class="comment">#netstat -nptlev | grep java</span></span><br><span class="line">tcp        0      0 133.14.16.2:20962           0.0.0.0:*                   LISTEN      200000000  938007     252552/java</span><br><span class="line">tcp        0      0 127.0.0.1:9635              0.0.0.0:*                   LISTEN      200000000  1048485    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9445                0.0.0.0:*                   LISTEN      200000000  1048615    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9062                0.0.0.0:*                   LISTEN      200000000  1048613    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9102                0.0.0.0:*                   LISTEN      200000000  1048479    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:8882                0.0.0.0:*                   LISTEN      200000000  1048484    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9045                0.0.0.0:*                   LISTEN      200000000  1048616    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20950               0.0.0.0:*                   LISTEN      200000000  938036     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:20953               0.0.0.0:*                   LISTEN      200000000  937999     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9082                0.0.0.0:*                   LISTEN      200000000  1048614    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20954               0.0.0.0:*                   LISTEN      200000000  938118     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:2811                0.0.0.0:*                   LISTEN      200000000  1048482    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20957               0.0.0.0:*                   LISTEN      200000000  937992     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9407                0.0.0.0:*                   LISTEN      200000000  1048481    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20959               0.0.0.0:*                   LISTEN      200000000  938088     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9408                0.0.0.0:*                   LISTEN      200000000  1048480    254902/java</span><br><span class="line">tcp        0      0 127.0.0.1:20960             0.0.0.0:*                   LISTEN      200000000  938089     252552/java</span><br><span class="line">tcp        0      0 133.14.16.2:20961           0.0.0.0:*                   LISTEN      200000000  938047     252552/java</span><br></pre></td></tr></table></figure>
 
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-04-06-SSH/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-04-06-SSH/" class="post-title-link" itemprop="url">SSH SFTP</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Secure-FTP"><a href="#Secure-FTP" class="headerlink" title="Secure FTP"></a>Secure FTP</h1><blockquote>
+<p>SFTP over FTP is the equivalant of HTTPS over HTTP, the security version</p>
+</blockquote>
+<h2 id="SFTP-versus-FTPS"><a href="#SFTP-versus-FTPS" class="headerlink" title="SFTP versus FTPS"></a>SFTP versus FTPS</h2><ul>
+<li>An increasing number of our customers are looking to move away from standard FTP for transferring data, so we are often asked which secure FTP protocol we recommend. In the next few paragraphs, we will explain what options are available and their main differences.</li>
+<li>The two mainstream protocols available for Secure FTP transfers are named SFTP (FTP over SSH) and FTPS (FTP over SSL). Both SFTP and FTPS offer a high level of protection since they implement strong algorithms such as AES and Triple DES to encrypt any data transferred. Both options also support a wide variety of functionality with a broad command set for transferring and working with files. So the most notable differences between SFTP and FTPS is how connections are authenticated and managed.</li>
+</ul>
+<h2 id="Authentication-SFTP-vs-FTPS"><a href="#Authentication-SFTP-vs-FTPS" class="headerlink" title="Authentication: SFTP vs. FTPS"></a>Authentication: SFTP vs. FTPS</h2><ul>
+<li>With SFTP (FTP over SSH), a connection can be authenticated using a couple different techniques.  For basic authentication, you (or your trading partner) may just require a user id and password to connect to the SFTP server. Its important to note that any user ids and passwords supplied over the SFTP connection will be encrypted, which is a big advantage over standard FTP.</li>
+<li>SSH keys can also be used to authenticate SFTP connections in addition to, or instead of, passwords. With key-based authentication, you will first need to generate a SSH private key and public key beforehand. If you need to connect to a trading partner’s SFTP server, you would send your SSH public key to them, which they will load onto their server and associate with your account. When you connect to their SFTP server, your client software will transmit your public key to the server for authentication. If the keys match, along with any user/password supplied, then the authentication will succeed.</li>
+<li>With FTPS (FTP over SSL), a connection is authenticated using a user id, password and certificate(s).  Like SFTP, the users and passwords for FTPS connections will also be encrypted. When connecting to a trading partner’s FTPS server, your FTPS client will first check if the server’s certificate is trusted. The certificate is considered trusted if either the certificate was signed off by a known certificate authority (CA), like Verisign, or if the certificate was self-signed (by your partner) and you have a copy of their public certificate in your trusted key store.</li>
+<li>Your partner may also require that you supply a certificate when you connect to them.  Your certificate may be signed off by a 3rd party CA or your partner may allow you to just self-sign your certificate, as long as you send them the public portion of your certificate beforehand (which they will load in their trusted key store).</li>
+</ul>
+<h2 id="Implementation-SFTP-vs-FTPS"><a href="#Implementation-SFTP-vs-FTPS" class="headerlink" title="Implementation: SFTP vs. FTPS"></a>Implementation: SFTP vs. FTPS</h2><ul>
+<li>In regards to how easy each of the secure FTP protocols are to implement, SFTP is the clear winner since it is very firewall friendly. SFTP only needs a single port number (default of 22) to be opened through the firewall.  This port will be used for all SFTP communications, including the initial authentication, any commands issued, as well as any data transferred.</li>
+<li>On the other hand, FTPS can be very difficult to patch through a tightly secured firewall since FTPS uses multiple port numbers. The initial port number (default of 21) is used for authentication and passing any commands.  However, every time a file transfer request (get, put) or directory listing request is made, another port number needs to be opened.  You and your trading partners will therefore have to open a range of ports in your firewalls to allow for FTPS connections, which can be a security risk for your network.</li>
+</ul>
+<p>In summary, SFTP and FTPS are both very secure with strong authentication options.  However since SFTP is much easier to port through firewalls, and we are seeing an increasing percentage of trading partners adopting SFTP, we believe SFTP is the clear winner for your secure FTP needs.</p>
+<h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><ul>
+<li>There are several ways to use SSH; one is to use automatically generated public-private key pairs to simply encrypt a network connection, and then use password authentication to log on.</li>
+<li>Another is to use a manually generated public-private key pair to perform the authentication, allowing users or programs to log in without having to specify a password. In this scenario, anyone can produce a matching pair of different keys (public and private). The public key is placed on all computers that must allow access to the owner of the matching private key (the owner keeps the private key secret). While authentication is based on the private key, the key itself is never transferred through the network during authentication. SSH only verifies whether the same person offering the public key also owns the matching private key. In all versions of SSH it is important to verify unknown public keys, i.e. associate the public keys with identities, before accepting them as valid. Accepting an attacker’s public key without validation will authorize an unauthorized attacker as a valid user.</li>
+</ul>
+<h2 id="Key-management"><a href="#Key-management" class="headerlink" title="Key management"></a>Key management</h2><ul>
+<li>On Unix-like systems, the list of authorized public keys is typically stored in the home directory of the user that is allowed to log in remotely, in the file ~/.ssh/authorized_keys.</li>
+</ul>
+<h3 id="WinFTP"><a href="#WinFTP" class="headerlink" title="WinFTP"></a>WinFTP</h3><ul>
+<li>cryptographic protocol is SSH-2</li>
+<li>SSH implementation is OpenSSH_5.3</li>
+<li>Server fingerprint: File transfer protocol = SFTP-3<br>Cryptographic protocol = SSH-2<br>SSH implementation = OpenSSH_5.3<br>Encryption algorithm = aes<br>Compression = No</li>
+</ul>
+<hr>
+<p>Server host key fingerprint</p>
+<h2 id="ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc"><a href="#ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc" class="headerlink" title="ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc"></a>ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc</h2><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers" target="_blank" rel="noopener">https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Secure_Shell</a></li>
+</ul>
 
           
         

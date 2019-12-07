@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-heavy-load-web-app/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-TIPS-AS400-IBM-EMULATOR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-29-heavy-load-web-app/" class="post-title-link" itemprop="url">heavy load web application</a>
+              <a href="/2016-06-29-TIPS-AS400-IBM-EMULATOR/" class="post-title-link" itemprop="url">tips in as400 IBM Emulator</a>
             
           </h1>
         
@@ -243,11 +243,11 @@
 
       
           
-            <h1 id="Common-solutions"><a href="#Common-solutions" class="headerlink" title="Common solutions"></a>Common solutions</h1><p>With <code>cache</code> + <code>hash</code>, seems nothing is impossible.</p>
-<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>When involving big data, heavey load and concurrent, the ultimate solution is <code>hash</code>, such as random insert, time complexity O(1) etc, the only downside is waste of space, however, storage is cheap recently. <code>hash</code> is one must-have for concurrent systems.</p>
-<h2 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h2><p>There are many mature cache mechanism, such as KV DB like memcache, redis, and they are supporting clusters, operatibility is good as well.</p>
-<h2 id="read-write-segaration"><a href="#read-write-segaration" class="headerlink" title="read-write segaration"></a>read-write segaration</h2><p>In most cases, there are more read than write operation, so separate database to acccept write request to master DB, and redirect read request to slave DBs. At the same time, multiple salve DBs can be smoothly <code>scale out</code>, data replicate can leverage log bin.</p>
-<h2 id="Database-separation-and-sharding"><a href="#Database-separation-and-sharding" class="headerlink" title="Database separation and sharding"></a>Database separation and sharding</h2><p>For DB sharding, leverage hash to direct to corresponding DB shard. To ease the load on single host.</p>
+            <h1 id="Toggle-crosshair"><a href="#Toggle-crosshair" class="headerlink" title="Toggle crosshair"></a>Toggle crosshair</h1><ol>
+<li>Open IBM personal communication client</li>
+<li>Go to menu Edit-&gt;Preference-&gt;Apperance-&gt;Display settings-&gt;Ruler</li>
+<li>change Rule style to crosshair or turn it off</li>
+</ol>
 
           
         
@@ -533,6 +533,96 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-04-BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-08-04-BA/" class="post-title-link" itemprop="url">Business Analysis</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Purpose-of-BA"><a href="#Purpose-of-BA" class="headerlink" title="Purpose of BA"></a>Purpose of BA</h2><ul>
+<li>带来一些商业价值（收益）</li>
+<li>解决业务痛点</li>
+</ul>
+<h2 id="Best-Parctices-for-BA-Architect"><a href="#Best-Parctices-for-BA-Architect" class="headerlink" title="Best Parctices for BA/Architect"></a>Best Parctices for BA/Architect</h2><ul>
+<li>架构设计可以大而全，但实施过程最好是<code>简化</code>，<code>化整为零</code>，以最快速度先上线，通过迭代方式不断的完善。（_船小好调头_）</li>
+<li>理想的架构应该像是App Store那样，设计成一个窗口，只要符合平台规范和协议就可以发布上去，关注是应用本身是否work，其他交给平台完成。</li>
+<li>收益可以通过多种形式表现：提高产量、节约成本、挖掘用户价值、加强服务质量、优化用户体验、快速响应市场变化等</li>
+<li>架构：将产品、技术、运营有机的结合起来</li>
+<li>一个成功的互联网应用，背后一定是一群既懂得经营，又明白如何利用技术的业务和一群懂得<code>驱动业务</code>的技术大神们的故事。</li>
+<li>任何一个产生生产力革命的行业一定是由业务和技术结合而产生的，比如网上订餐，叫车行业</li>
+</ul>
+<h2 id="Samples-tips-for-online-eCommerence"><a href="#Samples-tips-for-online-eCommerence" class="headerlink" title="Samples tips for online eCommerence"></a>Samples tips for online eCommerence</h2><ul>
+<li>From API to CRS (中央预定系统 Centeral Reservation System)</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-02-RESTful/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -688,96 +778,6 @@ Ted Nelson’s original definition was focused on non-linear documents.</p>
           
             <h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><p>HTML5, AngularJS, BootStrap, REST API, JSON</p>
 <h3 id="Backend"><a href="#Backend" class="headerlink" title="Backend"></a>Backend</h3><p>Hadoop core (HDFS), Hive, HBase, MapReduce, Oozie, Pig, Solr</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-04-BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-08-04-BA/" class="post-title-link" itemprop="url">Business Analysis</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="Purpose-of-BA"><a href="#Purpose-of-BA" class="headerlink" title="Purpose of BA"></a>Purpose of BA</h2><ul>
-<li>带来一些商业价值（收益）</li>
-<li>解决业务痛点</li>
-</ul>
-<h2 id="Best-Parctices-for-BA-Architect"><a href="#Best-Parctices-for-BA-Architect" class="headerlink" title="Best Parctices for BA/Architect"></a>Best Parctices for BA/Architect</h2><ul>
-<li>架构设计可以大而全，但实施过程最好是<code>简化</code>，<code>化整为零</code>，以最快速度先上线，通过迭代方式不断的完善。（_船小好调头_）</li>
-<li>理想的架构应该像是App Store那样，设计成一个窗口，只要符合平台规范和协议就可以发布上去，关注是应用本身是否work，其他交给平台完成。</li>
-<li>收益可以通过多种形式表现：提高产量、节约成本、挖掘用户价值、加强服务质量、优化用户体验、快速响应市场变化等</li>
-<li>架构：将产品、技术、运营有机的结合起来</li>
-<li>一个成功的互联网应用，背后一定是一群既懂得经营，又明白如何利用技术的业务和一群懂得<code>驱动业务</code>的技术大神们的故事。</li>
-<li>任何一个产生生产力革命的行业一定是由业务和技术结合而产生的，比如网上订餐，叫车行业</li>
-</ul>
-<h2 id="Samples-tips-for-online-eCommerence"><a href="#Samples-tips-for-online-eCommerence" class="headerlink" title="Samples tips for online eCommerence"></a>Samples tips for online eCommerence</h2><ul>
-<li>From API to CRS (中央预定系统 Centeral Reservation System)</li>
-</ul>
 
           
         
@@ -967,7 +967,7 @@ Ted Nelson’s original definition was focused on non-linear documents.</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-11-Sentry/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-12-unmodifiableCollection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -983,7 +983,7 @@ Ted Nelson’s original definition was focused on non-linear documents.</p>
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-08-11-Sentry/" class="post-title-link" itemprop="url">kibana, view layer of elasticsearch</a>
+              <a href="/2016-08-12-unmodifiableCollection/" class="post-title-link" itemprop="url">unmodifiableList, unmodifiableSet,unmodifiableMap</a>
             
           </h1>
         
@@ -1015,15 +1015,10 @@ Ted Nelson’s original definition was focused on non-linear documents.</p>
 
       
           
-            <p><img src="http://blog.trifork.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-22-at-14.14.28.png" alt></p>
-<h2 id="What’s-Kibana"><a href="#What’s-Kibana" class="headerlink" title="What’s Kibana"></a>What’s Kibana</h2><p><code>kibana</code> is an open source data visualization plugin for Elasticsearch.  It provides visualization capabilities on top of the content indexed on an Elasticsearch cluster. Users can create bar, line and scatter plots, or pie charts and maps on top of large volumes of data.</p>
-<h2 id="Why-Kibana"><a href="#Why-Kibana" class="headerlink" title="Why Kibana"></a>Why Kibana</h2><ul>
-<li>Flexible analytics and visualization platform</li>
-<li>Real-time summary and charting of streaming data</li>
-<li>Intuitive interface for a variety of users</li>
-<li>Instant sharing and embedding of dashboards</li>
-</ul>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.digitalocean.com/community/tutorials/how-to-use-kibana-dashboards-and-visualizations" target="_blank" rel="noopener">digital ocean</a><br><a href="https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04" target="_blank" rel="noopener">setup ELK</a></p>
+            <h2 id="What’s-it"><a href="#What’s-it" class="headerlink" title="What’s it"></a>What’s it</h2><p>Returns an unmodifiable view of the specified set.  This method allows<br>modules to provide users with “read-only” access to internal sets.<br>Query operations on the returned set “read through” to the specified<br>set, and attempts to modify the returned set, whether direct or via its<br>iterator, result in an <tt>UnsupportedOperationException</tt>.</p><p></p>
+<h2 id="Impelement-logic"><a href="#Impelement-logic" class="headerlink" title="Impelement logic"></a>Impelement logic</h2><p>In general, it re-created a new Collection, and inherit <code>read-only</code> methods from superclass, while raise Exception for those <code>modify</code> functions. Here is the code snippet</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">UnmodifiableCollection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt;, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1820017752578914078L</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> Collection&lt;? extends E&gt; c;</span><br><span class="line"></span><br><span class="line">        UnmodifiableCollection(Collection&lt;? extends E&gt; c) &#123;</span><br><span class="line">            <span class="keyword">if</span> (c==<span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">            <span class="keyword">this</span>.c = c;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span>                   </span>&#123;<span class="keyword">return</span> c.size();&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span>            </span>&#123;<span class="keyword">return</span> c.isEmpty();&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span>   </span>&#123;<span class="keyword">return</span> c.contains(o);&#125;</span><br><span class="line">        <span class="keyword">public</span> Object[] toArray()           &#123;<span class="keyword">return</span> c.toArray();&#125;</span><br><span class="line">        <span class="keyword">public</span> &lt;T&gt; T[] toArray(T[] a)       &#123;<span class="keyword">return</span> c.toArray(a);&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span>            </span>&#123;<span class="keyword">return</span> c.toString();&#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Iterator&lt;E&gt;() &#123;</span><br><span class="line">                <span class="keyword">private</span> <span class="keyword">final</span> Iterator&lt;? extends E&gt; i = c.iterator();</span><br><span class="line"></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> i.hasNext();&#125;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> E <span class="title">next</span><span class="params">()</span>          </span>&#123;<span class="keyword">return</span> i.next();&#125;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> c.containsAll(coll);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">retainAll</span><span class="params">(Collection&lt;?&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 
           
         

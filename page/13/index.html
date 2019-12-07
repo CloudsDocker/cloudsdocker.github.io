@@ -467,6 +467,94 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-04-Solace-MQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-04-Solace-MQ/" class="post-title-link" itemprop="url">Solace MQ</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Solace-PubSub"><a href="#Solace-PubSub" class="headerlink" title="Solace PubSub+"></a>Solace PubSub+</h1><p>It is a message broker that lets you establish event-driven interactions between applications and microservices across hybrid cloud environments using open APIs and protocols.</p>
+<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>Cloud<br>PubSub+ Cloud is enterprise-grade messaging available as a fully managed service in your favorite public clouds.</p>
+<h2 id="What-do-we-mean-by-“enterprise-grade-”"><a href="#What-do-we-mean-by-“enterprise-grade-”" class="headerlink" title="What do we mean by “enterprise grade?”"></a>What do we mean by “enterprise grade?”</h2><h3 id="Unrivaled-Reliability"><a href="#Unrivaled-Reliability" class="headerlink" title="Unrivaled Reliability"></a>Unrivaled Reliability</h3><p>Intelligent routing protocols always identify best path and adapt around network issues to keep your applications humming, and automatic message buffering keeps bursts of data from affecting slow consumers or your system as a whole.</p>
+<p>Built-in high availability and disaster recovery capabilities mean your system will bounce back in a flash, without ever losing a message, even in the event of major system or network failures.</p>
+<h3 id="Serious-Security"><a href="#Serious-Security" class="headerlink" title="Serious Security"></a>Serious Security</h3><p>PubSub+ supports authentication and authorization mechanisms ranging from username and password and one-time passwords to sophisticated access control lists and robust integration with existing security policies and systems such as LDAP, Radius, Kerberos.</p>
+<p>To protect messages in transit, Solace supports transport-layer TLS encryption using a variety of cypher suites.</p>
+<h2 id="Messaging"><a href="#Messaging" class="headerlink" title="Messaging"></a>Messaging</h2><p>In application development terms, messaging, which is also commonly known as message-oriented middleware or just middleware, refers to technology that lets computer systems share information without requiring direct connections or awareness of one another’s location.</p>
+<h1 id="Docker-on-Solace"><a href="#Docker-on-Solace" class="headerlink" title="Docker on Solace"></a>Docker on Solace</h1><p>To bounce solace server:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 -p 55555:55555 --shm-size=2g --env <span class="string">'username_admin_globalaccesslevel=admin'</span> --env <span class="string">'username_admin_password=admin'</span> --name=solace solace-pubsub-standard:8.11.0.1029</span><br><span class="line"></span><br><span class="line"><span class="comment"># or bring up an existing one</span></span><br><span class="line">docker start solace</span><br></pre></td></tr></table></figure>
+
+<p>Solace CLI management access:<br>Enter the following docker exec command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it solace /usr/sw/loads/currentload/bin/cli -A</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-26-Core-Java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -531,94 +619,6 @@
 <h1 id="Target-typing"><a href="#Target-typing" class="headerlink" title="Target typing"></a>Target typing</h1><p>“What is implicit in all these examples is that a lambda expression’s type is context dependent. It gets inferred by the compiler. This target typing isn’t entirely new, either.”</p>
 <p>“This restriction is relaxed a bit in Java 8. It’s possible to refer to variables that aren’t final; however, they still have to be effectively final. Although you haven’t declared the variable(s) as final, you still cannot use them as nonfinal variable(s) if they are to be used in lambda expressions. If you do use them as nonfinal variables, then the compiler will show an error.”</p>
 <h1 id="Functional-interface"><a href="#Functional-interface" class="headerlink" title="Functional interface"></a>Functional interface</h1><p>“A functional interface is an interface with a single abstract method that is used as the type of a lambda expression.”</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-04-Solace-MQ/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-04-Solace-MQ/" class="post-title-link" itemprop="url">Solace MQ</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Solace-PubSub"><a href="#Solace-PubSub" class="headerlink" title="Solace PubSub+"></a>Solace PubSub+</h1><p>It is a message broker that lets you establish event-driven interactions between applications and microservices across hybrid cloud environments using open APIs and protocols.</p>
-<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>Cloud<br>PubSub+ Cloud is enterprise-grade messaging available as a fully managed service in your favorite public clouds.</p>
-<h2 id="What-do-we-mean-by-“enterprise-grade-”"><a href="#What-do-we-mean-by-“enterprise-grade-”" class="headerlink" title="What do we mean by “enterprise grade?”"></a>What do we mean by “enterprise grade?”</h2><h3 id="Unrivaled-Reliability"><a href="#Unrivaled-Reliability" class="headerlink" title="Unrivaled Reliability"></a>Unrivaled Reliability</h3><p>Intelligent routing protocols always identify best path and adapt around network issues to keep your applications humming, and automatic message buffering keeps bursts of data from affecting slow consumers or your system as a whole.</p>
-<p>Built-in high availability and disaster recovery capabilities mean your system will bounce back in a flash, without ever losing a message, even in the event of major system or network failures.</p>
-<h3 id="Serious-Security"><a href="#Serious-Security" class="headerlink" title="Serious Security"></a>Serious Security</h3><p>PubSub+ supports authentication and authorization mechanisms ranging from username and password and one-time passwords to sophisticated access control lists and robust integration with existing security policies and systems such as LDAP, Radius, Kerberos.</p>
-<p>To protect messages in transit, Solace supports transport-layer TLS encryption using a variety of cypher suites.</p>
-<h2 id="Messaging"><a href="#Messaging" class="headerlink" title="Messaging"></a>Messaging</h2><p>In application development terms, messaging, which is also commonly known as message-oriented middleware or just middleware, refers to technology that lets computer systems share information without requiring direct connections or awareness of one another’s location.</p>
-<h1 id="Docker-on-Solace"><a href="#Docker-on-Solace" class="headerlink" title="Docker on Solace"></a>Docker on Solace</h1><p>To bounce solace server:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 -p 55555:55555 --shm-size=2g --env <span class="string">'username_admin_globalaccesslevel=admin'</span> --env <span class="string">'username_admin_password=admin'</span> --name=solace solace-pubsub-standard:8.11.0.1029</span><br><span class="line"></span><br><span class="line"><span class="comment"># or bring up an existing one</span></span><br><span class="line">docker start solace</span><br></pre></td></tr></table></figure>
-
-<p>Solace CLI management access:<br>Enter the following docker exec command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it solace /usr/sw/loads/currentload/bin/cli -A</span><br></pre></td></tr></table></figure>
-
 
           
         
@@ -807,87 +807,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-16-FileUtils_Camel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-16-FileUtils_Camel/" class="post-title-link" itemprop="url">File Util in Apache Camel</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="FileUtil-class"><a href="#FileUtil-class" class="headerlink" title="FileUtil.class"></a>FileUtil.class</h1><h2 id="compactPath-String-path"><a href="#compactPath-String-path" class="headerlink" title="compactPath(String path)"></a>compactPath(String path)</h2><p>To normalize path and join with provided separator</p>
-<p>if path is null, return null<br>if path.indexOf(47) == -1 &amp;&amp; path.indexOf(92) ==-1 (means /, ) return path</p>
-<h3 id="normalizePath"><a href="#normalizePath" class="headerlink" title="normalizePath"></a>normalizePath</h3><p>check whether it is windows<br>String osName = System.getProperty(“os.name”).toLowerCase(Locale.ENGLISH);<br>        return osName.contains(“windows”);<br>for windows, replace / with \, for linux, replace \ with /</p>
-<p>split path by separator (\ or /) to get an array</p>
-<p>traverse array and check whether current is “..”, if so , call stack.pop<br>otherwise, stach.push(part)</p>
-<p>Then iterate stack and then combine them by a StringBuilder via provided addtional parameter separator</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-10-QuickFixJ/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -964,82 +883,6 @@
 
 return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<br>?? how to get and set this.trailer.10=131 ?</p>
 
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-28-Scala/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-28-Scala/" class="post-title-link" itemprop="url">Scala</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Scala-String"><a href="#Scala-String" class="headerlink" title="Scala String"></a>Scala String</h1><p>Scala offers the magic of implicit conver‐ sions, String instances also have access to all the methods of the StringOps class, so you can do many other things with them, such as treating a String instance as a sequence of characters. As a result, you can iterate over every character in the string using the foreach method:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"hello"</span>.foreach(println) h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l o</span><br><span class="line"><span class="comment">//You can treat a String as a sequence of characters in a for loop:</span></span><br><span class="line">scala&gt; <span class="keyword">for</span> (c &lt;- <span class="string">"hello"</span>) println(c)</span><br><span class="line"></span><br><span class="line">scala&gt; val result = <span class="string">"hello world"</span>.filter(_ != <span class="string">'l'</span>) result: String = heo word</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1169,6 +1012,163 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
 
 <p>In this case, you’re loading all route builders in the camelinaction.routes package, except for ones with “Test” in the class name. The matching syntax is similar to what is used in Apache Ant’s file pattern matchers.</p>
 
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-16-FileUtils_Camel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-16-FileUtils_Camel/" class="post-title-link" itemprop="url">File Util in Apache Camel</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="FileUtil-class"><a href="#FileUtil-class" class="headerlink" title="FileUtil.class"></a>FileUtil.class</h1><h2 id="compactPath-String-path"><a href="#compactPath-String-path" class="headerlink" title="compactPath(String path)"></a>compactPath(String path)</h2><p>To normalize path and join with provided separator</p>
+<p>if path is null, return null<br>if path.indexOf(47) == -1 &amp;&amp; path.indexOf(92) ==-1 (means /, ) return path</p>
+<h3 id="normalizePath"><a href="#normalizePath" class="headerlink" title="normalizePath"></a>normalizePath</h3><p>check whether it is windows<br>String osName = System.getProperty(“os.name”).toLowerCase(Locale.ENGLISH);<br>        return osName.contains(“windows”);<br>for windows, replace / with \, for linux, replace \ with /</p>
+<p>split path by separator (\ or /) to get an array</p>
+<p>traverse array and check whether current is “..”, if so , call stack.pop<br>otherwise, stach.push(part)</p>
+<p>Then iterate stack and then combine them by a StringBuilder via provided addtional parameter separator</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-28-Scala/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-28-Scala/" class="post-title-link" itemprop="url">Scala</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Scala-String"><a href="#Scala-String" class="headerlink" title="Scala String"></a>Scala String</h1><p>Scala offers the magic of implicit conver‐ sions, String instances also have access to all the methods of the StringOps class, so you can do many other things with them, such as treating a String instance as a sequence of characters. As a result, you can iterate over every character in the string using the foreach method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"hello"</span>.foreach(println) h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l o</span><br><span class="line"><span class="comment">//You can treat a String as a sequence of characters in a for loop:</span></span><br><span class="line">scala&gt; <span class="keyword">for</span> (c &lt;- <span class="string">"hello"</span>) println(c)</span><br><span class="line"></span><br><span class="line">scala&gt; val result = <span class="string">"hello world"</span>.filter(_ != <span class="string">'l'</span>) result: String = heo word</span><br></pre></td></tr></table></figure>
           
         
       

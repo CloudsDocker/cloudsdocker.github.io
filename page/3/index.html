@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-07-Load-Balancing/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-09-Docker-Errors-Fixes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-07-Load-Balancing/" class="post-title-link" itemprop="url">Load Balancing</a>
+              <a href="/2016-06-09-Docker-Errors-Fixes/" class="post-title-link" itemprop="url">Docker Errors and Fixes</a>
             
           </h1>
         
@@ -243,114 +243,15 @@
 
       
           
-            <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><p><code>LVS</code> means Linux Virtual Server, which is one Linux built-in component. </p>
-<h1 id="Some-logics-of-LVS"><a href="#Some-logics-of-LVS" class="headerlink" title="Some logics of LVS"></a>Some logics of LVS</h1><h2 id="Never-Queue-Shceduling"><a href="#Never-Queue-Shceduling" class="headerlink" title="Never Queue Shceduling"></a>Never Queue Shceduling</h2><blockquote>
-<p>The never queue scheduling algorithm adpots a two-speed model</p>
-</blockquote>
-<ol>
-<li>When there is an idel server avaiable, the job will be sent to the idel server, instead of waiting for a fast one.</li>
-<li>When there is no idel server avaiable, the job will be sent to the server that minimize it’s expected delay.</li>
+            <h1 id="Docker-Errors"><a href="#Docker-Errors" class="headerlink" title="Docker Errors"></a>Docker Errors</h1><ol>
+<li>Cannot connect to the Docker daemon. Is the docker daemon running on this host?<br>The solution is to run under root user, e.g. </li>
 </ol>
-<h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h1><h2 id="Setup-LVS"><a href="#Setup-LVS" class="headerlink" title="Setup LVS"></a>Setup LVS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -A -t 192.168.0.1:80 -s rr</span><br><span class="line">ipvsadm -a -t 192.168.0.1:80 -r 172.16.0.1:80 -m</span><br><span class="line">ipvsadm -a -t 192.168.0.1:80 -r 172.16.0.2:80 -m</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>The first command assign TCP port 80 on IP address 192.168.0.1 to the virtual server, the shceduling algorithm for load balancing is <code>-s rr</code> means using round-robin</li>
-<li>The 2nd and 3rd commands are adding IP addresss of <code>real servers</code> to the LVS setup</li>
-<li>the forwarded network packets shall be masked <code>-m</code></li>
-</ul>
-<h2 id="To-query-LVS-status"><a href="#To-query-LVS-status" class="headerlink" title="To query LVS status"></a>To query LVS status</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -L -n</span><br><span class="line">IP Virtual Server version 1.0.8 (size=65536)</span><br><span class="line">Prot LocalAddress:Port Scheduler Flags</span><br><span class="line">  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn</span><br><span class="line">TCP  192.168.0.1:80 rr</span><br><span class="line">  -&gt; 172.16.0.2:80                Masq    1      3          1</span><br><span class="line">  -&gt; 172.16.0.1:80                Masq    1      4          0</span><br></pre></td></tr></table></figure>
-
-<h2 id="Strucutre-of-LVS-in-wikipedia"><a href="#Strucutre-of-LVS-in-wikipedia" class="headerlink" title="Strucutre of LVS in wikipedia"></a>Strucutre of LVS in wikipedia</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Wikimedia_Server_Architecture_%28simplified%29.svg/743px-Wikimedia_Server_Architecture_%28simplified%29.svg.png" alt="Strucutre of LVS in wikipedia"></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-github-pages/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-13-github-pages/" class="post-title-link" itemprop="url">Github page commands notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="404-error-for-customized-domain-such-as-godday"><a href="#404-error-for-customized-domain-such-as-godday" class="headerlink" title="404 error for customized domain (such as godday)"></a>404 error for customized domain (such as godday)</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">404</span><br><span class="line">There is not a GitHub Pages site here.</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Go to github master branch for gitpages site, manually add CNAME file</li>
-</ul>
-<h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
-<li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
-<li>gihub</li>
-</ul>
-<h1 id="Travis-errors"><a href="#Travis-errors" class="headerlink" title="Travis errors:"></a>Travis errors:</h1><p> Got following errors in Travis page:</p>
-<h2 id="branch-not-included-or-excluded"><a href="#branch-not-included-or-excluded" class="headerlink" title="branch not included or excluded"></a>branch not included or excluded</h2><p><code>solution</code>: that’s because your source branch, such as ‘blogSrc’ should be added in whitelist of .travis.yml, for instance</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">  - blogSrc</span><br></pre></td></tr></table></figure>
-
-<h2 id="fatal-empty-ident-name"><a href="#fatal-empty-ident-name" class="headerlink" title="fatal: empty ident name"></a>fatal: empty ident name</h2><p>Because <em>–global</em> is requried when setting up travis , below is the sample</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email abc@def.com</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Docker service</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker status</span><br><span class="line">sudo service docker start</span><br><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
 
 
           
@@ -583,6 +484,97 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-github-pages/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-13-github-pages/" class="post-title-link" itemprop="url">Github page commands notes</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="404-error-for-customized-domain-such-as-godday"><a href="#404-error-for-customized-domain-such-as-godday" class="headerlink" title="404 error for customized domain (such as godday)"></a>404 error for customized domain (such as godday)</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">404</span><br><span class="line">There is not a GitHub Pages site here.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Go to github master branch for gitpages site, manually add CNAME file</li>
+</ul>
+<h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
+<li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
+<li>gihub</li>
+</ul>
+<h1 id="Travis-errors"><a href="#Travis-errors" class="headerlink" title="Travis errors:"></a>Travis errors:</h1><p> Got following errors in Travis page:</p>
+<h2 id="branch-not-included-or-excluded"><a href="#branch-not-included-or-excluded" class="headerlink" title="branch not included or excluded"></a>branch not included or excluded</h2><p><code>solution</code>: that’s because your source branch, such as ‘blogSrc’ should be added in whitelist of .travis.yml, for instance</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">  - blogSrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="fatal-empty-ident-name"><a href="#fatal-empty-ident-name" class="headerlink" title="fatal: empty ident name"></a>fatal: empty ident name</h2><p>Because <em>–global</em> is requried when setting up travis , below is the sample</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email abc@def.com</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-GIT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -767,6 +759,87 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-23-Equity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-23-Equity/" class="post-title-link" itemprop="url">equity trading</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Difference-between-mutal-funds-and-hedge-funds"><a href="#Difference-between-mutal-funds-and-hedge-funds" class="headerlink" title="Difference between mutal funds and hedge funds"></a>Difference between mutal funds and hedge funds</h2><h3 id="Similarites"><a href="#Similarites" class="headerlink" title="Similarites:"></a>Similarites:</h3><p>Both are managed portfolios. There are manager (or managers) pick securities by certain strategy or algorithm.</p>
+<h3 id="Difference"><a href="#Difference" class="headerlink" title="Difference:"></a>Difference:</h3><ul>
+<li>Headge fund tend to aggressive, they take speculative postions in derviaties such as options are able to short sell. This iwll typically increase leverage (and also the risks). On the other hand, mutal fund are not permitted to take these highly leveraged postions and more safer as a result.</li>
+<li>Hedge funds are avaiable to a specific group of sophisticated investotrs with high net worth. While mutul fund are more accessibale with minimal amoutns of money.</li>
+</ul>
+<h2 id="Differences-among-money-markets-and-capital-markets"><a href="#Differences-among-money-markets-and-capital-markets" class="headerlink" title="Differences among money markets and capital markets"></a>Differences among <code>money markets</code> and <code>capital markets</code></h2><p>The money markets are used for the raising of short term finance, sometimes for loans that are expected to be paid back as early as overnight. Whereas the capital markets are used for the raising of long term finance, such as the purchase of shares, or for loans that are not expected to be fully paid back for at least a year.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-SQL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -854,167 +927,6 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-23-Equity/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-23-Equity/" class="post-title-link" itemprop="url">equity trading</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="Difference-between-mutal-funds-and-hedge-funds"><a href="#Difference-between-mutal-funds-and-hedge-funds" class="headerlink" title="Difference between mutal funds and hedge funds"></a>Difference between mutal funds and hedge funds</h2><h3 id="Similarites"><a href="#Similarites" class="headerlink" title="Similarites:"></a>Similarites:</h3><p>Both are managed portfolios. There are manager (or managers) pick securities by certain strategy or algorithm.</p>
-<h3 id="Difference"><a href="#Difference" class="headerlink" title="Difference:"></a>Difference:</h3><ul>
-<li>Headge fund tend to aggressive, they take speculative postions in derviaties such as options are able to short sell. This iwll typically increase leverage (and also the risks). On the other hand, mutal fund are not permitted to take these highly leveraged postions and more safer as a result.</li>
-<li>Hedge funds are avaiable to a specific group of sophisticated investotrs with high net worth. While mutul fund are more accessibale with minimal amoutns of money.</li>
-</ul>
-<h2 id="Differences-among-money-markets-and-capital-markets"><a href="#Differences-among-money-markets-and-capital-markets" class="headerlink" title="Differences among money markets and capital markets"></a>Differences among <code>money markets</code> and <code>capital markets</code></h2><p>The money markets are used for the raising of short term finance, sometimes for loans that are expected to be paid back as early as overnight. Whereas the capital markets are used for the raising of long term finance, such as the purchase of shares, or for loans that are not expected to be fully paid back for at least a year.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-TIPS-AS400-IBM-EMULATOR/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-29-TIPS-AS400-IBM-EMULATOR/" class="post-title-link" itemprop="url">tips in as400 IBM Emulator</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Toggle-crosshair"><a href="#Toggle-crosshair" class="headerlink" title="Toggle crosshair"></a>Toggle crosshair</h1><ol>
-<li>Open IBM personal communication client</li>
-<li>Go to menu Edit-&gt;Preference-&gt;Apperance-&gt;Display settings-&gt;Ruler</li>
-<li>change Rule style to crosshair or turn it off</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-SOMETHING-ABOUT-AUTHENTICATION/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1065,6 +977,86 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
           
             <p>It’s annoying to keep on repeating typing same login and password when you access multiple systems within office or for systems in external Internet. There are bunch of  tools / technicles to cater for such. To my best knowledge, I’ll illustrate some as below.</p>
 <h1 id="SSO-Single-Sign-On"><a href="#SSO-Single-Sign-On" class="headerlink" title="SSO (Single Sign On)"></a>SSO (Single Sign On)</h1><p>After you successfully log into one system,  when you hop onto other systems, so you’ll no need to furhter re-enter your user name and password, and you’ll in ‘logged in status’. Under the scene, its sync up your login information among systems. The transferred details is typically called ‘tickets’. One of the implementation logic is ‘kerberos’, which is one protocol developed by MIT and is widely used in such domain. In general, kerberos is supported by various systems and software, for instance, you log onto your windows desktop, your user name and password will be validated in LDAP via either client or API, you</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-29-heavy-load-web-app/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-29-heavy-load-web-app/" class="post-title-link" itemprop="url">heavy load web application</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Common-solutions"><a href="#Common-solutions" class="headerlink" title="Common solutions"></a>Common solutions</h1><p>With <code>cache</code> + <code>hash</code>, seems nothing is impossible.</p>
+<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>When involving big data, heavey load and concurrent, the ultimate solution is <code>hash</code>, such as random insert, time complexity O(1) etc, the only downside is waste of space, however, storage is cheap recently. <code>hash</code> is one must-have for concurrent systems.</p>
+<h2 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h2><p>There are many mature cache mechanism, such as KV DB like memcache, redis, and they are supporting clusters, operatibility is good as well.</p>
+<h2 id="read-write-segaration"><a href="#read-write-segaration" class="headerlink" title="read-write segaration"></a>read-write segaration</h2><p>In most cases, there are more read than write operation, so separate database to acccept write request to master DB, and redirect read request to slave DBs. At the same time, multiple salve DBs can be smoothly <code>scale out</code>, data replicate can leverage log bin.</p>
+<h2 id="Database-separation-and-sharding"><a href="#Database-separation-and-sharding" class="headerlink" title="Database separation and sharding"></a>Database separation and sharding</h2><p>For DB sharding, leverage hash to direct to corresponding DB shard. To ease the load on single host.</p>
 
           
         

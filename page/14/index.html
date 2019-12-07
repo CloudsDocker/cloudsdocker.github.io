@@ -195,89 +195,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-15-PrestoDB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-08-15-PrestoDB/" class="post-title-link" itemprop="url">Presto DB</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="WHAT-IS-PRESTO"><a href="#WHAT-IS-PRESTO" class="headerlink" title="WHAT IS PRESTO?"></a>WHAT IS PRESTO?</h1><p>Presto is an open source distributed SQL query engine for running interactive analytic queries against data sources of all sizes ranging from gigabytes to petabytes.</p>
-<p>Presto was designed and written from the ground up for interactive analytics and approaches the speed of commercial data warehouses while scaling to the size of organizations like Facebook.</p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Presto is a distributed system that runs on a cluster of machines. A full installation includes a coordinator and multiple workers. Queries are submitted from a client such as the Presto CLI to the coordinator. The coordinator parses, analyzes and plans the query execution, then distributes the processing to the workers.</p>
-<p>Presto does not use MapReduce and thus only requires HDFS.</p>
-<h2 id="Separation-of-Storage-and-Compute"><a href="#Separation-of-Storage-and-Compute" class="headerlink" title="Separation of Storage and Compute"></a>Separation of Storage and Compute</h2><p>Architected for separation of storage and compute, Presto can scale up and down based on your analytics demand to access this data. There’s no need to move your data and provisioning compute to the exact need results in significant cost savings.</p>
-<h3 id="Config-Properties"><a href="#Config-Properties" class="headerlink" title="Config Properties"></a>Config Properties</h3><p>The config properties file, etc/config.properties, contains the configuration for the Presto server. Every Presto server can function as both a coordinator and a worker, but dedicating a single machine to only perform coordination work provides the best performance on larger clusters.</p>
-<h3 id="Catalog-Properties"><a href="#Catalog-Properties" class="headerlink" title="Catalog Properties"></a>Catalog Properties</h3><p>Presto accesses data via connectors, which are mounted in catalogs. The connector provides all of the schemas and tables inside of the catalog. For example, the Hive connector maps each Hive database to a schema, so if the Hive connector is mounted as the hive catalog, and Hive contains a table clicks in database web, that table would be accessed in Presto as hive.web.clicks.</p>
-<p>Catalogs are registered by creating a catalog properties file in the etc/catalog directory. For example, create etc/catalog/jmx.properties with the following contents to mount the jmx connector as the jmx catalog:</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-08-Cucumber/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -526,7 +443,7 @@ Notice that we’ve had to prefix the list of alternates with another bit of reg
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-21-sudo/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-15-PrestoDB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -542,7 +459,7 @@ Notice that we’ve had to prefix the list of alternates with another bit of reg
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-08-21-sudo/" class="post-title-link" itemprop="url">Sudo in a Nutshell</a>
+              <a href="/2018-08-15-PrestoDB/" class="post-title-link" itemprop="url">Presto DB</a>
             
           </h1>
         
@@ -574,42 +491,92 @@ Notice that we’ve had to prefix the list of alternates with another bit of reg
 
       
           
-            <h1 id="Sudo-in-a-Nutshell"><a href="#Sudo-in-a-Nutshell" class="headerlink" title="Sudo in a Nutshell"></a>Sudo in a Nutshell</h1><p>Sudo (su “do”) allows a system administrator to give certain users (or groups of users) the ability to run some (or all) commands as root while logging all commands and arguments. Sudo operates on a per-command basis, it is not a replacement for the shell. Its features include:</p>
-<p>The ability to restrict what commands a user may run on a per-host basis.<br>Sudo does copious logging of each command, providing a clear audit trail of who did what. When used in tandem with syslogd, the system log daemon, sudo can log all commands to a central host (as well as on the local host). At CU, all admins use sudo in lieu of a root shell to take advantage of this logging.<br>Sudo uses timestamp files to implement a “ticketing” system. When a user invokes sudo and enters their password, they are granted a ticket for 5 minutes (this timeout is configurable at compile-time). Each subsequent sudo command updates the ticket for another 5 minutes. This avoids the problem of leaving a root shell where others can physically get to your keyboard. There is also an easy way for a user to remove their ticket file, useful for placing in a .logout file.<br>Sudo’s configuration file, the sudoers file, is setup in such a way that the same sudoers file may be used on many machines. This allows for central administration while keeping the flexibility to define a user’s privileges on a per-host basis. Please see the samples sudoers file below for a real-world example.</p>
-<h1 id="sudo-conf"><a href="#sudo-conf" class="headerlink" title="sudo.conf"></a>sudo.conf</h1><p>The sudo.conf file is used to configure the sudo front end. It specifies the security policy and I/O logging plugins, debug flags as well as plugin-agnostic path names and settings.</p>
-<p>sudo supports a plugin architecture for security policies and input/output logging. Third parties can develop and distribute their own policy and I/O logging plugins to work seamlessly with the sudo front end. Plugins are dynamically loaded based on the contents of sudo.conf.<br>A Plugin line consists of the Plugin keyword, followed by the symbol_name and the path to the dynamic shared object that contains the plugin. The symbol_name is the name of the struct policy_plugin or struct io_plugin symbol contained in the plugin. The path may be fully qualified or relative. If not fully qualified, it is relative to the directory specified by the plugin_dir Path setting, which defaults to /usr/local/libexec/sudo. In other words:<br>Plugin sudoers_policy sudoers.so<br>is equivalent to:<br>Plugin sudoers_policy /usr/local/libexec/sudo/sudoers.so</p>
-<h2 id="Configurations"><a href="#Configurations" class="headerlink" title="Configurations"></a>Configurations</h2><ul>
-<li><p>sudoers_file=pathname<br>The sudoers_file argument can be used to override the default path to the sudoers file.</p>
-</li>
-<li><p>sudoers_uid=uid<br>The sudoers_uid argument can be used to override the default owner of the sudoers file. It should be specified as a numeric user ID.</p>
-</li>
-</ul>
-<h1 id="email-notification"><a href="#email-notification" class="headerlink" title="email notification"></a>email notification</h1><p>If a user who is not listed in the policy tries to run a command via sudo, mail is sent to the proper authorities. The address used for such mail is configurable via the mailto Defaults entry (described later) and defaults to root.</p>
-<p>Note that no mail will be sent if an unauthorized user tries to run sudo with the -l or -v option unless there is an authentication error and either the mail_always or mail_badpass flags are enabled. This allows users to determine for themselves whether or not they are allowed to use sudo. All attempts to run sudo (successful or not) will be logged, regardless of whether or not mail is sent.</p>
-<p>sudoers uses per-user time stamp files for credential caching. Once a user has been authenticated, a record is written containing the user ID that was used to authenticate, the terminal session ID, the start time of the session leader (or parent process) and a time stamp (using a monotonic clock if one is available). The user may then use sudo without a password for a short period of time (5 minutes unless overridden by the timestamp_timeout option). By default, sudoers uses a separate record for each terminal, which means that a user’s login sessions are authenticated separately. The timestamp_type option can be used to select the type of time stamp record sudoers will use.</p>
-<h1 id="File-format"><a href="#File-format" class="headerlink" title="File format"></a>File format</h1><p>The sudoers file is composed of two types of entries: aliases (basically variables) and user specifications (which specify who may run what).</p>
-<p>When multiple entries match for a user, they are applied in order. Where there are multiple matches, the last match is used (which is not necessarily the most specific match).<br>The sudoers file grammar will be described below in Extended Backus-Naur Form (EBNF). Don’t despair if you are unfamiliar with EBNF; it is fairly simple, and the definitions below are annotated.</p>
-<h1 id="environment"><a href="#environment" class="headerlink" title="environment"></a>environment</h1><p>By default, the env_reset option is enabled. This causes commands to be executed with a new, minimal environment.</p>
-<p>Lists have two additional assignment operators, += and -=. These operators are used to add to and delete from a list respectively. It is not an error to use the -= operator to remove an element that does not exist in a list.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">35 Defaults    env_reset</span><br><span class="line">36 Defaults    env_keep += <span class="string">"BLOCKSIZE"</span></span><br><span class="line">37 Defaults    env_keep += <span class="string">"COLORFGBG COLORTERM"</span></span><br><span class="line">38 Defaults    env_keep += <span class="string">"__CF_USER_TEXT_ENCODING"</span></span><br><span class="line">39 Defaults    env_keep += <span class="string">"CHARSET LANG LANGUAGE LC_ALL LC_COLLATE LC_CTYPE"</span></span><br><span class="line">40 Defaults    env_keep += <span class="string">"LC_MESSAGES LC_MONETARY LC_NUMERIC LC_TIME"</span></span><br><span class="line">41 Defaults    env_keep += <span class="string">"LINES COLUMNS"</span></span><br><span class="line">42 Defaults    env_keep += <span class="string">"LSCOLORS"</span></span><br><span class="line">43 Defaults    env_keep += <span class="string">"SSH_AUTH_SOCK"</span></span><br><span class="line">44 Defaults    env_keep += <span class="string">"TZ"</span></span><br><span class="line">45 Defaults    env_keep += <span class="string">"DISPLAY XAUTHORIZATION XAUTHORITY"</span></span><br><span class="line">46 Defaults    env_keep += <span class="string">"EDITOR VISUAL"</span></span><br><span class="line">47 Defaults    env_keep += <span class="string">"HOME MAIL"</span></span><br><span class="line">48 </span><br><span class="line">49 Defaults    lecture_file = <span class="string">"/etc/sudo_lecture"</span></span><br></pre></td></tr></table></figure>
+            <h1 id="WHAT-IS-PRESTO"><a href="#WHAT-IS-PRESTO" class="headerlink" title="WHAT IS PRESTO?"></a>WHAT IS PRESTO?</h1><p>Presto is an open source distributed SQL query engine for running interactive analytic queries against data sources of all sizes ranging from gigabytes to petabytes.</p>
+<p>Presto was designed and written from the ground up for interactive analytics and approaches the speed of commercial data warehouses while scaling to the size of organizations like Facebook.</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Presto is a distributed system that runs on a cluster of machines. A full installation includes a coordinator and multiple workers. Queries are submitted from a client such as the Presto CLI to the coordinator. The coordinator parses, analyzes and plans the query execution, then distributes the processing to the workers.</p>
+<p>Presto does not use MapReduce and thus only requires HDFS.</p>
+<h2 id="Separation-of-Storage-and-Compute"><a href="#Separation-of-Storage-and-Compute" class="headerlink" title="Separation of Storage and Compute"></a>Separation of Storage and Compute</h2><p>Architected for separation of storage and compute, Presto can scale up and down based on your analytics demand to access this data. There’s no need to move your data and provisioning compute to the exact need results in significant cost savings.</p>
+<h3 id="Config-Properties"><a href="#Config-Properties" class="headerlink" title="Config Properties"></a>Config Properties</h3><p>The config properties file, etc/config.properties, contains the configuration for the Presto server. Every Presto server can function as both a coordinator and a worker, but dedicating a single machine to only perform coordination work provides the best performance on larger clusters.</p>
+<h3 id="Catalog-Properties"><a href="#Catalog-Properties" class="headerlink" title="Catalog Properties"></a>Catalog Properties</h3><p>Presto accesses data via connectors, which are mounted in catalogs. The connector provides all of the schemas and tables inside of the catalog. For example, the Hive connector maps each Hive database to a schema, so if the Hive connector is mounted as the hive catalog, and Hive contains a table clicks in database web, that table would be accessed in Presto as hive.web.clicks.</p>
+<p>Catalogs are registered by creating a catalog properties file in the etc/catalog directory. For example, create etc/catalog/jmx.properties with the following contents to mount the jmx connector as the jmx catalog:</p>
 
-<h3 id="lecture"><a href="#lecture" class="headerlink" title="lecture"></a>lecture</h3><h4 id="lecture-1"><a href="#lecture-1" class="headerlink" title="lecture"></a>lecture</h4><p>This option controls when a short lecture will be printed along with the password prompt. It has the following possible values:</p>
-<ul>
-<li>always<br>Always lecture the user.</li>
-<li>never<br>Never lecture the user.</li>
-<li>once<br>Only lecture the user the first time they run sudo.<br>If no value is specified, a value of once is implied. Negating the option results in a value of never being used. The default value is once.<h4 id="lecture-file"><a href="#lecture-file" class="headerlink" title="lecture_file"></a>lecture_file</h4>Path to a file containing an alternate sudo lecture that will be used in place of the standard lecture if the named file exists. By default, sudo uses a built-in lecture.  </li>
-</ul>
-<h1 id="Everything-is-file"><a href="#Everything-is-file" class="headerlink" title="Everything is file"></a>Everything is file</h1><p>A fundamental and very powerful, consistent abstraction provided in UNIX and compatible operating systems is the file abstraction. Many OS services and device interfaces are implemented to provide a file or file system metaphor to applications.</p>
-<h1 id="manage-user-group"><a href="#manage-user-group" class="headerlink" title="manage user group"></a>manage user group</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Alternatively, gpasswd may be used. Though the username can only be added (or removed) from one group at a time:</span></span><br><span class="line">gpasswd --add username group</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add users to a group with the gpasswd command:</span></span><br><span class="line">gpasswd -a user group</span><br><span class="line"></span><br><span class="line"><span class="comment">#To remove users from a group:</span></span><br><span class="line">gpasswd -d user group</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gpasswd - administer the /etc/group file</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EXAMPLES</span><br><span class="line">1. Add user (tracy) to the group (hrd)</span><br><span class="line">$ gpasswd -a tracy hrd</span><br><span class="line">2. Add multiper users to the group (developer)</span><br><span class="line">$ gpasswd -a pavan,john developer</span><br><span class="line">3. Remove user (rakesh) from group (sqa)</span><br><span class="line">$ gpasswd -d rakesh sqa</span><br><span class="line">4. Remove multiple users from group (managers)</span><br><span class="line">$ gpasswd -d shane,ron,ram managers</span><br><span class="line">5. Set user (joy) and group administrator <span class="keyword">for</span> (managers)</span><br><span class="line">$ gpasswd -A joy managers</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
 
-<h3 id="to-show-user-details"><a href="#to-show-user-details" class="headerlink" title="to show user details"></a>to show user details</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id todzhang</span><br></pre></td></tr></table></figure>
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
 
-<h3 id="Display-group-membership-with-the-groups-command"><a href="#Display-group-membership-with-the-groups-command" class="headerlink" title="Display group membership with the groups command:"></a>Display group membership with the groups command:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ groups user</span><br></pre></td></tr></table></figure>
+    
+      
 
-<h3 id="To-change-the-user’s-login-shell"><a href="#To-change-the-user’s-login-shell" class="headerlink" title="To change the user’s login shell:"></a>To change the user’s login shell:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># usermod -s /bin/bash username</span></span><br></pre></td></tr></table></figure>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-03-distruptor/">
 
-<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><ul>
-<li><a href="https://www.sudo.ws/man/sudo.conf.man.html" target="_blank" rel="noopener">https://www.sudo.ws/man/sudo.conf.man.html</a></li>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-09-03-distruptor/" class="post-title-link" itemprop="url">Mockito</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h1><p>There only 2 things you can do with Mockito mocks - verify or stub. Stubbing goes before execution and verification afterwards.</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock" target="_blank" rel="noopener">https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock</a></li>
 </ul>
 
           
@@ -895,136 +862,6 @@ public void writeByte(long address, byte b) {
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://github.com/OpenHFT/Chronicle-Queue" target="_blank" rel="noopener">https://github.com/OpenHFT/Chronicle-Queue</a></li>
 <li><a href="http://vanillajava.blogspot.com/2015/08/what-does-chronicle-software-do.html" target="_blank" rel="noopener">http://vanillajava.blogspot.com/2015/08/what-does-chronicle-software-do.html</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-23-protobuf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-08-23-protobuf/" class="post-title-link" itemprop="url">Protobuf</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="What-are-protocol-buffers"><a href="#What-are-protocol-buffers" class="headerlink" title="What are protocol buffers?"></a>What are protocol buffers?</h1><p>Protocol buffers are a flexible, efficient, automated mechanism for serializing structured data – think XML, but smaller, faster, and simpler.</p>
-<p>You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. You can even update your data structure without breaking deployed programs that are compiled against the “old” format.</p>
-<h1 id="How-do-they-work"><a href="#How-do-they-work" class="headerlink" title="How do they work?"></a>How do they work?</h1><p>You specify how you want the information you’re serializing to be structured by defining protocol buffer message types in .proto files. Each protocol buffer message is a small logical record of information, containing a series of name-value pairs. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">message Person &#123;</span><br><span class="line">  required string name = <span class="number">1</span>;</span><br><span class="line">  required int32 id = <span class="number">2</span>;</span><br><span class="line">  optional string email = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">enum</span> PhoneType &#123;</span><br><span class="line">    MOBILE = <span class="number">0</span>;</span><br><span class="line">    HOME = <span class="number">1</span>;</span><br><span class="line">    WORK = <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  message PhoneNumber &#123;</span><br><span class="line">    required string number = <span class="number">1</span>;</span><br><span class="line">    optional PhoneType type = <span class="number">2</span> [<span class="keyword">default</span> = HOME];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  repeated PhoneNumber phone = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>As you can see, the message format is simple – each message type has one or more uniquely numbered fields, and each field has a name and a value type, where value types can be numbers (integer or floating-point), booleans, strings, raw bytes, or even (as in the example above) other protocol buffer message types, allowing you to structure your data hierarchically. You can specify optional fields, required fields, and repeated fields. </p>
-<h1 id="Why-not-just-use-XML"><a href="#Why-not-just-use-XML" class="headerlink" title="Why not just use XML?"></a>Why not just use XML?</h1><p>Protocol buffers have many advantages over XML for serializing structured data. Protocol buffers:</p>
-<ul>
-<li>are simpler</li>
-<li>are 3 to 10 times smaller</li>
-<li>are 20 to 100 times faster</li>
-<li>are less ambiguous</li>
-<li>generate data access classes that are easier to use programmatically</li>
-</ul>
-<h1 id="Assigning-Field-Numbers"><a href="#Assigning-Field-Numbers" class="headerlink" title="Assigning Field Numbers"></a>Assigning Field Numbers</h1><p>As you can see, each field in the message definition has a unique number. These numbers are used to identify your fields in the message binary format, and should not be changed once your message type is in use. Note that field numbers in the range 1 through 15 take one byte to encode, including the field number and the field’s type (you can find out more about this in Protocol Buffer Encoding). Field numbers in the range 16 through 2047 take two bytes. So you should reserve the field numbers 1 through 15 for very frequently occurring message elements. Remember to leave some room for frequently occurring elements that might be added in the future.</p>
-<h1 id="Field-Rules"><a href="#Field-Rules" class="headerlink" title="Field Rules"></a>Field Rules</h1><p>You specify that message fields are one of the following:</p>
-<ul>
-<li>required: a well-formed message must have exactly one of this field.</li>
-<li>optional: a well-formed message can have zero or one of this field (but not more than one).</li>
-<li>repeated: this field can be repeated any number of times (including zero) in a well-formed message. The order of the repeated values will be preserved.</li>
-</ul>
-<blockquote>
-<p>Some engineers at Google have come to the conclusion that using required does more harm than good; they prefer to use only optional and repeated. However, this view is not universal.</p>
-</blockquote>
-<p>Combining Messages leads to bloat While multiple message types (such as message, enum, and service) can be defined in a single .proto file, it can also lead to dependency bloat when large numbers of messages with varying dependencies are defined in a single file. It’s recommended to include as few message types per .proto file as possible.</p>
-<h1 id="Reserved-fields"><a href="#Reserved-fields" class="headerlink" title="Reserved fields"></a>Reserved fields</h1><p>to make sure this doesn’t happen is to specify that the field numbers (and/or names, which can also cause issues for JSON serialization) of your deleted fields are reserved. The protocol buffer compiler will complain if any future users try to use these field identifiers.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">message Foo &#123;</span><br><span class="line">  reserved <span class="number">2</span>, <span class="number">15</span>, <span class="number">9</span> to <span class="number">11</span>;</span><br><span class="line">  reserved <span class="string">"foo"</span>, <span class="string">"bar"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Note that you can’t mix field names and field numbers in the same reserved statement.</p>
-<h1 id="Optional-fields-and-default"><a href="#Optional-fields-and-default" class="headerlink" title="Optional fields and default"></a>Optional fields and default</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optional int32 result_per_page = <span class="number">3</span> [<span class="keyword">default</span> = <span class="number">10</span>];</span><br></pre></td></tr></table></figure>
-
-<h1 id="Importing-Definitions"><a href="#Importing-Definitions" class="headerlink" title="Importing Definitions"></a>Importing Definitions</h1><p>You can use definitions from other .proto files by importing them. To import another .proto’s definitions, you add an import statement to the top of your file:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"myproject/other_protos.proto"</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="To-generate-class"><a href="#To-generate-class" class="headerlink" title="To generate class"></a>To generate class</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../protoc-3/bin/protoc --java_out=./  ticket.proto</span><br></pre></td></tr></table></figure>
-
-<h1 id="Builders-vs-Messages"><a href="#Builders-vs-Messages" class="headerlink" title="Builders vs. Messages"></a>Builders vs. Messages</h1><p>The message classes generated by the protocol buffer compiler are all immutable. Once a message object is constructed, it cannot be modified, just like a Java String. To construct a message, you must first construct a builder, set any fields you want to set to your chosen values, then call the builder’s build() method.</p>
-<p>You may have noticed that each method of the builder which modifies the message returns another builder. The returned object is actually the same builder on which you called the method. It is returned for convenience so that you can string several setters together on a single line of code.</p>
-<p>Here’s an example of how you would create an instance of Person:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Person john =</span><br><span class="line">  Person.newBuilder()</span><br><span class="line">    .setId(<span class="number">1234</span>)</span><br><span class="line">    .setName(<span class="string">"John Doe"</span>)</span><br><span class="line">    .setEmail(<span class="string">"jdoe@example.com"</span>)</span><br><span class="line">    .addPhones(</span><br><span class="line">      Person.PhoneNumber.newBuilder()</span><br><span class="line">        .setNumber(<span class="string">"555-4321"</span>)</span><br><span class="line">        .setType(Person.PhoneType.HOME))</span><br><span class="line">    .build();</span><br></pre></td></tr></table></figure>
-
-<h1 id="Parsing-and-Serialization"><a href="#Parsing-and-Serialization" class="headerlink" title="Parsing and Serialization"></a>Parsing and Serialization</h1><p>Finally, each protocol buffer class has methods for writing and reading messages of your chosen type using the protocol buffer binary format. These include:</p>
-<ul>
-<li>byte[] toByteArray();: serializes the message and returns a byte array containing its raw bytes.</li>
-<li>static Person parseFrom(byte[] data);: parses a message from the given byte array.</li>
-<li>void writeTo(OutputStream output);: serializes the message and writes it to an OutputStream.</li>
-<li>pstatic Person parseFrom(InputStream input);: reads and parses a message from an InputStream.</li>
-</ul>
-<h1 id="Write-a-message"><a href="#Write-a-message" class="headerlink" title="Write a message"></a>Write a message</h1><p>// Write the new address book back to disk.<br>    FileOutputStream output = new FileOutputStream(args[0]);<br>    addressBook.build().writeTo(output);</p>
-<h1 id="Reading-A-Message"><a href="#Reading-A-Message" class="headerlink" title="Reading A Message"></a>Reading A Message</h1><p>Use message’s parseFrom method on stream:<br>      AddressBook.parseFrom(new FileInputStream(args[0]));</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.tutorial.AddressBookProtos.AddressBook;</span><br><span class="line"><span class="keyword">import</span> com.example.tutorial.AddressBookProtos.Person;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListPeople</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Iterates though all people in the AddressBook and prints info about them.</span></span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Print</span><span class="params">(AddressBook addressBook)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (Person person: addressBook.getPeopleList()) &#123;</span><br><span class="line">      System.out.println(<span class="string">"Person ID: "</span> + person.getId());</span><br><span class="line">      System.out.println(<span class="string">"  Name: "</span> + person.getName());</span><br><span class="line">      <span class="keyword">if</span> (person.hasEmail()) &#123;</span><br><span class="line">        System.out.println(<span class="string">"  E-mail address: "</span> + person.getEmail());</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (Person.PhoneNumber phoneNumber : person.getPhonesList()) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (phoneNumber.getType()) &#123;</span><br><span class="line">          <span class="keyword">case</span> MOBILE:</span><br><span class="line">            System.out.print(<span class="string">"  Mobile phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> HOME:</span><br><span class="line">            System.out.print(<span class="string">"  Home phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> WORK:</span><br><span class="line">            System.out.print(<span class="string">"  Work phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(phoneNumber.getNumber());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Main function:  Reads the entire address book from a file and prints all</span></span><br><span class="line">  <span class="comment">//   the information inside.</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (args.length != <span class="number">1</span>) &#123;</span><br><span class="line">      System.err.println(<span class="string">"Usage:  ListPeople ADDRESS_BOOK_FILE"</span>);</span><br><span class="line">      System.exit(-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read the existing address book.</span></span><br><span class="line">    AddressBook addressBook =</span><br><span class="line">      AddressBook.parseFrom(<span class="keyword">new</span> FileInputStream(args[<span class="number">0</span>]));</span><br><span class="line"></span><br><span class="line">    Print(addressBook);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
 </ul>
 
           
@@ -1340,6 +1177,118 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-21-sudo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-08-21-sudo/" class="post-title-link" itemprop="url">Sudo in a Nutshell</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Sudo-in-a-Nutshell"><a href="#Sudo-in-a-Nutshell" class="headerlink" title="Sudo in a Nutshell"></a>Sudo in a Nutshell</h1><p>Sudo (su “do”) allows a system administrator to give certain users (or groups of users) the ability to run some (or all) commands as root while logging all commands and arguments. Sudo operates on a per-command basis, it is not a replacement for the shell. Its features include:</p>
+<p>The ability to restrict what commands a user may run on a per-host basis.<br>Sudo does copious logging of each command, providing a clear audit trail of who did what. When used in tandem with syslogd, the system log daemon, sudo can log all commands to a central host (as well as on the local host). At CU, all admins use sudo in lieu of a root shell to take advantage of this logging.<br>Sudo uses timestamp files to implement a “ticketing” system. When a user invokes sudo and enters their password, they are granted a ticket for 5 minutes (this timeout is configurable at compile-time). Each subsequent sudo command updates the ticket for another 5 minutes. This avoids the problem of leaving a root shell where others can physically get to your keyboard. There is also an easy way for a user to remove their ticket file, useful for placing in a .logout file.<br>Sudo’s configuration file, the sudoers file, is setup in such a way that the same sudoers file may be used on many machines. This allows for central administration while keeping the flexibility to define a user’s privileges on a per-host basis. Please see the samples sudoers file below for a real-world example.</p>
+<h1 id="sudo-conf"><a href="#sudo-conf" class="headerlink" title="sudo.conf"></a>sudo.conf</h1><p>The sudo.conf file is used to configure the sudo front end. It specifies the security policy and I/O logging plugins, debug flags as well as plugin-agnostic path names and settings.</p>
+<p>sudo supports a plugin architecture for security policies and input/output logging. Third parties can develop and distribute their own policy and I/O logging plugins to work seamlessly with the sudo front end. Plugins are dynamically loaded based on the contents of sudo.conf.<br>A Plugin line consists of the Plugin keyword, followed by the symbol_name and the path to the dynamic shared object that contains the plugin. The symbol_name is the name of the struct policy_plugin or struct io_plugin symbol contained in the plugin. The path may be fully qualified or relative. If not fully qualified, it is relative to the directory specified by the plugin_dir Path setting, which defaults to /usr/local/libexec/sudo. In other words:<br>Plugin sudoers_policy sudoers.so<br>is equivalent to:<br>Plugin sudoers_policy /usr/local/libexec/sudo/sudoers.so</p>
+<h2 id="Configurations"><a href="#Configurations" class="headerlink" title="Configurations"></a>Configurations</h2><ul>
+<li><p>sudoers_file=pathname<br>The sudoers_file argument can be used to override the default path to the sudoers file.</p>
+</li>
+<li><p>sudoers_uid=uid<br>The sudoers_uid argument can be used to override the default owner of the sudoers file. It should be specified as a numeric user ID.</p>
+</li>
+</ul>
+<h1 id="email-notification"><a href="#email-notification" class="headerlink" title="email notification"></a>email notification</h1><p>If a user who is not listed in the policy tries to run a command via sudo, mail is sent to the proper authorities. The address used for such mail is configurable via the mailto Defaults entry (described later) and defaults to root.</p>
+<p>Note that no mail will be sent if an unauthorized user tries to run sudo with the -l or -v option unless there is an authentication error and either the mail_always or mail_badpass flags are enabled. This allows users to determine for themselves whether or not they are allowed to use sudo. All attempts to run sudo (successful or not) will be logged, regardless of whether or not mail is sent.</p>
+<p>sudoers uses per-user time stamp files for credential caching. Once a user has been authenticated, a record is written containing the user ID that was used to authenticate, the terminal session ID, the start time of the session leader (or parent process) and a time stamp (using a monotonic clock if one is available). The user may then use sudo without a password for a short period of time (5 minutes unless overridden by the timestamp_timeout option). By default, sudoers uses a separate record for each terminal, which means that a user’s login sessions are authenticated separately. The timestamp_type option can be used to select the type of time stamp record sudoers will use.</p>
+<h1 id="File-format"><a href="#File-format" class="headerlink" title="File format"></a>File format</h1><p>The sudoers file is composed of two types of entries: aliases (basically variables) and user specifications (which specify who may run what).</p>
+<p>When multiple entries match for a user, they are applied in order. Where there are multiple matches, the last match is used (which is not necessarily the most specific match).<br>The sudoers file grammar will be described below in Extended Backus-Naur Form (EBNF). Don’t despair if you are unfamiliar with EBNF; it is fairly simple, and the definitions below are annotated.</p>
+<h1 id="environment"><a href="#environment" class="headerlink" title="environment"></a>environment</h1><p>By default, the env_reset option is enabled. This causes commands to be executed with a new, minimal environment.</p>
+<p>Lists have two additional assignment operators, += and -=. These operators are used to add to and delete from a list respectively. It is not an error to use the -= operator to remove an element that does not exist in a list.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">35 Defaults    env_reset</span><br><span class="line">36 Defaults    env_keep += <span class="string">"BLOCKSIZE"</span></span><br><span class="line">37 Defaults    env_keep += <span class="string">"COLORFGBG COLORTERM"</span></span><br><span class="line">38 Defaults    env_keep += <span class="string">"__CF_USER_TEXT_ENCODING"</span></span><br><span class="line">39 Defaults    env_keep += <span class="string">"CHARSET LANG LANGUAGE LC_ALL LC_COLLATE LC_CTYPE"</span></span><br><span class="line">40 Defaults    env_keep += <span class="string">"LC_MESSAGES LC_MONETARY LC_NUMERIC LC_TIME"</span></span><br><span class="line">41 Defaults    env_keep += <span class="string">"LINES COLUMNS"</span></span><br><span class="line">42 Defaults    env_keep += <span class="string">"LSCOLORS"</span></span><br><span class="line">43 Defaults    env_keep += <span class="string">"SSH_AUTH_SOCK"</span></span><br><span class="line">44 Defaults    env_keep += <span class="string">"TZ"</span></span><br><span class="line">45 Defaults    env_keep += <span class="string">"DISPLAY XAUTHORIZATION XAUTHORITY"</span></span><br><span class="line">46 Defaults    env_keep += <span class="string">"EDITOR VISUAL"</span></span><br><span class="line">47 Defaults    env_keep += <span class="string">"HOME MAIL"</span></span><br><span class="line">48 </span><br><span class="line">49 Defaults    lecture_file = <span class="string">"/etc/sudo_lecture"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="lecture"><a href="#lecture" class="headerlink" title="lecture"></a>lecture</h3><h4 id="lecture-1"><a href="#lecture-1" class="headerlink" title="lecture"></a>lecture</h4><p>This option controls when a short lecture will be printed along with the password prompt. It has the following possible values:</p>
+<ul>
+<li>always<br>Always lecture the user.</li>
+<li>never<br>Never lecture the user.</li>
+<li>once<br>Only lecture the user the first time they run sudo.<br>If no value is specified, a value of once is implied. Negating the option results in a value of never being used. The default value is once.<h4 id="lecture-file"><a href="#lecture-file" class="headerlink" title="lecture_file"></a>lecture_file</h4>Path to a file containing an alternate sudo lecture that will be used in place of the standard lecture if the named file exists. By default, sudo uses a built-in lecture.  </li>
+</ul>
+<h1 id="Everything-is-file"><a href="#Everything-is-file" class="headerlink" title="Everything is file"></a>Everything is file</h1><p>A fundamental and very powerful, consistent abstraction provided in UNIX and compatible operating systems is the file abstraction. Many OS services and device interfaces are implemented to provide a file or file system metaphor to applications.</p>
+<h1 id="manage-user-group"><a href="#manage-user-group" class="headerlink" title="manage user group"></a>manage user group</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Alternatively, gpasswd may be used. Though the username can only be added (or removed) from one group at a time:</span></span><br><span class="line">gpasswd --add username group</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add users to a group with the gpasswd command:</span></span><br><span class="line">gpasswd -a user group</span><br><span class="line"></span><br><span class="line"><span class="comment">#To remove users from a group:</span></span><br><span class="line">gpasswd -d user group</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gpasswd - administer the /etc/group file</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EXAMPLES</span><br><span class="line">1. Add user (tracy) to the group (hrd)</span><br><span class="line">$ gpasswd -a tracy hrd</span><br><span class="line">2. Add multiper users to the group (developer)</span><br><span class="line">$ gpasswd -a pavan,john developer</span><br><span class="line">3. Remove user (rakesh) from group (sqa)</span><br><span class="line">$ gpasswd -d rakesh sqa</span><br><span class="line">4. Remove multiple users from group (managers)</span><br><span class="line">$ gpasswd -d shane,ron,ram managers</span><br><span class="line">5. Set user (joy) and group administrator <span class="keyword">for</span> (managers)</span><br><span class="line">$ gpasswd -A joy managers</span><br></pre></td></tr></table></figure>
+
+<h3 id="to-show-user-details"><a href="#to-show-user-details" class="headerlink" title="to show user details"></a>to show user details</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id todzhang</span><br></pre></td></tr></table></figure>
+
+<h3 id="Display-group-membership-with-the-groups-command"><a href="#Display-group-membership-with-the-groups-command" class="headerlink" title="Display group membership with the groups command:"></a>Display group membership with the groups command:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ groups user</span><br></pre></td></tr></table></figure>
+
+<h3 id="To-change-the-user’s-login-shell"><a href="#To-change-the-user’s-login-shell" class="headerlink" title="To change the user’s login shell:"></a>To change the user’s login shell:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># usermod -s /bin/bash username</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><ul>
+<li><a href="https://www.sudo.ws/man/sudo.conf.man.html" target="_blank" rel="noopener">https://www.sudo.ws/man/sudo.conf.man.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-19-ZooKeeper/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1493,7 +1442,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-03-distruptor/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-23-protobuf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1509,7 +1458,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-09-03-distruptor/" class="post-title-link" itemprop="url">Mockito</a>
+              <a href="/2018-08-23-protobuf/" class="post-title-link" itemprop="url">Protobuf</a>
             
           </h1>
         
@@ -1541,9 +1490,141 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
 
       
           
-            <h1 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h1><p>There only 2 things you can do with Mockito mocks - verify or stub. Stubbing goes before execution and verification afterwards.</p>
+            <h1 id="What-are-protocol-buffers"><a href="#What-are-protocol-buffers" class="headerlink" title="What are protocol buffers?"></a>What are protocol buffers?</h1><p>Protocol buffers are a flexible, efficient, automated mechanism for serializing structured data – think XML, but smaller, faster, and simpler.</p>
+<p>You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. You can even update your data structure without breaking deployed programs that are compiled against the “old” format.</p>
+<h1 id="How-do-they-work"><a href="#How-do-they-work" class="headerlink" title="How do they work?"></a>How do they work?</h1><p>You specify how you want the information you’re serializing to be structured by defining protocol buffer message types in .proto files. Each protocol buffer message is a small logical record of information, containing a series of name-value pairs. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">message Person &#123;</span><br><span class="line">  required string name = <span class="number">1</span>;</span><br><span class="line">  required int32 id = <span class="number">2</span>;</span><br><span class="line">  optional string email = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">enum</span> PhoneType &#123;</span><br><span class="line">    MOBILE = <span class="number">0</span>;</span><br><span class="line">    HOME = <span class="number">1</span>;</span><br><span class="line">    WORK = <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  message PhoneNumber &#123;</span><br><span class="line">    required string number = <span class="number">1</span>;</span><br><span class="line">    optional PhoneType type = <span class="number">2</span> [<span class="keyword">default</span> = HOME];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  repeated PhoneNumber phone = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>As you can see, the message format is simple – each message type has one or more uniquely numbered fields, and each field has a name and a value type, where value types can be numbers (integer or floating-point), booleans, strings, raw bytes, or even (as in the example above) other protocol buffer message types, allowing you to structure your data hierarchically. You can specify optional fields, required fields, and repeated fields. </p>
+<h1 id="Why-not-just-use-XML"><a href="#Why-not-just-use-XML" class="headerlink" title="Why not just use XML?"></a>Why not just use XML?</h1><p>Protocol buffers have many advantages over XML for serializing structured data. Protocol buffers:</p>
+<ul>
+<li>are simpler</li>
+<li>are 3 to 10 times smaller</li>
+<li>are 20 to 100 times faster</li>
+<li>are less ambiguous</li>
+<li>generate data access classes that are easier to use programmatically</li>
+</ul>
+<h1 id="Assigning-Field-Numbers"><a href="#Assigning-Field-Numbers" class="headerlink" title="Assigning Field Numbers"></a>Assigning Field Numbers</h1><p>As you can see, each field in the message definition has a unique number. These numbers are used to identify your fields in the message binary format, and should not be changed once your message type is in use. Note that field numbers in the range 1 through 15 take one byte to encode, including the field number and the field’s type (you can find out more about this in Protocol Buffer Encoding). Field numbers in the range 16 through 2047 take two bytes. So you should reserve the field numbers 1 through 15 for very frequently occurring message elements. Remember to leave some room for frequently occurring elements that might be added in the future.</p>
+<h1 id="Field-Rules"><a href="#Field-Rules" class="headerlink" title="Field Rules"></a>Field Rules</h1><p>You specify that message fields are one of the following:</p>
+<ul>
+<li>required: a well-formed message must have exactly one of this field.</li>
+<li>optional: a well-formed message can have zero or one of this field (but not more than one).</li>
+<li>repeated: this field can be repeated any number of times (including zero) in a well-formed message. The order of the repeated values will be preserved.</li>
+</ul>
+<blockquote>
+<p>Some engineers at Google have come to the conclusion that using required does more harm than good; they prefer to use only optional and repeated. However, this view is not universal.</p>
+</blockquote>
+<p>Combining Messages leads to bloat While multiple message types (such as message, enum, and service) can be defined in a single .proto file, it can also lead to dependency bloat when large numbers of messages with varying dependencies are defined in a single file. It’s recommended to include as few message types per .proto file as possible.</p>
+<h1 id="Reserved-fields"><a href="#Reserved-fields" class="headerlink" title="Reserved fields"></a>Reserved fields</h1><p>to make sure this doesn’t happen is to specify that the field numbers (and/or names, which can also cause issues for JSON serialization) of your deleted fields are reserved. The protocol buffer compiler will complain if any future users try to use these field identifiers.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">message Foo &#123;</span><br><span class="line">  reserved <span class="number">2</span>, <span class="number">15</span>, <span class="number">9</span> to <span class="number">11</span>;</span><br><span class="line">  reserved <span class="string">"foo"</span>, <span class="string">"bar"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Note that you can’t mix field names and field numbers in the same reserved statement.</p>
+<h1 id="Optional-fields-and-default"><a href="#Optional-fields-and-default" class="headerlink" title="Optional fields and default"></a>Optional fields and default</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optional int32 result_per_page = <span class="number">3</span> [<span class="keyword">default</span> = <span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+
+<h1 id="Importing-Definitions"><a href="#Importing-Definitions" class="headerlink" title="Importing Definitions"></a>Importing Definitions</h1><p>You can use definitions from other .proto files by importing them. To import another .proto’s definitions, you add an import statement to the top of your file:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"myproject/other_protos.proto"</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="To-generate-class"><a href="#To-generate-class" class="headerlink" title="To generate class"></a>To generate class</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../protoc-3/bin/protoc --java_out=./  ticket.proto</span><br></pre></td></tr></table></figure>
+
+<h1 id="Builders-vs-Messages"><a href="#Builders-vs-Messages" class="headerlink" title="Builders vs. Messages"></a>Builders vs. Messages</h1><p>The message classes generated by the protocol buffer compiler are all immutable. Once a message object is constructed, it cannot be modified, just like a Java String. To construct a message, you must first construct a builder, set any fields you want to set to your chosen values, then call the builder’s build() method.</p>
+<p>You may have noticed that each method of the builder which modifies the message returns another builder. The returned object is actually the same builder on which you called the method. It is returned for convenience so that you can string several setters together on a single line of code.</p>
+<p>Here’s an example of how you would create an instance of Person:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Person john =</span><br><span class="line">  Person.newBuilder()</span><br><span class="line">    .setId(<span class="number">1234</span>)</span><br><span class="line">    .setName(<span class="string">"John Doe"</span>)</span><br><span class="line">    .setEmail(<span class="string">"jdoe@example.com"</span>)</span><br><span class="line">    .addPhones(</span><br><span class="line">      Person.PhoneNumber.newBuilder()</span><br><span class="line">        .setNumber(<span class="string">"555-4321"</span>)</span><br><span class="line">        .setType(Person.PhoneType.HOME))</span><br><span class="line">    .build();</span><br></pre></td></tr></table></figure>
+
+<h1 id="Parsing-and-Serialization"><a href="#Parsing-and-Serialization" class="headerlink" title="Parsing and Serialization"></a>Parsing and Serialization</h1><p>Finally, each protocol buffer class has methods for writing and reading messages of your chosen type using the protocol buffer binary format. These include:</p>
+<ul>
+<li>byte[] toByteArray();: serializes the message and returns a byte array containing its raw bytes.</li>
+<li>static Person parseFrom(byte[] data);: parses a message from the given byte array.</li>
+<li>void writeTo(OutputStream output);: serializes the message and writes it to an OutputStream.</li>
+<li>pstatic Person parseFrom(InputStream input);: reads and parses a message from an InputStream.</li>
+</ul>
+<h1 id="Write-a-message"><a href="#Write-a-message" class="headerlink" title="Write a message"></a>Write a message</h1><p>// Write the new address book back to disk.<br>    FileOutputStream output = new FileOutputStream(args[0]);<br>    addressBook.build().writeTo(output);</p>
+<h1 id="Reading-A-Message"><a href="#Reading-A-Message" class="headerlink" title="Reading A Message"></a>Reading A Message</h1><p>Use message’s parseFrom method on stream:<br>      AddressBook.parseFrom(new FileInputStream(args[0]));</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.tutorial.AddressBookProtos.AddressBook;</span><br><span class="line"><span class="keyword">import</span> com.example.tutorial.AddressBookProtos.Person;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListPeople</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Iterates though all people in the AddressBook and prints info about them.</span></span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Print</span><span class="params">(AddressBook addressBook)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (Person person: addressBook.getPeopleList()) &#123;</span><br><span class="line">      System.out.println(<span class="string">"Person ID: "</span> + person.getId());</span><br><span class="line">      System.out.println(<span class="string">"  Name: "</span> + person.getName());</span><br><span class="line">      <span class="keyword">if</span> (person.hasEmail()) &#123;</span><br><span class="line">        System.out.println(<span class="string">"  E-mail address: "</span> + person.getEmail());</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (Person.PhoneNumber phoneNumber : person.getPhonesList()) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (phoneNumber.getType()) &#123;</span><br><span class="line">          <span class="keyword">case</span> MOBILE:</span><br><span class="line">            System.out.print(<span class="string">"  Mobile phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> HOME:</span><br><span class="line">            System.out.print(<span class="string">"  Home phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> WORK:</span><br><span class="line">            System.out.print(<span class="string">"  Work phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(phoneNumber.getNumber());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Main function:  Reads the entire address book from a file and prints all</span></span><br><span class="line">  <span class="comment">//   the information inside.</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (args.length != <span class="number">1</span>) &#123;</span><br><span class="line">      System.err.println(<span class="string">"Usage:  ListPeople ADDRESS_BOOK_FILE"</span>);</span><br><span class="line">      System.exit(-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read the existing address book.</span></span><br><span class="line">    AddressBook addressBook =</span><br><span class="line">      AddressBook.parseFrom(<span class="keyword">new</span> FileInputStream(args[<span class="number">0</span>]));</span><br><span class="line"></span><br><span class="line">    Print(addressBook);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock" target="_blank" rel="noopener">https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock</a></li>
+<li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-16-yaml-config/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-09-16-yaml-config/" class="post-title-link" itemprop="url">YAML</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Key-points"><a href="#Key-points" class="headerlink" title="Key points"></a>Key points</h1><p>All YAML files (regardless of their association with Ansible or not) can optionally begin with — and end with …. This is part of the YAML format and indicates the start and end of a document.</p>
+<p>In a way, YAML is to JSON what Markdown is to HTML.</p>
+<p># </p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
 </ul>
 
           
@@ -1629,87 +1710,6 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
 <p>Read and write operations require that all changes are made visible to other threads.</p>
 <p>The most costly operation in any concurrent environment is a contended write access.</p>
 <h3 id="locks"><a href="#locks" class="headerlink" title="locks"></a>locks</h3><p>Lock provide mutual exclusion and ensure that the visibility of change occurs in an ordered manner. Locks are incredibly expensive because they require arbitration when contended. This arbitration is achieved by a context switch to the OS kernerl which will suspend threads waiting on a lock until it’s released. During such a context switch , as well as releasing control to the OS which may decided to do other house-keeping tasks which it has control, execution context can lose previously cached data nad instrucionts. This can have a serious performance impact on modern CPU. </p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-16-yaml-config/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-09-16-yaml-config/" class="post-title-link" itemprop="url">YAML</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Key-points"><a href="#Key-points" class="headerlink" title="Key points"></a>Key points</h1><p>All YAML files (regardless of their association with Ansible or not) can optionally begin with — and end with …. This is part of the YAML format and indicates the start and end of a document.</p>
-<p>In a way, YAML is to JSON what Markdown is to HTML.</p>
-<p># </p>
 <h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
 <li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
 </ul>

@@ -195,84 +195,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-12-24-Apache-Tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-12-24-Apache-Tips/" class="post-title-link" itemprop="url">Apache Tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su -</span><br><span class="line">apachectl start</span><br><span class="line">apachectl stop</span><br></pre></td></tr></table></figure>
-
-<p>Open a browser to access <a href="http://localhost/" target="_blank" rel="noopener">http://localhost/</a></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-12-30-HashCode-Contract/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -411,6 +333,360 @@
 <li><a href="http://javarevisited.blogspot.com/2013/02/concurrent-collections-from-jdk-56-java-example-tutorial.html#ixzz4WBYzKelD" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/02/concurrent-collections-from-jdk-56-java-example-tutorial.html#ixzz4WBYzKelD</a></li>
 <li><a href="http://javarevisited.blogspot.com/2012/12/how-to-sort-hashmap-java-by-key-and-value.html#ixzz4WBgfeGVM" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2012/12/how-to-sort-hashmap-java-by-key-and-value.html#ixzz4WBgfeGVM</a></li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-02-Enum-Misc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-02-Enum-Misc/" class="post-title-link" itemprop="url">Java Enum Misc</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Enum-Misc"><a href="#Enum-Misc" class="headerlink" title="Enum Misc"></a>Enum Misc</h1><ul>
+<li>All enums implicitely extends <strong>java.lang.Enum</strong></li>
+<li>Enum in Java are <strong>type-safe</strong></li>
+<li>You can specify values of enum constants at the <strong>creation</strong> time. <strong>Enum.values()</strong> returns an array of MyEnum’s values.</li>
+<li>Enum constants are implicitly static and final and can not be changed once created.</li>
+<li>Enum can be safely compare using:<ul>
+<li>Switch-Case Statement</li>
+<li>== Operator</li>
+<li>.equals() method</li>
+</ul>
+</li>
+<li>You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself.</li>
+<li>Instance of Enum in Java <strong>is created when</strong> any Enum constants are <strong>first called or referenced</strong> in code.</li>
+<li>An enum can be declared outside or inside a class, but NOT in a method.</li>
+<li>An enum declared outside a class must NOT be marked static, final , abstract, protected , or private</li>
+<li>Enums can contain constructors, methods, variables, and constant class bodies.</li>
+<li>enum constructors can have arguments, and can be overloaded.</li>
+<li>enum constructors can NEVER be invoked directly in code. They are always called automatically when an enum is initialized.</li>
+<li>The semicolon at the end of an enum declaration is optional.</li>
+</ul>
+<p>These are legal:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;</span><br><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="type-safe"><a href="#type-safe" class="headerlink" title="type safe"></a>type safe</h1><p>The advantage of this style of enumeration over the C/C++-style enum or constants is that they are <strong>type-safe</strong>, meaning that, for example, if you define a method</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSuit</span><span class="params">(Suit suit)</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>the caller cannot pass in a value that does not correspond to an enumeration value</p>
+<h1 id="Language-level-features"><a href="#Language-level-features" class="headerlink" title="Language level features"></a>Language level features</h1><ul>
+<li>Since enumeration instances are all effectively <strong>singletons</strong>, they can be compared for equality using identity (“==”).</li>
+<li>In Java 5.0, the enum keyword is introduced as a special type of class that always extends <strong>java.lang.Enum</strong>.</li>
+<li>Note that the enumeration values are still <strong>static class members</strong>, though not declared as such.</li>
+<li>Enum is implemented using <strong>Arrays and common operations result in constant time</strong>. So if you are thinking of an high-performance Map, EnumMap could be a decent choice for enumeration data. We have already seen many examples of Java enum in our article 10 Examples of enum in Java  and using Enum as thread-safe Singleton. In this Java tutorial, we will see simple examples of using EnumMap in Java. </li>
+<li>All keys used in EnumMap must be  from same Enum type which is specified while creating EnumMap in Java. For example if you can not use different enum instances from two different enum.</li>
+<li>EnumMap is ordered collection and they are maintained in the natural order of their keys( natural order of keys means  the order on which enum constant are declared inside enum type ). you can verify this while Iterating over an EnumMap in Java.</li>
+<li>Iterators of EnumMap are fail-fast Iterator , much like of ConcurrentHashMap and doesn’t throw ConcurrentModificationException and may not show effect of any modification on EnumMap during Iteration process.</li>
+<li>You can not insert null keys inside EnumMap in Java.  EnumMap doesn’t allow null key and throw NullPointerException, at same time null values are permitted.</li>
+<li>EnumMap is not synchronized and it has to be synchronized manually before using it in a concurrent or multi-threaded environment. like synchronized Map in Java  you can also make EnumMap synchronized by using Collections.synchronizedMap() method and as per javadoc this should be done while creating EnumMap in java to avoid accidental non synchronized access.</li>
+<li>The constructor of enum in java must be private any other access modifier will result in compilation error. Now to get the value associated with each coin you can define a public getValue() method inside Java enum like any normal Java class. Also, the semicolon in the first line is optional.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Since constants defined inside Enum in Java are <strong>final</strong> you can <strong>safely compare them using “==”</strong>, the equality operator as shown in following example of  Java Enum:</li>
+<li>Java compiler automatically generates static values() method for every enum in java. Values() method returns array of Enum constants in the same order they have listed in Enum and you can use values() to iterate over values of Enum  in Java as shown in below example. Notice <strong>the order is exactly the same as defined order</strong> in the Enum.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(Currency coin: Currency.values())&#123;</span><br><span class="line">   System.out.println(<span class="string">"coin: "</span> + coin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>In Java, Enum can override methods also. Let’s see an example of overriding toString() method inside Enum in Java to provide a meaningful description for enums constants.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">  ........</span><br><span class="line">      </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">switch</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">         <span class="keyword">case</span> PENNY:</span><br><span class="line">              System.out.println(<span class="string">"Penny: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> NICKLE:</span><br><span class="line">              System.out.println(<span class="string">"Nickle: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> DIME:</span><br><span class="line">              System.out.println(<span class="string">"Dime: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> QUARTER:</span><br><span class="line">              System.out.println(<span class="string">"Quarter: "</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">super</span>.toString();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>EnumSet doesn’t have any public constructor instead it provides <strong>factory methods to create instance e.g. EnumSet.of()</strong> methods. This design allows EnumSet to internally choose between two different implementations depending upon the size of Enum constants.</li>
+</ul>
+<p>If Enum has <strong>less than 64 constants than EnumSet uses RegularEnumSet</strong> class which internally uses a long variable to store those 64 Enum constants and if Enum has more keys than 64 then it uses JumboEnumSet. See my article the difference between RegularEnumSet and JumboEnumSet for more details.</p>
+<ul>
+<li>An instance of Enum in Java is created when any Enum constants are first called or referenced in code.</li>
+<li>Enum in Java can *<em>implement the interface and override any method *</em>like normal class It’s also worth noting that Enum in java implicitly implements both Serializable and Comparable interface. Let’s see and example of how to implement interface using Java Enum:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency implements Runnable&#123;</span><br><span class="line">  PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">  ............</span><br><span class="line">        </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"Enum in Java implement interfaces"</span>);</span><br><span class="line">                </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>You can define abstract methods inside Enum in Java and can also provide a different implementation for different instances of enum in java.  Let’s see an example of using abstract method inside enum in java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"copper"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        NICKLE(<span class="number">5</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"bronze"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        DIME(<span class="number">10</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        QUARTER(<span class="number">25</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">color</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In this example since every coin will have the different color we made the color() method abstract and let each instance of Enum to define  their own color. You can get color of any coin by just calling the color() method as shown in below example of Java Enum:</p>
+<p>System.out.println(“Color: “ + Currency.DIME.color());</p>
+<p>So that was the comprehensive list of properties, behavior and capabilities of Enumeration type in Java. I know, it’s not easy to remember all those powerful features and that’s why I have prepared this small Microsoft powerpoint slide containing all important properties of Enum in Java. You can always come back and check this slide to revise important features of Java Enum.</p>
+<h1 id="RegularEnumSet-vs-JumboEnumSet"><a href="#RegularEnumSet-vs-JumboEnumSet" class="headerlink" title="RegularEnumSet vs. JumboEnumSet"></a>RegularEnumSet vs. JumboEnumSet</h1><ul>
+<li>Since Enum always has fixed number of instances, data-structure which is used to store Enum can be optimized depending upon number of instances and that’s why we have two different implementation of EnumSet in Java. We will take a closer look on this concept in next paragraph.</li>
+<li>How EnumSet is implemented in Java<br>EnumSet is an abstract class and it provides two concrete implementations, java.util.RegularEnumSet and java.util.JumboEnumSet. Main difference between RegularEnumSet and JumboEnumSet is that former uses a long variable to store elements while later uses a long[] to store its element. Since RegularEnumSet uses long variable, which is a 64 bit data type, it can only hold that much of element. That’s why when an empty EnumSet is created using EnumSet.noneOf() method, it choose RegularEnumSet if key universe (number of enum instances in Key Enum) is less than or equal to 64 and JumboEnumSet if key universe is more than 64. Here is the code which does that :</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;E extends Enum&lt;E&gt;&gt; <span class="function">EnumSet&lt;E&gt; <span class="title">noneOf</span><span class="params">(Class&lt;E&gt; elementType)</span> </span>&#123;   </span><br><span class="line">        .. ............ </span><br><span class="line">        <span class="keyword">if</span> (universe.length &lt;= <span class="number">64</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> RegularEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> JumboEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>EnumSet is <strong>not thread-safe</strong>, which means if it needs to be externally synchronized, when multiple thread access it and one of them modifies the Collection.</li>
+<li>EnumSet can not be used to store any other object <strong>except Enum</strong>, at the same time you can not store instances of two different Enum.</li>
+<li>EnumSet doesn’t allow Null elements.</li>
+<li>EnumSet Iterators are fail-safe in nature.</li>
+</ol>
+<h1 id="Difference-between-EnumMap-vs-HashMap"><a href="#Difference-between-EnumMap-vs-HashMap" class="headerlink" title="Difference between EnumMap vs HashMap"></a>Difference between EnumMap vs HashMap</h1><ul>
+<li>Internally EnumMap is represented using Array and provides constant time performance for common methods e.g. get() or put(). Now let’s see few differences between EnumMap vs HashMap :</li>
+<li>As said earlier, first and foremost difference between EnumMap and HashMap is that EnumMap is optimized for enum keys while HashMap is a general purpose Map implementation similar to Hashtable. you can not use any type other than Enum as key in EnumMap but you can use both Enum and any other Object as key in HashMap.</li>
+<li>Another difference between EnumMap and HashMap is <strong>performance</strong>. as discussed in the previous point, due to specialized optimization done for Enum keys, EnumMap is likely to perform better than HashMap when using enum as key object.</li>
+<li>One more thing which can be considered as the difference between HashMap and EnumMap is <strong>the probability of Collision</strong>. Since <strong>Enum is internally maintained as array ** and they are **stored in their natural order using ordinal()</strong>, as shown in following code which is taken from put() method of EnumMap.<br>Since EnumMap doesn’t call hashCode method on keys, there is no chance of collision.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> index = ((Enum)key).ordinal();</span><br><span class="line">    Object oldValue = vals[index];</span><br><span class="line">    vals[index] = maskNull(value);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>you can use both == and equals() method to compare Enum, they will produce same result because equals() method of Java.lang.Enum internally uses == to compare enum in Java. Since every Enum in Java implicitly extends java.lang.Enum ,and since equals() method is declared final, there is no chance of overriding equals method in user defined enum</li>
+<li>But there are still some slight difference, because  ==  (equality operator) being operator and equals() being method.</li>
+<li><ul>
+<li>Using == for comparing Enum can prevent NullPointerException</li>
+</ul>
+</li>
+<li><ul>
+<li>== method provides type safety during compile time</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>A <strong>fail-fast</strong> system is nothing but immediately report any failure that is likely to lead to failure. When a problem occurs, a fail-fast system fails immediately. In Java, we can find this behavior with iterators. Incase, you have called iterator on a collection object, and another thread tries to modify the collection object, then concurrent modification exception will be thrown. This is called fail-fast. - See more at: </li>
+</ul>
+<h1 id="Real-world-Examples-of-Enum-in-Java"><a href="#Real-world-Examples-of-Enum-in-Java" class="headerlink" title="Real world Examples of Enum in Java"></a>Real world Examples of Enum in Java</h1><ol>
+<li>Enum as Thread Safe Singleton</li>
+<li>Strategy Pattern using Enum. to implement the Strategy interface and define individual strategy</li>
+<li>Enum as replacement of Enum String or int pattern. There is now no need to use String or integer constant to represent fixed set of things e.g. status of object like ON and OFF for a button or START, IN PROGRESS and DONE for a Task. Enum is much better suited for those needs as it provide compile time type safety and better debugging assistent than String or Integer.</li>
+<li>Enum as State Machine</li>
+<li>Enum Java valueOf example. “You could also include valueOf() method of enum in java which is added by compiler in any enum along with values() method. Enum valueOf() is a static method which takes a string argument and can be used to convert a String into an enum. One think though you would like to keep in mind is that valueOf(String) method of enum will throw “Exception in thread “main” java.lang.IllegalArgumentException: No enum const class” if you supply any string other than enum values.</li>
+</ol>
+<h1 id="Reverse-lookup"><a href="#Reverse-lookup" class="headerlink" title="Reverse lookup"></a>Reverse lookup</h1><p>Often in your object model it is common to have data that is naturally “associated” with an enumeration. Since an enum is a class, it is easy to represent this associated information as class fields. Often it is desirable to “lookup” the associated enumeration using the field value. This is easy to do using a static java.util.Map. Take, for example, a Status enum that has an associated status code.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Status</span><br><span class="line">&#123;</span><br><span class="line">     WAITING(<span class="number">0</span>),</span><br><span class="line">     READY(<span class="number">1</span>),</span><br><span class="line">     SKIPPED(-<span class="number">1</span>),</span><br><span class="line">     COMPLETED(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Integer,Status&gt; lookup</span><br><span class="line">          = <span class="keyword">new</span> HashMap&lt;Integer,Status&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">static</span> &#123;</span><br><span class="line">          <span class="keyword">for</span>(Status s : EnumSet.allOf(Status.class))</span><br><span class="line">               lookup.put(s.getCode(), s);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> code;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="title">Status</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">this</span>.code = code;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCode</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> code; &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Status <span class="title">get</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> lookup.get(code);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Sleek-EnumMap"><a href="#Sleek-EnumMap" class="headerlink" title="Sleek EnumMap"></a>Sleek EnumMap</h1><p>Why would I use an EnumMap rather than a HashMap?  The primary reasons boil down to some inherent advantages of Java’s enum as stated in the Javadoc documentation for EnumMap: “Enum maps are represented internally as arrays. This representation is extremely compact and efficient.” Later in the same Javadoc documentation, there is an “Implementation Note” that states: “All basic operations execute in constant time. They are likely (though not guaranteed) to be faster than their HashMap counterparts.”</p>
+<p>The Javadoc documentation states similar advantages for the EnumSet over the HashSet:</p>
+<blockquote>
+<p>Enum sets are represented internally as <strong>bit vectors</strong>. This representation is extremely <strong>compact and efficient</strong>. The space and time performance of this class should be good enough to allow its use as a high-quality, typesafe alternative to traditional int-based ‘bit flags.’  … Implementation note: All basic operations execute <strong>in constant time</strong>. They are likely (though not guaranteed) to be much faster than their HashSet counterparts. Even <strong>bulk operations execute in constant time</strong> if their argument is also an enum set.</p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/" target="_blank" rel="noopener">http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/</a></li>
+<li><a href="http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks" target="_blank" rel="noopener">http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks</a></li>
+<li><a href="http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html" target="_blank" rel="noopener">http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html</a></li>
+<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV</a></li>
+<li><a href="http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html</a></li>
+<li><a href="http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5" target="_blank" rel="noopener">http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5</a></li>
+<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB</a></li>
+<li><a href="http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC</a></li>
+<li><a href="http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-03-IntelliJ-Tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-03-IntelliJ-Tips/" class="post-title-link" itemprop="url">IntelliJ Tips</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h1><ul>
+<li>Ctrl+J: To show JavaDoc</li>
+<li>Cmd+Alt+B: To show interface implementations</li>
+<li>Alt+Enter: when cursor on class declare line, press Alt+Enter can quickly create a unit test against this test class</li>
+</ul>
+<ul>
+<li><p>Ctrl+Shift+A: Action window, just like sublime, search IDE actions</p>
+</li>
+<li><p>F11: add bookmark,</p>
+</li>
+<li><p>Shift+F11: show bookmarks</p>
+</li>
+<li><p>Shift + Escape: close bottom source pannel or left side barGo to settings, Editor-&gt;General-&gt;Mouse-&gt; change font size (Zoom)</p>
+</li>
+<li><p>Alt + F: Git refresh : Assign it in Intellij key map</p>
+</li>
+<li><p>Ctrl + T: swich different editorsAlt + F1: Show in , then preses ‘1’ to show file in project viewer, like “scroll from source”use Ctrl+Q to show quick documentation for the element at caret. to show javadocAlt + F12: to open terminal window, then ‘mvn package’</p>
+</li>
+<li><p>Ctrl+I: implement methodsAlt+A: code completion, this is customized in keymap, for ‘basic’Press Tab / Shift+Tab. To change indentation of a text fragmentCtrl+Alt+I To fix indentationCtrl+D  Duplicate Line or SelectionAlt + Insert: generate code (getter or setter, toString)Ctrl+F12: List all opened files, press Enter to selectAlt+1: to show the project tree window, press Alt+1 again will close the project structureAlt+7: show structureGo to interface implementations, the shortcut In PC, it is CTRL + ALT + B: JetBrains navigation documentation.</p>
+</li>
+<li><p>maximize edito pane: Ctrl + Shift + F12 (Default keymap).- Ctrl+R: repalce- F6: move file, Shift+F6: rename file- Ctrl+Alt+ &lt;-: go back to previous position- Ctrl+Alt+S: show settings- bookmakr: F11 toggle for annonymous bookmark, Shift+F11: show all bookmarks. Ctrl+F11: then press 0,1,2,3, etc. then Ctrl +1, Ctrl +3, to go to that bookmarkmaster password: hello123- copy file name: focus file in “project view”, press Ctrl+C- Incremental search: Ctrl+F, then use up/down arrow keys to navigate- Ctrl+Shift+N: open files by file name pattern- Press Ctrl+Shift+B . Press the Ctrl+Shift keys and hover your mouse pointer over the symbol. When the symbol turns to a hyperlink, click it without releasing Ctrl+Shift keys. The type declaration of the symbol opens in the editor.</p>
+</li>
+<li><p>Ctrl+Shift+F7: highlight all references (of selected method)<br>put carpet on a name, Ctrl+B will show the definition<br>Ctrl+Shift+Alt+F: copy current file name</p>
+</li>
+<li><ul>
+<li>go to matching braceCtrl+} will move to the close bracket.Ctrl+{ will move to the open bracket</li>
+</ul>
+</li>
+<li><ul>
+<li>split editorgo to menu “window” -&gt; “editor tabs” -&gt; split<br>Firslty open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-acecss-ui, it will load module.Use F2/Shift+F2 keys to jump between highlighted syntax errors.Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.Use Ctrl+J to complete any valid Live Template abbreviation if you don’t remember it. For example, type it and press Ctrl+J to see what happens.</li>
+</ul>
+</li>
+<li><p>Navigating to the declaration of a symbol<br>Place the caret at the desired symbol in the editor.Do one of the following:On the main menu, choose Navigate | Declaration.Press Ctrl+B.Click the middle mouse button.Keeping Ctrl pressed, point to the symbol, and click, when it turns to a hyperlink. You can also see declaration at the tooltip while keeping Ctrl pressed.</p>
+</li>
+</ul>
+<p>Ctrl+Shift+A: Action window, just like sublime, search IDE actions<br>F11: add bookmark,<br>Shift+F11: show bookmarks<br>Shift + Escape: close bottom source pannel or left side bar<br>Go to settings, Editor-&gt;General-&gt;Mouse-&gt; change font size (Zoom)<br>Alt + F: Git refresh : Assign it in Intellij key map<br>Ctrl + T: swich different editors<br>Alt + F1: Show in , then preses ‘1’ to show file in project viewer, like “scroll from source”<br>use Ctrl+Q to show quick documentation for the element at caret. to show javadoc<br>Alt + F12: to open terminal window, then ‘mvn package’<br>Ctrl+I: implement methods<br>Alt+A: code completion, this is customized in keymap, for ‘basic’<br>Press Tab / Shift+Tab. To change indentation of a text fragment<br>Ctrl+Alt+I To fix indentation<br>Ctrl+D  Duplicate Line or Selection<br>Alt + Insert: generate code (getter or setter, toString)<br>Ctrl+F12: List all opened files, press Enter to select<br>Alt+1: to show the project tree window, press Alt+1 again will close the project structure<br>Alt+7: show structure<br>Go to interface implementations, the shortcut In PC, it is CTRL + ALT + B: JetBrains navigation documentation.</p>
+<ul>
+<li><p>maximize edito pane: Ctrl + Shift + F12 (Default keymap).</p>
+</li>
+<li><p>Ctrl+R: repalce</p>
+</li>
+<li><p>F6: move file, Shift+F6: rename file</p>
+</li>
+<li><p>Ctrl+Alt+ &lt;-: go back to previous position</p>
+</li>
+<li><p>Ctrl+Alt+S: show settings</p>
+</li>
+<li><p>bookmakr: F11 toggle for annonymous bookmark, Shift+F11: show all bookmarks. Ctrl+F11: then press 0,1,2,3, etc. then Ctrl +1, Ctrl +3, to go to that bookmark<br>master password: hello123</p>
+</li>
+<li><p>copy file name: focus file in “project view”, press Ctrl+C</p>
+</li>
+<li><p>Incremental search: Ctrl+F, then use up/down arrow keys to navigate</p>
+</li>
+<li><p>Ctrl+Shift+N: open files by file name pattern</p>
+</li>
+<li><p>Press Ctrl+Shift+B . Press the Ctrl+Shift keys and hover your mouse pointer over the symbol. When the symbol turns to a hyperlink, click it without releasing Ctrl+Shift keys. The type declaration of the symbol opens in the editor.</p>
+</li>
+<li><p>Ctrl+Shift+F7: highlight all references (of selected method)</p>
+</li>
+</ul>
+<p>put carpet on a name, Ctrl+B will show the definition</p>
+<p>Ctrl+Shift+Alt+F: copy current file name</p>
+<p>– go to matching brace<br>Ctrl+} will move to the close bracket.<br>Ctrl+{ will move to the open bracket</p>
+<p>– split editor<br>go to menu “window” -&gt; “editor tabs” -&gt; split</p>
+<p>Firslty open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-acecss-ui, it will load module.<br>Use F2/Shift+F2 keys to jump between highlighted syntax errors.<br>Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.<br>Use Ctrl+J to complete any valid Live Template abbreviation if you don’t remember it. For example, type it and press Ctrl+J to see what happens.</p>
+<ul>
+<li>Navigating to the declaration of a symbol</li>
+</ul>
+<p>Place the caret at the desired symbol in the editor.<br>Do one of the following:<br>On the main menu, choose Navigate | Declaration.<br>Press Ctrl+B.<br>Click the middle mouse button.<br>Keeping Ctrl pressed, point to the symbol, and click, when it turns to a hyperlink. You can also see declaration at the tooltip while keeping Ctrl pressed.</p>
+<p>By defining a Scope when searching, you can include/exclude arbitrary files/folders from that scope.<br>Detailed Answer<br>One way to achieve your requirement (excluding files and folders from a search) is to define a custom scope. This is specifically useful because sometimes you just want to exclude a folder from your search and not from the whole project.<br>Follow these steps:<br>Edit -&gt; Find -&gt; Find in path or press Ctrl+Shift+F.Choose Custom in the Scope section and then choose <unknown scope></unknown></p>
+<h2 id="how-to-add-xx-properties-project-to-xx-project-as-dependencies"><a href="#how-to-add-xx-properties-project-to-xx-project-as-dependencies" class="headerlink" title="how to add xx-properties project to xx project as dependencies"></a>how to add xx-properties project to xx project as dependencies</h2><p>select project and press F4 to open properites, chose ‘module’ in left pane and then click “+”, chose ‘import module’, then chose the properties project</p>
+<h1 id="Intelij-classes"><a href="#Intelij-classes" class="headerlink" title="Intelij classes"></a>Intelij classes</h1><h2 id="Annotation-Nullable"><a href="#Annotation-Nullable" class="headerlink" title="Annotation Nullable"></a>Annotation Nullable</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Copyright 2000-2009 JetBrains s.r.o.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Licensed under the Apache License, Version 2.0 (the "License");</span></span><br><span class="line"><span class="comment"> * you may not use this file except in compliance with the License.</span></span><br><span class="line"><span class="comment"> * You may obtain a copy of the License at</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Unless required by applicable law or agreed to in writing, software</span></span><br><span class="line"><span class="comment"> * distributed under the License is distributed on an "AS IS" BASIS,</span></span><br><span class="line"><span class="comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="comment"> * See the License for the specific language governing permissions and</span></span><br><span class="line"><span class="comment"> * limitations under the License.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> org.jetbrains.annotations;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An element annotated with Nullable claims &lt;code&gt;null&lt;/code&gt; value is perfectly &lt;em&gt;valid&lt;/em&gt;</span></span><br><span class="line"><span class="comment"> * to return (for methods), pass to (parameters) and hold (local variables and fields).</span></span><br><span class="line"><span class="comment"> * Apart from documentation purposes this annotation is intended to be used by static analysis tools</span></span><br><span class="line"><span class="comment"> * to validate against probable runtime errors and element contract violations.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> max</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.CLASS)</span><br><span class="line"><span class="meta">@Target</span>(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.LOCAL_VARIABLE&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Nullable &#123;</span><br><span class="line">  <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -718,154 +994,6 @@ All of the heap memory that is not occupied by marked objects is reclaimed. It i
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-03-IntelliJ-Tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-01-03-IntelliJ-Tips/" class="post-title-link" itemprop="url">IntelliJ Tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h1><ul>
-<li>Ctrl+J: To show JavaDoc</li>
-<li>Cmd+Alt+B: To show interface implementations</li>
-<li>Alt+Enter: when cursor on class declare line, press Alt+Enter can quickly create a unit test against this test class</li>
-</ul>
-<ul>
-<li><p>Ctrl+Shift+A: Action window, just like sublime, search IDE actions</p>
-</li>
-<li><p>F11: add bookmark,</p>
-</li>
-<li><p>Shift+F11: show bookmarks</p>
-</li>
-<li><p>Shift + Escape: close bottom source pannel or left side barGo to settings, Editor-&gt;General-&gt;Mouse-&gt; change font size (Zoom)</p>
-</li>
-<li><p>Alt + F: Git refresh : Assign it in Intellij key map</p>
-</li>
-<li><p>Ctrl + T: swich different editorsAlt + F1: Show in , then preses ‘1’ to show file in project viewer, like “scroll from source”use Ctrl+Q to show quick documentation for the element at caret. to show javadocAlt + F12: to open terminal window, then ‘mvn package’</p>
-</li>
-<li><p>Ctrl+I: implement methodsAlt+A: code completion, this is customized in keymap, for ‘basic’Press Tab / Shift+Tab. To change indentation of a text fragmentCtrl+Alt+I To fix indentationCtrl+D  Duplicate Line or SelectionAlt + Insert: generate code (getter or setter, toString)Ctrl+F12: List all opened files, press Enter to selectAlt+1: to show the project tree window, press Alt+1 again will close the project structureAlt+7: show structureGo to interface implementations, the shortcut In PC, it is CTRL + ALT + B: JetBrains navigation documentation.</p>
-</li>
-<li><p>maximize edito pane: Ctrl + Shift + F12 (Default keymap).- Ctrl+R: repalce- F6: move file, Shift+F6: rename file- Ctrl+Alt+ &lt;-: go back to previous position- Ctrl+Alt+S: show settings- bookmakr: F11 toggle for annonymous bookmark, Shift+F11: show all bookmarks. Ctrl+F11: then press 0,1,2,3, etc. then Ctrl +1, Ctrl +3, to go to that bookmarkmaster password: hello123- copy file name: focus file in “project view”, press Ctrl+C- Incremental search: Ctrl+F, then use up/down arrow keys to navigate- Ctrl+Shift+N: open files by file name pattern- Press Ctrl+Shift+B . Press the Ctrl+Shift keys and hover your mouse pointer over the symbol. When the symbol turns to a hyperlink, click it without releasing Ctrl+Shift keys. The type declaration of the symbol opens in the editor.</p>
-</li>
-<li><p>Ctrl+Shift+F7: highlight all references (of selected method)<br>put carpet on a name, Ctrl+B will show the definition<br>Ctrl+Shift+Alt+F: copy current file name</p>
-</li>
-<li><ul>
-<li>go to matching braceCtrl+} will move to the close bracket.Ctrl+{ will move to the open bracket</li>
-</ul>
-</li>
-<li><ul>
-<li>split editorgo to menu “window” -&gt; “editor tabs” -&gt; split<br>Firslty open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-acecss-ui, it will load module.Use F2/Shift+F2 keys to jump between highlighted syntax errors.Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.Use Ctrl+J to complete any valid Live Template abbreviation if you don’t remember it. For example, type it and press Ctrl+J to see what happens.</li>
-</ul>
-</li>
-<li><p>Navigating to the declaration of a symbol<br>Place the caret at the desired symbol in the editor.Do one of the following:On the main menu, choose Navigate | Declaration.Press Ctrl+B.Click the middle mouse button.Keeping Ctrl pressed, point to the symbol, and click, when it turns to a hyperlink. You can also see declaration at the tooltip while keeping Ctrl pressed.</p>
-</li>
-</ul>
-<p>Ctrl+Shift+A: Action window, just like sublime, search IDE actions<br>F11: add bookmark,<br>Shift+F11: show bookmarks<br>Shift + Escape: close bottom source pannel or left side bar<br>Go to settings, Editor-&gt;General-&gt;Mouse-&gt; change font size (Zoom)<br>Alt + F: Git refresh : Assign it in Intellij key map<br>Ctrl + T: swich different editors<br>Alt + F1: Show in , then preses ‘1’ to show file in project viewer, like “scroll from source”<br>use Ctrl+Q to show quick documentation for the element at caret. to show javadoc<br>Alt + F12: to open terminal window, then ‘mvn package’<br>Ctrl+I: implement methods<br>Alt+A: code completion, this is customized in keymap, for ‘basic’<br>Press Tab / Shift+Tab. To change indentation of a text fragment<br>Ctrl+Alt+I To fix indentation<br>Ctrl+D  Duplicate Line or Selection<br>Alt + Insert: generate code (getter or setter, toString)<br>Ctrl+F12: List all opened files, press Enter to select<br>Alt+1: to show the project tree window, press Alt+1 again will close the project structure<br>Alt+7: show structure<br>Go to interface implementations, the shortcut In PC, it is CTRL + ALT + B: JetBrains navigation documentation.</p>
-<ul>
-<li><p>maximize edito pane: Ctrl + Shift + F12 (Default keymap).</p>
-</li>
-<li><p>Ctrl+R: repalce</p>
-</li>
-<li><p>F6: move file, Shift+F6: rename file</p>
-</li>
-<li><p>Ctrl+Alt+ &lt;-: go back to previous position</p>
-</li>
-<li><p>Ctrl+Alt+S: show settings</p>
-</li>
-<li><p>bookmakr: F11 toggle for annonymous bookmark, Shift+F11: show all bookmarks. Ctrl+F11: then press 0,1,2,3, etc. then Ctrl +1, Ctrl +3, to go to that bookmark<br>master password: hello123</p>
-</li>
-<li><p>copy file name: focus file in “project view”, press Ctrl+C</p>
-</li>
-<li><p>Incremental search: Ctrl+F, then use up/down arrow keys to navigate</p>
-</li>
-<li><p>Ctrl+Shift+N: open files by file name pattern</p>
-</li>
-<li><p>Press Ctrl+Shift+B . Press the Ctrl+Shift keys and hover your mouse pointer over the symbol. When the symbol turns to a hyperlink, click it without releasing Ctrl+Shift keys. The type declaration of the symbol opens in the editor.</p>
-</li>
-<li><p>Ctrl+Shift+F7: highlight all references (of selected method)</p>
-</li>
-</ul>
-<p>put carpet on a name, Ctrl+B will show the definition</p>
-<p>Ctrl+Shift+Alt+F: copy current file name</p>
-<p>– go to matching brace<br>Ctrl+} will move to the close bracket.<br>Ctrl+{ will move to the open bracket</p>
-<p>– split editor<br>go to menu “window” -&gt; “editor tabs” -&gt; split</p>
-<p>Firslty open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-acecss-ui, it will load module.<br>Use F2/Shift+F2 keys to jump between highlighted syntax errors.<br>Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.<br>Use Ctrl+J to complete any valid Live Template abbreviation if you don’t remember it. For example, type it and press Ctrl+J to see what happens.</p>
-<ul>
-<li>Navigating to the declaration of a symbol</li>
-</ul>
-<p>Place the caret at the desired symbol in the editor.<br>Do one of the following:<br>On the main menu, choose Navigate | Declaration.<br>Press Ctrl+B.<br>Click the middle mouse button.<br>Keeping Ctrl pressed, point to the symbol, and click, when it turns to a hyperlink. You can also see declaration at the tooltip while keeping Ctrl pressed.</p>
-<p>By defining a Scope when searching, you can include/exclude arbitrary files/folders from that scope.<br>Detailed Answer<br>One way to achieve your requirement (excluding files and folders from a search) is to define a custom scope. This is specifically useful because sometimes you just want to exclude a folder from your search and not from the whole project.<br>Follow these steps:<br>Edit -&gt; Find -&gt; Find in path or press Ctrl+Shift+F.Choose Custom in the Scope section and then choose <unknown scope></unknown></p>
-<h2 id="how-to-add-xx-properties-project-to-xx-project-as-dependencies"><a href="#how-to-add-xx-properties-project-to-xx-project-as-dependencies" class="headerlink" title="how to add xx-properties project to xx project as dependencies"></a>how to add xx-properties project to xx project as dependencies</h2><p>select project and press F4 to open properites, chose ‘module’ in left pane and then click “+”, chose ‘import module’, then chose the properties project</p>
-<h1 id="Intelij-classes"><a href="#Intelij-classes" class="headerlink" title="Intelij classes"></a>Intelij classes</h1><h2 id="Annotation-Nullable"><a href="#Annotation-Nullable" class="headerlink" title="Annotation Nullable"></a>Annotation Nullable</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Copyright 2000-2009 JetBrains s.r.o.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Licensed under the Apache License, Version 2.0 (the "License");</span></span><br><span class="line"><span class="comment"> * you may not use this file except in compliance with the License.</span></span><br><span class="line"><span class="comment"> * You may obtain a copy of the License at</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Unless required by applicable law or agreed to in writing, software</span></span><br><span class="line"><span class="comment"> * distributed under the License is distributed on an "AS IS" BASIS,</span></span><br><span class="line"><span class="comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="comment"> * See the License for the specific language governing permissions and</span></span><br><span class="line"><span class="comment"> * limitations under the License.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> org.jetbrains.annotations;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An element annotated with Nullable claims &lt;code&gt;null&lt;/code&gt; value is perfectly &lt;em&gt;valid&lt;/em&gt;</span></span><br><span class="line"><span class="comment"> * to return (for methods), pass to (parameters) and hold (local variables and fields).</span></span><br><span class="line"><span class="comment"> * Apart from documentation purposes this annotation is intended to be used by static analysis tools</span></span><br><span class="line"><span class="comment"> * to validate against probable runtime errors and element contract violations.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> max</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.CLASS)</span><br><span class="line"><span class="meta">@Target</span>(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.LOCAL_VARIABLE&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Nullable &#123;</span><br><span class="line">  <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-04-Arbitrage-vs-Hedging/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -924,212 +1052,6 @@ These two concepts play important roles in finance, economics and investments.</
 <p>With the proliferation of high-speed computing technology and constant price information, arbitrage is much more difficult in financial markets than it used to be. Still, arbitrage opportunities can be found in the forex market, in bonds, in futures markets and sometimes in equities.</p>
 <h2 id="Hedging"><a href="#Hedging" class="headerlink" title="Hedging"></a>Hedging</h2><p>Hedging is <strong>not the pursuit of risk-free *<em>trades; instead, it is an attempt to *</em>reduce known risks</strong> while trading. Options contacts, forward contracts, swaps and derivatives are all used by traders to purchase opposite positions in the market. By betting against both upward and downward movement, the hedger can ensure a certain amount of *<em>reduced gain or loss *</em> on a trade.</p>
 <p>Hedging can take place almost anywhere, but it has become a particularly important aspect of financial markets, business management and gambling. Much like any other risk/reward trade, hedging results in lower returns for the party involved, but it can offer significant protection against downside risk.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-02-Enum-Misc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-01-02-Enum-Misc/" class="post-title-link" itemprop="url">Java Enum Misc</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Enum-Misc"><a href="#Enum-Misc" class="headerlink" title="Enum Misc"></a>Enum Misc</h1><ul>
-<li>All enums implicitely extends <strong>java.lang.Enum</strong></li>
-<li>Enum in Java are <strong>type-safe</strong></li>
-<li>You can specify values of enum constants at the <strong>creation</strong> time. <strong>Enum.values()</strong> returns an array of MyEnum’s values.</li>
-<li>Enum constants are implicitly static and final and can not be changed once created.</li>
-<li>Enum can be safely compare using:<ul>
-<li>Switch-Case Statement</li>
-<li>== Operator</li>
-<li>.equals() method</li>
-</ul>
-</li>
-<li>You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself.</li>
-<li>Instance of Enum in Java <strong>is created when</strong> any Enum constants are <strong>first called or referenced</strong> in code.</li>
-<li>An enum can be declared outside or inside a class, but NOT in a method.</li>
-<li>An enum declared outside a class must NOT be marked static, final , abstract, protected , or private</li>
-<li>Enums can contain constructors, methods, variables, and constant class bodies.</li>
-<li>enum constructors can have arguments, and can be overloaded.</li>
-<li>enum constructors can NEVER be invoked directly in code. They are always called automatically when an enum is initialized.</li>
-<li>The semicolon at the end of an enum declaration is optional.</li>
-</ul>
-<p>These are legal:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;</span><br><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;;</span><br></pre></td></tr></table></figure>
-
-<h1 id="type-safe"><a href="#type-safe" class="headerlink" title="type safe"></a>type safe</h1><p>The advantage of this style of enumeration over the C/C++-style enum or constants is that they are <strong>type-safe</strong>, meaning that, for example, if you define a method</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSuit</span><span class="params">(Suit suit)</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
-
-<p>the caller cannot pass in a value that does not correspond to an enumeration value</p>
-<h1 id="Language-level-features"><a href="#Language-level-features" class="headerlink" title="Language level features"></a>Language level features</h1><ul>
-<li>Since enumeration instances are all effectively <strong>singletons</strong>, they can be compared for equality using identity (“==”).</li>
-<li>In Java 5.0, the enum keyword is introduced as a special type of class that always extends <strong>java.lang.Enum</strong>.</li>
-<li>Note that the enumeration values are still <strong>static class members</strong>, though not declared as such.</li>
-<li>Enum is implemented using <strong>Arrays and common operations result in constant time</strong>. So if you are thinking of an high-performance Map, EnumMap could be a decent choice for enumeration data. We have already seen many examples of Java enum in our article 10 Examples of enum in Java  and using Enum as thread-safe Singleton. In this Java tutorial, we will see simple examples of using EnumMap in Java. </li>
-<li>All keys used in EnumMap must be  from same Enum type which is specified while creating EnumMap in Java. For example if you can not use different enum instances from two different enum.</li>
-<li>EnumMap is ordered collection and they are maintained in the natural order of their keys( natural order of keys means  the order on which enum constant are declared inside enum type ). you can verify this while Iterating over an EnumMap in Java.</li>
-<li>Iterators of EnumMap are fail-fast Iterator , much like of ConcurrentHashMap and doesn’t throw ConcurrentModificationException and may not show effect of any modification on EnumMap during Iteration process.</li>
-<li>You can not insert null keys inside EnumMap in Java.  EnumMap doesn’t allow null key and throw NullPointerException, at same time null values are permitted.</li>
-<li>EnumMap is not synchronized and it has to be synchronized manually before using it in a concurrent or multi-threaded environment. like synchronized Map in Java  you can also make EnumMap synchronized by using Collections.synchronizedMap() method and as per javadoc this should be done while creating EnumMap in java to avoid accidental non synchronized access.</li>
-<li>The constructor of enum in java must be private any other access modifier will result in compilation error. Now to get the value associated with each coin you can define a public getValue() method inside Java enum like any normal Java class. Also, the semicolon in the first line is optional.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Since constants defined inside Enum in Java are <strong>final</strong> you can <strong>safely compare them using “==”</strong>, the equality operator as shown in following example of  Java Enum:</li>
-<li>Java compiler automatically generates static values() method for every enum in java. Values() method returns array of Enum constants in the same order they have listed in Enum and you can use values() to iterate over values of Enum  in Java as shown in below example. Notice <strong>the order is exactly the same as defined order</strong> in the Enum.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(Currency coin: Currency.values())&#123;</span><br><span class="line">   System.out.println(<span class="string">"coin: "</span> + coin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>In Java, Enum can override methods also. Let’s see an example of overriding toString() method inside Enum in Java to provide a meaningful description for enums constants.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">  ........</span><br><span class="line">      </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">switch</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">         <span class="keyword">case</span> PENNY:</span><br><span class="line">              System.out.println(<span class="string">"Penny: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> NICKLE:</span><br><span class="line">              System.out.println(<span class="string">"Nickle: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> DIME:</span><br><span class="line">              System.out.println(<span class="string">"Dime: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> QUARTER:</span><br><span class="line">              System.out.println(<span class="string">"Quarter: "</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">super</span>.toString();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>EnumSet doesn’t have any public constructor instead it provides <strong>factory methods to create instance e.g. EnumSet.of()</strong> methods. This design allows EnumSet to internally choose between two different implementations depending upon the size of Enum constants.</li>
-</ul>
-<p>If Enum has <strong>less than 64 constants than EnumSet uses RegularEnumSet</strong> class which internally uses a long variable to store those 64 Enum constants and if Enum has more keys than 64 then it uses JumboEnumSet. See my article the difference between RegularEnumSet and JumboEnumSet for more details.</p>
-<ul>
-<li>An instance of Enum in Java is created when any Enum constants are first called or referenced in code.</li>
-<li>Enum in Java can *<em>implement the interface and override any method *</em>like normal class It’s also worth noting that Enum in java implicitly implements both Serializable and Comparable interface. Let’s see and example of how to implement interface using Java Enum:</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency implements Runnable&#123;</span><br><span class="line">  PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">  ............</span><br><span class="line">        </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"Enum in Java implement interfaces"</span>);</span><br><span class="line">                </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>You can define abstract methods inside Enum in Java and can also provide a different implementation for different instances of enum in java.  Let’s see an example of using abstract method inside enum in java</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"copper"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        NICKLE(<span class="number">5</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"bronze"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        DIME(<span class="number">10</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        QUARTER(<span class="number">25</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">color</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>In this example since every coin will have the different color we made the color() method abstract and let each instance of Enum to define  their own color. You can get color of any coin by just calling the color() method as shown in below example of Java Enum:</p>
-<p>System.out.println(“Color: “ + Currency.DIME.color());</p>
-<p>So that was the comprehensive list of properties, behavior and capabilities of Enumeration type in Java. I know, it’s not easy to remember all those powerful features and that’s why I have prepared this small Microsoft powerpoint slide containing all important properties of Enum in Java. You can always come back and check this slide to revise important features of Java Enum.</p>
-<h1 id="RegularEnumSet-vs-JumboEnumSet"><a href="#RegularEnumSet-vs-JumboEnumSet" class="headerlink" title="RegularEnumSet vs. JumboEnumSet"></a>RegularEnumSet vs. JumboEnumSet</h1><ul>
-<li>Since Enum always has fixed number of instances, data-structure which is used to store Enum can be optimized depending upon number of instances and that’s why we have two different implementation of EnumSet in Java. We will take a closer look on this concept in next paragraph.</li>
-<li>How EnumSet is implemented in Java<br>EnumSet is an abstract class and it provides two concrete implementations, java.util.RegularEnumSet and java.util.JumboEnumSet. Main difference between RegularEnumSet and JumboEnumSet is that former uses a long variable to store elements while later uses a long[] to store its element. Since RegularEnumSet uses long variable, which is a 64 bit data type, it can only hold that much of element. That’s why when an empty EnumSet is created using EnumSet.noneOf() method, it choose RegularEnumSet if key universe (number of enum instances in Key Enum) is less than or equal to 64 and JumboEnumSet if key universe is more than 64. Here is the code which does that :</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;E extends Enum&lt;E&gt;&gt; <span class="function">EnumSet&lt;E&gt; <span class="title">noneOf</span><span class="params">(Class&lt;E&gt; elementType)</span> </span>&#123;   </span><br><span class="line">        .. ............ </span><br><span class="line">        <span class="keyword">if</span> (universe.length &lt;= <span class="number">64</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> RegularEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> JumboEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>EnumSet is <strong>not thread-safe</strong>, which means if it needs to be externally synchronized, when multiple thread access it and one of them modifies the Collection.</li>
-<li>EnumSet can not be used to store any other object <strong>except Enum</strong>, at the same time you can not store instances of two different Enum.</li>
-<li>EnumSet doesn’t allow Null elements.</li>
-<li>EnumSet Iterators are fail-safe in nature.</li>
-</ol>
-<h1 id="Difference-between-EnumMap-vs-HashMap"><a href="#Difference-between-EnumMap-vs-HashMap" class="headerlink" title="Difference between EnumMap vs HashMap"></a>Difference between EnumMap vs HashMap</h1><ul>
-<li>Internally EnumMap is represented using Array and provides constant time performance for common methods e.g. get() or put(). Now let’s see few differences between EnumMap vs HashMap :</li>
-<li>As said earlier, first and foremost difference between EnumMap and HashMap is that EnumMap is optimized for enum keys while HashMap is a general purpose Map implementation similar to Hashtable. you can not use any type other than Enum as key in EnumMap but you can use both Enum and any other Object as key in HashMap.</li>
-<li>Another difference between EnumMap and HashMap is <strong>performance</strong>. as discussed in the previous point, due to specialized optimization done for Enum keys, EnumMap is likely to perform better than HashMap when using enum as key object.</li>
-<li>One more thing which can be considered as the difference between HashMap and EnumMap is <strong>the probability of Collision</strong>. Since <strong>Enum is internally maintained as array ** and they are **stored in their natural order using ordinal()</strong>, as shown in following code which is taken from put() method of EnumMap.<br>Since EnumMap doesn’t call hashCode method on keys, there is no chance of collision.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> index = ((Enum)key).ordinal();</span><br><span class="line">    Object oldValue = vals[index];</span><br><span class="line">    vals[index] = maskNull(value);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>you can use both == and equals() method to compare Enum, they will produce same result because equals() method of Java.lang.Enum internally uses == to compare enum in Java. Since every Enum in Java implicitly extends java.lang.Enum ,and since equals() method is declared final, there is no chance of overriding equals method in user defined enum</li>
-<li>But there are still some slight difference, because  ==  (equality operator) being operator and equals() being method.</li>
-<li><ul>
-<li>Using == for comparing Enum can prevent NullPointerException</li>
-</ul>
-</li>
-<li><ul>
-<li>== method provides type safety during compile time</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>A <strong>fail-fast</strong> system is nothing but immediately report any failure that is likely to lead to failure. When a problem occurs, a fail-fast system fails immediately. In Java, we can find this behavior with iterators. Incase, you have called iterator on a collection object, and another thread tries to modify the collection object, then concurrent modification exception will be thrown. This is called fail-fast. - See more at: </li>
-</ul>
-<h1 id="Real-world-Examples-of-Enum-in-Java"><a href="#Real-world-Examples-of-Enum-in-Java" class="headerlink" title="Real world Examples of Enum in Java"></a>Real world Examples of Enum in Java</h1><ol>
-<li>Enum as Thread Safe Singleton</li>
-<li>Strategy Pattern using Enum. to implement the Strategy interface and define individual strategy</li>
-<li>Enum as replacement of Enum String or int pattern. There is now no need to use String or integer constant to represent fixed set of things e.g. status of object like ON and OFF for a button or START, IN PROGRESS and DONE for a Task. Enum is much better suited for those needs as it provide compile time type safety and better debugging assistent than String or Integer.</li>
-<li>Enum as State Machine</li>
-<li>Enum Java valueOf example. “You could also include valueOf() method of enum in java which is added by compiler in any enum along with values() method. Enum valueOf() is a static method which takes a string argument and can be used to convert a String into an enum. One think though you would like to keep in mind is that valueOf(String) method of enum will throw “Exception in thread “main” java.lang.IllegalArgumentException: No enum const class” if you supply any string other than enum values.</li>
-</ol>
-<h1 id="Reverse-lookup"><a href="#Reverse-lookup" class="headerlink" title="Reverse lookup"></a>Reverse lookup</h1><p>Often in your object model it is common to have data that is naturally “associated” with an enumeration. Since an enum is a class, it is easy to represent this associated information as class fields. Often it is desirable to “lookup” the associated enumeration using the field value. This is easy to do using a static java.util.Map. Take, for example, a Status enum that has an associated status code.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Status</span><br><span class="line">&#123;</span><br><span class="line">     WAITING(<span class="number">0</span>),</span><br><span class="line">     READY(<span class="number">1</span>),</span><br><span class="line">     SKIPPED(-<span class="number">1</span>),</span><br><span class="line">     COMPLETED(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Integer,Status&gt; lookup</span><br><span class="line">          = <span class="keyword">new</span> HashMap&lt;Integer,Status&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">static</span> &#123;</span><br><span class="line">          <span class="keyword">for</span>(Status s : EnumSet.allOf(Status.class))</span><br><span class="line">               lookup.put(s.getCode(), s);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> code;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="title">Status</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">this</span>.code = code;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCode</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> code; &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Status <span class="title">get</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> lookup.get(code);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Sleek-EnumMap"><a href="#Sleek-EnumMap" class="headerlink" title="Sleek EnumMap"></a>Sleek EnumMap</h1><p>Why would I use an EnumMap rather than a HashMap?  The primary reasons boil down to some inherent advantages of Java’s enum as stated in the Javadoc documentation for EnumMap: “Enum maps are represented internally as arrays. This representation is extremely compact and efficient.” Later in the same Javadoc documentation, there is an “Implementation Note” that states: “All basic operations execute in constant time. They are likely (though not guaranteed) to be faster than their HashMap counterparts.”</p>
-<p>The Javadoc documentation states similar advantages for the EnumSet over the HashSet:</p>
-<blockquote>
-<p>Enum sets are represented internally as <strong>bit vectors</strong>. This representation is extremely <strong>compact and efficient</strong>. The space and time performance of this class should be good enough to allow its use as a high-quality, typesafe alternative to traditional int-based ‘bit flags.’  … Implementation note: All basic operations execute <strong>in constant time</strong>. They are likely (though not guaranteed) to be much faster than their HashSet counterparts. Even <strong>bulk operations execute in constant time</strong> if their argument is also an enum set.</p>
-</blockquote>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/" target="_blank" rel="noopener">http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/</a></li>
-<li><a href="http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks" target="_blank" rel="noopener">http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks</a></li>
-<li><a href="http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html" target="_blank" rel="noopener">http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html</a></li>
-<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV</a></li>
-<li><a href="http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html</a></li>
-<li><a href="http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5" target="_blank" rel="noopener">http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5</a></li>
-<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB</a></li>
-<li><a href="http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC</a></li>
-<li><a href="http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ</a></li>
-</ul>
 
           
         
@@ -1585,6 +1507,90 @@ These two concepts play important roles in finance, economics and investments.</
 
 <p> That’s all on What is NavigableMap in Java and How to use NavigableMap with example. We have seen examples of popular navigation method on TreeMap e.g. floorKey. You can also use similar method like lowerEntry, floorEntry, ceilingEntry and higherEntry to retrieve Entry instead of key. NavigableMap is also a good utility to create subset of a Map in Java.</p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://javarevisited.blogspot.com/2013/01/what-is-navigablemap-in-java-6-example-submap-head-tail.html#ixzz4WBdqjJCC" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/01/what-is-navigablemap-in-java-6-example-submap-head-tail.html#ixzz4WBdqjJCC</a></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-20-DeadLock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-20-DeadLock/" class="post-title-link" itemprop="url">Dead Lock</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><ul>
+<li>Two or more threads are <strong>waiting</strong> for <strong>each other</strong> to <strong>release lock</strong> and get <strong>stuck for infinite time</strong>.</li>
+<li>It will only happen in case of <strong>multitasking</strong>.</li>
+</ul>
+<h2 id="One-screnario-of-dead-lock"><a href="#One-screnario-of-dead-lock" class="headerlink" title="One screnario of dead lock"></a>One screnario of dead lock</h2><p>If method1() and method2() both will be called by two or many threads , there is a good chance of deadlock because if thread 1 acquires lock on Sting object while executing method1() and thread 2 acquires lock on Integer object while executing method2() both will be waiting for each other to release lock on Integer and String to proceed further which will never happen.</p>
+<h3 id="The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock"><a href="#The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock" class="headerlink" title="The root cause is NOT multithreading, but the way they are requiring lock"></a>The root cause is NOT multithreading, but <strong>the way they are requiring lock</strong></h3><p>Now there would not be any deadlock because both methods are accessing lock on Integer and String class literal in same order. So, if thread A acquires lock on Integer object , thread B will not proceed until thread A releases Integer lock, same way thread A will not be blocked even if thread B holds String lock because now thread B will not expect thread A to release Integer lock to proceed further.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html</a></li>
+</ul>
 
           
         
