@@ -82,6 +82,23 @@ Policies are written in JSON (JavaScript Object Notation)
 
 IAM has a `global` view
 
+Permissions let you specify access to AWS resources. Permissions are granted to IAM entities (users, groups, and roles) and by default these entities start with no permissions. In other words, IAM entities can do nothing in AWS until you grant them your desired permissions. To give entities permissions, you can attach a policy that specifies the type of access, the actions that can be performed, and the resources on which the actions can be performed. In addition, you can specify any conditions that must be set for access to be allowed or denied.
+
+## IAM policies
+A permissions policy describes who has access to what. Policies attached to an IAM identity are identity-based policies (IAM policies) and policies attached to a resource are resource-based policies. Amazon RDS supports only identity-based policies (IAM policies).
+
+
+## DB authenticatioin via IAM
+
+MySQL and PostgreSQL both support IAM database authentication.
+
+To protect the confidential data of your customers, you have to ensure that your RDS database can only be accessed using the profile credentials specific to your EC2 instances via an authentication token.   
+
+You can authenticate to your DB instance using AWS Identity and Access Management (IAM) database authentication. IAM database authentication works with MySQL and PostgreSQL. With this authentication method, you don't need to use a password when you connect to a DB instance. Instead, you use an authentication token.
+
+An authentication token is a unique string of characters that Amazon RDS generates on request. Authentication tokens are generated using AWS Signature Version 4. Each token has a lifetime of 15 minutes. You don't need to store user credentials in the database, because authentication is managed externally using IAM. You can also still use standard database authentication.
+
+
 ## IAM Federation
 • Big enterprises usually integrate their own repository of users with IAM 
 • This way, one can login into AWS using their company credentials
@@ -162,6 +179,11 @@ formerly known as Standard volumes, provide the lowest cost per gigabyte of all 
 Backed by Solid-State Drives (SSDs), General Purpose (SSD) volumes provide the ability to burst to 3,000 IOPS per volume, independent of volume size, to meet the performance needs of most applications and also deliver a consistent baseline of 3 IOPS/GB. General Purpose (SSD) volumes offer the same five nines of availability and durable snapshot capabilities as other volume types. Pricing and performance for General Purpose (SSD) volumes are simple and predictable. You pay for each GB of storage you provision, and there are no additional charges for I/O performed on a volume. Prices start as low as $0.10/GB.
 
 
+#### EBS snapshot
+While it is completing, an in-progress snapshot is not affected by ongoing reads and writes to the volume.
+
+You can take a snapshot of an attached volume that is in use. However, snapshots only capture data that has been written to your Amazon EBS volume at the time the snapshot command is issued. This might exclude any data that has been cached by any applications or the operating system. If you can pause any file writes to the volume long enough to take a snapshot, your snapshot should be complete. However, if you can't pause all file writes to the volume, you should unmount the volume from within the instance, issue the snapshot command, and then remount the volume to ensure a consistent and complete snapshot. You can remount and use your volume while the snapshot status is pending.
+
 #### Save network cost
  S3 would imply changing the application code, Glacier is not applicable as the files are frequently requested, Storage Gateway isn't for distributing files to end users. CloudFront is the right answer, because we can put it in front of our ASG and leverage a Global Caching feature that will help us distribute the content reliably with dramatically reduced costs (the ASG won't need to scale as much)
 
@@ -173,6 +195,24 @@ Instance Stores or EBS volumes are local disks and cannot be shared across insta
 ## Redshift
 Creating a smaller cluster with the cold data would not decrease the storage cost of Redshift, which will increase as we keep on creating data. Moving the data to S3 glacier will prevent us from being able to query it. Redshift's internal storage does not have "tiers". Therefore, we should migrate the data to S3 IA and use Athena (serverless SQL query engine on top of S3) to analyze the cold data.
 
+# CloundFront
+
+## Origin
+Until now, CloudFront could serve up content from Amazon S3. In content-distribution lingo, S3 was the only supported origin server. You would store your web objects (web pages, style sheets, images, JavaScript, and so forth) in S3, and then create a CloudFront distribution. Here is the basic flow:
+
+
+Effective today we are opening up CloudFront and giving you the ability to use the origin server of your choice.
+
+You can now create a CloudFront distribution using a custom origin. Each distribution will can point to an S3 or to a custom origin. This could be another storage service, or it could be something more interesting and more dynamic, such as an EC2 instance or even an Elastic Load Balancer:
+
+
+# CloudFormation
+
+## CloudFormation vs Elastic Beanstalk
+
+Elastic Beanstalk provides an environment to easily deploy and run applications in the cloud.
+CloudFormation is a convenient provisioning mechanism for a broad range of AWS resources.
+
 
 # VPC
 you can optionally connect to your own network, known as virtual private clouds (VPCs)
@@ -180,6 +220,10 @@ you can optionally connect to your own network, known as virtual private clouds 
 Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Locations 153-154). Amazon Web Services. Kindle Edition. 
 
 Amazon VPC lets you provision a logically isolated section of the Amazon Web Services (AWS) cloud where you can launch AWS resources in a virtual network that you define. You have complete control over your virtual networking environment, including selection of your own IP address ranges, creation of subnets, and configuration of route tables and network gateways. You can also create a hardware Virtual Private Network (VPN) connection between your corporate datacenter and your VPC and leverage the AWS cloud as an extension of your corporate datacenter.
+
+## Subnet
+A subnet is a range of IP addresses in your VPC. You can launch AWS resources into a specified subnet. Use a public subnet for resources that must be connected to the internet, and a private subnet for resources that won’t be connected to the internet.
+To protect the AWS resources in each subnet, use security groups and network access control lists (ACL).
 
 ## VPC Endpoint
 You must remember that the two services that use a VPC Endpoint Gateway are Amazon S3 and DynamoDB. The rest are VPC Endpoint Interface
@@ -208,6 +252,39 @@ After creating an IGW, make sure the route tables are updated. Additionally, ens
 
 ### NAT
 NAT Instances would work but won't scale and you would have to manage them (as they're EC2 instances). Egress-Only Internet Gateways are for IPv6, not IPv4. Internet Gateways must be deployed in a public subnet. Therefore you must use a NAT Gateway in your public subnet in order to provide internet access to your instances in your private subnets.
+
+## How to prevent DDoS
+AWS provides flexible infrastructure and services that help customers implement strong DDoS mitigations and create highly available application architectures that follow AWS Best Practices for DDoS Resiliency. These include services such as Amazon Route 53, Amazon CloudFront, Elastic Load Balancing, and AWS WAF to control and absorb traffic, and deflect unwanted requests. These services integrate with AWS Shield, a managed DDoS protection service that provides always-on detection and automatic inline mitigations to safeguard web applications running on AWS.
+
+### AWS Shield
+
+AWS Shield is a managed DDoS protection service that is available in two tiers: Standard and Advanced. AWS Shield Standard applies always-on detection and inline mitigation techniques, such as deterministic packet filtering and priority-based traffic shaping, to minimize application downtime and latency. 
+
+#### AWS Shield Standard 
+It is included automatically and transparently to your Elastic Load Balancing load balancers, Amazon CloudFront distributions, and Amazon Route 53 resources at no additional cost. When you use these services that include AWS Shield Standard, you receive comprehensive availability protection against all known infrastructure layer attacks. Customers who have the technical expertise to manage their own monitoring and mitigation of application layer attacks can use AWS Shield together with AWS WAF rules to create a comprehensive DDoS attack mitigation strategy.
+
+#### AWS Shield Advanced 
+It provides enhanced DDoS attack detection and monitoring for application-layer traffic to your Elastic Load Balancing load balancers, CloudFront distributions, Amazon Route 53 hosted zones and resources attached to an Elastic IP address, such Amazon EC2 instances. AWS Shield Advanced uses additional techniques to provide granular detection of DDoS attacks, such as resource-specific traffic monitoring to detect HTTP floods or DNS query floods. AWS Shield Advanced includes 24x7 access to the AWS DDoS Response Team (DRT), support experts who apply manual mitigations for more complex and sophisticated DDoS attacks, directly create or update AWS WAF rules, and can recommend improvements to your AWS architectures. AWS WAF is included at no additional cost for resources that you protect with AWS Shield Advanced.
+
+AWS Shield Advanced includes access to near real-time metrics and reports, for extensive visibility into infrastructure layer and application layer DDoS attacks. You can combine AWS Shield Advanced metrics with additional, fine-tuned AWS WAF metrics for a more comprehensive CloudWatch monitoring and alarming strategy. Customers subscribed to AWS Shield Advanced can also apply for a credit for charges that result from scaling during a DDoS attack on protected Amazon EC2, Amazon CloudFront, Elastic Load Balancing, or Amazon Route 53 resources. See the AWS Shield Developer Guide for a detailed comparison of the two AWS Shield offerings.
+
+
+## CIDR
+To add a CIDR block to your VPC, the following rules apply:
+
+-The allowed block size is between a /28 netmask and /16 netmask.
+-The CIDR block must not overlap with any existing CIDR block that's associated with the VPC.
+-You cannot increase or decrease the size of an existing CIDR block.
+-You have a limit on the number of CIDR blocks you can associate with a VPC and the number of routes you can add to a route table. You cannot associate a CIDR block if this results in you exceeding your limits.
+-The CIDR block must not be the same or larger than the CIDR range of a route in any of the VPC route tables. For example, if you have a route with a destination of 10.0.0.0/24 to a virtual private gateway, you cannot associate a CIDR block of the same range or larger. However, you can associate a CIDR block of 10.0.0.0/25 or smaller.
+-The first four IP addresses and the last IP address in each subnet CIDR block are not available for you to use, and cannot be assigned to an instance.
+
+
+# AWS WAF
+
+AWS WAF is a web application firewall that helps protect web applications from common web exploits that could affect application availability, compromise security, or consume excessive resources. You can use AWS WAF to define customizable web security rules that control which traffic accesses your web applications. If you use AWS Shield Advanced, you can use AWS WAF at no extra cost for those protected resources and can engage the DRT to create WAF rules.
+
+AWS WAF rules use conditions to target specific requests and trigger an action, allowing you to identify and block common DDoS request patterns and effectively mitigate a DDoS attack. These include size constraint conditions to block a web request based on the length of its query string or request body, and geographic match conditions to implement geo restriction (also known as geoblocking) on requests that originate from specific countries. 
 
 # AWS SSM (Simple System Manager)
 
@@ -242,6 +319,19 @@ RDS Read Replicas for read scalability
 - Replicas can be promoted to their own DB
 - Applications must update the connection string to leverage read replicas
 
+
+## Amazon RDS Multi-AZ Deployments
+Amazon RDS Multi-AZ deployments provide enhanced availability and durability for Database (DB) Instances, making them a natural fit for production database workloads. When you provision a Multi-AZ DB Instance, Amazon RDS automatically creates a primary DB Instance and synchronously replicates the data to a standby instance in a different Availability Zone (AZ). Each AZ runs on its own physically distinct, independent infrastructure, and is engineered to be highly reliable. In case of an infrastructure failure, Amazon RDS performs an automatic failover to the standby (or to a read replica in the case of Amazon Aurora), so that you can resume database operations as soon as the failover is complete. Since the endpoint for your DB Instance remains the same after a failover, your application can resume database operation without the need for manual administrative intervention.
+
+
+## Security
+Use security groups to control what IP addresses or Amazon EC2 instances can connect to your databases on a DB instance.
+Run your DB instance in an Amazon Virtual Private Cloud (VPC) for the greatest possible network access control.
+
+## Working with a DB Instance in a VPC
+Your VPC must have at least two subnets. These subnets must be in two different Availability Zones in the region where you want to deploy your DB instance.
+If you want your DB instance in the VPC to be publicly accessible, you must enable the VPC attributes DNS hostnames and DNS resolution.
+
 # Elastic Cache
 IAM Auth is not supported by ElastiCache
 
@@ -253,6 +343,16 @@ Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Locations 180-184). Am
 
 Disabling the Termination from the ASG would prevent our ASG to be Elastic and impact our costs. Making a snapshot of the EC2 instance before it gets terminated *could* work but it's tedious, not elastic and very expensive, as all we're interested about are log files. Using AWS Lambda would be extremely hard to use for this task. Here, the natural and by far easiest solution would be to use the CloudWatch Logs agents on the EC2 instances to automatically send log files into CloudWatch, so we can analyze them in the future easily should any problems arise.
 
+# API Gateway
+Q: What API types are supported by Amazon API Gateway?
+
+Amazon API Gateway offers two options to create RESTful APIs, HTTP APIs (Preview) and REST APIs, as well as an option to create WebSocket APIs.
+
+HTTP API: HTTP APIs, currently available in Preview, are optimized for building APIs that proxy to AWS Lambda functions or HTTP backends, making them ideal for serverless workloads. They do not currently offer API management functionality.
+
+REST API: REST APIs offer API proxy functionality and API management features in a single solution. REST APIs offer API management features such as usage plans, API keys, publishing, and monetizing APIs.
+
+WebSocket API: WebSocket APIs maintain a persistent connection between connected clients to enable real-time message communication. With WebSocket APIs in API Gateway, you can define backend integrations with AWS Lambda functions, Amazon Kinesis, or any HTTP endpoint to be invoked when messages are received from the connected clients.
 
 # CloudTrail
 
@@ -305,8 +405,40 @@ Dynamic Port Mapping is available for the Application Load Balancer. A reverse p
 • Fully integrated with IAM & ECS
 • Sent over HTTPS (encryption in flight) and encrypted at rest
 
+## Specifying Sensitive Data
+Amazon ECS enables you to inject sensitive data into your containers by storing your sensitive data in either AWS Secrets Manager secrets or AWS Systems Manager Parameter Store parameters and then referencing them in your container definition. This feature is supported by tasks using both the EC2 and Fargate launch types.
+
+### Required IAM Permissions for Amazon ECS Secrets
+
+To use this feature, you must have the Amazon ECS task execution role and reference it in your task definition. This allows the container agent to pull the necessary AWS Systems Manager or Secrets Manager resources. For more information, see Amazon ECS Task Execution IAM Role.
+
+To provide access to the AWS Systems Manager Parameter Store parameters that you create, manually add the following permissions as an inline policy to the task execution role. For more information, see Adding and Removing IAM Policies.
+
+ssm:GetParameters—Required if you are referencing a Systems Manager Parameter Store parameter in a task definition.
+
+secretsmanager:GetSecretValue—Required if you are referencing a Secrets Manager secret either directly or if your Systems Manager Parameter Store parameter is referencing a Secrets Manager secret in a task definition.
+
+kms:Decrypt—Required only if your secret uses a custom KMS key and not the default key. The ARN for your custom key should be added as a resource.
+
 # Lambda
 AWS Lambda functions time out after 15 minutes, and are not usually meant for long running jobs.
+
+## Lambda parameters Encryption
+Although Lambda encrypts the environment variables in your function by default, the sensitive information would still be visible to other users who have access to the Lambda console. This is because Lambda uses a default KMS key to encrypt the variables, which is usually accessible by other users. The best option in this scenario is to use encryption helpers to secure your environment variables.
+
+Enabling SSL would encrypt data only when in-transit. Your other teams would still be able to view the plaintext at-rest. Use AWS KMS instead.
+
+Option 3 is incorrect since, as mentioned, Lambda does provide encryption functionality of environment variables.	
+## Lambda functions
+You upload your application code in the form of one or more Lambda functions. Lambda stores code in Amazon S3 and encrypts it at rest.
+###  layer 
+A layer is a ZIP archive that contains libraries, a custom runtime, or other dependencies. Use layers to manage your function’s dependencies independently and keep your deployment package small.
+
+### Invoking Functions
+
+Lambda supports synchronous and asynchronous invocation of a Lambda function. You can control the invocation type only when you invoke a Lambda function (referred to as on-demand invocation).
+An event source is the entity that publishes events, and a Lambda function is the custom code that processes the events.
+Event source mapping maps an event source to a Lambda function. It enables automatic invocation of your Lambda function when events occur.
 
 # Disaster Recovery
 ## Overview
@@ -336,9 +468,67 @@ DAX will be transparent and won't require an application refactoring, and will c
 
 DynamoDB is horizontally scalable, has a DynamoDB streams capability and is multi AZ by default. On top of it, we can adjust the RCU and WCU automatically using Auto Scaling.
 
+## DynamoDB's partition key
+
+DynamoDB supports two types of primary keys:
+
+Partition key: A simple primary key, composed of one attribute known as the partition key. Attributes in DynamoDB are similar in many ways to fields or columns in other database systems.
+Partition key and sort key: Referred to as a composite primary key, this type of key is composed of two attributes. The first attribute is the partition key, and the second attribute is the sort key. Following is an example.
+
+### Recommendations for partition keys
+
+Use high-cardinality attributes. These are attributes that have distinct values for each item, like e-mailid, employee_no, customerid, sessionid, orderid, and so on.
+
+Use composite attributes. Try to combine more than one attribute to form a unique key, if that meets your access pattern. For example, consider an orders table with customerid+productid+countrycode as the partition key and order_date as the sort key.
+
+Cache the popular items when there is a high volume of read traffic using Amazon DynamoDB Accelerator (DAX). The cache acts as a low-pass filter, preventing reads of unusually popular items from swamping partitions. For example, consider a table that has deals information for products. Some deals are expected to be more popular than others during major sale events like Black Friday or Cyber Monday. DAX is a fully managed, in-memory cache for DynamoDB that doesn’t require developers to manage cache invalidation, data population, or cluster management. DAX also is compatible with DynamoDB API calls, so developers can incorporate it more easily into existing applications.
+
+Add random numbers or digits from a predetermined range for write-heavy use cases. Suppose that you expect a large volume of writes for a partition key (for example, greater than 1000 1 K writes per second). In this case, use an additional prefix or suffix (a fixed number from predetermined range, say 1–10) and add it to the partition key.
+
+
 ## Aurora
 
 Aurora Read Replicas can be deployed globally
+
+### Aurora endpoints
+Amazon Aurora typically involves a cluster of DB instances instead of a single instance. Each connection is handled by a specific DB instance. When you connect to an Aurora cluster, the host name and port that you specify point to an intermediate handler called an endpoint. Aurora uses the endpoint mechanism to abstract these connections. Thus, you don't have to hardcode all the hostnames or write your own logic for load-balancing and rerouting connections when some DB instances aren't available.
+
+For certain Aurora tasks, different instances or groups of instances perform different roles. For example, the primary instance handles all data definition language (DDL) and data manipulation language (DML) statements. Up to 15 Aurora Replicas handle read-only query traffic.
+
+Using endpoints, you can map each connection to the appropriate instance or group of instances based on your use case. For example, to perform DDL statements you can connect to whichever instance is the primary instance. To perform queries, you can connect to the reader endpoint, with Aurora automatically performing load-balancing among all the Aurora Replicas. For clusters with DB instances of different capacities or configurations, you can connect to custom endpoints associated with different subsets of DB instances. For diagnosis or tuning, you can connect to a specific instance endpoint to examine details about a specific DB instance.
+
+
+#### Types of Aurora Endpoints
+
+An endpoint is represented as an Aurora-specific URL that contains a host address and a port. The following types of endpoints are available from an Aurora DB cluster.
+
+##### Cluster endpoint
+A cluster endpoint for an Aurora DB cluster that connects to the current primary DB instance for that DB cluster. This endpoint is the only one that can perform write operations such as DDL statements. Because of this, the cluster endpoint is the one that you connect to when you first set up a cluster or when your cluster only contains a single DB instance.
+Each Aurora DB cluster has one cluster endpoint and one primary DB instance.
+
+You use the cluster endpoint for all write operations on the DB cluster, including inserts, updates, deletes, and DDL changes. You can also use the cluster endpoint for read operations, such as queries.
+
+The cluster endpoint provides failover support for read/write connections to the DB cluster. If the current primary DB instance of a DB cluster fails, Aurora automatically fails over to a new primary DB instance. During a failover, the DB cluster continues to serve connection requests to the cluster endpoint from the new primary DB instance, with minimal interruption of service.
+
+##### Reader endpoint
+A reader endpoint for an Aurora DB cluster connects to one of the available Aurora Replicas for that DB cluster. Each Aurora DB cluster has one reader endpoint. If there is more than one Aurora Replica, the reader endpoint directs each connection request to one of the Aurora Replicas.
+
+The reader endpoint provides load-balancing support for read-only connections to the DB cluster. Use the reader endpoint for read operations, such as queries. You can't use the reader endpoint for write operations.
+
+##### Custom endpoint
+A custom endpoint for an Aurora cluster represents a set of DB instances that you choose. When you connect to the endpoint, Aurora performs load balancing and chooses one of the instances in the group to handle the connection. You define which instances this endpoint refers to, and you decide what purpose the endpoint serves.
+
+An Aurora DB cluster has no custom endpoints until you create one. You can create up to five custom endpoints for each provisioned Aurora cluster. You can't use custom endpoints for Aurora Serverless clusters.
+
+The custom endpoint provides load-balanced database connections based on criteria other than the read-only or read-write capability of the DB instances. For example, you might define a custom endpoint to connect to instances that use a particular AWS instance class or a particular DB parameter group. Then you might tell particular groups of users about this custom endpoint. For example, you might direct internal users to low-capacity instances for report generation or ad hoc (one-time) querying, and direct production traffic to high-capacity instances.
+
+Instead of using one DB instance for each specialized purpose and connecting to its instance endpoint, you can have multiple groups of specialized DB instances. In this case, each group has its own custom endpoint. This way, Aurora can perform load balancing among all the instances dedicated to tasks such as reporting or handling production or internal queries. The custom endpoints provide load balancing and high availability for each group of DB instances within your cluster. If one of the DB instances within a group becomes unavailable, Aurora directs subsequent custom endpoint connections to one of the other DB instances associated with the same endpoint.
+
+##### Instance endpoint
+An instance endpoint connects to a specific DB instance within an Aurora cluster. Each DB instance in a DB cluster has its own unique instance endpoint. So there is one instance endpoint for the current primary DB instance of the DB cluster, and there is one instance endpoint for each of the Aurora Replicas in the DB cluster.
+
+The instance endpoint provides direct control over connections to the DB cluster, for scenarios where using the cluster endpoint or reader endpoint might not be appropriate. For example, your client application might require more fine-grained load balancing based on workload type. In this case, you can configure multiple clients to connect to different Aurora Replicas in a DB cluster to distribute read workloads. 
+
 
 # Kinesis
 
@@ -359,6 +549,41 @@ Analyze and debug production, distributed applications
 AWS X-Ray helps developers analyze and debug production, distributed applications, such as those built using a microservices architecture. With X-Ray, you can understand how your application and its underlying services are performing to identify and troubleshoot the root cause of performance issues and errors. X-Ray provides an end-to-end view of requests as they travel through your application, and shows a map of your application’s underlying components. You can use X-Ray to analyze both applications in development and in production, from simple three-tier applications to complex microservices applications consisting of thousands of services.
 
 
+# ElasticCache
+
+## Redis
+
+### What are Amazon ElastiCache for Redis nodes, clusters, and replications groups?
+
+An ElastiCache for Redis node is the smallest building block of an Amazon ElastiCache for Redis deployment. Each ElastiCache for Redis node supports the Redis protocol and has its own DNS name and port. Multiple types of ElastiCache for Redis nodes are supported, each with varying amount of CPU capability, and associated memory. An ElastiCache for Redis node may take on a primary or a read replica role. A primary node can be replicated to multiple read replica nodes. An ElastiCache for Redis cluster is a collection of one or more ElastiCache for Redis nodes of the same role; the primary node will be in the primary cluster and the read replica node will be in a read replica cluster. At this time a cluster can only have one node. In the future, we will increase this limit. A cluster manages a logical key space, where each node is responsible for a part of the key space. Most of your management operations will be performed at the cluster level. An ElastiCache for Redis replication group encapsulates the primary and read replica clusters for a Redis installation. A replication group will have only one primary cluster and zero or many read replica clusters. All nodes within a replication group (and consequently cluster) will be of the same node type, and have the same parameter and security group settings.
+
+### Does Amazon ElastiCache for Redis support Multi-AZ operation?
+
+Yes, with Amazon ElastiCache for Redis you can create a read replica in another AWS Availability Zone. Upon a failure of the primary node, we will provision a new primary node. In scenarios where the primary node cannot be provisioned, you can decide which read replica to promote to be the new primary. 
+
+### What is Multi-AZ for an ElastiCache for Redis replication group?
+
+An ElastiCache for Redis replication group consists of a primary and up to five read replicas. Redis asynchronously replicates the data from the primary to the read replicas. During certain types of planned maintenance, or in the unlikely event of ElastiCache node failure or Availability Zone failure, Amazon ElastiCache will automatically detect the failure of a primary, select a read replica, and promote it to become the new primary. ElastiCache also propagates the DNS changes of the promoted read replica, so if your application is writing to the primary node endpoint, no endpoint change will be needed.
+
+### How can I use encryption in-transit, at-rest, and Redis AUTH?
+
+Encryption in-transit, encryption at-rest, and Redis AUTH are all opt-in features. At the time of Redis cluster creation via the console or command line interface, you can specify if you want to enable encryption and Redis AUTH and can proceed to provide an authentication token for communication with the Redis cluster. Once the cluster is setup with encryption enabled, ElastiCache seamlessly manages certificate expiration and renewal without requiring any additional action from the application. Additionally, the Redis clients need to support TLS to avail of the encrypted in-transit traffic.
+
+### Is Redis password functionality supported in Amazon ElastiCache for Redis?
+
+Yes, Amazon ElastiCache for Redis supports Redis passwords via Redis AUTH feature. It is an opt-in feature available in ElastiCache for Redis version 3.2.6 onwards. You must enable encryption in-transit to use Redis AUTH on your ElastiCache for Redis cluster.
+
+### encryption
+ElastiCache for Redis at-rest encryption is an optional feature to increase data security by encrypting on-disk data. When enabled on a replication group, it encrypts the following aspects:
+
+Disk during sync, backup and swap operations
+
+Backups stored in Amazon S3
+
+ElastiCache for Redis offers default (service managed) encryption at rest, as well as ability to use your own symetric customer managed customer master keys in AWS Key Management Service (KMS).
+
+#### KMS
+Manage keys used for encrypted DB instances using the AWS KMS. KMS encryption keys are specific to the region that they are created in.
 
 # Q&A
 
@@ -373,3 +598,8 @@ AWS X-Ray helps developers analyze and debug production, distributed application
 - Distributing the static content through S3 allows to offload most of the network usage to S3 and free up our applications running on ECS. EFS will not change anything as static content on EFS would still have to be distributed by our ECS instances
 - S3 does not work as overwrites are eventually consistent so the latest data will not always be read. Neptune is a graph database so it's not a good fit, ElastiCache could work but it's a better fit as a caching technology to enhance reads. Here, the best fit is RDS.
 - RDS Multi AZ helps with disaster recovery in case of an AZ failure. ElastiCache would definitely help with the read load, but would require a refactor of the application's core logic. DynamoDB with DAX would also probably help with the read load, but once again it would require a refactor of the application's core logic. Here, our only option to scale reads is to use RDS Read Replicas
+
+
+# Resources
+- RDS cheatsheet: https://tutorialsdojo.com/aws-cheat-sheet-amazon-relational-database-service-amazon-rds/
+- VPC cheatsheet: https://tutorialsdojo.com/aws-cheat-sheet-amazon-vpc/
