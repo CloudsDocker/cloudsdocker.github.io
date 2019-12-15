@@ -195,105 +195,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-15-how-to-setup-node-config-in-intranet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-05-15-how-to-setup-node-config-in-intranet/" class="post-title-link" itemprop="url">How to setup nodejs to install package from intranet</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Error-of-‘ECONNRESET’"><a href="#Error-of-‘ECONNRESET’" class="headerlink" title="Error of ‘ECONNRESET’"></a>Error of ‘ECONNRESET’</h1><p>You may face error <code>ECONNRESET</code> from intranet, even appropriate proxy tools (e.g. cntlm) is running. The errors may looks like</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g @angular/cli@latest</span><br><span class="line">npm WARN registry Unexpected warning <span class="keyword">for</span> http://registry.npmjs.org/: Miscellaneous Warning ECONNRESET: request to http://registry.npmjs.org/@angular%2fcli failed, reason: <span class="built_in">read</span> ECONNRESET</span><br><span class="line">npm WARN registry Using stale package data from http://registry.npmjs.org/ due to a request error during revalidation.</span><br><span class="line">npm ERR! code ECONNRESET</span><br><span class="line">npm ERR! errno ECONNRESET</span><br><span class="line">npm ERR! network request to http://registry.npmjs.org/@angular-devkit%2farchitect failed, reason: <span class="built_in">read</span> ECONNRESET</span><br><span class="line">npm ERR! network This is a problem related to network connectivity.</span><br><span class="line">npm ERR! network In most cases you are behind a proxy or have bad network settings.</span><br><span class="line">npm ERR! network</span><br><span class="line">npm ERR! network If you are behind a proxy, please make sure that the</span><br><span class="line">npm ERR! network <span class="string">'proxy'</span> config is <span class="built_in">set</span> properly.  See: <span class="string">'npm help config'</span></span><br><span class="line"></span><br><span class="line">npm ERR! A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>:</span><br><span class="line">npm ERR!     C:\Users\xxx\AppData\Roaming\npm-cache\_logs\2018-05-15T05_04_39_505Z-debug.log</span><br></pre></td></tr></table></figure>
-
-<h2 id="resson"><a href="#resson" class="headerlink" title="resson"></a>resson</h2><p>You need to update npm configuration to make sure below config presence </p>
-<ul>
-<li>registry<br>and config <code>https-proxy</code> should NOT exist. </li>
-</ul>
-<p>You can run following command to remove it</p>
-<ul>
-<li>https-proxy</li>
-</ul>
-<h2 id="You-can-check-your-current-config-as"><a href="#You-can-check-your-current-config-as" class="headerlink" title="You can check your current config as"></a>You can check your current config as</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config list</span><br></pre></td></tr></table></figure>
-
-<h2 id="To-fix-above-issues-please-run-following-commands"><a href="#To-fix-above-issues-please-run-following-commands" class="headerlink" title="To fix above issues, please run following commands"></a>To fix above issues, please run following commands</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config delete https-proxy</span><br></pre></td></tr></table></figure>
-
-<h1 id="Error-of-‘code-E503’"><a href="#Error-of-‘code-E503’" class="headerlink" title="Error of ‘code E503’"></a>Error of ‘code E503’</h1><p>Sometimes when you run npm install, you can see error ‘E503’. </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g @angular/cli@latest                                            npm WARN registry Using stale package data from http://registry.npmjs.org/ due to a request error during revalidation.</span><br><span class="line">npm ERR! code E503</span><br><span class="line">npm ERR! 503 Service Unavailable: @angular-devkit/architect@0.6.0</span><br><span class="line"></span><br><span class="line">npm ERR! A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>:</span><br><span class="line">npm ERR!     C:\Users\xxx\AppData\Roaming\npm-cache\_logs\2018-05-15T05_40_53_127Z-debug.log</span><br></pre></td></tr></table></figure>
-
-<p>That’s because property ‘proxy’ missing for npm. Please run below command to check wether it’s exist or not.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config list | grep <span class="string">'proxy'</span></span><br></pre></td></tr></table></figure>
-
-<p>If not exist, run below command to add it back.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy http://127.0.0.1:53128</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-14-Strategy-Of-Openshift-Releases/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -386,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-06-Scrum-Agile/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-15-how-to-setup-node-config-in-intranet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -402,7 +303,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-06-06-Scrum-Agile/" class="post-title-link" itemprop="url">Agile and SCRUM</a>
+              <a href="/2018-05-15-how-to-setup-node-config-in-intranet/" class="post-title-link" itemprop="url">How to setup nodejs to install package from intranet</a>
             
           </h1>
         
@@ -434,9 +335,30 @@
 
       
           
-            <h2 id="Key-concept"><a href="#Key-concept" class="headerlink" title="Key concept"></a>Key concept</h2><p>In Scrum, a team is cross functional, meaning everyone is needed to take a feature from idea to implementation.</p>
-<p>Within agile development, Scrum teams are supported by two specific roles. The first is a ScrumMaster, who can be thought of as a coach for the team, helping team members use the Scrum process to perform at the highest level.</p>
-<p>The product owner (PO) is the other role, and in Scrum software development, represents the business, customers or users, and guides the team toward building the right product.</p>
+            <h1 id="Error-of-‘ECONNRESET’"><a href="#Error-of-‘ECONNRESET’" class="headerlink" title="Error of ‘ECONNRESET’"></a>Error of ‘ECONNRESET’</h1><p>You may face error <code>ECONNRESET</code> from intranet, even appropriate proxy tools (e.g. cntlm) is running. The errors may looks like</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g @angular/cli@latest</span><br><span class="line">npm WARN registry Unexpected warning <span class="keyword">for</span> http://registry.npmjs.org/: Miscellaneous Warning ECONNRESET: request to http://registry.npmjs.org/@angular%2fcli failed, reason: <span class="built_in">read</span> ECONNRESET</span><br><span class="line">npm WARN registry Using stale package data from http://registry.npmjs.org/ due to a request error during revalidation.</span><br><span class="line">npm ERR! code ECONNRESET</span><br><span class="line">npm ERR! errno ECONNRESET</span><br><span class="line">npm ERR! network request to http://registry.npmjs.org/@angular-devkit%2farchitect failed, reason: <span class="built_in">read</span> ECONNRESET</span><br><span class="line">npm ERR! network This is a problem related to network connectivity.</span><br><span class="line">npm ERR! network In most cases you are behind a proxy or have bad network settings.</span><br><span class="line">npm ERR! network</span><br><span class="line">npm ERR! network If you are behind a proxy, please make sure that the</span><br><span class="line">npm ERR! network <span class="string">'proxy'</span> config is <span class="built_in">set</span> properly.  See: <span class="string">'npm help config'</span></span><br><span class="line"></span><br><span class="line">npm ERR! A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>:</span><br><span class="line">npm ERR!     C:\Users\xxx\AppData\Roaming\npm-cache\_logs\2018-05-15T05_04_39_505Z-debug.log</span><br></pre></td></tr></table></figure>
+
+<h2 id="resson"><a href="#resson" class="headerlink" title="resson"></a>resson</h2><p>You need to update npm configuration to make sure below config presence </p>
+<ul>
+<li>registry<br>and config <code>https-proxy</code> should NOT exist. </li>
+</ul>
+<p>You can run following command to remove it</p>
+<ul>
+<li>https-proxy</li>
+</ul>
+<h2 id="You-can-check-your-current-config-as"><a href="#You-can-check-your-current-config-as" class="headerlink" title="You can check your current config as"></a>You can check your current config as</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config list</span><br></pre></td></tr></table></figure>
+
+<h2 id="To-fix-above-issues-please-run-following-commands"><a href="#To-fix-above-issues-please-run-following-commands" class="headerlink" title="To fix above issues, please run following commands"></a>To fix above issues, please run following commands</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config delete https-proxy</span><br></pre></td></tr></table></figure>
+
+<h1 id="Error-of-‘code-E503’"><a href="#Error-of-‘code-E503’" class="headerlink" title="Error of ‘code E503’"></a>Error of ‘code E503’</h1><p>Sometimes when you run npm install, you can see error ‘E503’. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g @angular/cli@latest                                            npm WARN registry Using stale package data from http://registry.npmjs.org/ due to a request error during revalidation.</span><br><span class="line">npm ERR! code E503</span><br><span class="line">npm ERR! 503 Service Unavailable: @angular-devkit/architect@0.6.0</span><br><span class="line"></span><br><span class="line">npm ERR! A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>:</span><br><span class="line">npm ERR!     C:\Users\xxx\AppData\Roaming\npm-cache\_logs\2018-05-15T05_40_53_127Z-debug.log</span><br></pre></td></tr></table></figure>
+
+<p>That’s because property ‘proxy’ missing for npm. Please run below command to check wether it’s exist or not.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config list | grep <span class="string">'proxy'</span></span><br></pre></td></tr></table></figure>
+
+<p>If not exist, run below command to add it back.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy http://127.0.0.1:53128</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -566,6 +488,84 @@
 <p>— english—<br>it can safely prune unused exports.</p>
 <p>Trim (a tree, shrub, or bush) by cutting away dead or overgrown branches or stems, especially to encourage growth.</p>
 <p>‘now is the time to prune roses’</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-06-Scrum-Agile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-06-06-Scrum-Agile/" class="post-title-link" itemprop="url">Agile and SCRUM</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Key-concept"><a href="#Key-concept" class="headerlink" title="Key concept"></a>Key concept</h2><p>In Scrum, a team is cross functional, meaning everyone is needed to take a feature from idea to implementation.</p>
+<p>Within agile development, Scrum teams are supported by two specific roles. The first is a ScrumMaster, who can be thought of as a coach for the team, helping team members use the Scrum process to perform at the highest level.</p>
+<p>The product owner (PO) is the other role, and in Scrum software development, represents the business, customers or users, and guides the team toward building the right product.</p>
 
           
         
@@ -845,6 +845,124 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-12-Locking-And-Multithreading/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-06-12-Locking-And-Multithreading/" class="post-title-link" itemprop="url">Locking and multithreading</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Single-Writer-principle"><a href="#Single-Writer-principle" class="headerlink" title="Single Writer principle"></a>Single Writer principle</h1><p>There is a lot of research in computer science for managing this contention that boils down to 2 basic approaches.  One is to provide mutual exclusion to the contended resource while the mutation takes place; the other is to take an optimistic strategy and swap in the changes if the underlying resource has not changed while you created the new copy.  </p>
+<h1 id="Memory-Barier"><a href="#Memory-Barier" class="headerlink" title="Memory Barier"></a>Memory Barier</h1><p>Memory barriers, or fences, are a set of processor instructions used to apply ordering limitations on memory operations. </p>
+<p>The keyword volatile prevents this problem because it establishes a happens before relationship between the write to the turn variable and the write to the intentFirst variable. The compiler cannot re-order these write operations and if necessary it must forbid the processor from doing so with a memory barrier.</p>
+<p>A memory barrier, also known as a <code>membar</code>, <code>memory fence</code> or fence instruction, is a type of barrier instruction that causes a central processing unit (CPU) or compiler to enforce an ordering constraint on memory operations issued before and after the barrier instruction. This typically means that operations issued prior to the barrier are guaranteed to be performed before operations issued after the barrier.</p>
+<p>Memory barriers are necessary because most modern CPUs employ performance optimizations that can result in out-of-order execution. This reordering of memory operations (loads and stores) normally goes unnoticed within a single thread of execution, but can cause unpredictable behaviour in concurrent programs and device drivers unless carefully controlled.</p>
+<h1 id="Non-blocking-programing"><a href="#Non-blocking-programing" class="headerlink" title="Non blocking programing"></a>Non blocking programing</h1><p>Implementation<br>With few exceptions, non-blocking algorithms use atomic <code>read-modify-write</code> primitives that the hardware must provide, the most notable of which is compare and swap (CAS).</p>
+<h2 id="Compare-And-Swap"><a href="#Compare-And-Swap" class="headerlink" title="Compare And Swap"></a>Compare And Swap</h2><p>It compares the contents of a memory location with a given value and, only if they are the same, modifies the contents of that memory location to a new given value. This is done as a single atomic operation. The atomicity guarantees that the new value is calculated based on up-to-date information; if the value had been updated by another thread in the meantime, the write would fail. The result of the operation must indicate whether it performed the substitution; this can be done either with a simple boolean response (this variant is often called compare-and-set), or by returning the value read from the memory location (not the value written to it).</p>
+<p>Here is the pseudo code</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">cas</span><span class="params">(p : pointer to <span class="keyword">int</span>, old : <span class="keyword">int</span>, <span class="keyword">new</span> : <span class="keyword">int</span>)</span> returns <span class="keyword">bool</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> *p ≠ old &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    *p ← <span class="keyword">new</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This operation is used to implement synchronization primitives like semaphores and mutexes, as well as more sophisticated lock-free and wait-free algorithms.</p>
+<p>Algorithms built around CAS typically read some key memory location and remember the old value. Based on that old value, they compute some new value. Then they try to swap in the new value using CAS, where the comparison checks for the location still being equal to the old value. If CAS indicates that the attempt has failed, it has to be repeated from the beginning: the location is re-read, a new value is re-computed and the CAS is tried again.</p>
+<p>A common workaround is to add extra “tag” or “stamp” bits to the quantity being considered. For example, an algorithm using compare and swap on a pointer might use the low bits of the address to indicate how many times the pointer has been successfully modified. Because of this, the next compare-and-swap will fail, even if the addresses are the same, because the tag bits will not match. This does not completely solve the problem, as the tag bits will eventually wrap around, but helps to avoid it. Some architectures provide a double-word compare and swap, which allows for a larger tag. This is sometimes called ABAʹ since the second A is made slightly different from the first. Such tagged state references are also used in transactional memory.</p>
+<h2 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h2><p>Consider two tasks H and L, of high and low priority respectively, either of which can acquire exclusive use of a shared resource R. If H attempts to acquire R after L has acquired it, then H becomes blocked until L relinquishes the resource. Sharing an exclusive-use resource (R in this case) in a well-designed system typically involves L relinquishing R promptly so that H (a higher priority task) does not stay blocked for excessive periods of time. Despite good design, however, it is possible that a third task M of medium priority (p(L) &lt; p(M) &lt; p(H), where p(x) represents the priority for task (x)) becomes runnable during L’s use of R. At this point, M being higher in priority than L, preempts L, causing L to not be able to relinquish R promptly, in turn causing H—the highest priority process—to be unable to run. This is called priority inversion where a higher priority task is preempted by a lower priority one.</p>
+<h2 id="RCU"><a href="#RCU" class="headerlink" title="RCU"></a>RCU</h2><p>In computer science, read-copy-update (RCU) is a synchronization mechanism based on mutual exclusion. It is used when performance of reads is crucial and is an example of space–time tradeoff, enabling fast operations at the cost of more space.</p>
+<p>Read-copy-update allows multiple threads to efficiently read from shared memory by deferring updates after pre-existing reads to a later time while simultaneously marking the data, <code>ensuring new readers will read the updated data</code>. This makes all readers proceed as if there were no synchronization involved, hence they will be fast, but also making updates more difficult.</p>
+<h1 id="package-java-util-concurrent-atomic"><a href="#package-java-util-concurrent-atomic" class="headerlink" title="package java/util/concurrent/atomic"></a>package java/util/concurrent/atomic</h1><p>A small toolkit of classes that support lock-free thread-safe programming on single variables. In essence, the classes in this package extend the notion of volatile</p>
+<p>values, fields, and array elements to those that also provide an atomic conditional update operation of the form:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(expectedValue, updateValue)</span></span>;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"><span class="function">This <span class="title">method</span> <span class="params">(which varies in argument types across different classes)</span> atomically sets a variable to the updateValue <span class="keyword">if</span> it currently holds the expectedValue, reporting <span class="keyword">true</span> on success. The classes in <span class="keyword">this</span> <span class="keyword">package</span> also contain methods to get and unconditionally set values, as well as a weaker conditional atomic update operation weakCompareAndSet described below.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">The specifications of these methods enable implementations to employ efficient machine-level atomic instructions that are available on contemporary processors. However on some platforms, support may entail some form of internal locking. Thus the methods are not strictly guaranteed to be non-blocking -- a thread may block transiently before performing the operation. </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Instances of classes AtomicBoolean, AtomicInteger, AtomicLong, and AtomicReference each provide access and updates to a single variable of the corresponding type. Each class also provides appropriate utility methods <span class="keyword">for</span> that type. For example, classes AtomicLong and AtomicInteger provide atomic increment methods. One application is to generate sequence numbers, as in:</span></span><br><span class="line"><span class="function">```java</span></span><br><span class="line"><span class="function"> class Sequencer </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> AtomicLong sequenceNumber</span><br><span class="line">     = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> sequenceNumber.getAndIncrement();</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p> The AtomicIntegerArray, AtomicLongArray, and AtomicReferenceArray classes further extend atomic operation support to arrays of these types. These classes are also notable in providing volatile access semantics for their array elements, which is not supported for ordinary arrays. </p>
+<h1 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h1><p> The Java volatile keyword is used to mark a Java variable as “being stored in main memory”. More precisely that means, that every read of a volatile variable will be read from the computer’s main memory, and not from the CPU cache, and that every write to a volatile variable will be written to main memory, and not just to the CPU cache. </p>
+<h2 id="What’s-wrong-to-volatile"><a href="#What’s-wrong-to-volatile" class="headerlink" title="What’s wrong to volatile?"></a>What’s wrong to volatile?</h2><p>The Java <code>volatile keyword guarantees visibility of changes to variables across threads</code>. This may sound a bit abstract, so let me elaborate.</p>
+<p>In a multithreaded application where the threads operate on non-volatile variables, each thread may copy variables from main memory into a CPU cache while working on them, for performance reasons. If your computer contains more than one CPU, each thread may run on a different CPU. That means, that each thread may copy the variables into the CPU cache of different CPUs. </p>
+<p>With non-volatile variables there are no guarantees about when the Java Virtual Machine (JVM) reads data from main memory into CPU caches, or writes data from CPU caches to main memory. This can cause several problems.</p>
+<h3 id="visibility-problem"><a href="#visibility-problem" class="headerlink" title="visibility problem"></a>visibility problem</h3><p>The problem with threads not seeing the latest value of a variable because it has not yet been written back to main memory by another thread, is called a “visibility” problem. The updates of one thread are not visible to other threads. </p>
+<p>The Java volatile Visibility Guarantee</p>
+<p>The Java volatile keyword is intended to address variable visibility problems. By declaring the counter variable volatile all writes to the counter variable will be written back to main memory immediately. Also, all reads of the counter variable will be read directly from main memory. </p>
+<h3 id="Full-volatile-Visibility-Guarantee"><a href="#Full-volatile-Visibility-Guarantee" class="headerlink" title="Full volatile Visibility Guarantee"></a>Full volatile Visibility Guarantee</h3><p>Actually, the visibility guarantee of Java volatile goes beyond the volatile variable itself. The visibility guarantee is as follows:</p>
+<pre><code>If Thread A writes to a volatile variable and Thread B subsequently reads the same volatile variable, then all variables visible to Thread A before writing the volatile variable, will also be visible to Thread B after it has read the volatile variable.
+If Thread A reads a volatile variable, then all all variables visible to Thread A when reading the volatile variable will also be re-read from main memory.</code></pre><h3 id="The-Java-volatile-Happens-Before-Guarantee"><a href="#The-Java-volatile-Happens-Before-Guarantee" class="headerlink" title="The Java volatile Happens-Before Guarantee"></a>The Java volatile Happens-Before Guarantee</h3><p>To address the instruction reordering challenge, the Java volatile keyword gives a “happens-before” guarantee, in addition to the visibility guarantee. The happens-before guarantee guarantees that:</p>
+<ul>
+<li>Reads from and writes to other variables cannot be reordered to occur <code>after</code> a write to a volatile variable, if the reads / writes originally occurred <code>before</code> the write to the volatile variable.</li>
+</ul>
+<p>The reads / writes <code>before a write to a volatile</code> variable are guaranteed to <code>&quot;happen before&quot; the write to the volatile</code> variable. Notice that it is still possible for e.g. reads / writes of other variables located after a write to a volatile to be reordered to occur before that write to the volatile. Just not the other way around. <code>From after to before is allowed, but from before to after is not allowed</code>.</p>
+<ul>
+<li><p>Reads from and writes to other variables cannot be reordered to occur <code>before a read</code> of a volatile variable, if the reads / writes originally occurred <code>after the read</code> of the volatile variable. Notice that it is possible for reads of other variables that occur before the read of a volatile variable can be reordered to occur after the read of the volatile. Just not the other way around. <code>From before to after is allowed, but from after to before is not allowed</code>. </p>
+</li>
+<li><p>In short: ==before write,  after read==.</p>
+</li>
+</ul>
+<h2 id="Limitations-of-volatile"><a href="#Limitations-of-volatile" class="headerlink" title="Limitations of volatile"></a>Limitations of volatile</h2><p>Even if the volatile keyword guarantees that all reads of a volatile variable are read directly from main memory, and all writes to a volatile variable are written directly to main memory, there are still situations where it is not enough to declare a variable volatile</p>
+<h2 id="Performance-Considerations-of-volatile"><a href="#Performance-Considerations-of-volatile" class="headerlink" title="Performance Considerations of volatile"></a>Performance Considerations of volatile</h2><p>Reading and writing of volatile variables causes the variable to be read or written to main memory. Reading from and writing to main memory is more expensive than accessing the CPU cache. Accessing volatile variables also prevent instruction reordering which is a normal performance enhancement technique. Thus, you should only use volatile variables when you really need to enforce visibility of variables. </p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-10-JVM-Warm-up/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -953,124 +1071,6 @@
 
 <h1 id="GC-less-Java"><a href="#GC-less-Java" class="headerlink" title="GC-less Java"></a>GC-less Java</h1><p>Java Development without GC<br>All products developed by Coral Blocks have the very important feature of leaving ZERO garbage behind. Because the latency imposed by the Java Garbage Collector (i.e. GC) is unacceptable for high-performance systems and because it is impossible to turn off the GC, the best option for real-time systems in Java is to not produce any garbage at all so that the GC never kicks in. Imagine a high-performance matching engine operating in the microsecond level, sending and receiving hundreds of thousands messages per second. If at any given time the GC decides to kick in with its 1+ millisecond latencies, the disruption in the system will be huge. Therefore, if you want to develop real-time systems in Java with minimal variance and latency, the best option is to do it right without creating any garbage for the GC. </p>
 <h2 id="Warming-up-Checking-the-GC-and-Sampling"><a href="#Warming-up-Checking-the-GC-and-Sampling" class="headerlink" title="Warming up, Checking the GC and Sampling"></a>Warming up, Checking the GC and Sampling</h2><p>The key to make sure your system is not creating any garbage is to warm up your critical path from start to finish a couple of million times and then check for memory allocation another couple of million times. If it is allocating memory linearly as the number of iterations increases, it is most likely creating garbage and you should use the stack trace </p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-12-Locking-And-Multithreading/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-06-12-Locking-And-Multithreading/" class="post-title-link" itemprop="url">Locking and multithreading</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Single-Writer-principle"><a href="#Single-Writer-principle" class="headerlink" title="Single Writer principle"></a>Single Writer principle</h1><p>There is a lot of research in computer science for managing this contention that boils down to 2 basic approaches.  One is to provide mutual exclusion to the contended resource while the mutation takes place; the other is to take an optimistic strategy and swap in the changes if the underlying resource has not changed while you created the new copy.  </p>
-<h1 id="Memory-Barier"><a href="#Memory-Barier" class="headerlink" title="Memory Barier"></a>Memory Barier</h1><p>Memory barriers, or fences, are a set of processor instructions used to apply ordering limitations on memory operations. </p>
-<p>The keyword volatile prevents this problem because it establishes a happens before relationship between the write to the turn variable and the write to the intentFirst variable. The compiler cannot re-order these write operations and if necessary it must forbid the processor from doing so with a memory barrier.</p>
-<p>A memory barrier, also known as a <code>membar</code>, <code>memory fence</code> or fence instruction, is a type of barrier instruction that causes a central processing unit (CPU) or compiler to enforce an ordering constraint on memory operations issued before and after the barrier instruction. This typically means that operations issued prior to the barrier are guaranteed to be performed before operations issued after the barrier.</p>
-<p>Memory barriers are necessary because most modern CPUs employ performance optimizations that can result in out-of-order execution. This reordering of memory operations (loads and stores) normally goes unnoticed within a single thread of execution, but can cause unpredictable behaviour in concurrent programs and device drivers unless carefully controlled.</p>
-<h1 id="Non-blocking-programing"><a href="#Non-blocking-programing" class="headerlink" title="Non blocking programing"></a>Non blocking programing</h1><p>Implementation<br>With few exceptions, non-blocking algorithms use atomic <code>read-modify-write</code> primitives that the hardware must provide, the most notable of which is compare and swap (CAS).</p>
-<h2 id="Compare-And-Swap"><a href="#Compare-And-Swap" class="headerlink" title="Compare And Swap"></a>Compare And Swap</h2><p>It compares the contents of a memory location with a given value and, only if they are the same, modifies the contents of that memory location to a new given value. This is done as a single atomic operation. The atomicity guarantees that the new value is calculated based on up-to-date information; if the value had been updated by another thread in the meantime, the write would fail. The result of the operation must indicate whether it performed the substitution; this can be done either with a simple boolean response (this variant is often called compare-and-set), or by returning the value read from the memory location (not the value written to it).</p>
-<p>Here is the pseudo code</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">cas</span><span class="params">(p : pointer to <span class="keyword">int</span>, old : <span class="keyword">int</span>, <span class="keyword">new</span> : <span class="keyword">int</span>)</span> returns <span class="keyword">bool</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> *p ≠ old &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    *p ← <span class="keyword">new</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>This operation is used to implement synchronization primitives like semaphores and mutexes, as well as more sophisticated lock-free and wait-free algorithms.</p>
-<p>Algorithms built around CAS typically read some key memory location and remember the old value. Based on that old value, they compute some new value. Then they try to swap in the new value using CAS, where the comparison checks for the location still being equal to the old value. If CAS indicates that the attempt has failed, it has to be repeated from the beginning: the location is re-read, a new value is re-computed and the CAS is tried again.</p>
-<p>A common workaround is to add extra “tag” or “stamp” bits to the quantity being considered. For example, an algorithm using compare and swap on a pointer might use the low bits of the address to indicate how many times the pointer has been successfully modified. Because of this, the next compare-and-swap will fail, even if the addresses are the same, because the tag bits will not match. This does not completely solve the problem, as the tag bits will eventually wrap around, but helps to avoid it. Some architectures provide a double-word compare and swap, which allows for a larger tag. This is sometimes called ABAʹ since the second A is made slightly different from the first. Such tagged state references are also used in transactional memory.</p>
-<h2 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h2><p>Consider two tasks H and L, of high and low priority respectively, either of which can acquire exclusive use of a shared resource R. If H attempts to acquire R after L has acquired it, then H becomes blocked until L relinquishes the resource. Sharing an exclusive-use resource (R in this case) in a well-designed system typically involves L relinquishing R promptly so that H (a higher priority task) does not stay blocked for excessive periods of time. Despite good design, however, it is possible that a third task M of medium priority (p(L) &lt; p(M) &lt; p(H), where p(x) represents the priority for task (x)) becomes runnable during L’s use of R. At this point, M being higher in priority than L, preempts L, causing L to not be able to relinquish R promptly, in turn causing H—the highest priority process—to be unable to run. This is called priority inversion where a higher priority task is preempted by a lower priority one.</p>
-<h2 id="RCU"><a href="#RCU" class="headerlink" title="RCU"></a>RCU</h2><p>In computer science, read-copy-update (RCU) is a synchronization mechanism based on mutual exclusion. It is used when performance of reads is crucial and is an example of space–time tradeoff, enabling fast operations at the cost of more space.</p>
-<p>Read-copy-update allows multiple threads to efficiently read from shared memory by deferring updates after pre-existing reads to a later time while simultaneously marking the data, <code>ensuring new readers will read the updated data</code>. This makes all readers proceed as if there were no synchronization involved, hence they will be fast, but also making updates more difficult.</p>
-<h1 id="package-java-util-concurrent-atomic"><a href="#package-java-util-concurrent-atomic" class="headerlink" title="package java/util/concurrent/atomic"></a>package java/util/concurrent/atomic</h1><p>A small toolkit of classes that support lock-free thread-safe programming on single variables. In essence, the classes in this package extend the notion of volatile</p>
-<p>values, fields, and array elements to those that also provide an atomic conditional update operation of the form:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(expectedValue, updateValue)</span></span>;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"><span class="function">This <span class="title">method</span> <span class="params">(which varies in argument types across different classes)</span> atomically sets a variable to the updateValue <span class="keyword">if</span> it currently holds the expectedValue, reporting <span class="keyword">true</span> on success. The classes in <span class="keyword">this</span> <span class="keyword">package</span> also contain methods to get and unconditionally set values, as well as a weaker conditional atomic update operation weakCompareAndSet described below.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">The specifications of these methods enable implementations to employ efficient machine-level atomic instructions that are available on contemporary processors. However on some platforms, support may entail some form of internal locking. Thus the methods are not strictly guaranteed to be non-blocking -- a thread may block transiently before performing the operation. </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Instances of classes AtomicBoolean, AtomicInteger, AtomicLong, and AtomicReference each provide access and updates to a single variable of the corresponding type. Each class also provides appropriate utility methods <span class="keyword">for</span> that type. For example, classes AtomicLong and AtomicInteger provide atomic increment methods. One application is to generate sequence numbers, as in:</span></span><br><span class="line"><span class="function">```java</span></span><br><span class="line"><span class="function"> class Sequencer </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> AtomicLong sequenceNumber</span><br><span class="line">     = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> sequenceNumber.getAndIncrement();</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p> The AtomicIntegerArray, AtomicLongArray, and AtomicReferenceArray classes further extend atomic operation support to arrays of these types. These classes are also notable in providing volatile access semantics for their array elements, which is not supported for ordinary arrays. </p>
-<h1 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h1><p> The Java volatile keyword is used to mark a Java variable as “being stored in main memory”. More precisely that means, that every read of a volatile variable will be read from the computer’s main memory, and not from the CPU cache, and that every write to a volatile variable will be written to main memory, and not just to the CPU cache. </p>
-<h2 id="What’s-wrong-to-volatile"><a href="#What’s-wrong-to-volatile" class="headerlink" title="What’s wrong to volatile?"></a>What’s wrong to volatile?</h2><p>The Java <code>volatile keyword guarantees visibility of changes to variables across threads</code>. This may sound a bit abstract, so let me elaborate.</p>
-<p>In a multithreaded application where the threads operate on non-volatile variables, each thread may copy variables from main memory into a CPU cache while working on them, for performance reasons. If your computer contains more than one CPU, each thread may run on a different CPU. That means, that each thread may copy the variables into the CPU cache of different CPUs. </p>
-<p>With non-volatile variables there are no guarantees about when the Java Virtual Machine (JVM) reads data from main memory into CPU caches, or writes data from CPU caches to main memory. This can cause several problems.</p>
-<h3 id="visibility-problem"><a href="#visibility-problem" class="headerlink" title="visibility problem"></a>visibility problem</h3><p>The problem with threads not seeing the latest value of a variable because it has not yet been written back to main memory by another thread, is called a “visibility” problem. The updates of one thread are not visible to other threads. </p>
-<p>The Java volatile Visibility Guarantee</p>
-<p>The Java volatile keyword is intended to address variable visibility problems. By declaring the counter variable volatile all writes to the counter variable will be written back to main memory immediately. Also, all reads of the counter variable will be read directly from main memory. </p>
-<h3 id="Full-volatile-Visibility-Guarantee"><a href="#Full-volatile-Visibility-Guarantee" class="headerlink" title="Full volatile Visibility Guarantee"></a>Full volatile Visibility Guarantee</h3><p>Actually, the visibility guarantee of Java volatile goes beyond the volatile variable itself. The visibility guarantee is as follows:</p>
-<pre><code>If Thread A writes to a volatile variable and Thread B subsequently reads the same volatile variable, then all variables visible to Thread A before writing the volatile variable, will also be visible to Thread B after it has read the volatile variable.
-If Thread A reads a volatile variable, then all all variables visible to Thread A when reading the volatile variable will also be re-read from main memory.</code></pre><h3 id="The-Java-volatile-Happens-Before-Guarantee"><a href="#The-Java-volatile-Happens-Before-Guarantee" class="headerlink" title="The Java volatile Happens-Before Guarantee"></a>The Java volatile Happens-Before Guarantee</h3><p>To address the instruction reordering challenge, the Java volatile keyword gives a “happens-before” guarantee, in addition to the visibility guarantee. The happens-before guarantee guarantees that:</p>
-<ul>
-<li>Reads from and writes to other variables cannot be reordered to occur <code>after</code> a write to a volatile variable, if the reads / writes originally occurred <code>before</code> the write to the volatile variable.</li>
-</ul>
-<p>The reads / writes <code>before a write to a volatile</code> variable are guaranteed to <code>&quot;happen before&quot; the write to the volatile</code> variable. Notice that it is still possible for e.g. reads / writes of other variables located after a write to a volatile to be reordered to occur before that write to the volatile. Just not the other way around. <code>From after to before is allowed, but from before to after is not allowed</code>.</p>
-<ul>
-<li><p>Reads from and writes to other variables cannot be reordered to occur <code>before a read</code> of a volatile variable, if the reads / writes originally occurred <code>after the read</code> of the volatile variable. Notice that it is possible for reads of other variables that occur before the read of a volatile variable can be reordered to occur after the read of the volatile. Just not the other way around. <code>From before to after is allowed, but from after to before is not allowed</code>. </p>
-</li>
-<li><p>In short: ==before write,  after read==.</p>
-</li>
-</ul>
-<h2 id="Limitations-of-volatile"><a href="#Limitations-of-volatile" class="headerlink" title="Limitations of volatile"></a>Limitations of volatile</h2><p>Even if the volatile keyword guarantees that all reads of a volatile variable are read directly from main memory, and all writes to a volatile variable are written directly to main memory, there are still situations where it is not enough to declare a variable volatile</p>
-<h2 id="Performance-Considerations-of-volatile"><a href="#Performance-Considerations-of-volatile" class="headerlink" title="Performance Considerations of volatile"></a>Performance Considerations of volatile</h2><p>Reading and writing of volatile variables causes the variable to be read or written to main memory. Reading from and writing to main memory is more expensive than accessing the CPU cache. Accessing volatile variables also prevent instruction reordering which is a normal performance enhancement technique. Thus, you should only use volatile variables when you really need to enforce visibility of variables. </p>
 
           
         
