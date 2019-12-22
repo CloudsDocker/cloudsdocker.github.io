@@ -57,6 +57,17 @@ Here you need to create an AMI, but because AMI are bounded in the regions they 
 
  There is no charge for creating a placement group.
 
+## Security Group
+When you create a security group, it has no inbound rules. Therefore, no inbound traffic originating from another host to your instance is allowed until you add inbound rules to the security group. By default, a security group includes an outbound rule that allows all outbound traffic. You can remove the rule and add outbound rules that allow specific outbound traffic only. If your security group has no outbound rules, no outbound traffic originating from your instance is allowed.
+
+Options 1 and 4 are both incorrect because any changes to the Security Groups or Network Access Control Lists are applied immediately and not after 60 minutes or after the instance reboot.
+
+Option 2 is incorrect because the scenario says that VPC is using a default configuration. Since by default, Network ACL allows all inbound and outbound IPv4 traffic, then there is no point of explicitly allowing the port in the Network ACL. Security Groups, on the other hand, does not allow incoming traffic by default, unlike Network ACL.
+
+### Custom port
+
+To allow the custom port, you have to change the Inbound Rules in your Security Group to allow traffic coming from the mobile devices. Security Groups usually control the list of ports that are allowed to be used by your EC2 instances and the NACLs control which network or list of IP addresses can connect to your whole VPC.
+
 ### Cluster
 
  Cluster Placement Groups
@@ -72,6 +83,17 @@ Launch configurations are immutable meaning they cannot be updated. You have to 
 ### ASG termination
 AZs will be balanced first, then the instance with the oldest launch configuration within that AZ will be terminated. For a reference to the default termination policy logic, have a look at this link: https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html
 
+## AMI
+
+the EC2 instances you are currently using depends on a pre-built AMI. This AMI is not accessible to another region hence,  you have to copy it to the us-west-2 region to properly establish your disaster recovery instance.
+
+You can copy an Amazon Machine Image (AMI) within or across an AWS region using the AWS Management Console, the AWS command line tools or SDKs, or the Amazon EC2 API, all of which support the CopyImage action. You can copy both Amazon EBS-backed AMIs and instance store-backed AMIs. You can copy encrypted AMIs and AMIs with encrypted snapshots
+
+# AWS Device Farm
+AWS Device Farm is an app testing service that lets you test and interact with your Android, iOS, and web apps on many devices at once, or reproduce issues on a device in real time.
+
+ 
+
 # IAM
 Your whole AWS security is there: 
 • Users
@@ -83,6 +105,14 @@ Policies are written in JSON (JavaScript Object Notation)
 IAM has a `global` view
 
 Permissions let you specify access to AWS resources. Permissions are granted to IAM entities (users, groups, and roles) and by default these entities start with no permissions. In other words, IAM entities can do nothing in AWS until you grant them your desired permissions. To give entities permissions, you can attach a policy that specifies the type of access, the actions that can be performed, and the resources on which the actions can be performed. In addition, you can specify any conditions that must be set for access to be allowed or denied.
+
+## To enforce IAM 
+
+- Enable Multi-Factor Authentication
+- Assign an IAM role to the Amazon EC2 instance
+ 
+
+Always remember that you should associate IAM roles to EC2 instances and not an IAM user, for the purpose of accessing other AWS services. IAM roles are designed so that your applications can securely make API requests from your instances, without requiring you to manage the security credentials that the applications use. Instead of creating and distributing your AWS credentials, you can delegate permission to make API requests using IAM roles.
 
 ## IAM policies
 A permissions policy describes who has access to what. Policies attached to an IAM identity are identity-based policies (IAM policies) and policies attached to a resource are resource-based policies. Amazon RDS supports only identity-based policies (IAM policies).
@@ -128,6 +158,10 @@ Need to define two terms:
 Generating S3 pre-signed URLs would bypass CloudFront, therefore we should use CloudFront signed URL. To generate that URL we must code, and Lambda is the perfect tool for running that code on the fly. 
 
 As the file is greater than 5GB in size, you must use Multi Part upload to upload that file to S3.
+
+### S3 Select 
+It is an Amazon S3 feature that makes it easy to retrieve specific data from the contents of an object using simple SQL expressions without having to retrieve the entire object. 
+Similiarly, Amazon Redshift Spectrum is a feature of Amazon Redshift that enables you to run queries against exabytes of unstructured data in Amazon S3 with no loading or ETL required.
 
 ### OAI
 Don't make the S3 bucket public. You cannot attach IAM roles to the CloudFront distribution. S3 buckets don't have security groups. Here you need to use an OAI. Read more here: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
@@ -279,6 +313,106 @@ To add a CIDR block to your VPC, the following rules apply:
 -The CIDR block must not be the same or larger than the CIDR range of a route in any of the VPC route tables. For example, if you have a route with a destination of 10.0.0.0/24 to a virtual private gateway, you cannot associate a CIDR block of the same range or larger. However, you can associate a CIDR block of 10.0.0.0/25 or smaller.
 -The first four IP addresses and the last IP address in each subnet CIDR block are not available for you to use, and cannot be assigned to an instance.
 
+IPv4 CIDR block size should be between a /16 netmask (65,536 IP addresses) and /28 netmask (16 IP addresses).
+The first four IP addresses and the last IP address in each subnet CIDR block are NOT available for you to use, and cannot be assigned to an instance.
+
+If you’re using AWS Direct Connect to connect to multiple VPCs through a direct connect gateway, the VPCs that are associated with the direct connect gateway must not have overlapping CIDR blocks.
+
+## Subnet Routing
+Each subnet must be associated with a route table, which specifies the allowed routes for outbound traffic leaving the subnet.
+Every subnet that you create is automatically associated with the main route table for the VPC.
+You can change the association, and you can change the contents of the main route table.
+You can allow an instance in your VPC to initiate outbound connections to the internet over IPv4 but prevent unsolicited inbound connections from the internet using a NAT gateway or NAT instance.
+To initiate outbound-only communication to the internet over IPv6, you can use an egress-only internet gateway
+
+## Subnet Security
+### `Security Groups`s — control inbound and outbound traffic for your `instances`
+You can associate one or more (up to five) security groups to an instance in your VPC.
+If you don’t specify a security group, the instance automatically belongs to the default security group.
+When you create a security group, it has no inbound rules. By default, it includes an outbound rule that allows all outbound traffic.
+### Security groups are associated with network interfaces.
+`Network Access Control Lists` — control inbound and outbound traffic for your `subnets`
+Each subnet in your VPC must be associated with a network ACL. If none is associated, automatically associated with the default network ACL.
+You can associate a network ACL with multiple subnets; however, a subnet can be associated with only one network ACL at a time.
+A network ACL contains a numbered list of rules that is evaluated in order, starting with the lowest numbered rule, to determine whether traffic is allowed in or out of any subnet associated with the network ACL.
+The default network ACL is configured to allow all traffic to flow in and out of the subnets to which it is associated.
+
+
+Amazon security groups and network ACLs don’t filter traffic to or from link-local addresses or AWS-reserved IPv4 addresses. Flow logs do not capture IP traffic to or from these addresses.
+
+### Security Group vs NetACL
+
+- Security group operates at the instance level while NetACL at the subnet level
+- Security group support allow rules only while ACL allows rules and deny rules
+- Security group is stateful, return traffic is automatcially allowed, regardless of any rules. 
+While ACL is stateless, return traffic must be explicitely allowed by rules
+- Security group evalaute all rules before deciding whether to allow traffic, while ACL process rules in number order when deciding whether to allow traffic.
+- Security group appiles to an insatnce only while ACL appies to all instances in teh subect it's associated with.
+
+## VPC NetACL
+A network access control list (ACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC.
+
+Network ACL Rules are evaluated by rule number, `from lowest to highest`, and `executed immediately when a matching allow/deny rule is found`s.
+
+
+### Internet access
+To enable access to or from the Internet for instances in a VPC subnet, you must do the following:
+- Attach an Internet Gateway to your VPC
+- Ensure that your subnet’s route table points to the Internet Gateway.
+- Ensure that instances in your subnet have a globally unique IP address (public IPv4 address, Elastic IP address, or IPv6 address).
+- Ensure that your network access control and security group rules allow the relevant traffic to flow to and from your instance
+
+
+## NAT
+Enable instances in a private subnet to connect to the internet or other AWS services, but prevent the internet from initiating connections with the instances.
+NAT Gateways
+You must specify the public subnet in which the NAT gateway should reside.
+You must specify an Elastic IP address to associate with the NAT gateway when you create it.
+
+## Accessing a Corporate or Home Network
+You can optionally connect your VPC to your own corporate data center using an IPsec AWS managed VPN connection, making the AWS Cloud an extension of your data center.
+A VPN connection consists of:
+- a virtual private gateway (which is the VPN concentrator on the Amazon side of the VPN connection) attached to your VPC.
+- a customer gateway (which is a physical device or software appliance on your side of the VPN connection) located in your data center.
+
+By default, instances that you launch into a virtual private cloud (VPC) can't communicate with your own network. You can enable access to your network from your VPC by attaching a virtual private gateway to the VPC, creating a custom route table, updating your security group rules, and creating an AWS managed VPN connection.
+
+Although the term VPN connection is a general term, in the Amazon VPC documentation, a VPN connection refers to the connection between your VPC and your own network. AWS supports Internet Protocol security (IPsec) VPN connections.
+
+A customer gateway is a physical device or software application on your side of the VPN connection.
+
+To create a VPN connection, you must create a customer gateway resource in AWS, which provides information to AWS about your customer gateway device. Next, you have to set up an Internet-routable IP address (static) of the customer gateway's external interface.
+
+The following diagram illustrates single VPN connections. The VPC has an attached virtual private gateway, and your remote network includes a customer gateway, which you must configure to enable the VPN connection. You set up the routing so that any traffic from the VPC bound for your network is routed to the virtual private gateway.
+
+## AWS PrivateLink 
+It enables you to privately connect your VPC to supported AWS services, services hosted by other AWS accounts (VPC endpoint services), and supported AWS Marketplace partner services. You do not require an internet gateway, NAT device, public IP address, AWS Direct Connect connection, or VPN connection to communicate with the service. Traffic between your VPC and the service does not leave the Amazon network.
+
+You can create a VPC peering connection between your VPCs, or with a VPC in another AWS account, and enable routing of traffic between the VPCs using private IP addresses. You cannot create a VPC peering connection between VPCs that have overlapping CIDR blocks.
+
+Applications in an Amazon VPC can securely access AWS PrivateLink endpoints across VPC peering connections. The support of VPC peering by AWS PrivateLink makes it possible for customers to privately connect to a service even if that service’s endpoint resides in a different Amazon VPC that is connected using VPC peering.
+AWS PrivateLink endpoints can now be accessed across both intra- and inter-region VPC peering connections.
+
+## HA for VPN
+ You can do the following to provide a highly available, fault-tolerant network connection:
+
+- Establish a hardware VPN over the Internet between the VPC and the on-premises network.
+- Establish another AWS Direct Connect connection and private virtual interface in the same AWS region. 
+
+## Q&A
+First, the Network ACL should be properly set to allow communication between the two subnets. The security group should also be properly configured so that your web server can communicate with the database server. Hence, options 1 and 4 are the correct answers:
+
+Check if all security groups are set to allow the application host to communicate to the database on the right port and protocol.
+Check the Network ACL if it allows communication between the two subnets.
+ 
+
+Option 2 is incorrect because the EC2 instances do not need to be of the same class in order to communicate with each other.
+
+Option 3 is incorrect because an Internet gateway is primarily used to communicate to the Internet.
+
+Option 5 is incorrect because Placement Group is mainly used to provide low-latency network performance necessary for tightly-coupled node-to-node communication.
+
+
 
 # AWS WAF
 
@@ -332,6 +466,14 @@ Run your DB instance in an Amazon Virtual Private Cloud (VPC) for the greatest p
 Your VPC must have at least two subnets. These subnets must be in two different Availability Zones in the region where you want to deploy your DB instance.
 If you want your DB instance in the VPC to be publicly accessible, you must enable the VPC attributes DNS hostnames and DNS resolution.
 
+###  performs a failover 
+Amazon RDS automatically performs a failover in the event of any of the following:
+
+Loss of availability in primary Availability Zone
+Loss of network connectivity to primary
+Compute unit failure on primary
+Storage failure on primary
+
 # Elastic Cache
 IAM Auth is not supported by ElastiCache
 
@@ -342,6 +484,23 @@ To monitor basic statistics for your instances and Amazon EBS volumes, use Amazo
 Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Locations 180-184). Amazon Web Services. Kindle Edition. 
 
 Disabling the Termination from the ASG would prevent our ASG to be Elastic and impact our costs. Making a snapshot of the EC2 instance before it gets terminated *could* work but it's tedious, not elastic and very expensive, as all we're interested about are log files. Using AWS Lambda would be extremely hard to use for this task. Here, the natural and by far easiest solution would be to use the CloudWatch Logs agents on the EC2 instances to automatically send log files into CloudWatch, so we can analyze them in the future easily should any problems arise.
+
+## Auto terminate
+Using Amazon CloudWatch alarm actions, you can create alarms that automatically stop, terminate, reboot, or recover your EC2 instances. You can use the stop or terminate actions to help you save money when you no longer need an instance to be running. You can use the reboot and recover actions to automatically reboot those instances or recover them onto new hardware if a system impairment occurs.
+
+### Q&A
+you can use Amazon CloudWatch to monitor the database and then Amazon SNS to send the emails to the Operations team. Take note that you should use SNS instead of SES (Simple Email Service) when you want to monitor your EC2 instances.
+
+CloudWatch collects monitoring and operational data in the form of logs, metrics, and events, providing you with a unified view of AWS resources, applications, and services that run on AWS, and on-premises servers.
+
+SNS is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications.
+
+Option 1 is incorrect. SES is a cloud-based email sending service designed to send notification and transactional emails.
+
+Option 3 is incorrect. SQS is a fully-managed message queuing service. It does not monitor applications nor send email notifications unlike SES.
+
+Option 4 is incorrect. Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service. It does not monitor applications nor send email notifications.
+
 
 # API Gateway
 Q: What API types are supported by Amazon API Gateway?
@@ -440,6 +599,16 @@ Lambda supports synchronous and asynchronous invocation of a Lambda function. Yo
 An event source is the entity that publishes events, and a Lambda function is the custom code that processes the events.
 Event source mapping maps an event source to a Lambda function. It enables automatic invocation of your Lambda function when events occur.
 
+## Lambda deployment
+If you're using the AWS Lambda compute platform, you must choose one of the following deployment configuration types to specify how traffic is shifted from the original AWS Lambda function version to the new AWS Lambda function version:
+
+-Canary: Traffic is shifted in two increments. You can choose from predefined canary options that specify the percentage of traffic shifted to your updated Lambda function version in the first increment and the interval, in minutes, before the remaining traffic is shifted in the second increment.
+-Linear: Traffic is shifted in equal increments with an equal number of minutes between each increment. You can choose from predefined linear options that specify the percentage of traffic shifted in each increment and the number of minutes between each increment.
+-All-at-once: All traffic is shifted from the original Lambda function to the updated Lambda function version at once.
+
+## Lambda@Edge
+Lets you run Lambda functions to customize content that CloudFront delivers, executing the functions in AWS locations closer to the viewer. The functions run in response to CloudFront events, without provisioning or managing servers.
+
 # Disaster Recovery
 ## Overview
 Need to define two terms:
@@ -462,6 +631,8 @@ ElastiCache / RDS / Neptune are not serverless databases. DynamoDB is serverless
 
 ## DynamoDB
 DynamoDB Streams will contain a stream of all the changes that happen to a DynamoDB table. It can be chained with a Lambda function that will be triggered to react to these changes, one of which being a developer's milestone. DAX is a caching layer 
+
+DynamoDB Auto Scaling is primarily used to automate capacity management for your tables and global secondary indexes.
 
 ### DAX
 DAX will be transparent and won't require an application refactoring, and will cache the "hot keys". ElastiCache could also be a solution, but it will require a lot of refactoring work on the AWS Lambda side.
@@ -536,6 +707,38 @@ The instance endpoint provides direct control over connections to the DB cluster
 SQS FIFO will not work here as they cannot sustain thousands of messages per second. SNS cannot be used for data streaming. Lambda isn't meant to retain data. Kinesis is the right answer here, with providing a partition key in our message we can guarantee ordering for a specific sensor, even if our stream is sharded
 
 
+## Concepts
+
+### Data Producer – An application that typically emits data records as they are generated to a Kinesis data stream. Data producers assign partition keys to records. Partition keys ultimately determine which shard ingests the data record for a data stream.
+### Data Consumer – A distributed Kinesis application or AWS service retrieving data from all shards in a stream as it is generated. Most data consumers are retrieving the most recent data in a shard, enabling real-time analytics or handling of data.
+### Data Stream – A logical grouping of shards. There are no bounds on the number of shards within a data stream. A data stream will retain data for 24 hours, or up to 7 days when extended retention is enabled.
+### Shard – The base throughput unit of a Kinesis data stream.
+A shard is an append-only log and a unit of streaming capability. A shard contains an ordered sequence of records ordered by arrival time.
+Add or remove shards from your stream dynamically as your data throughput changes.
+One shard can ingest up to 1000 data records per second, or 1MB/sec. Add more shards to increase your ingestion capability.
+When consumers use enhanced fan-out, one shard provides 1MB/sec data input and 2MB/sec data output for each data consumer registered to use enhanced fan-out.
+When consumers do not use enhanced fan-out, a shard provides 1MB/sec of input and 2MB/sec of data output, and this output is shared with any consumer not using enhanced fan-out.
+You will specify the number of shards needed when you create a stream and can change the quantity at any time.
+### Data Record
+A record is the unit of data stored in a Kinesis stream. A record is composed of a sequence number, partition key, and data blob.
+A data blob is the data of interest your data producer adds to a stream. The maximum size of a data blob is 1 MB.
+### Partition Key
+A partition key is typically a meaningful identifier, such as a user ID or timestamp. It is specified by your data producer while putting data into a Kinesis data stream, and useful for consumers as they can use the partition key to replay or build a history associated with the partition key.
+The partition key is also used to segregate and route data records to different shards of a stream.
+### Sequence Number
+A sequence number is a unique identifier for each data record. Sequence number is assigned by Kinesis Data Streams when a data producer calls PutRecord or PutRecords API to add data to a Kinesis data stream.
+
+## Monitoring
+You can monitor shard-level metrics in Kinesis Data Streams.
+You can monitor your data streams in Amazon Kinesis Data Streams using CloudWatch, Kinesis Agent, Kinesis libraries.
+Log API calls with CloudTrail.
+
+## Kinesis firehose
+You can specify a batch size or batch interval to control how quickly data is uploaded to destinations. Additionally, you can specify if data should be compressed.
+
+You can configure Kinesis Data Firehose to prepare your streaming data before it is loaded to data stores. Kinesis Data Firehose provides pre-built Lambda blueprints for converting common data sources such as Apache logs and system logs to JSON and CSV formats. You can use these pre-built blueprints without any change, or customize them further, or write your own custom functions.
+
+
 # BeanStalk
 When you create an AWS Elastic Beanstalk environment, you can specify an Amazon Machine Image (AMI) to use instead of the standard Elastic Beanstalk AMI included in your platform version. A custom AMI can improve provisioning times when instances are launched in your environment if you need to install a lot of software that isn't included in the standard AMIs. Read more here: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.customenv.html
 
@@ -585,6 +788,24 @@ ElastiCache for Redis offers default (service managed) encryption at rest, as we
 #### KMS
 Manage keys used for encrypted DB instances using the AWS KMS. KMS encryption keys are specific to the region that they are created in.
 
+
+
+# BYOIP
+You can bring part or all of your public IPv4 address range from your on-premises network to your AWS account. You continue to own the address range, but AWS advertises it on the Internet. After you bring the address range to AWS, it appears in your account as an address pool. You can create an Elastic IP address from your address pool and use it with your AWS resources, such as EC2 instances, NAT gateways, and Network Load Balancers. This is also called "Bring Your Own IP Addresses (BYOIP)".
+
+To ensure that only you can bring your address range to your AWS account, you must authorize Amazon to advertise the address range and provide proof that you own the address range.
+
+A Route Origin Authorization (ROA) is a document that you can create through your Regional internet registry (RIR), such as the American Registry for Internet Numbers (ARIN) or Réseaux IP Européens Network Coordination Centre (RIPE). It contains the address range, the ASNs that are allowed to advertise the address range, and an expiration date. Hence, Option 3 is the correct answer.
+
+The ROA authorizes Amazon to advertise an address range under a specific AS number. However, it does not authorize your AWS account to bring the address range to AWS. To authorize your AWS account to bring an address range to AWS, you must publish a self-signed X509 certificate in the RDAP remarks for the address range. The certificate contains a public key, which AWS uses to verify the authorization-context signature that you provide. You should keep your private key secure and use it to sign the authorization-context message.
+
+Option 1 is incorrect because you cannot map the IP address of your on-premises network, which you are migrating to AWS, to an EIP address of your VPC. To satisfy the requirement, you must authorize Amazon to advertise the address range that you own.
+
+Option 2 is incorrect because the IP match condition in CloudFront is primarily used in allowing or blocking the incoming web requests based on the IP addresses that the requests originate from. This is the opposite of what is being asked in the scenario, where you have to migrate your suite of applications from your on-premises network and advertise the address range that you own in your VPC.
+
+Option 4 is incorrect because you don't need to submit an AWS request in order to do this. You can simply create a Route Origin Authorization (ROA) then once done, provision and advertise your whitelisted IP address range to your AWS account.
+
+
 # Q&A
 
 -  Lambda would time out after 15 minutes (2000*3=6000 seconds = 100 minutes). Glue is for performing ETL, but cannot run custom Python scripts. Kinesis Streams is for real time data (here we are in a batch setup), RDS could be used to run SQL queries on the data, but no Python script. The correct answer is EC2
@@ -603,3 +824,4 @@ Manage keys used for encrypted DB instances using the AWS KMS. KMS encryption ke
 # Resources
 - RDS cheatsheet: https://tutorialsdojo.com/aws-cheat-sheet-amazon-relational-database-service-amazon-rds/
 - VPC cheatsheet: https://tutorialsdojo.com/aws-cheat-sheet-amazon-vpc/
+- Amazon Kinesis cheatsheet: https://tutorialsdojo.com/aws-cheat-sheet-amazon-kinesis/
