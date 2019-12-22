@@ -272,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-14-SerialVersionUID/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-21-Java-JIT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-02-14-SerialVersionUID/" class="post-title-link" itemprop="url">SeriableVersionUID</a>
+              <a href="/2017-02-21-Java-JIT/" class="post-title-link" itemprop="url">Java JIT compiler</a>
             
           </h1>
         
@@ -320,28 +320,45 @@
 
       
           
-            <h1 id="Noteworthy-points-about-SeriableVersionUID-in-Java"><a href="#Noteworthy-points-about-SeriableVersionUID-in-Java" class="headerlink" title="Noteworthy points about SeriableVersionUID in Java"></a>Noteworthy points about SeriableVersionUID in Java</h1><h2 id="Preventing-ClassCastExceptions-with-SerialVersionUID-Problem"><a href="#Preventing-ClassCastExceptions-with-SerialVersionUID-Problem" class="headerlink" title="Preventing ClassCastExceptions with SerialVersionUID Problem"></a>Preventing ClassCastExceptions with SerialVersionUID Problem</h2><ul>
-<li>Your classes were recompiled, and you’re getting ClassCastExceptions that you shouldn’t.<br>Solution</li>
-<li>Run serialver to generate a “serial version UUID” and paste its output into your classes before you start. Or use your IDE’s tools for this purpose.<br>Discussion</li>
-<li>When a class is undergoing a period of evolution—particularly a class being used in a networking context such as RMI or servlets—it may be useful to provide a serialVersionUID value in this class. This is a long that is basically a hash of the methods and fields in the class. Both the object serialization API (see Saving and Restoring Java Objects) and the JVM, when asked to cast one object to another (common when using collections, as in Chapter 7), either look up or, if not found, compute this value. If the value on the source and destination do not match, a ClassCastException is thrown. Most of the time, this is the correct thing for Java to do.<br>However, sometimes you may want to allow a class to evolve in a compatible way, but you can’t immediately replace all instances in circulation. You must be willing to write code to account for the additional fields being discarded if restoring from the longer format to the shorter and having the default value (null for objects, 0 for numbers, and false for Boolean) if you’re restoring from the shorter format to the longer. If you are only adding fields and methods in a reasonably compatible way, you can control the compatibility by providing a long int named serialVersionUID. The initial value should be obtained from a JDK tool called serialver, which takes just the class name. Consider a simple class called SerializableUser:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializableUser</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> String address;</span><br><span class="line">    <span class="keyword">public</span> String country;</span><br><span class="line">    <span class="keyword">public</span> String phoneNum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other fields, and methods, here...</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+            <h1 id="This-is-talking-about-Java-JIT-Just-In-Time-compiler"><a href="#This-is-talking-about-Java-JIT-Just-In-Time-compiler" class="headerlink" title="This is talking about Java JIT (Just-In-Time) compiler"></a>This is talking about Java JIT (Just-In-Time) compiler</h1><ul>
+<li><p>That trade-off is one reason that the compiler executes the interpreted code first—the compiler can figure out which methods are called frequently enough to warrant their compilation.<br>The second reason is one of optimization: the more times that the JVM executes a particular method or loop, the more information it has about that code. This allows the JVM to make a number of optimizations when it compiles the code.</p>
+</li>
+<li><p>At some point in time, the suminstance variable must reside in main memory, but retrieving a value from main memory is an expensive operation that takes multiple cycles to complete. If the value of sumwere to be retrieved from (and stored back to) main memory on every iteration of this loop, performance would be dismal. Instead, the compiler will load a register with the initial value of sum, perform the loop using that value in the register, and then (at an indeterminate point in time) store the final result from the register back to main memory.<br>This kind of optimization is very effective, but it means that the semantics of thread synchronization (see Chapter 9) are crucial to the behavior of the application</p>
+</li>
+<li><p>One thread cannot see the value of a variable stored in the register used by another thread; synchronization makes it possible to know exactly when the register is stored to main memory and available to other threads.<br>Register usage is a general optimization of the compiler, and when escape analysis is enabled (see the end of this chapter), register use is quite aggressive.</p>
 </li>
 </ul>
-<p>I first compiled it with two different compilers to ensure that the value is a product of the class structure, not of some minor differences in class file format that different compilers might emit:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$ jikes +E SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br></pre></td></tr></table></figure>
-
-<p>Sure enough, the class file from both compilers has the same hash. Now let’s change the file. I go in with an editor and add a new field, phoneNum, right after country:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> String country;</span><br><span class="line"><span class="keyword">public</span> String phoneNum;      <span class="comment">// Added this line.</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -8339341455288589756L;</span><br></pre></td></tr></table></figure>
-
-<p>Notice how the addition of the field changed the serialVersionUID! Now, if I had wanted this class to evolve in a compatible fashion, here’s what I should have done before I started expanding it. I copy and paste the original serialver output into the source file (again using an editor to insert a line before the last line):</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// The following is the line I added to SerializableUser.java</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
-
 <ul>
-<li>Now all is well: I can interchange serialized versions of this file.<br>Note that serialver is part of the “object serialization” mechanism, and, therefore, it is meaningful only on classes that implement the Serializable interface described in Saving and Restoring Java Objects.<br>Note also that some developers use serialVersionUID values that start at 1 (a choice offered by some IDEs when they note that a class that appears to be serializable lacks a serialVersionUID), and then simply increment it by one each time the class changes in an incompatible way.</li>
+<li><p>If the size of your heap will be less than about 3 GB, the 32-bit version of Java will be faster and have a smaller footprint. This is because the memory references within the JVM will be only 32 bits, and manipulating those memory references is less expensive than manipulating 64-bit references (even if you have a 64-bit CPU). The 32-bit references also use less memory.</p>
+</li>
+<li><p>JVM developers (and even some tools) often refer to the compilers by the names C1<br>(compiler 1, client compiler) and C2 (compiler 2, server compiler).</p>
+</li>
+<li><p>The primary difference between the two compilers is their aggressiveness in compiling<br>code. The client compiler begins compiling sooner than the server compiler does. This<br>means that during the beginning of code execution, the client compiler will be faster,<br>because it will have compiled correspondingly more code than the server compiler.</p>
+</li>
+<li><p>The engineering trade-off here is the knowledge the server compiler gains while it waits:<br>that knowledge allows the server compiler to make better optimizations in the compiled<br>code. Ultimately, code produced by the server compiler will be faster than that produced<br>by the client compiler. From a user’s perspective, the benefit to that trade-off is based<br>on how long the program will run, and how important the startup time of the program<br>is.</p>
+</li>
+<li><p>The obvious question here is why there needs to be a choice at all: couldn’t the JVM<br>start with the client compiler, and then use the server compiler as code gets hotter? That<br>technique is known as tiered compilation. With tiered compilation, code is first compiled<br>by the client compiler; as it becomes hot, it is recompiled by the server compiler.</p>
+</li>
+<li><p>To use tiered compilation, specify<br>the server compiler (either with -server or by ensuring it is the default for the particular<br>Java installation being used), and ensure that the Java command line includes the flag</p>
+</li>
+<li><p>XX:+TieredCompilation (the default value of which is false). In Java 8, tiered compilation<br>is enabled by default.</p>
+</li>
+<li><p>The client compiler is most often used when fast startup is the primary objective.</p>
+</li>
+</ul>
+<ol>
+<li>The client compiler is most useful when the startup of an application<br>is the overriding performance concern.</li>
+<li>Tiered compilation can achieve startup times very close to those<br>obtained from the client compiler.</li>
+</ol>
+<ul>
+<li>It is also interesting that tiered compilation is always slightly better than the standard<br>server compiler. In theory, once the program has run enough to compile all the hot<br>spots, the server compiler might be expected to achieve the best (or at least equal) performance.<br>But in any application, there will almost always be some small section of code<br>that is infrequently executed. It is better to compile that code—even if the compilation<br>is not the best that might be achieved—than to execute that code in interpreted mode.</li>
+</ul>
+<ol>
+<li>For jobs that run in a fixed amount of time, choose the compiler<br>based on which one is the fastest at executing the actual job.</li>
+<li>Tiered compilation provides a reasonable default choice for batch<br>jobs.</li>
+</ol>
+<ul>
+<li>For long-running applications, always choose the server compiler, preferably in conjunction with tiered compilation.</li>
 </ul>
 
           
@@ -873,7 +890,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-21-Java-JIT/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-21-aws/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -889,7 +906,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-02-21-Java-JIT/" class="post-title-link" itemprop="url">Java JIT compiler</a>
+              <a href="/2017-03-21-aws/" class="post-title-link" itemprop="url">AWS Tips</a>
             
           </h1>
         
@@ -921,45 +938,450 @@
 
       
           
-            <h1 id="This-is-talking-about-Java-JIT-Just-In-Time-compiler"><a href="#This-is-talking-about-Java-JIT-Just-In-Time-compiler" class="headerlink" title="This is talking about Java JIT (Just-In-Time) compiler"></a>This is talking about Java JIT (Just-In-Time) compiler</h1><ul>
-<li><p>That trade-off is one reason that the compiler executes the interpreted code first—the compiler can figure out which methods are called frequently enough to warrant their compilation.<br>The second reason is one of optimization: the more times that the JVM executes a particular method or loop, the more information it has about that code. This allows the JVM to make a number of optimizations when it compiles the code.</p>
-</li>
-<li><p>At some point in time, the suminstance variable must reside in main memory, but retrieving a value from main memory is an expensive operation that takes multiple cycles to complete. If the value of sumwere to be retrieved from (and stored back to) main memory on every iteration of this loop, performance would be dismal. Instead, the compiler will load a register with the initial value of sum, perform the loop using that value in the register, and then (at an indeterminate point in time) store the final result from the register back to main memory.<br>This kind of optimization is very effective, but it means that the semantics of thread synchronization (see Chapter 9) are crucial to the behavior of the application</p>
-</li>
-<li><p>One thread cannot see the value of a variable stored in the register used by another thread; synchronization makes it possible to know exactly when the register is stored to main memory and available to other threads.<br>Register usage is a general optimization of the compiler, and when escape analysis is enabled (see the end of this chapter), register use is quite aggressive.</p>
+            <p>After establishing a SSH session, you can install a default web server by executing sudo yum install httpd -y. To start the web server, type sudo service httpd start and press Return to execute the command. Your web browser should show a placeholder site if you open http://$PublicIp with $PublicIp replaced by the public IP address of your virtual server.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-14-SerialVersionUID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-14-SerialVersionUID/" class="post-title-link" itemprop="url">SeriableVersionUID</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Noteworthy-points-about-SeriableVersionUID-in-Java"><a href="#Noteworthy-points-about-SeriableVersionUID-in-Java" class="headerlink" title="Noteworthy points about SeriableVersionUID in Java"></a>Noteworthy points about SeriableVersionUID in Java</h1><h2 id="Preventing-ClassCastExceptions-with-SerialVersionUID-Problem"><a href="#Preventing-ClassCastExceptions-with-SerialVersionUID-Problem" class="headerlink" title="Preventing ClassCastExceptions with SerialVersionUID Problem"></a>Preventing ClassCastExceptions with SerialVersionUID Problem</h2><ul>
+<li>Your classes were recompiled, and you’re getting ClassCastExceptions that you shouldn’t.<br>Solution</li>
+<li>Run serialver to generate a “serial version UUID” and paste its output into your classes before you start. Or use your IDE’s tools for this purpose.<br>Discussion</li>
+<li>When a class is undergoing a period of evolution—particularly a class being used in a networking context such as RMI or servlets—it may be useful to provide a serialVersionUID value in this class. This is a long that is basically a hash of the methods and fields in the class. Both the object serialization API (see Saving and Restoring Java Objects) and the JVM, when asked to cast one object to another (common when using collections, as in Chapter 7), either look up or, if not found, compute this value. If the value on the source and destination do not match, a ClassCastException is thrown. Most of the time, this is the correct thing for Java to do.<br>However, sometimes you may want to allow a class to evolve in a compatible way, but you can’t immediately replace all instances in circulation. You must be willing to write code to account for the additional fields being discarded if restoring from the longer format to the shorter and having the default value (null for objects, 0 for numbers, and false for Boolean) if you’re restoring from the shorter format to the longer. If you are only adding fields and methods in a reasonably compatible way, you can control the compatibility by providing a long int named serialVersionUID. The initial value should be obtained from a JDK tool called serialver, which takes just the class name. Consider a simple class called SerializableUser:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerializableUser</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> String address;</span><br><span class="line">    <span class="keyword">public</span> String country;</span><br><span class="line">    <span class="keyword">public</span> String phoneNum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other fields, and methods, here...</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
+<p>I first compiled it with two different compilers to ensure that the value is a product of the class structure, not of some minor differences in class file format that different compilers might emit:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$ jikes +E SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br></pre></td></tr></table></figure>
+
+<p>Sure enough, the class file from both compilers has the same hash. Now let’s change the file. I go in with an editor and add a new field, phoneNum, right after country:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> String country;</span><br><span class="line"><span class="keyword">public</span> String phoneNum;      <span class="comment">// Added this line.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -8339341455288589756L;</span><br></pre></td></tr></table></figure>
+
+<p>Notice how the addition of the field changed the serialVersionUID! Now, if I had wanted this class to evolve in a compatible fashion, here’s what I should have done before I started expanding it. I copy and paste the original serialver output into the source file (again using an editor to insert a line before the last line):</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// The following is the line I added to SerializableUser.java</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">7978489268769667877L</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ javac SerializableUser.java</span><br><span class="line">$ serialver SerializableUser</span><br><span class="line">SerializableUser:    static final long serialVersionUID = -7978489268769667877L;</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><p>If the size of your heap will be less than about 3 GB, the 32-bit version of Java will be faster and have a smaller footprint. This is because the memory references within the JVM will be only 32 bits, and manipulating those memory references is less expensive than manipulating 64-bit references (even if you have a 64-bit CPU). The 32-bit references also use less memory.</p>
-</li>
-<li><p>JVM developers (and even some tools) often refer to the compilers by the names C1<br>(compiler 1, client compiler) and C2 (compiler 2, server compiler).</p>
-</li>
-<li><p>The primary difference between the two compilers is their aggressiveness in compiling<br>code. The client compiler begins compiling sooner than the server compiler does. This<br>means that during the beginning of code execution, the client compiler will be faster,<br>because it will have compiled correspondingly more code than the server compiler.</p>
-</li>
-<li><p>The engineering trade-off here is the knowledge the server compiler gains while it waits:<br>that knowledge allows the server compiler to make better optimizations in the compiled<br>code. Ultimately, code produced by the server compiler will be faster than that produced<br>by the client compiler. From a user’s perspective, the benefit to that trade-off is based<br>on how long the program will run, and how important the startup time of the program<br>is.</p>
-</li>
-<li><p>The obvious question here is why there needs to be a choice at all: couldn’t the JVM<br>start with the client compiler, and then use the server compiler as code gets hotter? That<br>technique is known as tiered compilation. With tiered compilation, code is first compiled<br>by the client compiler; as it becomes hot, it is recompiled by the server compiler.</p>
-</li>
-<li><p>To use tiered compilation, specify<br>the server compiler (either with -server or by ensuring it is the default for the particular<br>Java installation being used), and ensure that the Java command line includes the flag</p>
-</li>
-<li><p>XX:+TieredCompilation (the default value of which is false). In Java 8, tiered compilation<br>is enabled by default.</p>
-</li>
-<li><p>The client compiler is most often used when fast startup is the primary objective.</p>
-</li>
+<li>Now all is well: I can interchange serialized versions of this file.<br>Note that serialver is part of the “object serialization” mechanism, and, therefore, it is meaningful only on classes that implement the Serializable interface described in Saving and Restoring Java Objects.<br>Note also that some developers use serialVersionUID values that start at 1 (a choice offered by some IDEs when they note that a class that appears to be serializable lacks a serialVersionUID), and then simply increment it by one each time the class changes in an incompatible way.</li>
 </ul>
-<ol>
-<li>The client compiler is most useful when the startup of an application<br>is the overriding performance concern.</li>
-<li>Tiered compilation can achieve startup times very close to those<br>obtained from the client compiler.</li>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-13-oracle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-03-13-oracle/" class="post-title-link" itemprop="url">Oracle</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <ul>
+<li>ORA-12899: Value Too Large for Column</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT value$ FROM sys.props$ WHERE name = 'NLS_CHARACTERSET' ;</span><br><span class="line"></span><br><span class="line">VALUE$</span><br><span class="line"><span class="comment">-------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">AL32UTF8</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> NLS_DATABASE_PARAMETERS</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">u43888859@hkl105482$  lsnrctl services DHKCUSTD</span><br><span class="line"></span><br><span class="line">LSNRCTL for Linux: Version 12.1.0.2.0 - Production on 28-FEB-2017 06:40:53</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hkl105482.hk.hsbc)(PORT=2001))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=DHKCUSTD.hk.hsbc)))</span><br><span class="line">Services Summary...</span><br><span class="line">Service "DHKCUSTD.hk.hsbc" has 1 instance(s).</span><br><span class="line">  Instance "DHKCUSTD", status READY, has 1 <span class="keyword">handler</span>(s) <span class="keyword">for</span> this service...</span><br><span class="line">    <span class="keyword">Handler</span>(s):</span><br><span class="line">      <span class="string">"DEDICATED"</span> established:<span class="number">15</span> refused:<span class="number">0</span> state:ready</span><br><span class="line">         <span class="keyword">LOCAL</span> <span class="keyword">SERVER</span></span><br><span class="line">The command completed successfully</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-30-WebSphere-setp-via-CLI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-03-30-WebSphere-setp-via-CLI/" class="post-title-link" itemprop="url">Setup WebSphere profiles and application in command line</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Setup-WebSphere-profiles-and-application-in-command-line"><a href="#Setup-WebSphere-profiles-and-application-in-command-line" class="headerlink" title="Setup WebSphere profiles and application in command line"></a>Setup WebSphere profiles and application in command line</h1><h2 id="Background-amp-descriptions"><a href="#Background-amp-descriptions" class="headerlink" title="Background &amp; descriptions"></a>Background &amp; descriptions</h2><ul>
+<li>Beginning with V8.5, WebSphere Application Server provides two runtime profiles. Every WebSphere Application Server package includes both profile types.<ol>
+<li>Full WebSphere Application Server</li>
+<li>Liberty profile</li>
 </ol>
-<ul>
-<li>It is also interesting that tiered compilation is always slightly better than the standard<br>server compiler. In theory, once the program has run enough to compile all the hot<br>spots, the server compiler might be expected to achieve the best (or at least equal) performance.<br>But in any application, there will almost always be some small section of code<br>that is infrequently executed. It is better to compile that code—even if the compilation<br>is not the best that might be achieved—than to execute that code in interpreted mode.</li>
+</li>
 </ul>
-<ol>
-<li>For jobs that run in a fixed amount of time, choose the compiler<br>based on which one is the fastest at executing the actual job.</li>
-<li>Tiered compilation provides a reasonable default choice for batch<br>jobs.</li>
-</ol>
-<ul>
-<li>For long-running applications, always choose the server compiler, preferably in conjunction with tiered compilation.</li>
+<h3 id="What’s-profile"><a href="#What’s-profile" class="headerlink" title="What’s profile?"></a>What’s profile?</h3><ul>
+<li><p>Simply put, a profile contains an Application Server.<br>When an Application Server is running, the server process may read and write data to the underlying configuration files and logs. So, by using profiles, transient data is kept away from the base product. This allows us to have more than one profile using the same base binaries, and also allows us to remove certain profiles without affecting other profiles. Another reason for separating the base binaries is that we can upgrade the product with maintenance updates and fix packs without having to re-create all profiles. Sometimes you do not want a specific profile to be updated. WAS profile management has been designed for flexibility.</p>
+</li>
+<li><p>WAS has the ability to have multiple application server definitions using the same underlying base binaries. Each profile defines the attributes and configurations for a given application server.<br>Each standalone application server can optionally have its own administrative console application, which you use to manage the application server.<br>We will cover how to install a profile later in the chapter.</p>
+</li>
+<li><p>On distributed platforms, profiles are created after you install the product by using either the Profile Management Tool or the manageprofiles command.</p>
+</li>
+</ul>
+<h2 id="WAS-Concepts"><a href="#WAS-Concepts" class="headerlink" title="WAS Concepts"></a>WAS Concepts</h2><h3 id="Nodes"><a href="#Nodes" class="headerlink" title="Nodes"></a>Nodes</h3><p>A node is an administrative grouping of application servers for configuration and operational management within one operating system instance. You can create multiple nodes inside one operating system instance, but a node cannot leave the operating system boundaries.</p>
+<p>A stand-alone application server configuration has only one node. With Network Deployment, you can configure a distributed server environment that consists of multiple nodes that are managed from one central administration server.</p>
+<h3 id="Node-agents"><a href="#Node-agents" class="headerlink" title="Node agents"></a>Node agents</h3><p>In distributed server configurations, each node has a node agent that works with the deployment manager to manage administration processes. A node agent is created automatically when you add (federate) a stand-alone application server node to a cell. Node agents are not included in the Base and Express configurations because a deployment manager is not needed in these architectures.</p>
+<p>The node agent is an administrative server that runs on the same system as the node. It monitors the application servers on that node, routing administrative requests from the deployment manager to those application servers.</p>
+<h3 id="Node-groups"><a href="#Node-groups" class="headerlink" title="Node groups"></a>Node groups</h3><p>A node group is a collection of nodes within a cell that have similar capabilities in terms of installed software, available resources, and configuration. A node group is used to define a boundary for server cluster formation so that the servers on the same node group host the same applications.<br>A DefaultNodeGroup is created automatically. The DefaultNodeGroup contains the deployment manager and any new nodes with the same platform type. A node can be a member of more than one node group.</p>
+<h3 id="Cells"><a href="#Cells" class="headerlink" title="Cells"></a>Cells</h3><p>A cell is a grouping of nodes into a single administrative domain. A cell encompasses the entire management domain. In the Base and Express configurations, a cell contains one node, and that node contains one server. The left side of Figure 3-11 illustrates a system with two cells that are each accessed by their own administrative console. Each cell has a node and a stand-alone application server.<br>In a Network Deployment environment (the right side of Figure 3-11), a cell can consist of multiple nodes and node groups. These nodes and groups are all administered from a single point, the deployment manager. Figure 3-11 shows a single cell that spans two systems that are accessed by a single administrative console. The deployment manager is administering the nodes.</p>
+<p>A cell configuration that contains nodes that are running on the same operating system is called a homogeneous cell.<br>It is also possible to configure a cell that consists of nodes on mixed operating systems. With this configuration, other operating systems can exist in the same WebSphere Application Server cell. </p>
+<p>For example, z/OS nodes, Linux nodes, UNIX nodes, and Windows system nodes can exist in the same WebSphere Application Server cell. This configuration is called a heterogeneous cell. A heterogeneous cell requires significant planning.</p>
+<h2 id="Noteworthy-points"><a href="#Noteworthy-points" class="headerlink" title="Noteworthy points"></a>Noteworthy points</h2><h3 id="Tools-utilities"><a href="#Tools-utilities" class="headerlink" title="Tools/utilities"></a>Tools/utilities</h3><ul>
+<li><p>create profile</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/IBM/WebSphere85/AppServer/bin/manageprofiles.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>check server status</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/IBM/WebSphere85/AppServer/bin/serverStatus.sh -all</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>start server </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/IBM/WebSphere85/AppServer/bin/startServer.sh SERVER_NAME</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>start server </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/IBM/WebSphere85/AppServer/bin/stopServer.sh dmgr</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>deploy application </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/utilities/API/v1.0/AppMgmt -deploy -deployMechanism simpleDeploy -appId xxx_war -appEnvId xxx -file <span class="string">"/tmp/xxx.ear"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>stop&amp;start application </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/utilities/API/v1.0/AppMgmt -operate -appId xxx_war -appEnvId xxx -stop</span><br><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/utilities/API/v1.0/AppMgmt -operate -appId xxx_war -appEnvId xxx -start</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="To-create-profile"><a href="#To-create-profile" class="headerlink" title="To create profile"></a>To create profile</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/AppServer/bin/manageprofiles.sh -create -profileName TEST_PROFILE -profilePath /opt/IBM/WebSphere85/AppServer/profiles/appprofiles/TEST_PROFILE -templatePath /opt/IBM/WebSphere85/AppServer/profileTemplates/default -serverName testSrv01 -nodeName testNode01 -hostName testserver.com -enableAdminSecurity <span class="literal">true</span> -adminUserName wasadmin -adminPassword wasadmin@12</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Errors-amp-troubleshooting"><a href="#Errors-amp-troubleshooting" class="headerlink" title="Errors &amp; troubleshooting"></a>Errors &amp; troubleshooting</h2><h3 id="Server-can’t-started-after-profile-creation"><a href="#Server-can’t-started-after-profile-creation" class="headerlink" title="Server can’t started after profile creation"></a>Server can’t started after profile creation</h3><ul>
+<li>You may find following errors if you try to bring up server after profile created<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/AppServer/bin/startServer.sh TEST_PROFILE</span><br><span class="line">ADMU0116I: Tool information is being logged <span class="keyword">in</span> file</span><br><span class="line">           /opt/IBM/WebSphere85/AppServer/profiles/dmgrprofile/logs/TEST_PROFILE/startServer.log</span><br><span class="line">ADMU0128I: Starting tool with the dmgrprofile profile</span><br><span class="line">ADMU3100I: Reading configuration <span class="keyword">for</span> server: TEST_PROFILE</span><br><span class="line">ADMU0111E: Program exiting with error: java.io.FileNotFoundException:</span><br><span class="line">           /opt/IBM/WebSphere85/AppServer/profiles/dmgrprofile/config/cells/wascell/nodes/dmgrnode/servers/TEST_PROFILE/server.xml</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h4><ul>
+<li><p>Please use the server name, rather than the profile name , e.g. should be testSrv01, rather than TEST_PROFILE</p>
+</li>
+<li><p>The command should be:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/AppServer/bin/startServer.sh testSrv01</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>On the other hand, you can troubleshoot this issue by double checking the server.xml by </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll /opt/IBM/WebSphere85/AppServer/profiles/appprofiles/TEST_PROFILE/config/cells/xxxxx/nodes/testNode01/servers/testSrv01/server.xml</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="WebServer-console-can’t-opened"><a href="#WebServer-console-can’t-opened" class="headerlink" title="WebServer console can’t opened"></a>WebServer console can’t opened</h3><ul>
+<li>There are few reasones, such as:<h4 id="DNS-errors"><a href="#DNS-errors" class="headerlink" title="DNS errors"></a>DNS errors</h4></li>
+<li>If the error as below:<br>This webpage is not available<br>The server at testserver.com can’t be found, because the DNS lookup failed. DNS is the network service that translates a website’s name to its Internet address.<h5 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions:"></a>Solutions:</h5>That’s maybe something wrong for DNS as stated above, so please try to either udpate hosts file in you workstation or repalce the URL by IP address, e.g.<br>replace <a href="https://testserver.com:9045/ibm/console/login.do?action=secure" target="_blank" rel="noopener">https://testserver.com:9045/ibm/console/login.do?action=secure</a> with <a href="https://123.123.112.123:9045/ibm/console/login.do?action=secure" target="_blank" rel="noopener">https://123.123.112.123:9045/ibm/console/login.do?action=secure</a></li>
+</ul>
+<h4 id="What’s-the-port-number-for-WAS-console"><a href="#What’s-the-port-number-for-WAS-console" class="headerlink" title="What’s the port number for WAS console"></a>What’s the port number for WAS console</h4><h5 id="You-should-get-to-know-it-after-profile-created"><a href="#You-should-get-to-know-it-after-profile-created" class="headerlink" title="You should get to know it after profile created"></a>You should get to know it after profile created</h5><p>For example, in aforesaid profile creation step, you’ll get following in output:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSTCONFSUCCESS: Success: Profile TEST_PROFILE now exists. Please consult /opt/IBM/WebSphere85/AppServer/profiles/TEST_PROFILE/logs/AboutThisProfile.txt <span class="keyword">for</span> more information about this profile.</span><br></pre></td></tr></table></figure>
+
+<p>To check content of this file, you’ll find following snipets:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrative console port: 9060</span><br><span class="line">Administrative console secure port: 9043</span><br></pre></td></tr></table></figure>
+
+<h5 id="Check-the-port-number-from-serverindex-xml"><a href="#Check-the-port-number-from-serverindex-xml" class="headerlink" title="Check the port number from serverindex.xml"></a>Check the port number from serverindex.xml</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -a2 WC_adminhost /opt/IBM/WebSphere85/AppServer/profiles/appprofiles/TEST_PROFILE/config/cells/xxxx/nodes/testNode01/serverindex.xml</span><br></pre></td></tr></table></figure>
+
+<p>You’ll find the port number listed as below:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">endPoint</span> <span class="attr">xmi:id</span>=<span class="string">"EndPoint_1183122129645"</span> <span class="attr">host</span>=<span class="string">"testserver.com"</span> <span class="attr">port</span>=<span class="string">"9407"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">specialEndpoints</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">specialEndpoints</span> <span class="attr">xmi:id</span>=<span class="string">"NamedEndPoint_1183122129646"</span> <span class="attr">endPointName</span>=<span class="string">"WC_adminhost"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">endPoint</span> <span class="attr">xmi:id</span>=<span class="string">"EndPoint_1183122129646"</span> <span class="attr">host</span>=<span class="string">"*"</span> <span class="attr">port</span>=<span class="string">"9062"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">specialEndpoints</span>&gt;</span></span><br><span class="line">--</span><br><span class="line">      <span class="tag">&lt;<span class="name">endPoint</span> <span class="attr">xmi:id</span>=<span class="string">"EndPoint_1183122129648"</span> <span class="attr">host</span>=<span class="string">"*"</span> <span class="attr">port</span>=<span class="string">"9355"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">specialEndpoints</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">specialEndpoints</span> <span class="attr">xmi:id</span>=<span class="string">"NamedEndPoint_1183122129649"</span> <span class="attr">endPointName</span>=<span class="string">"WC_adminhost_secure"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">endPoint</span> <span class="attr">xmi:id</span>=<span class="string">"EndPoint_1183122129649"</span> <span class="attr">host</span>=<span class="string">"*"</span> <span class="attr">port</span>=<span class="string">"9045"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">specialEndpoints</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Check-networking-amp-port-on-WAS-server"><a href="#Check-networking-amp-port-on-WAS-server" class="headerlink" title="Check networking &amp; port on WAS server"></a>Check networking &amp; port on WAS server</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@cn000tst1129 Thu Mar 30 17:07:11 /  <span class="comment">#netstat -nptlev | grep java</span></span><br><span class="line">tcp        0      0 133.14.16.2:20962           0.0.0.0:*                   LISTEN      200000000  938007     252552/java</span><br><span class="line">tcp        0      0 127.0.0.1:9635              0.0.0.0:*                   LISTEN      200000000  1048485    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9445                0.0.0.0:*                   LISTEN      200000000  1048615    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9062                0.0.0.0:*                   LISTEN      200000000  1048613    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9102                0.0.0.0:*                   LISTEN      200000000  1048479    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:8882                0.0.0.0:*                   LISTEN      200000000  1048484    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9045                0.0.0.0:*                   LISTEN      200000000  1048616    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20950               0.0.0.0:*                   LISTEN      200000000  938036     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:20953               0.0.0.0:*                   LISTEN      200000000  937999     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9082                0.0.0.0:*                   LISTEN      200000000  1048614    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20954               0.0.0.0:*                   LISTEN      200000000  938118     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:2811                0.0.0.0:*                   LISTEN      200000000  1048482    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20957               0.0.0.0:*                   LISTEN      200000000  937992     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9407                0.0.0.0:*                   LISTEN      200000000  1048481    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20959               0.0.0.0:*                   LISTEN      200000000  938088     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9408                0.0.0.0:*                   LISTEN      200000000  1048480    254902/java</span><br><span class="line">tcp        0      0 127.0.0.1:20960             0.0.0.0:*                   LISTEN      200000000  938089     252552/java</span><br><span class="line">tcp        0      0 133.14.16.2:20961           0.0.0.0:*                   LISTEN      200000000  938047     252552/java</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-04-06-SSH/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-04-06-SSH/" class="post-title-link" itemprop="url">SSH SFTP</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Secure-FTP"><a href="#Secure-FTP" class="headerlink" title="Secure FTP"></a>Secure FTP</h1><blockquote>
+<p>SFTP over FTP is the equivalant of HTTPS over HTTP, the security version</p>
+</blockquote>
+<h2 id="SFTP-versus-FTPS"><a href="#SFTP-versus-FTPS" class="headerlink" title="SFTP versus FTPS"></a>SFTP versus FTPS</h2><ul>
+<li>An increasing number of our customers are looking to move away from standard FTP for transferring data, so we are often asked which secure FTP protocol we recommend. In the next few paragraphs, we will explain what options are available and their main differences.</li>
+<li>The two mainstream protocols available for Secure FTP transfers are named SFTP (FTP over SSH) and FTPS (FTP over SSL). Both SFTP and FTPS offer a high level of protection since they implement strong algorithms such as AES and Triple DES to encrypt any data transferred. Both options also support a wide variety of functionality with a broad command set for transferring and working with files. So the most notable differences between SFTP and FTPS is how connections are authenticated and managed.</li>
+</ul>
+<h2 id="Authentication-SFTP-vs-FTPS"><a href="#Authentication-SFTP-vs-FTPS" class="headerlink" title="Authentication: SFTP vs. FTPS"></a>Authentication: SFTP vs. FTPS</h2><ul>
+<li>With SFTP (FTP over SSH), a connection can be authenticated using a couple different techniques.  For basic authentication, you (or your trading partner) may just require a user id and password to connect to the SFTP server. Its important to note that any user ids and passwords supplied over the SFTP connection will be encrypted, which is a big advantage over standard FTP.</li>
+<li>SSH keys can also be used to authenticate SFTP connections in addition to, or instead of, passwords. With key-based authentication, you will first need to generate a SSH private key and public key beforehand. If you need to connect to a trading partner’s SFTP server, you would send your SSH public key to them, which they will load onto their server and associate with your account. When you connect to their SFTP server, your client software will transmit your public key to the server for authentication. If the keys match, along with any user/password supplied, then the authentication will succeed.</li>
+<li>With FTPS (FTP over SSL), a connection is authenticated using a user id, password and certificate(s).  Like SFTP, the users and passwords for FTPS connections will also be encrypted. When connecting to a trading partner’s FTPS server, your FTPS client will first check if the server’s certificate is trusted. The certificate is considered trusted if either the certificate was signed off by a known certificate authority (CA), like Verisign, or if the certificate was self-signed (by your partner) and you have a copy of their public certificate in your trusted key store.</li>
+<li>Your partner may also require that you supply a certificate when you connect to them.  Your certificate may be signed off by a 3rd party CA or your partner may allow you to just self-sign your certificate, as long as you send them the public portion of your certificate beforehand (which they will load in their trusted key store).</li>
+</ul>
+<h2 id="Implementation-SFTP-vs-FTPS"><a href="#Implementation-SFTP-vs-FTPS" class="headerlink" title="Implementation: SFTP vs. FTPS"></a>Implementation: SFTP vs. FTPS</h2><ul>
+<li>In regards to how easy each of the secure FTP protocols are to implement, SFTP is the clear winner since it is very firewall friendly. SFTP only needs a single port number (default of 22) to be opened through the firewall.  This port will be used for all SFTP communications, including the initial authentication, any commands issued, as well as any data transferred.</li>
+<li>On the other hand, FTPS can be very difficult to patch through a tightly secured firewall since FTPS uses multiple port numbers. The initial port number (default of 21) is used for authentication and passing any commands.  However, every time a file transfer request (get, put) or directory listing request is made, another port number needs to be opened.  You and your trading partners will therefore have to open a range of ports in your firewalls to allow for FTPS connections, which can be a security risk for your network.</li>
+</ul>
+<p>In summary, SFTP and FTPS are both very secure with strong authentication options.  However since SFTP is much easier to port through firewalls, and we are seeing an increasing percentage of trading partners adopting SFTP, we believe SFTP is the clear winner for your secure FTP needs.</p>
+<h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><ul>
+<li>There are several ways to use SSH; one is to use automatically generated public-private key pairs to simply encrypt a network connection, and then use password authentication to log on.</li>
+<li>Another is to use a manually generated public-private key pair to perform the authentication, allowing users or programs to log in without having to specify a password. In this scenario, anyone can produce a matching pair of different keys (public and private). The public key is placed on all computers that must allow access to the owner of the matching private key (the owner keeps the private key secret). While authentication is based on the private key, the key itself is never transferred through the network during authentication. SSH only verifies whether the same person offering the public key also owns the matching private key. In all versions of SSH it is important to verify unknown public keys, i.e. associate the public keys with identities, before accepting them as valid. Accepting an attacker’s public key without validation will authorize an unauthorized attacker as a valid user.</li>
+</ul>
+<h2 id="Key-management"><a href="#Key-management" class="headerlink" title="Key management"></a>Key management</h2><ul>
+<li>On Unix-like systems, the list of authorized public keys is typically stored in the home directory of the user that is allowed to log in remotely, in the file ~/.ssh/authorized_keys.</li>
+</ul>
+<h3 id="WinFTP"><a href="#WinFTP" class="headerlink" title="WinFTP"></a>WinFTP</h3><ul>
+<li>cryptographic protocol is SSH-2</li>
+<li>SSH implementation is OpenSSH_5.3</li>
+<li>Server fingerprint: File transfer protocol = SFTP-3<br>Cryptographic protocol = SSH-2<br>SSH implementation = OpenSSH_5.3<br>Encryption algorithm = aes<br>Compression = No</li>
+</ul>
+<hr>
+<p>Server host key fingerprint</p>
+<h2 id="ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc"><a href="#ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc" class="headerlink" title="ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc"></a>ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc</h2><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers" target="_blank" rel="noopener">https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Secure_Shell</a></li>
 </ul>
 
           
@@ -1278,428 +1700,6 @@ Spring scans the application context for bean methods annotated with @Transactio
 <p>In the beans.xml file, you’ll find the following code:</p>
 <p>…<br><bean id="employeeServiceBean" class="org.packt.Spring.chapter2.callbacks.xml.EmployeeServiceImpl" init-method="myInit"><br></bean><br>…<br>In the EmployeeServiceImpl.java class, you’ll find the following code:</p>
 </listener></listener-container>
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-13-oracle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-03-13-oracle/" class="post-title-link" itemprop="url">Oracle</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <ul>
-<li>ORA-12899: Value Too Large for Column</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT value$ FROM sys.props$ WHERE name = 'NLS_CHARACTERSET' ;</span><br><span class="line"></span><br><span class="line">VALUE$</span><br><span class="line"><span class="comment">-------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">AL32UTF8</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> NLS_DATABASE_PARAMETERS</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">u43888859@hkl105482$  lsnrctl services DHKCUSTD</span><br><span class="line"></span><br><span class="line">LSNRCTL for Linux: Version 12.1.0.2.0 - Production on 28-FEB-2017 06:40:53</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hkl105482.hk.hsbc)(PORT=2001))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=DHKCUSTD.hk.hsbc)))</span><br><span class="line">Services Summary...</span><br><span class="line">Service "DHKCUSTD.hk.hsbc" has 1 instance(s).</span><br><span class="line">  Instance "DHKCUSTD", status READY, has 1 <span class="keyword">handler</span>(s) <span class="keyword">for</span> this service...</span><br><span class="line">    <span class="keyword">Handler</span>(s):</span><br><span class="line">      <span class="string">"DEDICATED"</span> established:<span class="number">15</span> refused:<span class="number">0</span> state:ready</span><br><span class="line">         <span class="keyword">LOCAL</span> <span class="keyword">SERVER</span></span><br><span class="line">The command completed successfully</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-21-aws/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-03-21-aws/" class="post-title-link" itemprop="url">AWS Tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>After establishing a SSH session, you can install a default web server by executing sudo yum install httpd -y. To start the web server, type sudo service httpd start and press Return to execute the command. Your web browser should show a placeholder site if you open http://$PublicIp with $PublicIp replaced by the public IP address of your virtual server.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-03-30-WebSphere-setp-via-CLI/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-03-30-WebSphere-setp-via-CLI/" class="post-title-link" itemprop="url">Setup WebSphere profiles and application in command line</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Setup-WebSphere-profiles-and-application-in-command-line"><a href="#Setup-WebSphere-profiles-and-application-in-command-line" class="headerlink" title="Setup WebSphere profiles and application in command line"></a>Setup WebSphere profiles and application in command line</h1><h2 id="Background-amp-descriptions"><a href="#Background-amp-descriptions" class="headerlink" title="Background &amp; descriptions"></a>Background &amp; descriptions</h2><ul>
-<li>Beginning with V8.5, WebSphere Application Server provides two runtime profiles. Every WebSphere Application Server package includes both profile types.<ol>
-<li>Full WebSphere Application Server</li>
-<li>Liberty profile</li>
-</ol>
-</li>
-</ul>
-<h3 id="What’s-profile"><a href="#What’s-profile" class="headerlink" title="What’s profile?"></a>What’s profile?</h3><ul>
-<li><p>Simply put, a profile contains an Application Server.<br>When an Application Server is running, the server process may read and write data to the underlying configuration files and logs. So, by using profiles, transient data is kept away from the base product. This allows us to have more than one profile using the same base binaries, and also allows us to remove certain profiles without affecting other profiles. Another reason for separating the base binaries is that we can upgrade the product with maintenance updates and fix packs without having to re-create all profiles. Sometimes you do not want a specific profile to be updated. WAS profile management has been designed for flexibility.</p>
-</li>
-<li><p>WAS has the ability to have multiple application server definitions using the same underlying base binaries. Each profile defines the attributes and configurations for a given application server.<br>Each standalone application server can optionally have its own administrative console application, which you use to manage the application server.<br>We will cover how to install a profile later in the chapter.</p>
-</li>
-<li><p>On distributed platforms, profiles are created after you install the product by using either the Profile Management Tool or the manageprofiles command.</p>
-</li>
-</ul>
-<h2 id="WAS-Concepts"><a href="#WAS-Concepts" class="headerlink" title="WAS Concepts"></a>WAS Concepts</h2><h3 id="Nodes"><a href="#Nodes" class="headerlink" title="Nodes"></a>Nodes</h3><p>A node is an administrative grouping of application servers for configuration and operational management within one operating system instance. You can create multiple nodes inside one operating system instance, but a node cannot leave the operating system boundaries.</p>
-<p>A stand-alone application server configuration has only one node. With Network Deployment, you can configure a distributed server environment that consists of multiple nodes that are managed from one central administration server.</p>
-<h3 id="Node-agents"><a href="#Node-agents" class="headerlink" title="Node agents"></a>Node agents</h3><p>In distributed server configurations, each node has a node agent that works with the deployment manager to manage administration processes. A node agent is created automatically when you add (federate) a stand-alone application server node to a cell. Node agents are not included in the Base and Express configurations because a deployment manager is not needed in these architectures.</p>
-<p>The node agent is an administrative server that runs on the same system as the node. It monitors the application servers on that node, routing administrative requests from the deployment manager to those application servers.</p>
-<h3 id="Node-groups"><a href="#Node-groups" class="headerlink" title="Node groups"></a>Node groups</h3><p>A node group is a collection of nodes within a cell that have similar capabilities in terms of installed software, available resources, and configuration. A node group is used to define a boundary for server cluster formation so that the servers on the same node group host the same applications.<br>A DefaultNodeGroup is created automatically. The DefaultNodeGroup contains the deployment manager and any new nodes with the same platform type. A node can be a member of more than one node group.</p>
-<h3 id="Cells"><a href="#Cells" class="headerlink" title="Cells"></a>Cells</h3><p>A cell is a grouping of nodes into a single administrative domain. A cell encompasses the entire management domain. In the Base and Express configurations, a cell contains one node, and that node contains one server. The left side of Figure 3-11 illustrates a system with two cells that are each accessed by their own administrative console. Each cell has a node and a stand-alone application server.<br>In a Network Deployment environment (the right side of Figure 3-11), a cell can consist of multiple nodes and node groups. These nodes and groups are all administered from a single point, the deployment manager. Figure 3-11 shows a single cell that spans two systems that are accessed by a single administrative console. The deployment manager is administering the nodes.</p>
-<p>A cell configuration that contains nodes that are running on the same operating system is called a homogeneous cell.<br>It is also possible to configure a cell that consists of nodes on mixed operating systems. With this configuration, other operating systems can exist in the same WebSphere Application Server cell. </p>
-<p>For example, z/OS nodes, Linux nodes, UNIX nodes, and Windows system nodes can exist in the same WebSphere Application Server cell. This configuration is called a heterogeneous cell. A heterogeneous cell requires significant planning.</p>
-<h2 id="Noteworthy-points"><a href="#Noteworthy-points" class="headerlink" title="Noteworthy points"></a>Noteworthy points</h2><h3 id="Tools-utilities"><a href="#Tools-utilities" class="headerlink" title="Tools/utilities"></a>Tools/utilities</h3><ul>
-<li><p>create profile</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/IBM/WebSphere85/AppServer/bin/manageprofiles.sh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>check server status</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/IBM/WebSphere85/AppServer/bin/serverStatus.sh -all</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>start server </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/IBM/WebSphere85/AppServer/bin/startServer.sh SERVER_NAME</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>start server </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/IBM/WebSphere85/AppServer/bin/stopServer.sh dmgr</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>deploy application </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/utilities/API/v1.0/AppMgmt -deploy -deployMechanism simpleDeploy -appId xxx_war -appEnvId xxx -file <span class="string">"/tmp/xxx.ear"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>stop&amp;start application </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/utilities/API/v1.0/AppMgmt -operate -appId xxx_war -appEnvId xxx -stop</span><br><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/utilities/API/v1.0/AppMgmt -operate -appId xxx_war -appEnvId xxx -start</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="To-create-profile"><a href="#To-create-profile" class="headerlink" title="To create profile"></a>To create profile</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/AppServer/bin/manageprofiles.sh -create -profileName TEST_PROFILE -profilePath /opt/IBM/WebSphere85/AppServer/profiles/appprofiles/TEST_PROFILE -templatePath /opt/IBM/WebSphere85/AppServer/profileTemplates/default -serverName testSrv01 -nodeName testNode01 -hostName testserver.com -enableAdminSecurity <span class="literal">true</span> -adminUserName wasadmin -adminPassword wasadmin@12</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Errors-amp-troubleshooting"><a href="#Errors-amp-troubleshooting" class="headerlink" title="Errors &amp; troubleshooting"></a>Errors &amp; troubleshooting</h2><h3 id="Server-can’t-started-after-profile-creation"><a href="#Server-can’t-started-after-profile-creation" class="headerlink" title="Server can’t started after profile creation"></a>Server can’t started after profile creation</h3><ul>
-<li>You may find following errors if you try to bring up server after profile created<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/AppServer/bin/startServer.sh TEST_PROFILE</span><br><span class="line">ADMU0116I: Tool information is being logged <span class="keyword">in</span> file</span><br><span class="line">           /opt/IBM/WebSphere85/AppServer/profiles/dmgrprofile/logs/TEST_PROFILE/startServer.log</span><br><span class="line">ADMU0128I: Starting tool with the dmgrprofile profile</span><br><span class="line">ADMU3100I: Reading configuration <span class="keyword">for</span> server: TEST_PROFILE</span><br><span class="line">ADMU0111E: Program exiting with error: java.io.FileNotFoundException:</span><br><span class="line">           /opt/IBM/WebSphere85/AppServer/profiles/dmgrprofile/config/cells/wascell/nodes/dmgrnode/servers/TEST_PROFILE/server.xml</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h4><ul>
-<li><p>Please use the server name, rather than the profile name , e.g. should be testSrv01, rather than TEST_PROFILE</p>
-</li>
-<li><p>The command should be:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u wasadm /opt/IBM/WebSphere85/AppServer/bin/startServer.sh testSrv01</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>On the other hand, you can troubleshoot this issue by double checking the server.xml by </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll /opt/IBM/WebSphere85/AppServer/profiles/appprofiles/TEST_PROFILE/config/cells/xxxxx/nodes/testNode01/servers/testSrv01/server.xml</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="WebServer-console-can’t-opened"><a href="#WebServer-console-can’t-opened" class="headerlink" title="WebServer console can’t opened"></a>WebServer console can’t opened</h3><ul>
-<li>There are few reasones, such as:<h4 id="DNS-errors"><a href="#DNS-errors" class="headerlink" title="DNS errors"></a>DNS errors</h4></li>
-<li>If the error as below:<br>This webpage is not available<br>The server at testserver.com can’t be found, because the DNS lookup failed. DNS is the network service that translates a website’s name to its Internet address.<h5 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions:"></a>Solutions:</h5>That’s maybe something wrong for DNS as stated above, so please try to either udpate hosts file in you workstation or repalce the URL by IP address, e.g.<br>replace <a href="https://testserver.com:9045/ibm/console/login.do?action=secure" target="_blank" rel="noopener">https://testserver.com:9045/ibm/console/login.do?action=secure</a> with <a href="https://123.123.112.123:9045/ibm/console/login.do?action=secure" target="_blank" rel="noopener">https://123.123.112.123:9045/ibm/console/login.do?action=secure</a></li>
-</ul>
-<h4 id="What’s-the-port-number-for-WAS-console"><a href="#What’s-the-port-number-for-WAS-console" class="headerlink" title="What’s the port number for WAS console"></a>What’s the port number for WAS console</h4><h5 id="You-should-get-to-know-it-after-profile-created"><a href="#You-should-get-to-know-it-after-profile-created" class="headerlink" title="You should get to know it after profile created"></a>You should get to know it after profile created</h5><p>For example, in aforesaid profile creation step, you’ll get following in output:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSTCONFSUCCESS: Success: Profile TEST_PROFILE now exists. Please consult /opt/IBM/WebSphere85/AppServer/profiles/TEST_PROFILE/logs/AboutThisProfile.txt <span class="keyword">for</span> more information about this profile.</span><br></pre></td></tr></table></figure>
-
-<p>To check content of this file, you’ll find following snipets:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrative console port: 9060</span><br><span class="line">Administrative console secure port: 9043</span><br></pre></td></tr></table></figure>
-
-<h5 id="Check-the-port-number-from-serverindex-xml"><a href="#Check-the-port-number-from-serverindex-xml" class="headerlink" title="Check the port number from serverindex.xml"></a>Check the port number from serverindex.xml</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -a2 WC_adminhost /opt/IBM/WebSphere85/AppServer/profiles/appprofiles/TEST_PROFILE/config/cells/xxxx/nodes/testNode01/serverindex.xml</span><br></pre></td></tr></table></figure>
-
-<p>You’ll find the port number listed as below:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">endPoint</span> <span class="attr">xmi:id</span>=<span class="string">"EndPoint_1183122129645"</span> <span class="attr">host</span>=<span class="string">"testserver.com"</span> <span class="attr">port</span>=<span class="string">"9407"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">specialEndpoints</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">specialEndpoints</span> <span class="attr">xmi:id</span>=<span class="string">"NamedEndPoint_1183122129646"</span> <span class="attr">endPointName</span>=<span class="string">"WC_adminhost"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">endPoint</span> <span class="attr">xmi:id</span>=<span class="string">"EndPoint_1183122129646"</span> <span class="attr">host</span>=<span class="string">"*"</span> <span class="attr">port</span>=<span class="string">"9062"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">specialEndpoints</span>&gt;</span></span><br><span class="line">--</span><br><span class="line">      <span class="tag">&lt;<span class="name">endPoint</span> <span class="attr">xmi:id</span>=<span class="string">"EndPoint_1183122129648"</span> <span class="attr">host</span>=<span class="string">"*"</span> <span class="attr">port</span>=<span class="string">"9355"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">specialEndpoints</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">specialEndpoints</span> <span class="attr">xmi:id</span>=<span class="string">"NamedEndPoint_1183122129649"</span> <span class="attr">endPointName</span>=<span class="string">"WC_adminhost_secure"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">endPoint</span> <span class="attr">xmi:id</span>=<span class="string">"EndPoint_1183122129649"</span> <span class="attr">host</span>=<span class="string">"*"</span> <span class="attr">port</span>=<span class="string">"9045"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">specialEndpoints</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="Check-networking-amp-port-on-WAS-server"><a href="#Check-networking-amp-port-on-WAS-server" class="headerlink" title="Check networking &amp; port on WAS server"></a>Check networking &amp; port on WAS server</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@cn000tst1129 Thu Mar 30 17:07:11 /  <span class="comment">#netstat -nptlev | grep java</span></span><br><span class="line">tcp        0      0 133.14.16.2:20962           0.0.0.0:*                   LISTEN      200000000  938007     252552/java</span><br><span class="line">tcp        0      0 127.0.0.1:9635              0.0.0.0:*                   LISTEN      200000000  1048485    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9445                0.0.0.0:*                   LISTEN      200000000  1048615    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9062                0.0.0.0:*                   LISTEN      200000000  1048613    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9102                0.0.0.0:*                   LISTEN      200000000  1048479    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:8882                0.0.0.0:*                   LISTEN      200000000  1048484    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:9045                0.0.0.0:*                   LISTEN      200000000  1048616    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20950               0.0.0.0:*                   LISTEN      200000000  938036     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:20953               0.0.0.0:*                   LISTEN      200000000  937999     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9082                0.0.0.0:*                   LISTEN      200000000  1048614    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20954               0.0.0.0:*                   LISTEN      200000000  938118     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:2811                0.0.0.0:*                   LISTEN      200000000  1048482    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20957               0.0.0.0:*                   LISTEN      200000000  937992     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9407                0.0.0.0:*                   LISTEN      200000000  1048481    254902/java</span><br><span class="line">tcp        0      0 0.0.0.0:20959               0.0.0.0:*                   LISTEN      200000000  938088     252552/java</span><br><span class="line">tcp        0      0 0.0.0.0:9408                0.0.0.0:*                   LISTEN      200000000  1048480    254902/java</span><br><span class="line">tcp        0      0 127.0.0.1:20960             0.0.0.0:*                   LISTEN      200000000  938089     252552/java</span><br><span class="line">tcp        0      0 133.14.16.2:20961           0.0.0.0:*                   LISTEN      200000000  938047     252552/java</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-04-06-SSH/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-04-06-SSH/" class="post-title-link" itemprop="url">SSH SFTP</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Secure-FTP"><a href="#Secure-FTP" class="headerlink" title="Secure FTP"></a>Secure FTP</h1><blockquote>
-<p>SFTP over FTP is the equivalant of HTTPS over HTTP, the security version</p>
-</blockquote>
-<h2 id="SFTP-versus-FTPS"><a href="#SFTP-versus-FTPS" class="headerlink" title="SFTP versus FTPS"></a>SFTP versus FTPS</h2><ul>
-<li>An increasing number of our customers are looking to move away from standard FTP for transferring data, so we are often asked which secure FTP protocol we recommend. In the next few paragraphs, we will explain what options are available and their main differences.</li>
-<li>The two mainstream protocols available for Secure FTP transfers are named SFTP (FTP over SSH) and FTPS (FTP over SSL). Both SFTP and FTPS offer a high level of protection since they implement strong algorithms such as AES and Triple DES to encrypt any data transferred. Both options also support a wide variety of functionality with a broad command set for transferring and working with files. So the most notable differences between SFTP and FTPS is how connections are authenticated and managed.</li>
-</ul>
-<h2 id="Authentication-SFTP-vs-FTPS"><a href="#Authentication-SFTP-vs-FTPS" class="headerlink" title="Authentication: SFTP vs. FTPS"></a>Authentication: SFTP vs. FTPS</h2><ul>
-<li>With SFTP (FTP over SSH), a connection can be authenticated using a couple different techniques.  For basic authentication, you (or your trading partner) may just require a user id and password to connect to the SFTP server. Its important to note that any user ids and passwords supplied over the SFTP connection will be encrypted, which is a big advantage over standard FTP.</li>
-<li>SSH keys can also be used to authenticate SFTP connections in addition to, or instead of, passwords. With key-based authentication, you will first need to generate a SSH private key and public key beforehand. If you need to connect to a trading partner’s SFTP server, you would send your SSH public key to them, which they will load onto their server and associate with your account. When you connect to their SFTP server, your client software will transmit your public key to the server for authentication. If the keys match, along with any user/password supplied, then the authentication will succeed.</li>
-<li>With FTPS (FTP over SSL), a connection is authenticated using a user id, password and certificate(s).  Like SFTP, the users and passwords for FTPS connections will also be encrypted. When connecting to a trading partner’s FTPS server, your FTPS client will first check if the server’s certificate is trusted. The certificate is considered trusted if either the certificate was signed off by a known certificate authority (CA), like Verisign, or if the certificate was self-signed (by your partner) and you have a copy of their public certificate in your trusted key store.</li>
-<li>Your partner may also require that you supply a certificate when you connect to them.  Your certificate may be signed off by a 3rd party CA or your partner may allow you to just self-sign your certificate, as long as you send them the public portion of your certificate beforehand (which they will load in their trusted key store).</li>
-</ul>
-<h2 id="Implementation-SFTP-vs-FTPS"><a href="#Implementation-SFTP-vs-FTPS" class="headerlink" title="Implementation: SFTP vs. FTPS"></a>Implementation: SFTP vs. FTPS</h2><ul>
-<li>In regards to how easy each of the secure FTP protocols are to implement, SFTP is the clear winner since it is very firewall friendly. SFTP only needs a single port number (default of 22) to be opened through the firewall.  This port will be used for all SFTP communications, including the initial authentication, any commands issued, as well as any data transferred.</li>
-<li>On the other hand, FTPS can be very difficult to patch through a tightly secured firewall since FTPS uses multiple port numbers. The initial port number (default of 21) is used for authentication and passing any commands.  However, every time a file transfer request (get, put) or directory listing request is made, another port number needs to be opened.  You and your trading partners will therefore have to open a range of ports in your firewalls to allow for FTPS connections, which can be a security risk for your network.</li>
-</ul>
-<p>In summary, SFTP and FTPS are both very secure with strong authentication options.  However since SFTP is much easier to port through firewalls, and we are seeing an increasing percentage of trading partners adopting SFTP, we believe SFTP is the clear winner for your secure FTP needs.</p>
-<h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><ul>
-<li>There are several ways to use SSH; one is to use automatically generated public-private key pairs to simply encrypt a network connection, and then use password authentication to log on.</li>
-<li>Another is to use a manually generated public-private key pair to perform the authentication, allowing users or programs to log in without having to specify a password. In this scenario, anyone can produce a matching pair of different keys (public and private). The public key is placed on all computers that must allow access to the owner of the matching private key (the owner keeps the private key secret). While authentication is based on the private key, the key itself is never transferred through the network during authentication. SSH only verifies whether the same person offering the public key also owns the matching private key. In all versions of SSH it is important to verify unknown public keys, i.e. associate the public keys with identities, before accepting them as valid. Accepting an attacker’s public key without validation will authorize an unauthorized attacker as a valid user.</li>
-</ul>
-<h2 id="Key-management"><a href="#Key-management" class="headerlink" title="Key management"></a>Key management</h2><ul>
-<li>On Unix-like systems, the list of authorized public keys is typically stored in the home directory of the user that is allowed to log in remotely, in the file ~/.ssh/authorized_keys.</li>
-</ul>
-<h3 id="WinFTP"><a href="#WinFTP" class="headerlink" title="WinFTP"></a>WinFTP</h3><ul>
-<li>cryptographic protocol is SSH-2</li>
-<li>SSH implementation is OpenSSH_5.3</li>
-<li>Server fingerprint: File transfer protocol = SFTP-3<br>Cryptographic protocol = SSH-2<br>SSH implementation = OpenSSH_5.3<br>Encryption algorithm = aes<br>Compression = No</li>
-</ul>
-<hr>
-<p>Server host key fingerprint</p>
-<h2 id="ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc"><a href="#ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc" class="headerlink" title="ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc"></a>ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc</h2><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers" target="_blank" rel="noopener">https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Secure_Shell</a></li>
-</ul>
-
           
         
       

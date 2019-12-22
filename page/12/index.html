@@ -386,6 +386,97 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-07-Protractor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-06-07-Protractor/" class="post-title-link" itemprop="url">Portactor</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Better-to-use-smart-wait"><a href="#Better-to-use-smart-wait" class="headerlink" title="Better to use smart wait"></a>Better to use smart wait</h2><p>If possible, you’d better to use <code>smart wait</code> in protractor e2e testing. Which could increase end to end testing efficiency. Normally dev tend to use sleep or wait to insert some stop during execution. What’s the difference of these two?<br>The difference between browser.sleep() and browser.wait() is that browser.wait() expects a specific value/condition. This wait condition is valid of Protractor or any WebDriver framework.</p>
+<p>An Expectation for checking an element is visible and enabled such that you can click it.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.elementToBeClickable($(‘#abc’)),5000);</span><br></pre></td></tr></table></figure>
+
+<p>Here are some protractor functions utilities.</p>
+<h3 id="textToBePresentInElement"><a href="#textToBePresentInElement" class="headerlink" title="textToBePresentInElement"></a>textToBePresentInElement</h3><p>An expectation for checking if the given text is present in the element.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.textToBePresentInElement($(‘#abc’),’foo’),5000);</span><br></pre></td></tr></table></figure>
+
+<h3 id="presenceOf"><a href="#presenceOf" class="headerlink" title="presenceOf"></a>presenceOf</h3><p>An expectation for checking that an element is present on the DOM of a page.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.presenceOf($(‘#abc’)),5000);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; go, click, see, below, slow, type &#125; <span class="keyword">from</span> <span class="string">'blue-harvest'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; browser, ExpectedConditions &#125; <span class="keyword">from</span> <span class="string">'protractor'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> client = <span class="string">'TEST CLIENT'</span>;</span><br><span class="line"><span class="keyword">const</span> clientFullName = <span class="string">'TEST CLIENT LTD'</span>;</span><br><span class="line"><span class="keyword">const</span> timeOut = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'Should show bell potter'</span>, () =&gt; &#123;</span><br><span class="line">    beforeEach(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">await</span> go(<span class="string">'http://localhost:4200/#/dashboard'</span>)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    it(<span class="string">'should be able to search bell potter'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> slow.click(<span class="string">'Search clients or accounts'</span>)</span><br><span class="line">        <span class="keyword">await</span> type(<span class="string">`TEST`</span>);</span><br><span class="line"></span><br><span class="line">        browser.wait(see(client), timeOut)</span><br><span class="line">        <span class="keyword">await</span> click(client)</span><br><span class="line"></span><br><span class="line">        browser.wait(see(clientFullName), timeOut)</span><br><span class="line">        expect(<span class="keyword">await</span> below(clientFullName).see(<span class="string">'GO'</span>)).toBeTruthy();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://medium.com/@ited.ro/how-to-use-smart-waits-with-protractor-how-to-use-expected-conditions-with-protractor-10c545c670be" target="_blank" rel="noopener">https://medium.com/@ited.ro/how-to-use-smart-waits-with-protractor-how-to-use-expected-conditions-with-protractor-10c545c670be</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-15-rxjs-pipe-in-depth/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -593,97 +684,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-07-Protractor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-06-07-Protractor/" class="post-title-link" itemprop="url">Portactor</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="Better-to-use-smart-wait"><a href="#Better-to-use-smart-wait" class="headerlink" title="Better to use smart wait"></a>Better to use smart wait</h2><p>If possible, you’d better to use <code>smart wait</code> in protractor e2e testing. Which could increase end to end testing efficiency. Normally dev tend to use sleep or wait to insert some stop during execution. What’s the difference of these two?<br>The difference between browser.sleep() and browser.wait() is that browser.wait() expects a specific value/condition. This wait condition is valid of Protractor or any WebDriver framework.</p>
-<p>An Expectation for checking an element is visible and enabled such that you can click it.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.elementToBeClickable($(‘#abc’)),5000);</span><br></pre></td></tr></table></figure>
-
-<p>Here are some protractor functions utilities.</p>
-<h3 id="textToBePresentInElement"><a href="#textToBePresentInElement" class="headerlink" title="textToBePresentInElement"></a>textToBePresentInElement</h3><p>An expectation for checking if the given text is present in the element.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.textToBePresentInElement($(‘#abc’),’foo’),5000);</span><br></pre></td></tr></table></figure>
-
-<h3 id="presenceOf"><a href="#presenceOf" class="headerlink" title="presenceOf"></a>presenceOf</h3><p>An expectation for checking that an element is present on the DOM of a page.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.wait(EC.presenceOf($(‘#abc’)),5000);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; go, click, see, below, slow, type &#125; <span class="keyword">from</span> <span class="string">'blue-harvest'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; browser, ExpectedConditions &#125; <span class="keyword">from</span> <span class="string">'protractor'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> client = <span class="string">'TEST CLIENT'</span>;</span><br><span class="line"><span class="keyword">const</span> clientFullName = <span class="string">'TEST CLIENT LTD'</span>;</span><br><span class="line"><span class="keyword">const</span> timeOut = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'Should show bell potter'</span>, () =&gt; &#123;</span><br><span class="line">    beforeEach(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">await</span> go(<span class="string">'http://localhost:4200/#/dashboard'</span>)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    it(<span class="string">'should be able to search bell potter'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> slow.click(<span class="string">'Search clients or accounts'</span>)</span><br><span class="line">        <span class="keyword">await</span> type(<span class="string">`TEST`</span>);</span><br><span class="line"></span><br><span class="line">        browser.wait(see(client), timeOut)</span><br><span class="line">        <span class="keyword">await</span> click(client)</span><br><span class="line"></span><br><span class="line">        browser.wait(see(clientFullName), timeOut)</span><br><span class="line">        expect(<span class="keyword">await</span> below(clientFullName).see(<span class="string">'GO'</span>)).toBeTruthy();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://medium.com/@ited.ro/how-to-use-smart-waits-with-protractor-how-to-use-expected-conditions-with-protractor-10c545c670be" target="_blank" rel="noopener">https://medium.com/@ited.ro/how-to-use-smart-waits-with-protractor-how-to-use-expected-conditions-with-protractor-10c545c670be</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-09-FX/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -762,7 +762,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-14-JBoss-Console/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-10-JVM-Warm-up/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -778,7 +778,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-06-14-JBoss-Console/" class="post-title-link" itemprop="url">Jboss tips</a>
+              <a href="/2018-06-10-JVM-Warm-up/" class="post-title-link" itemprop="url">JVM wram up</a>
             
           </h1>
         
@@ -810,14 +810,66 @@
 
       
           
-            <h1 id="commands"><a href="#commands" class="headerlink" title="commands:"></a>commands:</h1><h2 id="to-list-all-deployed-applications"><a href="#to-list-all-deployed-applications" class="headerlink" title="to list all deployed applications"></a>to list all deployed applications</h2><p>jboss\jboss-eap-6.4\bin\jboss-cli.bat –connect –controller=localhost:7373 –command=/deployment=*:read-attribute(name=name)</p>
-<h2 id="to-list-JNDI-tree"><a href="#to-list-JNDI-tree" class="headerlink" title="to list JNDI tree:"></a>to list JNDI tree:</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /subsystem=mail</span><br><span class="line">ls</span><br><span class="line">/subsystem=mail/mail-session=java:jboss/mail/payment_mail</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> /subsystem=naming:jndi-view()</span><br><span class="line"></span><br><span class="line"> &#125;,</span><br><span class="line"><span class="string">"mail"</span> =&gt; &#123;</span><br><span class="line">    <span class="string">"class-name"</span> =&gt; <span class="string">"javax.naming.Context"</span>,</span><br><span class="line">    <span class="string">"children"</span> =&gt; &#123;</span><br><span class="line">        <span class="string">"Default"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@22951e8f"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"payment_mail"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@548df9e2"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+            <h1 id="JVM-wram-up"><a href="#JVM-wram-up" class="headerlink" title="JVM wram up"></a>JVM wram up</h1><p>Keeping this in mind, for low-latency applications, we need to cache all classes beforehand – so that they’re available instantly when accessed at runtime.</p>
+<p>This process of tuning the JVM is known as warming up.</p>
+<h1 id="Escape-Analysis"><a href="#Escape-Analysis" class="headerlink" title="Escape Analysis"></a>Escape Analysis</h1><p>Escape analysis is a technique by which the Java Hotspot Server Compiler can analyze the scope of a new object’s uses and decide whether to allocate it on the Java heap.</p>
+<p>Based on escape analysis, an object’s escape state might be one of the following:</p>
+<ul>
+<li>GlobalEscape – An object escapes the method and thread. For example, an object stored in a static field, or, stored in a field of an escaped object, or, returned as the result of the current method.</li>
+<li>ArgEscape – An object passed as an argument or referenced by an argument but does not globally escape during a call. This state is determined by analyzing the bytecode of called method.</li>
+<li>NoEscape – A scalar replaceable object, meaning its allocation could be removed from generated code.</li>
+</ul>
+<p>After escape analysis, the server compiler eliminates scalar replaceable object allocations and associated locks from generated code. The server compiler also eliminates locks for all non-globally escaping objects. It does not replace a heap allocation with a stack allocation for non-globally escaping objects.</p>
+<p>The JIT aggressively inlines methods, removing the overhead of method calls. Methods that can be inlined include static, private or final methods but also public methods if it can be determined that they are not overridden. Because of this, subsequent class loading can invalidate the previously generated code. Because inlining every method everywhere would take time and would generate an unreasonably big binary, the JIT compiler inlines the hot methods first until it reaches a threshold. To determine which methods are hot, the JVM keeps counters to see how many times a method is called and how many loop iterations it has executed. This means that inlining happens only after a steady state has been reached, so you need to repeat the operations a certain number of times before there is enough profiling information available for the JIT compiler to do its job.</p>
+<p>Rather than trying to guess what the JIT is doing, you can take a peek at what’s happening by turning on java command line flags: -XX:+PrintCompilation -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining</p>
+<p>Here is what they do:</p>
+<pre><code>-XX:+PrintCompilation: logs when JIT compilation happens
+-XX:+UnlockDiagnosticVMOptions: enables other flags like -XX:+PrintInlining</code></pre><p>GlobalEscape and ArgEscape objects must be allocated on the heap, but for ArgEscape objects it is possible to remove some locking and memory synchronization overhead because these objects are only visible from the calling thread.</p>
+<p>The NoEscape objects may be allocated freely, for example on the stack instead of on the heap. In fact, under some circumstances, it is not even necessary to construct an object at all, but instead only the object’s scalar values, such as an int for the object Integer. Synchronization may be removed too, because we know that only this thread will use the objects. For example, if we were to use the somewhat ancient StringBuffer (which as opposed to StringBuilder has synchronized methods), then these synchronizations could safely be removed.</p>
+<p>EA is currently only available under the C2 HotSpot Compiler so we have to make sure that we run in -server mode.</p>
+<h2 id="Why-It-Matters"><a href="#Why-It-Matters" class="headerlink" title="Why It Matters"></a>Why It Matters</h2><p>In theory, NoEscape objects objects can be allocated on the stack or even in CPU registers using EA,  giving very fast execution.</p>
+<p>When we allocate objects on the heap, we start to drain our CPU caches because objects are placed on different addresses on the heap possibly far away from each other. This way we will quickly deplete our L1 CPU cache and performance will decrease. With EA and stack allocation on the other hand, we are using memory that (most likely) is already in the L1 cache anyhow.  So, EA and stack allocation will improve our localization of data. This is good from a performance standpoint.</p>
+<p>Obviously, the garbage collects needs to run much less frequently when we are using EA with stack allocation. This is perhaps the biggest performance advantage. Recall that each time the JVM runs a complete heap scan, we take performance out of our CPUs and the CPU caches will quickly deplete. Not to mention if we have virtual memory paged out on our server, whereby GC is devastating for performance.</p>
+<p>The most important advantage of EA is not performance though. EA allows us to use local abstractions like Lambdas, Functions, Streams, Iterators etc. without any significant performance penalty so that we can write better and more readable code. Code that describes what we are doing rather than how it is done.</p>
+<p>The GC cleans up the heap and not the stack. The stack is cleaned up automatically when methods return to their caller whereby the stack pointer is reset to its former value. So GC will clean up objects that ended up on the stack before EA/C2 compilation could be performed. The actual instances (or rather their corresponding representations) live on the stack, there are no referenced objects on the stack in the context of EA optimizations.</p>
+<h1 id="JIT-optimization"><a href="#JIT-optimization" class="headerlink" title="JIT optimization"></a>JIT optimization</h1><p>Some JIT Compilation Techniques</p>
+<p>One of the most common JIT compilation techniques used by Java HotSpot VM is inlining, which is the practice of substituting the body of a method into the places where that method is called. Inlining saves the cost of calling the method; no new stack frames need to be created. By default, Java HotSpot VM will try to inline methods that contain less than 35 bytes of JVM bytecode.</p>
+<p>Another common optimization that Java HotSpot VM makes is monomorphic dispatch, which relies on the observed fact that, usually, there aren’t paths through a method that cause an object reference to be of one type most of the time but of another type at other times.</p>
+<p>You might think that having different types via different code paths would be ruled out by Java’s static typing, but remember that an instance of a subtype is always a valid instance of a supertype (this principle is known as the Liskov substitution principle, after Barbara Liskov). This situation means that there could be two paths into a method—for example, one that passes an instance of a supertype and one that passes an instance of a subtype—which would be legal by the rules of Java’s static typing (and does occur in practice).</p>
+<p>In the usual case (the monomorphic case), however, having different, path-dependent types does not happen. So we know the exact method definitions that will be called when methods are called on the passed object, because we don’t need to check which override is actually being used. This means we can eliminate the overhead of doing virtual method lookup, so the JIT compiler can emit optimized machine code that is often faster than an equivalent C++ call (because in the C++ case, the virtual lookup cannot easily be eliminated).<br>The two Java HotSpot VM compiler modes use different techniques for JIT compilation, and they can output very different machine code for the same Java method. Modern Java applications, however, can usually make use of both compilation modes.</p>
+<p>Java HotSpot VM uses many other techniques to optimize the code that JIT compilation produces. Loop optimization, type sharpening, dead-code elimination, and intrinsics are just some of the other ways that Java HotSpot VM tries to optimize code as much as it can. Techniques are frequently layered one on top of another, so that once one optimization has been applied, the compiler might be able to see more optimizations that can be performed.</p>
+<h1 id="Compilation-Modes"><a href="#Compilation-Modes" class="headerlink" title="Compilation Modes"></a>Compilation Modes</h1><p>Inside Java HotSpot VM, there are actually two separate JIT compiler modes, which are known as C1 and C2. C1 is used for applications where quick startup and rock-solid optimization are required; GUI applications are often good candidates for this compiler. C2, on the other hand, was originally intended for long-running, predominantly server-side applications. Prior to some of the later Java SE 7 releases, these two modes were available using the -client and -server switches, respectively.</p>
+<p>The two compiler modes use different techniques for JIT compilation, and they can output very different machine code for the same Java method. Modern Java applications, however, can usually make use of both compilation modes. To take advantage of this fact, starting with some of the later Java SE 7 releases, a new feature called tiered compilation became available. This feature uses the C1 compiler mode at the start to provide better startup performance. Once the application is properly warmed up, the C2 compiler mode takes over to provide more-aggressive optimizations and, usually, better performance. With the arrival of Java SE 8, tiered compilation is now the default behavior.</p>
+<h1 id="Java-memory-monitoring-tools"><a href="#Java-memory-monitoring-tools" class="headerlink" title="Java memory monitoring tools"></a>Java memory monitoring tools</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">pemi$ jps | grep Main</span><br><span class="line">50903 Main</span><br><span class="line">pemi$ jmap -histo 50903 | head</span><br><span class="line"> num     <span class="comment">#instances         #bytes  class name</span></span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line">   1:            95       42952184  [I</span><br><span class="line">   2:          1079         101120  [C</span><br><span class="line">   3:           485          55272  java.lang.Class</span><br><span class="line">   4:           526          25936  [Ljava.lang.Object;</span><br><span class="line">   5:            13          25664  [B</span><br><span class="line">   6:          1057          25368  java.lang.String</span><br><span class="line">   7:            74           5328  java.lang.reflect.Field</span><br></pre></td></tr></table></figure>
 
+<p>jmap - Memory Map</p>
+<p>Tool or Option  Description and Usage</p>
+<p>Java Mission Control</p>
+<p>Java Mission Control (JMC) is a new JDK profiling and diagnostic tools platform for HotSpot JVM. It s a tool suite basic monitoring, managing, and production time profiling and diagnostics with high performance. Java Mission Control minimizes the performance overhead that’s usually an issue with profiling tools. See Java Mission Control.</p>
+<p>jcmd utility</p>
+<p>The jcmd utility is used to send diagnostic command requests to the JVM, where these requests are useful for controlling Java Flight Recordings. The JFRs are used to troubleshoot and diagnose JVM and Java Applications with flight recording events. See The jcmd Utility.</p>
+<p>Java VisualVM</p>
+<p>This utility provides a visual interface for viewing detailed information about Java applications while they are running on a Java Virtual Machine. This information can be used in troubleshooting local and remote applications, as well as for profiling local applications. See Java VisualVM.</p>
+<p>JConsole utility</p>
+<p>This utility is a monitoring tool that is based on Java Management Extensions (JMX). The tool uses the built-in JMX instrumentation in the Java Virtual Machine to provide information about performance and resource consumption of running applications. See JConsole.</p>
+<p>jmap utility</p>
+<p>This utility can obtain memory map information, including a heap histogram, from a Java process, a core file, or a remote debug server. See The jmap Utility.</p>
+<p>jps utility</p>
+<p>This utility lists the instrumented Java HotSpot VMs on the target system. The utility is very useful in environments where the VM is embedded, that is, it is started using the JNI Invocation API rather than the java launcher. See The jps Utility.</p>
+<p>jstack utility</p>
+<p>This utility can obtain Java and native stack information from a Java process. On Oracle Solaris and Linux operating systems the utility can alos get the information from a core file or a remote debug server. See The jstack Utility.</p>
+<p>jstat utility</p>
+<p>This utility uses the built-in instrumentation in Java to provide information about performance and resource consumption of running applications. The tool can be used when diagnosing performance issues, especially those related to heap sizing and garbage collection. See The jstat Utility.</p>
+<p>jstatd daemon</p>
+<p>This tool is a Remote Method Invocation (RMI) server application that monitors the creation and termination of instrumented Java Virtual Machines and provides an interface to allow remote monitoring tools to attach to VMs running on the local host. See The jstatd Daemon.</p>
+<p>visualgc utility</p>
+<p>This utility provides a graphical view of the garbage collection system. As with jstat, it uses the built-in instrumentation of Java HotSpot VM. See The visualgc Tool.</p>
+<p>Native tools</p>
+<p>Each operating system has native tools and utilities that can be useful for monitoring purposes. For example, the dynamic tracing (DTrace) capability introduced in Oracle Solaris 10 operating system performs advanced monitoring. See Native Operating System Tools.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ jps</span><br><span class="line">16217 MyApplication</span><br><span class="line">16342 jps</span><br><span class="line"></span><br><span class="line">The utility lists the virtual machines <span class="keyword">for</span> <span class="built_in">which</span> the user has access rights. This is determined by access-control mechanisms specific to the operating system. On Oracle Solaris operating system, <span class="keyword">for</span> example, <span class="keyword">if</span> a non-root user executes the jps utility, <span class="keyword">then</span> the output is a list of the virtual machines that were started with that user<span class="string">'s uid.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">In addition to listing the PID, the utility provides options to output the arguments passed to the application'</span>s main method, the complete list of VM arguments, and the full package name of the application<span class="string">'s main class. The jps utility can also list processes on a remote system if the remote system is running the jstatd daemon.</span></span><br></pre></td></tr></table></figure>
 
-
-
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">native-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">native</span>=<span class="string">"management-native"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">native-interface</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">http-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">http</span>=<span class="string">"management-http"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">http-interface</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">management</span>&gt;</span></span><br><span class="line">xxx</span><br><span class="line"><span class="tag">&lt;<span class="name">socket-binding-group</span> <span class="attr">name</span>=<span class="string">"standard-sockets"</span> <span class="attr">default-interface</span>=<span class="string">"public"</span> <span class="attr">port-offset</span>=<span class="string">"$&#123;jboss.socket.binding.port-offset:0&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-native"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.native.port:7373&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-http"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.http.port:7371&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
+<h1 id="GC-less-Java"><a href="#GC-less-Java" class="headerlink" title="GC-less Java"></a>GC-less Java</h1><p>Java Development without GC<br>All products developed by Coral Blocks have the very important feature of leaving ZERO garbage behind. Because the latency imposed by the Java Garbage Collector (i.e. GC) is unacceptable for high-performance systems and because it is impossible to turn off the GC, the best option for real-time systems in Java is to not produce any garbage at all so that the GC never kicks in. Imagine a high-performance matching engine operating in the microsecond level, sending and receiving hundreds of thousands messages per second. If at any given time the GC decides to kick in with its 1+ millisecond latencies, the disruption in the system will be huge. Therefore, if you want to develop real-time systems in Java with minimal variance and latency, the best option is to do it right without creating any garbage for the GC. </p>
+<h2 id="Warming-up-Checking-the-GC-and-Sampling"><a href="#Warming-up-Checking-the-GC-and-Sampling" class="headerlink" title="Warming up, Checking the GC and Sampling"></a>Warming up, Checking the GC and Sampling</h2><p>The key to make sure your system is not creating any garbage is to warm up your critical path from start to finish a couple of million times and then check for memory allocation another couple of million times. If it is allocating memory linearly as the number of iterations increases, it is most likely creating garbage and you should use the stack trace </p>
 
           
         
@@ -963,7 +1015,7 @@ If Thread A reads a volatile variable, then all all variables visible to Thread 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-10-JVM-Warm-up/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-14-JBoss-Console/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -979,7 +1031,7 @@ If Thread A reads a volatile variable, then all all variables visible to Thread 
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-06-10-JVM-Warm-up/" class="post-title-link" itemprop="url">JVM wram up</a>
+              <a href="/2018-06-14-JBoss-Console/" class="post-title-link" itemprop="url">Jboss tips</a>
             
           </h1>
         
@@ -1011,66 +1063,14 @@ If Thread A reads a volatile variable, then all all variables visible to Thread 
 
       
           
-            <h1 id="JVM-wram-up"><a href="#JVM-wram-up" class="headerlink" title="JVM wram up"></a>JVM wram up</h1><p>Keeping this in mind, for low-latency applications, we need to cache all classes beforehand – so that they’re available instantly when accessed at runtime.</p>
-<p>This process of tuning the JVM is known as warming up.</p>
-<h1 id="Escape-Analysis"><a href="#Escape-Analysis" class="headerlink" title="Escape Analysis"></a>Escape Analysis</h1><p>Escape analysis is a technique by which the Java Hotspot Server Compiler can analyze the scope of a new object’s uses and decide whether to allocate it on the Java heap.</p>
-<p>Based on escape analysis, an object’s escape state might be one of the following:</p>
-<ul>
-<li>GlobalEscape – An object escapes the method and thread. For example, an object stored in a static field, or, stored in a field of an escaped object, or, returned as the result of the current method.</li>
-<li>ArgEscape – An object passed as an argument or referenced by an argument but does not globally escape during a call. This state is determined by analyzing the bytecode of called method.</li>
-<li>NoEscape – A scalar replaceable object, meaning its allocation could be removed from generated code.</li>
-</ul>
-<p>After escape analysis, the server compiler eliminates scalar replaceable object allocations and associated locks from generated code. The server compiler also eliminates locks for all non-globally escaping objects. It does not replace a heap allocation with a stack allocation for non-globally escaping objects.</p>
-<p>The JIT aggressively inlines methods, removing the overhead of method calls. Methods that can be inlined include static, private or final methods but also public methods if it can be determined that they are not overridden. Because of this, subsequent class loading can invalidate the previously generated code. Because inlining every method everywhere would take time and would generate an unreasonably big binary, the JIT compiler inlines the hot methods first until it reaches a threshold. To determine which methods are hot, the JVM keeps counters to see how many times a method is called and how many loop iterations it has executed. This means that inlining happens only after a steady state has been reached, so you need to repeat the operations a certain number of times before there is enough profiling information available for the JIT compiler to do its job.</p>
-<p>Rather than trying to guess what the JIT is doing, you can take a peek at what’s happening by turning on java command line flags: -XX:+PrintCompilation -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining</p>
-<p>Here is what they do:</p>
-<pre><code>-XX:+PrintCompilation: logs when JIT compilation happens
--XX:+UnlockDiagnosticVMOptions: enables other flags like -XX:+PrintInlining</code></pre><p>GlobalEscape and ArgEscape objects must be allocated on the heap, but for ArgEscape objects it is possible to remove some locking and memory synchronization overhead because these objects are only visible from the calling thread.</p>
-<p>The NoEscape objects may be allocated freely, for example on the stack instead of on the heap. In fact, under some circumstances, it is not even necessary to construct an object at all, but instead only the object’s scalar values, such as an int for the object Integer. Synchronization may be removed too, because we know that only this thread will use the objects. For example, if we were to use the somewhat ancient StringBuffer (which as opposed to StringBuilder has synchronized methods), then these synchronizations could safely be removed.</p>
-<p>EA is currently only available under the C2 HotSpot Compiler so we have to make sure that we run in -server mode.</p>
-<h2 id="Why-It-Matters"><a href="#Why-It-Matters" class="headerlink" title="Why It Matters"></a>Why It Matters</h2><p>In theory, NoEscape objects objects can be allocated on the stack or even in CPU registers using EA,  giving very fast execution.</p>
-<p>When we allocate objects on the heap, we start to drain our CPU caches because objects are placed on different addresses on the heap possibly far away from each other. This way we will quickly deplete our L1 CPU cache and performance will decrease. With EA and stack allocation on the other hand, we are using memory that (most likely) is already in the L1 cache anyhow.  So, EA and stack allocation will improve our localization of data. This is good from a performance standpoint.</p>
-<p>Obviously, the garbage collects needs to run much less frequently when we are using EA with stack allocation. This is perhaps the biggest performance advantage. Recall that each time the JVM runs a complete heap scan, we take performance out of our CPUs and the CPU caches will quickly deplete. Not to mention if we have virtual memory paged out on our server, whereby GC is devastating for performance.</p>
-<p>The most important advantage of EA is not performance though. EA allows us to use local abstractions like Lambdas, Functions, Streams, Iterators etc. without any significant performance penalty so that we can write better and more readable code. Code that describes what we are doing rather than how it is done.</p>
-<p>The GC cleans up the heap and not the stack. The stack is cleaned up automatically when methods return to their caller whereby the stack pointer is reset to its former value. So GC will clean up objects that ended up on the stack before EA/C2 compilation could be performed. The actual instances (or rather their corresponding representations) live on the stack, there are no referenced objects on the stack in the context of EA optimizations.</p>
-<h1 id="JIT-optimization"><a href="#JIT-optimization" class="headerlink" title="JIT optimization"></a>JIT optimization</h1><p>Some JIT Compilation Techniques</p>
-<p>One of the most common JIT compilation techniques used by Java HotSpot VM is inlining, which is the practice of substituting the body of a method into the places where that method is called. Inlining saves the cost of calling the method; no new stack frames need to be created. By default, Java HotSpot VM will try to inline methods that contain less than 35 bytes of JVM bytecode.</p>
-<p>Another common optimization that Java HotSpot VM makes is monomorphic dispatch, which relies on the observed fact that, usually, there aren’t paths through a method that cause an object reference to be of one type most of the time but of another type at other times.</p>
-<p>You might think that having different types via different code paths would be ruled out by Java’s static typing, but remember that an instance of a subtype is always a valid instance of a supertype (this principle is known as the Liskov substitution principle, after Barbara Liskov). This situation means that there could be two paths into a method—for example, one that passes an instance of a supertype and one that passes an instance of a subtype—which would be legal by the rules of Java’s static typing (and does occur in practice).</p>
-<p>In the usual case (the monomorphic case), however, having different, path-dependent types does not happen. So we know the exact method definitions that will be called when methods are called on the passed object, because we don’t need to check which override is actually being used. This means we can eliminate the overhead of doing virtual method lookup, so the JIT compiler can emit optimized machine code that is often faster than an equivalent C++ call (because in the C++ case, the virtual lookup cannot easily be eliminated).<br>The two Java HotSpot VM compiler modes use different techniques for JIT compilation, and they can output very different machine code for the same Java method. Modern Java applications, however, can usually make use of both compilation modes.</p>
-<p>Java HotSpot VM uses many other techniques to optimize the code that JIT compilation produces. Loop optimization, type sharpening, dead-code elimination, and intrinsics are just some of the other ways that Java HotSpot VM tries to optimize code as much as it can. Techniques are frequently layered one on top of another, so that once one optimization has been applied, the compiler might be able to see more optimizations that can be performed.</p>
-<h1 id="Compilation-Modes"><a href="#Compilation-Modes" class="headerlink" title="Compilation Modes"></a>Compilation Modes</h1><p>Inside Java HotSpot VM, there are actually two separate JIT compiler modes, which are known as C1 and C2. C1 is used for applications where quick startup and rock-solid optimization are required; GUI applications are often good candidates for this compiler. C2, on the other hand, was originally intended for long-running, predominantly server-side applications. Prior to some of the later Java SE 7 releases, these two modes were available using the -client and -server switches, respectively.</p>
-<p>The two compiler modes use different techniques for JIT compilation, and they can output very different machine code for the same Java method. Modern Java applications, however, can usually make use of both compilation modes. To take advantage of this fact, starting with some of the later Java SE 7 releases, a new feature called tiered compilation became available. This feature uses the C1 compiler mode at the start to provide better startup performance. Once the application is properly warmed up, the C2 compiler mode takes over to provide more-aggressive optimizations and, usually, better performance. With the arrival of Java SE 8, tiered compilation is now the default behavior.</p>
-<h1 id="Java-memory-monitoring-tools"><a href="#Java-memory-monitoring-tools" class="headerlink" title="Java memory monitoring tools"></a>Java memory monitoring tools</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">pemi$ jps | grep Main</span><br><span class="line">50903 Main</span><br><span class="line">pemi$ jmap -histo 50903 | head</span><br><span class="line"> num     <span class="comment">#instances         #bytes  class name</span></span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line">   1:            95       42952184  [I</span><br><span class="line">   2:          1079         101120  [C</span><br><span class="line">   3:           485          55272  java.lang.Class</span><br><span class="line">   4:           526          25936  [Ljava.lang.Object;</span><br><span class="line">   5:            13          25664  [B</span><br><span class="line">   6:          1057          25368  java.lang.String</span><br><span class="line">   7:            74           5328  java.lang.reflect.Field</span><br></pre></td></tr></table></figure>
+            <h1 id="commands"><a href="#commands" class="headerlink" title="commands:"></a>commands:</h1><h2 id="to-list-all-deployed-applications"><a href="#to-list-all-deployed-applications" class="headerlink" title="to list all deployed applications"></a>to list all deployed applications</h2><p>jboss\jboss-eap-6.4\bin\jboss-cli.bat –connect –controller=localhost:7373 –command=/deployment=*:read-attribute(name=name)</p>
+<h2 id="to-list-JNDI-tree"><a href="#to-list-JNDI-tree" class="headerlink" title="to list JNDI tree:"></a>to list JNDI tree:</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /subsystem=mail</span><br><span class="line">ls</span><br><span class="line">/subsystem=mail/mail-session=java:jboss/mail/payment_mail</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> /subsystem=naming:jndi-view()</span><br><span class="line"></span><br><span class="line"> &#125;,</span><br><span class="line"><span class="string">"mail"</span> =&gt; &#123;</span><br><span class="line">    <span class="string">"class-name"</span> =&gt; <span class="string">"javax.naming.Context"</span>,</span><br><span class="line">    <span class="string">"children"</span> =&gt; &#123;</span><br><span class="line">        <span class="string">"Default"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@22951e8f"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"payment_mail"</span> =&gt; &#123;</span><br><span class="line">            <span class="string">"class-name"</span> =&gt; <span class="string">"javax.mail.Session"</span>,</span><br><span class="line">            <span class="string">"value"</span> =&gt; <span class="string">"javax.mail.Session@548df9e2"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
-<p>jmap - Memory Map</p>
-<p>Tool or Option  Description and Usage</p>
-<p>Java Mission Control</p>
-<p>Java Mission Control (JMC) is a new JDK profiling and diagnostic tools platform for HotSpot JVM. It s a tool suite basic monitoring, managing, and production time profiling and diagnostics with high performance. Java Mission Control minimizes the performance overhead that’s usually an issue with profiling tools. See Java Mission Control.</p>
-<p>jcmd utility</p>
-<p>The jcmd utility is used to send diagnostic command requests to the JVM, where these requests are useful for controlling Java Flight Recordings. The JFRs are used to troubleshoot and diagnose JVM and Java Applications with flight recording events. See The jcmd Utility.</p>
-<p>Java VisualVM</p>
-<p>This utility provides a visual interface for viewing detailed information about Java applications while they are running on a Java Virtual Machine. This information can be used in troubleshooting local and remote applications, as well as for profiling local applications. See Java VisualVM.</p>
-<p>JConsole utility</p>
-<p>This utility is a monitoring tool that is based on Java Management Extensions (JMX). The tool uses the built-in JMX instrumentation in the Java Virtual Machine to provide information about performance and resource consumption of running applications. See JConsole.</p>
-<p>jmap utility</p>
-<p>This utility can obtain memory map information, including a heap histogram, from a Java process, a core file, or a remote debug server. See The jmap Utility.</p>
-<p>jps utility</p>
-<p>This utility lists the instrumented Java HotSpot VMs on the target system. The utility is very useful in environments where the VM is embedded, that is, it is started using the JNI Invocation API rather than the java launcher. See The jps Utility.</p>
-<p>jstack utility</p>
-<p>This utility can obtain Java and native stack information from a Java process. On Oracle Solaris and Linux operating systems the utility can alos get the information from a core file or a remote debug server. See The jstack Utility.</p>
-<p>jstat utility</p>
-<p>This utility uses the built-in instrumentation in Java to provide information about performance and resource consumption of running applications. The tool can be used when diagnosing performance issues, especially those related to heap sizing and garbage collection. See The jstat Utility.</p>
-<p>jstatd daemon</p>
-<p>This tool is a Remote Method Invocation (RMI) server application that monitors the creation and termination of instrumented Java Virtual Machines and provides an interface to allow remote monitoring tools to attach to VMs running on the local host. See The jstatd Daemon.</p>
-<p>visualgc utility</p>
-<p>This utility provides a graphical view of the garbage collection system. As with jstat, it uses the built-in instrumentation of Java HotSpot VM. See The visualgc Tool.</p>
-<p>Native tools</p>
-<p>Each operating system has native tools and utilities that can be useful for monitoring purposes. For example, the dynamic tracing (DTrace) capability introduced in Oracle Solaris 10 operating system performs advanced monitoring. See Native Operating System Tools.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ jps</span><br><span class="line">16217 MyApplication</span><br><span class="line">16342 jps</span><br><span class="line"></span><br><span class="line">The utility lists the virtual machines <span class="keyword">for</span> <span class="built_in">which</span> the user has access rights. This is determined by access-control mechanisms specific to the operating system. On Oracle Solaris operating system, <span class="keyword">for</span> example, <span class="keyword">if</span> a non-root user executes the jps utility, <span class="keyword">then</span> the output is a list of the virtual machines that were started with that user<span class="string">'s uid.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">In addition to listing the PID, the utility provides options to output the arguments passed to the application'</span>s main method, the complete list of VM arguments, and the full package name of the application<span class="string">'s main class. The jps utility can also list processes on a remote system if the remote system is running the jstatd daemon.</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="GC-less-Java"><a href="#GC-less-Java" class="headerlink" title="GC-less Java"></a>GC-less Java</h1><p>Java Development without GC<br>All products developed by Coral Blocks have the very important feature of leaving ZERO garbage behind. Because the latency imposed by the Java Garbage Collector (i.e. GC) is unacceptable for high-performance systems and because it is impossible to turn off the GC, the best option for real-time systems in Java is to not produce any garbage at all so that the GC never kicks in. Imagine a high-performance matching engine operating in the microsecond level, sending and receiving hundreds of thousands messages per second. If at any given time the GC decides to kick in with its 1+ millisecond latencies, the disruption in the system will be huge. Therefore, if you want to develop real-time systems in Java with minimal variance and latency, the best option is to do it right without creating any garbage for the GC. </p>
-<h2 id="Warming-up-Checking-the-GC-and-Sampling"><a href="#Warming-up-Checking-the-GC-and-Sampling" class="headerlink" title="Warming up, Checking the GC and Sampling"></a>Warming up, Checking the GC and Sampling</h2><p>The key to make sure your system is not creating any garbage is to warm up your critical path from start to finish a couple of million times and then check for memory allocation another couple of million times. If it is allocating memory linearly as the number of iterations increases, it is most likely creating garbage and you should use the stack trace </p>
+
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">native-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">native</span>=<span class="string">"management-native"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">native-interface</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">http-interface</span> <span class="attr">security-realm</span>=<span class="string">"ManagementRealm"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">http</span>=<span class="string">"management-http"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">http-interface</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">management-interfaces</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">management</span>&gt;</span></span><br><span class="line">xxx</span><br><span class="line"><span class="tag">&lt;<span class="name">socket-binding-group</span> <span class="attr">name</span>=<span class="string">"standard-sockets"</span> <span class="attr">default-interface</span>=<span class="string">"public"</span> <span class="attr">port-offset</span>=<span class="string">"$&#123;jboss.socket.binding.port-offset:0&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-native"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.native.port:7373&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">socket-binding</span> <span class="attr">name</span>=<span class="string">"management-http"</span> <span class="attr">interface</span>=<span class="string">"management"</span> <span class="attr">port</span>=<span class="string">"$&#123;jboss.management.http.port:7371&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
 
           
         

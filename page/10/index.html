@@ -597,119 +597,6 @@ for each hit type can be found under the section Tracking common user interactio
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-11-29-OpenShift/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-11-29-OpenShift/" class="post-title-link" itemprop="url">Openshift tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Commands-bible"><a href="#Commands-bible" class="headerlink" title="Commands bible"></a>Commands bible</h1><h2 id="install-cli-in-Mac"><a href="#install-cli-in-Mac" class="headerlink" title="install cli in Mac"></a>install cli in Mac</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install openshift-cli</span><br></pre></td></tr></table></figure>
-
-<h2 id="Frequently-used-commands"><a href="#Frequently-used-commands" class="headerlink" title="Frequently used commands"></a>Frequently used commands</h2><h3 id="Start-mini-shift"><a href="#Start-mini-shift" class="headerlink" title="Start mini shift"></a>Start mini shift</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minishift start</span><br></pre></td></tr></table></figure>
-
-<h3 id="OC-commands"><a href="#OC-commands" class="headerlink" title="OC commands"></a>OC commands</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc config view</span><br></pre></td></tr></table></figure>
-
-<h4 id="Start-a-new-application"><a href="#Start-a-new-application" class="headerlink" title="Start a new application"></a>Start a new application</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc new-app https://github.com/openshift/nodejs-ex -l name=toddapp</span><br></pre></td></tr></table></figure>
-
-<h4 id="To-switch-project"><a href="#To-switch-project" class="headerlink" title="To switch project"></a>To switch project</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc project</span><br></pre></td></tr></table></figure>
-
-<h4 id="Show-a-high-level-overview-of-the-current-project"><a href="#Show-a-high-level-overview-of-the-current-project" class="headerlink" title="Show a high level overview of the current project"></a>Show a high level overview of the current project</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">oc status</span><br><span class="line"><span class="comment"># Export the overview of the current project in an svg file.</span></span><br><span class="line">  oc status -o dot | dot -T svg -o project.svg</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># See an overview of the current project including details for any identified issues.</span></span><br><span class="line">  oc status -v</span><br></pre></td></tr></table></figure>
-
-<p>This command will show services, deployment configs, build configurations, and active deployments.<br>If you have any misconfigured components information about them will be shown. For more information<br>about individual items, use the describe command (e.g. oc describe buildConfig, oc describe<br>deploymentConfig, oc describe service). </p>
-<p>You can specify an output format of “-o dot” to have this command output the generated status graph<br>in DOT format that is suitable for use by the “dot” command.</p>
-<h2 id="OpenShift-command-line-tool"><a href="#OpenShift-command-line-tool" class="headerlink" title="OpenShift command-line tool"></a>OpenShift command-line tool</h2><p>The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster. </p>
-<h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p>The most basic unit in OpenShift are pods. A pod is one or more containers guaranteed to be running on the same host. The containers within a pod share a unique IP address. They can communicate with each other via the “localhost” and also all share any volumes (persistent storage). The containers themselves are started from an image, which in our case is a Docker image.    </p>
-<p>OpenShift Origin leverages the Kubernetes concept of a pod, which is one or more containers deployed together on one host, and the smallest compute unit that can be defined, deployed, and managed.</p>
-<p>Pods are the rough equivalent of a machine instance (physical or virtual) to a container. Each pod is allocated its own internal IP address, therefore owning its entire port space, and containers within pods can share their local storage and networking.</p>
-<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
-<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
-<p>OpenShift Origin treats pods as largely immutable; changes cannot be made to a pod definition while it is running. OpenShift Origin implements changes by terminating an existing pod and recreating it with modified configuration, base image(s), or both. Pods are also treated as expendable, and do not maintain state when recreated. Therefore pods should usually be managed by higher-level controllers, rather than directly by users.</p>
-<h2 id="Scale-up"><a href="#Scale-up" class="headerlink" title="Scale up"></a>Scale up</h2><p>When scaled up, an application will have more than one copy of itself, and each copy will have its own local state. Each copy corresponds to a different instance of a pod with the pods being managed by the replication controller. As each pod has a unique IP, we need an easy way to address the set of all pods as a whole. This is where a service comes into play. The service gets its own IP and a DNS name. When making a connection to a service, OpenShift will automatically route the connection to one of the pods associated with that service.</p>
-<p>caling from the Web Console<br>Scaling up the number of instances of your application running can be done from the Overview page for your application in the OpenShift web console (the page with those tell-tale up and down arrows we saw previously). Jump to that page and click the up arrow key twice to increase the replica count to 3<br>If your application is a web application that adheres to the 12-factor methodology, or what might also be called a cloud native application, then it would generally be safe to scale up.</p>
-<p>Applications that can’t usually be able to be scaled up include traditional relational databases backed by persistent storage. Databases cannot be scaled in the traditional way as only the primary instance of the database should have the ability to update data. Scaling can still be performed, but usually only on read-only instances of the database.</p>
-<h2 id="Kubernetes-and-Openshift"><a href="#Kubernetes-and-Openshift" class="headerlink" title="Kubernetes and Openshift"></a>Kubernetes and Openshift</h2><p>The basic concepts of Kubernetes and discuss how OpenShift builds on them. In general, you can view Kubernetes as being aimed at Ops teams, providing them with a tool for running containers at scale in production. OpenShift adds to this by also supporting the work of a Dev team and others by making the job of the Ops team easier, which helps to bridge the gap between Dev and Ops and thus enable the latest DevOps philosophy.OpenShift provides a number of different ways to interact with an OpenShift cluster. The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster.<br>If you want to avoid using the command line tool, or you want to automate your interactions with the OpenShift cluster, you can always use the REST API directly.</p>
-<p>You may be wondering: “Is a namespace the same thing as an application?” OpenShift has no formal concept of an application, thereby allowing an application to be flexible depending on a user’s needs.</p>
-<p>You can dedicate one to everything related to just one application. Or, so long as you label all the resources making up an application so you know what goes with what, you can also use the namespace to hold more than one.</p>
-<h1 id="Secrets"><a href="#Secrets" class="headerlink" title="Secrets"></a>Secrets</h1><p>This topic discusses important properties of secrets and provides an overview on how developers can use them.</p>
-<p>The Secret object type provides a mechanism to hold sensitive information such as passwords, OpenShift Origin client configuration files, dockercfg files, private source repository credentials, and so on. Secrets decouple sensitive content from the pods. You can mount secrets into containers using a volume plug-in or the system can use secrets to perform actions on behalf of a pod.</p>
-<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>Although a service has a DNS name, it is still only accessible within the OpenShift cluster and is not accessible externally. To make a service externally accessible, a route needs to be created. Creating a route automatically sets up haproxy or a hardware-based router, with an externally addressable DNS name, exposing the service and load-balancing inbound traffic across the pods.</p>
-<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>The output of the build process is an image, which is stored in an integrated Docker registry ready for distribution out to nodes when the application is deployed. The image stream is how the image and its versions are tracked by OpenShift. If you already have an existing Docker image on an external registry such as Docker Hub, it can also be referenced by an image stream instead of building it locally.</p>
-<p>use the handy online cheat sheet available by running the oc types command. It gives you a quick summary of the different conceptual types and definitions used in OpenShift like those we covered here:</p>
-<h2 id="Vagrant"><a href="#Vagrant" class="headerlink" title="Vagrant"></a>Vagrant</h2><p>Vagrant is a software tool that allows users to create and configure lightweight, reproducible, and portable development environments. It works in conjunction with virtualization (both VMs and IaaS) to automate all the steps necessary to get your dev environment going</p>
-<p>One of the advantages of creating and deploying applications from the web console is that a route is automatically created for you. When deploying new containers while using the oc tool, you will need to expose the service manually</p>
-<h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><p>One of the great features of the OpenShift platform is the ability to provide persistent volumes for your running pods. This ensures that data in your database doesn’t suddenly disappear if the container is restarted. Another important aspect of persistent volumes is the ability to run both stateful and stateless applications on the platform. This is sometimes referred to as mode 1 and mode 2 applications as well as legacy and 12-factor applications.</p>
-<h2 id="webhooks"><a href="#webhooks" class="headerlink" title="webhooks"></a>webhooks</h2><p>Automatic Deployments Using Webhooks<br>A webhook (also called a web callback or HTTP push API) is a way an application can provide other applications with real-time information or notifications.</p>
-<p>We can configure the GitHub code hosting service to trigger a webhook each time we push a set of changes to your project code repository. Using this tool, we can notify OpenShift when you have made code changes and thus initiate rebuild and redeployment of our application.</p>
-<h2 id="Deployment-Strategies"><a href="#Deployment-Strategies" class="headerlink" title="Deployment Strategies"></a>Deployment Strategies</h2><p>A deployment strategy defines the process by which a new version of your application is started and the existing instances shut down. By default OpenShift uses a rolling deployment strategy that enables you to perform an update with no apparent down time.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-01-Promise-vs-Observable/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -877,7 +764,7 @@ for each hit type can be found under the section Tracking common user interactio
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-07-Errors-In-NPM/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-11-29-OpenShift/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -893,7 +780,7 @@ for each hit type can be found under the section Tracking common user interactio
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-12-07-Errors-In-NPM/" class="post-title-link" itemprop="url">common errors in NPM or node</a>
+              <a href="/2017-11-29-OpenShift/" class="post-title-link" itemprop="url">Openshift tips</a>
             
           </h1>
         
@@ -925,15 +812,44 @@ for each hit type can be found under the section Tracking common user interactio
 
       
           
-            <h2 id="code-E503"><a href="#code-E503" class="headerlink" title="code E503"></a>code E503</h2><p>code E503 when run npm install packages, e.g.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pretty-data</span><br></pre></td></tr></table></figure>
+            <h1 id="Commands-bible"><a href="#Commands-bible" class="headerlink" title="Commands bible"></a>Commands bible</h1><h2 id="install-cli-in-Mac"><a href="#install-cli-in-Mac" class="headerlink" title="install cli in Mac"></a>install cli in Mac</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install openshift-cli</span><br></pre></td></tr></table></figure>
 
-<p>Get following error:<br>`
-npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
-<p>npm ERR! A complete log of this run can be found in:<br>npm ERR!     xxxx\nodejs\npm-cache_logs\2017-12-07T04_16_53_679Z-debug.log</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h3><p>You maybe behind corporate proxy, so try execute following command </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy http://127.0.0.1:53128</span><br></pre></td></tr></table></figure>
+<h2 id="Frequently-used-commands"><a href="#Frequently-used-commands" class="headerlink" title="Frequently used commands"></a>Frequently used commands</h2><h3 id="Start-mini-shift"><a href="#Start-mini-shift" class="headerlink" title="Start mini shift"></a>Start mini shift</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minishift start</span><br></pre></td></tr></table></figure>
 
+<h3 id="OC-commands"><a href="#OC-commands" class="headerlink" title="OC commands"></a>OC commands</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc config view</span><br></pre></td></tr></table></figure>
+
+<h4 id="Start-a-new-application"><a href="#Start-a-new-application" class="headerlink" title="Start a new application"></a>Start a new application</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc new-app https://github.com/openshift/nodejs-ex -l name=toddapp</span><br></pre></td></tr></table></figure>
+
+<h4 id="To-switch-project"><a href="#To-switch-project" class="headerlink" title="To switch project"></a>To switch project</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc project</span><br></pre></td></tr></table></figure>
+
+<h4 id="Show-a-high-level-overview-of-the-current-project"><a href="#Show-a-high-level-overview-of-the-current-project" class="headerlink" title="Show a high level overview of the current project"></a>Show a high level overview of the current project</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">oc status</span><br><span class="line"><span class="comment"># Export the overview of the current project in an svg file.</span></span><br><span class="line">  oc status -o dot | dot -T svg -o project.svg</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># See an overview of the current project including details for any identified issues.</span></span><br><span class="line">  oc status -v</span><br></pre></td></tr></table></figure>
+
+<p>This command will show services, deployment configs, build configurations, and active deployments.<br>If you have any misconfigured components information about them will be shown. For more information<br>about individual items, use the describe command (e.g. oc describe buildConfig, oc describe<br>deploymentConfig, oc describe service). </p>
+<p>You can specify an output format of “-o dot” to have this command output the generated status graph<br>in DOT format that is suitable for use by the “dot” command.</p>
+<h2 id="OpenShift-command-line-tool"><a href="#OpenShift-command-line-tool" class="headerlink" title="OpenShift command-line tool"></a>OpenShift command-line tool</h2><p>The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster. </p>
+<h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p>The most basic unit in OpenShift are pods. A pod is one or more containers guaranteed to be running on the same host. The containers within a pod share a unique IP address. They can communicate with each other via the “localhost” and also all share any volumes (persistent storage). The containers themselves are started from an image, which in our case is a Docker image.    </p>
+<p>OpenShift Origin leverages the Kubernetes concept of a pod, which is one or more containers deployed together on one host, and the smallest compute unit that can be defined, deployed, and managed.</p>
+<p>Pods are the rough equivalent of a machine instance (physical or virtual) to a container. Each pod is allocated its own internal IP address, therefore owning its entire port space, and containers within pods can share their local storage and networking.</p>
+<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
+<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
+<p>OpenShift Origin treats pods as largely immutable; changes cannot be made to a pod definition while it is running. OpenShift Origin implements changes by terminating an existing pod and recreating it with modified configuration, base image(s), or both. Pods are also treated as expendable, and do not maintain state when recreated. Therefore pods should usually be managed by higher-level controllers, rather than directly by users.</p>
+<h2 id="Scale-up"><a href="#Scale-up" class="headerlink" title="Scale up"></a>Scale up</h2><p>When scaled up, an application will have more than one copy of itself, and each copy will have its own local state. Each copy corresponds to a different instance of a pod with the pods being managed by the replication controller. As each pod has a unique IP, we need an easy way to address the set of all pods as a whole. This is where a service comes into play. The service gets its own IP and a DNS name. When making a connection to a service, OpenShift will automatically route the connection to one of the pods associated with that service.</p>
+<p>caling from the Web Console<br>Scaling up the number of instances of your application running can be done from the Overview page for your application in the OpenShift web console (the page with those tell-tale up and down arrows we saw previously). Jump to that page and click the up arrow key twice to increase the replica count to 3<br>If your application is a web application that adheres to the 12-factor methodology, or what might also be called a cloud native application, then it would generally be safe to scale up.</p>
+<p>Applications that can’t usually be able to be scaled up include traditional relational databases backed by persistent storage. Databases cannot be scaled in the traditional way as only the primary instance of the database should have the ability to update data. Scaling can still be performed, but usually only on read-only instances of the database.</p>
+<h2 id="Kubernetes-and-Openshift"><a href="#Kubernetes-and-Openshift" class="headerlink" title="Kubernetes and Openshift"></a>Kubernetes and Openshift</h2><p>The basic concepts of Kubernetes and discuss how OpenShift builds on them. In general, you can view Kubernetes as being aimed at Ops teams, providing them with a tool for running containers at scale in production. OpenShift adds to this by also supporting the work of a Dev team and others by making the job of the Ops team easier, which helps to bridge the gap between Dev and Ops and thus enable the latest DevOps philosophy.OpenShift provides a number of different ways to interact with an OpenShift cluster. The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster.<br>If you want to avoid using the command line tool, or you want to automate your interactions with the OpenShift cluster, you can always use the REST API directly.</p>
+<p>You may be wondering: “Is a namespace the same thing as an application?” OpenShift has no formal concept of an application, thereby allowing an application to be flexible depending on a user’s needs.</p>
+<p>You can dedicate one to everything related to just one application. Or, so long as you label all the resources making up an application so you know what goes with what, you can also use the namespace to hold more than one.</p>
+<h1 id="Secrets"><a href="#Secrets" class="headerlink" title="Secrets"></a>Secrets</h1><p>This topic discusses important properties of secrets and provides an overview on how developers can use them.</p>
+<p>The Secret object type provides a mechanism to hold sensitive information such as passwords, OpenShift Origin client configuration files, dockercfg files, private source repository credentials, and so on. Secrets decouple sensitive content from the pods. You can mount secrets into containers using a volume plug-in or the system can use secrets to perform actions on behalf of a pod.</p>
+<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>Although a service has a DNS name, it is still only accessible within the OpenShift cluster and is not accessible externally. To make a service externally accessible, a route needs to be created. Creating a route automatically sets up haproxy or a hardware-based router, with an externally addressable DNS name, exposing the service and load-balancing inbound traffic across the pods.</p>
+<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>The output of the build process is an image, which is stored in an integrated Docker registry ready for distribution out to nodes when the application is deployed. The image stream is how the image and its versions are tracked by OpenShift. If you already have an existing Docker image on an external registry such as Docker Hub, it can also be referenced by an image stream instead of building it locally.</p>
+<p>use the handy online cheat sheet available by running the oc types command. It gives you a quick summary of the different conceptual types and definitions used in OpenShift like those we covered here:</p>
+<h2 id="Vagrant"><a href="#Vagrant" class="headerlink" title="Vagrant"></a>Vagrant</h2><p>Vagrant is a software tool that allows users to create and configure lightweight, reproducible, and portable development environments. It works in conjunction with virtualization (both VMs and IaaS) to automate all the steps necessary to get your dev environment going</p>
+<p>One of the advantages of creating and deploying applications from the web console is that a route is automatically created for you. When deploying new containers while using the oc tool, you will need to expose the service manually</p>
+<h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><p>One of the great features of the OpenShift platform is the ability to provide persistent volumes for your running pods. This ensures that data in your database doesn’t suddenly disappear if the container is restarted. Another important aspect of persistent volumes is the ability to run both stateful and stateless applications on the platform. This is sometimes referred to as mode 1 and mode 2 applications as well as legacy and 12-factor applications.</p>
+<h2 id="webhooks"><a href="#webhooks" class="headerlink" title="webhooks"></a>webhooks</h2><p>Automatic Deployments Using Webhooks<br>A webhook (also called a web callback or HTTP push API) is a way an application can provide other applications with real-time information or notifications.</p>
+<p>We can configure the GitHub code hosting service to trigger a webhook each time we push a set of changes to your project code repository. Using this tool, we can notify OpenShift when you have made code changes and thus initiate rebuild and redeployment of our application.</p>
+<h2 id="Deployment-Strategies"><a href="#Deployment-Strategies" class="headerlink" title="Deployment Strategies"></a>Deployment Strategies</h2><p>A deployment strategy defines the process by which a new version of your application is started and the existing instances shut down. By default OpenShift uses a rolling deployment strategy that enables you to perform an update with no apparent down time.</p>
 
           
         
@@ -1086,6 +1002,90 @@ This tells you that a custom pipe class must implement just one method with the 
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-07-Errors-In-NPM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-12-07-Errors-In-NPM/" class="post-title-link" itemprop="url">common errors in NPM or node</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="code-E503"><a href="#code-E503" class="headerlink" title="code E503"></a>code E503</h2><p>code E503 when run npm install packages, e.g.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pretty-data</span><br></pre></td></tr></table></figure>
+
+<p>Get following error:<br>`
+npm ERR! code E503<br>npm ERR! 503 Service Unavailable: pretty-data@latest</p>
+<p>npm ERR! A complete log of this run can be found in:<br>npm ERR!     xxxx\nodejs\npm-cache_logs\2017-12-07T04_16_53_679Z-debug.log</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h3><p>You maybe behind corporate proxy, so try execute following command </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy http://127.0.0.1:53128</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-11-Why-Reactive-programming-is-outpermant/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1162,7 +1162,7 @@ This tells you that a custom pipe class must implement just one method with the 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-10-RxJS/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-12-Redux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1178,7 +1178,7 @@ This tells you that a custom pipe class must implement just one method with the 
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-12-10-RxJS/" class="post-title-link" itemprop="url">Router in angular</a>
+              <a href="/2017-12-12-Redux/" class="post-title-link" itemprop="url">Redux</a>
             
           </h1>
         
@@ -1210,108 +1210,8 @@ This tells you that a custom pipe class must implement just one method with the 
 
       
           
-            <h1 id="Lettable-operators"><a href="#Lettable-operators" class="headerlink" title="Lettable operators"></a>Lettable operators</h1><p>RxJS 5.5, piping all the things</p>
-<p>So now we want a way to use those operators, how could we do that?</p>
-<p>Well, we said those operators are “lettable” that means we can use them by calling the let method on an observable:</p>
-<p>And if we want to chain multiple lettable operators we can keep dot chaining:</p>
-<p>import { Observable } from ‘rxjs/Rx’;<br>import { filter, map, reduce } from ‘rxjs/operators’;</p>
-<p>const filterOutEvens = filter(x =&gt; x % 2);<br>const sum = reduce((acc, next) =&gt; acc + next, 0);<br>const doubleBy = x =&gt; map(value =&gt; value * x);</p>
-<p>const source$ = Observable.range(0, 10);</p>
-<p>source$<br>  .let(filterOutEvens)<br>  .let(doubleBy(2))<br>  .let(sum)<br>  .subscribe(x =&gt; console.log(x)); // 50</p>
-<hr>
-<p>  Meaning we can easily compose a bunch of pure function operators and pass them as a single operator to an observable!</p>
-<p>Conclusion<br>With those tools in hand, you can write RxJS code that is much more re-usable by just piping your (pure functions) operators together and easily re-use shared logic.</p>
-<p>  import { Observable, pipe } from ‘rxjs/Rx’;<br>import { filter, map, reduce } from ‘rxjs/operators’;</p>
-<p>const filterOutEvens = filter(x =&gt; x % 2);<br>const sum = reduce((acc, next) =&gt; acc + next, 0);<br>const doubleBy = x =&gt; map(value =&gt; value * x);</p>
-<p>const complicatedLogic = pipe(<br>  filterOutEvens,<br>  doubleBy(2),<br>  sum<br>);</p>
-<p>const source$ = Observable.range(0, 10);</p>
-<p>source$.let(complicatedLogic).subscribe(x =&gt; console.log(x)); // 50</p>
-<p><a href="https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md" target="_blank" rel="noopener">https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md</a><br>What?<br>What is a pipeable operator? Simply put, a function that can be used with the current let operator. It used to be the origin of the name (“lettable”), but that was confusing and we call them “pipeable” now because they’re intended to be used with the pipe utility. <code>A pipeable operator is basically any function that returns a function with the signature: &lt;T, R&gt;(source: Observable&lt;T&gt;) =&gt; Observable&lt;R&gt;.</code></p>
-<p>There is a pipe method built into Observable now at Observable.prototype.pipe that сan be used to compose the operators in similar manner to what you’re used to with dot-chaining (shown below).</p>
-<p>There is also a pipe utility function at rxjs/util/pipe that can be used to build reusable pipeable operators from other pipeable operators.</p>
-<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>You pull in any operator you need from one spot, under ‘rxjs/operators’ (plural!). It’s also recommended to pull in the Observable creation methods you need directly as shown below with range:</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; range &#125; <span class="keyword">from</span> <span class="string">'rxjs/observable/range'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map, filter, scan &#125; <span class="keyword">from</span> <span class="string">'rxjs/operators'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> source$ = range(<span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">source$.pipe(</span><br><span class="line">  filter(<span class="function"><span class="params">x</span> =&gt;</span> x % <span class="number">2</span> === <span class="number">0</span>),</span><br><span class="line">  map(<span class="function"><span class="params">x</span> =&gt;</span> x + x),</span><br><span class="line">  scan(<span class="function">(<span class="params">acc, x</span>) =&gt;</span> acc + x, <span class="number">0</span>)</span><br><span class="line">)</span><br><span class="line">.subscribe(<span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x))</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://blog.angularindepth.com/rxjs-understanding-lettable-operators-fe74dda186d3" target="_blank" rel="noopener">https://blog.angularindepth.com/rxjs-understanding-lettable-operators-fe74dda186d3</a><br>RxJS: Understanding Lettable Operators</p>
-<h2 id="What-are-lettable-operators-and-what-does-lettable-mean"><a href="#What-are-lettable-operators-and-what-does-lettable-mean" class="headerlink" title="What are lettable operators and what does lettable mean?"></a>What are lettable operators and what does lettable mean?</h2><p>If lettable operators are used with a method named pipe, you might wonder why they are referred to as lettable. The term is derived from RxJS’s let operator.</p>
-<p><code>The let operator is conceptually similar to the map operator, but instead of taking a projection function that receives and returns a value, let takes a function that receives and returns an observable.</code> It’s unfortunate that let is one of the less-well-known operators, as it’s very useful for composing reusable functionality.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Rx <span class="keyword">from</span> <span class="string">"rxjs"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">retry</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  count: <span class="built_in">number</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  wait: <span class="built_in">number</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>): (<span class="params">source: Rx.Observable&lt;T&gt;</span>) =&gt; <span class="title">Rx</span>.<span class="title">Observable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">source: Rx.Observable&lt;T&gt;</span>) =&gt;</span> source</span><br><span class="line">    .retryWhen(<span class="function"><span class="params">errors</span> =&gt;</span> errors</span><br><span class="line">      <span class="comment">// Each time an error occurs, increment the accumulator.</span></span><br><span class="line">      <span class="comment">// When the maximum number of retries have been attempted, throw the error.</span></span><br><span class="line">      .scan(<span class="function">(<span class="params">acc, error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (acc &gt;= count) &#123; <span class="keyword">throw</span> error; &#125;</span><br><span class="line">        <span class="keyword">return</span> acc + <span class="number">1</span>;</span><br><span class="line">      &#125;, <span class="number">0</span>)</span><br><span class="line">      <span class="comment">// Wait the specified number of milliseconds between retries.</span></span><br><span class="line">      .delay(wait)</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>When retry is called, it’s passed the number of retry attempts that should be made and the number of milliseconds to wait between attempts, and it returns a function that receives an observable and returns another observable into which the retry logic is composed. The returned function can be passed to the let operator, like this:</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Rx <span class="keyword">from</span> <span class="string">"rxjs"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; retry &#125; <span class="keyword">from</span> <span class="string">"./retry"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> name = Rx.Observable.ajax</span><br><span class="line">  .getJSON&lt;&#123; name: <span class="built_in">string</span> &#125;&gt;(<span class="string">"/api/employees/alice"</span>)</span><br><span class="line">  .let(retry(<span class="number">3</span>, <span class="number">1000</span>))</span><br><span class="line">  .map(<span class="function"><span class="params">employee</span> =&gt;</span> employee.name)</span><br><span class="line">  .catch(<span class="function"><span class="params">error</span> =&gt;</span> Rx.Observable.of(<span class="literal">null</span>));</span><br><span class="line"> <span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span>Using the <span class="keyword">let</span> operator, we’ve been able to create a reusable <span class="function"><span class="keyword">function</span> <span class="title">much</span> <span class="title">more</span> <span class="title">simply</span> <span class="title">than</span> <span class="title">we</span> <span class="title">would</span> <span class="title">have</span> <span class="title">been</span> <span class="title">able</span> <span class="title">to</span> <span class="title">create</span> <span class="title">a</span> <span class="title">prototype</span>-<span class="title">patching</span> <span class="title">operator</span>`. <span class="title">What</span> <span class="title">we</span>’<span class="title">ve</span> <span class="title">created</span> <span class="title">is</span> <span class="title">a</span> <span class="title">lettable</span> <span class="title">operator</span>.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">`<span class="title">Lettable</span> <span class="title">operators</span> <span class="title">are</span> <span class="title">a</span> <span class="title">higher</span>-<span class="title">order</span> <span class="function"><span class="keyword">function</span><span class="title">s</span>. <span class="title">Lettable</span> <span class="title">operators</span> <span class="title">return</span> <span class="function"><span class="keyword">function</span><span class="title">s</span> <span class="title">that</span> <span class="title">receive</span> <span class="title">and</span> <span class="title">return</span> <span class="title">observables</span></span>; <span class="title">and</span> <span class="title">those</span> <span class="function"><span class="keyword">function</span><span class="title">s</span> <span class="title">can</span> <span class="title">be</span> <span class="title">passed</span> <span class="title">to</span> <span class="title">the</span> <span class="title">let</span> <span class="title">operator</span>`.</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="title">We</span> <span class="title">can</span> <span class="title">also</span> <span class="title">use</span> <span class="title">our</span> <span class="title">lettable</span> <span class="title">retry</span> <span class="title">operator</span> <span class="title">with</span> <span class="title">pipe</span>, <span class="title">like</span> <span class="title">this</span>:</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function">```<span class="title">typescript</span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="title">import</span> </span>&#123; <span class="title">ajax</span> &#125; <span class="title">from</span> "<span class="title">rxjs</span>/<span class="title">observable</span>/<span class="title">dom</span>/<span class="title">ajax</span>"</span>;</span></span><br><span class="line"><span class="function"><span class="title">import</span> </span>&#123; of &#125; <span class="keyword">from</span> <span class="string">"rxjs/observable/of"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; catchError, map &#125; <span class="keyword">from</span> <span class="string">"rxjs/operators"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; retry &#125; <span class="keyword">from</span> <span class="string">"./retry"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> name = ajax</span><br><span class="line">  .getJSON&lt;&#123; name: <span class="built_in">string</span> &#125;&gt;(<span class="string">"/api/employees/alice"</span>)</span><br><span class="line">  .pipe(</span><br><span class="line">    retry(<span class="number">3</span>, <span class="number">1000</span>),</span><br><span class="line">    map(<span class="function"><span class="params">employee</span> =&gt;</span> employee.name),</span><br><span class="line">    catchError(<span class="function"><span class="params">error</span> =&gt;</span> of(<span class="literal">null</span>))</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
-
-<p>Let’s return to our retry function and replace the chained methods with lettable operators and a pipe call, so that it looks like this:</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Observable &#125; <span class="keyword">from</span> <span class="string">"rxjs/Observable"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; delay, retryWhen, scan &#125; <span class="keyword">from</span> <span class="string">"rxjs/operators"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">retry</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  count: <span class="built_in">number</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  wait: <span class="built_in">number</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>): (<span class="params">source: Observable&lt;T&gt;</span>) =&gt; <span class="title">Observable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> retryWhen(<span class="function"><span class="params">errors</span> =&gt;</span> errors.pipe(</span><br><span class="line">    <span class="comment">// Each time an error occurs, increment the accumulator.</span></span><br><span class="line">    <span class="comment">// When the maximum number of retries have been attempted, throw the error.</span></span><br><span class="line">    scan(<span class="function">(<span class="params">acc, error</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (acc &gt;= count) &#123; <span class="keyword">throw</span> error; &#125;</span><br><span class="line">      <span class="keyword">return</span> acc + <span class="number">1</span>;</span><br><span class="line">    &#125;, <span class="number">0</span>),</span><br><span class="line">    <span class="comment">// Wait the specified number of milliseconds between retries.</span></span><br><span class="line">    delay(wait)</span><br><span class="line">  ));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>With the chained methods replaced, we now have a proper, reusable lettable operator that imports only what it requires.</p>
-<h2 id="Why-should-lettable-operators-should-be-preferred"><a href="#Why-should-lettable-operators-should-be-preferred" class="headerlink" title="Why should lettable operators should be preferred?"></a>Why should lettable operators should be preferred?</h2><p>For application developers, lettable operators are much easier to manage:</p>
-<ul>
-<li>Rather then relying upon operators being patched into Observable.prototype, lettable operators are explicitly imported into the modules in which they are used.</li>
-<li>It’s easy for TypeScript and bundlers to determine whether the lettable operators imported into a module are actually used. And if they are not, they can be left unbundled. If prototype patching is used, this task is manual and tedious.</li>
-<li>For library authors, lettable operators are much less verbose than call-based alternative, but it’s the correct inference of types that is — at least for me — the biggest advantage.</li>
-</ul>
-<hr>
-<p>Agreed, the pipe is awesome for composing custom rx operators. But why do we see more and more people using it even when not combining re-usable variables — instead of just chaining methods?</p>
-<p>Meaning, we use to write e.g…</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> source$ = Observable.range(<span class="number">0</span>, <span class="number">10</span>); </span><br><span class="line">source$</span><br><span class="line">  .filter(<span class="function"><span class="params">x</span> =&gt;</span> x % <span class="number">2</span>)</span><br><span class="line">  .reduce(<span class="function">(<span class="params">acc, next</span>) =&gt;</span> acc + next, <span class="number">0</span>)</span><br><span class="line">  .map(<span class="function"><span class="params">value</span> =&gt;</span> value * <span class="number">2</span>)</span><br><span class="line">  .subscribe(<span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x));</span><br></pre></td></tr></table></figure>
-
-<p>Above is imho much cleaner than what I see more nowadays:</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> source$ = Observable.range(<span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line">source$.pipe(</span><br><span class="line">  filter(<span class="function"><span class="params">x</span> =&gt;</span> x % <span class="number">2</span>),</span><br><span class="line">  reduce(<span class="function">(<span class="params">acc, next</span>) =&gt;</span> acc + next, <span class="number">0</span>),</span><br><span class="line">  map(<span class="function"><span class="params">value</span> =&gt;</span> value * <span class="number">2</span>)</span><br><span class="line">).subscribe(<span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x));</span><br></pre></td></tr></table></figure>
-
-<p>Are there performance advantages by using the standalone operators instead of chaining?</p>
-<p>debounceInput is a function that takes and returns an observable, so it can be passed to the Observable.prototype.pipe function, like this: valueChanges.pipe(debounceInput).</p>
-<p>So, <code>whenever you find yourself using the same combination of operators in many places, you could consider using the static pipe function to create a reusable operator combination</code>.</p>
-<p>The static pipe function also makes something else much simpler: dealing with pipe-like overload signatures. Let’s look at that next.</p>
-<h2 id="Tree-Shaking"><a href="#Tree-Shaking" class="headerlink" title="Tree Shaking"></a>Tree Shaking</h2><p><a href="https://webpack.js.org/guides/tree-shaking/" target="_blank" rel="noopener">https://webpack.js.org/guides/tree-shaking/</a><br>Tree shaking is a term commonly used in the JavaScript context for dead-code elimination. It relies on the static structure of ES2015 module syntax, i.e. import and export. The name and concept have been popularized by the ES2015 module bundler rollup.</p>
-<p>So, what we’ve learned is that in order to take advantage of tree shaking, you must…</p>
-<p>Use ES2015 module syntax (i.e. import and export).<br>Add a “sideEffects” entry to your project’s package.json file.<br>Include a minifier that supports dead code removal (e.g. the UglifyJSPlugin).</p>
-<h1 id="mergeMap-vs-flatMap-vs-concatMap-vs-switchMap"><a href="#mergeMap-vs-flatMap-vs-concatMap-vs-switchMap" class="headerlink" title="mergeMap vs flatMap vs concatMap vs switchMap"></a>mergeMap vs flatMap vs concatMap vs switchMap</h1><p>Today we’re going to look at the difference between these four three RxJS operators. The simple part is that flatMap is just an alias for mergeMap. Other operators have a difference that might be important in some cases.</p>
-<h2 id="When-do-you-need-them"><a href="#When-do-you-need-them" class="headerlink" title="When do you need them?"></a>When do you need them?</h2><p>All these operators are used with so-called higher order Observables. This is when items of an Observable are Observables themselves (or they are mapped to Observables) and we need to flatten all of them into one final Observable. You can easily identify this situation when you subscribe to an Observable inside subscription to another Observable (Note: this is not a recommended approach):</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">outerObservable.subscribe(<span class="function"><span class="params">outerItem</span> =&gt;</span> &#123;</span><br><span class="line">    outerItem.subsribe(<span class="function"><span class="params">innerItem</span> =&gt;</span> &#123;</span><br><span class="line">            foo(innerItem);</span><br><span class="line">        &#125;)&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>In my examples, initial Observable is called outer Observable. And items of the outer Observable are called inner Observables. Technically inner and outer Observables are just plain Observables.</p>
-<p>A usage example for such operators can be a search box (search box text changes as outer Observable) with a request being sent to a server for each search text change (HTTP responses as inner Observables). Another example is mouse button clicks (outer Observable) that trigger an interval timer for each mouse click (timer events as inner Observables).</p>
-<p>Learning plan<br>To tackle these operators you need to understand more basic ones first. In this article I won’t give any definitions or explanations per se, but rather just a small learning plan with links:</p>
-<p>Map, Merge, Concat. Basic Observable operators.<br>MergeAll, ConcatAll, Switch. These are for higher order Observables already.<br>After that MergeMap, ConcatMap, and SwitchMap should be easy for you.<br>Operators from the third group are two step operators. First, they map outer Observable items to inner Observables. The second step is to merge a result set of inner Observables in some way. The way they are merged depends on the operator you use.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mergeMap = map + mergeAll</span><br><span class="line">concatMap = map + concatAll</span><br><span class="line">switchMap = map + switch</span><br></pre></td></tr></table></figure>
-
-<p>Here are some reworked reactivex.io diagrams. At first some explanations for the diagrams:</p>
-<h2 id="MergeMap"><a href="#MergeMap" class="headerlink" title="MergeMap"></a>MergeMap</h2><p>Outer (initial) Observable emits circles. Each circle is then mapped to its own inner Observable - collection of rhombuses. Collections are identified by color; each collection has its own color. All those inner Observables are then merged into one final Observable - resulting collection of rhombuses.</p>
-<p>MergeMap<br>mergeMap emits items into the resulting Observable just as they are emitted from inner Observables. It doesn’t wait for anything.<br>mergeMap doesn’t preserve the order from outer Observable. Collections of rhombuses interleave.<br>mergeMap doesn’t cancel any inner Observables. All rhombuses from inner Observables get to final collection.</p>
-<h2 id="ConcatMap"><a href="#ConcatMap" class="headerlink" title="ConcatMap"></a>ConcatMap</h2><p>concatMap waits for inner Observable to complete before taking items from the next inner Observable.<br>concatMap does preserve the order from outer Observable. Collections of rhombuses don’t interleave.<br>Just as mergeMap, concatMap doesn’t cancel any inner Observables. All rhombuses from inner Observables get to the final collection.</p>
-<h2 id="SwitchMap"><a href="#SwitchMap" class="headerlink" title="SwitchMap"></a>SwitchMap</h2><p>switchMap emits items only from the most recent inner Observable.<br>switchMap cancels previous inner Observables when a new inner Observable appears. Items of inner Observable that were emitted after the Observable was canceled will be lost (not included in the resulting Observable).</p>
-<p>“Talk is cheap. Show me the code.”<br>I still wasn’t sure I had cracked the difference between the discussed operators even after reading all the results from Google’s first page :) I’ve set up a small example on JsFiddle to see the difference in practice.</p>
-<p>In the example, outer Observable emits three items with a one-second interval. Each item is then mapped to an inner Observable, which in its turn emits another three items with a one-second interval. The final result depends on the operator you use. Hope this small example will help you understand these operators without too much googling.</p>
-<h1 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> appRoutes: Routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">'crisis-center'</span>, <span class="attr">component</span>: CrisisListComponent &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">'hero/:id'</span>,      <span class="attr">component</span>: HeroDetailComponent &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">'heroes'</span>,</span><br><span class="line">    component: HeroListComponent,</span><br><span class="line">    data: &#123; <span class="attr">title</span>: <span class="string">'Heroes List'</span> &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">''</span>,</span><br><span class="line">    redirectTo: <span class="string">'/heroes'</span>,</span><br><span class="line">    pathMatch: <span class="string">'full'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">'**'</span>, <span class="attr">component</span>: PageNotFoundComponent &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  imports: [</span><br><span class="line">    RouterModule.forRoot(</span><br><span class="line">      appRoutes,</span><br><span class="line">      &#123; <span class="attr">enableTracing</span>: <span class="literal">true</span> &#125; <span class="comment">// &lt;-- debugging purposes only</span></span><br><span class="line">    )</span><br><span class="line">    <span class="comment">// other imports here</span></span><br><span class="line">  ],</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AppModule</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>The data property in the third route is a place to store arbitrary data associated with this specific route. The data property is accessible within each activated route. Use it to store items such as page titles, breadcrumb text, and other read-only, static data. You’ll use the resolve guard to retrieve dynamic data</li>
-<li>The empty path in the fourth route represents the default path for the application, the place to go when the path in the URL is empty, as it typically is at the start. This default route redirects to the route for the /heroes URL and, therefore, will display the HeroesListComponent.</li>
-<li>The ** path in the last route is a wildcard. The router will select this route if the requested URL doesn’t match any paths for routes defined earlier in the configuration. This is useful for displaying a “404 - Not Found” page or redirecting to another route.</li>
-<li>The order of the routes in the configuration matters and this is by design. The router uses a <strong>first-match wins strategy</strong> when matching routes, so <strong>more specific routes should be placed above less specific routes</strong>. </li>
-</ul>
-<h2 id="Router-outlet"><a href="#Router-outlet" class="headerlink" title="Router outlet"></a>Router outlet</h2><p>The router matches that URL to the route path  and displays the Component after a RouterOutlet that you’ve placed in the host view’s HTML.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">content_copy</span><br><span class="line">&lt;router-outlet&gt;<span class="xml"><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span></span><br><span class="line">&lt;!-- Routed views go here --&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Define-routes"><a href="#Define-routes" class="headerlink" title="Define routes"></a>Define routes</h2><p>A router must be configured with a list of route definitions.</p>
-<h2 id="mechanism"><a href="#mechanism" class="headerlink" title="mechanism"></a>mechanism</h2><ul>
-<li>When the application requests navigation to the path /crisis-center, the router activates an instance of CrisisListComponent, displays its view, and updates the browser’s address location and history with the URL for that path.</li>
-<li>Pass the array of routes, appRoutes, to the RouterModule.forRoot method. It returns a module, containing the configured Router service provider, plus other providers that the routing library requires. Once the application is bootstrapped, the Router performs the initial navigation based on the current browser URL</li>
-</ul>
-<h2 id="Some-key-points-of-setting-up-router"><a href="#Some-key-points-of-setting-up-router" class="headerlink" title="Some key points of setting up router"></a>Some key points of setting up router</h2><ul>
-<li>Load the router library.</li>
-<li>Add a nav bar to the shell template with anchor tags, routerLink and routerLinkActive directives.</li>
-<li>Add a router-outlet to the shell template where views will be displayed.</li>
-<li>Configure the router module with RouterModule.forRoot.</li>
-<li>Set the router to compose HTML5 browser URLs.</li>
-<li>handle invalid routes with a wildcard route.</li>
-<li>navigate to the default route when the app launches with an empty path.</li>
-</ul>
-<h1 id="Difference-between-forRoot-and-forChild"><a href="#Difference-between-forRoot-and-forChild" class="headerlink" title="Difference between forRoot and forChild"></a>Difference between forRoot and forChild</h1><p>Only call RouterModule.forRoot in the root AppRoutingModule (or the AppModule if that’s where you register top level application routes). In any other module, you must call the RouterModule.forChild method to register additional routes.</p>
-<p><strong>Leave the default and the wildcard routes! These are concerns at the top level</strong> of the application itself.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://angular.io/guide/router" target="_blank" rel="noopener">https://angular.io/guide/router</a></li>
-</ul>
+            <h1 id="whats-Effects"><a href="#whats-Effects" class="headerlink" title="whats @Effects"></a>whats @Effects</h1><p>You can almost think of your Effects as special kinds of reducer functions that are meant to be a place for you to put your async calls in such a way that the returned data can then be easily inserted into the store’s internal state for the application.</p>
+<h1 id="rule-of-a-thumb-for-actions"><a href="#rule-of-a-thumb-for-actions" class="headerlink" title="rule of a thumb for actions"></a>rule of a thumb for actions</h1><p>As a good rule of thumb, try not to make one reducer that handles all the actions, but also do not make a separate reducer for each action. Group them in a way that makes sense for the application structure. </p>
 
           
         
