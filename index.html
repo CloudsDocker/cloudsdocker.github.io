@@ -195,6 +195,237 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-21-Algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-21-Algorithm/" class="post-title-link" itemprop="url">Algorithm</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-12-28 22:12:34" itemprop="dateCreated datePublished" datetime="2019-12-28T22:12:34+11:00">2019-12-28</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="This-page-is-about-key-points-about-Algorithm"><a href="#This-page-is-about-key-points-about-Algorithm" class="headerlink" title="This page is about key points about Algorithm"></a>This page is about key points about Algorithm</h1><h2 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h2><ul>
+<li>The easiest way to improve search efficiency on a set of data is to put it in a data structure that allows more efficient searching.<br>What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1)).</li>
+<li>Then need to determine which data structure to be used. If the underlying characters are just ASCII, then a array[128] would be enough. But characters are UNICODe, then it need 100,000 (100K) array, which is a concern of memory, so hash table would be a better option, which only keep exist characters.<br>In general, arrays are a better choice for long strings with a limited set of possible characters values, hash tables are more efficient for shorter strings or when there are many possible character values.  </li>
+<li>For some problems, obvious iterative alternatives like the one just shown don’t exist, but it’s always possible to implement a recursive algorithm without using recursive calls.</li>
+<li>For a simple recursive function like factorial, many computer architectures spend more time on call overhead than on the actual calculation. Iterative functions, which use looping constructs instead of recursive function calls, do not suffer from this overhead and are frequently more efficient.</li>
+<li>NOTE Iterative solutions are usually more efficient than recursive solutions.</li>
+<li>NOTE Every recursive case must eventually lead to a base case.</li>
+<li>NOTE Recursive algorithms have two cases: recursive cases and base cases</li>
+</ul>
+<h1 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h1><h2 id="I-collections-sort"><a href="#I-collections-sort" class="headerlink" title="I collections.sort()"></a>I collections.sort()</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object[] a = list.toArray();</span><br><span class="line">        Arrays.sort(a);</span><br><span class="line">        ListIterator&lt;T&gt; i = list.listIterator();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;a.length; j++) &#123;</span><br><span class="line">            i.next();</span><br><span class="line">            i.set((T)a[j]);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Arrays-sort"><a href="#Arrays-sort" class="headerlink" title="Arrays.sort"></a>Arrays.sort</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Object[] a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (LegacyMergeSort.userRequested)</span><br><span class="line">            legacyMergeSort(a);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ComparableTimSort.sort(a);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(Object[] src,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  Object[] dest,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> low,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> high,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> off)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = high - low;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Insertion sort on smallest arrays</span></span><br><span class="line">        <span class="keyword">if</span> (length &lt; INSERTIONSORT_THRESHOLD) &#123; <span class="comment">// threshold is 7</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=low; i&lt;high; i++)</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j=i; j&gt;low &amp;&amp;</span><br><span class="line">                         ((Comparable) dest[j-<span class="number">1</span>]).compareTo(dest[j])&gt;<span class="number">0</span>; j--)</span><br><span class="line">                    swap(dest, j, j-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// else use mergeSort</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Self-review"><a href="#Self-review" class="headerlink" title="Self review"></a>Self review</h1><h2 id="CeasarCipher"><a href="#CeasarCipher" class="headerlink" title="CeasarCipher:"></a>CeasarCipher:</h2><p>Generally: it’s a rotation of English alphabic. E.g. if rotation is 2, the encode is start from A+2, i.e. A is at -2 of the encode array.<br>And decode is start with 26-2, and “A” start at positon 2, then the increase by 1 character to constitute the array<br>That’s why need to “%26”, to make it loop across 26 characters</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">If rotation is 2:</span><br><span class="line">--- encrytpion code is:[C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B]</span><br><span class="line">--- decrytpion code is:[Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X]</span><br><span class="line">If rotation is 4:</span><br><span class="line">--- encrytpion code is:[E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B, C, D]</span><br><span class="line">--- decrytpion code is:[W, X, Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ABC:</span><br><span class="line">Msg =&#123;‘A’,’B’,’C’&#125;;</span><br><span class="line">Char[] encode=’A’+(k+rotation)%<span class="number">26</span>);</span><br><span class="line">Char[] decode=’A’+(k-rotation+<span class="number">26</span>)%<span class="number">26</span>); <span class="comment">// +26 to avoid negative</span></span><br><span class="line"></span><br><span class="line">Encode=&#123;‘C’,’D’,’E’&#125;; <span class="comment">// rotation=3, so A+3, A+4,A+5,xxx, A+26=&gt;3,4,5,6,xxx,0</span></span><br><span class="line">Decode=&#123;‘M’,’N’,’O’&#125;;<span class="comment">//as k-rotation+26 % 26, so it’s 26-3+0,26-3+1 ,xx: =&gt; 23,24,25,0,1,2,3,4,is: A+23,A+24,A+25=&gt;‘M’,’N’,’O’. that’s rotation, rotain-1, rotaion -2 xxxx</span></span><br><span class="line">For(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;msg.length;i++)&#123;</span><br><span class="line">  Int j=msg[i]-‘A’; <span class="comment">// to remove the base ‘A”, so sync with the “k” in encode, 3,4,5,xxx 3+26</span></span><br><span class="line">  Msg[i]=codes[j];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// encode</span></span><br><span class="line">Int j=’A’-‘A’; <span class="comment">//0</span></span><br><span class="line">Msg[<span class="number">0</span>]=’C’;</span><br><span class="line">Msg[<span class="number">1</span>]=’D’;</span><br><span class="line">Msg[<span class="number">2</span>]=’E’;</span><br><span class="line"></span><br><span class="line"><span class="comment">//decode</span></span><br><span class="line">Int j=msg[i]-‘A’; <span class="comment">//’C’-‘A’=3</span></span><br><span class="line">Msg[i]=decode[j]; <span class="comment">// correspoindg to the postion 0,-xxx, 26 in decode, </span></span><br><span class="line">Msg[<span class="number">0</span>]=</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>If you says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.</li>
+</ul>
+<h1 id="To-print-content-of-Array"><a href="#To-print-content-of-Array" class="headerlink" title="To print content of Array"></a>To print content of Array</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import java.util.Arrays;</span><br><span class="line">Arrays.toString(ary);</span><br><span class="line">Arrays.deepToString(ary);</span><br></pre></td></tr></table></figure>
+
+<h1 id="search-without-recursive"><a href="#search-without-recursive" class="headerlink" title="search without recursive"></a>search without recursive</h1><p>Node findNode( Node root, int value ){<br>    while( root != null ){<br>        int currval = root.getValue();<br>        if( currval == value ) break;<br>        if( currval &lt; value ){<br>            root = root.getRight();<br>        } else { // currval &gt; value<br>            root = root.getLeft();<br>        }<br>    }</p>
+<pre><code>return root;</code></pre><p>}</p>
+<ul>
+<li><p>preceding lookup operation can be reimplemented recursively as follows:<br>Node findNode( Node root, int value ){<br>  if( root == null ) return null;<br>  int currval = root.getValue();<br>  if( currval == value ) return root;<br>  if( currval &lt; value ){</p>
+<pre><code>return findNode( root.getRight(), value );</code></pre><p>  } else { // currval &gt; value</p>
+<pre><code>return findNode( root.getLeft(), value );</code></pre><p>  }<br>}</p>
+</li>
+<li><p>This subtree property is conducive to recursion because recursion generally involves solving a problem in terms of similar subproblems and a base case. </p>
+</li>
+</ul>
+<h1 id="Big-O-sequencey"><a href="#Big-O-sequencey" class="headerlink" title="Big O sequencey"></a>Big O sequencey</h1><p>1, logn, n, n log n, n2, n3, 2n(2 power n).</p>
+<h1 id="Big-O"><a href="#Big-O" class="headerlink" title="Big O"></a>Big O</h1><ul>
+<li>It is also considered poor taste to include constant factors and lower-order terms in the big-Oh notation. For example, it is not fashionable to say that the function 2n2 is O(4n2 + 6n log n), although this is completely correct. We should strive instead to describe the function in the big-Oh <strong>in simplest terms</strong>.</li>
+<li>So, for example, we would say that an algorithm that runs in worst-case time 4n2 + n log n is a quadratic-time algorithm, since it runs in O(n2) time. Likewise, an algorithm running in time at most 5n + 20logn + 4 would be called a linear-time algorithm.</li>
+</ul>
+<h1 id="Big-Omega"><a href="#Big-Omega" class="headerlink" title="Big Omega"></a>Big Omega</h1><ul>
+<li>Just as the big-Oh notation provides an asymptotic way of saying that a function is “less than or equal to” another function, the following notations provide <strong>an asymptotic way</strong> of saying that a function grows at a rate that is “<strong>greater than or equal to</strong>” that of another.</li>
+<li>Example 4.14: 3n log n ? 2n is Ω(n log n).</li>
+</ul>
+<h1 id="Big-Theta"><a href="#Big-Theta" class="headerlink" title="Big-Theta"></a>Big-Theta</h1><ul>
+<li>In addition, there is a notation that allows us to say that two functions grow at the same rate, up to constant factors. We say that f(n) is Θ(g(n)), pronounced “f(n) is big-Theta of g(n),”</li>
+</ul>
+<h1 id="Comparative-Analysis"><a href="#Comparative-Analysis" class="headerlink" title="Comparative Analysis"></a>Comparative Analysis</h1><ul>
+<li>asymptotically[,?simp’t?tik,-k?l] better</li>
+<li>Suppose two algorithms solving the same problem are available: an algorithm A, which has a running time of O(n), and an algorithm B, which has a running time of O(n2). Which algorithm is better? We know that n is O(n2), which implies that algorithm A <strong>is asymptotically better</strong> than algorithm B, although for a small value of n, B may have a lower running time than A.</li>
+</ul>
+<h1 id="Some-Words-of-Caution"><a href="#Some-Words-of-Caution" class="headerlink" title="Some Words of Caution"></a>Some Words of Caution</h1><ul>
+<li>First, note that the use of the big-Oh and related notations can be somewhat misleading should the constant factors they “hide” be very large. For example, while it is true that the function 10100n is O(n), if this is the running time of an algorithm being compared to one whose running time is 10n log n, we should prefer the O(nlog n)-time algorithm, even though the linear-time algorithm is asymptotically faster. This preference is because the constant factor, 10100, which is called “one googol,” is believed by many astronomers to be an upper bound on the number of atoms in the observable universe. So we are unlikely to ever have a real-world problem that has this number as its input size.</li>
+</ul>
+<h1 id="Exponential-eksp-’nen-l-Running-Times"><a href="#Exponential-eksp-’nen-l-Running-Times" class="headerlink" title="Exponential [,eksp?’nen?(?)l] Running Times"></a>Exponential [,eksp?’nen?(?)l] Running Times</h1><ul>
+<li>To see how fast the function 2n grows, consider the famous story about the inventor of the game of chess. He asked only that his king pay him 1 grain of rice for the first square on the board, 2 grains for the second, 4 grains for the third, 8 for the fourth, and so on. The number of grains in the 64th square would be<br>263 = 9, 223, 372, 036, 854, 775, 808,<br>which is about nine billion billions!</li>
+<li>If we must draw a line between efficient and inefficient algorithms, therefore, it is natural to make this distinction be that between those algorithms running in <strong>polynomial [,p?l?’n??m??l] time</strong> and those running in <strong>exponential time</strong>. That is, make the distinction between algorithms with a running time that is <strong>O(nc)</strong> (power c based on n), for some constant c &gt; 1, and those with a running time that is <strong>O(bn)</strong> (power n based on b), for some constant b &gt; 1. Like so many notions we have discussed in this section, this too should be taken with a “grain of salt,” for an algorithm running in O(n100) time should probably not be considered “efficient.” Even so, the distinction between polynomial-time and exponential-time algorithms is considered a robust measure of tractability.</li>
+</ul>
+<h1 id="Examples-of-Algorithm-Analysis"><a href="#Examples-of-Algorithm-Analysis" class="headerlink" title="Examples of Algorithm Analysis"></a>Examples of Algorithm Analysis</h1><h2 id="constant-time-operation"><a href="#constant-time-operation" class="headerlink" title="constant time operation"></a>constant time operation</h2><ul>
+<li>All of the primitive operations, originally described on page 154, are assumed to run in constant time; Assume that variable A is an array of n elements. The expression A.length in Java is evaluated in constant time, because arrays are represented internally with an explicit variable that records the length of the array. Another central behavior of arrays is that for any valid index j, the individual element, A[j], can be accessed in constant time. This is because an array uses a consecutive block of memory. The jth element can be found, not by iterating through the array one element at a time, but by validating the index, and using it as an offset from the beginning of the array in determining the appropriate memory address. Therefore, we say that the expression A[j] is evaluated in O(1) time for an array.</li>
+</ul>
+<h2 id="Finding-the-Maximum-of-an-Array"><a href="#Finding-the-Maximum-of-an-Array" class="headerlink" title="Finding the Maximum of an Array"></a>Finding the Maximum of an Array</h2><p>Proposition 4.16: The algorithm, arrayMax, for computing the maximum element of an array of n numbers, runs in O(n) time.</p>
+<p>Justification: The initialization at lines 3 and 4 and the return statement at line 8 require only a constant number of primitive operations. Each iteration of the loop also requires only a constant number of primitive operations, and the loop executes n ? 1 times.</p>
+<h2 id="Composing-Long-Strings"><a href="#Composing-Long-Strings" class="headerlink" title="Composing Long Strings"></a>Composing Long Strings</h2><ul>
+<li><p>Therefore, the overall time taken by this algorithm is proportional to<br>1 + 2 + ··· + n,<br>which we recognize as the familiar O(n<sup>2</sup>) summation from Proposition 4.3. Therefore, the total time complexity of the repeat1 algorithm is O(n<sup>2</sup>).</p>
+</li>
+<li><p>x = logbn if and only if bx = n.<br>The value b is known as the base of the logarithm. Note that by the above definition, for any base b &gt; 0, we have that logb 1 = 0.</p>
+</li>
+</ul>
+<h1 id="Three-Way-Set-Disjointness"><a href="#Three-Way-Set-Disjointness" class="headerlink" title="Three-Way Set Disjointness"></a>Three-Way Set Disjointness</h1><h2 id="Origional-solution"><a href="#Origional-solution" class="headerlink" title="Origional solution"></a>Origional solution</h2><p>Suppose we are given three sets, A, B, and C, stored in three different integer arrays. We will assume that no individual set contains duplicate values, but that there may be some numbers that are in two or three of the sets. The three-way set disjointness problem is to determine if the intersection of the three sets is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">disjoint1</span><span class="params">(<span class="keyword">int</span>[]  groupA, <span class="keyword">int</span>[] groupB, <span class="keyword">int</span>[] groupC)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> i : groupA) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j : groupB) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k : groupC) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j &amp;&amp; j==k)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>This simple algorithm loops through each possible triple of values from the three sets to see if those values are equivalent. If each of the original sets has size n, then the worst-case running time of this method is O(n<sup>3</sup>) .<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">disjoint2</span><span class="params">(<span class="keyword">int</span>[]  groupA, <span class="keyword">int</span>[] groupB, <span class="keyword">int</span>[] groupC)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> i : groupA) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j : groupB) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j)&#123;</span><br><span class="line">                    <span class="comment">// add this checking to reduce complexitiy</span></span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k : groupC) &#123;</span><br><span class="line">                        <span class="keyword">if</span>(j==k)&#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>In the improved version, it is not simply that we save time if we get lucky. We claim that the worst-case running time for disjoint2 is O(n<sup>2</sup>).</p>
+<h1 id="by-sorting"><a href="#by-sorting" class="headerlink" title="by sorting"></a>by sorting</h1><p>Sorting algorithms will be the focus of Chapter 12. The best sorting algorithms (including those used by Array.sort in Java) guarantee a worst-case running time of O(nlog n). Once the data is sorted, the subsequent loop runs in O(n) time, and so the entire unique2 algorithm runs in O(n log n) time. Exercise C-4.35 explores the use of sorting to solve the three-way set disjointness problem in O(n log n) time.</p>
+<h1 id="prefixAverage"><a href="#prefixAverage" class="headerlink" title="prefixAverage"></a>prefixAverage</h1><p>Check the source code at PrefixAverage.java, the inital implementation is two for loop, which is O(n<sup>2</sup>), while the better approach is reuse existing total sum.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// naiive approach,</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="keyword">double</span> total=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;=i; j++) &#123; <span class="comment">// be awre it's &lt;=, instead of "&lt;"</span></span><br><span class="line">				total+=x[j];				</span><br><span class="line">			&#125;</span><br><span class="line">			a[i]=total/(i+<span class="number">1</span>);			</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">// better approach</span></span><br><span class="line"><span class="keyword">double</span> total=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			total += x[i];</span><br><span class="line">			a[i]=total/(i+<span class="number">1</span>);			</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Recursive"><a href="#Recursive" class="headerlink" title="Recursive"></a>Recursive</h1><h2 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h2><ol>
+<li>We have one or more <strong>base cases</strong>, which refer to fixed values of the function. e.g. for n!=1 as  n=1 is base.</li>
+<li>Then we have one or more <strong>recursive cases</strong>, which define the function in terms of itself. for n!, it’s =n*(n-1)! for n&gt;=1</li>
+</ol>
+<ul>
+<li>Repetition is achieved through repeated recursive invocations of the method. The process i finite because each time the method is invoked, its argument is smaller by one, and when a base case is reached, no further recursive calls are made.</li>
+<li>In the case of computing the factorial function, there is no compelling reason for prefereing recursion over a direct iteration with a loop.</li>
+</ul>
+<h1 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h1><h2 id="ADT-Abstract-Data-Type"><a href="#ADT-Abstract-Data-Type" class="headerlink" title="ADT (Abstract Data Type)"></a>ADT (Abstract Data Type)</h2><ul>
+<li>we define a tree ADT using the concept of a position as an abstraction for a node of a tree. An element is stored at each position, and positions satisfy parent-child relationships that define the tree structure. </li>
+</ul>
+<h2 id="Depth-and-Height"><a href="#Depth-and-Height" class="headerlink" title="Depth and Height"></a>Depth and Height</h2><h3 id="Depth"><a href="#Depth" class="headerlink" title="Depth"></a>Depth</h3><ul>
+<li>The depth of p is the number of ancestors of p, other than p itself.</li>
+<li>The running time of depth(p) for position p is O(dp + 1), where dp denotes the depth of p in the tree, because the algorithm performs a constant-time recursive step for each ancestor of p. Thus, algorithm depth(p) runs in O(n) worst-case time, where n is the total number of positions of T, because a position of T may have depth n - 1 <strong>if all nodes form a single branch</strong>. </li>
+<li>Method depth, as implemented within the AbstractTree class.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">depth</span><span class="params">(Position&lt;E&gt; p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(isRoot(p))</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>+depth(parent(p));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Height"><a href="#Height" class="headerlink" title="Height"></a>Height</h3><ul>
+<li>We next define the height of a tree to be equal to the maximum of the depths of its positions (or zero, if the tree is empty).</li>
+<li>Folloing worst time cost is O(n), it progresses in a <strong>top-down</strong> fashion.</li>
+<li>If the method is initially called on the root of T, it will eventually be called once for each position of T. This is because the root eventually invokes the recursion on each of its children, which in turn invokes the recursion on each of their children, and so on.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">height</span><span class="params">(Position&lt;E&gt; p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> h=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(Position&lt;E&gt; c: children(p))</span><br><span class="line">		h=Math.max(h,<span class="number">1</span>+height(c));</span><br><span class="line">	<span class="keyword">return</span> h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h2><ul>
+<li><p>A binary tree is an ordered tree with the following properties:</p>
+<ul>
+<li>Every node has at most two children.</li>
+<li>Each child node is labeled as being either a left child or a right child.</li>
+<li>A left child precedes a right child in the order of children of a node.</li>
+</ul>
+</li>
+<li><p>A binary <strong>tree is proper if each node has either zero or two children</strong>. Some people also refer to <strong>such trees as being full binary trees</strong>. Thus, <strong>in a proper binary tree, every internal node has exactly two children</strong>. A binary tree that is not proper is <strong>improper</strong>.</p>
+<h3 id="Some-binary-trees"><a href="#Some-binary-trees" class="headerlink" title="Some binary trees"></a>Some binary trees</h3><h4 id="decision-tree"><a href="#decision-tree" class="headerlink" title="decision tree"></a>decision tree</h4></li>
+<li><p>An important class of binary trees arises in contexts where we wish to represent a number of different outcomes that can result from answering a series of yes-or-no questions. Each internal node is associated with a question. Starting at the root, we go to the left or right child of the current node, depending on whether the answer to the question is “Yes” or “No.” With each decision, we follow an edge from a parent to a child, eventually tracing a path in the tree from the root to a leaf. Such binary trees are known as decision trees, because a leaf position p in such a tree represents a decision of what to do if the questions associated with p’s ancestors are answered in a way that leads to p. <strong>A decision tree is a proper binary tree</strong>. </p>
+<h4 id="Arithmetic-expression"><a href="#Arithmetic-expression" class="headerlink" title="Arithmetic expression"></a>Arithmetic expression</h4></li>
+<li><p>An arithmetic expression can be represented by a binary tree whose leaves are associated with variables or constants, and whose internal nodes are associated with one of the operators +, ?, *, and /, as demonstrated in Figure 8.6. Each node in such a tree has a value associated with it.</p>
+<ul>
+<li>If a node is leaf, then its value is that of its variable or constant.</li>
+<li>If a node is internal, then its value is defined by applying its operation to the values of its children.<h3 id="Properties-of-Binary-trees"><a href="#Properties-of-Binary-trees" class="headerlink" title="Properties of Binary trees"></a>Properties of Binary trees</h3></li>
+</ul>
+</li>
+<li><p>level d has at most 2<sup>d</sup> nodes</p>
+</li>
+<li><p>Let T be a nonempty binary tree, and let n, nE, nI, and h denote the number of nodes, number of external nodes, number of internal nodes, and height of T, respectively. Then T has the following properties:</p>
+<ul>
+<li>h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1</li>
+<li>1 ≤ nE ≤ 2<sup>h</sup></li>
+<li>h ≤ nI ≤ 2<sup>h</sup> - 1</li>
+<li>log(n + 1) - 1 ≤ h ≤ n - 1</li>
+</ul>
+</li>
+<li><p>Also, if T is proper, then T has the following properties:</p>
+<ul>
+<li>2h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1</li>
+<li>h + 1 ≤ nE ≤ 2<sup>h</sup></li>
+<li>h ≤ nI ≤ 2<sup>h</sup> - 1</li>
+<li>log(n + 1) - 1 ≤ h ≤ (n - 1)/2</li>
+</ul>
+</li>
+<li><p>In a nonempty proper binary tree T, with nE external nodes and nI internal nodes, we have nE = nI + 1.</p>
+</li>
+</ul>
+<h1 id="Why-use-tree"><a href="#Why-use-tree" class="headerlink" title="Why use tree"></a>Why use tree</h1><ul>
+<li>You can search, insert/delete items quickly in a tree</li>
+<li>Ordered Arrays are bad at Insertions/Deletions</li>
+<li>Finding items in a Linkedlist is slow</li>
+<li>Time needed to perform an operation on a tree is O(log N)</li>
+<li>On average a tree is more efficient if you need to perform many different types of operations.</li>
+</ul>
+<h1 id="Code-practice"><a href="#Code-practice" class="headerlink" title="Code practice"></a>Code practice</h1><p><a href="http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159" target="_blank" rel="noopener">http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159</a></p>
+<h1 id="Geek-IDE"><a href="#Geek-IDE" class="headerlink" title="Geek IDE"></a>Geek IDE</h1><p><a href="http://code.geeksforgeeks.org/index.php" target="_blank" rel="noopener">http://code.geeksforgeeks.org/index.php</a></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/" target="_blank" rel="noopener">http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2019-08-25-AWS-Certificate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1799,88 +2030,6 @@ q)</code>zaphod<br>_</p>
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-11-01-seconds/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-11-01-seconds/" class="post-title-link" itemprop="url">Seconds</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:07:34" itemprop="dateCreated datePublished" datetime="2019-05-31T23:07:34+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="nano-seconds"><a href="#nano-seconds" class="headerlink" title="nano seconds"></a>nano seconds</h1><p>ns: 1/1,000,000,000 second, i.e. 10(-9) seconds<br>1 ns = 1/1,000 micro second<br>1 ns = 1/1,000,000 milis second</p>
-<p>used in telecommunications</p>
-<h1 id="micro-seconds"><a href="#micro-seconds" class="headerlink" title="micro seconds"></a>micro seconds</h1><p>Its symbol is μs. 微秒<br>1 μs = 1000 ns<br>1 μs = 1/1,000 milli Seconds</p>
-<p>8.01 μs： light took the time to travel 1 mile in vaccum</p>
-<p>The average human eye blink takes 350,000 microseconds (just over 1/3 of one second).<br>The average human finger snap takes 150,000 microseconds (just over 1/7 of one second).<br>A camera flash illuminates for 1000 microseconds.</p>
-<h1 id="milli-second"><a href="#milli-second" class="headerlink" title="milli second"></a>milli second</h1><p>ms 毫秒<br>1 ms = 1/1,000 second<br>1 ms = 1,000 μs = 1,000,000 ns</p>
-<p>3 ms: fly flgp its wing<br>5 ms: bee flap wing<br>300-400 ms: human eye to blink</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -2188,7 +2337,9 @@ q)</code>zaphod<br>_</p>
         
           
         
-        <span class="site-state-item-count">127</span>
+          
+        
+        <span class="site-state-item-count">128</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

@@ -438,6 +438,291 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-10-06-Sublime-Syntax-Highlights/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-10-06-Sublime-Syntax-Highlights/" class="post-title-link" itemprop="url">How to customize Sublime syntax highlights</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://www.sublimetext.com/docs/3/scope_naming.html" target="_blank" rel="noopener">Sublime Scope Naming</a></li>
+<li><a href="https://www.sublimetext.com/docs/3/syntax.html" target="_blank" rel="noopener">Syntax Guide</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-02-Enum-Misc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-02-Enum-Misc/" class="post-title-link" itemprop="url">Java Enum Misc</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Enum-Misc"><a href="#Enum-Misc" class="headerlink" title="Enum Misc"></a>Enum Misc</h1><ul>
+<li>All enums implicitely extends <strong>java.lang.Enum</strong></li>
+<li>Enum in Java are <strong>type-safe</strong></li>
+<li>You can specify values of enum constants at the <strong>creation</strong> time. <strong>Enum.values()</strong> returns an array of MyEnum’s values.</li>
+<li>Enum constants are implicitly static and final and can not be changed once created.</li>
+<li>Enum can be safely compare using:<ul>
+<li>Switch-Case Statement</li>
+<li>== Operator</li>
+<li>.equals() method</li>
+</ul>
+</li>
+<li>You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself.</li>
+<li>Instance of Enum in Java <strong>is created when</strong> any Enum constants are <strong>first called or referenced</strong> in code.</li>
+<li>An enum can be declared outside or inside a class, but NOT in a method.</li>
+<li>An enum declared outside a class must NOT be marked static, final , abstract, protected , or private</li>
+<li>Enums can contain constructors, methods, variables, and constant class bodies.</li>
+<li>enum constructors can have arguments, and can be overloaded.</li>
+<li>enum constructors can NEVER be invoked directly in code. They are always called automatically when an enum is initialized.</li>
+<li>The semicolon at the end of an enum declaration is optional.</li>
+</ul>
+<p>These are legal:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;</span><br><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="type-safe"><a href="#type-safe" class="headerlink" title="type safe"></a>type safe</h1><p>The advantage of this style of enumeration over the C/C++-style enum or constants is that they are <strong>type-safe</strong>, meaning that, for example, if you define a method</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSuit</span><span class="params">(Suit suit)</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>the caller cannot pass in a value that does not correspond to an enumeration value</p>
+<h1 id="Language-level-features"><a href="#Language-level-features" class="headerlink" title="Language level features"></a>Language level features</h1><ul>
+<li>Since enumeration instances are all effectively <strong>singletons</strong>, they can be compared for equality using identity (“==”).</li>
+<li>In Java 5.0, the enum keyword is introduced as a special type of class that always extends <strong>java.lang.Enum</strong>.</li>
+<li>Note that the enumeration values are still <strong>static class members</strong>, though not declared as such.</li>
+<li>Enum is implemented using <strong>Arrays and common operations result in constant time</strong>. So if you are thinking of an high-performance Map, EnumMap could be a decent choice for enumeration data. We have already seen many examples of Java enum in our article 10 Examples of enum in Java  and using Enum as thread-safe Singleton. In this Java tutorial, we will see simple examples of using EnumMap in Java. </li>
+<li>All keys used in EnumMap must be  from same Enum type which is specified while creating EnumMap in Java. For example if you can not use different enum instances from two different enum.</li>
+<li>EnumMap is ordered collection and they are maintained in the natural order of their keys( natural order of keys means  the order on which enum constant are declared inside enum type ). you can verify this while Iterating over an EnumMap in Java.</li>
+<li>Iterators of EnumMap are fail-fast Iterator , much like of ConcurrentHashMap and doesn’t throw ConcurrentModificationException and may not show effect of any modification on EnumMap during Iteration process.</li>
+<li>You can not insert null keys inside EnumMap in Java.  EnumMap doesn’t allow null key and throw NullPointerException, at same time null values are permitted.</li>
+<li>EnumMap is not synchronized and it has to be synchronized manually before using it in a concurrent or multi-threaded environment. like synchronized Map in Java  you can also make EnumMap synchronized by using Collections.synchronizedMap() method and as per javadoc this should be done while creating EnumMap in java to avoid accidental non synchronized access.</li>
+<li>The constructor of enum in java must be private any other access modifier will result in compilation error. Now to get the value associated with each coin you can define a public getValue() method inside Java enum like any normal Java class. Also, the semicolon in the first line is optional.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Since constants defined inside Enum in Java are <strong>final</strong> you can <strong>safely compare them using “==”</strong>, the equality operator as shown in following example of  Java Enum:</li>
+<li>Java compiler automatically generates static values() method for every enum in java. Values() method returns array of Enum constants in the same order they have listed in Enum and you can use values() to iterate over values of Enum  in Java as shown in below example. Notice <strong>the order is exactly the same as defined order</strong> in the Enum.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(Currency coin: Currency.values())&#123;</span><br><span class="line">   System.out.println(<span class="string">"coin: "</span> + coin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>In Java, Enum can override methods also. Let’s see an example of overriding toString() method inside Enum in Java to provide a meaningful description for enums constants.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">  ........</span><br><span class="line">      </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">switch</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">         <span class="keyword">case</span> PENNY:</span><br><span class="line">              System.out.println(<span class="string">"Penny: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> NICKLE:</span><br><span class="line">              System.out.println(<span class="string">"Nickle: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> DIME:</span><br><span class="line">              System.out.println(<span class="string">"Dime: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> QUARTER:</span><br><span class="line">              System.out.println(<span class="string">"Quarter: "</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">super</span>.toString();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>EnumSet doesn’t have any public constructor instead it provides <strong>factory methods to create instance e.g. EnumSet.of()</strong> methods. This design allows EnumSet to internally choose between two different implementations depending upon the size of Enum constants.</li>
+</ul>
+<p>If Enum has <strong>less than 64 constants than EnumSet uses RegularEnumSet</strong> class which internally uses a long variable to store those 64 Enum constants and if Enum has more keys than 64 then it uses JumboEnumSet. See my article the difference between RegularEnumSet and JumboEnumSet for more details.</p>
+<ul>
+<li>An instance of Enum in Java is created when any Enum constants are first called or referenced in code.</li>
+<li>Enum in Java can *<em>implement the interface and override any method *</em>like normal class It’s also worth noting that Enum in java implicitly implements both Serializable and Comparable interface. Let’s see and example of how to implement interface using Java Enum:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency implements Runnable&#123;</span><br><span class="line">  PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">  ............</span><br><span class="line">        </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"Enum in Java implement interfaces"</span>);</span><br><span class="line">                </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>You can define abstract methods inside Enum in Java and can also provide a different implementation for different instances of enum in java.  Let’s see an example of using abstract method inside enum in java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"copper"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        NICKLE(<span class="number">5</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"bronze"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        DIME(<span class="number">10</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        QUARTER(<span class="number">25</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">color</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In this example since every coin will have the different color we made the color() method abstract and let each instance of Enum to define  their own color. You can get color of any coin by just calling the color() method as shown in below example of Java Enum:</p>
+<p>System.out.println(“Color: “ + Currency.DIME.color());</p>
+<p>So that was the comprehensive list of properties, behavior and capabilities of Enumeration type in Java. I know, it’s not easy to remember all those powerful features and that’s why I have prepared this small Microsoft powerpoint slide containing all important properties of Enum in Java. You can always come back and check this slide to revise important features of Java Enum.</p>
+<h1 id="RegularEnumSet-vs-JumboEnumSet"><a href="#RegularEnumSet-vs-JumboEnumSet" class="headerlink" title="RegularEnumSet vs. JumboEnumSet"></a>RegularEnumSet vs. JumboEnumSet</h1><ul>
+<li>Since Enum always has fixed number of instances, data-structure which is used to store Enum can be optimized depending upon number of instances and that’s why we have two different implementation of EnumSet in Java. We will take a closer look on this concept in next paragraph.</li>
+<li>How EnumSet is implemented in Java<br>EnumSet is an abstract class and it provides two concrete implementations, java.util.RegularEnumSet and java.util.JumboEnumSet. Main difference between RegularEnumSet and JumboEnumSet is that former uses a long variable to store elements while later uses a long[] to store its element. Since RegularEnumSet uses long variable, which is a 64 bit data type, it can only hold that much of element. That’s why when an empty EnumSet is created using EnumSet.noneOf() method, it choose RegularEnumSet if key universe (number of enum instances in Key Enum) is less than or equal to 64 and JumboEnumSet if key universe is more than 64. Here is the code which does that :</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;E extends Enum&lt;E&gt;&gt; <span class="function">EnumSet&lt;E&gt; <span class="title">noneOf</span><span class="params">(Class&lt;E&gt; elementType)</span> </span>&#123;   </span><br><span class="line">        .. ............ </span><br><span class="line">        <span class="keyword">if</span> (universe.length &lt;= <span class="number">64</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> RegularEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> JumboEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>EnumSet is <strong>not thread-safe</strong>, which means if it needs to be externally synchronized, when multiple thread access it and one of them modifies the Collection.</li>
+<li>EnumSet can not be used to store any other object <strong>except Enum</strong>, at the same time you can not store instances of two different Enum.</li>
+<li>EnumSet doesn’t allow Null elements.</li>
+<li>EnumSet Iterators are fail-safe in nature.</li>
+</ol>
+<h1 id="Difference-between-EnumMap-vs-HashMap"><a href="#Difference-between-EnumMap-vs-HashMap" class="headerlink" title="Difference between EnumMap vs HashMap"></a>Difference between EnumMap vs HashMap</h1><ul>
+<li>Internally EnumMap is represented using Array and provides constant time performance for common methods e.g. get() or put(). Now let’s see few differences between EnumMap vs HashMap :</li>
+<li>As said earlier, first and foremost difference between EnumMap and HashMap is that EnumMap is optimized for enum keys while HashMap is a general purpose Map implementation similar to Hashtable. you can not use any type other than Enum as key in EnumMap but you can use both Enum and any other Object as key in HashMap.</li>
+<li>Another difference between EnumMap and HashMap is <strong>performance</strong>. as discussed in the previous point, due to specialized optimization done for Enum keys, EnumMap is likely to perform better than HashMap when using enum as key object.</li>
+<li>One more thing which can be considered as the difference between HashMap and EnumMap is <strong>the probability of Collision</strong>. Since <strong>Enum is internally maintained as array ** and they are **stored in their natural order using ordinal()</strong>, as shown in following code which is taken from put() method of EnumMap.<br>Since EnumMap doesn’t call hashCode method on keys, there is no chance of collision.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> index = ((Enum)key).ordinal();</span><br><span class="line">    Object oldValue = vals[index];</span><br><span class="line">    vals[index] = maskNull(value);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>you can use both == and equals() method to compare Enum, they will produce same result because equals() method of Java.lang.Enum internally uses == to compare enum in Java. Since every Enum in Java implicitly extends java.lang.Enum ,and since equals() method is declared final, there is no chance of overriding equals method in user defined enum</li>
+<li>But there are still some slight difference, because  ==  (equality operator) being operator and equals() being method.</li>
+<li><ul>
+<li>Using == for comparing Enum can prevent NullPointerException</li>
+</ul>
+</li>
+<li><ul>
+<li>== method provides type safety during compile time</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>A <strong>fail-fast</strong> system is nothing but immediately report any failure that is likely to lead to failure. When a problem occurs, a fail-fast system fails immediately. In Java, we can find this behavior with iterators. Incase, you have called iterator on a collection object, and another thread tries to modify the collection object, then concurrent modification exception will be thrown. This is called fail-fast. - See more at: </li>
+</ul>
+<h1 id="Real-world-Examples-of-Enum-in-Java"><a href="#Real-world-Examples-of-Enum-in-Java" class="headerlink" title="Real world Examples of Enum in Java"></a>Real world Examples of Enum in Java</h1><ol>
+<li>Enum as Thread Safe Singleton</li>
+<li>Strategy Pattern using Enum. to implement the Strategy interface and define individual strategy</li>
+<li>Enum as replacement of Enum String or int pattern. There is now no need to use String or integer constant to represent fixed set of things e.g. status of object like ON and OFF for a button or START, IN PROGRESS and DONE for a Task. Enum is much better suited for those needs as it provide compile time type safety and better debugging assistent than String or Integer.</li>
+<li>Enum as State Machine</li>
+<li>Enum Java valueOf example. “You could also include valueOf() method of enum in java which is added by compiler in any enum along with values() method. Enum valueOf() is a static method which takes a string argument and can be used to convert a String into an enum. One think though you would like to keep in mind is that valueOf(String) method of enum will throw “Exception in thread “main” java.lang.IllegalArgumentException: No enum const class” if you supply any string other than enum values.</li>
+</ol>
+<h1 id="Reverse-lookup"><a href="#Reverse-lookup" class="headerlink" title="Reverse lookup"></a>Reverse lookup</h1><p>Often in your object model it is common to have data that is naturally “associated” with an enumeration. Since an enum is a class, it is easy to represent this associated information as class fields. Often it is desirable to “lookup” the associated enumeration using the field value. This is easy to do using a static java.util.Map. Take, for example, a Status enum that has an associated status code.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Status</span><br><span class="line">&#123;</span><br><span class="line">     WAITING(<span class="number">0</span>),</span><br><span class="line">     READY(<span class="number">1</span>),</span><br><span class="line">     SKIPPED(-<span class="number">1</span>),</span><br><span class="line">     COMPLETED(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Integer,Status&gt; lookup</span><br><span class="line">          = <span class="keyword">new</span> HashMap&lt;Integer,Status&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">static</span> &#123;</span><br><span class="line">          <span class="keyword">for</span>(Status s : EnumSet.allOf(Status.class))</span><br><span class="line">               lookup.put(s.getCode(), s);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> code;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="title">Status</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">this</span>.code = code;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCode</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> code; &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Status <span class="title">get</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> lookup.get(code);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Sleek-EnumMap"><a href="#Sleek-EnumMap" class="headerlink" title="Sleek EnumMap"></a>Sleek EnumMap</h1><p>Why would I use an EnumMap rather than a HashMap?  The primary reasons boil down to some inherent advantages of Java’s enum as stated in the Javadoc documentation for EnumMap: “Enum maps are represented internally as arrays. This representation is extremely compact and efficient.” Later in the same Javadoc documentation, there is an “Implementation Note” that states: “All basic operations execute in constant time. They are likely (though not guaranteed) to be faster than their HashMap counterparts.”</p>
+<p>The Javadoc documentation states similar advantages for the EnumSet over the HashSet:</p>
+<blockquote>
+<p>Enum sets are represented internally as <strong>bit vectors</strong>. This representation is extremely <strong>compact and efficient</strong>. The space and time performance of this class should be good enough to allow its use as a high-quality, typesafe alternative to traditional int-based ‘bit flags.’  … Implementation note: All basic operations execute <strong>in constant time</strong>. They are likely (though not guaranteed) to be much faster than their HashSet counterparts. Even <strong>bulk operations execute in constant time</strong> if their argument is also an enum set.</p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/" target="_blank" rel="noopener">http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/</a></li>
+<li><a href="http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks" target="_blank" rel="noopener">http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks</a></li>
+<li><a href="http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html" target="_blank" rel="noopener">http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html</a></li>
+<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV</a></li>
+<li><a href="http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html</a></li>
+<li><a href="http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5" target="_blank" rel="noopener">http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5</a></li>
+<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB</a></li>
+<li><a href="http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC</a></li>
+<li><a href="http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-12-30-Java-GC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -718,91 +1003,6 @@ All of the heap memory that is not occupied by marked objects is reclaimed. It i
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-04-Arbitrage-vs-Hedging/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-01-04-Arbitrage-vs-Hedging/" class="post-title-link" itemprop="url">Arbitrage vs Heading</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="What-is-the-difference-between-arbitrage-and-hedging"><a href="#What-is-the-difference-between-arbitrage-and-hedging" class="headerlink" title="What is the difference between arbitrage and hedging?"></a>What is the difference between arbitrage and hedging?</h1><ul>
-<li><strong>Hedging</strong> involves the concurrent use of more than one bet in opposite directions <strong>to limit risk</strong> of serious investment loss. </li>
-<li><strong>Arbitrage is the practice of trading a price difference between more than one market for the same good in an attempt **to profit</strong> from the <strong>imbalance</strong>. 
-These two concepts play important roles in finance, economics and investments.</li>
-</ul>
-<p>Each transaction relies involves two competing types of trades: <strong>betting</strong> short versus betting long (hedging) and *<em>buying versus selling *</em>(arbitrage). Both are used by traders who operate in volatile, dynamic market environments. Other than these two similarities, however, they are very different techniques that are used for very different purposes.</p>
-<h2 id="Arbitrage"><a href="#Arbitrage" class="headerlink" title="Arbitrage"></a>Arbitrage</h2><p>Arbitrage involves <strong>both purchase and sale within a very short period of time</strong>. If a good is being sold for $100 in one market and $108 in another market, a savvy trader could purchase the $100 item and then sell it in the other market for $108. The trader enjoys <strong>a risk-free return</strong> of 8% ($8 / $100), minus any transaction or transportation expenses.</p>
-<p>With the proliferation of high-speed computing technology and constant price information, arbitrage is much more difficult in financial markets than it used to be. Still, arbitrage opportunities can be found in the forex market, in bonds, in futures markets and sometimes in equities.</p>
-<h2 id="Hedging"><a href="#Hedging" class="headerlink" title="Hedging"></a>Hedging</h2><p>Hedging is <strong>not the pursuit of risk-free *<em>trades; instead, it is an attempt to *</em>reduce known risks</strong> while trading. Options contacts, forward contracts, swaps and derivatives are all used by traders to purchase opposite positions in the market. By betting against both upward and downward movement, the hedger can ensure a certain amount of *<em>reduced gain or loss *</em> on a trade.</p>
-<p>Hedging can take place almost anywhere, but it has become a particularly important aspect of financial markets, business management and gambling. Much like any other risk/reward trade, hedging results in lower returns for the party involved, but it can offer significant protection against downside risk.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-03-IntelliJ-Tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -951,7 +1151,7 @@ These two concepts play important roles in finance, economics and investments.</
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-02-Enum-Misc/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-16-Java-HashMap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -967,7 +1167,7 @@ These two concepts play important roles in finance, economics and investments.</
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-01-02-Enum-Misc/" class="post-title-link" itemprop="url">Java Enum Misc</a>
+              <a href="/2017-01-16-Java-HashMap/" class="post-title-link" itemprop="url">HashMap in JDK</a>
             
           </h1>
         
@@ -999,136 +1199,59 @@ These two concepts play important roles in finance, economics and investments.</
 
       
           
-            <h1 id="Enum-Misc"><a href="#Enum-Misc" class="headerlink" title="Enum Misc"></a>Enum Misc</h1><ul>
-<li>All enums implicitely extends <strong>java.lang.Enum</strong></li>
-<li>Enum in Java are <strong>type-safe</strong></li>
-<li>You can specify values of enum constants at the <strong>creation</strong> time. <strong>Enum.values()</strong> returns an array of MyEnum’s values.</li>
-<li>Enum constants are implicitly static and final and can not be changed once created.</li>
-<li>Enum can be safely compare using:<ul>
-<li>Switch-Case Statement</li>
-<li>== Operator</li>
-<li>.equals() method</li>
+            <h1 id="Hashmap-in-JDK"><a href="#Hashmap-in-JDK" class="headerlink" title="Hashmap in JDK"></a>Hashmap in JDK</h1><h2 id="Some-note-worth-points-about-hashmap"><a href="#Some-note-worth-points-about-hashmap" class="headerlink" title="Some note worth points about hashmap"></a>Some note worth points about hashmap</h2><ul>
+<li>Lookup process<ul>
+<li>Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()).</li>
+<li>Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).</li>
 </ul>
 </li>
-<li>You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself.</li>
-<li>Instance of Enum in Java <strong>is created when</strong> any Enum constants are <strong>first called or referenced</strong> in code.</li>
-<li>An enum can be declared outside or inside a class, but NOT in a method.</li>
-<li>An enum declared outside a class must NOT be marked static, final , abstract, protected , or private</li>
-<li>Enums can contain constructors, methods, variables, and constant class bodies.</li>
-<li>enum constructors can have arguments, and can be overloaded.</li>
-<li>enum constructors can NEVER be invoked directly in code. They are always called automatically when an enum is initialized.</li>
-<li>The semicolon at the end of an enum declaration is optional.</li>
-</ul>
-<p>These are legal:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;</span><br><span class="line"><span class="keyword">enum</span> Foo &#123; ONE, TWO, THREE&#125;;</span><br></pre></td></tr></table></figure>
-
-<h1 id="type-safe"><a href="#type-safe" class="headerlink" title="type safe"></a>type safe</h1><p>The advantage of this style of enumeration over the C/C++-style enum or constants is that they are <strong>type-safe</strong>, meaning that, for example, if you define a method</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSuit</span><span class="params">(Suit suit)</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
-
-<p>the caller cannot pass in a value that does not correspond to an enumeration value</p>
-<h1 id="Language-level-features"><a href="#Language-level-features" class="headerlink" title="Language level features"></a>Language level features</h1><ul>
-<li>Since enumeration instances are all effectively <strong>singletons</strong>, they can be compared for equality using identity (“==”).</li>
-<li>In Java 5.0, the enum keyword is introduced as a special type of class that always extends <strong>java.lang.Enum</strong>.</li>
-<li>Note that the enumeration values are still <strong>static class members</strong>, though not declared as such.</li>
-<li>Enum is implemented using <strong>Arrays and common operations result in constant time</strong>. So if you are thinking of an high-performance Map, EnumMap could be a decent choice for enumeration data. We have already seen many examples of Java enum in our article 10 Examples of enum in Java  and using Enum as thread-safe Singleton. In this Java tutorial, we will see simple examples of using EnumMap in Java. </li>
-<li>All keys used in EnumMap must be  from same Enum type which is specified while creating EnumMap in Java. For example if you can not use different enum instances from two different enum.</li>
-<li>EnumMap is ordered collection and they are maintained in the natural order of their keys( natural order of keys means  the order on which enum constant are declared inside enum type ). you can verify this while Iterating over an EnumMap in Java.</li>
-<li>Iterators of EnumMap are fail-fast Iterator , much like of ConcurrentHashMap and doesn’t throw ConcurrentModificationException and may not show effect of any modification on EnumMap during Iteration process.</li>
-<li>You can not insert null keys inside EnumMap in Java.  EnumMap doesn’t allow null key and throw NullPointerException, at same time null values are permitted.</li>
-<li>EnumMap is not synchronized and it has to be synchronized manually before using it in a concurrent or multi-threaded environment. like synchronized Map in Java  you can also make EnumMap synchronized by using Collections.synchronizedMap() method and as per javadoc this should be done while creating EnumMap in java to avoid accidental non synchronized access.</li>
-<li>The constructor of enum in java must be private any other access modifier will result in compilation error. Now to get the value associated with each coin you can define a public getValue() method inside Java enum like any normal Java class. Also, the semicolon in the first line is optional.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Since constants defined inside Enum in Java are <strong>final</strong> you can <strong>safely compare them using “==”</strong>, the equality operator as shown in following example of  Java Enum:</li>
-<li>Java compiler automatically generates static values() method for every enum in java. Values() method returns array of Enum constants in the same order they have listed in Enum and you can use values() to iterate over values of Enum  in Java as shown in below example. Notice <strong>the order is exactly the same as defined order</strong> in the Enum.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(Currency coin: Currency.values())&#123;</span><br><span class="line">   System.out.println(<span class="string">"coin: "</span> + coin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>In Java, Enum can override methods also. Let’s see an example of overriding toString() method inside Enum in Java to provide a meaningful description for enums constants.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">  ........</span><br><span class="line">      </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">switch</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">         <span class="keyword">case</span> PENNY:</span><br><span class="line">              System.out.println(<span class="string">"Penny: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> NICKLE:</span><br><span class="line">              System.out.println(<span class="string">"Nickle: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> DIME:</span><br><span class="line">              System.out.println(<span class="string">"Dime: "</span> + value);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">         <span class="keyword">case</span> QUARTER:</span><br><span class="line">              System.out.println(<span class="string">"Quarter: "</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">super</span>.toString();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>EnumSet doesn’t have any public constructor instead it provides <strong>factory methods to create instance e.g. EnumSet.of()</strong> methods. This design allows EnumSet to internally choose between two different implementations depending upon the size of Enum constants.</li>
-</ul>
-<p>If Enum has <strong>less than 64 constants than EnumSet uses RegularEnumSet</strong> class which internally uses a long variable to store those 64 Enum constants and if Enum has more keys than 64 then it uses JumboEnumSet. See my article the difference between RegularEnumSet and JumboEnumSet for more details.</p>
-<ul>
-<li>An instance of Enum in Java is created when any Enum constants are first called or referenced in code.</li>
-<li>Enum in Java can *<em>implement the interface and override any method *</em>like normal class It’s also worth noting that Enum in java implicitly implements both Serializable and Comparable interface. Let’s see and example of how to implement interface using Java Enum:</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Currency implements Runnable&#123;</span><br><span class="line">  PENNY(<span class="number">1</span>), NICKLE(<span class="number">5</span>), DIME(<span class="number">10</span>), QUARTER(<span class="number">25</span>);</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">  ............</span><br><span class="line">        </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"Enum in Java implement interfaces"</span>);</span><br><span class="line">                </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>You can define abstract methods inside Enum in Java and can also provide a different implementation for different instances of enum in java.  Let’s see an example of using abstract method inside enum in java</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">enum</span> Currency &#123;</span><br><span class="line">        PENNY(<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"copper"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        NICKLE(<span class="number">5</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"bronze"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        DIME(<span class="number">10</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        QUARTER(<span class="number">25</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"silver"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">color</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Currency</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>In this example since every coin will have the different color we made the color() method abstract and let each instance of Enum to define  their own color. You can get color of any coin by just calling the color() method as shown in below example of Java Enum:</p>
-<p>System.out.println(“Color: “ + Currency.DIME.color());</p>
-<p>So that was the comprehensive list of properties, behavior and capabilities of Enumeration type in Java. I know, it’s not easy to remember all those powerful features and that’s why I have prepared this small Microsoft powerpoint slide containing all important properties of Enum in Java. You can always come back and check this slide to revise important features of Java Enum.</p>
-<h1 id="RegularEnumSet-vs-JumboEnumSet"><a href="#RegularEnumSet-vs-JumboEnumSet" class="headerlink" title="RegularEnumSet vs. JumboEnumSet"></a>RegularEnumSet vs. JumboEnumSet</h1><ul>
-<li>Since Enum always has fixed number of instances, data-structure which is used to store Enum can be optimized depending upon number of instances and that’s why we have two different implementation of EnumSet in Java. We will take a closer look on this concept in next paragraph.</li>
-<li>How EnumSet is implemented in Java<br>EnumSet is an abstract class and it provides two concrete implementations, java.util.RegularEnumSet and java.util.JumboEnumSet. Main difference between RegularEnumSet and JumboEnumSet is that former uses a long variable to store elements while later uses a long[] to store its element. Since RegularEnumSet uses long variable, which is a 64 bit data type, it can only hold that much of element. That’s why when an empty EnumSet is created using EnumSet.noneOf() method, it choose RegularEnumSet if key universe (number of enum instances in Key Enum) is less than or equal to 64 and JumboEnumSet if key universe is more than 64. Here is the code which does that :</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;E extends Enum&lt;E&gt;&gt; <span class="function">EnumSet&lt;E&gt; <span class="title">noneOf</span><span class="params">(Class&lt;E&gt; elementType)</span> </span>&#123;   </span><br><span class="line">        .. ............ </span><br><span class="line">        <span class="keyword">if</span> (universe.length &lt;= <span class="number">64</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> RegularEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> JumboEnumSet&lt;E&gt;(elementType, universe);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>EnumSet is <strong>not thread-safe</strong>, which means if it needs to be externally synchronized, when multiple thread access it and one of them modifies the Collection.</li>
-<li>EnumSet can not be used to store any other object <strong>except Enum</strong>, at the same time you can not store instances of two different Enum.</li>
-<li>EnumSet doesn’t allow Null elements.</li>
-<li>EnumSet Iterators are fail-safe in nature.</li>
-</ol>
-<h1 id="Difference-between-EnumMap-vs-HashMap"><a href="#Difference-between-EnumMap-vs-HashMap" class="headerlink" title="Difference between EnumMap vs HashMap"></a>Difference between EnumMap vs HashMap</h1><ul>
-<li>Internally EnumMap is represented using Array and provides constant time performance for common methods e.g. get() or put(). Now let’s see few differences between EnumMap vs HashMap :</li>
-<li>As said earlier, first and foremost difference between EnumMap and HashMap is that EnumMap is optimized for enum keys while HashMap is a general purpose Map implementation similar to Hashtable. you can not use any type other than Enum as key in EnumMap but you can use both Enum and any other Object as key in HashMap.</li>
-<li>Another difference between EnumMap and HashMap is <strong>performance</strong>. as discussed in the previous point, due to specialized optimization done for Enum keys, EnumMap is likely to perform better than HashMap when using enum as key object.</li>
-<li>One more thing which can be considered as the difference between HashMap and EnumMap is <strong>the probability of Collision</strong>. Since <strong>Enum is internally maintained as array ** and they are **stored in their natural order using ordinal()</strong>, as shown in following code which is taken from put() method of EnumMap.<br>Since EnumMap doesn’t call hashCode method on keys, there is no chance of collision.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> index = ((Enum)key).ordinal();</span><br><span class="line">    Object oldValue = vals[index];</span><br><span class="line">    vals[index] = maskNull(value);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>you can use both == and equals() method to compare Enum, they will produce same result because equals() method of Java.lang.Enum internally uses == to compare enum in Java. Since every Enum in Java implicitly extends java.lang.Enum ,and since equals() method is declared final, there is no chance of overriding equals method in user defined enum</li>
-<li>But there are still some slight difference, because  ==  (equality operator) being operator and equals() being method.</li>
+<li>Immutability of keys</li>
+<li>In Node&lt;K,V&gt; node of hashMap, besides key, value, hash, there is Node next link inside. So undelrying table is a linked list.</li>
+<li>For <strong>get()</strong>, firstly using hashcode calculation, divide by bucket number and get reminder, to locate the bucket, then compare key via “.euqals()”, if matched, the value will be returned.</li>
+<li>Load factor and resize<br>When new hashHap is being populated, the linkedList associated with each bucket of source hashMap is iterated and nodes are copied to the destination bucket. However, note that these new nodes are prepended to the head of the destination linkedList. So resizing has an side effect of reversing the order of the items in the list. Default load factor for hashMap is 0.75.</li>
+<li>Worst-case performance:<br>In the worst case, a hashMap reduces to a linkedList.<br>However with Java 8, there is a change,<br>Java 8 intelligently determines if we are running in the worst-case performance scenario and converts the list into a binary search tree.</li>
+<li>Collisions<br>Collisions happen when 2 distinct keys generate the same hashCode() value. Multiple collisions are the result of bad hashCode() algorithm.There are many collision-resolution strategies - chaining, double-hashing, clustering.<br>However, java has chosen chaining strategy for hashMap, so in case of collisions, items are chained together just like in a linkedList.</li>
+<li>Some specialized hashMaps for specific purposes:</li>
 <li><ul>
-<li>Using == for comparing Enum can prevent NullPointerException</li>
+<li>ConcurrentHashMap: HashMap to be used in multithreaded applications.</li>
 </ul>
 </li>
 <li><ul>
-<li>== method provides type safety during compile time</li>
+<li>EnumMap: HashMap with Enum values as keys.</li>
+</ul>
+</li>
+<li><ul>
+<li>LinkedHashMap: HashMap with predictable iteration order (great for FIFO/LIFO caches)</li>
 </ul>
 </li>
 </ul>
-<ul>
-<li>A <strong>fail-fast</strong> system is nothing but immediately report any failure that is likely to lead to failure. When a problem occurs, a fail-fast system fails immediately. In Java, we can find this behavior with iterators. Incase, you have called iterator on a collection object, and another thread tries to modify the collection object, then concurrent modification exception will be thrown. This is called fail-fast. - See more at: </li>
+<h2 id="WeakReferenceMap-SoftReference-Map-etc"><a href="#WeakReferenceMap-SoftReference-Map-etc" class="headerlink" title="WeakReferenceMap, SoftReference Map etc."></a>WeakReferenceMap, SoftReference Map etc.</h2><p>Weak references (a WeakHashMap) aren’t particularly good for this either, because as the elements in the cache become dereferenced by the application code they will quickly be removed from the cache by the garbage collector. This basically means there will be cache faults often (in other words, the cache lookups will fail).</p>
+<p>Soft references can be very handy in situations such as this. Because soft references only exist if the memory is available, they can make very effective use of the space that is available. Unfortunately, although there is a WeakHashMap , there is no java.util.SoftHashMap . Why? I’m not really sure. Thankfully, a little trip back over to Jakarta-Commons-Collections digs up the org.apache.commons.collections.map.ReferenceMap .</p>
+<p>SoftReferences are typically used for implementing memory caching. The JVM should try to keep softly referenced objects in memory as long as possible, and when memory is low clear the oldest soft references first. According to the JavaDoc, there are no guarantees though.</p>
+<p>WeakReferences is the reference type I use most frequently. It’s typically used when you want weak listeners or if you want to connect additional information to an object (using WeakHashMap for example). Very useful stuff when you want to reduce class coupling. </p>
+<p>Phantom references can be used to perform pre-garbage collection actions such as freeing resources. Instead, people usually use the finalize() method for this which is not a good idea. Finalizers have a horrible impact on the performance of the garbage collector and can break data integrity of your application if you’re not very careful since the “finalizer” is invoked in a random thread, at a random time.</p>
+<p>In the constructor of a phantom reference, you specify a ReferenceQueue where the phantom references are enqueued once the referenced objects becomes “phantom reachable”. Phantom reachable means unreachable other than through the phantom reference. The initially confusing thing is that although the phantom reference continues to hold the referenced object in a private field (unlike soft or weak references), its getReference() method always returns null. This is so that you cannot make the object strongly reachable again.</p>
+<p>From time to time, you can poll the ReferenceQueue and check if there are any new PhantomReferences whose referenced objects have become phantom reachable. In order to be able to to anything useful, one can for example derive a class from java.lang.ref.PhantomReference that references resources that should be freed before garbage collection. The referenced object is only garbage collected once the phantom reference becomes unreachable itself. </p>
+<h2 id="Source-code-analysis"><a href="#Source-code-analysis" class="headerlink" title="Source code analysis"></a>Source code analysis</h2><h3 id="Internal-data-structure"><a href="#Internal-data-structure" class="headerlink" title="Internal data structure"></a>Internal data structure</h3><ul>
+<li>transient Entry&lt;K, V&gt;[] elementData;</li>
+<li>transient int modCount = 0;</li>
+<li>private transient V[] cache;</li>
 </ul>
-<h1 id="Real-world-Examples-of-Enum-in-Java"><a href="#Real-world-Examples-of-Enum-in-Java" class="headerlink" title="Real world Examples of Enum in Java"></a>Real world Examples of Enum in Java</h1><ol>
-<li>Enum as Thread Safe Singleton</li>
-<li>Strategy Pattern using Enum. to implement the Strategy interface and define individual strategy</li>
-<li>Enum as replacement of Enum String or int pattern. There is now no need to use String or integer constant to represent fixed set of things e.g. status of object like ON and OFF for a button or START, IN PROGRESS and DONE for a Task. Enum is much better suited for those needs as it provide compile time type safety and better debugging assistent than String or Integer.</li>
-<li>Enum as State Machine</li>
-<li>Enum Java valueOf example. “You could also include valueOf() method of enum in java which is added by compiler in any enum along with values() method. Enum valueOf() is a static method which takes a string argument and can be used to convert a String into an enum. One think though you would like to keep in mind is that valueOf(String) method of enum will throw “Exception in thread “main” java.lang.IllegalArgumentException: No enum const class” if you supply any string other than enum values.</li>
-</ol>
-<h1 id="Reverse-lookup"><a href="#Reverse-lookup" class="headerlink" title="Reverse lookup"></a>Reverse lookup</h1><p>Often in your object model it is common to have data that is naturally “associated” with an enumeration. Since an enum is a class, it is easy to represent this associated information as class fields. Often it is desirable to “lookup” the associated enumeration using the field value. This is easy to do using a static java.util.Map. Take, for example, a Status enum that has an associated status code.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Status</span><br><span class="line">&#123;</span><br><span class="line">     WAITING(<span class="number">0</span>),</span><br><span class="line">     READY(<span class="number">1</span>),</span><br><span class="line">     SKIPPED(-<span class="number">1</span>),</span><br><span class="line">     COMPLETED(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Integer,Status&gt; lookup</span><br><span class="line">          = <span class="keyword">new</span> HashMap&lt;Integer,Status&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">static</span> &#123;</span><br><span class="line">          <span class="keyword">for</span>(Status s : EnumSet.allOf(Status.class))</span><br><span class="line">               lookup.put(s.getCode(), s);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> code;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="title">Status</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">this</span>.code = code;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCode</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> code; &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Status <span class="title">get</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> lookup.get(code);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Put"><a href="#Put" class="headerlink" title="Put"></a>Put</h3><p>It will call return putImpl(key, value); directly</p>
+<h4 id="V-putImpl-K-key-V-value"><a href="#V-putImpl-K-key-V-value" class="headerlink" title="V putImpl(K key, V value)"></a>V putImpl(K key, V value)</h4><ul>
+<li>if(key == null)</li>
+<li><ul>
+<li>entry = findNullKeyEntry();<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">entry = findNullKeyEntry();</span><br><span class="line">            <span class="keyword">if</span> (entry == <span class="keyword">null</span>) &#123;</span><br><span class="line">                modCount++;</span><br><span class="line">                entry = createHashedEntry(<span class="keyword">null</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">                <span class="keyword">if</span> (++elementCount &gt; threshold) &#123;</span><br><span class="line">                    rehash();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="Sleek-EnumMap"><a href="#Sleek-EnumMap" class="headerlink" title="Sleek EnumMap"></a>Sleek EnumMap</h1><p>Why would I use an EnumMap rather than a HashMap?  The primary reasons boil down to some inherent advantages of Java’s enum as stated in the Javadoc documentation for EnumMap: “Enum maps are represented internally as arrays. This representation is extremely compact and efficient.” Later in the same Javadoc documentation, there is an “Implementation Note” that states: “All basic operations execute in constant time. They are likely (though not guaranteed) to be faster than their HashMap counterparts.”</p>
-<p>The Javadoc documentation states similar advantages for the EnumSet over the HashSet:</p>
-<blockquote>
-<p>Enum sets are represented internally as <strong>bit vectors</strong>. This representation is extremely <strong>compact and efficient</strong>. The space and time performance of this class should be good enough to allow its use as a high-quality, typesafe alternative to traditional int-based ‘bit flags.’  … Implementation note: All basic operations execute <strong>in constant time</strong>. They are likely (though not guaranteed) to be much faster than their HashSet counterparts. Even <strong>bulk operations execute in constant time</strong> if their argument is also an enum set.</p>
-</blockquote>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/" target="_blank" rel="noopener">http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/</a></li>
-<li><a href="http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks" target="_blank" rel="noopener">http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks</a></li>
-<li><a href="http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html" target="_blank" rel="noopener">http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html</a></li>
-<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV</a></li>
-<li><a href="http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html</a></li>
-<li><a href="http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5" target="_blank" rel="noopener">http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5</a></li>
-<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB</a></li>
-<li><a href="http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC</a></li>
-<li><a href="http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ</a></li>
+</li>
+</ul>
+</li>
+</ul>
+<p>— findNullKeyEntry<br>Iterate the internal array to locate null entry</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> Entry&lt;K,V&gt; <span class="title">findNullKeyEntry</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Entry&lt;K,V&gt; m = elementData[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">while</span> (m != <span class="keyword">null</span> &amp;&amp; m.key != <span class="keyword">null</span>) &#123;</span><br><span class="line">            m = m.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> m;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>else (if key is not null)</li>
 </ul>
 
           
@@ -1290,135 +1413,6 @@ These two concepts play important roles in finance, economics and investments.</
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-16-Java-HashMap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-01-16-Java-HashMap/" class="post-title-link" itemprop="url">HashMap in JDK</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Hashmap-in-JDK"><a href="#Hashmap-in-JDK" class="headerlink" title="Hashmap in JDK"></a>Hashmap in JDK</h1><h2 id="Some-note-worth-points-about-hashmap"><a href="#Some-note-worth-points-about-hashmap" class="headerlink" title="Some note worth points about hashmap"></a>Some note worth points about hashmap</h2><ul>
-<li>Lookup process<ul>
-<li>Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()).</li>
-<li>Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).</li>
-</ul>
-</li>
-<li>Immutability of keys</li>
-<li>In Node&lt;K,V&gt; node of hashMap, besides key, value, hash, there is Node next link inside. So undelrying table is a linked list.</li>
-<li>For <strong>get()</strong>, firstly using hashcode calculation, divide by bucket number and get reminder, to locate the bucket, then compare key via “.euqals()”, if matched, the value will be returned.</li>
-<li>Load factor and resize<br>When new hashHap is being populated, the linkedList associated with each bucket of source hashMap is iterated and nodes are copied to the destination bucket. However, note that these new nodes are prepended to the head of the destination linkedList. So resizing has an side effect of reversing the order of the items in the list. Default load factor for hashMap is 0.75.</li>
-<li>Worst-case performance:<br>In the worst case, a hashMap reduces to a linkedList.<br>However with Java 8, there is a change,<br>Java 8 intelligently determines if we are running in the worst-case performance scenario and converts the list into a binary search tree.</li>
-<li>Collisions<br>Collisions happen when 2 distinct keys generate the same hashCode() value. Multiple collisions are the result of bad hashCode() algorithm.There are many collision-resolution strategies - chaining, double-hashing, clustering.<br>However, java has chosen chaining strategy for hashMap, so in case of collisions, items are chained together just like in a linkedList.</li>
-<li>Some specialized hashMaps for specific purposes:</li>
-<li><ul>
-<li>ConcurrentHashMap: HashMap to be used in multithreaded applications.</li>
-</ul>
-</li>
-<li><ul>
-<li>EnumMap: HashMap with Enum values as keys.</li>
-</ul>
-</li>
-<li><ul>
-<li>LinkedHashMap: HashMap with predictable iteration order (great for FIFO/LIFO caches)</li>
-</ul>
-</li>
-</ul>
-<h2 id="WeakReferenceMap-SoftReference-Map-etc"><a href="#WeakReferenceMap-SoftReference-Map-etc" class="headerlink" title="WeakReferenceMap, SoftReference Map etc."></a>WeakReferenceMap, SoftReference Map etc.</h2><p>Weak references (a WeakHashMap) aren’t particularly good for this either, because as the elements in the cache become dereferenced by the application code they will quickly be removed from the cache by the garbage collector. This basically means there will be cache faults often (in other words, the cache lookups will fail).</p>
-<p>Soft references can be very handy in situations such as this. Because soft references only exist if the memory is available, they can make very effective use of the space that is available. Unfortunately, although there is a WeakHashMap , there is no java.util.SoftHashMap . Why? I’m not really sure. Thankfully, a little trip back over to Jakarta-Commons-Collections digs up the org.apache.commons.collections.map.ReferenceMap .</p>
-<p>SoftReferences are typically used for implementing memory caching. The JVM should try to keep softly referenced objects in memory as long as possible, and when memory is low clear the oldest soft references first. According to the JavaDoc, there are no guarantees though.</p>
-<p>WeakReferences is the reference type I use most frequently. It’s typically used when you want weak listeners or if you want to connect additional information to an object (using WeakHashMap for example). Very useful stuff when you want to reduce class coupling. </p>
-<p>Phantom references can be used to perform pre-garbage collection actions such as freeing resources. Instead, people usually use the finalize() method for this which is not a good idea. Finalizers have a horrible impact on the performance of the garbage collector and can break data integrity of your application if you’re not very careful since the “finalizer” is invoked in a random thread, at a random time.</p>
-<p>In the constructor of a phantom reference, you specify a ReferenceQueue where the phantom references are enqueued once the referenced objects becomes “phantom reachable”. Phantom reachable means unreachable other than through the phantom reference. The initially confusing thing is that although the phantom reference continues to hold the referenced object in a private field (unlike soft or weak references), its getReference() method always returns null. This is so that you cannot make the object strongly reachable again.</p>
-<p>From time to time, you can poll the ReferenceQueue and check if there are any new PhantomReferences whose referenced objects have become phantom reachable. In order to be able to to anything useful, one can for example derive a class from java.lang.ref.PhantomReference that references resources that should be freed before garbage collection. The referenced object is only garbage collected once the phantom reference becomes unreachable itself. </p>
-<h2 id="Source-code-analysis"><a href="#Source-code-analysis" class="headerlink" title="Source code analysis"></a>Source code analysis</h2><h3 id="Internal-data-structure"><a href="#Internal-data-structure" class="headerlink" title="Internal data structure"></a>Internal data structure</h3><ul>
-<li>transient Entry&lt;K, V&gt;[] elementData;</li>
-<li>transient int modCount = 0;</li>
-<li>private transient V[] cache;</li>
-</ul>
-<h3 id="Put"><a href="#Put" class="headerlink" title="Put"></a>Put</h3><p>It will call return putImpl(key, value); directly</p>
-<h4 id="V-putImpl-K-key-V-value"><a href="#V-putImpl-K-key-V-value" class="headerlink" title="V putImpl(K key, V value)"></a>V putImpl(K key, V value)</h4><ul>
-<li>if(key == null)</li>
-<li><ul>
-<li>entry = findNullKeyEntry();<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">entry = findNullKeyEntry();</span><br><span class="line">            <span class="keyword">if</span> (entry == <span class="keyword">null</span>) &#123;</span><br><span class="line">                modCount++;</span><br><span class="line">                entry = createHashedEntry(<span class="keyword">null</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">                <span class="keyword">if</span> (++elementCount &gt; threshold) &#123;</span><br><span class="line">                    rehash();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<p>— findNullKeyEntry<br>Iterate the internal array to locate null entry</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> Entry&lt;K,V&gt; <span class="title">findNullKeyEntry</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Entry&lt;K,V&gt; m = elementData[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">while</span> (m != <span class="keyword">null</span> &amp;&amp; m.key != <span class="keyword">null</span>) &#123;</span><br><span class="line">            m = m.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> m;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>else (if key is not null)</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-19-Compare-In-Java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1527,7 +1521,7 @@ These two concepts play important roles in finance, economics and investments.</
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-20-DeadLock/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-04-Arbitrage-vs-Hedging/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1543,7 +1537,7 @@ These two concepts play important roles in finance, economics and investments.</
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-01-20-DeadLock/" class="post-title-link" itemprop="url">Dead Lock</a>
+              <a href="/2017-01-04-Arbitrage-vs-Hedging/" class="post-title-link" itemprop="url">Arbitrage vs Heading</a>
             
           </h1>
         
@@ -1575,15 +1569,16 @@ These two concepts play important roles in finance, economics and investments.</
 
       
           
-            <h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><ul>
-<li>Two or more threads are <strong>waiting</strong> for <strong>each other</strong> to <strong>release lock</strong> and get <strong>stuck for infinite time</strong>.</li>
-<li>It will only happen in case of <strong>multitasking</strong>.</li>
+            <h1 id="What-is-the-difference-between-arbitrage-and-hedging"><a href="#What-is-the-difference-between-arbitrage-and-hedging" class="headerlink" title="What is the difference between arbitrage and hedging?"></a>What is the difference between arbitrage and hedging?</h1><ul>
+<li><strong>Hedging</strong> involves the concurrent use of more than one bet in opposite directions <strong>to limit risk</strong> of serious investment loss. </li>
+<li><strong>Arbitrage is the practice of trading a price difference between more than one market for the same good in an attempt **to profit</strong> from the <strong>imbalance</strong>. 
+These two concepts play important roles in finance, economics and investments.</li>
 </ul>
-<h2 id="One-screnario-of-dead-lock"><a href="#One-screnario-of-dead-lock" class="headerlink" title="One screnario of dead lock"></a>One screnario of dead lock</h2><p>If method1() and method2() both will be called by two or many threads , there is a good chance of deadlock because if thread 1 acquires lock on Sting object while executing method1() and thread 2 acquires lock on Integer object while executing method2() both will be waiting for each other to release lock on Integer and String to proceed further which will never happen.</p>
-<h3 id="The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock"><a href="#The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock" class="headerlink" title="The root cause is NOT multithreading, but the way they are requiring lock"></a>The root cause is NOT multithreading, but <strong>the way they are requiring lock</strong></h3><p>Now there would not be any deadlock because both methods are accessing lock on Integer and String class literal in same order. So, if thread A acquires lock on Integer object , thread B will not proceed until thread A releases Integer lock, same way thread A will not be blocked even if thread B holds String lock because now thread B will not expect thread A to release Integer lock to proceed further.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html</a></li>
-</ul>
+<p>Each transaction relies involves two competing types of trades: <strong>betting</strong> short versus betting long (hedging) and *<em>buying versus selling *</em>(arbitrage). Both are used by traders who operate in volatile, dynamic market environments. Other than these two similarities, however, they are very different techniques that are used for very different purposes.</p>
+<h2 id="Arbitrage"><a href="#Arbitrage" class="headerlink" title="Arbitrage"></a>Arbitrage</h2><p>Arbitrage involves <strong>both purchase and sale within a very short period of time</strong>. If a good is being sold for $100 in one market and $108 in another market, a savvy trader could purchase the $100 item and then sell it in the other market for $108. The trader enjoys <strong>a risk-free return</strong> of 8% ($8 / $100), minus any transaction or transportation expenses.</p>
+<p>With the proliferation of high-speed computing technology and constant price information, arbitrage is much more difficult in financial markets than it used to be. Still, arbitrage opportunities can be found in the forex market, in bonds, in futures markets and sometimes in equities.</p>
+<h2 id="Hedging"><a href="#Hedging" class="headerlink" title="Hedging"></a>Hedging</h2><p>Hedging is <strong>not the pursuit of risk-free *<em>trades; instead, it is an attempt to *</em>reduce known risks</strong> while trading. Options contacts, forward contracts, swaps and derivatives are all used by traders to purchase opposite positions in the market. By betting against both upward and downward movement, the hedger can ensure a certain amount of *<em>reduced gain or loss *</em> on a trade.</p>
+<p>Hedging can take place almost anywhere, but it has become a particularly important aspect of financial markets, business management and gambling. Much like any other risk/reward trade, hedging results in lower returns for the party involved, but it can offer significant protection against downside risk.</p>
 
           
         
@@ -1911,7 +1906,9 @@ These two concepts play important roles in finance, economics and investments.</
         
           
         
-        <span class="site-state-item-count">127</span>
+          
+        
+        <span class="site-state-item-count">128</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
