@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-05-31-Microservices-Vs-SOA/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-01-DB-Sharding/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-05-31-Microservices-Vs-SOA/" class="post-title-link" itemprop="url">Microservices vs. SOA</a>
+              <a href="/2016-06-01-DB-Sharding/" class="post-title-link" itemprop="url">Database sharding</a>
             
           </h1>
         
@@ -243,35 +243,141 @@
 
       
           
-            <h1 id="Microservice"><a href="#Microservice" class="headerlink" title="Microservice"></a>Microservice</h1><ul>
-<li>Services are organized around capabilities, e.g., user interface front-end, recommendation, logistics, billing, etc.</li>
-<li>Services are small in size, messaging enabled, bounded by contexts, autonomously developed, independently deployable, decentralized and built and released with automated processes.</li>
-<li>resource-oriented computing (ROC) as a generalized form of the Web abstraction. If in the Unix abstraction “everything is a file”, in ROC, everything is a “Micro-Web-Service”</li>
-</ul>
-<h2 id="Philosophy"><a href="#Philosophy" class="headerlink" title="Philosophy"></a>Philosophy</h2><p>The philosophy of the microservices architecture essentially equates to the Unix philosophy of “Do one thing and do it well”. It is described as follows:</p>
+            <h1 id="DB-sharding-in-YHD"><a href="#DB-sharding-in-YHD" class="headerlink" title="DB sharding in YHD"></a>DB sharding in YHD</h1><p>There are two solutions when DB becoming bottleneck in yihaodian. </p>
 <ul>
-<li>The services are small - fine-grained to perform a single function.</li>
-<li>The organization culture must embrace automation of testing and deployment. This eases the burden on management and operations and allows for different development teams to work on independently deployable units of code.</li>
-<li>The culture and design principles must embrace failure and faults, similar to anti-fragile systems.</li>
-<li>Each service is elastic, resilient, composable, minimal, and complete.</li>
+<li>Scale up<br>Upgrade Oracle DB, adding more CPU , Disk and memory to incrase I/O performance. This is for short term only, high cost.</li>
+<li>Scale out<br>Divide the order table to multiple DBs, which is support horizontal extension, for long term purpose.</li>
 </ul>
-<h2 id="service-mesh"><a href="#service-mesh" class="headerlink" title="service mesh"></a>service mesh</h2><p>In a service mesh, each service instance is paired with an instance of a reverse proxy server, called a service proxy, sidecar proxy, or sidecar. The service instance and sidecar proxy share a container, and the containers are managed by a container orchestration tool such as Kubernetes.</p>
-<h1 id="Differences-between-Microservices-and-SOA"><a href="#Differences-between-Microservices-and-SOA" class="headerlink" title="Differences between Microservices and SOA"></a>Differences between Microservices and SOA</h1><h2 id="Definitaion-of-SOA"><a href="#Definitaion-of-SOA" class="headerlink" title="Definitaion of SOA"></a>Definitaion of SOA</h2><ul>
-<li><code>Boundaries</code> are explicit</li>
-<li>Services are <code>autonomous</code></li>
-<li>Services share __ schema __ and <strong>contract</strong>, not class</li>
-<li>Service compatibility is based on policy</li>
+<p>Orgional Oracle is replaced by multiple MySQL DB, supporintg one master and multiple slaves, supporitng segratation of read and write. Leveraging <code>MySQL built-in</code> Master-slave replication (SLA&lt;1 second)</p>
+<h2 id="sharding-dimensions"><a href="#sharding-dimensions" class="headerlink" title="sharding dimensions"></a>sharding dimensions</h2><ul>
+<li>DB Field chosing, it should chose the filed that lead to least SQL and code change, to make the access fall in <code>one database</code>, instead of multiple DBs, which result in high I/O and significant logic change. </li>
+<li>Here is one practice</li>
+<li><ul>
+<li>Get all SQL</li>
 </ul>
-<hr>
-<blockquote>
-<p>In short, the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. There is a bare mininum of centralized management of these services, which may be written in different programming languages and use different data storage technologies.</p>
-</blockquote>
-<h3 id="Related-links"><a href="#Related-links" class="headerlink" title="Related links:"></a>Related links:</h3><ul>
-<li><a href="https://www.infoq.com/news/2015/12/soa-v-microservices" target="_blank" rel="noopener">InfoQ Discussions</a></li>
-<li><a href="http://stackoverflow.com/questions/25501098/difference-between-microservices-architecture-and-soa" target="_blank" rel="noopener">StackOverFlow</a></li>
-<li><a href="http://stackoverflow.com/tags/microservices/info" target="_blank" rel="noopener">Microservices tag desc</a></li>
-<li><a href="http://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">MartinFowler</a></li>
+</li>
+<li><ul>
+<li>Pick up top fields appear in <code>where</code> clause.</li>
 </ul>
+</li>
+<li><ul>
+<li>List break down from three categories</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Single ID, i.e. userID=?</li>
+<li>Multiple ID. i.e. userID in (?,?,?)</li>
+<li>Not show</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Single ID</th>
+<th align="right">Multiple ID</th>
+<th align="right">Not show</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">userID</td>
+<td align="right">120</td>
+<td align="right">40</td>
+<td align="right">330</td>
+</tr>
+<tr>
+<td align="left">orderID</td>
+<td align="right">60</td>
+<td align="right">80</td>
+<td align="right">360</td>
+</tr>
+<tr>
+<td align="left">shopID</td>
+<td align="right">15</td>
+<td align="right">0</td>
+<td align="right">485</td>
+</tr>
+<tr>
+<td align="left">It’s obviously we should chose userID for sharding. Hold on, this is just <strong>static</strong> analysis, we should conduct <em>dynamic*</em> study as well, so list most executed SQLs, e.g. top 15 SQL (account to 85% of SQL calls), if we conduct sharding by user ID, 85% of those SQL will fall in single DB and 13% fall in multiple DB, and only 2% will scan all DB, so the performance is must better than sharding on other ID fields.</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<h2 id="sharding-strategy"><a href="#sharding-strategy" class="headerlink" title="sharding strategy"></a>sharding strategy</h2><p>There are two type of strategies</p>
+<ol>
+<li>By value range, e.g. user ID 1-9999 to DB1, and 10000-20000 to DB2. For this option, </li>
+<li>By value mod, e.g. userID mod n, when reminder is 0, go to DB1, reminder is 1, to DB2, etc.</li>
+</ol>
+<p>Pros and Cons:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Criteria</th>
+<th align="left">By Range</th>
+<th align="left">By Mod</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">number of DBs</td>
+<td align="left">initially only require small amount of DBs, can increasse by business requests</td>
+<td align="left">initially number based on mod number, normally a big number</td>
+</tr>
+<tr>
+<td align="left">Accessibility</td>
+<td align="left">initially only few DBs, perforamce cost is small, single DB performance query is poor</td>
+<td align="left">initially big number of DBs, query acorss DBs may consume many resources, better for query on single DB</td>
+</tr>
+<tr>
+<td align="left">DBs adjustment</td>
+<td align="left">easy, just add new DB, and impact is limit when split existing DB</td>
+<td align="left">not easy, change mod value  may result in DB migration across DBs</td>
+</tr>
+<tr>
+<td align="left">Data hotspot</td>
+<td align="left">there are data hotspot issues</td>
+<td align="left">no data hotspot issues</td>
+</tr>
+</tbody></table>
+<p>In practice, for the sake of simplicity, mod sharding is often used. To manage further sharding, and for smooth data migration, normally new DBs are added by folds, e.g. intially 4 DBs, furhter split will be 8 DBs, then 16 DBs. This is becuase only half of data in existing DB will be migrated to new DB, while the rest half will be remain unchanged. However, there are some super IDs, e.g. one big shop with massive records than normal, if we shard DB by user ID, there will one DB will many records than others. For this case, we need to provide separate DB for those super IDs.</p>
+<h2 id="sharding-numbers"><a href="#sharding-numbers" class="headerlink" title="sharding numbers"></a>sharding numbers</h2><p>Firslty, that’s depends on the ability of single DB, e.g. normally one MySQL DB can support upto 50mio records, and Oracle can support 100mio. Normally multiple DBs may leads to certain perforamnce issues, when data query across multiple DBs, if there are multithreading call, it will cost precious thread resource, while it’s single thread, the wating time will be unacceptable. Normally, the initial sharding is 4-8 DBs.</p>
+<h2 id="Router-transparency"><a href="#Router-transparency" class="headerlink" title="Router transparency"></a>Router transparency</h2><p>To certain extent, DB sharding means change of DBSChema, which inevitable result in application, however, this is irrelavent to business logic, so the DB sharding should be transparent to business logic code, therefore, DB sharding should be handled at DAL (Data Access Layer) or DDAL (Distributed Data Access Layer).</p>
+<ol>
+<li>For access to single DB, e.g. query by certain user id, DAL will automatically route to that DB, even further split by mod, still no applicaiton logic code change impacted.</li>
+<li>For simple across DB query, DAL in charge to aggregate results from every DB query, still transparent to upper application logic.</li>
+<li>For query involves multiple DBs with aggretation functions, e.g. groupBy, order by, min, max, avg. It’s recommended DAL consolidate request from single DB, while upper layers do further processing. That’s becuase if rely on DAL, it would be too complex, and such case is relatively rare case, so leave it to upper layer.</li>
+</ol>
+<h1 id="Oracle-Sharding"><a href="#Oracle-Sharding" class="headerlink" title="Oracle Sharding"></a>Oracle Sharding</h1><p>It’s required in Web 2.0 and high availability technologies</p>
+<p>Shardingis an application-managed scaling technique using many (hundreds /thousands of) independent databases </p>
+<ul>
+<li>Data is split into multiple databases (shards)</li>
+<li>Each database holds a subset (either range or hash) of the data</li>
+<li>Split the shards as data volume or access grows</li>
+<li>Shards are replicated for availability and scalability</li>
+</ul>
+<p>Sharding is the dominant approach for scaling massive websites</p>
+<ul>
+<li>Application code dispatches request to a specific database based on key value</li>
+<li>Queries are constrained -simple queries on shard-key</li>
+<li>Data isdenormalizedto avoid cross-shard operations (no joins)</li>
+<li>Each database holds all the data</li>
+<li>Request dispatched to a specific database based on read/write,key value</li>
+<li>Updates go to one database, changes are replicated to the other databases. The other databases are available for reads</li>
+<li>Provides read scalability</li>
+<li>Can be combined with horizontal sharding so that each shard is replicated to a different degree</li>
+<li>Main benefit is that you do not need to reshard</li>
+</ul>
+<h2 id="Downsides-of-DB-replica"><a href="#Downsides-of-DB-replica" class="headerlink" title="Downsides of DB replica"></a>Downsides of DB replica</h2><ul>
+<li>Only async log shipping which can lose data in case of failure</li>
+<li>Slaves can return inconsistent data</li>
+<li>Statement based replication has correctness issues &amp; row-based replication is immature</li>
+<li>Replication is slow (high overhead on each reader, slaves are single-threaded)</li>
+<li>No support for failover between master (primary) &amp; slaves (backup)</li>
+<li>Does not handle failure conditions such as missing or damaged logs</li>
+<li>Storage engine and replication state may become inconsistent after a crash</li>
+<li>Bringing a failed master back requires copying the database</li>
+</ul>
+<p>–End–</p>
 
           
         
@@ -391,6 +497,201 @@
 <li><a href="http://engineeringblog.yelp.com/2015/08/docker-in-the-real-world-at-yelp.html" target="_blank" rel="noopener">Yelp Docker -英文版</a></li>
 <li><a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/1784397938?ie=UTF8&camp=536&creative=3132&creativeASIN=1784397938&linkCode=as2&ref_=as_li_ss_tl&tag=flamingtop-23" target="_blank" rel="noopener">Amazon Docker books</a></li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-05-31-Microservices-Vs-SOA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-05-31-Microservices-Vs-SOA/" class="post-title-link" itemprop="url">Microservices vs. SOA</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Microservice"><a href="#Microservice" class="headerlink" title="Microservice"></a>Microservice</h1><ul>
+<li>Services are organized around capabilities, e.g., user interface front-end, recommendation, logistics, billing, etc.</li>
+<li>Services are small in size, messaging enabled, bounded by contexts, autonomously developed, independently deployable, decentralized and built and released with automated processes.</li>
+<li>resource-oriented computing (ROC) as a generalized form of the Web abstraction. If in the Unix abstraction “everything is a file”, in ROC, everything is a “Micro-Web-Service”</li>
+</ul>
+<h2 id="Philosophy"><a href="#Philosophy" class="headerlink" title="Philosophy"></a>Philosophy</h2><p>The philosophy of the microservices architecture essentially equates to the Unix philosophy of “Do one thing and do it well”. It is described as follows:</p>
+<ul>
+<li>The services are small - fine-grained to perform a single function.</li>
+<li>The organization culture must embrace automation of testing and deployment. This eases the burden on management and operations and allows for different development teams to work on independently deployable units of code.</li>
+<li>The culture and design principles must embrace failure and faults, similar to anti-fragile systems.</li>
+<li>Each service is elastic, resilient, composable, minimal, and complete.</li>
+</ul>
+<h2 id="service-mesh"><a href="#service-mesh" class="headerlink" title="service mesh"></a>service mesh</h2><p>In a service mesh, each service instance is paired with an instance of a reverse proxy server, called a service proxy, sidecar proxy, or sidecar. The service instance and sidecar proxy share a container, and the containers are managed by a container orchestration tool such as Kubernetes.</p>
+<h1 id="Differences-between-Microservices-and-SOA"><a href="#Differences-between-Microservices-and-SOA" class="headerlink" title="Differences between Microservices and SOA"></a>Differences between Microservices and SOA</h1><h2 id="Definitaion-of-SOA"><a href="#Definitaion-of-SOA" class="headerlink" title="Definitaion of SOA"></a>Definitaion of SOA</h2><ul>
+<li><code>Boundaries</code> are explicit</li>
+<li>Services are <code>autonomous</code></li>
+<li>Services share __ schema __ and <strong>contract</strong>, not class</li>
+<li>Service compatibility is based on policy</li>
+</ul>
+<hr>
+<blockquote>
+<p>In short, the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. There is a bare mininum of centralized management of these services, which may be written in different programming languages and use different data storage technologies.</p>
+</blockquote>
+<h3 id="Related-links"><a href="#Related-links" class="headerlink" title="Related links:"></a>Related links:</h3><ul>
+<li><a href="https://www.infoq.com/news/2015/12/soa-v-microservices" target="_blank" rel="noopener">InfoQ Discussions</a></li>
+<li><a href="http://stackoverflow.com/questions/25501098/difference-between-microservices-architecture-and-soa" target="_blank" rel="noopener">StackOverFlow</a></li>
+<li><a href="http://stackoverflow.com/tags/microservices/info" target="_blank" rel="noopener">Microservices tag desc</a></li>
+<li><a href="http://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">MartinFowler</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-01-Setup-Git-In-Mint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-01-Setup-Git-In-Mint/" class="post-title-link" itemprop="url">Setup Git in Mint Linux</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="How-to-setup-Git-in-Mint-Linux"><a href="#How-to-setup-Git-in-Mint-Linux" class="headerlink" title="How to setup Git in Mint Linux"></a>How to setup Git in Mint Linux</h1><p>=================================================</p>
+<ul>
+<li>git config –global user.name “Todd Zhang”</li>
+<li>git config –global user.email <a href="mailto:phray.zhang@gmail.com" target="_blank" rel="noopener">phray.zhang@gmail.com</a></li>
+<li>git config –list</li>
+<li>git clone <a href="https://github.com/todzhanglei/todzhanglei.github.io" target="_blank" rel="noopener">https://github.com/todzhanglei/todzhanglei.github.io</a> </li>
+<li>git config –global credential.helper cache</li>
+<li>git config –global credential.helper ‘cache –timeout=36000’</li>
+</ul>
+<h2 id="To-add-remote"><a href="#To-add-remote" class="headerlink" title="To add remote"></a>To add remote</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/CloudsDocker/cloudsdocker.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>Above command will add the remote URL with alias “origin”</p>
+<h2 id="To-pull-specific-branch"><a href="#To-pull-specific-branch" class="headerlink" title="To pull specific branch"></a>To pull specific branch</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin blogSrc</span><br></pre></td></tr></table></figure>
+
+<h1 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h1><h2 id="Error-The-following-untracked-working-tree-files-would-be-overwritten-by-checkout"><a href="#Error-The-following-untracked-working-tree-files-would-be-overwritten-by-checkout" class="headerlink" title="Error: The following untracked working tree files would be overwritten by checkout"></a>Error: The following untracked working tree files would be overwritten by checkout</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean  -d  -fx <span class="string">""</span></span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -623,399 +924,6 @@ The overhead for invoking a method call like this is quite high, especially rela
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-01-DB-Sharding/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-01-DB-Sharding/" class="post-title-link" itemprop="url">Database sharding</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="DB-sharding-in-YHD"><a href="#DB-sharding-in-YHD" class="headerlink" title="DB sharding in YHD"></a>DB sharding in YHD</h1><p>There are two solutions when DB becoming bottleneck in yihaodian. </p>
-<ul>
-<li>Scale up<br>Upgrade Oracle DB, adding more CPU , Disk and memory to incrase I/O performance. This is for short term only, high cost.</li>
-<li>Scale out<br>Divide the order table to multiple DBs, which is support horizontal extension, for long term purpose.</li>
-</ul>
-<p>Orgional Oracle is replaced by multiple MySQL DB, supporintg one master and multiple slaves, supporitng segratation of read and write. Leveraging <code>MySQL built-in</code> Master-slave replication (SLA&lt;1 second)</p>
-<h2 id="sharding-dimensions"><a href="#sharding-dimensions" class="headerlink" title="sharding dimensions"></a>sharding dimensions</h2><ul>
-<li>DB Field chosing, it should chose the filed that lead to least SQL and code change, to make the access fall in <code>one database</code>, instead of multiple DBs, which result in high I/O and significant logic change. </li>
-<li>Here is one practice</li>
-<li><ul>
-<li>Get all SQL</li>
-</ul>
-</li>
-<li><ul>
-<li>Pick up top fields appear in <code>where</code> clause.</li>
-</ul>
-</li>
-<li><ul>
-<li>List break down from three categories</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li>Single ID, i.e. userID=?</li>
-<li>Multiple ID. i.e. userID in (?,?,?)</li>
-<li>Not show</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th align="left">Field</th>
-<th align="right">Single ID</th>
-<th align="right">Multiple ID</th>
-<th align="right">Not show</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">userID</td>
-<td align="right">120</td>
-<td align="right">40</td>
-<td align="right">330</td>
-</tr>
-<tr>
-<td align="left">orderID</td>
-<td align="right">60</td>
-<td align="right">80</td>
-<td align="right">360</td>
-</tr>
-<tr>
-<td align="left">shopID</td>
-<td align="right">15</td>
-<td align="right">0</td>
-<td align="right">485</td>
-</tr>
-<tr>
-<td align="left">It’s obviously we should chose userID for sharding. Hold on, this is just <strong>static</strong> analysis, we should conduct <em>dynamic*</em> study as well, so list most executed SQLs, e.g. top 15 SQL (account to 85% of SQL calls), if we conduct sharding by user ID, 85% of those SQL will fall in single DB and 13% fall in multiple DB, and only 2% will scan all DB, so the performance is must better than sharding on other ID fields.</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-</tbody></table>
-<h2 id="sharding-strategy"><a href="#sharding-strategy" class="headerlink" title="sharding strategy"></a>sharding strategy</h2><p>There are two type of strategies</p>
-<ol>
-<li>By value range, e.g. user ID 1-9999 to DB1, and 10000-20000 to DB2. For this option, </li>
-<li>By value mod, e.g. userID mod n, when reminder is 0, go to DB1, reminder is 1, to DB2, etc.</li>
-</ol>
-<p>Pros and Cons:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Criteria</th>
-<th align="left">By Range</th>
-<th align="left">By Mod</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">number of DBs</td>
-<td align="left">initially only require small amount of DBs, can increasse by business requests</td>
-<td align="left">initially number based on mod number, normally a big number</td>
-</tr>
-<tr>
-<td align="left">Accessibility</td>
-<td align="left">initially only few DBs, perforamce cost is small, single DB performance query is poor</td>
-<td align="left">initially big number of DBs, query acorss DBs may consume many resources, better for query on single DB</td>
-</tr>
-<tr>
-<td align="left">DBs adjustment</td>
-<td align="left">easy, just add new DB, and impact is limit when split existing DB</td>
-<td align="left">not easy, change mod value  may result in DB migration across DBs</td>
-</tr>
-<tr>
-<td align="left">Data hotspot</td>
-<td align="left">there are data hotspot issues</td>
-<td align="left">no data hotspot issues</td>
-</tr>
-</tbody></table>
-<p>In practice, for the sake of simplicity, mod sharding is often used. To manage further sharding, and for smooth data migration, normally new DBs are added by folds, e.g. intially 4 DBs, furhter split will be 8 DBs, then 16 DBs. This is becuase only half of data in existing DB will be migrated to new DB, while the rest half will be remain unchanged. However, there are some super IDs, e.g. one big shop with massive records than normal, if we shard DB by user ID, there will one DB will many records than others. For this case, we need to provide separate DB for those super IDs.</p>
-<h2 id="sharding-numbers"><a href="#sharding-numbers" class="headerlink" title="sharding numbers"></a>sharding numbers</h2><p>Firslty, that’s depends on the ability of single DB, e.g. normally one MySQL DB can support upto 50mio records, and Oracle can support 100mio. Normally multiple DBs may leads to certain perforamnce issues, when data query across multiple DBs, if there are multithreading call, it will cost precious thread resource, while it’s single thread, the wating time will be unacceptable. Normally, the initial sharding is 4-8 DBs.</p>
-<h2 id="Router-transparency"><a href="#Router-transparency" class="headerlink" title="Router transparency"></a>Router transparency</h2><p>To certain extent, DB sharding means change of DBSChema, which inevitable result in application, however, this is irrelavent to business logic, so the DB sharding should be transparent to business logic code, therefore, DB sharding should be handled at DAL (Data Access Layer) or DDAL (Distributed Data Access Layer).</p>
-<ol>
-<li>For access to single DB, e.g. query by certain user id, DAL will automatically route to that DB, even further split by mod, still no applicaiton logic code change impacted.</li>
-<li>For simple across DB query, DAL in charge to aggregate results from every DB query, still transparent to upper application logic.</li>
-<li>For query involves multiple DBs with aggretation functions, e.g. groupBy, order by, min, max, avg. It’s recommended DAL consolidate request from single DB, while upper layers do further processing. That’s becuase if rely on DAL, it would be too complex, and such case is relatively rare case, so leave it to upper layer.</li>
-</ol>
-<h1 id="Oracle-Sharding"><a href="#Oracle-Sharding" class="headerlink" title="Oracle Sharding"></a>Oracle Sharding</h1><p>It’s required in Web 2.0 and high availability technologies</p>
-<p>Shardingis an application-managed scaling technique using many (hundreds /thousands of) independent databases </p>
-<ul>
-<li>Data is split into multiple databases (shards)</li>
-<li>Each database holds a subset (either range or hash) of the data</li>
-<li>Split the shards as data volume or access grows</li>
-<li>Shards are replicated for availability and scalability</li>
-</ul>
-<p>Sharding is the dominant approach for scaling massive websites</p>
-<ul>
-<li>Application code dispatches request to a specific database based on key value</li>
-<li>Queries are constrained -simple queries on shard-key</li>
-<li>Data isdenormalizedto avoid cross-shard operations (no joins)</li>
-<li>Each database holds all the data</li>
-<li>Request dispatched to a specific database based on read/write,key value</li>
-<li>Updates go to one database, changes are replicated to the other databases. The other databases are available for reads</li>
-<li>Provides read scalability</li>
-<li>Can be combined with horizontal sharding so that each shard is replicated to a different degree</li>
-<li>Main benefit is that you do not need to reshard</li>
-</ul>
-<h2 id="Downsides-of-DB-replica"><a href="#Downsides-of-DB-replica" class="headerlink" title="Downsides of DB replica"></a>Downsides of DB replica</h2><ul>
-<li>Only async log shipping which can lose data in case of failure</li>
-<li>Slaves can return inconsistent data</li>
-<li>Statement based replication has correctness issues &amp; row-based replication is immature</li>
-<li>Replication is slow (high overhead on each reader, slaves are single-threaded)</li>
-<li>No support for failover between master (primary) &amp; slaves (backup)</li>
-<li>Does not handle failure conditions such as missing or damaged logs</li>
-<li>Storage engine and replication state may become inconsistent after a crash</li>
-<li>Bringing a failed master back requires copying the database</li>
-</ul>
-<p>–End–</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-01-Setup-Git-In-Mint/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-01-Setup-Git-In-Mint/" class="post-title-link" itemprop="url">Setup Git in Mint Linux</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="How-to-setup-Git-in-Mint-Linux"><a href="#How-to-setup-Git-in-Mint-Linux" class="headerlink" title="How to setup Git in Mint Linux"></a>How to setup Git in Mint Linux</h1><p>=================================================</p>
-<ul>
-<li>git config –global user.name “Todd Zhang”</li>
-<li>git config –global user.email <a href="mailto:phray.zhang@gmail.com" target="_blank" rel="noopener">phray.zhang@gmail.com</a></li>
-<li>git config –list</li>
-<li>git clone <a href="https://github.com/todzhanglei/todzhanglei.github.io" target="_blank" rel="noopener">https://github.com/todzhanglei/todzhanglei.github.io</a> </li>
-<li>git config –global credential.helper cache</li>
-<li>git config –global credential.helper ‘cache –timeout=36000’</li>
-</ul>
-<h2 id="To-add-remote"><a href="#To-add-remote" class="headerlink" title="To add remote"></a>To add remote</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/CloudsDocker/cloudsdocker.github.io.git</span><br></pre></td></tr></table></figure>
-
-<p>Above command will add the remote URL with alias “origin”</p>
-<h2 id="To-pull-specific-branch"><a href="#To-pull-specific-branch" class="headerlink" title="To pull specific branch"></a>To pull specific branch</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin blogSrc</span><br></pre></td></tr></table></figure>
-
-<h1 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h1><h2 id="Error-The-following-untracked-working-tree-files-would-be-overwritten-by-checkout"><a href="#Error-The-following-untracked-working-tree-files-would-be-overwritten-by-checkout" class="headerlink" title="Error: The following untracked working tree files would be overwritten by checkout"></a>Error: The following untracked working tree files would be overwritten by checkout</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean  -d  -fx <span class="string">""</span></span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-01-XA-2PC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-01-XA-2PC/" class="post-title-link" itemprop="url">XA Transactions in 2PC</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h1><ul>
-<li>2 phase commit protocol referred to as XA(eXtended Architecture)</li>
-<li>This protocol provides ACID-like properties for global transaction processing</li>
-<li>2 phase commit protocol is an atomic commitment protocol for distributed systems.</li>
-<li>The first one is commit-request phase in which transaction manager coordinates all of the transaction resources to commit or abort. </li>
-<li>In the commit-phase, transaction manager decides to finalize operation by committing or aborting according to the votes of the each transaction resource. </li>
-<li>XA transactions need a global transaction id and local transaction id(xid) for each XA resource.</li>
-<li>Each XA Resource is enlisted to XA Manager by start(xid) method. </li>
-<li>This method tells that XA Resource is being involved in the transaction(be ready for operations). </li>
-<li>the first phase of the 2PC protocol is realized by calling prepare(xid) method. This method requests OK or ABORT vote from XA Resource. </li>
-<li>After receiving vote from each of XA Resource, XA Manager decides to execute a commit(xid) operation if all XA Resources send OK or decides to execute a rollback(xid) if an XA Resource sends ABORT.</li>
-<li>Finally, the end(xid) method is called for each of XA Resource telling that the transaction is completed. </li>
-</ul>
-<p>Reference links:</p>
-<ol>
-<li>(DZone XA 2PC)[<a href="https://dzone.com/articles/xa-transactions-2-phase-commit]" target="_blank" rel="noopener">https://dzone.com/articles/xa-transactions-2-phase-commit]</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-03-CI-CD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1175,6 +1083,191 @@ The overhead for invoking a method call like this is quite high, especially rela
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-01-XA-2PC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-01-XA-2PC/" class="post-title-link" itemprop="url">XA Transactions in 2PC</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h1><ul>
+<li>2 phase commit protocol referred to as XA(eXtended Architecture)</li>
+<li>This protocol provides ACID-like properties for global transaction processing</li>
+<li>2 phase commit protocol is an atomic commitment protocol for distributed systems.</li>
+<li>The first one is commit-request phase in which transaction manager coordinates all of the transaction resources to commit or abort. </li>
+<li>In the commit-phase, transaction manager decides to finalize operation by committing or aborting according to the votes of the each transaction resource. </li>
+<li>XA transactions need a global transaction id and local transaction id(xid) for each XA resource.</li>
+<li>Each XA Resource is enlisted to XA Manager by start(xid) method. </li>
+<li>This method tells that XA Resource is being involved in the transaction(be ready for operations). </li>
+<li>the first phase of the 2PC protocol is realized by calling prepare(xid) method. This method requests OK or ABORT vote from XA Resource. </li>
+<li>After receiving vote from each of XA Resource, XA Manager decides to execute a commit(xid) operation if all XA Resources send OK or decides to execute a rollback(xid) if an XA Resource sends ABORT.</li>
+<li>Finally, the end(xid) method is called for each of XA Resource telling that the transaction is completed. </li>
+</ul>
+<p>Reference links:</p>
+<ol>
+<li>(DZone XA 2PC)[<a href="https://dzone.com/articles/xa-transactions-2-phase-commit]" target="_blank" rel="noopener">https://dzone.com/articles/xa-transactions-2-phase-commit]</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-07-Load-Balancing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-07-Load-Balancing/" class="post-title-link" itemprop="url">Load Balancing</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><p><code>LVS</code> means Linux Virtual Server, which is one Linux built-in component. </p>
+<h1 id="Some-logics-of-LVS"><a href="#Some-logics-of-LVS" class="headerlink" title="Some logics of LVS"></a>Some logics of LVS</h1><h2 id="Never-Queue-Shceduling"><a href="#Never-Queue-Shceduling" class="headerlink" title="Never Queue Shceduling"></a>Never Queue Shceduling</h2><blockquote>
+<p>The never queue scheduling algorithm adpots a two-speed model</p>
+</blockquote>
+<ol>
+<li>When there is an idel server avaiable, the job will be sent to the idel server, instead of waiting for a fast one.</li>
+<li>When there is no idel server avaiable, the job will be sent to the server that minimize it’s expected delay.</li>
+</ol>
+<h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h1><h2 id="Setup-LVS"><a href="#Setup-LVS" class="headerlink" title="Setup LVS"></a>Setup LVS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -A -t 192.168.0.1:80 -s rr</span><br><span class="line">ipvsadm -a -t 192.168.0.1:80 -r 172.16.0.1:80 -m</span><br><span class="line">ipvsadm -a -t 192.168.0.1:80 -r 172.16.0.2:80 -m</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>The first command assign TCP port 80 on IP address 192.168.0.1 to the virtual server, the shceduling algorithm for load balancing is <code>-s rr</code> means using round-robin</li>
+<li>The 2nd and 3rd commands are adding IP addresss of <code>real servers</code> to the LVS setup</li>
+<li>the forwarded network packets shall be masked <code>-m</code></li>
+</ul>
+<h2 id="To-query-LVS-status"><a href="#To-query-LVS-status" class="headerlink" title="To query LVS status"></a>To query LVS status</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -L -n</span><br><span class="line">IP Virtual Server version 1.0.8 (size=65536)</span><br><span class="line">Prot LocalAddress:Port Scheduler Flags</span><br><span class="line">  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn</span><br><span class="line">TCP  192.168.0.1:80 rr</span><br><span class="line">  -&gt; 172.16.0.2:80                Masq    1      3          1</span><br><span class="line">  -&gt; 172.16.0.1:80                Masq    1      4          0</span><br></pre></td></tr></table></figure>
+
+<h2 id="Strucutre-of-LVS-in-wikipedia"><a href="#Strucutre-of-LVS-in-wikipedia" class="headerlink" title="Strucutre of LVS in wikipedia"></a>Strucutre of LVS in wikipedia</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Wikimedia_Server_Architecture_%28simplified%29.svg/743px-Wikimedia_Server_Architecture_%28simplified%29.svg.png" alt="Strucutre of LVS in wikipedia"></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-05-Python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1234,91 +1327,6 @@ The overhead for invoking a method call like this is quite high, especially rela
 <p>The key is ‘think big’. Instead of focusing on the problem at a line-by-line level, you just break it down into big operations that operate on the whole file.</p>
 <h3 id="Iteration-is-the-glue"><a href="#Iteration-is-the-glue" class="headerlink" title="Iteration is the glue"></a>Iteration is the glue</h3><h1 id="rsplit"><a href="#rsplit" class="headerlink" title="rsplit"></a>rsplit</h1><p><a href="http://python-reference.readthedocs.io/en/latest/docs/str/rsplit.html" target="_blank" rel="noopener">API doc</a><br>Returns a list of the words in the string, separated by the delimiter string (starting from right).</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">' a b c '</span>.rsplit(<span class="literal">None</span>, <span class="number">1</span>)</span><br><span class="line">[<span class="string">' a b'</span>, <span class="string">'c'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">' a b c '</span>.rsplit(<span class="literal">None</span>, <span class="number">2</span>)</span><br><span class="line">[<span class="string">' a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-09-Docker-Errors-Fixes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-09-Docker-Errors-Fixes/" class="post-title-link" itemprop="url">Docker Errors and Fixes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Docker-Errors"><a href="#Docker-Errors" class="headerlink" title="Docker Errors"></a>Docker Errors</h1><ol>
-<li>Cannot connect to the Docker daemon. Is the docker daemon running on this host?<br>The solution is to run under root user, e.g. </li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>Docker service</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker status</span><br><span class="line">sudo service docker start</span><br><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-
           
         
       

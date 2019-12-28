@@ -195,407 +195,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-20-DeadLock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-01-20-DeadLock/" class="post-title-link" itemprop="url">Dead Lock</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><ul>
-<li>Two or more threads are <strong>waiting</strong> for <strong>each other</strong> to <strong>release lock</strong> and get <strong>stuck for infinite time</strong>.</li>
-<li>It will only happen in case of <strong>multitasking</strong>.</li>
-</ul>
-<h2 id="One-screnario-of-dead-lock"><a href="#One-screnario-of-dead-lock" class="headerlink" title="One screnario of dead lock"></a>One screnario of dead lock</h2><p>If method1() and method2() both will be called by two or many threads , there is a good chance of deadlock because if thread 1 acquires lock on Sting object while executing method1() and thread 2 acquires lock on Integer object while executing method2() both will be waiting for each other to release lock on Integer and String to proceed further which will never happen.</p>
-<h3 id="The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock"><a href="#The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock" class="headerlink" title="The root cause is NOT multithreading, but the way they are requiring lock"></a>The root cause is NOT multithreading, but <strong>the way they are requiring lock</strong></h3><p>Now there would not be any deadlock because both methods are accessing lock on Integer and String class literal in same order. So, if thread A acquires lock on Integer object , thread B will not proceed until thread A releases Integer lock, same way thread A will not be blocked even if thread B holds String lock because now thread B will not expect thread A to release Integer lock to proceed further.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-26-IT-Architect/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-01-26-IT-Architect/" class="post-title-link" itemprop="url">IT-Architect</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="SOA"><a href="#SOA" class="headerlink" title="SOA"></a>SOA</h1><ul>
-<li>SOA is a set of design principles for building a suite of interoperable, flexible and reusable services based architecture.</li>
-<li>top-down and bottom-up approach SOA patterns</li>
-</ul>
-<h1 id="Design-Patterns"><a href="#Design-Patterns" class="headerlink" title="Design Patterns"></a>Design Patterns</h1><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><ul>
-<li>Being single sometimes has its advantages you know. I’m often used to manage pools of resources, like connection or thread pools.</li>
-<li>The Singleton Pattern ensures a class has only one instance, and provides <strong>a global point of access to it</strong>.</li>
-<li>WATCH IT!</li>
-</ul>
-<p><strong>Double-checked locking doesn’t work in Java 1.4 or earlier</strong>!
-Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementations of the <strong>volatile keyword that allow improper synchronization for double-checked locking</strong>. If you must use a JVM earlier than Java 5, consider other methods of implementing your Singleton.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-21-Algorithm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-01-21-Algorithm/" class="post-title-link" itemprop="url">Algorithm</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="This-page-is-about-key-points-about-Algorithm"><a href="#This-page-is-about-key-points-about-Algorithm" class="headerlink" title="This page is about key points about Algorithm"></a>This page is about key points about Algorithm</h1><h2 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h2><ul>
-<li>The easiest way to improve search efficiency on a set of data is to put it in a data structure that allows more efficient searching.<br>What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1)).</li>
-<li>Then need to determine which data structure to be used. If the underlying characters are just ASCII, then a array[128] would be enough. But characters are UNICODe, then it need 100,000 (100K) array, which is a concern of memory, so hash table would be a better option, which only keep exist characters.<br>In general, arrays are a better choice for long strings with a limited set of possible characters values, hash tables are more efficient for shorter strings or when there are many possible character values.  </li>
-<li>For some problems, obvious iterative alternatives like the one just shown don’t exist, but it’s always possible to implement a recursive algorithm without using recursive calls.</li>
-<li>For a simple recursive function like factorial, many computer architectures spend more time on call overhead than on the actual calculation. Iterative functions, which use looping constructs instead of recursive function calls, do not suffer from this overhead and are frequently more efficient.</li>
-<li>NOTE Iterative solutions are usually more efficient than recursive solutions.</li>
-<li>NOTE Every recursive case must eventually lead to a base case.</li>
-<li>NOTE Recursive algorithms have two cases: recursive cases and base cases</li>
-</ul>
-<h1 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h1><h2 id="I-collections-sort"><a href="#I-collections-sort" class="headerlink" title="I collections.sort()"></a>I collections.sort()</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object[] a = list.toArray();</span><br><span class="line">        Arrays.sort(a);</span><br><span class="line">        ListIterator&lt;T&gt; i = list.listIterator();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;a.length; j++) &#123;</span><br><span class="line">            i.next();</span><br><span class="line">            i.set((T)a[j]);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Arrays-sort"><a href="#Arrays-sort" class="headerlink" title="Arrays.sort"></a>Arrays.sort</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Object[] a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (LegacyMergeSort.userRequested)</span><br><span class="line">            legacyMergeSort(a);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ComparableTimSort.sort(a);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(Object[] src,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  Object[] dest,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> low,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> high,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> off)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = high - low;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Insertion sort on smallest arrays</span></span><br><span class="line">        <span class="keyword">if</span> (length &lt; INSERTIONSORT_THRESHOLD) &#123; <span class="comment">// threshold is 7</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=low; i&lt;high; i++)</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j=i; j&gt;low &amp;&amp;</span><br><span class="line">                         ((Comparable) dest[j-<span class="number">1</span>]).compareTo(dest[j])&gt;<span class="number">0</span>; j--)</span><br><span class="line">                    swap(dest, j, j-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// else use mergeSort</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Self-review"><a href="#Self-review" class="headerlink" title="Self review"></a>Self review</h1><h2 id="CeasarCipher"><a href="#CeasarCipher" class="headerlink" title="CeasarCipher:"></a>CeasarCipher:</h2><p>Generally: it’s a rotation of English alphabic. E.g. if rotation is 2, the encode is start from A+2, i.e. A is at -2 of the encode array.<br>And decode is start with 26-2, and “A” start at positon 2, then the increase by 1 character to constitute the array<br>That’s why need to “%26”, to make it loop across 26 characters</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">If rotation is 2:</span><br><span class="line">--- encrytpion code is:[C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B]</span><br><span class="line">--- decrytpion code is:[Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X]</span><br><span class="line">If rotation is 4:</span><br><span class="line">--- encrytpion code is:[E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B, C, D]</span><br><span class="line">--- decrytpion code is:[W, X, Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ABC:</span><br><span class="line">Msg =&#123;‘A’,’B’,’C’&#125;;</span><br><span class="line">Char[] encode=’A’+(k+rotation)%<span class="number">26</span>);</span><br><span class="line">Char[] decode=’A’+(k-rotation+<span class="number">26</span>)%<span class="number">26</span>); <span class="comment">// +26 to avoid negative</span></span><br><span class="line"></span><br><span class="line">Encode=&#123;‘C’,’D’,’E’&#125;; <span class="comment">// rotation=3, so A+3, A+4,A+5,xxx, A+26=&gt;3,4,5,6,xxx,0</span></span><br><span class="line">Decode=&#123;‘M’,’N’,’O’&#125;;<span class="comment">//as k-rotation+26 % 26, so it’s 26-3+0,26-3+1 ,xx: =&gt; 23,24,25,0,1,2,3,4,is: A+23,A+24,A+25=&gt;‘M’,’N’,’O’. that’s rotation, rotain-1, rotaion -2 xxxx</span></span><br><span class="line">For(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;msg.length;i++)&#123;</span><br><span class="line">  Int j=msg[i]-‘A’; <span class="comment">// to remove the base ‘A”, so sync with the “k” in encode, 3,4,5,xxx 3+26</span></span><br><span class="line">  Msg[i]=codes[j];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// encode</span></span><br><span class="line">Int j=’A’-‘A’; <span class="comment">//0</span></span><br><span class="line">Msg[<span class="number">0</span>]=’C’;</span><br><span class="line">Msg[<span class="number">1</span>]=’D’;</span><br><span class="line">Msg[<span class="number">2</span>]=’E’;</span><br><span class="line"></span><br><span class="line"><span class="comment">//decode</span></span><br><span class="line">Int j=msg[i]-‘A’; <span class="comment">//’C’-‘A’=3</span></span><br><span class="line">Msg[i]=decode[j]; <span class="comment">// correspoindg to the postion 0,-xxx, 26 in decode, </span></span><br><span class="line">Msg[<span class="number">0</span>]=</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>If you says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.</li>
-</ul>
-<h1 id="To-print-content-of-Array"><a href="#To-print-content-of-Array" class="headerlink" title="To print content of Array"></a>To print content of Array</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import java.util.Arrays;</span><br><span class="line">Arrays.toString(ary);</span><br><span class="line">Arrays.deepToString(ary);</span><br></pre></td></tr></table></figure>
-
-<h1 id="search-without-recursive"><a href="#search-without-recursive" class="headerlink" title="search without recursive"></a>search without recursive</h1><p>Node findNode( Node root, int value ){<br>    while( root != null ){<br>        int currval = root.getValue();<br>        if( currval == value ) break;<br>        if( currval &lt; value ){<br>            root = root.getRight();<br>        } else { // currval &gt; value<br>            root = root.getLeft();<br>        }<br>    }</p>
-<pre><code>return root;</code></pre><p>}</p>
-<ul>
-<li><p>preceding lookup operation can be reimplemented recursively as follows:<br>Node findNode( Node root, int value ){<br>  if( root == null ) return null;<br>  int currval = root.getValue();<br>  if( currval == value ) return root;<br>  if( currval &lt; value ){</p>
-<pre><code>return findNode( root.getRight(), value );</code></pre><p>  } else { // currval &gt; value</p>
-<pre><code>return findNode( root.getLeft(), value );</code></pre><p>  }<br>}</p>
-</li>
-<li><p>This subtree property is conducive to recursion because recursion generally involves solving a problem in terms of similar subproblems and a base case. </p>
-</li>
-</ul>
-<h1 id="Big-O-sequencey"><a href="#Big-O-sequencey" class="headerlink" title="Big O sequencey"></a>Big O sequencey</h1><p>1, logn, n, n log n, n2, n3, 2n(2 power n).</p>
-<h1 id="Big-O"><a href="#Big-O" class="headerlink" title="Big O"></a>Big O</h1><ul>
-<li>It is also considered poor taste to include constant factors and lower-order terms in the big-Oh notation. For example, it is not fashionable to say that the function 2n2 is O(4n2 + 6n log n), although this is completely correct. We should strive instead to describe the function in the big-Oh <strong>in simplest terms</strong>.</li>
-<li>So, for example, we would say that an algorithm that runs in worst-case time 4n2 + n log n is a quadratic-time algorithm, since it runs in O(n2) time. Likewise, an algorithm running in time at most 5n + 20logn + 4 would be called a linear-time algorithm.</li>
-</ul>
-<h1 id="Big-Omega"><a href="#Big-Omega" class="headerlink" title="Big Omega"></a>Big Omega</h1><ul>
-<li>Just as the big-Oh notation provides an asymptotic way of saying that a function is “less than or equal to” another function, the following notations provide <strong>an asymptotic way</strong> of saying that a function grows at a rate that is “<strong>greater than or equal to</strong>” that of another.</li>
-<li>Example 4.14: 3n log n ? 2n is Ω(n log n).</li>
-</ul>
-<h1 id="Big-Theta"><a href="#Big-Theta" class="headerlink" title="Big-Theta"></a>Big-Theta</h1><ul>
-<li>In addition, there is a notation that allows us to say that two functions grow at the same rate, up to constant factors. We say that f(n) is Θ(g(n)), pronounced “f(n) is big-Theta of g(n),”</li>
-</ul>
-<h1 id="Comparative-Analysis"><a href="#Comparative-Analysis" class="headerlink" title="Comparative Analysis"></a>Comparative Analysis</h1><ul>
-<li>asymptotically[,?simp’t?tik,-k?l] better</li>
-<li>Suppose two algorithms solving the same problem are available: an algorithm A, which has a running time of O(n), and an algorithm B, which has a running time of O(n2). Which algorithm is better? We know that n is O(n2), which implies that algorithm A <strong>is asymptotically better</strong> than algorithm B, although for a small value of n, B may have a lower running time than A.</li>
-</ul>
-<h1 id="Some-Words-of-Caution"><a href="#Some-Words-of-Caution" class="headerlink" title="Some Words of Caution"></a>Some Words of Caution</h1><ul>
-<li>First, note that the use of the big-Oh and related notations can be somewhat misleading should the constant factors they “hide” be very large. For example, while it is true that the function 10100n is O(n), if this is the running time of an algorithm being compared to one whose running time is 10n log n, we should prefer the O(nlog n)-time algorithm, even though the linear-time algorithm is asymptotically faster. This preference is because the constant factor, 10100, which is called “one googol,” is believed by many astronomers to be an upper bound on the number of atoms in the observable universe. So we are unlikely to ever have a real-world problem that has this number as its input size.</li>
-</ul>
-<h1 id="Exponential-eksp-’nen-l-Running-Times"><a href="#Exponential-eksp-’nen-l-Running-Times" class="headerlink" title="Exponential [,eksp?’nen?(?)l] Running Times"></a>Exponential [,eksp?’nen?(?)l] Running Times</h1><ul>
-<li>To see how fast the function 2n grows, consider the famous story about the inventor of the game of chess. He asked only that his king pay him 1 grain of rice for the first square on the board, 2 grains for the second, 4 grains for the third, 8 for the fourth, and so on. The number of grains in the 64th square would be<br>263 = 9, 223, 372, 036, 854, 775, 808,<br>which is about nine billion billions!</li>
-<li>If we must draw a line between efficient and inefficient algorithms, therefore, it is natural to make this distinction be that between those algorithms running in <strong>polynomial [,p?l?’n??m??l] time</strong> and those running in <strong>exponential time</strong>. That is, make the distinction between algorithms with a running time that is <strong>O(nc)</strong> (power c based on n), for some constant c &gt; 1, and those with a running time that is <strong>O(bn)</strong> (power n based on b), for some constant b &gt; 1. Like so many notions we have discussed in this section, this too should be taken with a “grain of salt,” for an algorithm running in O(n100) time should probably not be considered “efficient.” Even so, the distinction between polynomial-time and exponential-time algorithms is considered a robust measure of tractability.</li>
-</ul>
-<h1 id="Examples-of-Algorithm-Analysis"><a href="#Examples-of-Algorithm-Analysis" class="headerlink" title="Examples of Algorithm Analysis"></a>Examples of Algorithm Analysis</h1><h2 id="constant-time-operation"><a href="#constant-time-operation" class="headerlink" title="constant time operation"></a>constant time operation</h2><ul>
-<li>All of the primitive operations, originally described on page 154, are assumed to run in constant time; Assume that variable A is an array of n elements. The expression A.length in Java is evaluated in constant time, because arrays are represented internally with an explicit variable that records the length of the array. Another central behavior of arrays is that for any valid index j, the individual element, A[j], can be accessed in constant time. This is because an array uses a consecutive block of memory. The jth element can be found, not by iterating through the array one element at a time, but by validating the index, and using it as an offset from the beginning of the array in determining the appropriate memory address. Therefore, we say that the expression A[j] is evaluated in O(1) time for an array.</li>
-</ul>
-<h2 id="Finding-the-Maximum-of-an-Array"><a href="#Finding-the-Maximum-of-an-Array" class="headerlink" title="Finding the Maximum of an Array"></a>Finding the Maximum of an Array</h2><p>Proposition 4.16: The algorithm, arrayMax, for computing the maximum element of an array of n numbers, runs in O(n) time.</p>
-<p>Justification: The initialization at lines 3 and 4 and the return statement at line 8 require only a constant number of primitive operations. Each iteration of the loop also requires only a constant number of primitive operations, and the loop executes n ? 1 times.</p>
-<h2 id="Composing-Long-Strings"><a href="#Composing-Long-Strings" class="headerlink" title="Composing Long Strings"></a>Composing Long Strings</h2><ul>
-<li><p>Therefore, the overall time taken by this algorithm is proportional to<br>1 + 2 + ··· + n,<br>which we recognize as the familiar O(n<sup>2</sup>) summation from Proposition 4.3. Therefore, the total time complexity of the repeat1 algorithm is O(n<sup>2</sup>).</p>
-</li>
-<li><p>x = logbn if and only if bx = n.<br>The value b is known as the base of the logarithm. Note that by the above definition, for any base b &gt; 0, we have that logb 1 = 0.</p>
-</li>
-</ul>
-<h1 id="Three-Way-Set-Disjointness"><a href="#Three-Way-Set-Disjointness" class="headerlink" title="Three-Way Set Disjointness"></a>Three-Way Set Disjointness</h1><h2 id="Origional-solution"><a href="#Origional-solution" class="headerlink" title="Origional solution"></a>Origional solution</h2><p>Suppose we are given three sets, A, B, and C, stored in three different integer arrays. We will assume that no individual set contains duplicate values, but that there may be some numbers that are in two or three of the sets. The three-way set disjointness problem is to determine if the intersection of the three sets is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">disjoint1</span><span class="params">(<span class="keyword">int</span>[]  groupA, <span class="keyword">int</span>[] groupB, <span class="keyword">int</span>[] groupC)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> i : groupA) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j : groupB) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k : groupC) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j &amp;&amp; j==k)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>This simple algorithm loops through each possible triple of values from the three sets to see if those values are equivalent. If each of the original sets has size n, then the worst-case running time of this method is O(n<sup>3</sup>) .<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">disjoint2</span><span class="params">(<span class="keyword">int</span>[]  groupA, <span class="keyword">int</span>[] groupB, <span class="keyword">int</span>[] groupC)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> i : groupA) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j : groupB) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j)&#123;</span><br><span class="line">                    <span class="comment">// add this checking to reduce complexitiy</span></span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k : groupC) &#123;</span><br><span class="line">                        <span class="keyword">if</span>(j==k)&#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>In the improved version, it is not simply that we save time if we get lucky. We claim that the worst-case running time for disjoint2 is O(n<sup>2</sup>).</p>
-<h1 id="by-sorting"><a href="#by-sorting" class="headerlink" title="by sorting"></a>by sorting</h1><p>Sorting algorithms will be the focus of Chapter 12. The best sorting algorithms (including those used by Array.sort in Java) guarantee a worst-case running time of O(nlog n). Once the data is sorted, the subsequent loop runs in O(n) time, and so the entire unique2 algorithm runs in O(n log n) time. Exercise C-4.35 explores the use of sorting to solve the three-way set disjointness problem in O(n log n) time.</p>
-<h1 id="prefixAverage"><a href="#prefixAverage" class="headerlink" title="prefixAverage"></a>prefixAverage</h1><p>Check the source code at PrefixAverage.java, the inital implementation is two for loop, which is O(n<sup>2</sup>), while the better approach is reuse existing total sum.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// naiive approach,</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="keyword">double</span> total=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;=i; j++) &#123; <span class="comment">// be awre it's &lt;=, instead of "&lt;"</span></span><br><span class="line">				total+=x[j];				</span><br><span class="line">			&#125;</span><br><span class="line">			a[i]=total/(i+<span class="number">1</span>);			</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">// better approach</span></span><br><span class="line"><span class="keyword">double</span> total=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			total += x[i];</span><br><span class="line">			a[i]=total/(i+<span class="number">1</span>);			</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Recursive"><a href="#Recursive" class="headerlink" title="Recursive"></a>Recursive</h1><h2 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h2><ol>
-<li>We have one or more <strong>base cases</strong>, which refer to fixed values of the function. e.g. for n!=1 as  n=1 is base.</li>
-<li>Then we have one or more <strong>recursive cases</strong>, which define the function in terms of itself. for n!, it’s =n*(n-1)! for n&gt;=1</li>
-</ol>
-<ul>
-<li>Repetition is achieved through repeated recursive invocations of the method. The process i finite because each time the method is invoked, its argument is smaller by one, and when a base case is reached, no further recursive calls are made.</li>
-<li>In the case of computing the factorial function, there is no compelling reason for prefereing recursion over a direct iteration with a loop.</li>
-</ul>
-<h1 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h1><h2 id="ADT-Abstract-Data-Type"><a href="#ADT-Abstract-Data-Type" class="headerlink" title="ADT (Abstract Data Type)"></a>ADT (Abstract Data Type)</h2><ul>
-<li>we define a tree ADT using the concept of a position as an abstraction for a node of a tree. An element is stored at each position, and positions satisfy parent-child relationships that define the tree structure. </li>
-</ul>
-<h2 id="Depth-and-Height"><a href="#Depth-and-Height" class="headerlink" title="Depth and Height"></a>Depth and Height</h2><h3 id="Depth"><a href="#Depth" class="headerlink" title="Depth"></a>Depth</h3><ul>
-<li>The depth of p is the number of ancestors of p, other than p itself.</li>
-<li>The running time of depth(p) for position p is O(dp + 1), where dp denotes the depth of p in the tree, because the algorithm performs a constant-time recursive step for each ancestor of p. Thus, algorithm depth(p) runs in O(n) worst-case time, where n is the total number of positions of T, because a position of T may have depth n - 1 <strong>if all nodes form a single branch</strong>. </li>
-<li>Method depth, as implemented within the AbstractTree class.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">depth</span><span class="params">(Position&lt;E&gt; p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(isRoot(p))</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>+depth(parent(p));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="Height"><a href="#Height" class="headerlink" title="Height"></a>Height</h3><ul>
-<li>We next define the height of a tree to be equal to the maximum of the depths of its positions (or zero, if the tree is empty).</li>
-<li>Folloing worst time cost is O(n), it progresses in a <strong>top-down</strong> fashion.</li>
-<li>If the method is initially called on the root of T, it will eventually be called once for each position of T. This is because the root eventually invokes the recursion on each of its children, which in turn invokes the recursion on each of their children, and so on.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">height</span><span class="params">(Position&lt;E&gt; p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> h=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(Position&lt;E&gt; c: children(p))</span><br><span class="line">		h=Math.max(h,<span class="number">1</span>+height(c));</span><br><span class="line">	<span class="keyword">return</span> h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h2><ul>
-<li><p>A binary tree is an ordered tree with the following properties:</p>
-<ul>
-<li>Every node has at most two children.</li>
-<li>Each child node is labeled as being either a left child or a right child.</li>
-<li>A left child precedes a right child in the order of children of a node.</li>
-</ul>
-</li>
-<li><p>A binary <strong>tree is proper if each node has either zero or two children</strong>. Some people also refer to <strong>such trees as being full binary trees</strong>. Thus, <strong>in a proper binary tree, every internal node has exactly two children</strong>. A binary tree that is not proper is <strong>improper</strong>.</p>
-<h3 id="Some-binary-trees"><a href="#Some-binary-trees" class="headerlink" title="Some binary trees"></a>Some binary trees</h3><h4 id="decision-tree"><a href="#decision-tree" class="headerlink" title="decision tree"></a>decision tree</h4></li>
-<li><p>An important class of binary trees arises in contexts where we wish to represent a number of different outcomes that can result from answering a series of yes-or-no questions. Each internal node is associated with a question. Starting at the root, we go to the left or right child of the current node, depending on whether the answer to the question is “Yes” or “No.” With each decision, we follow an edge from a parent to a child, eventually tracing a path in the tree from the root to a leaf. Such binary trees are known as decision trees, because a leaf position p in such a tree represents a decision of what to do if the questions associated with p’s ancestors are answered in a way that leads to p. <strong>A decision tree is a proper binary tree</strong>. </p>
-<h4 id="Arithmetic-expression"><a href="#Arithmetic-expression" class="headerlink" title="Arithmetic expression"></a>Arithmetic expression</h4></li>
-<li><p>An arithmetic expression can be represented by a binary tree whose leaves are associated with variables or constants, and whose internal nodes are associated with one of the operators +, ?, *, and /, as demonstrated in Figure 8.6. Each node in such a tree has a value associated with it.</p>
-<ul>
-<li>If a node is leaf, then its value is that of its variable or constant.</li>
-<li>If a node is internal, then its value is defined by applying its operation to the values of its children.<h3 id="Properties-of-Binary-trees"><a href="#Properties-of-Binary-trees" class="headerlink" title="Properties of Binary trees"></a>Properties of Binary trees</h3></li>
-</ul>
-</li>
-<li><p>level d has at most 2<sup>d</sup> nodes</p>
-</li>
-<li><p>Let T be a nonempty binary tree, and let n, nE, nI, and h denote the number of nodes, number of external nodes, number of internal nodes, and height of T, respectively. Then T has the following properties:</p>
-<ul>
-<li>h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1</li>
-<li>1 ≤ nE ≤ 2<sup>h</sup></li>
-<li>h ≤ nI ≤ 2<sup>h</sup> - 1</li>
-<li>log(n + 1) - 1 ≤ h ≤ n - 1</li>
-</ul>
-</li>
-<li><p>Also, if T is proper, then T has the following properties:</p>
-<ul>
-<li>2h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1</li>
-<li>h + 1 ≤ nE ≤ 2<sup>h</sup></li>
-<li>h ≤ nI ≤ 2<sup>h</sup> - 1</li>
-<li>log(n + 1) - 1 ≤ h ≤ (n - 1)/2</li>
-</ul>
-</li>
-<li><p>In a nonempty proper binary tree T, with nE external nodes and nI internal nodes, we have nE = nI + 1.</p>
-</li>
-</ul>
-<h1 id="Why-use-tree"><a href="#Why-use-tree" class="headerlink" title="Why use tree"></a>Why use tree</h1><ul>
-<li>You can search, insert/delete items quickly in a tree</li>
-<li>Ordered Arrays are bad at Insertions/Deletions</li>
-<li>Finding items in a Linkedlist is slow</li>
-<li>Time needed to perform an operation on a tree is O(log N)</li>
-<li>On average a tree is more efficient if you need to perform many different types of operations.</li>
-</ul>
-<h1 id="Code-practice"><a href="#Code-practice" class="headerlink" title="Code practice"></a>Code practice</h1><p><a href="http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159" target="_blank" rel="noopener">http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159</a></p>
-<h1 id="Geek-IDE"><a href="#Geek-IDE" class="headerlink" title="Geek IDE"></a>Geek IDE</h1><p><a href="http://code.geeksforgeeks.org/index.php" target="_blank" rel="noopener">http://code.geeksforgeeks.org/index.php</a></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/" target="_blank" rel="noopener">http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-19-Java-Tricky-Tech-Questions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -858,6 +457,408 @@ Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementation
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-19-Java-NavigableMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-19-Java-NavigableMap/" class="post-title-link" itemprop="url">NavigableMap Misc</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="What-is-NavigableMap"><a href="#What-is-NavigableMap" class="headerlink" title="What is NavigableMap"></a>What is NavigableMap</h1><ul>
+<li>NavigableMap in <strong>Java 6</strong> is an <strong>extension of SortedMap</strong>  like TreeMap which provides convenient navigation method like lowerKey, floorKey, ceilingKey and higherKey. </li>
+<li>NavigableMap is added on Java 1.6 and along with these popular navigation method it also provide ways <strong>to create a Sub Map from existing Map</strong> in Java e.g. <strong>headMap whose keys are less than specified key</strong>, <strong>tailMap whose keys are greater than specified key and a subMap which is strictly contains keys which falls between toKey and fromKey</strong>. All of these methods also provides a boolean to include specified key or not. TreeMap and ConcurrentSkipListMap are two concrete implementation of NavigableMap in Java 1.6 API.</li>
+</ul>
+<h1 id="use-NavigableMap"><a href="#use-NavigableMap" class="headerlink" title="use NavigableMap"></a>use NavigableMap</h1><p>How to create subMap from Map using Navigable Map in Java with Example<br>In this Java tutorial we will explore some API methods of NavigableMap to show its functionality. This Java program shows example of lowerKey which returns keys less than specified, floorKey returns key less than or equal to, ceilingKey return greater than or equal to and higherKey which returns keys which are greater than specified key. </p>
+<p>This Java example also demonstrate use of headMap(), tailMap() and subMap() method which is used to create Map from an existing Map in Java. headMap returns a Map whose keys are lower than specified keys while tailMap returns Map which contains keys, those are higher than specified. Here is complete code example of How to use NavigableMap in Java.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.NavigableMap;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Java program to demonstrate What is NavigableMap in Java and How to use NavigableMap</span></span><br><span class="line"><span class="comment"> * in Java. NavigableMap provides two important features navigation methods</span></span><br><span class="line"><span class="comment"> * like lowerKey(), floorKey, ceilingKey() and higherKey().</span></span><br><span class="line"><span class="comment"> * There Entry counterpart and methods to create subMap e.g. headMap(), tailMap()</span></span><br><span class="line"><span class="comment"> * and subMap().</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Javin Paul</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NavigableMapExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//NavigableMap extends SortedMap to provide useful navigation methods</span></span><br><span class="line">        NavigableMap&lt;String, String&gt; navigableMap = <span class="keyword">new</span> TreeMap&lt;String, String&gt;();</span><br><span class="line">     </span><br><span class="line">        navigableMap.put(<span class="string">"C++"</span>, <span class="string">"Good programming language"</span>);</span><br><span class="line">        navigableMap.put(<span class="string">"Java"</span>, <span class="string">"Another good programming language"</span>);</span><br><span class="line">        navigableMap.put(<span class="string">"Scala"</span>, <span class="string">"Another JVM language"</span>);</span><br><span class="line">        navigableMap.put(<span class="string">"Python"</span>, <span class="string">"Language which Google use"</span>);</span><br><span class="line">     </span><br><span class="line">        System.out.println(<span class="string">"SorteMap : "</span> + navigableMap);</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//lowerKey returns key which is less than specified key</span></span><br><span class="line">        System.out.println(<span class="string">"lowerKey from Java : "</span> + navigableMap.lowerKey(<span class="string">"Java"</span>));</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//floorKey returns key which is less than or equal to specified key</span></span><br><span class="line">        System.out.println(<span class="string">"floorKey from Java: "</span> + navigableMap.floorKey(<span class="string">"Java"</span>));</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//ceilingKey returns key which is greater than or equal to specified key</span></span><br><span class="line">        System.out.println(<span class="string">"ceilingKey from Java: "</span> + navigableMap.ceilingKey(<span class="string">"Java"</span>));</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//higherKey returns key which is greater specified key</span></span><br><span class="line">        System.out.println(<span class="string">"higherKey from Java: "</span> + navigableMap.higherKey(<span class="string">"Java"</span>));</span><br><span class="line">     </span><br><span class="line">     </span><br><span class="line">        <span class="comment">//Apart from navigagtion methodk, it also provides useful method</span></span><br><span class="line">        <span class="comment">//to create subMap from existing Map e.g. tailMap, headMap and subMap</span></span><br><span class="line">     </span><br><span class="line">        <span class="comment">//an example of headMap - returns NavigableMap whose key is less than specified</span></span><br><span class="line">        NavigableMap&lt;String, String&gt; headMap = navigableMap.headMap(<span class="string">"Python"</span>, <span class="keyword">false</span>);</span><br><span class="line">        System.out.println(<span class="string">"headMap created form navigableMap : "</span> + headMap);</span><br><span class="line">             </span><br><span class="line">        <span class="comment">//an example of tailMap - returns NavigableMap whose key is greater than specified</span></span><br><span class="line">        NavigableMap&lt;String, String&gt; tailMap = navigableMap.tailMap(<span class="string">"Scala"</span>, <span class="keyword">false</span>);</span><br><span class="line">        System.out.println(<span class="string">"tailMap created form navigableMap : "</span> + tailMap);</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//an example of subMap - return NavigableMap from toKey to fromKey</span></span><br><span class="line">        NavigableMap&lt;String, String&gt; subMap = navigableMap.subMap(<span class="string">"C++"</span>, <span class="keyword">false</span> ,</span><br><span class="line">                                                                  <span class="string">"Python"</span>, <span class="keyword">false</span>);</span><br><span class="line">        System.out.println(<span class="string">"subMap created form navigableMap : "</span> + subMap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">SorteMap : &#123;C++=Good programming language, Java=Another good programming language, Python=Language which Google use, Scala=Another JVM language&#125;</span><br><span class="line">lowerKey from Java : C++</span><br><span class="line">floorKey from Java: Java</span><br><span class="line">ceilingKey from Java: Java</span><br><span class="line">higherKey from Java: Python</span><br><span class="line">headMap created form navigableMap : &#123;C++=Good programming language, Java=Another good programming language&#125;</span><br><span class="line">tailMap created form navigableMap : &#123;&#125;</span><br><span class="line">subMap created form navigableMap : &#123;Java=Another good programming language&#125;</span><br></pre></td></tr></table></figure>
+
+<p> That’s all on What is NavigableMap in Java and How to use NavigableMap with example. We have seen examples of popular navigation method on TreeMap e.g. floorKey. You can also use similar method like lowerEntry, floorEntry, ceilingEntry and higherEntry to retrieve Entry instead of key. NavigableMap is also a good utility to create subset of a Map in Java.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://javarevisited.blogspot.com/2013/01/what-is-navigablemap-in-java-6-example-submap-head-tail.html#ixzz4WBdqjJCC" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/01/what-is-navigablemap-in-java-6-example-submap-head-tail.html#ixzz4WBdqjJCC</a></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-21-Algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-21-Algorithm/" class="post-title-link" itemprop="url">Algorithm</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="This-page-is-about-key-points-about-Algorithm"><a href="#This-page-is-about-key-points-about-Algorithm" class="headerlink" title="This page is about key points about Algorithm"></a>This page is about key points about Algorithm</h1><h2 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h2><ul>
+<li>The easiest way to improve search efficiency on a set of data is to put it in a data structure that allows more efficient searching.<br>What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1)).</li>
+<li>Then need to determine which data structure to be used. If the underlying characters are just ASCII, then a array[128] would be enough. But characters are UNICODe, then it need 100,000 (100K) array, which is a concern of memory, so hash table would be a better option, which only keep exist characters.<br>In general, arrays are a better choice for long strings with a limited set of possible characters values, hash tables are more efficient for shorter strings or when there are many possible character values.  </li>
+<li>For some problems, obvious iterative alternatives like the one just shown don’t exist, but it’s always possible to implement a recursive algorithm without using recursive calls.</li>
+<li>For a simple recursive function like factorial, many computer architectures spend more time on call overhead than on the actual calculation. Iterative functions, which use looping constructs instead of recursive function calls, do not suffer from this overhead and are frequently more efficient.</li>
+<li>NOTE Iterative solutions are usually more efficient than recursive solutions.</li>
+<li>NOTE Every recursive case must eventually lead to a base case.</li>
+<li>NOTE Recursive algorithms have two cases: recursive cases and base cases</li>
+</ul>
+<h1 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h1><h2 id="I-collections-sort"><a href="#I-collections-sort" class="headerlink" title="I collections.sort()"></a>I collections.sort()</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object[] a = list.toArray();</span><br><span class="line">        Arrays.sort(a);</span><br><span class="line">        ListIterator&lt;T&gt; i = list.listIterator();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;a.length; j++) &#123;</span><br><span class="line">            i.next();</span><br><span class="line">            i.set((T)a[j]);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Arrays-sort"><a href="#Arrays-sort" class="headerlink" title="Arrays.sort"></a>Arrays.sort</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Object[] a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (LegacyMergeSort.userRequested)</span><br><span class="line">            legacyMergeSort(a);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ComparableTimSort.sort(a);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(Object[] src,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  Object[] dest,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> low,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> high,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> off)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = high - low;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Insertion sort on smallest arrays</span></span><br><span class="line">        <span class="keyword">if</span> (length &lt; INSERTIONSORT_THRESHOLD) &#123; <span class="comment">// threshold is 7</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=low; i&lt;high; i++)</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j=i; j&gt;low &amp;&amp;</span><br><span class="line">                         ((Comparable) dest[j-<span class="number">1</span>]).compareTo(dest[j])&gt;<span class="number">0</span>; j--)</span><br><span class="line">                    swap(dest, j, j-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// else use mergeSort</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Self-review"><a href="#Self-review" class="headerlink" title="Self review"></a>Self review</h1><h2 id="CeasarCipher"><a href="#CeasarCipher" class="headerlink" title="CeasarCipher:"></a>CeasarCipher:</h2><p>Generally: it’s a rotation of English alphabic. E.g. if rotation is 2, the encode is start from A+2, i.e. A is at -2 of the encode array.<br>And decode is start with 26-2, and “A” start at positon 2, then the increase by 1 character to constitute the array<br>That’s why need to “%26”, to make it loop across 26 characters</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">If rotation is 2:</span><br><span class="line">--- encrytpion code is:[C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B]</span><br><span class="line">--- decrytpion code is:[Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X]</span><br><span class="line">If rotation is 4:</span><br><span class="line">--- encrytpion code is:[E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B, C, D]</span><br><span class="line">--- decrytpion code is:[W, X, Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ABC:</span><br><span class="line">Msg =&#123;‘A’,’B’,’C’&#125;;</span><br><span class="line">Char[] encode=’A’+(k+rotation)%<span class="number">26</span>);</span><br><span class="line">Char[] decode=’A’+(k-rotation+<span class="number">26</span>)%<span class="number">26</span>); <span class="comment">// +26 to avoid negative</span></span><br><span class="line"></span><br><span class="line">Encode=&#123;‘C’,’D’,’E’&#125;; <span class="comment">// rotation=3, so A+3, A+4,A+5,xxx, A+26=&gt;3,4,5,6,xxx,0</span></span><br><span class="line">Decode=&#123;‘M’,’N’,’O’&#125;;<span class="comment">//as k-rotation+26 % 26, so it’s 26-3+0,26-3+1 ,xx: =&gt; 23,24,25,0,1,2,3,4,is: A+23,A+24,A+25=&gt;‘M’,’N’,’O’. that’s rotation, rotain-1, rotaion -2 xxxx</span></span><br><span class="line">For(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;msg.length;i++)&#123;</span><br><span class="line">  Int j=msg[i]-‘A’; <span class="comment">// to remove the base ‘A”, so sync with the “k” in encode, 3,4,5,xxx 3+26</span></span><br><span class="line">  Msg[i]=codes[j];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// encode</span></span><br><span class="line">Int j=’A’-‘A’; <span class="comment">//0</span></span><br><span class="line">Msg[<span class="number">0</span>]=’C’;</span><br><span class="line">Msg[<span class="number">1</span>]=’D’;</span><br><span class="line">Msg[<span class="number">2</span>]=’E’;</span><br><span class="line"></span><br><span class="line"><span class="comment">//decode</span></span><br><span class="line">Int j=msg[i]-‘A’; <span class="comment">//’C’-‘A’=3</span></span><br><span class="line">Msg[i]=decode[j]; <span class="comment">// correspoindg to the postion 0,-xxx, 26 in decode, </span></span><br><span class="line">Msg[<span class="number">0</span>]=</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>If you says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.</li>
+</ul>
+<h1 id="To-print-content-of-Array"><a href="#To-print-content-of-Array" class="headerlink" title="To print content of Array"></a>To print content of Array</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import java.util.Arrays;</span><br><span class="line">Arrays.toString(ary);</span><br><span class="line">Arrays.deepToString(ary);</span><br></pre></td></tr></table></figure>
+
+<h1 id="search-without-recursive"><a href="#search-without-recursive" class="headerlink" title="search without recursive"></a>search without recursive</h1><p>Node findNode( Node root, int value ){<br>    while( root != null ){<br>        int currval = root.getValue();<br>        if( currval == value ) break;<br>        if( currval &lt; value ){<br>            root = root.getRight();<br>        } else { // currval &gt; value<br>            root = root.getLeft();<br>        }<br>    }</p>
+<pre><code>return root;</code></pre><p>}</p>
+<ul>
+<li><p>preceding lookup operation can be reimplemented recursively as follows:<br>Node findNode( Node root, int value ){<br>  if( root == null ) return null;<br>  int currval = root.getValue();<br>  if( currval == value ) return root;<br>  if( currval &lt; value ){</p>
+<pre><code>return findNode( root.getRight(), value );</code></pre><p>  } else { // currval &gt; value</p>
+<pre><code>return findNode( root.getLeft(), value );</code></pre><p>  }<br>}</p>
+</li>
+<li><p>This subtree property is conducive to recursion because recursion generally involves solving a problem in terms of similar subproblems and a base case. </p>
+</li>
+</ul>
+<h1 id="Big-O-sequencey"><a href="#Big-O-sequencey" class="headerlink" title="Big O sequencey"></a>Big O sequencey</h1><p>1, logn, n, n log n, n2, n3, 2n(2 power n).</p>
+<h1 id="Big-O"><a href="#Big-O" class="headerlink" title="Big O"></a>Big O</h1><ul>
+<li>It is also considered poor taste to include constant factors and lower-order terms in the big-Oh notation. For example, it is not fashionable to say that the function 2n2 is O(4n2 + 6n log n), although this is completely correct. We should strive instead to describe the function in the big-Oh <strong>in simplest terms</strong>.</li>
+<li>So, for example, we would say that an algorithm that runs in worst-case time 4n2 + n log n is a quadratic-time algorithm, since it runs in O(n2) time. Likewise, an algorithm running in time at most 5n + 20logn + 4 would be called a linear-time algorithm.</li>
+</ul>
+<h1 id="Big-Omega"><a href="#Big-Omega" class="headerlink" title="Big Omega"></a>Big Omega</h1><ul>
+<li>Just as the big-Oh notation provides an asymptotic way of saying that a function is “less than or equal to” another function, the following notations provide <strong>an asymptotic way</strong> of saying that a function grows at a rate that is “<strong>greater than or equal to</strong>” that of another.</li>
+<li>Example 4.14: 3n log n ? 2n is Ω(n log n).</li>
+</ul>
+<h1 id="Big-Theta"><a href="#Big-Theta" class="headerlink" title="Big-Theta"></a>Big-Theta</h1><ul>
+<li>In addition, there is a notation that allows us to say that two functions grow at the same rate, up to constant factors. We say that f(n) is Θ(g(n)), pronounced “f(n) is big-Theta of g(n),”</li>
+</ul>
+<h1 id="Comparative-Analysis"><a href="#Comparative-Analysis" class="headerlink" title="Comparative Analysis"></a>Comparative Analysis</h1><ul>
+<li>asymptotically[,?simp’t?tik,-k?l] better</li>
+<li>Suppose two algorithms solving the same problem are available: an algorithm A, which has a running time of O(n), and an algorithm B, which has a running time of O(n2). Which algorithm is better? We know that n is O(n2), which implies that algorithm A <strong>is asymptotically better</strong> than algorithm B, although for a small value of n, B may have a lower running time than A.</li>
+</ul>
+<h1 id="Some-Words-of-Caution"><a href="#Some-Words-of-Caution" class="headerlink" title="Some Words of Caution"></a>Some Words of Caution</h1><ul>
+<li>First, note that the use of the big-Oh and related notations can be somewhat misleading should the constant factors they “hide” be very large. For example, while it is true that the function 10100n is O(n), if this is the running time of an algorithm being compared to one whose running time is 10n log n, we should prefer the O(nlog n)-time algorithm, even though the linear-time algorithm is asymptotically faster. This preference is because the constant factor, 10100, which is called “one googol,” is believed by many astronomers to be an upper bound on the number of atoms in the observable universe. So we are unlikely to ever have a real-world problem that has this number as its input size.</li>
+</ul>
+<h1 id="Exponential-eksp-’nen-l-Running-Times"><a href="#Exponential-eksp-’nen-l-Running-Times" class="headerlink" title="Exponential [,eksp?’nen?(?)l] Running Times"></a>Exponential [,eksp?’nen?(?)l] Running Times</h1><ul>
+<li>To see how fast the function 2n grows, consider the famous story about the inventor of the game of chess. He asked only that his king pay him 1 grain of rice for the first square on the board, 2 grains for the second, 4 grains for the third, 8 for the fourth, and so on. The number of grains in the 64th square would be<br>263 = 9, 223, 372, 036, 854, 775, 808,<br>which is about nine billion billions!</li>
+<li>If we must draw a line between efficient and inefficient algorithms, therefore, it is natural to make this distinction be that between those algorithms running in <strong>polynomial [,p?l?’n??m??l] time</strong> and those running in <strong>exponential time</strong>. That is, make the distinction between algorithms with a running time that is <strong>O(nc)</strong> (power c based on n), for some constant c &gt; 1, and those with a running time that is <strong>O(bn)</strong> (power n based on b), for some constant b &gt; 1. Like so many notions we have discussed in this section, this too should be taken with a “grain of salt,” for an algorithm running in O(n100) time should probably not be considered “efficient.” Even so, the distinction between polynomial-time and exponential-time algorithms is considered a robust measure of tractability.</li>
+</ul>
+<h1 id="Examples-of-Algorithm-Analysis"><a href="#Examples-of-Algorithm-Analysis" class="headerlink" title="Examples of Algorithm Analysis"></a>Examples of Algorithm Analysis</h1><h2 id="constant-time-operation"><a href="#constant-time-operation" class="headerlink" title="constant time operation"></a>constant time operation</h2><ul>
+<li>All of the primitive operations, originally described on page 154, are assumed to run in constant time; Assume that variable A is an array of n elements. The expression A.length in Java is evaluated in constant time, because arrays are represented internally with an explicit variable that records the length of the array. Another central behavior of arrays is that for any valid index j, the individual element, A[j], can be accessed in constant time. This is because an array uses a consecutive block of memory. The jth element can be found, not by iterating through the array one element at a time, but by validating the index, and using it as an offset from the beginning of the array in determining the appropriate memory address. Therefore, we say that the expression A[j] is evaluated in O(1) time for an array.</li>
+</ul>
+<h2 id="Finding-the-Maximum-of-an-Array"><a href="#Finding-the-Maximum-of-an-Array" class="headerlink" title="Finding the Maximum of an Array"></a>Finding the Maximum of an Array</h2><p>Proposition 4.16: The algorithm, arrayMax, for computing the maximum element of an array of n numbers, runs in O(n) time.</p>
+<p>Justification: The initialization at lines 3 and 4 and the return statement at line 8 require only a constant number of primitive operations. Each iteration of the loop also requires only a constant number of primitive operations, and the loop executes n ? 1 times.</p>
+<h2 id="Composing-Long-Strings"><a href="#Composing-Long-Strings" class="headerlink" title="Composing Long Strings"></a>Composing Long Strings</h2><ul>
+<li><p>Therefore, the overall time taken by this algorithm is proportional to<br>1 + 2 + ··· + n,<br>which we recognize as the familiar O(n<sup>2</sup>) summation from Proposition 4.3. Therefore, the total time complexity of the repeat1 algorithm is O(n<sup>2</sup>).</p>
+</li>
+<li><p>x = logbn if and only if bx = n.<br>The value b is known as the base of the logarithm. Note that by the above definition, for any base b &gt; 0, we have that logb 1 = 0.</p>
+</li>
+</ul>
+<h1 id="Three-Way-Set-Disjointness"><a href="#Three-Way-Set-Disjointness" class="headerlink" title="Three-Way Set Disjointness"></a>Three-Way Set Disjointness</h1><h2 id="Origional-solution"><a href="#Origional-solution" class="headerlink" title="Origional solution"></a>Origional solution</h2><p>Suppose we are given three sets, A, B, and C, stored in three different integer arrays. We will assume that no individual set contains duplicate values, but that there may be some numbers that are in two or three of the sets. The three-way set disjointness problem is to determine if the intersection of the three sets is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">disjoint1</span><span class="params">(<span class="keyword">int</span>[]  groupA, <span class="keyword">int</span>[] groupB, <span class="keyword">int</span>[] groupC)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> i : groupA) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j : groupB) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k : groupC) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j &amp;&amp; j==k)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>This simple algorithm loops through each possible triple of values from the three sets to see if those values are equivalent. If each of the original sets has size n, then the worst-case running time of this method is O(n<sup>3</sup>) .<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">disjoint2</span><span class="params">(<span class="keyword">int</span>[]  groupA, <span class="keyword">int</span>[] groupB, <span class="keyword">int</span>[] groupC)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> i : groupA) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j : groupB) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j)&#123;</span><br><span class="line">                    <span class="comment">// add this checking to reduce complexitiy</span></span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k : groupC) &#123;</span><br><span class="line">                        <span class="keyword">if</span>(j==k)&#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>In the improved version, it is not simply that we save time if we get lucky. We claim that the worst-case running time for disjoint2 is O(n<sup>2</sup>).</p>
+<h1 id="by-sorting"><a href="#by-sorting" class="headerlink" title="by sorting"></a>by sorting</h1><p>Sorting algorithms will be the focus of Chapter 12. The best sorting algorithms (including those used by Array.sort in Java) guarantee a worst-case running time of O(nlog n). Once the data is sorted, the subsequent loop runs in O(n) time, and so the entire unique2 algorithm runs in O(n log n) time. Exercise C-4.35 explores the use of sorting to solve the three-way set disjointness problem in O(n log n) time.</p>
+<h1 id="prefixAverage"><a href="#prefixAverage" class="headerlink" title="prefixAverage"></a>prefixAverage</h1><p>Check the source code at PrefixAverage.java, the inital implementation is two for loop, which is O(n<sup>2</sup>), while the better approach is reuse existing total sum.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// naiive approach,</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="keyword">double</span> total=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;=i; j++) &#123; <span class="comment">// be awre it's &lt;=, instead of "&lt;"</span></span><br><span class="line">				total+=x[j];				</span><br><span class="line">			&#125;</span><br><span class="line">			a[i]=total/(i+<span class="number">1</span>);			</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">// better approach</span></span><br><span class="line"><span class="keyword">double</span> total=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			total += x[i];</span><br><span class="line">			a[i]=total/(i+<span class="number">1</span>);			</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Recursive"><a href="#Recursive" class="headerlink" title="Recursive"></a>Recursive</h1><h2 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h2><ol>
+<li>We have one or more <strong>base cases</strong>, which refer to fixed values of the function. e.g. for n!=1 as  n=1 is base.</li>
+<li>Then we have one or more <strong>recursive cases</strong>, which define the function in terms of itself. for n!, it’s =n*(n-1)! for n&gt;=1</li>
+</ol>
+<ul>
+<li>Repetition is achieved through repeated recursive invocations of the method. The process i finite because each time the method is invoked, its argument is smaller by one, and when a base case is reached, no further recursive calls are made.</li>
+<li>In the case of computing the factorial function, there is no compelling reason for prefereing recursion over a direct iteration with a loop.</li>
+</ul>
+<h1 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h1><h2 id="ADT-Abstract-Data-Type"><a href="#ADT-Abstract-Data-Type" class="headerlink" title="ADT (Abstract Data Type)"></a>ADT (Abstract Data Type)</h2><ul>
+<li>we define a tree ADT using the concept of a position as an abstraction for a node of a tree. An element is stored at each position, and positions satisfy parent-child relationships that define the tree structure. </li>
+</ul>
+<h2 id="Depth-and-Height"><a href="#Depth-and-Height" class="headerlink" title="Depth and Height"></a>Depth and Height</h2><h3 id="Depth"><a href="#Depth" class="headerlink" title="Depth"></a>Depth</h3><ul>
+<li>The depth of p is the number of ancestors of p, other than p itself.</li>
+<li>The running time of depth(p) for position p is O(dp + 1), where dp denotes the depth of p in the tree, because the algorithm performs a constant-time recursive step for each ancestor of p. Thus, algorithm depth(p) runs in O(n) worst-case time, where n is the total number of positions of T, because a position of T may have depth n - 1 <strong>if all nodes form a single branch</strong>. </li>
+<li>Method depth, as implemented within the AbstractTree class.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">depth</span><span class="params">(Position&lt;E&gt; p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(isRoot(p))</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>+depth(parent(p));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Height"><a href="#Height" class="headerlink" title="Height"></a>Height</h3><ul>
+<li>We next define the height of a tree to be equal to the maximum of the depths of its positions (or zero, if the tree is empty).</li>
+<li>Folloing worst time cost is O(n), it progresses in a <strong>top-down</strong> fashion.</li>
+<li>If the method is initially called on the root of T, it will eventually be called once for each position of T. This is because the root eventually invokes the recursion on each of its children, which in turn invokes the recursion on each of their children, and so on.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">height</span><span class="params">(Position&lt;E&gt; p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> h=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(Position&lt;E&gt; c: children(p))</span><br><span class="line">		h=Math.max(h,<span class="number">1</span>+height(c));</span><br><span class="line">	<span class="keyword">return</span> h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h2><ul>
+<li><p>A binary tree is an ordered tree with the following properties:</p>
+<ul>
+<li>Every node has at most two children.</li>
+<li>Each child node is labeled as being either a left child or a right child.</li>
+<li>A left child precedes a right child in the order of children of a node.</li>
+</ul>
+</li>
+<li><p>A binary <strong>tree is proper if each node has either zero or two children</strong>. Some people also refer to <strong>such trees as being full binary trees</strong>. Thus, <strong>in a proper binary tree, every internal node has exactly two children</strong>. A binary tree that is not proper is <strong>improper</strong>.</p>
+<h3 id="Some-binary-trees"><a href="#Some-binary-trees" class="headerlink" title="Some binary trees"></a>Some binary trees</h3><h4 id="decision-tree"><a href="#decision-tree" class="headerlink" title="decision tree"></a>decision tree</h4></li>
+<li><p>An important class of binary trees arises in contexts where we wish to represent a number of different outcomes that can result from answering a series of yes-or-no questions. Each internal node is associated with a question. Starting at the root, we go to the left or right child of the current node, depending on whether the answer to the question is “Yes” or “No.” With each decision, we follow an edge from a parent to a child, eventually tracing a path in the tree from the root to a leaf. Such binary trees are known as decision trees, because a leaf position p in such a tree represents a decision of what to do if the questions associated with p’s ancestors are answered in a way that leads to p. <strong>A decision tree is a proper binary tree</strong>. </p>
+<h4 id="Arithmetic-expression"><a href="#Arithmetic-expression" class="headerlink" title="Arithmetic expression"></a>Arithmetic expression</h4></li>
+<li><p>An arithmetic expression can be represented by a binary tree whose leaves are associated with variables or constants, and whose internal nodes are associated with one of the operators +, ?, *, and /, as demonstrated in Figure 8.6. Each node in such a tree has a value associated with it.</p>
+<ul>
+<li>If a node is leaf, then its value is that of its variable or constant.</li>
+<li>If a node is internal, then its value is defined by applying its operation to the values of its children.<h3 id="Properties-of-Binary-trees"><a href="#Properties-of-Binary-trees" class="headerlink" title="Properties of Binary trees"></a>Properties of Binary trees</h3></li>
+</ul>
+</li>
+<li><p>level d has at most 2<sup>d</sup> nodes</p>
+</li>
+<li><p>Let T be a nonempty binary tree, and let n, nE, nI, and h denote the number of nodes, number of external nodes, number of internal nodes, and height of T, respectively. Then T has the following properties:</p>
+<ul>
+<li>h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1</li>
+<li>1 ≤ nE ≤ 2<sup>h</sup></li>
+<li>h ≤ nI ≤ 2<sup>h</sup> - 1</li>
+<li>log(n + 1) - 1 ≤ h ≤ n - 1</li>
+</ul>
+</li>
+<li><p>Also, if T is proper, then T has the following properties:</p>
+<ul>
+<li>2h + 1 ≤ n ≤ 2<sup>h+1</sup> - 1</li>
+<li>h + 1 ≤ nE ≤ 2<sup>h</sup></li>
+<li>h ≤ nI ≤ 2<sup>h</sup> - 1</li>
+<li>log(n + 1) - 1 ≤ h ≤ (n - 1)/2</li>
+</ul>
+</li>
+<li><p>In a nonempty proper binary tree T, with nE external nodes and nI internal nodes, we have nE = nI + 1.</p>
+</li>
+</ul>
+<h1 id="Why-use-tree"><a href="#Why-use-tree" class="headerlink" title="Why use tree"></a>Why use tree</h1><ul>
+<li>You can search, insert/delete items quickly in a tree</li>
+<li>Ordered Arrays are bad at Insertions/Deletions</li>
+<li>Finding items in a Linkedlist is slow</li>
+<li>Time needed to perform an operation on a tree is O(log N)</li>
+<li>On average a tree is more efficient if you need to perform many different types of operations.</li>
+</ul>
+<h1 id="Code-practice"><a href="#Code-practice" class="headerlink" title="Code practice"></a>Code practice</h1><p><a href="http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159" target="_blank" rel="noopener">http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159</a></p>
+<h1 id="Geek-IDE"><a href="#Geek-IDE" class="headerlink" title="Geek IDE"></a>Geek IDE</h1><p><a href="http://code.geeksforgeeks.org/index.php" target="_blank" rel="noopener">http://code.geeksforgeeks.org/index.php</a></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/" target="_blank" rel="noopener">http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-26-IT-Architect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-26-IT-Architect/" class="post-title-link" itemprop="url">IT-Architect</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="SOA"><a href="#SOA" class="headerlink" title="SOA"></a>SOA</h1><ul>
+<li>SOA is a set of design principles for building a suite of interoperable, flexible and reusable services based architecture.</li>
+<li>top-down and bottom-up approach SOA patterns</li>
+</ul>
+<h1 id="Design-Patterns"><a href="#Design-Patterns" class="headerlink" title="Design Patterns"></a>Design Patterns</h1><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><ul>
+<li>Being single sometimes has its advantages you know. I’m often used to manage pools of resources, like connection or thread pools.</li>
+<li>The Singleton Pattern ensures a class has only one instance, and provides <strong>a global point of access to it</strong>.</li>
+<li>WATCH IT!</li>
+</ul>
+<p><strong>Double-checked locking doesn’t work in Java 1.4 or earlier</strong>!
+Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementations of the <strong>volatile keyword that allow improper synchronization for double-checked locking</strong>. If you must use a JVM earlier than Java 5, consider other methods of implementing your Singleton.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-28-Network-Protocols/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -910,84 +911,6 @@ Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementation
 <li>Like most models, this OSI physical layer contains the electrical, mechanical, and functional means to establish physical connections between Layer-2 devices.</li>
 <li>In addition to interfacing with the Network Layer, the data link connection can be built upon one or more physical layer interfaces.</li>
 <li></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-02-Java-New-IO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-02-02-Java-New-IO/" class="post-title-link" itemprop="url">Java New IO</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h1><ul>
-<li>JDK 1.0 introduced <strong>rudimentary I/O facilities</strong> for accessing the file system (to create a directory, remove a file, or perform another task), accessing file content randomly (as opposed to sequentially), and streaming byte-oriented data between sources and destinations in a sequential manner.</li>
 </ul>
 
           
@@ -1230,6 +1153,161 @@ Access to resources guarded by an exclusive lock is serialized—only one thread
 <h2 id="Test-resource-management"><a href="#Test-resource-management" class="headerlink" title="Test resource management"></a>Test resource management</h2><ul>
 <li><strong>The tests so far have been concerned with a class’s adherence to its specifica- tion—that it does what it is supposed to do. A secondary aspect to test is that it does not do things it is not supposed to do</strong>, such as leak resources. Any object that holds or manages other objects should not continue to maintain references to those objects longer than necessary. Such storage leaks prevent garbage collectors from reclaiming memory (or threads, file handles, sockets, database connections, or other limited resources) and can lead to resource exhaustion and application failure.</li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-02-Java-New-IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-02-Java-New-IO/" class="post-title-link" itemprop="url">Java New IO</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h1><ul>
+<li>JDK 1.0 introduced <strong>rudimentary I/O facilities</strong> for accessing the file system (to create a directory, remove a file, or perform another task), accessing file content randomly (as opposed to sequentially), and streaming byte-oriented data between sources and destinations in a sequential manner.</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-06-Eclipse-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-06-Eclipse-tips/" class="post-title-link" itemprop="url">Eclipse notes</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="How-do-I-remove-a-plug-in"><a href="#How-do-I-remove-a-plug-in" class="headerlink" title="How do I remove a plug-in?"></a>How do I remove a plug-in?</h1><p>Run Help &gt; About Eclipse &gt; Installation Details, select the software you no longer want and click Uninstall. (On Macintosh it is Eclipse &gt; About Eclipse &gt; Installation Details.)</p>
+<h1 id="Where-is-the-Eclipse-Plugin-update-error-log"><a href="#Where-is-the-Eclipse-Plugin-update-error-log" class="headerlink" title="Where is the Eclipse Plugin update error log?"></a>Where is the Eclipse Plugin update error log?</h1><p>The log is located at current workspace: {workspace_path}/.metadata/.log - also you can view this log in view “Error Log”: Window &gt; Show View &gt; Other &gt; Find here “Error Log”</p>
 
           
         
@@ -1662,7 +1740,7 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-05-JVM/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-06-SSH-Cryptography/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1678,7 +1756,7 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-02-05-JVM/" class="post-title-link" itemprop="url">Java JVM</a>
+              <a href="/2017-02-06-SSH-Cryptography/" class="post-title-link" itemprop="url">SSH and Cryptography</a>
             
           </h1>
         
@@ -1710,95 +1788,246 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
 
       
           
-            <h1 id="Class-loading-subsystem"><a href="#Class-loading-subsystem" class="headerlink" title="Class loading subsystem"></a>Class loading subsystem</h1><p>Consist of three sections</p>
-<h2 id="load"><a href="#load" class="headerlink" title="load"></a>load</h2><p>There are three class loaders</p>
-<ul>
-<li>bootstrap class loader, e.g. rt.jar</li>
-<li>extension class loader, e.g. jre/lib/ext</li>
-<li>application class loader, e.g. -cp<h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2></li>
-<li>Verify</li>
-<li>Prepare</li>
-<li>Resolve<h2 id="Initialize"><a href="#Initialize" class="headerlink" title="Initialize"></a>Initialize</h2></li>
-<li>While deadlock is the most widely encountered liveness hazard, there are sev- eral other liveness hazards you may encounter in concurrent programs including starvation, missed signals, and livelock.</li>
+            <h1 id="SFTP-versus-FTPS"><a href="#SFTP-versus-FTPS" class="headerlink" title="SFTP versus FTPS"></a>SFTP versus FTPS</h1><ul>
+<li>SS: Secure Shell</li>
+<li>An increasing number of our customers are looking to move away from standard FTP for transferring data, so we are often asked which secure FTP protocol we recommend. In the next few paragraphs, we will explain what options are available and their main differences.</li>
+<li>The two mainstream protocols available for Secure FTP transfers are named SFTP (FTP over SSH) and FTPS (FTP over SSL). Both SFTP and FTPS offer a high level of protection since they implement strong algorithms such as AES and Triple DES to encrypt any data transferred. Both options also support a wide variety of functionality with a broad command set for transferring and working with files. So the most notable differences between SFTP and FTPS is how connections are authenticated and managed.</li>
 </ul>
-<h1 id="Metaspace"><a href="#Metaspace" class="headerlink" title="Metaspace"></a>Metaspace</h1><p>Since Java 8, the introduce of metaspace is kind of using memory or even virtual memory in OS, so theriotically there is no limit of metaspace. But PermGen is part of Method area, so that is upper limit for PermGen.</p>
+<h2 id="Authentication-SFTP-vs-FTPS"><a href="#Authentication-SFTP-vs-FTPS" class="headerlink" title="Authentication: SFTP vs. FTPS"></a>Authentication: SFTP vs. FTPS</h2><ul>
+<li>With SFTP (FTP over SSH), a connection can be authenticated using a couple different techniques.  For basic authentication, you (or your trading partner) may just require a user id and password to connect to the SFTP server. Its important to note that any user ids and passwords supplied over the SFTP connection will be encrypted, which is a big advantage over standard FTP.</li>
+<li>SSH keys can also be used to authenticate SFTP connections in addition to, or instead of, passwords. With key-based authentication, you will first need to generate a SSH private key and public key beforehand. If you need to connect to a trading partner’s SFTP server, you would send your SSH public key to them, which they will load onto their server and associate with your account. When you connect to their SFTP server, your client software will transmit your public key to the server for authentication. If the keys match, along with any user/password supplied, then the authentication will succeed.</li>
+<li>With FTPS (FTP over SSL), a connection is authenticated using a user id, password and certificate(s).  Like SFTP, the users and passwords for FTPS connections will also be encrypted. When connecting to a trading partner’s FTPS server, your FTPS client will first check if the server’s certificate is trusted. The certificate is considered trusted if either the certificate was signed off by a known certificate authority (CA), like Verisign, or if the certificate was self-signed (by your partner) and you have a copy of their public certificate in your trusted key store.</li>
+<li>Your partner may also require that you supply a certificate when you connect to them.  Your certificate may be signed off by a 3rd party CA or your partner may allow you to just self-sign your certificate, as long as you send them the public portion of your certificate beforehand (which they will load in their trusted key store).</li>
+</ul>
+<h2 id="Implementation-SFTP-vs-FTPS"><a href="#Implementation-SFTP-vs-FTPS" class="headerlink" title="Implementation: SFTP vs. FTPS"></a>Implementation: SFTP vs. FTPS</h2><ul>
+<li>In regards to how easy each of the secure FTP protocols are to implement, SFTP is the clear winner since it is very firewall friendly. SFTP only needs a single port number (default of 22) to be opened through the firewall.  This port will be used for all SFTP communications, including the initial authentication, any commands issued, as well as any data transferred.</li>
+<li>On the other hand, FTPS can be very difficult to patch through a tightly secured firewall since FTPS uses multiple port numbers. The initial port number (default of 21) is used for authentication and passing any commands.  However, every time a file transfer request (get, put) or directory listing request is made, another port number needs to be opened.  You and your trading partners will therefore have to open a range of ports in your firewalls to allow for FTPS connections, which can be a security risk for your network.</li>
+</ul>
+<p>In summary, SFTP and FTPS are both very secure with strong authentication options.  However since SFTP is much easier to port through firewalls, and we are seeing an increasing percentage of trading partners adopting SFTP, we believe SFTP is the clear winner for your secure FTP needs.</p>
+<h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><ul>
+<li>There are several ways to use SSH; one is to use automatically generated public-private key pairs to simply encrypt a network connection, and then use password authentication to log on.</li>
+<li>Another is to use a manually generated public-private key pair to perform the authentication, allowing users or programs to log in without having to specify a password. In this scenario, anyone can produce a matching pair of different keys (public and private). The public key is placed on all computers that must allow access to the owner of the matching private key (the owner keeps the private key secret). While authentication is based on the private key, the key itself is never transferred through the network during authentication. SSH only verifies whether the same person offering the public key also owns the matching private key. In all versions of SSH it is important to verify unknown public keys, i.e. associate the public keys with identities, before accepting them as valid. Accepting an attacker’s public key without validation will authorize an unauthorized attacker as a valid user.</li>
+<li>SSH is important in cloud computing to solve connectivity problems, avoiding the security issues of exposing a cloud-based virtual machine directly on the Internet. An SSH tunnel can provide a secure path over the Internet, through a firewall to a virtual machine.</li>
+<li>The standard TCP port 22 has been assigned for contacting SSH servers.</li>
+</ul>
+<h2 id="Key-management"><a href="#Key-management" class="headerlink" title="Key management"></a>Key management</h2><ul>
+<li>On Unix-like systems, the list of authorized public keys is typically stored in the home directory of the user that is allowed to log in remotely, in the file ~/.ssh/authorized_keys.</li>
+</ul>
+<h3 id="WinFTP"><a href="#WinFTP" class="headerlink" title="WinFTP"></a>WinFTP</h3><ul>
+<li>cryptographic protocol is SSH-2</li>
+<li>SSH implementation is OpenSSH_5.3</li>
+<li>Server fingerprint: File transfer protocol = SFTP-3<br>Cryptographic protocol = SSH-2<br>SSH implementation = OpenSSH_5.3<br>Encryption algorithm = aes<br>Compression = No</li>
+</ul>
+<hr>
+<p>Server host key fingerprint</p>
+<h2 id="ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc"><a href="#ssh-rsa-2048-86-54-d9-09-25-c0-9b-f8-17-8c-c0-52-13-0c-9c-cc" class="headerlink" title="ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc"></a>ssh-rsa 2048 86:54:d9:09:25:c0:9b:f8:17:8c:c0:52:13:0c:9c:cc</h2><h1 id="ssh-keygen"><a href="#ssh-keygen" class="headerlink" title="ssh-keygen"></a>ssh-keygen</h1><ul>
+<li>ssh-keygen is a standard component of the Secure Shell (SSH) protocol suite found on Unix and Unix-like computer systems used to establish secure shell sessions between remote computers over insecure networks, through the use of various cryptographic techniques. The ssh-keygen utility is used to generate, manage, and convert authentication keys.</li>
+<li>ssh-keygen is able to generate a key using one of three different digital signature algorithms.</li>
+<li>With the help of the ssh-keygen tool, a user can create passphrase keys for any of these key types (to provide for unattended operation, the passphrase can be left empty, at increased risk).</li>
+</ul>
+<h2 id="algorithm"><a href="#algorithm" class="headerlink" title="algorithm"></a>algorithm</h2><ul>
+<li>SSH protocol version 1 (now deprecated) only the RSA algorithm was supported.</li>
+<li>The SSH protocol version 2 additionally introduced support for the DSA algorithm.</li>
+<li>Subsequently, OpenSSH added support for a third digital signature algorithm, ECDSA </li>
+</ul>
+<h1 id="DSA"><a href="#DSA" class="headerlink" title="DSA"></a>DSA</h1><ul>
+<li>The Digital Signature Algorithm (DSA) is a Federal Information Processing Standard for digital signatures. It was proposed by the National Institute of Standards and Technology (NIST) in August 1991 for use in their Digital Signature Standard (DSS) and adopted as FIPS 186 in 1993</li>
+</ul>
+<h1 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h1><p>In cryptography applications, we often need a so-called secure hash function. Secure hash functions are generaelly a subset of hash functions that fulfil at least two extra criteria:</p>
+<ul>
+<li>it must be computationally impossible to reverse the mapping, that is, go from a hash code to a message or piece of data that would have generated that hash code;</li>
+<li>it must be infeasible for a collision to occur: that is, for two messages to be found that have the same hash code.</li>
+</ul>
+<p>In order to fulfil these criteria (or at least, as a by-product of needing to fulfil these criteria), secure hash functions generally have these characteristics:</p>
+<p>they are slower to compute than the hash codes typically used to key hash maps;<br>they are wider (i.e. have more bits) than weak hash codes.</p>
+<p>Secure hash codes are typically 128 bits wide at the very least; compare that, for example, to the 32-bit codes returned by Java hashCode() method, or the 64-bit hash codes recommended for key-less hash maps in Numerical Recipes.</p>
+<p>Applications of secure hash functions<br>Secure hash functions actually have various applications. A very common case is verifying the integrity of data. When we send some data, we append a hash of that data; on the receiving end, we re-hash the received data and check that the computed hash equals that sent; if any of the data has changed then (with overwhelming probability), the computed hash value will no longer match the original. Another case is where we need to authenticate some data, i.e. produce a kind of integrity check that only a party with a given private key could produce. (In this case, the general solution is to combine a hash code with encryption.)</p>
+<p>In other cases, a secure hash function is useful to represent a particular item of data. For example, for the purpose of checking passwords, we need only store a hash of that password. When somebody enters their password, if the computed hash of what they entered matches the hash stored in the password file/database, we assume they knew the password.</p>
+<p>This scheme, sometimes called compare by hash (CBH) can be used to search for duplicates of data on a hard drive or for synching data between multiple machines. Similarly, another example are the databases that various law enforcement agencies keep of known “disapproved” files that they want to search peoples hard drives for. In these applications, keeping a database of the actual file contents, and/or transmitting and comparing those entire contents, would be impractical. Instead, only hashes are stored and compared.</p>
+<p>More broadly, secure hash functions are useful in a variety of cases where we need a trapdoor function (i.e. one that cannot feasibly be reversed), especially where we need one with a limited or fixed-size result.</p>
+<p>As mentioned, secure hashes are sometimes called message digests. And in fact, the main class for computing them in Java is java.security.MessageDigest. We get an instance of MessageDigest, feed it an array (or several arrays) of bytes, then call its digest() method to get the resulting hash:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] data = ....</span><br><span class="line"></span><br><span class="line">MessageDigest md = MessageDigest.getInstance(<span class="string">"SHA-1"</span>);</span><br><span class="line">md.update(data);</span><br><span class="line"><span class="keyword">byte</span>[] hash = md.digest();</span><br></pre></td></tr></table></figure>
 
-          
-        
-      
-    </div>
+<h2 id="MD5"><a href="#MD5" class="headerlink" title="MD5"></a>MD5</h2><p>MD5 is a later hash function developed by Ron Rivest. It is one of the most common hash algorithms in use today. Like MD2, it is a 128-bit hash function but, unlike its predecessor, it is one of the fastest “secure” hash functions in common use, and the fastest provided in Java 6.</p>
+<p>Unfortunately, it is now considered insecure. Aside from the relatively small hash size, there are well-published methods to find collisions analytically in a trivial amount of time. For example, Vlastimil Klima has published a C program to find MD5 collisions in around 30 seconds on an average PC. If you need security, dont use MD5!</p>
+<p>Although insecure, MD5 still makes a good general strong hash function due to its speed. In non-security applications such as finding duplicate files on a hard disk (where you are not trying to protect against the threat model of somebody deliberately fooling your system), MD5 makes a good choice.</p>
+<h2 id="SHA-algorithms"><a href="#SHA-algorithms" class="headerlink" title="SHA algorithms"></a>SHA algorithms</h2><p>SHA (Secure Hash Algorithm) refers collectively to various hash functions developed by the US National Security Agency (NSA). The various algorithms are based on differing hash sizes and (in principle) offer corresponding levels of security:</p>
+<h1 id="PBE-password-based-encryption"><a href="#PBE-password-based-encryption" class="headerlink" title="PBE  password-based encryption"></a>PBE  password-based encryption</h1><p>The technique of generating a secret key from a user-generated passphrase is usually called password-based encryption (PBE). As you might imagine, it is fraught with difficulty. In particular:</p>
+<ul>
+<li>the user is requirement and the security requirement usually conflict: the user requires an easy-to-remember passphrase, or at least one that is made of recognisable characters and short enough to write down; yet for secure encryption by today is standards, we require at least 128 strongly random bits (and ideally more);</li>
+<li>password-based encryption is typically used in applications where an attacker can repeatedly try to guess the password undetected and beyond the control of the genuine sender/recipient (if the password is being used to log into our server, we can detect that so many invalid attempts were made and in the worst case shut down our server to prevent further attempts; but if an eavesdropper takes a copy of the encrypted ZIP file we e-mailed, we will never know that they are sitting there with a 100,000-processor botnet trying to brute-force the password, and they can essentially sit doing it for as long as they like).<br>The typical result is fairly dire: most password-protected data is encrypted with weak encryption keys, and an attacker can spend all the processor time they like trying to guess that weak key with complete impunity.</li>
+</ul>
+<h2 id="How-to-use-PBE"><a href="#How-to-use-PBE" class="headerlink" title="How to use PBE"></a>How to use PBE</h2><p>There are two fundamental problems:<br>(a) user-memorable passwords typically dont contain as much randomness as we need for a secure key;<br>(b) in a typical application, an attacker gets as many tries as they like at the password. An additional problem is that if, say, the password abc123 always generated the same key in our application, then an attacker could calculate the key from this password once and then quickly decrypt any data protected with this password.</p>
+<p>Two common techniques are used in password-based encryption to try to alleviate these problems:</p>
+<ul>
+<li>a deliberately slow method is used to derive the encryption key from the password, reducing the number of guesses that an attacker can make in a given time frame;</li>
+<li>some random bytes, called a salt, are appended to the password before it is used to calculate the key.</li>
+</ul>
+<h1 id="Cryptographic-hash-function"><a href="#Cryptographic-hash-function" class="headerlink" title="Cryptographic hash function"></a>Cryptographic hash function</h1><ul>
+<li>A cryptographic hash function is a special class of hash function that has certain properties which make it suitable for use in cryptography. <strong>It is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size</strong> (a hash function) which is designed to also be <strong>a one-way function</strong>, that is, a function which is infeasible to invert. The only way to recreate the input data from an ideal cryptographic hash function is output is <strong>to attempt a brute-force search</strong> of possible inputs to see if they produce a match. </li>
+<li>Bruce Schneier has called one-way hash functions the workhorses of modern cryptography.[1] The input data is often called the message, and the output (the hash value or hash) is often called the message digest or simply the <code>digest</code>.</li>
+<li>in information-security contexts, cryptographic hash values are sometimes called (digital) fingerprints, checksums, or just hash values, even though all these terms stand for more general functions with rather different properties and purposes.</li>
+<li>Another finalist from the NIST hash function competition, BLAKE, was optimized to produce BLAKE2 which is notable for being faster than SHA-3, SHA-2, SHA-1, or MD5, and is used in numerous applications and libraries.</li>
+</ul>
+<h2 id="The-ideal-cryptographic-hash-function-has-five-main-properties"><a href="#The-ideal-cryptographic-hash-function-has-five-main-properties" class="headerlink" title="The ideal cryptographic hash function has five main properties:"></a>The ideal cryptographic hash function has five main properties:</h2><ul>
+<li>it is deterministic so the same message always results in the same hash</li>
+<li>it is quick to compute the hash value for any given message</li>
+<li>it is infeasible to generate a message from its hash value except by trying all possible messages</li>
+<li>a small change to a message should change the hash value so extensively that the new hash value appears uncorrelated with the old hash value</li>
+<li>it is infeasible to find two different messages with the same hash value</li>
+</ul>
+<h3 id="Illustration"><a href="#Illustration" class="headerlink" title="Illustration"></a>Illustration</h3><ul>
+<li>An illustration of the potential use of a cryptographic hash is as follows: Alice poses a tough math problem to Bob and claims she has solved it. Bob would like to try it himself, but would yet like to be sure that Alice is not bluffing. Therefore, Alice writes down her solution, computes its hash and tells Bob the hash value (whilst keeping the solution secret). Then, when Bob comes up with the solution himself a few days later, Alice can prove that she had the solution earlier by revealing it and having Bob hash it and check that it matches the hash value given to him before. (This is an example of a simple commitment scheme; in actual practice, Alice and Bob will often be computer programs, and the secret would be something less easily spoofed than a claimed puzzle solution).</li>
+</ul>
+<h3 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h3><h4 id="Verifying-the-integrity-of-files-or-messages"><a href="#Verifying-the-integrity-of-files-or-messages" class="headerlink" title="Verifying the integrity of files or messages"></a>Verifying the integrity of files or messages</h4><ul>
+<li>An important application of secure hashes is verification of message integrity. Determining whether any changes have been made to a message (or a file), for example, can be accomplished by comparing message digests calculated before, and after, transmission (or any other event).</li>
+<li>For this reason, most digital signature algorithms only confirm the authenticity of a hashed digest of the message to be “signed”. Verifying the authenticity of a hashed digest of the message is considered proof that the message itself is authentic.</li>
+<li><strong>MD5, SHA1, or SHA2 hashes</strong> are sometimes posted along with files on websites or forums to allow verification of integrity.[6] This practice establishes a chain of trust so long as the hashes are posted on a site authenticated by HTTPS.</li>
+</ul>
+<h4 id="Password-verification"><a href="#Password-verification" class="headerlink" title="Password verification"></a>Password verification</h4><ul>
+<li>Storing all user passwords as cleartext can result in a massive security breach if the password file is compromised. One way to reduce this danger is to only store the hash digest of each password. To authenticate a user, the password presented by the user is hashed and compared with the stored hash. </li>
+<li>The password is often concatenated with a random, non-secret salt value before the hash function is applied. The salt is stored with the password hash. Because users have different salts, it is not feasible to store tables of precomputed hash values for common passwords. </li>
+</ul>
+<h2 id="MD5-1"><a href="#MD5-1" class="headerlink" title="MD5"></a>MD5</h2><ul>
+<li>The MD5 algorithm is a widely used hash function producing a 128-bit hash value. Although MD5 was initially designed to be used as a cryptographic hash function, it has been found to suffer from extensive vulnerabilities. It can still be used as a checksum to verify data integrity, but only against unintentional corruption.</li>
+<li>Like most hash functions, <strong>MD5 is neither encryption nor encoding</strong>. It <strong>can be reversed by brute-force attack</strong> and suffers from extensive vulnerabilities as detailed in the security section below.</li>
+<li>MD5 was designed by Ronald Rivest in 1991 to replace an earlier hash function MD4.</li>
+<li>The MD5 hash function receives its acronym MD from its structure using Merkle–Damg?rd construction.</li>
+</ul>
+<h3 id="Collision-resistance"><a href="#Collision-resistance" class="headerlink" title="Collision resistance"></a>Collision resistance</h3><ul>
+<li>Collision resistance is a property of cryptographic hash functions: a hash function H is collision resistant if it is hard to find two inputs that hash to the same output; that is, two inputs a and b such that H(a) = H(b), and a ≠ b</li>
+<li>Collision resistance does not mean that no collisions exist; simply that they are hard to find.</li>
+<li>Cryptographic hash functions are usually designed to be collision resistant. But many hash functions that were once thought to be collision resistant were later broken. MD5 and SHA-1 in particular both have published techniques more efficient than brute force for finding collisions.</li>
+</ul>
+<h4 id="Rationale"><a href="#Rationale" class="headerlink" title="Rationale"></a>Rationale</h4><p>Collision resistance is desirable for several reasons.</p>
+<ul>
+<li>In some digital signature systems, a party attests to a document by publishing a public key signature on a hash of the document. If it is possible to produce two documents with the same hash, an attacker could get a party to attest to one, and then claim that the party had attested to the other.</li>
+<li>In some proof-of-work systems (e.g. bitcoin mining), users provide hash collisions as proof that they have performed a certain amount of computation to find them. If there is an easier way to find collisions than brute force, users can cheat the system.</li>
+<li>In some distributed content systems, parties compare cryptographic hashes of files in order to make sure they have the same version. An attacker who could produce two files with the same hash could trick users into believing they had the same version of a file when they in fact did not.</li>
+</ul>
+<h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><ul>
+<li>The Merkle–Damg?rd hash function first applies an MD-compliant padding function to create an input whose size is a multiple of a fixed number (e.g. 512 or 1024) — this is because compression functions cannot handle inputs of arbitrary size. The hash function then breaks the result into blocks of fixed size, and processes them one at a time with the compression function, each time combining a block of the input with the output of the previous round.[1]:146 In order to make the construction secure, Merkle and Damg?rd proposed that messages be padded with a padding that encodes the length of the original message. This is called <strong>length padding</strong> or Merkle–Damg?rd strengthening.</li>
+<li>In the diagram, the one-way compression function is denoted by f, and transforms two fixed length inputs to an output of the same size as one of the inputs. The algorithm starts with an initial value, the initialization vector (IV). The IV is a fixed value (algorithm or implementation specific). For each message block, the compression (or compacting) function f takes the result so far, combines it with the message block, and produces an intermediate result. The last block is padded with zeros as needed and bits representing the length of the entire message are appended. (See below for a detailed length padding example.)</li>
+<li>To harden the hash further the last result is then sometimes fed through a finalisation function. The finalisation function can have several purposes such as compressing a bigger internal state (the last result) into a smaller output hash size or to guarantee a better mixing and avalanche effect on the bits in the hash sum. The finalisation function is often built by using the compression function[citation needed] (Note that in some documents instead the act of length padding is called “finalisation”).</li>
+</ul>
+<h3 id="Merkle–Damg-rd-construction"><a href="#Merkle–Damg-rd-construction" class="headerlink" title="Merkle–Damg?rd construction"></a>Merkle–Damg?rd construction</h3><ul>
+<li>In cryptography, the Merkle–Damg?rd construction or <strong>Merkle–Damg?rd hash function</strong> is a method of building collision-resistant cryptographic hash functions from collision-resistant one-way compression functions.[1]:145 This construction was used in the design of many popular hash algorithms such as MD5, SHA1 and SHA2.</li>
+<li>The Merkle–Damg?rd construction was described in Ralph Merkles Ph.D. thesis in 1979.[2] Ralph Merkle and Ivan Damg?rd independently proved that the structure is sound: that is, if an appropriate padding scheme is used and the compression function is collision-resistant, then the hash function will also be collision resistant.</li>
+</ul>
+<h2 id="SHA"><a href="#SHA" class="headerlink" title="SHA"></a>SHA</h2><ul>
+<li>In cryptography, SHA-1 (Secure Hash Algorithm 1) is a cryptographic hash function designed by the United States National Security Agency and is a U.S. Federal Information Processing Standard published by the United States NIST.[2] SHA-1 produces a 160-bit (20-byte) hash value known as a message digest. A SHA-1 hash value is typically rendered as a hexadecimal number, 40 digits long.</li>
+</ul>
+<h3 id="Applications-1"><a href="#Applications-1" class="headerlink" title="Applications"></a>Applications</h3><ul>
+<li>SHA-1 forms part of several widely used security applications and protocols, including TLS and SSL, PGP, SSH, S/MIME, and IPsec. Those applications can also use MD5; <strong>both MD5 and SHA-1 are descended from MD4</strong>. <strong>SHA-1 hashing is also used in distributed revision control systems like Git</strong>, Mercurial, and Monotone to identify revisions, and to detect data corruption or tampering. The algorithm has also been used on Nintendos Wii gaming console for signature verification when booting, but a significant flaw in the first implementations of the firmware allowed for an attacker to bypass the systems security scheme.</li>
+<li>SHA-1 and SHA-2 are the secure hash algorithms required by law for use in certain U.S. Government applications, including use within other cryptographic algorithms and protocols, for the protection of sensitive unclassified information.</li>
+<li>A prime motivation for the publication of the Secure Hash Algorithm was the Digital Signature Standard, in which it is incorporated.</li>
+<li>Revision control systems such as Git and Mercurial use SHA-1 not for security but for ensuring that the data has not changed due to accidental corruption.</li>
+</ul>
+<h2 id="Salt-cryptography"><a href="#Salt-cryptography" class="headerlink" title="Salt (cryptography)"></a>Salt (cryptography)</h2><ul>
+<li>In cryptography, a salt is random data that is used as an additional input to a one-way function that “hashes” a password or passphrase. Salts are closely related to the concept of nonce. The primary function of salts is to defend against dictionary attacks or against its hashed equivalent, a pre-computed rainbow table attack.[1]</li>
+<li>Salts are used to safeguard passwords in storage. </li>
+<li>The purpose of a hash and salt process in password security is not to prevent a password from being guessed, but to prevent a leaked password database from being used in further attacks.</li>
+</ul>
+<p>The idea of salt is that when the user enters the password, we dont actually use their raw password to generate the key. We first append some random bytes to the password. A new, random salt is used for every file/piece of data being encrypted. The salt bytes are not secret: they are stored unencrypted along side the encrypted data. This means that the salt bytes would add no extra security if there was only once piece of data in the world encrypted with a given password. But they prevent dictionary attacks, whereby an attacker pre-computes the keys from some common passwords and then tries those keys on the encrypted data. Without salt bytes, the dictionary attack would be worthwhile attack because we use a deliberately slow function to derive a key from a password. With the salt bytes, the attacker is forced to run the slow key derivation function for each password they want to try on each piece of data.</p>
+<p>To generate salt bytes in Java, we just need to make sure that we use a secure random number generator. Construct an instance of SecureRandom, create (say) a 20-byte array, and call nextBytes() on that array:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Random r = <span class="keyword">new</span> SecureRandom();</span><br><span class="line"><span class="keyword">byte</span>[] salt = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">20</span>];</span><br><span class="line">r.nextBytes(salt);</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
+<h1 id="Secure-Random"><a href="#Secure-Random" class="headerlink" title="Secure Random"></a>Secure Random</h1><p>The SecureRandom class, housed in the java.security package, provides a drop-in replacement to java.lang.Random. But unlike the latter, java.security.SecureRandom is designed to be cryptographically secure. </p>
+<p>SecureRandom is typically used in cases where:</p>
+<p>random numbers are generated for security related purposes, such as generating an encryption key or session ID (see below);<br>or, more generally, high-quality randomness is important and it is worth consuming CPU (or where CPU consumption is not an issue) to generate those high-quality random numbers.</p>
+<h2 id="Properties-of-SecureRandom"><a href="#Properties-of-SecureRandom" class="headerlink" title="Properties of SecureRandom"></a>Properties of SecureRandom</h2><p>We said that SecureRandom is designed to be cryptographically secure. In practice, this means that the generator has the following properties:</p>
+<ul>
+<li>given only a number produced by the generator, it is (to all intents and purposes) impossible to predict previous and future numbers;</li>
+<li>the numbers produced contain no known biases;</li>
+<li>the generator has a large period (in Suns standard implementation, based on the 160-bit SHA1 hash function, the period is 2160);</li>
+<li>the generator can seed itself at any position within that period with equal probability (or at least, it comes so close to this goal, that we have no practical way of telling otherwise).</li>
+</ul>
+<p>These properties are important in various security applications. The first is important, for eaxmple, if we use the generator to produce, say, a session ID on a web server: we donot want user n to predict user n+1 s session ID. Similarly, we donot want a user in an Internet cafe, based on the session ID or encryption key that they are given to access a web site, to be able to predict the value assigned to a previous user on that machine.</p>
+<h2 id="The-importance-of-producing-all-values-with-equal-probability"><a href="#The-importance-of-producing-all-values-with-equal-probability" class="headerlink" title="The importance of producing all values with equal probability"></a>The importance of producing all values with equal probability</h2><p>For example, let s say that we want to pick a 128-bit AES encryption key. The idea of a strong encryption algorithm such as AES is that in order for an adversary to guess the key by “brute force” (which we assume is the only possible means), they would have to try every single possible key in turn until they hit on the right one. By law of averages, we would expect them to find it after half as many guesses as there are possible keys. A 128-bit key has 2128 possible values, so on average, they would have to try 2127 keys. In decimal 2127 is a 39-digit number. Or put another way, trying a million million keys per second, it would take 5x1015 millennia to try 2127 keys. Not even the British government wants to decrypt your party invitations that badly. So with current mainstream technology1, a 128-bit key is in principle sufficient for most applications.</p>
+<p>But these metrics hold true only if our key selection algorithm— i.e. our random number generator— genuinely can pick any of the possible keys. For example, we certainly should not choose the key as follows:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This is WRONG!! Do not do this!</span></span><br><span class="line">Random ranGen = <span class="keyword">new</span> Random();</span><br><span class="line"><span class="keyword">byte</span>[] aesKey = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">16</span>]; <span class="comment">// 16 bytes = 128 bits</span></span><br><span class="line">ranGen.nextBytes(aesKey);</span><br></pre></td></tr></table></figure>
 
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-06-Eclipse-tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-02-06-Eclipse-tips/" class="post-title-link" itemprop="url">Eclipse notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="How-do-I-remove-a-plug-in"><a href="#How-do-I-remove-a-plug-in" class="headerlink" title="How do I remove a plug-in?"></a>How do I remove a plug-in?</h1><p>Run Help &gt; About Eclipse &gt; Installation Details, select the software you no longer want and click Uninstall. (On Macintosh it is Eclipse &gt; About Eclipse &gt; Installation Details.)</p>
-<h1 id="Where-is-the-Eclipse-Plugin-update-error-log"><a href="#Where-is-the-Eclipse-Plugin-update-error-log" class="headerlink" title="Where is the Eclipse Plugin update error log?"></a>Where is the Eclipse Plugin update error log?</h1><p>The log is located at current workspace: {workspace_path}/.metadata/.log - also you can view this log in view “Error Log”: Window &gt; Show View &gt; Other &gt; Find here “Error Log”</p>
+<p>The problem here is that the period of java.util.Random is only 248. Even though we are generating a 128-bit key, we will only ever pick from a subset of 248 of the possible keys. Or put another way: an attacker need only try on average 247 keys, and will find our key by trial and error in a couple of days if they try just a thousand million keys per second. And as if that wasnot bad enough, they probably donot even need to try anywhere near 247: for reasons discussed earlier, there is a good chance that an instance of java.util.Random created within a couple of minutes of bootup will actually be seeded from a about one thousandth of the 248 possible values. This time, HM Sniffing Service doesnot even need expensive hardware to find the secret location of your housewarming party: a trip to Staples will give them all the computing power they need.</p>
+<p>So as you’ve probably guessed, our solution to the problem is to use SecureRandom instead:</p>
+<p>import java.security.SecureRandom;<br>..<br>Random ranGen = new SecureRandom();<br>byte[] aesKey = new byte[16]; // 16 bytes = 128 bits<br>ranGen.nextBytes(aesKey);<br>Now, there’s a good chance that any of the 2128 possible keys will be chosen.</p>
+<p>Seeding of SecureRandom<br>In order to provide this property of choosing any seed with “equal” likelihood, (or at least, with no bias that is practically detectable), SecureRandom seeds itself from sources of entropy available from the local machine, such as timings of I/O events.</p>
+<p>## </p>
+<h2 id="Rainbow-table"><a href="#Rainbow-table" class="headerlink" title="Rainbow table"></a>Rainbow table</h2><ul>
+<li>A rainbow table is a precomputed table for reversing cryptographic hash functions, <strong>usually for cracking password hashes</strong>. </li>
+<li>Tables are <strong>usually used in recovering a plaintext password up to a certain length consisting of a limited set of characters</strong>. It is a practical example of a space/time trade-off, using less computer processing time and more storage than a brute-force attack which calculates a hash on every attempt, but more processing time and less storage than a simple lookup table with one entry per hash. </li>
+<li>After gathering a password hash, using said hash as a password would fail since the authentication system would hash it a second time. In order to learn a users password, a password that produces the same hashed value must be found, usually through a brute-force or dictionary attack.</li>
+<li>Use of a <strong>key derivation function that employs a salt</strong> makes this attack infeasible.</li>
+</ul>
+<h2 id="Passphrase"><a href="#Passphrase" class="headerlink" title="Passphrase"></a>Passphrase</h2><ul>
+<li>A passphrase is a sequence of words or other text used to control access to a computer system, program or data. A passphrase is similar to a password in usage, but is generally longer for added security. Passphrases are often used to control both access to, and operation of, cryptographic programs and systems, especially those that derive an encryption key from a passphrase. The origin of the term is by analogy with password. The modern concept of passphrases is believed to have been invented by Sigmund N. Porter[1] in 1982.</li>
+</ul>
+<h3 id="Compared-to-password"><a href="#Compared-to-password" class="headerlink" title="Compared to password"></a>Compared to password</h3><ul>
+<li>Passphrases differ from passwords. A password is usually short—six to ten characters. Such passwords may be adequate for various applications (if frequently changed, if chosen using an appropriate policy, if not found in dictionaries, if sufficiently random, and/or if the system prevents online guessing, etc.)</li>
+<li>But passwords are typically not safe to use as keys for standalone security systems (e.g., encryption systems) that expose data to enable offline password guessing by an attacker.[citation needed] Passphrases are theoretically stronger, and so should make a better choice in these cases. First, they usually are (and always should be) much longer—20 to 30 characters or more is typical—making some kinds of brute force attacks entirely impractical. Second, if well chosen, they will not be found in any phrase or quote dictionary, so such dictionary attacks will be almost impossible. Third, they can be structured to be more easily memorable than passwords without being written down, reducing the risk of hardcopy theft.[citation needed] However, if a passphrase is not protected appropriately by the authenticator and the clear-text passphrase is revealed its use is no better than other passwords. For this reason it is recommended that passphrases not be reused across different or unique sites and services.</li>
+</ul>
+<h2 id="Dictionary-Attack"><a href="#Dictionary-Attack" class="headerlink" title="Dictionary Attack"></a>Dictionary Attack</h2><ul>
+<li>In cryptanalysis and computer security, a dictionary attack is a technique for defeating a cipher or authentication mechanism by trying to determine its decryption key or passphrase by trying hundreds or sometimes millions of likely possibilities, such as words in a dictionary.</li>
+<li>A dictionary attack is based on trying all the strings in a pre-arranged listing, typically derived from a list of words such as in a dictionary (hence the phrase dictionary attack).</li>
+<li><strong>In contrast to a brute force attack</strong>, where a large proportion of the <strong>key space is searched systematically</strong>, a <strong>dictionary attack</strong> tries <strong>only those possibilities</strong> which are deemed <strong>most likely</strong> to succeed. </li>
+<li>Dictionary attacks often succeed because many people have a tendency to choose short passwords that are ordinary words or common passwords, or simple variants obtained, for example, by appending a digit or punctuation character. Dictionary attacks are relatively easy to defeat, e.g. by using a passphrase or otherwise choosing a password that is not a simple variant of a word found in any dictionary or listing of commonly used passwords.</li>
+<li>It is possible to achieve a time-space tradeoff by pre-computing a list of hashes of dictionary words, and storing these in a database using the hash as the key. This requires a considerable amount of preparation time, but allows the actual attack to be executed faster. </li>
+<li>A more refined approach involves the use of rainbow tables, which reduce storage requirements at the cost of slightly longer lookup times. </li>
+<li><strong>Pre-computed dictionary attacks, or “rainbow table attacks”, can be thwarted by the use of salt</strong>, a technique that forces the hash dictionary to be recomputed for each password sought, making precomputation infeasible provided the number of possible salt values is large enough.</li>
+</ul>
+<h1 id="Avalanche-effect"><a href="#Avalanche-effect" class="headerlink" title="Avalanche effect"></a>Avalanche effect</h1><ul>
+<li>In cryptography, the avalanche effect is the desirable property of cryptographic algorithms, typically block ciphers and cryptographic hash functions wherein if when an input is changed slightly (for example, flipping a single bit) the output changes significantly (e.g., half the output bits flip). In the case of high-quality block ciphers, such a small change in either the key or the plaintext should cause a drastic change in the ciphertext. The actual term was first used by Horst Feistel,[1] although the concept dates back to at least Shannon’s diffusion.</li>
+<li>The SHA-1 hash function exhibits good avalanche effect. When a single bit is changed the hash sum becomes completely different. If a block cipher or cryptographic <strong>hash function does not exhibit the avalanche effect to a significant degree, then it has poor randomization</strong>, and thus a cryptanalyst can make predictions about the input, being given only the output. This may be sufficient to partially or completely break the algorithm. Thus, the avalanche effect is a desirable condition from the point of view of the designer of the cryptographic algorithm or device.</li>
+</ul>
+<h1 id="Public-key-cryptography"><a href="#Public-key-cryptography" class="headerlink" title="Public-key cryptography"></a>Public-key cryptography</h1><ul>
+<li>An unpredictable (typically large and random) number is used to begin generation of an acceptable pair of keys suitable for use by an asymmetric key algorithm.</li>
+<li>In an asymmetric key encryption scheme, anyone can encrypt messages using the public key, but only the holder of the paired private key can decrypt. Security depends on the secrecy of the private key.</li>
+<li>In the Diffie–Hellman key exchange scheme, each party generates a public/private key pair and distributes the public key. After obtaining an authentic copy of each other’s public keys, Alice and Bob can compute a shared secret offline. The shared secret can be used, for instance, as the key for a symmetric cipher.</li>
+<li>Public key cryptography, or asymmetric cryptography, is any cryptographic system that uses pairs of keys: public keys which may be disseminated widely, and private keys which are known only to the owner. This accomplishes two functions: <strong>authentication</strong>, which is when the public key is used to verify that a holder of the paired private key sent the message, and <strong>encryption</strong>, whereby only the holder of the paired private key can decrypt the message encrypted with the public key.</li>
+<li>In a public key encryption system, any person can encrypt a message using the public key of the receiver, but such a message can be decrypted only with the receiver’s private key. For this to work it must be computationally easy for a user to generate a public and private key-pair to be used for encryption and decryption. The strength of a public key cryptography system relies on the degree of difficulty (computational impracticality) for a properly generated private key to be determined from its corresponding public key. Security then depends only on keeping the private key private, and the public key may be published without compromising security.</li>
+<li>Because of the computational complexity of asymmetric encryption, it is usually used only for small blocks of data, typically the transfer of a symmetric encryption key (e.g. a session key). This symmetric key is then used to encrypt the rest of the potentially long message sequence. The symmetric encryption/decryption is based on simpler algorithms and is much faster.</li>
+</ul>
+<h2 id="Usage-of-public-key"><a href="#Usage-of-public-key" class="headerlink" title="Usage of public key"></a>Usage of public key</h2><p>Two of the best-known uses of public key cryptography are:</p>
+<ul>
+<li><p><strong>Public key encryption</strong>, in which a message is encrypted with a recipient’s public key. The message cannot be decrypted by anyone who does not possess the matching private key, who is thus presumed to be the owner of that key and the person associated with the public key. This is used in an attempt to ensure confidentiality.</p>
+</li>
+<li><p><strong>Digital signatures</strong>, in which a message is signed with the sender’s private key and can be verified by anyone who has access to the sender’s public key. This verification proves that the sender had access to the private key, and therefore is likely to be the person associated with the public key. This also ensures that the message has not been tampered with, as a signature is mathematically bound to the message it originally was made with, and verification will fail for practically any other message, no matter how similar to the original message.</p>
+</li>
+<li><p>An analogy to public key encryption is that of a locked mail box with a mail slot. The mail slot is exposed and accessible to the public – its location (the street address) is, in essence, the public key. Anyone knowing the street address can go to the door and drop a written message through the slot. However, only the person who possesses the key can open the mailbox and read the message.</p>
+</li>
+<li><p>An analogy for digital signatures is the sealing of an envelope with a personal wax seal. The message can be opened by anyone, but the presence of the unique seal authenticates the sender.</p>
+</li>
+</ul>
+<h2 id="Problems-of-public-generated-key"><a href="#Problems-of-public-generated-key" class="headerlink" title="Problems of public generated key"></a>Problems of public generated key</h2><ul>
+<li>A central problem with the use of public key cryptography is confidence/proof that a particular public key is authentic, in that it is correct and belongs to the person or entity claimed, and has not been tampered with or replaced by a malicious third party. The usual approach to this problem is to use a public key infrastructure (PKI), in which one or more third parties – known as certificate authorities – certify ownership of key pairs. PGP, in addition to being a certificate authority structure, has used a scheme generally called the “web of trust”, which decentralizes such authentication of public keys by a central mechanism, and substitutes individual endorsements of the link between user and public key. To date, no fully satisfactory solution to the “public key authentication problem” has been found</li>
+</ul>
+<h1 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h1><ul>
+<li>RSA is one of the first practical public-key cryptosystems and is widely used for secure data transmission. In such a cryptosystem, the encryption key is public and differs from the decryption key which is kept secret. In RSA, this asymmetry is based on the practical difficulty of factoring the product of two large prime numbers, the factoring problem. RSA is made of the initial letters of the surnames of Ron Rivest, Adi Shamir, and Leonard Adleman, who first publicly described the algorithm in 1977. </li>
+<li>A user of RSA creates and then publishes a public key based on two large prime numbers, along with an auxiliary value. The prime numbers must be kept secret. Anyone can use the public key to encrypt a message, but with currently published methods, if the public key is large enough, only someone with knowledge of the prime numbers can feasibly decode the message.[2] Breaking RSA encryption is known as the RSA problem; whether it is as hard as the factoring problem remains an open question.</li>
+<li>RSA is a relatively slow algorithm, and because of this it is less commonly used to directly encrypt user data. More often, RSA passes encrypted shared keys for symmetric key cryptography which in turn can perform bulk encryption-decryption operations at much higher speed.</li>
+</ul>
+<h2 id="Operation"><a href="#Operation" class="headerlink" title="Operation"></a>Operation</h2><ul>
+<li>The RSA algorithm involves four steps: key generation, key distribution, encryption and decryption.</li>
+<li>RSA involves a public key and a private key. The public key can be known by everyone and is used for encrypting messages. The intention is that messages encrypted with the public key can only be decrypted in a reasonable amount of time using the private key.</li>
+</ul>
+<h1 id="Symmetric-key-algorithm"><a href="#Symmetric-key-algorithm" class="headerlink" title="Symmetric-key algorithm"></a>Symmetric-key algorithm</h1><ul>
+<li>Symmetric-key algorithms[1] are algorithms for cryptography that use the same cryptographic keys for both encryption of plaintext and decryption of ciphertext. The keys may be identical or there may be a simple transformation to go between the two keys</li>
+<li>The keys, in practice, represent a shared secret between two or more parties that can be used to maintain a private information link.</li>
+<li>This requirement that both parties have access to the secret key is one of the main drawbacks of symmetric key encryption, in comparison to public-key encryption (also known as asymmetric key encryption)</li>
+</ul>
+<h2 id="Implementations"><a href="#Implementations" class="headerlink" title="Implementations"></a>Implementations</h2><ul>
+<li>Examples of popular symmetric algorithms include Twofish, Serpent, <strong>AES</strong> (Rijndael), <strong>Blowfish</strong>, CAST5, Kuznyechik, RC4, <strong>3DES</strong>, Skipjack, Safer+/++ (Bluetooth), and IDEA.[5][6]</li>
+</ul>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://www.javamex.com/tutorials/cryptography/hash_functions_algorithms.shtml" target="_blank" rel="noopener">https://www.javamex.com/tutorials/cryptography/hash_functions_algorithms.shtml</a></li>
+<li><a href="https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers" target="_blank" rel="noopener">https://www.goanywhere.com/blog/2011/10/20/sftp-ftps-secure-ftp-transfers</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Secure_Shell</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ssh-keygen" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Ssh-keygen</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Cryptographic_hash_function</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Rainbow_table" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Rainbow_table</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Merkle%E2%80%93Damg%C3%A5rd_construction" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Merkle%E2%80%93Damg%C3%A5rd_construction</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Public-key_cryptography" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Public-key_cryptography</a></li>
+<li><a href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29</a></li>
+</ul>
 
           
         
