@@ -145,6 +145,12 @@ Temporary security credentials are short-term, as the name implies. They can be 
 
 Temporary security credentials are not stored with the user but are generated dynamically and provided to the user when requested. When (or even before) the temporary security credentials expire, the user can request new credentials, as long as the user requesting them still has permissions to do so.
 
+### Amazon Cognito 
+This service is primarily used for user authentication and not for providing access to your AWS resources. A JSON Web Token (JWT) is meant to be used for user authentication and session management.
+
+### AWS SSO 
+This service uses STS, it does not issue short-lived credentials by itself. AWS Single Sign-On (SSO) is a cloud SSO service that makes it easy to centrally manage SSO access to multiple AWS accounts and business applications.
+
 
 # Storage
 ### Performance
@@ -805,6 +811,87 @@ Option 2 is incorrect because the IP match condition in CloudFront is primarily 
 
 Option 4 is incorrect because you don't need to submit an AWS request in order to do this. You can simply create a Route Origin Authorization (ROA) then once done, provision and advertise your whitelisted IP address range to your AWS account.
 
+# AWS IoT Core
+It is a managed cloud service that lets connected devices easily and securely interact with cloud applications and other devices. AWS IoT Core provides secure communication and data processing across different kinds of connected devices and locations so you can easily build IoT applications.
+
+# SQS
+You cannot set a priority to individual items in the SQS queue.
+In this scenario, it is stated that the SQS queue is configured with the maximum message retention period. The maximum message retention in SQS is 14 days, there will be no missing messages. 
+The queue can contain an unlimited number of messages, not just 10,000 messages.
+
+In Amazon SQS, you can configure the message retention period to a value from 1 minute to 14 days. The default is 4 days. Once the message retention limit is reached, your messages are automatically deleted.
+
+A single Amazon SQS message queue can contain an unlimited number of messages. However, there is a 120,000 limit for the number of inflight messages for a standard queue and 20,000 for a FIFO queue. Messages are inflight after they have been received from the queue by a consuming component, but have not yet been deleted from the queue.
+
+## Distributed systems
+Amazon Simple Queue Service (SQS) and Amazon Simple Workflow Service (SWF) are the services that you can use for creating a decoupled architecture in AWS. Decoupled architecture is a type of computing architecture that enables computing components or layers to execute independently while still interfacing with each other.
+
+Amazon SQS offers reliable, highly-scalable hosted queues for storing messages while they travel between applications or microservices. Amazon SQS lets you move data between distributed application components and helps you decouple these components. Amazon SWF is a web service that makes it easy to coordinate work across distributed application components.
+
+# AppSync
+Power your applications with the right data, from one or more data sources, at global scale
+AWS AppSync simplifies application development by letting you create a flexible API to securely access, manipulate, and combine data from one or more data sources. AppSync is a managed service that uses GraphQL to make it easy for applications to get exactly the data they need.
+
+With AppSync, you can build scalable applications, including those requiring real-time updates, on a range of data sources such as NoSQL data stores, relational databases, HTTP APIs, and your custom data sources with AWS Lambda. For mobile and web apps, AppSync additionally provides local data access when devices go offline, and data synchronization with customizable conflict resolution, when they are back online.
+
+Benefits
+Start effortlessly; scale with your business
+Get started in minutes directly from your IDE of choice (such as Xcode, Android Studio, VS Code), leverage the intuitive AWS AppSync management console, or use AWS Amplify CLI to automatically generate your API and client-side code. AWS AppSync integrates with Amazon DynamoDB, Amazon Aurora, Amazon Elasticsearch, AWS Lambda, and other AWS services, enabling you to create sophisticated applications, with virtually unlimited throughput and storage, that scale according to your business needs. 
+
+Real-time subscriptions and offline access
+AWS AppSync enables real-time subscriptions across millions of devices, as well as offline access to app data. When an offline device reconnects, AWS AppSync automatically syncs only the updates that occurred when the device was disconnected, and not the entire data set. AWS AppSync offers user-customizable server-side conflict detection and resolution that does the heavy lifting of managing data conflicts so you don’t have to. 
+
+Unify and secure access to your distributed data
+Perform complex queries and aggregation across multiple data sources with a single network call using GraphQL. AWS AppSync makes it easy to secure your app data using multiple concurrent authentication modes as well as allowing to define security and fine grained access control at the data definition level directly from your GraphQL schema. 
+
+ 
+Make Mobile Development Easier with Open Source Libraries for iOS and Android
+Build real-time, global mobile apps that can handle millions of requests per second using Amplify libraries.
+Read the blog  
+How it works
+product-page-diagram_AppSync@2x
+AWS AppSync is generally available. If you would like try building data driven mobile and web applications, watch the re:Invent session video to learn more and open the AWS AppSync console to get started. For pricing details, please see the pricing page. AWS AppSync is available in multiple regions. For details on region availability, please see the regions detail page.
+
+
+
+AWS AppSync re:Invent session
+Customers using AWS AppSync
+600x400_AmericanCommBargeLine
+600x400_Puresec
+600x400_IDT
+600x400_ASU
+600x400_PublicGood
+600x400_cookpad
+600x400_ALDO
+ticketmaster-clear-migration
+Use cases
+Real Time Collaboration
+Data Broadcasting
+You can use AWS AppSync to enable scalable, real-time collaboration use cases by broadcasting data from the backend to all connected clients (one-to-many) or broadcasting data between clients themselves (many-to-many). For example, you can build a second screen scenario where you broadcast the same data to all clients, and users then respond in real time by voting and commenting about what's on the screen.
+Reference Architecture: Sample Code
+
+product-page-diagram_AppSync_Data-Broadcasting@2x
+Chat Applications
+You can use AWS AppSync to power collaborative and conversational applications. For example, you can build a mobile and web application that supports multiple private chat rooms, offers access to conversation history, and enqueues outbound messages, even when the device is offline.
+
+Reference Architecture: Sample Code
+
+Product-Page-Diagram_AppSync_Chat-Applications_2@2x
+Internet of Things
+You can use AWS AppSync to access IoT device data sent to AWS IoT. For instance, you can build a real-time dashboard in a mobile or web application to visualize telemetry from a connected car.
+Product-Page-Diagram_AppSync_IoT@2x
+Data Layer
+Polyglot Backend Data Access
+You can retrieve or modify data from multiple data sources (SQL databases in Amazon Aurora Serverless, NoSQL tables in Amazon DynamoDB, search data in Amazon Elasticsearch Service, REST endpoints in Amazon API Gateway, or serverless backends in AWS Lambda) with a single call. Query and create relations between data sources using GraphQL connections. Provide real-time and offline capabilities to web and mobile clients. 
+
+Product-Page-Diagram_AppSync_Polyglot-Back-end-Data-Access@2x
+Microservices Access Layer
+You can use AWS AppSync as a single interface to access and combine data from multiple microservices in your application, even if they're running in different environments such as containers in a VPC, behind a REST API on Amazon API Gateway, or behind a GraphQL API on another AWS AppSync endpoint.
+Product-Page-Diagram_AppSync_Microservices-Aggregation@2x
+Offline
+Offline Delta Sync
+You can use AppSync with Amplify DataStore, an on-device persistent storage engine that automatically synchronizes data between mobile/web apps and the cloud using GraphQL with a local-first and familiar programming model, leveraging AWS AppSync built-in support for data versioning with advanced conflict detection and resolution strategies such as auto-merge, optimistic concurrency or custom resolution with your own Lambda functions.
+
 
 # Q&A
 
@@ -819,6 +906,15 @@ Option 4 is incorrect because you don't need to submit an AWS request in order t
 - Distributing the static content through S3 allows to offload most of the network usage to S3 and free up our applications running on ECS. EFS will not change anything as static content on EFS would still have to be distributed by our ECS instances
 - S3 does not work as overwrites are eventually consistent so the latest data will not always be read. Neptune is a graph database so it's not a good fit, ElastiCache could work but it's a better fit as a caching technology to enhance reads. Here, the best fit is RDS.
 - RDS Multi AZ helps with disaster recovery in case of an AZ failure. ElastiCache would definitely help with the read load, but would require a refactor of the application's core logic. DynamoDB with DAX would also probably help with the read load, but once again it would require a refactor of the application's core logic. Here, our only option to scale reads is to use RDS Read Replicas
+
+- Which of the following AWS services encrypts data at rest by default? (Choose 2)
+All data transferred between any type of gateway appliance and AWS storage is encrypted using SSL. By default, all data stored by AWS Storage Gateway in S3 is encrypted server-side with Amazon S3-Managed Encryption Keys (SSE-S3). Also, when using the file gateway, you can optionally configure each file share to have your objects encrypted with AWS KMS-Managed Keys using SSE-KMS. This is the reason why Option 1 is correct.
+
+ 
+Data stored in Amazon Glacier is protected by default; only vault owners have access to the Amazon Glacier resources they create. Amazon Glacier encrypts your data at rest by default and supports secure data transit with SSL. This is the reason why Option 4 is correct.
+
+
+Although Amazon RDS, ECS and Lambda all support encryption, you still have to enable and configure them first with tools like AWS KMS to encrypt the data at rest.
 
 
 # Resources
