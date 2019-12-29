@@ -195,6 +195,90 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-20-DeadLock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-01-20-DeadLock/" class="post-title-link" itemprop="url">Dead Lock</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><ul>
+<li>Two or more threads are <strong>waiting</strong> for <strong>each other</strong> to <strong>release lock</strong> and get <strong>stuck for infinite time</strong>.</li>
+<li>It will only happen in case of <strong>multitasking</strong>.</li>
+</ul>
+<h2 id="One-screnario-of-dead-lock"><a href="#One-screnario-of-dead-lock" class="headerlink" title="One screnario of dead lock"></a>One screnario of dead lock</h2><p>If method1() and method2() both will be called by two or many threads , there is a good chance of deadlock because if thread 1 acquires lock on Sting object while executing method1() and thread 2 acquires lock on Integer object while executing method2() both will be waiting for each other to release lock on Integer and String to proceed further which will never happen.</p>
+<h3 id="The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock"><a href="#The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock" class="headerlink" title="The root cause is NOT multithreading, but the way they are requiring lock"></a>The root cause is NOT multithreading, but <strong>the way they are requiring lock</strong></h3><p>Now there would not be any deadlock because both methods are accessing lock on Integer and String class literal in same order. So, if thread A acquires lock on Integer object , thread B will not proceed until thread A releases Integer lock, same way thread A will not be blocked even if thread B holds String lock because now thread B will not expect thread A to release Integer lock to proceed further.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-19-Java-Tricky-Tech-Questions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -457,90 +541,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-20-DeadLock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-01-20-DeadLock/" class="post-title-link" itemprop="url">Dead Lock</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><ul>
-<li>Two or more threads are <strong>waiting</strong> for <strong>each other</strong> to <strong>release lock</strong> and get <strong>stuck for infinite time</strong>.</li>
-<li>It will only happen in case of <strong>multitasking</strong>.</li>
-</ul>
-<h2 id="One-screnario-of-dead-lock"><a href="#One-screnario-of-dead-lock" class="headerlink" title="One screnario of dead lock"></a>One screnario of dead lock</h2><p>If method1() and method2() both will be called by two or many threads , there is a good chance of deadlock because if thread 1 acquires lock on Sting object while executing method1() and thread 2 acquires lock on Integer object while executing method2() both will be waiting for each other to release lock on Integer and String to proceed further which will never happen.</p>
-<h3 id="The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock"><a href="#The-root-cause-is-NOT-multithreading-but-the-way-they-are-requiring-lock" class="headerlink" title="The root cause is NOT multithreading, but the way they are requiring lock"></a>The root cause is NOT multithreading, but <strong>the way they are requiring lock</strong></h3><p>Now there would not be any deadlock because both methods are accessing lock on Integer and String class literal in same order. So, if thread A acquires lock on Integer object , thread B will not proceed until thread A releases Integer lock, same way thread A will not be blocked even if thread B holds String lock because now thread B will not expect thread A to release Integer lock to proceed further.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html" target="_blank" rel="noopener">http://javarevisited.blogspot.in/2010/10/what-is-deadlock-in-java-how-to-fix-it.html</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-26-IT-Architect/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -627,7 +627,7 @@ Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementation
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-19-Java-NavigableMap/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-28-Network-Protocols/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -643,7 +643,7 @@ Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementation
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-01-19-Java-NavigableMap/" class="post-title-link" itemprop="url">NavigableMap Misc</a>
+              <a href="/2017-01-28-Network-Protocols/" class="post-title-link" itemprop="url">Network Protocols</a>
             
           </h1>
         
@@ -675,16 +675,89 @@ Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementation
 
       
           
-            <h1 id="What-is-NavigableMap"><a href="#What-is-NavigableMap" class="headerlink" title="What is NavigableMap"></a>What is NavigableMap</h1><ul>
-<li>NavigableMap in <strong>Java 6</strong> is an <strong>extension of SortedMap</strong>  like TreeMap which provides convenient navigation method like lowerKey, floorKey, ceilingKey and higherKey. </li>
-<li>NavigableMap is added on Java 1.6 and along with these popular navigation method it also provide ways <strong>to create a Sub Map from existing Map</strong> in Java e.g. <strong>headMap whose keys are less than specified key</strong>, <strong>tailMap whose keys are greater than specified key and a subMap which is strictly contains keys which falls between toKey and fromKey</strong>. All of these methods also provides a boolean to include specified key or not. TreeMap and ConcurrentSkipListMap are two concrete implementation of NavigableMap in Java 1.6 API.</li>
+            <h1 id="Net-Protocols"><a href="#Net-Protocols" class="headerlink" title="Net Protocols"></a>Net Protocols</h1><ul>
+<li>Like most models, this OSI physical layer contains the electrical, mechanical, and functional means to establish physical connections between Layer-2 devices.</li>
+<li>In addition to interfacing with the Network Layer, the data link connection can be built upon one or more physical layer interfaces.</li>
+<li></li>
 </ul>
-<h1 id="use-NavigableMap"><a href="#use-NavigableMap" class="headerlink" title="use NavigableMap"></a>use NavigableMap</h1><p>How to create subMap from Map using Navigable Map in Java with Example<br>In this Java tutorial we will explore some API methods of NavigableMap to show its functionality. This Java program shows example of lowerKey which returns keys less than specified, floorKey returns key less than or equal to, ceilingKey return greater than or equal to and higherKey which returns keys which are greater than specified key. </p>
-<p>This Java example also demonstrate use of headMap(), tailMap() and subMap() method which is used to create Map from an existing Map in Java. headMap returns a Map whose keys are lower than specified keys while tailMap returns Map which contains keys, those are higher than specified. Here is complete code example of How to use NavigableMap in Java.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.NavigableMap;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Java program to demonstrate What is NavigableMap in Java and How to use NavigableMap</span></span><br><span class="line"><span class="comment"> * in Java. NavigableMap provides two important features navigation methods</span></span><br><span class="line"><span class="comment"> * like lowerKey(), floorKey, ceilingKey() and higherKey().</span></span><br><span class="line"><span class="comment"> * There Entry counterpart and methods to create subMap e.g. headMap(), tailMap()</span></span><br><span class="line"><span class="comment"> * and subMap().</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Javin Paul</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NavigableMapExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//NavigableMap extends SortedMap to provide useful navigation methods</span></span><br><span class="line">        NavigableMap&lt;String, String&gt; navigableMap = <span class="keyword">new</span> TreeMap&lt;String, String&gt;();</span><br><span class="line">     </span><br><span class="line">        navigableMap.put(<span class="string">"C++"</span>, <span class="string">"Good programming language"</span>);</span><br><span class="line">        navigableMap.put(<span class="string">"Java"</span>, <span class="string">"Another good programming language"</span>);</span><br><span class="line">        navigableMap.put(<span class="string">"Scala"</span>, <span class="string">"Another JVM language"</span>);</span><br><span class="line">        navigableMap.put(<span class="string">"Python"</span>, <span class="string">"Language which Google use"</span>);</span><br><span class="line">     </span><br><span class="line">        System.out.println(<span class="string">"SorteMap : "</span> + navigableMap);</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//lowerKey returns key which is less than specified key</span></span><br><span class="line">        System.out.println(<span class="string">"lowerKey from Java : "</span> + navigableMap.lowerKey(<span class="string">"Java"</span>));</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//floorKey returns key which is less than or equal to specified key</span></span><br><span class="line">        System.out.println(<span class="string">"floorKey from Java: "</span> + navigableMap.floorKey(<span class="string">"Java"</span>));</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//ceilingKey returns key which is greater than or equal to specified key</span></span><br><span class="line">        System.out.println(<span class="string">"ceilingKey from Java: "</span> + navigableMap.ceilingKey(<span class="string">"Java"</span>));</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//higherKey returns key which is greater specified key</span></span><br><span class="line">        System.out.println(<span class="string">"higherKey from Java: "</span> + navigableMap.higherKey(<span class="string">"Java"</span>));</span><br><span class="line">     </span><br><span class="line">     </span><br><span class="line">        <span class="comment">//Apart from navigagtion methodk, it also provides useful method</span></span><br><span class="line">        <span class="comment">//to create subMap from existing Map e.g. tailMap, headMap and subMap</span></span><br><span class="line">     </span><br><span class="line">        <span class="comment">//an example of headMap - returns NavigableMap whose key is less than specified</span></span><br><span class="line">        NavigableMap&lt;String, String&gt; headMap = navigableMap.headMap(<span class="string">"Python"</span>, <span class="keyword">false</span>);</span><br><span class="line">        System.out.println(<span class="string">"headMap created form navigableMap : "</span> + headMap);</span><br><span class="line">             </span><br><span class="line">        <span class="comment">//an example of tailMap - returns NavigableMap whose key is greater than specified</span></span><br><span class="line">        NavigableMap&lt;String, String&gt; tailMap = navigableMap.tailMap(<span class="string">"Scala"</span>, <span class="keyword">false</span>);</span><br><span class="line">        System.out.println(<span class="string">"tailMap created form navigableMap : "</span> + tailMap);</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//an example of subMap - return NavigableMap from toKey to fromKey</span></span><br><span class="line">        NavigableMap&lt;String, String&gt; subMap = navigableMap.subMap(<span class="string">"C++"</span>, <span class="keyword">false</span> ,</span><br><span class="line">                                                                  <span class="string">"Python"</span>, <span class="keyword">false</span>);</span><br><span class="line">        System.out.println(<span class="string">"subMap created form navigableMap : "</span> + subMap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">SorteMap : &#123;C++=Good programming language, Java=Another good programming language, Python=Language which Google use, Scala=Another JVM language&#125;</span><br><span class="line">lowerKey from Java : C++</span><br><span class="line">floorKey from Java: Java</span><br><span class="line">ceilingKey from Java: Java</span><br><span class="line">higherKey from Java: Python</span><br><span class="line">headMap created form navigableMap : &#123;C++=Good programming language, Java=Another good programming language&#125;</span><br><span class="line">tailMap created form navigableMap : &#123;&#125;</span><br><span class="line">subMap created form navigableMap : &#123;Java=Another good programming language&#125;</span><br></pre></td></tr></table></figure>
 
-<p> That’s all on What is NavigableMap in Java and How to use NavigableMap with example. We have seen examples of popular navigation method on TreeMap e.g. floorKey. You can also use similar method like lowerEntry, floorEntry, ceilingEntry and higherEntry to retrieve Entry instead of key. NavigableMap is also a good utility to create subset of a Map in Java.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://javarevisited.blogspot.com/2013/01/what-is-navigablemap-in-java-6-example-submap-head-tail.html#ixzz4WBdqjJCC" target="_blank" rel="noopener">http://javarevisited.blogspot.com/2013/01/what-is-navigablemap-in-java-6-example-submap-head-tail.html#ixzz4WBdqjJCC</a></p>
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-02-Java-New-IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-02-Java-New-IO/" class="post-title-link" itemprop="url">Java New IO</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h1><ul>
+<li>JDK 1.0 introduced <strong>rudimentary I/O facilities</strong> for accessing the file system (to create a directory, remove a file, or perform another task), accessing file content randomly (as opposed to sequentially), and streaming byte-oriented data between sources and destinations in a sequential manner.</li>
+</ul>
 
           
         
@@ -925,164 +998,6 @@ Access to resources guarded by an exclusive lock is serialized—only one thread
 </ul>
 <h2 id="Test-resource-management"><a href="#Test-resource-management" class="headerlink" title="Test resource management"></a>Test resource management</h2><ul>
 <li><strong>The tests so far have been concerned with a class’s adherence to its specifica- tion—that it does what it is supposed to do. A secondary aspect to test is that it does not do things it is not supposed to do</strong>, such as leak resources. Any object that holds or manages other objects should not continue to maintain references to those objects longer than necessary. Such storage leaks prevent garbage collectors from reclaiming memory (or threads, file handles, sockets, database connections, or other limited resources) and can lead to resource exhaustion and application failure.</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-02-Java-New-IO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-02-02-Java-New-IO/" class="post-title-link" itemprop="url">Java New IO</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h1><ul>
-<li>JDK 1.0 introduced <strong>rudimentary I/O facilities</strong> for accessing the file system (to create a directory, remove a file, or perform another task), accessing file content randomly (as opposed to sequentially), and streaming byte-oriented data between sources and destinations in a sequential manner.</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-01-28-Network-Protocols/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-01-28-Network-Protocols/" class="post-title-link" itemprop="url">Network Protocols</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Net-Protocols"><a href="#Net-Protocols" class="headerlink" title="Net Protocols"></a>Net Protocols</h1><ul>
-<li>Like most models, this OSI physical layer contains the electrical, mechanical, and functional means to establish physical connections between Layer-2 devices.</li>
-<li>In addition to interfacing with the Network Layer, the data link connection can be built upon one or more physical layer interfaces.</li>
-<li></li>
 </ul>
 
           
@@ -1653,6 +1568,83 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
           
             <h1 id="How-do-I-remove-a-plug-in"><a href="#How-do-I-remove-a-plug-in" class="headerlink" title="How do I remove a plug-in?"></a>How do I remove a plug-in?</h1><p>Run Help &gt; About Eclipse &gt; Installation Details, select the software you no longer want and click Uninstall. (On Macintosh it is Eclipse &gt; About Eclipse &gt; Installation Details.)</p>
 <h1 id="Where-is-the-Eclipse-Plugin-update-error-log"><a href="#Where-is-the-Eclipse-Plugin-update-error-log" class="headerlink" title="Where is the Eclipse Plugin update error log?"></a>Where is the Eclipse Plugin update error log?</h1><p>The log is located at current workspace: {workspace_path}/.metadata/.log - also you can view this log in view “Error Log”: Window &gt; Show View &gt; Other &gt; Find here “Error Log”</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-02-09-R-Lang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-02-09-R-Lang/" class="post-title-link" itemprop="url">R Language</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s&lt;-read.csv(<span class="string">"C:/Users/xxx/dev/R/IRS/SHH_SCHISHG.csv"</span>)</span><br><span class="line"><span class="comment"># aggregate </span></span><br><span class="line">s2&lt;-table(s$Original.CP)</span><br><span class="line">s3&lt;-as.data.frame(s2)</span><br><span class="line"><span class="comment"># extract by Frequency ordered </span></span><br><span class="line">s3[order(-s3$Freq),]</span><br></pre></td></tr></table></figure>
+
 
           
         

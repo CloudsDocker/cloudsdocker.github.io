@@ -279,85 +279,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-12-unmodifiableCollection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-08-12-unmodifiableCollection/" class="post-title-link" itemprop="url">unmodifiableList, unmodifiableSet,unmodifiableMap</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="What’s-it"><a href="#What’s-it" class="headerlink" title="What’s it"></a>What’s it</h2><p>Returns an unmodifiable view of the specified set.  This method allows<br>modules to provide users with “read-only” access to internal sets.<br>Query operations on the returned set “read through” to the specified<br>set, and attempts to modify the returned set, whether direct or via its<br>iterator, result in an <tt>UnsupportedOperationException</tt>.</p><p></p>
-<h2 id="Impelement-logic"><a href="#Impelement-logic" class="headerlink" title="Impelement logic"></a>Impelement logic</h2><p>In general, it re-created a new Collection, and inherit <code>read-only</code> methods from superclass, while raise Exception for those <code>modify</code> functions. Here is the code snippet</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">UnmodifiableCollection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt;, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1820017752578914078L</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> Collection&lt;? extends E&gt; c;</span><br><span class="line"></span><br><span class="line">        UnmodifiableCollection(Collection&lt;? extends E&gt; c) &#123;</span><br><span class="line">            <span class="keyword">if</span> (c==<span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">            <span class="keyword">this</span>.c = c;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span>                   </span>&#123;<span class="keyword">return</span> c.size();&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span>            </span>&#123;<span class="keyword">return</span> c.isEmpty();&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span>   </span>&#123;<span class="keyword">return</span> c.contains(o);&#125;</span><br><span class="line">        <span class="keyword">public</span> Object[] toArray()           &#123;<span class="keyword">return</span> c.toArray();&#125;</span><br><span class="line">        <span class="keyword">public</span> &lt;T&gt; T[] toArray(T[] a)       &#123;<span class="keyword">return</span> c.toArray(a);&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span>            </span>&#123;<span class="keyword">return</span> c.toString();&#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Iterator&lt;E&gt;() &#123;</span><br><span class="line">                <span class="keyword">private</span> <span class="keyword">final</span> Iterator&lt;? extends E&gt; i = c.iterator();</span><br><span class="line"></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> i.hasNext();&#125;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> E <span class="title">next</span><span class="params">()</span>          </span>&#123;<span class="keyword">return</span> i.next();&#125;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> c.containsAll(coll);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">retainAll</span><span class="params">(Collection&lt;?&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-24-microservices/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -434,7 +355,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-30-Spark-vs-Storm/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-08-12-unmodifiableCollection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -450,7 +371,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-08-30-Spark-vs-Storm/" class="post-title-link" itemprop="url">Spark-vs-Storm</a>
+              <a href="/2016-08-12-unmodifiableCollection/" class="post-title-link" itemprop="url">unmodifiableList, unmodifiableSet,unmodifiableMap</a>
             
           </h1>
         
@@ -482,9 +403,10 @@
 
       
           
-            <p>The stark difference among Spark and Storm. Although both are claimed to process the streaming data in real time. But Spark processes it as micro-batches; whereas Storm processes per message - meaning if you intend to process things like social data, log data, etc.. you can actually apply CEP (Complex Event Processing) per tuples (i.e each social message in your example).  Spark, on other hand is good at processing small blocks of data, for instance if you are streaming a whole blobs of data (say some huge files of medical record, for example).</p>
-<p>So, obviously, I would say, give your usecase, Storm may be a better fit for your needs.</p>
-<p>And last, between distributions, I have found Hortonworks to be more easier in standing up and managing the cluster than other distribution (please take this comment with a grain of salt, as I may be slightly biased towards HWX given my comfort-zone of working around this distribution more than others)</p>
+            <h2 id="What’s-it"><a href="#What’s-it" class="headerlink" title="What’s it"></a>What’s it</h2><p>Returns an unmodifiable view of the specified set.  This method allows<br>modules to provide users with “read-only” access to internal sets.<br>Query operations on the returned set “read through” to the specified<br>set, and attempts to modify the returned set, whether direct or via its<br>iterator, result in an <tt>UnsupportedOperationException</tt>.</p><p></p>
+<h2 id="Impelement-logic"><a href="#Impelement-logic" class="headerlink" title="Impelement logic"></a>Impelement logic</h2><p>In general, it re-created a new Collection, and inherit <code>read-only</code> methods from superclass, while raise Exception for those <code>modify</code> functions. Here is the code snippet</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">UnmodifiableCollection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt;, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1820017752578914078L</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> Collection&lt;? extends E&gt; c;</span><br><span class="line"></span><br><span class="line">        UnmodifiableCollection(Collection&lt;? extends E&gt; c) &#123;</span><br><span class="line">            <span class="keyword">if</span> (c==<span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">            <span class="keyword">this</span>.c = c;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span>                   </span>&#123;<span class="keyword">return</span> c.size();&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span>            </span>&#123;<span class="keyword">return</span> c.isEmpty();&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span>   </span>&#123;<span class="keyword">return</span> c.contains(o);&#125;</span><br><span class="line">        <span class="keyword">public</span> Object[] toArray()           &#123;<span class="keyword">return</span> c.toArray();&#125;</span><br><span class="line">        <span class="keyword">public</span> &lt;T&gt; T[] toArray(T[] a)       &#123;<span class="keyword">return</span> c.toArray(a);&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span>            </span>&#123;<span class="keyword">return</span> c.toString();&#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Iterator&lt;E&gt;() &#123;</span><br><span class="line">                <span class="keyword">private</span> <span class="keyword">final</span> Iterator&lt;? extends E&gt; i = c.iterator();</span><br><span class="line"></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> i.hasNext();&#125;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> E <span class="title">next</span><span class="params">()</span>          </span>&#123;<span class="keyword">return</span> i.next();&#125;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> c.containsAll(coll);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">retainAll</span><span class="params">(Collection&lt;?&gt; coll)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -896,85 +818,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-14-JetBrains-Tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-09-14-JetBrains-Tips/" class="post-title-link" itemprop="url">JetBrains/IntelliJ tips</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h1><h2 id="Open-files-by-name"><a href="#Open-files-by-name" class="headerlink" title="Open files by name"></a>Open files by name</h2><p>To navigate to a class, file or symbol with the specified name:</p>
-<p>On the main menu, point to Navigate, and then choose Class, File, or Symbol respectively, or use the following shortcuts:<br>Class: ⌘O<br>File (directory): ⇧⌘O<br>Symbol: ⌥⌘O</p>
-<h2 id="Search-keywords-in-files"><a href="#Search-keywords-in-files" class="headerlink" title="Search keywords in files"></a>Search keywords in files</h2><p>Shift+Command+F: Fine in path</p>
-<h2 id="Re-open-files"><a href="#Re-open-files" class="headerlink" title="Re-open files"></a>Re-open files</h2><p>Command +E</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-11-head-first-blockchian-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1062,6 +905,85 @@
 <li>[简书 jianshu]（<a href="http://www.jianshu.com/users/a9e7b971aafc）" target="_blank" rel="noopener">http://www.jianshu.com/users/a9e7b971aafc）</a></li>
 <li>微信公众号：vibex</li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-09-14-JetBrains-Tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-09-14-JetBrains-Tips/" class="post-title-link" itemprop="url">JetBrains/IntelliJ tips</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h1><h2 id="Open-files-by-name"><a href="#Open-files-by-name" class="headerlink" title="Open files by name"></a>Open files by name</h2><p>To navigate to a class, file or symbol with the specified name:</p>
+<p>On the main menu, point to Navigate, and then choose Class, File, or Symbol respectively, or use the following shortcuts:<br>Class: ⌘O<br>File (directory): ⇧⌘O<br>Symbol: ⌥⌘O</p>
+<h2 id="Search-keywords-in-files"><a href="#Search-keywords-in-files" class="headerlink" title="Search keywords in files"></a>Search keywords in files</h2><p>Shift+Command+F: Fine in path</p>
+<h2 id="Re-open-files"><a href="#Re-open-files" class="headerlink" title="Re-open files"></a>Re-open files</h2><p>Command +E</p>
 
           
         
@@ -1185,6 +1107,85 @@
 </blockquote>
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><ul>
 <li><a href="https://objectpartners.com/2013/09/18/the-benefits-of-using-assertthat-over-other-assert-methods-in-unit-tests/" target="_blank" rel="noopener">benefit of assertThat</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-10-06-Sublime-Syntax-Highlights/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-10-06-Sublime-Syntax-Highlights/" class="post-title-link" itemprop="url">How to customize Sublime syntax highlights</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://www.sublimetext.com/docs/3/scope_naming.html" target="_blank" rel="noopener">Sublime Scope Naming</a></li>
+<li><a href="https://www.sublimetext.com/docs/3/syntax.html" target="_blank" rel="noopener">Syntax Guide</a></li>
 </ul>
 
           

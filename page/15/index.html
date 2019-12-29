@@ -195,6 +195,284 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-18-Google-Guice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-09-18-Google-Guice/" class="post-title-link" itemprop="url">Guice</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="A-new-type-of-Juice"><a href="#A-new-type-of-Juice" class="headerlink" title="A new type of Juice"></a>A new type of Juice</h1><p>Put simply, Guice alleviates the need for factories and the use of new in your Java code. Think of Guice’s @Inject as the new new. You will still need to write factories in some cases, but your code will not depend directly on them. Your code will be easier to change, unit test and reuse in other contexts.</p>
+<p>Guice embraces Java’s type safe nature, especially when it comes to features introduced in Java 5 such as generics and annotations. You might think of Guice as filling in missing features for core Java. Ideally, the language itself would provide most of the same features, but until such a language comes along, we have Guice.</p>
+<p>Guice helps you design better APIs, and the Guice API itself sets a good example. Guice is not a kitchen sink. We justify each feature with at least three use cases. When in doubt, we leave it out. We build general functionality which enables you to extend Guice rather than adding every feature to the core framework.</p>
+<h1 id="Guice-vs-Spring"><a href="#Guice-vs-Spring" class="headerlink" title="Guice vs Spring"></a>Guice vs Spring</h1><p>Spring and Google Guice are two powerful dependency injection frameworks in use today. Both frameworks fully embrace the concepts of dependency injection, but each has its own way of implementing them. Although Spring provides many benefits, it was created in a pre-Java-5 world. The Guice framework takes DI to the next level.</p>
+<p>The advent of Java 5 brought significant changes to the language like generics and annotations: features that enhance the power of Java static typing. Guice is a DI framework that was built from the ground up with the intent to take full advantage of these new features and that has focused on one primary goal: to do dependency injection well.</p>
+<p>Guice aims to make development and debugging easier and faster, not harder and slower. In that vein, Guice steers clear of surprises and magic. You should be able to understand code with or without tools, though tools can make things even easier. When errors do occur, Guice goes the extra mile to generate helpful messages.</p>
+<h3 id="core-differences-between-the-two-and-see-why-I-prefer-to-use-Guice"><a href="#core-differences-between-the-two-and-see-why-I-prefer-to-use-Guice" class="headerlink" title="core differences between the two, and see why I prefer to use Guice."></a>core differences between the two, and see why I prefer to use Guice.</h3><ol>
+<li>Living in XML Hell</li>
+<li>Eliminating reliance on String identifiers</li>
+<li>Preferring Constructor Injection</li>
+</ol>
+<p>Although Spring and Guice both support constructor and setter injection, each framework has a preference. Spring has long favored setter injection. Back in the early days of Spring, the authors believed the lack of argument names and default arguments in constructor injection reduced clarity. In addition, constructor injection makes it difficult to have optional dependencies, requires dependencies to be configured in a specific order, and forces subclasses to deal with superclass dependencies. Using setter injection eliminates these problems, and so Spring favors that approach.</p>
+<p>The Guice authors saw difficulties with setter injection. One problem is immutability: it is impossible to make immutable a class that uses setter injection. Constructor injection, on the other hand, makes the creation of immutable classes easy, an important consideration in writing multi-threaded applications. In addition, optional dependencies, while perhaps convenient, can introduce confusion about how a class is configured at runtime. Configuring a class through setter injection can often lead to missed required dependencies. Though Spring does provide a @Required annotation to solve this problem, using constructor injection eliminates it by default.</p>
+<p>Constructor injection also makes a class’s dependencies immediately clear at a glance. If you’re writing or modifying a unit test, it’s easy to read what the system-under-test needs. Lastly, because Guice uses types to wire classes together, constructor argument order isn’t an issue. You can feel free to reorder them how you want without needing to modify configuration code at all.</p>
+<p>The potential drawbacks posed by setter injection outweigh the benefits in many common scenarios, and so Guice established a best practice of favoring constructor injection instead. Its API is well-suited to that approach. But if you should choose to switch from one form of injection to the other, Guice makes that easy too. Changing from setter to constructor injection or vice versa is simply a matter of modifying the class in question. Unlike in Spring, you need never touch a configuration file.</p>
+<ol start="4">
+<li>Nullifying NullPointerExceptions</li>
+</ol>
+<p>Null is easily one of the most non-communicative return values possible from a method call.<br>Guice hates nulls as much as I do. By default, Guice refuses to inject a null into any object, and if an accidental null shows up during wiring, it fails-fast with a ProvisionException. Guice does allow for the exception case by permitting fields to be annotated with @Nullable, but this is discouraged.</p>
+<ol start="5">
+<li>Intruding into the domain</li>
+</ol>
+<p>Guice aims to eliminate all of this boilerplate without sacrificing maintainability.<br>With Guice, you implement modules. Guice passes a binder to your module, and your module uses the binder to map interfaces to implementations. The following module tells Guice to map Service to ServiceImpl in singleton scope:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">       <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyModule</span> <span class="keyword">implements</span> <span class="title">Module</span> </span>&#123;</span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(Binder binder)</span> </span>&#123;</span><br><span class="line">          binder.bind(Service.class)</span><br><span class="line">           .to(ServiceImpl.class)</span><br><span class="line">           .in(Scopes.SINGLETON);</span><br><span class="line">&#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>A module tells Guice what we want to inject. Now, how do we tell Guice where we want it injected? With Guice, you annotate constructors, methods and fields with @Inject.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">       <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">         <span class="keyword">private</span> <span class="keyword">final</span> Service service;</span><br><span class="line"><span class="meta">@Inject</span></span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="title">Client</span><span class="params">(Service service)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">this</span>.service = service;</span><br><span class="line">&#125;</span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           service.go();</span><br><span class="line">&#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Guice-vs-Dependency-Injection-By-Hand"><a href="#Guice-vs-Dependency-Injection-By-Hand" class="headerlink" title="Guice vs. Dependency Injection By Hand"></a>Guice vs. Dependency Injection By Hand</h2><p>As you can see, Guice saves you from having to write factory classes. You don’t have to write explicit code wiring clients to their dependencies. If you forget to provide a dependency, Guice fails at startup. Guice handles circular dependencies automatically.<br>Guice enables you to specify scopes declaratively. For example, you don’t have to write the same code to store an object in the HttpSession over and over.<br>In the real world, you often don’t know an implementation class until runtime. You need meta factories or service locators for your factories. Guice addresses these problems with minimal effort.<br>When injecting dependencies by hand, you can easily slip back into old habits and introduce direct dependencies, especially if you’re new to the concept of dependency injection. Using Guice turns the tables and makes doing the right thing easier. Guice helps keep you on track.</p>
+<h2 id="Guice-annotations"><a href="#Guice-annotations" class="headerlink" title="Guice annotations"></a>Guice annotations</h2><p>When possible, Guice enables you to use annotations in lieu of explicit bindings and eliminate even more boilerplate code. Back to our example, if you need an interface to simplify unit testing but you don’t care about compile time dependencies, you can point to a default implementation directly from your interface.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">       <span class="meta">@ImplementedBy</span>(ServiceImpl.class)</span><br><span class="line">       <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line">         <span class="function"><span class="keyword">void</span> <span class="title">go</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>If a client needs a Service and Guice can’t find an explicit binding, Guice will<br>inject an instance of ServiceImpl.</p>
+<p>By default, Guice injects a new instance every time. If you want to specify a<br>different scope, you can annotate the implementation class, too.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Singleton</span></span><br><span class="line">       <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceImpl</span> <span class="keyword">implements</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Architectural-Overview"><a href="#Architectural-Overview" class="headerlink" title="Architectural Overview"></a>Architectural Overview</h1><p>We can break Guice’s architecture down into two distinct stages: startup and<br>runtime. You build an Injector during startup and use it to inject objects at runtime.</p>
+<h2 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h2><p>You configure Guice by implementing Module. You pass Guice a module, Guice passes your module a Binder, and your module uses the binder to configure bindings. A binding most commonly consists of a mapping between an interface and a concrete implementation. For example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">       <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyModule</span> <span class="keyword">implements</span> <span class="title">Module</span> </span>&#123;</span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(Binder binder)</span> </span>&#123;</span><br><span class="line">          <span class="comment">// Bind Foo to FooImpl. Guice will create a new</span></span><br><span class="line">           <span class="comment">// instance of FooImpl for every injection.</span></span><br><span class="line">           binder.bind(Foo.class).to(FooImpl.class);</span><br><span class="line">           <span class="comment">// Bind Bar to an instance of Bar.</span></span><br><span class="line">           Bar bar = <span class="keyword">new</span> Bar();</span><br><span class="line">           binder.bind(Bar.class).toInstance(bar);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Injecting-Providers"><a href="#Injecting-Providers" class="headerlink" title="Injecting Providers"></a>Injecting Providers</h1><p>With normal dependency injection, each type gets exactly one instance of each of its dependent types. The RealBillingService gets one CreditCardProcessor and one TransactionLog. Sometimes you want more than one instance of your dependent types. When this flexibility is necessary, Guice binds a provider. Providers produce a value when the get() method is invoked:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Provider</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function">T <span class="title">get</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Provides-Methods"><a href="#Provides-Methods" class="headerlink" title="@Provides Methods"></a>@Provides Methods</h1><p>When you need code to create an object, use an @Provides method. The method must be defined within a module, and it must have an @Provides annotation. The method’s return type is the bound type. Whenever the injector needs an instance of that type, it will invoke the method.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BillingModule</span> <span class="keyword">extends</span> <span class="title">AbstractModule</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Provides</span></span><br><span class="line">  <span class="function">TransactionLog <span class="title">provideTransactionLog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    DatabaseTransactionLog transactionLog = <span class="keyword">new</span> DatabaseTransactionLog();</span><br><span class="line">    transactionLog.setJdbcUrl(<span class="string">"jdbc:mysql://localhost/pizza"</span>);</span><br><span class="line">    transactionLog.setThreadPoolSize(<span class="number">30</span>);</span><br><span class="line">    <span class="keyword">return</span> transactionLog;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>If the @Provides method has a binding annotation like @PayPal or @Named(“Checkout”), Guice binds the annotated type. Dependencies can be passed in as parameters to the method. The injector will exercise the bindings for each of these before invoking the method.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Provides</span> <span class="meta">@PayPal</span></span><br><span class="line"><span class="function">CreditCardProcessor <span class="title">providePayPalCreditCardProcessor</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    @Named(<span class="string">"PayPal API key"</span>)</span> String apiKey) </span>&#123;</span><br><span class="line">  PayPalCreditCardProcessor processor = <span class="keyword">new</span> PayPalCreditCardProcessor();</span><br><span class="line">  processor.setApiKey(apiKey);</span><br><span class="line">  <span class="keyword">return</span> processor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1>
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-26-Citrix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-09-26-Citrix/" class="post-title-link" itemprop="url">Citrix receiver</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="“Cannot-connect-to-remote-desktop”-with-Citrix-Receiver"><a href="#“Cannot-connect-to-remote-desktop”-with-Citrix-Receiver" class="headerlink" title="“Cannot connect to remote desktop” with Citrix Receiver"></a>“Cannot connect to remote desktop” with Citrix Receiver</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/Citrix/ICAClient/keystore/ <span class="keyword">then</span>: rm -rf cacerts and finally: ln -s /etc/ssl/certs cacerts</span><br></pre></td></tr></table></figure>
+
+<h1 id="Cann’t-show-full-sreen-in-linux-citrix-receiver"><a href="#Cann’t-show-full-sreen-in-linux-citrix-receiver" class="headerlink" title="Cann’t show full sreen in linux citrix receiver"></a>Cann’t show full sreen in linux citrix receiver</h1><p>There is workaround, i.e. Press <code>Alt</code> and drag RDP window, then maximum it.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-10-13-SBE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-10-13-SBE/" class="post-title-link" itemprop="url">Citrix receiver</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Simple-Binary-Encoding-SBE"><a href="#Simple-Binary-Encoding-SBE" class="headerlink" title="Simple Binary Encoding (SBE)"></a>Simple Binary Encoding (SBE)</h1><p>SBE is an OSI layer 6 presentation for encoding and decoding binary application messages for low-latency financial applications. </p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2019-01-03-IPC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -417,467 +695,6 @@
 </li>
 </ol>
 <p>The Financial Conduct Authority has provided some examples of scenarios that would fit within the exclusion.  Please find the examples provided on the link here.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-15-PrestoDB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-08-15-PrestoDB/" class="post-title-link" itemprop="url">Presto DB</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="WHAT-IS-PRESTO"><a href="#WHAT-IS-PRESTO" class="headerlink" title="WHAT IS PRESTO?"></a>WHAT IS PRESTO?</h1><p>Presto is an open source distributed SQL query engine for running interactive analytic queries against data sources of all sizes ranging from gigabytes to petabytes.</p>
-<p>Presto was designed and written from the ground up for interactive analytics and approaches the speed of commercial data warehouses while scaling to the size of organizations like Facebook.</p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Presto is a distributed system that runs on a cluster of machines. A full installation includes a coordinator and multiple workers. Queries are submitted from a client such as the Presto CLI to the coordinator. The coordinator parses, analyzes and plans the query execution, then distributes the processing to the workers.</p>
-<p>Presto does not use MapReduce and thus only requires HDFS.</p>
-<h2 id="Separation-of-Storage-and-Compute"><a href="#Separation-of-Storage-and-Compute" class="headerlink" title="Separation of Storage and Compute"></a>Separation of Storage and Compute</h2><p>Architected for separation of storage and compute, Presto can scale up and down based on your analytics demand to access this data. There’s no need to move your data and provisioning compute to the exact need results in significant cost savings.</p>
-<h3 id="Config-Properties"><a href="#Config-Properties" class="headerlink" title="Config Properties"></a>Config Properties</h3><p>The config properties file, etc/config.properties, contains the configuration for the Presto server. Every Presto server can function as both a coordinator and a worker, but dedicating a single machine to only perform coordination work provides the best performance on larger clusters.</p>
-<h3 id="Catalog-Properties"><a href="#Catalog-Properties" class="headerlink" title="Catalog Properties"></a>Catalog Properties</h3><p>Presto accesses data via connectors, which are mounted in catalogs. The connector provides all of the schemas and tables inside of the catalog. For example, the Hive connector maps each Hive database to a schema, so if the Hive connector is mounted as the hive catalog, and Hive contains a table clicks in database web, that table would be accessed in Presto as hive.web.clicks.</p>
-<p>Catalogs are registered by creating a catalog properties file in the etc/catalog directory. For example, create etc/catalog/jmx.properties with the following contents to mount the jmx connector as the jmx catalog:</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-08-Cucumber/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-08-08-Cucumber/" class="post-title-link" itemprop="url">Cucumber</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Acceptance-testing-vs-unit-test"><a href="#Acceptance-testing-vs-unit-test" class="headerlink" title="Acceptance testing vs unit test"></a>Acceptance testing vs unit test</h1><p>It’s sometimes said that unit tests ensure you build the thing right, whereas acceptance tests ensure you build the right thing.</p>
-<h1 id="Cucumber"><a href="#Cucumber" class="headerlink" title="Cucumber."></a>Cucumber.</h1><p>The acceptance testing tool.</p>
-<h1 id="Source-of-Truth"><a href="#Source-of-Truth" class="headerlink" title="Source of Truth"></a>Source of Truth</h1><p>For many teams, the Cucumber feature files become the definitive source of truth as to what the system does.</p>
-<h1 id="Scenarios"><a href="#Scenarios" class="headerlink" title="Scenarios"></a>Scenarios</h1><p>Scenarios are written before production code. They start their life as an executable specification. As the production code emerges, Scenarios take on a role as living documentation and automated tests.</p>
-<p>Each Cucumber test is called a scenario, and each scenario contains steps that tell Cucumber what to do. </p>
-<h1 id="Gherkin"><a href="#Gherkin" class="headerlink" title="Gherkin"></a>Gherkin</h1><p>The keywords Feature, Scenario, Given, When, and Then are the structure, and everything else is documentation.<br>The structure is called Gherkin.</p>
-<p>Cucumber features are all about communicating with business users in their language, and it’s important that we don’t force them to sound like robots.</p>
-<h1 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h1><p>We start with features, which contain our scenarios and steps. The steps of our scenarios call step definitions that provide the link between the Gherkin fea- tures and the application being built.</p>
-<p>This principle, deliberately doing the minimum useful work the tests will let us get away with, might seem lazy, but in fact it’s a discipline. It ensures that we make our tests thorough: if the test doesn’t drive us to write the right thing, then we need a better test.</p>
-<h1 id="Step-Definitions"><a href="#Step-Definitions" class="headerlink" title="Step Definitions"></a>Step Definitions</h1><p>Step definitions are the glue that binds your Cucumber tests to the application you’re testing. </p>
-<p>A scenario that’s been executed can end up in any of the following states:</p>
-<ul>
-<li>Failed</li>
-<li>Pending</li>
-<li>Undefined </li>
-<li>Skipped</li>
-<li>Passed<br>These states are designed to help indicate the progress that you make as you develop your tests.</li>
-</ul>
-<h3 id="Pending-Steps"><a href="#Pending-Steps" class="headerlink" title="Pending Steps"></a>Pending Steps</h3><p>When Cucumber discovers a step definition that’s halfway through being implemented, it marks the step as pending (yellow). Again, the scenario will be stopped, and the rest of the steps will be skipped or marked as undefined.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Steps</span> </span>&#123;</span><br><span class="line"><span class="meta">@Given</span>(<span class="string">"^I have deposited \\$(\\d+) in my account$"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> iHaveDeposited$InMyAccount(<span class="keyword">int</span> amount) <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">    <span class="comment">// Write code here that turns the phrase above into concrete actions</span></span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> PendingException(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Step-definition-recap"><a href="#Step-definition-recap" class="headerlink" title="Step definition recap"></a>Step definition recap</h2><p>The pending status is a bit like those under construction signs you used to see all over the Internet in the 1990s. You can use it as a temporary signpost to your teammates that you’re in the middle of working on something.</p>
-<p>Because regular expressions can contain wildcards, this means you have the flexibility to make the Gherkin steps nice and readable, while keeping your Java step definition code clean and free of duplication.<br>• Step definitions provide a mapping from the Gherkin scenarios’ plain- language descriptions of user actions into Java code, which simulates those actions.<br>• Step definitions are registered with Cucumber by using @Given, @When, @Then, or one of the aliases for your spoken language.<br>• Step definitions use regular expressions to declare the steps that they can handle. Because regular expressions can contain wildcards, one step definition can handle several different steps.<br>• A step definition communicates its result to Cucumber by raising, or not raising, an exception.</p>
-<h1 id="recap"><a href="#recap" class="headerlink" title="recap"></a>recap</h1><ul>
-<li>Readability should be your number-one goal when writing Gherkin fea- tures. Always try to sit together with a stakeholder when you write your scenarios, or at the very least pass them over for feedback once you’ve written them. Keep fine-tuning the language in your scenarios to make them more readable.</li>
-<li>Use a Background to factor out repeated steps from a feature and to help tell a story.</li>
-<li>Repetitive scenarios can be collapsed into a Scenario Outline.</li>
-<li>Steps can be extended with multiline strings or data tables.</li>
-<li>You can organize features into subfolders, like chapters in a book.</li>
-<li>Tags allow you to mark up scenarios and features so you select particular sets to run or report on.</li>
-</ul>
-<h1 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h1><h2 id="compile-and-run-via-CLI"><a href="#compile-and-run-via-CLI" class="headerlink" title="compile and run via CLI"></a>compile and run via CLI</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">javac -cp <span class="string">"jars/*"</span> step_definitions/CheckoutSteps.java</span><br><span class="line">java -cp <span class="string">"jars/*:."</span> cucumber.api.cli.Main -p pretty --snippets camelcase \</span><br><span class="line">                          -g step_definitions features</span><br></pre></td></tr></table></figure>
-
-<p>Line 1 compiles the CheckoutSteps class that we’ve just created. Then line 2 invokes Cucumber. There are two slight additions to Cucumber’s invocation:</p>
-<ol>
-<li>We’ve added the current directory “.” to the classpath.</li>
-<li>We’ve added the -g step_definitions command-line argument to tell Cucumber where to look for the step definitions that it will need to “glue” the steps in the feature file to the checkout application (which we haven’t written yet).</li>
-</ol>
-<h2 id="feature-file"><a href="#feature-file" class="headerlink" title="feature file"></a>feature file</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Feature: Is it Friday yet?</span><br><span class="line">  Everybody wants to know when it&apos;s Friday</span><br><span class="line"></span><br><span class="line">  Scenario: Sunday isn&apos;t Friday</span><br><span class="line">    Given today is Sunday</span><br><span class="line">    When I ask whether it&apos;s Friday yet</span><br><span class="line">    Then I should be told &quot;Nope&quot;</span><br></pre></td></tr></table></figure>
-
-<p>The first line of this file starts with the keyword Feature: followed by a name. It’s a good idea to use a name similar to the file name.</p>
-<p>The second line is a brief description of the feature. Cucumber does not execute this line, it’s just documentation.</p>
-<p>The fourth line, Scenario: Sunday is not Friday is a Scenario, which is a concrete example illustrating how the software should behave.</p>
-<p>The last three lines starting with Given, When and Then are the steps of our scenario. This is what Cucumber will execute.</p>
-<p>Notice how we go from Scenario to Scenario Outline when we start using Examples.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Feature: Is it Friday yet?</span><br><span class="line">  Everybody wants to know when it&apos;s Friday</span><br><span class="line"></span><br><span class="line">  Scenario Outline: Today is or is not Friday</span><br><span class="line">    Given today is &lt;day&gt;</span><br><span class="line">    When I ask whether it&apos;s Friday yet</span><br><span class="line">    Then I should be told &lt;answer&gt;</span><br><span class="line"></span><br><span class="line">  Examples:</span><br><span class="line">    | day | answer |</span><br><span class="line">    | &quot;Friday&quot; | &quot;TGIF&quot; |</span><br><span class="line">    | &quot;Sunday&quot; | &quot;Nope&quot; |</span><br><span class="line">    | &quot;anything else!&quot; | &quot;Nope&quot; |</span><br></pre></td></tr></table></figure>
-
-<p>Scenario Outline: Withdraw fixed amount<br>Given I have <balance> in my account<br>When I choose to withdraw the fixed amount of <withdrawal> Then I should receive <received> cash<br>And the balance of my account should be <remaining><br>Examples:<br>      | Balance | Withdrawal | Received | Remaining |<br>| $500<br>| $500<br>| $500<br>|$50 |$50 |$450 | | $100 | $100 | $400 | | $200 | $200 | $300 |<br>We indicate placeholders within the scenario outline using angle brackets (&lt;..&gt;) where we want real values to be substituted. The scenario outline itself is useless without an Examples table, which lists rows of values to be substituted for each placeholder.</remaining></received></withdrawal></balance></p>
-<h2 id="Doc-Strings"><a href="#Doc-Strings" class="headerlink" title="Doc Strings"></a>Doc Strings</h2><p>Doc strings allow you to specify a larger piece of text than you could fit on a single line. For example, if you need to describe the precise content of an email message, you could do it like this:<br>Scenario: Ban Unscrupulous Users<br>When I behave unscrupulously<br>Then I should receive an email containing:<br>“””<br>    Dear Sir,<br>    Your account privileges have been revoked due to your unscrupulous behavior.<br>Sincerely,<br>The Management “””<br>And my account should be locked<br>Just like a data table, the entire string between the “”” triple quotes is attached to the step above it. The indentation of the opening “”” is not important, although common practice is to indent two spaces from the enclosing step, as we’ve shown. The indentation inside the triple quotes, however, is signifi- cant: imagine the left margin running down from the start of the first “””. If you want to include indentation within your string, you need to indent it within this margin.</p>
-<h3 id="TGIF"><a href="#TGIF" class="headerlink" title="TGIF"></a>TGIF</h3><p>Thanks God It’s Friday</p>
-<h2 id="Data-table"><a href="#Data-table" class="headerlink" title="Data table"></a>Data table</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Given these Users:</span><br><span class="line">| name | date of birth | </span><br><span class="line">| Michael Jackson | August 29, 1958 | </span><br><span class="line">| Elvis | January 8, 1935 | </span><br><span class="line">| John Lennon | October 9, 1940 |</span><br></pre></td></tr></table></figure>
-
-<p>That’s much clearer. The table starts on the line immediately following the step, and its cells are separated using the pipe character: |. You can line up the pipes using whitespace to make the table look tidy, although Cucumber doesn’t mind whether you do; it will strip out the values in each cell, ignoring the surrounding whitespace.</p>
-<p>public class BoardSteps {<br>@Given(“^a board like this:$”)<br>public void aBoardLikeThis(DataTable arg1) throws Throwable {<br>        // Write code here that turns the phrase above into concrete actions<br>        // For automatic transformation, change DataTable to one of<br>        // List<yourtype>, List&lt;List<e>&gt;, List&lt;Map&lt;K,V&gt;&gt; or Map&lt;K,V&gt;.<br>        // E,K,V must be a scalar (String, Integer, Date, enum etc)<br>throw new PendingException(); }</e></yourtype></p>
-<h1 id="BDD"><a href="#BDD" class="headerlink" title="BDD"></a>BDD</h1><p>The two main practices in the BDD approach are discovery workshops, which bridge the communication gap between business and IT, and executable specifications.</p>
-<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Background</span>:</span><br><span class="line"><span class="keyword">Given</span> I have been issued a new card</span><br><span class="line"><span class="keyword">And</span> I insert the card, entering the correct PIN <span class="keyword">And</span> I choose <span class="string">"Change PIN"</span> from the menu</span><br><span class="line"><span class="keyword">Scenario</span>: Change PIN successfully</span><br><span class="line"><span class="keyword">When</span> I change the PIN to 9876</span><br><span class="line"><span class="keyword">Then</span> the system should remember my PIN is now 9876</span><br><span class="line"><span class="keyword">Scenario</span>: Try to change PIN to the same as before</span><br><span class="line"><span class="keyword">When</span> I try to change the PIN to the original PIN number <span class="keyword">Then</span> I should see a warning message</span><br><span class="line"><span class="keyword">And</span> the system should not have changed my PIN</span><br></pre></td></tr></table></figure>
-
-<p>Our refactoring hasn’t changed the behavior of the tests at all: at runtime, the steps in the background are executed at the beginning of each scenario, just as they were before. What we have done is made each individual scenario much easier to read.</p>
-<p>Using a Background element isn’t always necessary, but it’s often useful to improve the readability of your features by removing repetitive steps from individual scenarios. </p>
-<h2 id="A-good-‘background’"><a href="#A-good-‘background’" class="headerlink" title="A good ‘background’"></a>A good ‘background’</h2><ul>
-<li>Make your Background section vivid. Use colorful names and try to tell a story, because your readers can keep track of stories much better than they can keep track of dull names like User A, User B, Site 1, and so on. If it’s worth mentioning at all, make it really stand out.</li>
-<li>Keep your scenarios short, and don’t have too many. If the Background is more than three or four steps long, think about using higher-level steps or splitting the feature file in two. You can use a background as a good indicator of when a feature is getting too long: if the new scenarios you want to add don’t fit with the existing background, consider splitting the feature.</li>
-<li>Avoid putting technical details such as clearing queues, starting back- end services, or opening browsers in a background. </li>
-</ul>
-<p>Backgrounds are useful for taking Given (and sometimes When) steps that are repeated in each scenario and moving them to a single place. This helps keep your scenarios clear and concise.</p>
-<h2 id="Discovery-Workshops"><a href="#Discovery-Workshops" class="headerlink" title="Discovery Workshops"></a>Discovery Workshops</h2><p>Discovery workshops (or Specification workshops) are short and frequent meetings where business and IT meet to gain a common understanding of how the software should behave.</p>
-<h2 id="Relationship-with-TDD"><a href="#Relationship-with-TDD" class="headerlink" title="Relationship with TDD"></a>Relationship with TDD</h2><p>The main difference is that Cucumber operates on a higher abstraction level, closer to the domain and farther away from classes and methods. BDD builds on TDD, while preserving a strong link between the business requirements and the technical solution.</p>
-<h2 id="Outside-in"><a href="#Outside-in" class="headerlink" title="Outside in"></a>Outside in</h2><p>This technique is called Outside-in because programmers typically start with the functionality that is closest to the user (the user interface, which is on the outside of the system) and gradually work towards the guts of the system (business logic, persistence, messaging and so on) as they discover more of what needs to be implemented.</p>
-<blockquote>
-<p>Your cucumber features should drive your implementation, not reflect it.</p>
-</blockquote>
-<p>This means Cucumber features should be written before the code implementing the feature.</p>
-<p>Notice that we’re just sketching out the interface to the class, rather than adding any implementation to it. This way of working is fundamental to out- side-in development. We try not to think about how the Account is going to work yet but concentrate on what it should be able to do.</p>
-<p>Keeping specifications, regression tests and documentation in a single place reduces the overhead of keeping multiple documents in sync - the Cucumber scenarios work as a shared source of truth for business and IT.</p>
-<p>While many people focus on the value added by the automated “tests” you get out of BDD, the real value is actually the shared understanding we get at the beginning.</p>
-<p>Cucumber is not a tool for testing software. It is a tool for testing people’s understanding of how software (yet to be written) should behave.</p>
-<p>The biggest advantage of BDD approach for software development might be that they describe a set of functions that a user expects from a system in a very concrete and direct manner. The sum of these behaviors essentially document a contract with the user/client. If any of the tests fail, this contract is not upheld.</p>
-<h1 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h1><p>the most important stage of BDD. Three amigos (business persons, developers, testers) get together and identify the expected behavior of our product by discussing examples. We can use feature mapping approach to effectively analyse and elaborate the product behavior.</p>
-<p>always make sure that your scenarios are not tightly coupled with your tests. Your BDD scenarios should change only when the requirement changes, not when the the implementation changes (i.e. your BDD scenarios must drive the implementation, not the other way around).</p>
-<h1 id="Executable-Specification"><a href="#Executable-Specification" class="headerlink" title="Executable Specification"></a>Executable Specification</h1><p>An Executable Specification is a Definition of Done that you can run as a test. In Behavior Driven Development (BDD), we refer to acceptance criteria as “executable specifications.” Executable Specifications are meant to be clear, unambiguous, written in business terms, and easy to automate. Each acceptance criteria is a concrete example of how a user interacts with the system to achieve some business goal.</p>
-<p>The most well-known format for BDD acceptance criteria uses the “Given-When-Then” structure:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Given &lt;some precondition&gt;</span><br><span class="line">When &lt;something happens&gt;</span><br><span class="line">Then &lt;we expect some outcome&gt;</span><br></pre></td></tr></table></figure>
-
-<p>This format is a great way to make sure that we are thinking in terms of the outcomes we want to achieve. After all, the outcomes of an application are where the value lies.</p>
-<p>These scenarios are also easy to automate with BDD tools like Cucumber and Specflow.</p>
-<h1 id="No-silver-bullet"><a href="#No-silver-bullet" class="headerlink" title="No silver bullet"></a>No silver bullet</h1><p>“The hardest single part of building a software system is deciding precisely what to build.”<br>We’ve all worked on projects where, because of a misunderstanding, code that we’d worked hard on for several days or more had to be thrown away. Better communication between developers and stakeholders is essential to help avoid this kind of wasted time. One technique that really helps facilitate this communication is the use of concrete examples to illustrate what we want the software to do.</p>
-<h2 id="Concrete-Examples"><a href="#Concrete-Examples" class="headerlink" title="Concrete Examples"></a>Concrete Examples</h2><p>By using real-world examples to describe the desired behavior of the system we want to build, we stay grounded in language and terminology that makes sense to our stakeholders: we’re speaking their language. </p>
-<p>To illustrate this, let’s imagine you’re building a credit card payment system. One of the requirements is to make sure users can’t enter bad data. Here’s one way of expressing that:<br><code>Customers should be prevented from entering invalid credit card details.</code><br>This is an example of what Agile teams often call acceptance criteria or condi- tions of satisfaction.1 We use the word acceptance because they tell us what the system must be able to do in order for our stakeholders to find it acceptable.</p>
-<p>The previous requirements statement is useful, but it leaves far too much room for ambiguity and misunderstanding. It lacks precision. What exactly makes a set of details invalid? How exactly should the user be prevented from entering them? We’ve seen too many projects get dragged into the tar pit2 by these kind of worthy but vague statements. Let’s try illustrating this requirement with a concrete example:<br><code>If a customer enters a credit card number that isn’t exactly 16 digits long, when they try to submit the form, it should be redisplayed with an error message advising them of the correct number of digits.</code></p>
-<p>Can you see how much more specific this second statement is? As a developer implementing this feature, we know almost everything we need to be able to sit down and start working on the code. As a stakeholder, we have a much clearer idea of what the developer is going to build.<br>In fact, a stakeholder reading this might point out that there are certain types of cards that are valid with fewer than 16 digits and give us another example. This is the real power of examples: they stimulate our imagination, enabling us to explore and discover edge cases we might otherwise not have found until much later.</p>
-<p>By giving an example to illustrate our requirement, we’ve turned an acceptance criterion into an acceptance test. Now we have something unambiguous that we can use to test the behavior of the system, either manually or by using an automated test script.</p>
-<h1 id="Gherkins"><a href="#Gherkins" class="headerlink" title="Gherkins"></a>Gherkins</h1><p>Gherkin use main keywords: Feature, Scenario, Given, When, Then, And, But, Background, Scenario Outline, Examplesand some extra syntax “”” (Doc strings), | (Data tables), @(Tags), # (Comments).</p>
-<h2 id="dry-run"><a href="#dry-run" class="headerlink" title="dry run"></a>dry run</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -cp <span class="string">".:jars/*"</span> cucumber.api.cli.Main -g step_definitions --dry-run features</span><br></pre></td></tr></table></figure>
-
-<p>The –dry-run switch tells Cucumber to parse the file without executing it. It<br>will tell you if your Gherkin isn’t valid.</p>
-<h1 id="Replacing-Given-When-Then-with-Bullets"><a href="#Replacing-Given-When-Then-with-Bullets" class="headerlink" title="Replacing Given/When/Then with Bullets"></a>Replacing Given/When/Then with Bullets</h1><p>Some people find Given, When, Then, And, and But a little verbose. There is an additional keyword you can use to start a step: * (an asterisk). We could have written the previous scenario like this:<br>Scenario: Attempt withdrawal using stolen card * I have $100 in my account</p>
-<ul>
-<li>my card is invalid</li>
-<li>I request $50</li>
-<li>my card should not be returned</li>
-<li>I should be told to contact the bank<br>To Cucumber, this is exactly the same scenario. Do you find this version easier to read? Maybe. Did some of the meaning get lost? Maybe. It’s up to you and your team how you want to word things. The only thing that matters is that everybody understands what’s communicated.</li>
-</ul>
-<h2 id="CucumberOptions"><a href="#CucumberOptions" class="headerlink" title="CucumberOptions"></a>CucumberOptions</h2><p>the @CucumberOptions. One can define the location of features, glue files (step definitions), and formatter plugins inside this Cucumber options. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CucumberOptions</span>(</span><br><span class="line">        features = <span class="string">"src/test/resources/features"</span>,</span><br><span class="line">        glue = &#123;<span class="string">"stepdefs"</span>&#125;,</span><br><span class="line">        tags = &#123;<span class="string">"~@Ignore"</span>&#125;,</span><br><span class="line">        format = &#123;</span><br><span class="line">                <span class="string">"pretty"</span>,</span><br><span class="line">                <span class="string">"html:target/cucumber-reports/cucumber-pretty"</span>,</span><br><span class="line">                <span class="string">"json:target/cucumber-reports/CucumberTestReport.json"</span>,</span><br><span class="line">                <span class="string">"rerun:target/cucumber-reports/rerun.txt"</span></span><br><span class="line">        &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRunner</span> </span>&#123;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Step-definitions"><a href="#Step-definitions" class="headerlink" title="Step definitions"></a>Step definitions</h3><p>Cucumber doesn’t know how to execute your scenarios out-of-the-box. It needs Step Definitions to translate plain text Gherkin steps into actionsthat will interact with the system. When Cucumber executes a Step in a Scenario, it will look for a matching Step Definition to execute.</p>
-<h3 id="After"><a href="#After" class="headerlink" title="After"></a>After</h3><p>one can implement initial configurations of the project in TestNG’s BeforeClass method. In cucumber’s Before hook, one can implement code to open web browser which is a prerequisite for all scenarios. In Background of each feature, one can implement steps to navigate to web site and/or login to account. In Cucumber’s After hook, one can take a snapshot of failure and close the browser.</p>
-<h2 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h2><p>Grouping Features, Scenarios, and Step Definitions using Tags<br>Tags is a great way made for Cucumber power users to organize their features and scenarios. In above example, by changing tags = {“~@Ignore”} line totags = {“@UpdateProfile”}, one can choose run only the features and scenarios tagged with @UpdateProfile tag. A Scenario or feature can have as many tags as you like. Just separate them with spaces: @important @maintenance @db @auth</p>
-<p>If subfolders are the chapters in your book of features, then tags are the sticky notes you’ve put on pages you want to be able to find easily. You tag a scenario by putting a word prefixed with the @ character on the line before the Scenario keyword, like this:<br>@widgets<br>Scenario: Generate report<br>Given I am logged in</p>
-<p>There are three main reasons for tagging scenarios:</p>
-<ul>
-<li>Documentation: You want to use a tag to attach a label to certain scenarios, for example to label them with an ID from a project management tool.</li>
-<li>Filtering: Cucumber allows you to use tags as a filter to pick out specific scenarios to run or report on. You can even have Cucumber fail your test run if a certain tag appears too many times.</li>
-<li>Hooks: Run a block of code whenever a scenario with a particular tag is about to start or has just finished.</li>
-</ul>
-<h3 id="config-tag"><a href="#config-tag" class="headerlink" title="config tag"></a>config tag</h3><p>Tags are a great way to organise your features and scenarios. Consider this example:</p>
-<p>@billing<br>Feature: Verify billing</p>
-<p>  @important<br>  Scenario: Missing product description<br>    Given hello</p>
-<p>  Scenario: Several products<br>    Given hello<br>A feature or scenario or can have as many tags as you like. Just separate them with spaces:</p>
-<p>@billing @bicker @annoy<br>Feature: Verify billing<br>Tags can be placed above the following Gherkin elements:</p>
-<p>Feature<br>Scenario<br>Scenario Outline<br>Examples<br>It is not possible to place tags above Background or steps (Given, When, Then, And and But).</p>
-<h1 id="Cucumber-for-java-8-lambda"><a href="#Cucumber-for-java-8-lambda" class="headerlink" title="Cucumber for java 8 lambda"></a>Cucumber for java 8 lambda</h1><p>Using Lambda Expressions for Step Definitions<br>Java Step Definitions are written in regular classes which don’t need to extend or implement anything. They can be written either using lambda expressions or method annotations. In the above, we used the method annotations. To use lambda expressions, use cucumber-java8 module instead of cucumber-java module in your pom.xml file.</p>
-<p>When you use the cucumber-java8 module, you can write the Step Definitions using lambdas:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cucumber;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cucumber.api.java8.En;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StepDefinitions</span> <span class="keyword">implements</span> <span class="title">En</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StepDefinitions</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Given(<span class="string">"I have (\\d+) cukes in my belly"</span>, (Integer cukes) -&gt; &#123;</span><br><span class="line">            System.out.format(<span class="string">"Cukes: %n\n"</span>, cukes);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> steps;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> cucumber.api.java8.En;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyStepdefs</span> <span class="keyword">implements</span> <span class="title">En</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyStepdefs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       Given(<span class="string">"I login as (.*)$"</span>,(String name)-&gt; System.out.println(name));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Gherkin-1"><a href="#Gherkin-1" class="headerlink" title="Gherkin"></a>Gherkin</h1><p>Cucumber tests are expressed using a syntax called Gherkin. Gherkin files are plain text and have a .feature extension.</p>
-<h1 id="Steps-and-Step-Definitions"><a href="#Steps-and-Step-Definitions" class="headerlink" title="Steps and Step Definitions"></a>Steps and Step Definitions</h1><p>Let’s start by clarifying the distinction between a step and a step definition.<br>Each Gherkin scenario is made up of a series of steps, written in plain lan- guage. On its own, a step is just documentation; it needs a step definition to bring it to life. A step definition is a piece of code that says to Cucumber, “If you see a step that looks like this…, then here’s what I want you to do….”<br>When Cucumber tries to execute each step, it looks for a matching step defi- nition to execute. So, how does Cucumber match a step definition to a step?</p>
-<h1 id="Creating-a-Step-Definition"><a href="#Creating-a-Step-Definition" class="headerlink" title="Creating a Step Definition"></a>Creating a Step Definition</h1><p>If Cucumber sees a step definition with this regular expression, it will execute it when it comes to the first step of our scenario. So, how do we create a step definition?</p>
-<p>Step definitions live in ordinary files. To create a step definition in Java, you use a special Cucumber annotation, such as @Given, like this:<br>@Given(“I have \$100 in my Account”)<br>public void iHave$100InMyAccount() throws Throwable {<br>    // TODO: code that puts $100 into User’s Account goes here<br>}</p>
-<h2 id="Given-When-Then-Are-the-Same"><a href="#Given-When-Then-Are-the-Same" class="headerlink" title="Given, When, Then Are the Same"></a>Given, When, Then Are the Same</h2><p>It doesn’t actually matter which of the three methods you use to register a step definition, because Cucumber ignores the keyword when matching a step. Under the hood, all of the annotations are aliases for StepDefAnnotation.</p>
-<p>The best way we’ve found to avoid this kind of problem is to pay careful attention to the precise wording in your steps. You could change both steps to be less ambiguous:<br>Given I have deposited $100 in my Account Then the balance of my Account should be $100<br>By rewording the steps like this, you’ve made them better at communicating exactly what they will do when executed. Learning to spot and remove this kind of ambiguity is something that takes practice. Paying attention to the distinction in wording between two steps like this can also give you hints about concepts that may not be expressed in your code but need to be. It might seem pedantic, but we’ve found that teams who pay this much careful attention to detail write much better software, faster.</p>
-<h3 id="Alternation"><a href="#Alternation" class="headerlink" title="Alternation"></a>Alternation</h3><p>We can specify a wildcard in a regular expression using a few different approaches. One of the simplest is alternation, where we express different options separated by a pipe character |, like this:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Given</span>(<span class="string">"I have deposited \\$(100|250) in my Account"</span>) <span class="keyword">public</span> <span class="keyword">void</span> iHaveDeposited$InMyAccount(<span class="keyword">int</span> amount) &#123;</span><br><span class="line">  <span class="comment">// <span class="doctag">TODO:</span> code goes here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>This step definition will now match a step with either of the two values 100 or 250 in it, and the number will be captured and passed to the method as an argument. Alternation can be useful if there are a fixed set of values that you want to accept in your step definition, but normally you’ll want something a little looser.</p>
-<h3 id="The-Dot"><a href="#The-Dot" class="headerlink" title="The Dot"></a>The Dot</h3><p>The dot is a metacharacter, meaning it has magical powers in a regular expression. Literally, a dot means match any single character. So, we can try this instead:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Given</span>(<span class="string">"I have deposited \\$(...) in my Account"</span>) <span class="keyword">public</span> <span class="keyword">void</span> iHaveDeposited$InMyAccount(<span class="keyword">int</span> amount) &#123;</span><br><span class="line">  <span class="comment">// <span class="doctag">TODO:</span> code goes here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>That will now match a step with any three-figure dollar sum and send the matched amount into the method. </p>
-<h4 id="What-If-I-Actually-Want-to-Match-a-Dot"><a href="#What-If-I-Actually-Want-to-Match-a-Dot" class="headerlink" title="What If I Actually Want to Match a Dot?"></a>What If I Actually Want to Match a Dot?</h4><p>Any of the metacharacters like the dot can be escaped by preceding them with a backslash. So, if you wanted to specifically match, say 3.14, you could use “3\.14”.<br>You might have noticed that there’s a backslash in front of the dollar amount in the step definition we’re using. That’s because $ itself is a metacharacter (it’s an anchor, which we’ll explain later), so we need to escape to make it match a normal dollar sign.</p>
-<h2 id="Star-modifier"><a href="#Star-modifier" class="headerlink" title="Star modifier"></a>Star modifier</h2><p>The star modifier means any number of times. So, with .* we’re capturing any character, any number of times. Now we’re getting somewhere—this will allow us to capture all those different amounts. But there’s still a problem.<br>The star modifier is a bit of a blunt instrument. Because we’re using it with the dot that matches any character, it will gobble up any text at all up until the phrase in my Account. This is why, in regex terminology, the star modifier is known as a greedy operator. For example, it would happily match this step:<br>Given I have deposited $1 and a cucumber in my Account<br>The amount captured by our regular expression in this case would be 1 and a cucumber. We need to be more specific about the characters we want to match and just capture numbers. Instead of a dot, we can use something else.</p>
-<h3 id="Character-Classes"><a href="#Character-Classes" class="headerlink" title="Character Classes"></a>Character Classes</h3><p>Character classes allow you to tell the regular expression engine to match one of a range of characters. You just place all of the characters you would accept inside square brackets:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Given</span>(<span class="string">"I have deposited \\$([01234567890]*) in my Account"</span>) <span class="keyword">public</span> <span class="keyword">void</span> iHaveDeposited$InMyAccount(<span class="keyword">int</span> amount) &#123;</span><br><span class="line">  <span class="comment">// <span class="doctag">TODO:</span> code goes here</span></span><br><span class="line">&#125;</span><br><span class="line">For a continuous range of characters like we have, you can use a hyphen:</span><br><span class="line"><span class="meta">@Given</span>(<span class="string">"I have deposited \\$([0-9]*) in my Account"</span>) <span class="keyword">public</span> <span class="keyword">void</span> iHaveDeposited$InMyAccount(<span class="keyword">int</span> amount) &#123;</span><br><span class="line">  <span class="comment">// <span class="doctag">TODO:</span> code goes here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Shorthand-Character-Classes"><a href="#Shorthand-Character-Classes" class="headerlink" title="Shorthand Character Classes"></a>Shorthand Character Classes</h3><p>For common patterns of characters like [0-9], there are a few shorthand char- acter classes that you can use instead. You may find this just makes your regular expressions more cryptic, but there are only a few to learn. For a digit, you can use \d as a shorthand for [0-9]:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Given</span>(<span class="string">"I have deposited \\$(\\d*) in my Account"</span>) <span class="keyword">public</span> <span class="keyword">void</span> iHaveDeposited$InMyAccount(<span class="keyword">int</span> amount) &#123;</span><br><span class="line">  <span class="comment">// <span class="doctag">TODO:</span> code goes here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Here are the most useful shorthand character classes: \d stands for digit, or [0-9].<br>\w stands for word character, specifically [A-Za-z0-9_]. Notice that underscores and digits are included but not hyphens.<br>\s stands for whitespace character, specifically [ \t\r\n]. That means a space, a tab, or a line break.<br>\b stands for word boundary, which is a lot like \s but actually means the opposite of \w. Anything that is not a word character is a word boundary.<br>You can also negate shorthand character classes by capitalizing them, so for example, \D means any character except a digit.<br>Back to matching our amount. It looks like we’re done, but there’s one last problem to fix. Can you see what it is?</p>
-<h3 id="question-mark"><a href="#question-mark" class="headerlink" title="question mark"></a>question mark</h3><p>Like the star and the plus, the question mark modifies the character that precedes it, specifying how many times it can be repeated. The question mark modifier means zero or one times; in other words, it makes the preceding character optional. In step definitions, it’s particularly useful for plurals:<br>@Given(“I have (\d+) cucumbers? in my basket”) public void iHaveCucumbersInMyBasket(int number) {<br>  // TODO: code goes here<br>}</p>
-<h3 id="noncapturing-group"><a href="#noncapturing-group" class="headerlink" title="noncapturing group"></a>noncapturing group</h3><p>@When(“I (?:visit|go to) the homepage”) public void iVisitTheHomepage() {<br>  // TODO: code goes here<br>}
-Notice that we’ve had to prefix the list of alternates with another bit of regular expression magic. The ?: at the start of the group marks it as noncapturing, meaning Cucumber won’t pass it as an argument to our block.</p>
-<h3 id="Anchors"><a href="#Anchors" class="headerlink" title="Anchors"></a>Anchors</h3><p>The undefined steps start with a ^ and end with a $. These two metacharacters are called anchors, because they’re used to tie down each end of the regular expression to the beginning and end of the string that they match on.</p>
-<p>Generally, it’s best to keep your regular expressions as tight as you can so that there’s less chance of two step definitions clashing with each other.</p>
-<h1 id="Guides-on-how-to-write-scenarios"><a href="#Guides-on-how-to-write-scenarios" class="headerlink" title="Guides on how to write scenarios"></a>Guides on how to write scenarios</h1><p>Try to avoid being guided by existing step definitions when you write your scenarios and just write down exactly what you want to happen, in plain English. In fact, try to avoid programmers or testers writing scenarios on their own. Instead, get nontechnical stakeholders or analysts to write the first draft of each scenario from a purely business-focused perspective or ideally in a pair with a programmer to help them share their mental model. With a well- engineered support layer, you can confidently and quickly write new step definitions to match the way the scenario has been expressed.</p>
-<h1 id="Imperative-Steps"><a href="#Imperative-Steps" class="headerlink" title="Imperative Steps"></a>Imperative Steps</h1><p>In computer programming, there are two contrasting styles for expressing the instructions you give to a computer to make it do something for you. These styles are called imperative programming and declarative programming.</p>
-<p>Imperative programming means using a sequence of commands for the com- puter to perform in a particular order. Java is an example of an imperative language: you write a program as a series of statements that Java runs one at a time, in order. A declarative program tells the computer what it should do without prescribing precisely how to do it. CSS is an example of a declar- ative language: you tell the computer what you want the various elements on a web page to look like, and you leave it to take care of the rest.</p>
-<h2 id="Use-a-Declarative-Style-Instead"><a href="#Use-a-Declarative-Style-Instead" class="headerlink" title="Use a Declarative Style Instead"></a>Use a Declarative Style Instead</h2><p>Let’s raise the level of abstraction in this scenario and rewrite it using a more declarative style:<br>Scenario: Redirect user to originally requested page after logging in Given I am an unauthenticated User<br>When I attempt to view some restricted content<br>Then I am shown a login form<br>When I authenticate with valid credentials Then I should be shown the restricted content<br>The beauty of this style is that it is not coupled to any specific implementation of the user interface. This same scenario could apply to a thick-client or mobile application. The words it uses aren’t technical and are instead written in a language (unauthenticated, restricted, credentials) that any stakeholder interested in security should be able to clearly understand. It’s by expressing every scenario at this level of abstraction that you discover your team’s ubiquitous language.</p>
-<h1 id="DAMP"><a href="#DAMP" class="headerlink" title="DAMP"></a>DAMP</h1><p>However, when you are using examples to drive your code, there is another principle in play that I believe trumps the DRY principle: the examples should tell a good story. They are the docu- mentation narrative that will guide future programmers (including you when you come back to change this code in three months time and you’ve forgotten what it does). In this case, clarity of intent is found in the quality of the narrative, not necessarily in minimizing duplication.</p>
-<p>Some people refer to this as the DAMP principle: Descriptive and Meaningful Phrases. When you’re writing examples, readability is paramount, and DAMP trumps DRY.</p>
-<p>We consider fixture data to be an antipattern. We much prefer using Test Data Builders, on page 104, where the relevant data is created within the test itself, rather than being buried away in a big tangled set of fixture data.</p>
-<p>We find that teams that have a single humongous build also tend to have an architecture that could best be described as a big ball of mud. Because all of the behavior in the system is implemented in one place, all the tests have to live in one place, too, and have to all be run together as one big lump. This is a classic ailment of long-lived applications, which have grown organically without obvious interfaces between their subsystems.</p>
-<h1 id="Defect-Prevention"><a href="#Defect-Prevention" class="headerlink" title="Defect Prevention"></a>Defect Prevention</h1><p>Toyota’s counterintuitive but hugely successful policy of stopping the line works because it’s part of a wider process, known as defect prevention, that focuses on continuously improving the manufacturing system. Without this wider process, stop the line itself would have very little effect. There are four steps to this process:</p>
-<ul>
-<li>Detect the abnormality.</li>
-<li>Stop what you’re doing.</li>
-<li>Fix or correct the immediate problem.</li>
-<li>Investigate the root cause and install a countermeasure.<br>This fourth step is crucial because it seizes the opportunity offered by the problem at hand to understand something more fundamental about your process. It also means that fixing things becomes a habit, rather than some- thing you put off to do someday later when you’re not in such a hurry.</li>
-</ul>
-<p>Cucumber might just seem like a testing tool, but at its heart it’s really a collaboration tool. If you make a genuine effort to write features that work as documentation for the nontechnical stakeholders on your team, you’ll find you are forced to talk with them about details that you might never have otherwise made the time to talk about. Those conversations reveal insights about their understanding of the problem, insights that will help you build a much better solution than you would have otherwise. This is Cucumber’s big secret: the tests and documentation are just a happy side effect; the real value lies in the knowledge you discover during those conversations.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://medium.com/agile-vision/cucumber-bdd-part-2-creating-a-sample-java-project-with-cucumber-testng-and-maven-127a1053c180" target="_blank" rel="noopener">https://medium.com/agile-vision/cucumber-bdd-part-2-creating-a-sample-java-project-with-cucumber-testng-and-maven-127a1053c180</a></li>
-<li><a href="https://codoid.com/cucumber-lambda-expressions/" target="_blank" rel="noopener">https://codoid.com/cucumber-lambda-expressions/</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-23-protobuf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-08-23-protobuf/" class="post-title-link" itemprop="url">Protobuf</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="What-are-protocol-buffers"><a href="#What-are-protocol-buffers" class="headerlink" title="What are protocol buffers?"></a>What are protocol buffers?</h1><p>Protocol buffers are a flexible, efficient, automated mechanism for serializing structured data – think XML, but smaller, faster, and simpler.</p>
-<p>You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. You can even update your data structure without breaking deployed programs that are compiled against the “old” format.</p>
-<h1 id="How-do-they-work"><a href="#How-do-they-work" class="headerlink" title="How do they work?"></a>How do they work?</h1><p>You specify how you want the information you’re serializing to be structured by defining protocol buffer message types in .proto files. Each protocol buffer message is a small logical record of information, containing a series of name-value pairs. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">message Person &#123;</span><br><span class="line">  required string name = <span class="number">1</span>;</span><br><span class="line">  required int32 id = <span class="number">2</span>;</span><br><span class="line">  optional string email = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">enum</span> PhoneType &#123;</span><br><span class="line">    MOBILE = <span class="number">0</span>;</span><br><span class="line">    HOME = <span class="number">1</span>;</span><br><span class="line">    WORK = <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  message PhoneNumber &#123;</span><br><span class="line">    required string number = <span class="number">1</span>;</span><br><span class="line">    optional PhoneType type = <span class="number">2</span> [<span class="keyword">default</span> = HOME];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  repeated PhoneNumber phone = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>As you can see, the message format is simple – each message type has one or more uniquely numbered fields, and each field has a name and a value type, where value types can be numbers (integer or floating-point), booleans, strings, raw bytes, or even (as in the example above) other protocol buffer message types, allowing you to structure your data hierarchically. You can specify optional fields, required fields, and repeated fields. </p>
-<h1 id="Why-not-just-use-XML"><a href="#Why-not-just-use-XML" class="headerlink" title="Why not just use XML?"></a>Why not just use XML?</h1><p>Protocol buffers have many advantages over XML for serializing structured data. Protocol buffers:</p>
-<ul>
-<li>are simpler</li>
-<li>are 3 to 10 times smaller</li>
-<li>are 20 to 100 times faster</li>
-<li>are less ambiguous</li>
-<li>generate data access classes that are easier to use programmatically</li>
-</ul>
-<h1 id="Assigning-Field-Numbers"><a href="#Assigning-Field-Numbers" class="headerlink" title="Assigning Field Numbers"></a>Assigning Field Numbers</h1><p>As you can see, each field in the message definition has a unique number. These numbers are used to identify your fields in the message binary format, and should not be changed once your message type is in use. Note that field numbers in the range 1 through 15 take one byte to encode, including the field number and the field’s type (you can find out more about this in Protocol Buffer Encoding). Field numbers in the range 16 through 2047 take two bytes. So you should reserve the field numbers 1 through 15 for very frequently occurring message elements. Remember to leave some room for frequently occurring elements that might be added in the future.</p>
-<h1 id="Field-Rules"><a href="#Field-Rules" class="headerlink" title="Field Rules"></a>Field Rules</h1><p>You specify that message fields are one of the following:</p>
-<ul>
-<li>required: a well-formed message must have exactly one of this field.</li>
-<li>optional: a well-formed message can have zero or one of this field (but not more than one).</li>
-<li>repeated: this field can be repeated any number of times (including zero) in a well-formed message. The order of the repeated values will be preserved.</li>
-</ul>
-<blockquote>
-<p>Some engineers at Google have come to the conclusion that using required does more harm than good; they prefer to use only optional and repeated. However, this view is not universal.</p>
-</blockquote>
-<p>Combining Messages leads to bloat While multiple message types (such as message, enum, and service) can be defined in a single .proto file, it can also lead to dependency bloat when large numbers of messages with varying dependencies are defined in a single file. It’s recommended to include as few message types per .proto file as possible.</p>
-<h1 id="Reserved-fields"><a href="#Reserved-fields" class="headerlink" title="Reserved fields"></a>Reserved fields</h1><p>to make sure this doesn’t happen is to specify that the field numbers (and/or names, which can also cause issues for JSON serialization) of your deleted fields are reserved. The protocol buffer compiler will complain if any future users try to use these field identifiers.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">message Foo &#123;</span><br><span class="line">  reserved <span class="number">2</span>, <span class="number">15</span>, <span class="number">9</span> to <span class="number">11</span>;</span><br><span class="line">  reserved <span class="string">"foo"</span>, <span class="string">"bar"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Note that you can’t mix field names and field numbers in the same reserved statement.</p>
-<h1 id="Optional-fields-and-default"><a href="#Optional-fields-and-default" class="headerlink" title="Optional fields and default"></a>Optional fields and default</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optional int32 result_per_page = <span class="number">3</span> [<span class="keyword">default</span> = <span class="number">10</span>];</span><br></pre></td></tr></table></figure>
-
-<h1 id="Importing-Definitions"><a href="#Importing-Definitions" class="headerlink" title="Importing Definitions"></a>Importing Definitions</h1><p>You can use definitions from other .proto files by importing them. To import another .proto’s definitions, you add an import statement to the top of your file:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"myproject/other_protos.proto"</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="To-generate-class"><a href="#To-generate-class" class="headerlink" title="To generate class"></a>To generate class</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../protoc-3/bin/protoc --java_out=./  ticket.proto</span><br></pre></td></tr></table></figure>
-
-<h1 id="Builders-vs-Messages"><a href="#Builders-vs-Messages" class="headerlink" title="Builders vs. Messages"></a>Builders vs. Messages</h1><p>The message classes generated by the protocol buffer compiler are all immutable. Once a message object is constructed, it cannot be modified, just like a Java String. To construct a message, you must first construct a builder, set any fields you want to set to your chosen values, then call the builder’s build() method.</p>
-<p>You may have noticed that each method of the builder which modifies the message returns another builder. The returned object is actually the same builder on which you called the method. It is returned for convenience so that you can string several setters together on a single line of code.</p>
-<p>Here’s an example of how you would create an instance of Person:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Person john =</span><br><span class="line">  Person.newBuilder()</span><br><span class="line">    .setId(<span class="number">1234</span>)</span><br><span class="line">    .setName(<span class="string">"John Doe"</span>)</span><br><span class="line">    .setEmail(<span class="string">"jdoe@example.com"</span>)</span><br><span class="line">    .addPhones(</span><br><span class="line">      Person.PhoneNumber.newBuilder()</span><br><span class="line">        .setNumber(<span class="string">"555-4321"</span>)</span><br><span class="line">        .setType(Person.PhoneType.HOME))</span><br><span class="line">    .build();</span><br></pre></td></tr></table></figure>
-
-<h1 id="Parsing-and-Serialization"><a href="#Parsing-and-Serialization" class="headerlink" title="Parsing and Serialization"></a>Parsing and Serialization</h1><p>Finally, each protocol buffer class has methods for writing and reading messages of your chosen type using the protocol buffer binary format. These include:</p>
-<ul>
-<li>byte[] toByteArray();: serializes the message and returns a byte array containing its raw bytes.</li>
-<li>static Person parseFrom(byte[] data);: parses a message from the given byte array.</li>
-<li>void writeTo(OutputStream output);: serializes the message and writes it to an OutputStream.</li>
-<li>pstatic Person parseFrom(InputStream input);: reads and parses a message from an InputStream.</li>
-</ul>
-<h1 id="Write-a-message"><a href="#Write-a-message" class="headerlink" title="Write a message"></a>Write a message</h1><p>// Write the new address book back to disk.<br>    FileOutputStream output = new FileOutputStream(args[0]);<br>    addressBook.build().writeTo(output);</p>
-<h1 id="Reading-A-Message"><a href="#Reading-A-Message" class="headerlink" title="Reading A Message"></a>Reading A Message</h1><p>Use message’s parseFrom method on stream:<br>      AddressBook.parseFrom(new FileInputStream(args[0]));</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.tutorial.AddressBookProtos.AddressBook;</span><br><span class="line"><span class="keyword">import</span> com.example.tutorial.AddressBookProtos.Person;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListPeople</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Iterates though all people in the AddressBook and prints info about them.</span></span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Print</span><span class="params">(AddressBook addressBook)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (Person person: addressBook.getPeopleList()) &#123;</span><br><span class="line">      System.out.println(<span class="string">"Person ID: "</span> + person.getId());</span><br><span class="line">      System.out.println(<span class="string">"  Name: "</span> + person.getName());</span><br><span class="line">      <span class="keyword">if</span> (person.hasEmail()) &#123;</span><br><span class="line">        System.out.println(<span class="string">"  E-mail address: "</span> + person.getEmail());</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (Person.PhoneNumber phoneNumber : person.getPhonesList()) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (phoneNumber.getType()) &#123;</span><br><span class="line">          <span class="keyword">case</span> MOBILE:</span><br><span class="line">            System.out.print(<span class="string">"  Mobile phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> HOME:</span><br><span class="line">            System.out.print(<span class="string">"  Home phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> WORK:</span><br><span class="line">            System.out.print(<span class="string">"  Work phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(phoneNumber.getNumber());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Main function:  Reads the entire address book from a file and prints all</span></span><br><span class="line">  <span class="comment">//   the information inside.</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (args.length != <span class="number">1</span>) &#123;</span><br><span class="line">      System.err.println(<span class="string">"Usage:  ListPeople ADDRESS_BOOK_FILE"</span>);</span><br><span class="line">      System.exit(-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read the existing address book.</span></span><br><span class="line">    AddressBook addressBook =</span><br><span class="line">      AddressBook.parseFrom(<span class="keyword">new</span> FileInputStream(args[<span class="number">0</span>]));</span><br><span class="line"></span><br><span class="line">    Print(addressBook);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
-</ul>
 
           
         

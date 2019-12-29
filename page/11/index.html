@@ -969,7 +969,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-11-Node-errors-DB/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-14-Strategy-Of-Openshift-Releases/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -985,7 +985,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-05-11-Node-errors-DB/" class="post-title-link" itemprop="url">Node errors troubleshooting</a>
+              <a href="/2018-05-14-Strategy-Of-Openshift-Releases/" class="post-title-link" itemprop="url">Strategy-Of-Openshift-Releases</a>
             
           </h1>
         
@@ -1017,23 +1017,23 @@
 
       
           
-            <p>Here is the typical erros log:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">node_modules/@types/node/index.d.ts(6202,55): error TS2304: Cannot find name <span class="string">'Map'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6209,55): error TS2304: Cannot find name <span class="string">'Set'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6213,64): error TS2304: Cannot find name <span class="string">'Symbol'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6219,59): error TS2304: Cannot find name <span class="string">'WeakMap'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6220,59): error TS2304: Cannot find name <span class="string">'WeakSet'</span>.</span><br></pre></td></tr></table></figure>
-
-<p>The main reason is above stuff are new to ES6, which are unavaiable in ES5. Hold no, you don’t need to change your typescript target to ES6, which may break projects and leads to tons of new regression testing.<br>Firsty, try to add following in tsconfig.json</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"lib": ["es2016", "dom"],</span><br></pre></td></tr></table></figure>
-
-<p>If no luck, try following in command line, it should resolve this issue.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tsc index.ts --lib <span class="string">"es6"</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="certificate-error"><a href="#certificate-error" class="headerlink" title="certificate error"></a>certificate error</h2><p>Typical errors</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">events.js:183</span><br><span class="line">      throw er; // Unhandled <span class="string">'error'</span> event</span><br><span class="line">      ^</span><br><span class="line"></span><br><span class="line">Error: unable to verify the first certificate</span><br><span class="line">    at TLSSocket.&lt;anonymous&gt; (_tls_wrap.js:1103:38)</span><br><span class="line">    at emitNone (events.js:106:13)</span><br><span class="line">    at TLSSocket.emit (events.js:208:7)</span><br><span class="line">    at TLSSocket._finishInit (_tls_wrap.js:637:8)</span><br><span class="line">    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:467:38)</span><br></pre></td></tr></table></figure>
-
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>add following to https request options<br> ,<br>      rejectUnauthorized: false,<br>        requestCert: true,<br>        agent: false</p>
-<h2 id="error-ECONNREFUSED"><a href="#error-ECONNREFUSED" class="headerlink" title="error ECONNREFUSED"></a>error ECONNREFUSED</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: connect ECONNREFUSED 127.0.0.1:443</span><br><span class="line">    at Object._errnoException (util.js:1022:11)</span><br><span class="line">    at _exceptionWithHostPort (util.js:1044:20)</span><br><span class="line">    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1182:14)</span><br></pre></td></tr></table></figure>
-
-<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution:"></a>Solution:</h3><p>in the http request, do not use ‘url’ but ‘host’ and path<br>host: <code>xxx.com</code>,
-    port: 443,<br>    path: <code>/login</code>,</p>
+            <h1 id="Release-amp-Testing-Strategy"><a href="#Release-amp-Testing-Strategy" class="headerlink" title="Release &amp; Testing Strategy"></a>Release &amp; Testing Strategy</h1><p>There are various methods for safely releasing changes to Production. Each team must select what is appropriate for their own use case with consideration to risk, rollback approaches and testing approaches.</p>
+<h1 id="The-following-are-options"><a href="#The-following-are-options" class="headerlink" title="The following are options:"></a>The following are options:</h1><h2 id="Canary-Release"><a href="#Canary-Release" class="headerlink" title="Canary Release"></a>Canary Release</h2><p>This is the lowest risk strategy since it allows for testing on a subset of users, and it allows for fast rollback:</p>
+<ul>
+<li>Build a new Environment</li>
+<li>Use a routing tool (eg. Apigee) to test with a specific set of users</li>
+<li>Bleed traffic across</li>
+<li>Remove old environment</li>
+</ul>
+<h2 id="Blue-Green"><a href="#Blue-Green" class="headerlink" title="Blue Green"></a>Blue Green</h2><p> This is the classic zero-downtime deployment model that involves flipping traffic between two environments:</p>
+<ul>
+<li>Ensure your router has two entry points, one for Production Testing and one for Production traffic</li>
+<li>Have two environments: <code>blue</code> and <code>green</code></li>
+<li>If Production traffic is pointing to <code>blue</code> then deploy your changes on <code>green</code></li>
+<li>Point your Production Testing traffic to <code>green</code></li>
+<li>When verified, point Production traffic to <code>green</code></li>
+<li>On the next release, deploy changes to <code>blue</code></li>
+</ul>
 
           
         
