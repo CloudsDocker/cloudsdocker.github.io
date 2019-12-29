@@ -43,6 +43,9 @@ Amazon Web Services. Amazon Elastic Compute Cloud (Kindle Location 152). Amazon 
 # EC2
 Here you need to create an AMI, but because AMI are bounded in the regions they are created, they need to be copied across regions for disaster recovery purposes
 
+## EC2 instance stopping
+If you stopped an EBS-backed EC2 instance, the volume is preserved but the data in any attached Instance store volumes will be erased. Keep in mind that an EC2 instance has an underlying physical host computer. If the instance is stopped, AWS usually moves the instance to a new host computer. Your instance may stay on the same host computer if there are no problems with the host computer. In addition, its Elastic IP address is disassociated from the instance if it is an EC2-Classic instance. Otherwise, if it is an EC2-VPC instance, the Elastic IP address remains associated.
+
 ## Placement group
  Placements groups are the answer here, where "cluster" guarantees high network performance (correct answer), whereas "spread" would guarantee independent failures between instances.
 
@@ -56,6 +59,8 @@ Here you need to create an AMI, but because AMI are bounded in the regions they 
  Spread – strictly places a small group of instances across distinct underlying hardware to reduce correlated failures.
 
  There is no charge for creating a placement group.
+
+ Placement Groups is primarily used to determine how your instances are placed on the underlying hardware while Enhanced Networking, on the other hand, is for providing high-performance networking capabilities using single root I/O virtualization (SR-IOV) on supported EC2 instance types.
 
 ## Security Group
 When you create a security group, it has no inbound rules. Therefore, no inbound traffic originating from another host to your instance is allowed until you add inbound rules to the security group. By default, a security group includes an outbound rule that allows all outbound traffic. You can remove the rule and add outbound rules that allow specific outbound traffic only. If your security group has no outbound rules, no outbound traffic originating from your instance is allowed.
@@ -165,6 +170,14 @@ Generating S3 pre-signed URLs would bypass CloudFront, therefore we should use C
 
 As the file is greater than 5GB in size, you must use Multi Part upload to upload that file to S3.
 
+### S3 Glacier
+Expedited retrievals allow you to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1–5 minutes. Provisioned Capacity ensures that retrieval capacity for Expedited retrievals is available when you need it.
+
+To make an Expedited, Standard, or Bulk retrieval, set the Tier parameter in the Initiate Job (POST jobs) REST API request to the option you want, or the equivalent in the AWS CLI or AWS SDKs. If you have purchased provisioned capacity, then all expedited retrievals are automatically served through your provisioned capacity.
+
+Provisioned capacity ensures that your retrieval capacity for expedited retrievals is available when you need it. Each unit of capacity provides that at least three expedited retrievals can be performed every five minutes and provides up to 150 MB/s of retrieval throughput. You should purchase provisioned retrieval capacity if your workload requires highly reliable and predictable access to a subset of your data in minutes. Without provisioned capacity Expedited retrievals are accepted, except for rare situations of unusually high demand. However, if you require access to Expedited retrievals under all circumstances, you must purchase provisioned retrieval capacity.
+
+
 ### S3 Select 
 It is an Amazon S3 feature that makes it easy to retrieve specific data from the contents of an object using simple SQL expressions without having to retrieve the entire object. 
 Similiarly, Amazon Redshift Spectrum is a feature of Amazon Redshift that enables you to run queries against exabytes of unstructured data in Amazon S3 with no loading or ETL required.
@@ -232,8 +245,22 @@ You can take a snapshot of an attached volume that is in use. However, snapshots
 Instance Stores or EBS volumes are local disks and cannot be shared across instances. Here, we need a network file system (NFS), which is exactly what EFS is designed for.
 
 
-## Redshift
+# Redshift
 Creating a smaller cluster with the cold data would not decrease the storage cost of Redshift, which will increase as we keep on creating data. Moving the data to S3 glacier will prevent us from being able to query it. Redshift's internal storage does not have "tiers". Therefore, we should migrate the data to S3 IA and use Athena (serverless SQL query engine on top of S3) to analyze the cold data.
+
+Amazon Redshift is a fast, scalable data warehouse that makes it simple and cost-effective to analyze all your data across your data warehouse and data lake. Redshift delivers ten times faster performance than other data warehouses by using machine learning, massively parallel query execution, and columnar storage on high-performance disk.
+
+In this scenario, there is a requirement to have a storage service which will be used by a business intelligence application and where the data must be stored in a columnar fashion. Business Intelligence reporting systems is a type of Online Analytical Processing (OLAP) which Redshift is known to support. In addition, Redshift also provides columnar storage unlike the other options. Hence, the correct answer in this scenario is Option 1: Amazon Redshift.
+
+
+## RedShift Spectrum
+Enables you to run queries against exabytes of data in S3 without having to load or transform any data.
+Redshift Spectrum doesn’t use Enhanced VPC Routing.
+If you store data in a columnar format, Redshift Spectrum scans only the columns needed by your query, rather than processing entire rows.
+If you compress your data using one of Redshift Spectrum’s supported compression algorithms, less data is scanned.
+
+
+
 
 # CloundFront
 
@@ -265,6 +292,21 @@ Amazon VPC lets you provision a logically isolated section of the Amazon Web Ser
 A subnet is a range of IP addresses in your VPC. You can launch AWS resources into a specified subnet. Use a public subnet for resources that must be connected to the internet, and a private subnet for resources that won’t be connected to the internet.
 To protect the AWS resources in each subnet, use security groups and network access control lists (ACL).
 
+Remember that one subnet is mapped into one specific Availability Zone.
+
+### Subnet and Avaialability Zone and VPC
+A VPC spans all the Availability Zones in the region. After creating a VPC, you can add one or more subnets in each Availability Zone. When you create a subnet, you specify the CIDR block for the subnet, which is a subset of the VPC CIDR block. Each subnet must reside entirely within one Availability Zone and cannot span zones. Availability Zones are distinct locations that are engineered to be isolated from failures in other Availability Zones. By launching instances in separate Availability Zones, you can protect your applications from the failure of a single location. AWS assigns a unique ID to each subnet.
+
+### Default subnet
+By default, a "default subnet" of your VPC is actually a public subnet, because the main route table sends the subnet's traffic that is destined for the internet to the internet gateway. You can make a default subnet into a private subnet by removing the route from the destination 0.0.0.0/0 to the internet gateway. However, if you do this, any EC2 instance running in that subnet can't access the internet.
+
+Instances that you launch into a default subnet receive both a public IPv4 address and a private IPv4 address, and both public and private DNS hostnames. Instances that you launch into a nondefault subnet in a default VPC don't receive a public IPv4 address or a DNS hostname. You can change your subnet's default public IP addressing behavior
+
+By default, nondefault subnets have the IPv4 public addressing attribute set to false, and default subnets have this attribute set to true. An exception is a nondefault subnet created by the Amazon EC2 launch instance wizard — the wizard sets the attribute to true. 
+
+Newly created instance does not have a public IP address since it was deployed on a nondefault subnet. The other 4 instances are accessible over the Internet because they each have an Elastic IP address attached, unlike the last instance which only has a private IP address. An Elastic IP address is a public IPv4 address, which is reachable from the Internet. If your instance does not have a public IPv4 address, you can associate an Elastic IP address with your instance to enable communication with the Internet.
+
+
 ## VPC Endpoint
 You must remember that the two services that use a VPC Endpoint Gateway are Amazon S3 and DynamoDB. The rest are VPC Endpoint Interface
 
@@ -292,6 +334,8 @@ After creating an IGW, make sure the route tables are updated. Additionally, ens
 
 ### NAT
 NAT Instances would work but won't scale and you would have to manage them (as they're EC2 instances). Egress-Only Internet Gateways are for IPv6, not IPv4. Internet Gateways must be deployed in a public subnet. Therefore you must use a NAT Gateway in your public subnet in order to provide internet access to your instances in your private subnets.
+
+You do not need a NAT Gateway nor a NAT instance when the instances are already in public subnet. Remember that a NAT Gateway or a NAT instance is primarily used to enable instances in a private subnet to connect to the Internet or other AWS services, but prevent the Internet from initiating a connection with those instances.
 
 ## How to prevent DDoS
 AWS provides flexible infrastructure and services that help customers implement strong DDoS mitigations and create highly available application architectures that follow AWS Best Practices for DDoS Resiliency. These include services such as Amazon Route 53, Amazon CloudFront, Elastic Load Balancing, and AWS WAF to control and absorb traffic, and deflect unwanted requests. These services integrate with AWS Shield, a managed DDoS protection service that provides always-on detection and automatic inline mitigations to safeguard web applications running on AWS.
@@ -390,6 +434,13 @@ A customer gateway is a physical device or software application on your side of 
 To create a VPN connection, you must create a customer gateway resource in AWS, which provides information to AWS about your customer gateway device. Next, you have to set up an Internet-routable IP address (static) of the customer gateway's external interface.
 
 The following diagram illustrates single VPN connections. The VPC has an attached virtual private gateway, and your remote network includes a customer gateway, which you must configure to enable the VPN connection. You set up the routing so that any traffic from the VPC bound for your network is routed to the virtual private gateway.
+
+## Site-to-Site VPN
+With AWS Site-to-Site VPN, you can connect to an Amazon VPC in the cloud the same way you connect to your branches. AWS Site-to-Site VPN establishes secure and private sessions with IP Security (IPSec) and Transport Layer Security (TLS) tunnels. a VPN connection is that you will be able to connect your Amazon VPC to other remote networks securely.  Although it is true that a VPN provides a cost-effective, hybrid connection from your VPC to your on-premises data centers, it certainly does not bypasses the public Internet. A VPN connection actually goes through the public Internet, unlike the AWS Direct Connect connection which has a direct and dedicated connection to your on-premises network.
+
+## AWS Direct Connect
+AWS Direct Connect connection which has a direct and dedicated connection to your on-premises network.
+
 
 ## AWS PrivateLink 
 It enables you to privately connect your VPC to supported AWS services, services hosted by other AWS accounts (VPC endpoint services), and supported AWS Marketplace partner services. You do not require an internet gateway, NAT device, public IP address, AWS Direct Connect connection, or VPN connection to communicate with the service. Traffic between your VPC and the service does not leave the Amazon network.
@@ -640,6 +691,7 @@ DynamoDB Streams will contain a stream of all the changes that happen to a Dynam
 
 DynamoDB Auto Scaling is primarily used to automate capacity management for your tables and global secondary indexes.
 
+
 ### DAX
 DAX will be transparent and won't require an application refactoring, and will cache the "hot keys". ElastiCache could also be a solution, but it will require a lot of refactoring work on the AWS Lambda side.
 
@@ -661,6 +713,16 @@ Use composite attributes. Try to combine more than one attribute to form a uniqu
 Cache the popular items when there is a high volume of read traffic using Amazon DynamoDB Accelerator (DAX). The cache acts as a low-pass filter, preventing reads of unusually popular items from swamping partitions. For example, consider a table that has deals information for products. Some deals are expected to be more popular than others during major sale events like Black Friday or Cyber Monday. DAX is a fully managed, in-memory cache for DynamoDB that doesn’t require developers to manage cache invalidation, data population, or cluster management. DAX also is compatible with DynamoDB API calls, so developers can incorporate it more easily into existing applications.
 
 Add random numbers or digits from a predetermined range for write-heavy use cases. Suppose that you expect a large volume of writes for a partition key (for example, greater than 1000 1 K writes per second). In this case, use an additional prefix or suffix (a fixed number from predetermined range, say 1–10) and add it to the partition key.
+
+## Durability
+When the word durability pops out, the first service that should come to your mind is Amazon S3. Since this service is not available in the answer options, we can look at the other data store available which is Amazon DynamoDB.
+
+DynamoDB is durable, scalable, and highly available data store which can be used for real-time tabulation. You can also use AppSync with DynamoDB to make it easy for you to build collaborative apps that keep shared data updated in real time. You just specify the data for your app with simple code statements and AWS AppSync manages everything needed to keep the app data updated in real time. This will allow your app to access data in Amazon DynamoDB, trigger AWS Lambda functions, or run Amazon Elasticsearch queries and combine data from these services to provide the exact data you need for your app.
+
+Option 2 is incorrect as Amazon Redshift is mainly used as a data warehouse and for online analytic processing (OLAP). Although this service can be used for this scenario, DynamoDB is still the top choice given its better durability and scalability. 
+
+Options 3 and 4 are possible answers in this scenario, however, DynamoDB is much more suitable for simple mobile apps which do not have complicated data relationships compared with enterprise web applications. The scenario says that the mobile app will be used from around the world, which is why you need a data storage service which can be supported globally. It would be a management overhead to implement multi-region deployment for your RDS and Aurora database instances compared to using the Global table feature of DynamoDB.
+
 
 
 ## Aurora
@@ -708,9 +770,12 @@ The instance endpoint provides direct control over connections to the DB cluster
 
 
 # Kinesis
-
+Amazon Kinesis is the streaming data platform of AWS and has four distinct services under it: Kinesis Data Firehose, Kinesis Data Streams, Kinesis Video Streams, and Amazon Kinesis Data Analytics. For a specific use case of the requirement by the question, use Kinesis Data Firehose.
 
 SQS FIFO will not work here as they cannot sustain thousands of messages per second. SNS cannot be used for data streaming. Lambda isn't meant to retain data. Kinesis is the right answer here, with providing a partition key in our message we can guarantee ordering for a specific sensor, even if our stream is sharded
+
+# Amazon Macie 
+Amazon Macie is mainly used as a security service that uses machine learning to automatically discover, classify, and protect sensitive data in AWS. As a security feature of AWS, it does not meet the requirements of being able to load and stream data into data stores for analytics. You have to use Kinesis Data Firehose instead.
 
 
 ## Concepts
@@ -822,6 +887,21 @@ The queue can contain an unlimited number of messages, not just 10,000 messages.
 In Amazon SQS, you can configure the message retention period to a value from 1 minute to 14 days. The default is 4 days. Once the message retention limit is reached, your messages are automatically deleted.
 
 A single Amazon SQS message queue can contain an unlimited number of messages. However, there is a 120,000 limit for the number of inflight messages for a standard queue and 20,000 for a FIFO queue. Messages are inflight after they have been received from the queue by a consuming component, but have not yet been deleted from the queue.
+
+# SWF
+
+SWF workflow defines all the activities in the workflow.
+
+The purpose of a decision task tells the decider the state of the workflow execution. The decider can be viewed as a special type of worker. Like workers, it can be written in any language and asks Amazon SWF for tasks. However, it handles special tasks called decision tasks.
+
+Amazon SWF issues decision tasks whenever a workflow execution has transitions such as an activity task completing or timing out. A decision task contains information on the inputs, outputs, and current state of previously initiated activity tasks. Your decider uses this data to decide the next steps, including any new activity tasks, and returns those to Amazon SWF. Amazon SWF in turn enacts these decisions, initiating new activity tasks where appropriate and monitoring them.
+
+By responding to decision tasks in an ongoing manner, the decider controls the order, timing, and concurrency of activity tasks and consequently the execution of processing steps in the application. SWF issues the first decision task when an execution starts. From there on, Amazon SWF enacts the decisions made by your decider to drive your execution. The execution continues until your decider makes a decision to complete it.
+
+An activity task tells the worker to perform a function
+
+A single task in the workflow represents a single task in the workflow.
+
 
 ## Distributed systems
 Amazon Simple Queue Service (SQS) and Amazon Simple Workflow Service (SWF) are the services that you can use for creating a decoupled architecture in AWS. Decoupled architecture is a type of computing architecture that enables computing components or layers to execute independently while still interfacing with each other.
