@@ -1,8 +1,8 @@
 ---
 title: Algorithm
-tag: algorithm
 tags:
 - Dev
+- algorithm
 ---
 # This page is about key points about Algorithm
 
