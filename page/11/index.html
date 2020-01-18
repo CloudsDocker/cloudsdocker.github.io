@@ -195,7 +195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-12-Redux/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-10-RxJS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -211,7 +211,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2017-12-12-Redux/" class="post-title-link" itemprop="url">Redux</a>
+              <a href="/2017-12-10-RxJS/" class="post-title-link" itemprop="url">Router in angular</a>
             
           </h1>
         
@@ -243,8 +243,279 @@
 
       
           
-            <h1 id="whats-Effects"><a href="#whats-Effects" class="headerlink" title="whats @Effects"></a>whats @Effects</h1><p>You can almost think of your Effects as special kinds of reducer functions that are meant to be a place for you to put your async calls in such a way that the returned data can then be easily inserted into the store’s internal state for the application.</p>
-<h1 id="rule-of-a-thumb-for-actions"><a href="#rule-of-a-thumb-for-actions" class="headerlink" title="rule of a thumb for actions"></a>rule of a thumb for actions</h1><p>As a good rule of thumb, try not to make one reducer that handles all the actions, but also do not make a separate reducer for each action. Group them in a way that makes sense for the application structure. </p>
+            <h1 id="Lettable-operators"><a href="#Lettable-operators" class="headerlink" title="Lettable operators"></a>Lettable operators</h1><p>RxJS 5.5, piping all the things</p>
+<p>So now we want a way to use those operators, how could we do that?</p>
+<p>Well, we said those operators are “lettable” that means we can use them by calling the let method on an observable:</p>
+<p>And if we want to chain multiple lettable operators we can keep dot chaining:</p>
+<p>import { Observable } from ‘rxjs/Rx’;<br>import { filter, map, reduce } from ‘rxjs/operators’;</p>
+<p>const filterOutEvens = filter(x =&gt; x % 2);<br>const sum = reduce((acc, next) =&gt; acc + next, 0);<br>const doubleBy = x =&gt; map(value =&gt; value * x);</p>
+<p>const source$ = Observable.range(0, 10);</p>
+<p>source$<br>  .let(filterOutEvens)<br>  .let(doubleBy(2))<br>  .let(sum)<br>  .subscribe(x =&gt; console.log(x)); // 50</p>
+<hr>
+<p>  Meaning we can easily compose a bunch of pure function operators and pass them as a single operator to an observable!</p>
+<p>Conclusion<br>With those tools in hand, you can write RxJS code that is much more re-usable by just piping your (pure functions) operators together and easily re-use shared logic.</p>
+<p>  import { Observable, pipe } from ‘rxjs/Rx’;<br>import { filter, map, reduce } from ‘rxjs/operators’;</p>
+<p>const filterOutEvens = filter(x =&gt; x % 2);<br>const sum = reduce((acc, next) =&gt; acc + next, 0);<br>const doubleBy = x =&gt; map(value =&gt; value * x);</p>
+<p>const complicatedLogic = pipe(<br>  filterOutEvens,<br>  doubleBy(2),<br>  sum<br>);</p>
+<p>const source$ = Observable.range(0, 10);</p>
+<p>source$.let(complicatedLogic).subscribe(x =&gt; console.log(x)); // 50</p>
+<p><a href="https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md" target="_blank" rel="noopener">https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md</a><br>What?<br>What is a pipeable operator? Simply put, a function that can be used with the current let operator. It used to be the origin of the name (“lettable”), but that was confusing and we call them “pipeable” now because they’re intended to be used with the pipe utility. <code>A pipeable operator is basically any function that returns a function with the signature: &lt;T, R&gt;(source: Observable&lt;T&gt;) =&gt; Observable&lt;R&gt;.</code></p>
+<p>There is a pipe method built into Observable now at Observable.prototype.pipe that сan be used to compose the operators in similar manner to what you’re used to with dot-chaining (shown below).</p>
+<p>There is also a pipe utility function at rxjs/util/pipe that can be used to build reusable pipeable operators from other pipeable operators.</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>You pull in any operator you need from one spot, under ‘rxjs/operators’ (plural!). It’s also recommended to pull in the Observable creation methods you need directly as shown below with range:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; range &#125; <span class="keyword">from</span> <span class="string">'rxjs/observable/range'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map, filter, scan &#125; <span class="keyword">from</span> <span class="string">'rxjs/operators'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> source$ = range(<span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">source$.pipe(</span><br><span class="line">  filter(<span class="function"><span class="params">x</span> =&gt;</span> x % <span class="number">2</span> === <span class="number">0</span>),</span><br><span class="line">  map(<span class="function"><span class="params">x</span> =&gt;</span> x + x),</span><br><span class="line">  scan(<span class="function">(<span class="params">acc, x</span>) =&gt;</span> acc + x, <span class="number">0</span>)</span><br><span class="line">)</span><br><span class="line">.subscribe(<span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x))</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://blog.angularindepth.com/rxjs-understanding-lettable-operators-fe74dda186d3" target="_blank" rel="noopener">https://blog.angularindepth.com/rxjs-understanding-lettable-operators-fe74dda186d3</a><br>RxJS: Understanding Lettable Operators</p>
+<h2 id="What-are-lettable-operators-and-what-does-lettable-mean"><a href="#What-are-lettable-operators-and-what-does-lettable-mean" class="headerlink" title="What are lettable operators and what does lettable mean?"></a>What are lettable operators and what does lettable mean?</h2><p>If lettable operators are used with a method named pipe, you might wonder why they are referred to as lettable. The term is derived from RxJS’s let operator.</p>
+<p><code>The let operator is conceptually similar to the map operator, but instead of taking a projection function that receives and returns a value, let takes a function that receives and returns an observable.</code> It’s unfortunate that let is one of the less-well-known operators, as it’s very useful for composing reusable functionality.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Rx <span class="keyword">from</span> <span class="string">"rxjs"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">retry</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  count: <span class="built_in">number</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  wait: <span class="built_in">number</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>): (<span class="params">source: Rx.Observable&lt;T&gt;</span>) =&gt; <span class="title">Rx</span>.<span class="title">Observable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">source: Rx.Observable&lt;T&gt;</span>) =&gt;</span> source</span><br><span class="line">    .retryWhen(<span class="function"><span class="params">errors</span> =&gt;</span> errors</span><br><span class="line">      <span class="comment">// Each time an error occurs, increment the accumulator.</span></span><br><span class="line">      <span class="comment">// When the maximum number of retries have been attempted, throw the error.</span></span><br><span class="line">      .scan(<span class="function">(<span class="params">acc, error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (acc &gt;= count) &#123; <span class="keyword">throw</span> error; &#125;</span><br><span class="line">        <span class="keyword">return</span> acc + <span class="number">1</span>;</span><br><span class="line">      &#125;, <span class="number">0</span>)</span><br><span class="line">      <span class="comment">// Wait the specified number of milliseconds between retries.</span></span><br><span class="line">      .delay(wait)</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>When retry is called, it’s passed the number of retry attempts that should be made and the number of milliseconds to wait between attempts, and it returns a function that receives an observable and returns another observable into which the retry logic is composed. The returned function can be passed to the let operator, like this:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Rx <span class="keyword">from</span> <span class="string">"rxjs"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; retry &#125; <span class="keyword">from</span> <span class="string">"./retry"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> name = Rx.Observable.ajax</span><br><span class="line">  .getJSON&lt;&#123; name: <span class="built_in">string</span> &#125;&gt;(<span class="string">"/api/employees/alice"</span>)</span><br><span class="line">  .let(retry(<span class="number">3</span>, <span class="number">1000</span>))</span><br><span class="line">  .map(<span class="function"><span class="params">employee</span> =&gt;</span> employee.name)</span><br><span class="line">  .catch(<span class="function"><span class="params">error</span> =&gt;</span> Rx.Observable.of(<span class="literal">null</span>));</span><br><span class="line"> <span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span>Using the <span class="keyword">let</span> operator, we’ve been able to create a reusable <span class="function"><span class="keyword">function</span> <span class="title">much</span> <span class="title">more</span> <span class="title">simply</span> <span class="title">than</span> <span class="title">we</span> <span class="title">would</span> <span class="title">have</span> <span class="title">been</span> <span class="title">able</span> <span class="title">to</span> <span class="title">create</span> <span class="title">a</span> <span class="title">prototype</span>-<span class="title">patching</span> <span class="title">operator</span>`. <span class="title">What</span> <span class="title">we</span>’<span class="title">ve</span> <span class="title">created</span> <span class="title">is</span> <span class="title">a</span> <span class="title">lettable</span> <span class="title">operator</span>.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">`<span class="title">Lettable</span> <span class="title">operators</span> <span class="title">are</span> <span class="title">a</span> <span class="title">higher</span>-<span class="title">order</span> <span class="function"><span class="keyword">function</span><span class="title">s</span>. <span class="title">Lettable</span> <span class="title">operators</span> <span class="title">return</span> <span class="function"><span class="keyword">function</span><span class="title">s</span> <span class="title">that</span> <span class="title">receive</span> <span class="title">and</span> <span class="title">return</span> <span class="title">observables</span></span>; <span class="title">and</span> <span class="title">those</span> <span class="function"><span class="keyword">function</span><span class="title">s</span> <span class="title">can</span> <span class="title">be</span> <span class="title">passed</span> <span class="title">to</span> <span class="title">the</span> <span class="title">let</span> <span class="title">operator</span>`.</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="title">We</span> <span class="title">can</span> <span class="title">also</span> <span class="title">use</span> <span class="title">our</span> <span class="title">lettable</span> <span class="title">retry</span> <span class="title">operator</span> <span class="title">with</span> <span class="title">pipe</span>, <span class="title">like</span> <span class="title">this</span>:</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function">```<span class="title">typescript</span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="title">import</span> </span>&#123; <span class="title">ajax</span> &#125; <span class="title">from</span> "<span class="title">rxjs</span>/<span class="title">observable</span>/<span class="title">dom</span>/<span class="title">ajax</span>"</span>;</span></span><br><span class="line"><span class="function"><span class="title">import</span> </span>&#123; of &#125; <span class="keyword">from</span> <span class="string">"rxjs/observable/of"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; catchError, map &#125; <span class="keyword">from</span> <span class="string">"rxjs/operators"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; retry &#125; <span class="keyword">from</span> <span class="string">"./retry"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> name = ajax</span><br><span class="line">  .getJSON&lt;&#123; name: <span class="built_in">string</span> &#125;&gt;(<span class="string">"/api/employees/alice"</span>)</span><br><span class="line">  .pipe(</span><br><span class="line">    retry(<span class="number">3</span>, <span class="number">1000</span>),</span><br><span class="line">    map(<span class="function"><span class="params">employee</span> =&gt;</span> employee.name),</span><br><span class="line">    catchError(<span class="function"><span class="params">error</span> =&gt;</span> of(<span class="literal">null</span>))</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+
+<p>Let’s return to our retry function and replace the chained methods with lettable operators and a pipe call, so that it looks like this:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Observable &#125; <span class="keyword">from</span> <span class="string">"rxjs/Observable"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; delay, retryWhen, scan &#125; <span class="keyword">from</span> <span class="string">"rxjs/operators"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">retry</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  count: <span class="built_in">number</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  wait: <span class="built_in">number</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>): (<span class="params">source: Observable&lt;T&gt;</span>) =&gt; <span class="title">Observable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> retryWhen(<span class="function"><span class="params">errors</span> =&gt;</span> errors.pipe(</span><br><span class="line">    <span class="comment">// Each time an error occurs, increment the accumulator.</span></span><br><span class="line">    <span class="comment">// When the maximum number of retries have been attempted, throw the error.</span></span><br><span class="line">    scan(<span class="function">(<span class="params">acc, error</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (acc &gt;= count) &#123; <span class="keyword">throw</span> error; &#125;</span><br><span class="line">      <span class="keyword">return</span> acc + <span class="number">1</span>;</span><br><span class="line">    &#125;, <span class="number">0</span>),</span><br><span class="line">    <span class="comment">// Wait the specified number of milliseconds between retries.</span></span><br><span class="line">    delay(wait)</span><br><span class="line">  ));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>With the chained methods replaced, we now have a proper, reusable lettable operator that imports only what it requires.</p>
+<h2 id="Why-should-lettable-operators-should-be-preferred"><a href="#Why-should-lettable-operators-should-be-preferred" class="headerlink" title="Why should lettable operators should be preferred?"></a>Why should lettable operators should be preferred?</h2><p>For application developers, lettable operators are much easier to manage:</p>
+<ul>
+<li>Rather then relying upon operators being patched into Observable.prototype, lettable operators are explicitly imported into the modules in which they are used.</li>
+<li>It’s easy for TypeScript and bundlers to determine whether the lettable operators imported into a module are actually used. And if they are not, they can be left unbundled. If prototype patching is used, this task is manual and tedious.</li>
+<li>For library authors, lettable operators are much less verbose than call-based alternative, but it’s the correct inference of types that is — at least for me — the biggest advantage.</li>
+</ul>
+<hr>
+<p>Agreed, the pipe is awesome for composing custom rx operators. But why do we see more and more people using it even when not combining re-usable variables — instead of just chaining methods?</p>
+<p>Meaning, we use to write e.g…</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> source$ = Observable.range(<span class="number">0</span>, <span class="number">10</span>); </span><br><span class="line">source$</span><br><span class="line">  .filter(<span class="function"><span class="params">x</span> =&gt;</span> x % <span class="number">2</span>)</span><br><span class="line">  .reduce(<span class="function">(<span class="params">acc, next</span>) =&gt;</span> acc + next, <span class="number">0</span>)</span><br><span class="line">  .map(<span class="function"><span class="params">value</span> =&gt;</span> value * <span class="number">2</span>)</span><br><span class="line">  .subscribe(<span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x));</span><br></pre></td></tr></table></figure>
+
+<p>Above is imho much cleaner than what I see more nowadays:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> source$ = Observable.range(<span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line">source$.pipe(</span><br><span class="line">  filter(<span class="function"><span class="params">x</span> =&gt;</span> x % <span class="number">2</span>),</span><br><span class="line">  reduce(<span class="function">(<span class="params">acc, next</span>) =&gt;</span> acc + next, <span class="number">0</span>),</span><br><span class="line">  map(<span class="function"><span class="params">value</span> =&gt;</span> value * <span class="number">2</span>)</span><br><span class="line">).subscribe(<span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x));</span><br></pre></td></tr></table></figure>
+
+<p>Are there performance advantages by using the standalone operators instead of chaining?</p>
+<p>debounceInput is a function that takes and returns an observable, so it can be passed to the Observable.prototype.pipe function, like this: valueChanges.pipe(debounceInput).</p>
+<p>So, <code>whenever you find yourself using the same combination of operators in many places, you could consider using the static pipe function to create a reusable operator combination</code>.</p>
+<p>The static pipe function also makes something else much simpler: dealing with pipe-like overload signatures. Let’s look at that next.</p>
+<h2 id="Tree-Shaking"><a href="#Tree-Shaking" class="headerlink" title="Tree Shaking"></a>Tree Shaking</h2><p><a href="https://webpack.js.org/guides/tree-shaking/" target="_blank" rel="noopener">https://webpack.js.org/guides/tree-shaking/</a><br>Tree shaking is a term commonly used in the JavaScript context for dead-code elimination. It relies on the static structure of ES2015 module syntax, i.e. import and export. The name and concept have been popularized by the ES2015 module bundler rollup.</p>
+<p>So, what we’ve learned is that in order to take advantage of tree shaking, you must…</p>
+<p>Use ES2015 module syntax (i.e. import and export).<br>Add a “sideEffects” entry to your project’s package.json file.<br>Include a minifier that supports dead code removal (e.g. the UglifyJSPlugin).</p>
+<h1 id="mergeMap-vs-flatMap-vs-concatMap-vs-switchMap"><a href="#mergeMap-vs-flatMap-vs-concatMap-vs-switchMap" class="headerlink" title="mergeMap vs flatMap vs concatMap vs switchMap"></a>mergeMap vs flatMap vs concatMap vs switchMap</h1><p>Today we’re going to look at the difference between these four three RxJS operators. The simple part is that flatMap is just an alias for mergeMap. Other operators have a difference that might be important in some cases.</p>
+<h2 id="When-do-you-need-them"><a href="#When-do-you-need-them" class="headerlink" title="When do you need them?"></a>When do you need them?</h2><p>All these operators are used with so-called higher order Observables. This is when items of an Observable are Observables themselves (or they are mapped to Observables) and we need to flatten all of them into one final Observable. You can easily identify this situation when you subscribe to an Observable inside subscription to another Observable (Note: this is not a recommended approach):</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">outerObservable.subscribe(<span class="function"><span class="params">outerItem</span> =&gt;</span> &#123;</span><br><span class="line">    outerItem.subsribe(<span class="function"><span class="params">innerItem</span> =&gt;</span> &#123;</span><br><span class="line">            foo(innerItem);</span><br><span class="line">        &#125;)&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>In my examples, initial Observable is called outer Observable. And items of the outer Observable are called inner Observables. Technically inner and outer Observables are just plain Observables.</p>
+<p>A usage example for such operators can be a search box (search box text changes as outer Observable) with a request being sent to a server for each search text change (HTTP responses as inner Observables). Another example is mouse button clicks (outer Observable) that trigger an interval timer for each mouse click (timer events as inner Observables).</p>
+<p>Learning plan<br>To tackle these operators you need to understand more basic ones first. In this article I won’t give any definitions or explanations per se, but rather just a small learning plan with links:</p>
+<p>Map, Merge, Concat. Basic Observable operators.<br>MergeAll, ConcatAll, Switch. These are for higher order Observables already.<br>After that MergeMap, ConcatMap, and SwitchMap should be easy for you.<br>Operators from the third group are two step operators. First, they map outer Observable items to inner Observables. The second step is to merge a result set of inner Observables in some way. The way they are merged depends on the operator you use.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mergeMap = map + mergeAll</span><br><span class="line">concatMap = map + concatAll</span><br><span class="line">switchMap = map + switch</span><br></pre></td></tr></table></figure>
+
+<p>Here are some reworked reactivex.io diagrams. At first some explanations for the diagrams:</p>
+<h2 id="MergeMap"><a href="#MergeMap" class="headerlink" title="MergeMap"></a>MergeMap</h2><p>Outer (initial) Observable emits circles. Each circle is then mapped to its own inner Observable - collection of rhombuses. Collections are identified by color; each collection has its own color. All those inner Observables are then merged into one final Observable - resulting collection of rhombuses.</p>
+<p>MergeMap<br>mergeMap emits items into the resulting Observable just as they are emitted from inner Observables. It doesn’t wait for anything.<br>mergeMap doesn’t preserve the order from outer Observable. Collections of rhombuses interleave.<br>mergeMap doesn’t cancel any inner Observables. All rhombuses from inner Observables get to final collection.</p>
+<h2 id="ConcatMap"><a href="#ConcatMap" class="headerlink" title="ConcatMap"></a>ConcatMap</h2><p>concatMap waits for inner Observable to complete before taking items from the next inner Observable.<br>concatMap does preserve the order from outer Observable. Collections of rhombuses don’t interleave.<br>Just as mergeMap, concatMap doesn’t cancel any inner Observables. All rhombuses from inner Observables get to the final collection.</p>
+<h2 id="SwitchMap"><a href="#SwitchMap" class="headerlink" title="SwitchMap"></a>SwitchMap</h2><p>switchMap emits items only from the most recent inner Observable.<br>switchMap cancels previous inner Observables when a new inner Observable appears. Items of inner Observable that were emitted after the Observable was canceled will be lost (not included in the resulting Observable).</p>
+<p>“Talk is cheap. Show me the code.”<br>I still wasn’t sure I had cracked the difference between the discussed operators even after reading all the results from Google’s first page :) I’ve set up a small example on JsFiddle to see the difference in practice.</p>
+<p>In the example, outer Observable emits three items with a one-second interval. Each item is then mapped to an inner Observable, which in its turn emits another three items with a one-second interval. The final result depends on the operator you use. Hope this small example will help you understand these operators without too much googling.</p>
+<h1 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> appRoutes: Routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">'crisis-center'</span>, <span class="attr">component</span>: CrisisListComponent &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">'hero/:id'</span>,      <span class="attr">component</span>: HeroDetailComponent &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">'heroes'</span>,</span><br><span class="line">    component: HeroListComponent,</span><br><span class="line">    data: &#123; <span class="attr">title</span>: <span class="string">'Heroes List'</span> &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">''</span>,</span><br><span class="line">    redirectTo: <span class="string">'/heroes'</span>,</span><br><span class="line">    pathMatch: <span class="string">'full'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">'**'</span>, <span class="attr">component</span>: PageNotFoundComponent &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  imports: [</span><br><span class="line">    RouterModule.forRoot(</span><br><span class="line">      appRoutes,</span><br><span class="line">      &#123; <span class="attr">enableTracing</span>: <span class="literal">true</span> &#125; <span class="comment">// &lt;-- debugging purposes only</span></span><br><span class="line">    )</span><br><span class="line">    <span class="comment">// other imports here</span></span><br><span class="line">  ],</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AppModule</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>The data property in the third route is a place to store arbitrary data associated with this specific route. The data property is accessible within each activated route. Use it to store items such as page titles, breadcrumb text, and other read-only, static data. You’ll use the resolve guard to retrieve dynamic data</li>
+<li>The empty path in the fourth route represents the default path for the application, the place to go when the path in the URL is empty, as it typically is at the start. This default route redirects to the route for the /heroes URL and, therefore, will display the HeroesListComponent.</li>
+<li>The ** path in the last route is a wildcard. The router will select this route if the requested URL doesn’t match any paths for routes defined earlier in the configuration. This is useful for displaying a “404 - Not Found” page or redirecting to another route.</li>
+<li>The order of the routes in the configuration matters and this is by design. The router uses a <strong>first-match wins strategy</strong> when matching routes, so <strong>more specific routes should be placed above less specific routes</strong>. </li>
+</ul>
+<h2 id="Router-outlet"><a href="#Router-outlet" class="headerlink" title="Router outlet"></a>Router outlet</h2><p>The router matches that URL to the route path  and displays the Component after a RouterOutlet that you’ve placed in the host view’s HTML.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">content_copy</span><br><span class="line">&lt;router-outlet&gt;<span class="xml"><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span></span><br><span class="line">&lt;!-- Routed views go here --&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Define-routes"><a href="#Define-routes" class="headerlink" title="Define routes"></a>Define routes</h2><p>A router must be configured with a list of route definitions.</p>
+<h2 id="mechanism"><a href="#mechanism" class="headerlink" title="mechanism"></a>mechanism</h2><ul>
+<li>When the application requests navigation to the path /crisis-center, the router activates an instance of CrisisListComponent, displays its view, and updates the browser’s address location and history with the URL for that path.</li>
+<li>Pass the array of routes, appRoutes, to the RouterModule.forRoot method. It returns a module, containing the configured Router service provider, plus other providers that the routing library requires. Once the application is bootstrapped, the Router performs the initial navigation based on the current browser URL</li>
+</ul>
+<h2 id="Some-key-points-of-setting-up-router"><a href="#Some-key-points-of-setting-up-router" class="headerlink" title="Some key points of setting up router"></a>Some key points of setting up router</h2><ul>
+<li>Load the router library.</li>
+<li>Add a nav bar to the shell template with anchor tags, routerLink and routerLinkActive directives.</li>
+<li>Add a router-outlet to the shell template where views will be displayed.</li>
+<li>Configure the router module with RouterModule.forRoot.</li>
+<li>Set the router to compose HTML5 browser URLs.</li>
+<li>handle invalid routes with a wildcard route.</li>
+<li>navigate to the default route when the app launches with an empty path.</li>
+</ul>
+<h1 id="Difference-between-forRoot-and-forChild"><a href="#Difference-between-forRoot-and-forChild" class="headerlink" title="Difference between forRoot and forChild"></a>Difference between forRoot and forChild</h1><p>Only call RouterModule.forRoot in the root AppRoutingModule (or the AppModule if that’s where you register top level application routes). In any other module, you must call the RouterModule.forChild method to register additional routes.</p>
+<p><strong>Leave the default and the wildcard routes! These are concerns at the top level</strong> of the application itself.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://angular.io/guide/router" target="_blank" rel="noopener">https://angular.io/guide/router</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-06-iOS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-01-06-iOS/" class="post-title-link" itemprop="url">iOS programming</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="View"><a href="#View" class="headerlink" title="View"></a>View</h1><p>A view is also a responder (UIView is a subclass of UIResponder). This means that a view is subject to user interactions, such as taps and swipes. Thus, views are the basis not only of the interface that the user sees, but also of the interface that the user touches </p>
+<h1 id="The-Window-and-Root-View"><a href="#The-Window-and-Root-View" class="headerlink" title="The Window and Root View"></a>The Window and Root View</h1><p>The top of the view hierarchy is the app’s window. It is an instance of UIWindow (or your own subclass thereof), which is a UIView subclass. Your app should have exactly one main window. It is created at launch time and is never destroyed or replaced</p>
+<h1 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h1><p>In Swift, the syntax of message-sending is dot-notation. We start with the object; then there’s a dot (a period); then there’s the message. (Some messages are also followed by parentheses, but ignore them for now; the full syntax of message-sending is one of those details we’ll be filling in later.) This is valid Swift syntax:</p>
+<p>fido.bark()<br>rover.sit()</p>
+<p>The idea of everything being an object is a way of suggesting that even “primitive” linguistic entities can be sent messages. Take, for example, 1. It appears to be a literal digit and no more. It will not surprise you, if you’ve ever used any programming language, that you can say things like this in Swift:</p>
+<p>let sum = 1 + 2</p>
+<p>But it is surprising to find that 1 can be followed by a dot and a message. This is legal and meaningful in Swift (don’t worry about what it actually means):</p>
+<p>let s = 1.description</p>
+<p>Just as 1 is actually an object, + is actually a message; but it’s a message with special syntax (operator syntax). In Swift, every noun is an object, and every verb is a message.</p>
+<p>extension Int {<br>    func sayHello() {<br>        print(“Hello, I’m (self)”)<br>    }<br>}
+1.sayHello() // outputs: “Hello, I’m 1”</p>
+<p>In Swift, then, 1 is an object. In some languages, such as Objective-C, it clearly is not; it is a “primitive” or scalar built-in data type. So the distinction being drawn here is between object types on the one hand and scalars on the other. In Swift, there are no scalars; all types are ultimately object types. That’s what “everything is an object” really means.</p>
+<h1 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h1><p>Swift has classes, but 1 in Swift is not a class or an instance of a class: the type of 1, namely Int, is a struct, and 1 is an instance of a struct. And Swift has yet another kind of thing you can send messages to, called an enum.</p>
+<p>So Swift has three kinds of object type: classes, structs, and enums. I like to refer to these as the three flavors of object type. Exactly how they differ from one another will emerge in due course. But they are all very definitely object types, and their similarities to one another are far stronger than their differences. For now, just bear in mind that these three flavors exist.</p>
+<h1 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h1><p>A variable is a name for an object. Technically, it refers to an object; it is an object reference. Nontechnically, you can think of it as a shoebox into which an object is placed. The object may undergo changes, or it may be replaced inside the shoebox by another object, but the name has an integrity all its own. The object to which the variable refers is the variable’s value.</p>
+<p>In Swift, no variable comes implicitly into existence; all variables must be declared. If you need a name for something, you must say “I’m creating a name.” You do this with one of two keywords: let or var. In Swift, declaration is usually accompanied by initialization — you use an equal sign to give the variable a value immediately, as part of the declaration. These are both variable declarations (and initializations):</p>
+<p>let one = 1<br>var two = 2</p>
+<h1 id="main-swift"><a href="#main-swift" class="headerlink" title="main.swift"></a>main.swift</h1><p>Swift also has a special rule that a file called main.swift, exceptionally, can have executable code at its top level, outside any function body, and this is the code that actually runs when the program runs. You can construct your app with a main.swift file, but in general you won’t need to.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-18-OpenStack-vs-OpenShift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2017-12-18-OpenStack-vs-OpenShift/" class="post-title-link" itemprop="url">cloud computering</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="openshift-vs-openstack"><a href="#openshift-vs-openstack" class="headerlink" title="openshift vs openstack"></a>openshift vs openstack</h1><p>The shoft and direct answer is `OpenShift Origin can run on top of OpenStack. They are complementary projects that work well together. OpenShift Origin is not presently part of OpenStack, and does not compete with OpenStack. If you stand up your own OpenStack system, you can make it even more useful by installing OpenShift Origin on top of it.’</p>
+<h2 id="OpenStack-is-IAAS"><a href="#OpenStack-is-IAAS" class="headerlink" title="OpenStack is IAAS"></a>OpenStack is IAAS</h2><p>OpenStack provides “Infrastructure-as-a-Service”, or “IaaS”. It provides bootable virtual machines, networking, block storage, object storage, and so forth. Some IaaS service providers based on OpenStack are HP Cloud and Rackspace Cloud. </p>
+<h2 id="OpenShift-is-PAAS"><a href="#OpenShift-is-PAAS" class="headerlink" title="OpenShift is PAAS"></a>OpenShift is PAAS</h2><p>The OpenShift hosted service provides “Platform-as-a-Service” or “PaaS”. It provides the necessary parts to quickly deploy and run a LAMP application: the web server, application server, application runtimes and libraries, database service, and so forth.</p>
 
           
         
@@ -396,177 +667,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2017-12-18-OpenStack-vs-OpenShift/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2017-12-18-OpenStack-vs-OpenShift/" class="post-title-link" itemprop="url">cloud computering</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="openshift-vs-openstack"><a href="#openshift-vs-openstack" class="headerlink" title="openshift vs openstack"></a>openshift vs openstack</h1><p>The shoft and direct answer is `OpenShift Origin can run on top of OpenStack. They are complementary projects that work well together. OpenShift Origin is not presently part of OpenStack, and does not compete with OpenStack. If you stand up your own OpenStack system, you can make it even more useful by installing OpenShift Origin on top of it.’</p>
-<h2 id="OpenStack-is-IAAS"><a href="#OpenStack-is-IAAS" class="headerlink" title="OpenStack is IAAS"></a>OpenStack is IAAS</h2><p>OpenStack provides “Infrastructure-as-a-Service”, or “IaaS”. It provides bootable virtual machines, networking, block storage, object storage, and so forth. Some IaaS service providers based on OpenStack are HP Cloud and Rackspace Cloud. </p>
-<h2 id="OpenShift-is-PAAS"><a href="#OpenShift-is-PAAS" class="headerlink" title="OpenShift is PAAS"></a>OpenShift is PAAS</h2><p>The OpenShift hosted service provides “Platform-as-a-Service” or “PaaS”. It provides the necessary parts to quickly deploy and run a LAMP application: the web server, application server, application runtimes and libraries, database service, and so forth.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-06-iOS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-01-06-iOS/" class="post-title-link" itemprop="url">iOS programming</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="View"><a href="#View" class="headerlink" title="View"></a>View</h1><p>A view is also a responder (UIView is a subclass of UIResponder). This means that a view is subject to user interactions, such as taps and swipes. Thus, views are the basis not only of the interface that the user sees, but also of the interface that the user touches </p>
-<h1 id="The-Window-and-Root-View"><a href="#The-Window-and-Root-View" class="headerlink" title="The Window and Root View"></a>The Window and Root View</h1><p>The top of the view hierarchy is the app’s window. It is an instance of UIWindow (or your own subclass thereof), which is a UIView subclass. Your app should have exactly one main window. It is created at launch time and is never destroyed or replaced</p>
-<h1 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h1><p>In Swift, the syntax of message-sending is dot-notation. We start with the object; then there’s a dot (a period); then there’s the message. (Some messages are also followed by parentheses, but ignore them for now; the full syntax of message-sending is one of those details we’ll be filling in later.) This is valid Swift syntax:</p>
-<p>fido.bark()<br>rover.sit()</p>
-<p>The idea of everything being an object is a way of suggesting that even “primitive” linguistic entities can be sent messages. Take, for example, 1. It appears to be a literal digit and no more. It will not surprise you, if you’ve ever used any programming language, that you can say things like this in Swift:</p>
-<p>let sum = 1 + 2</p>
-<p>But it is surprising to find that 1 can be followed by a dot and a message. This is legal and meaningful in Swift (don’t worry about what it actually means):</p>
-<p>let s = 1.description</p>
-<p>Just as 1 is actually an object, + is actually a message; but it’s a message with special syntax (operator syntax). In Swift, every noun is an object, and every verb is a message.</p>
-<p>extension Int {<br>    func sayHello() {<br>        print(“Hello, I’m (self)”)<br>    }<br>}
-1.sayHello() // outputs: “Hello, I’m 1”</p>
-<p>In Swift, then, 1 is an object. In some languages, such as Objective-C, it clearly is not; it is a “primitive” or scalar built-in data type. So the distinction being drawn here is between object types on the one hand and scalars on the other. In Swift, there are no scalars; all types are ultimately object types. That’s what “everything is an object” really means.</p>
-<h1 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h1><p>Swift has classes, but 1 in Swift is not a class or an instance of a class: the type of 1, namely Int, is a struct, and 1 is an instance of a struct. And Swift has yet another kind of thing you can send messages to, called an enum.</p>
-<p>So Swift has three kinds of object type: classes, structs, and enums. I like to refer to these as the three flavors of object type. Exactly how they differ from one another will emerge in due course. But they are all very definitely object types, and their similarities to one another are far stronger than their differences. For now, just bear in mind that these three flavors exist.</p>
-<h1 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h1><p>A variable is a name for an object. Technically, it refers to an object; it is an object reference. Nontechnically, you can think of it as a shoebox into which an object is placed. The object may undergo changes, or it may be replaced inside the shoebox by another object, but the name has an integrity all its own. The object to which the variable refers is the variable’s value.</p>
-<p>In Swift, no variable comes implicitly into existence; all variables must be declared. If you need a name for something, you must say “I’m creating a name.” You do this with one of two keywords: let or var. In Swift, declaration is usually accompanied by initialization — you use an equal sign to give the variable a value immediately, as part of the declaration. These are both variable declarations (and initializations):</p>
-<p>let one = 1<br>var two = 2</p>
-<h1 id="main-swift"><a href="#main-swift" class="headerlink" title="main.swift"></a>main.swift</h1><p>Swift also has a special rule that a file called main.swift, exceptionally, can have executable code at its top level, outside any function body, and this is the code that actually runs when the program runs. You can construct your app with a main.swift file, but in general you won’t need to.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-08-ngrx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -621,6 +721,240 @@
 <h1 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Effect() update$ = <span class="keyword">this</span>.action$</span><br><span class="line">    .ofType(<span class="string">'SUPER_SIMPLE_EFFECT'</span>)</span><br><span class="line">    .switchMap( <span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">      Observable.of(&#123;<span class="attr">type</span>: <span class="string">"SUPER_SIMPLE_EFFECT_HAS_FINISHED"</span>&#125;)</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
 
 <p>Were using the TypeScript metadata to label our variable update$ (the $ is commonly used as a suffix for variables whose value is an observable) as an “ngrx effect” that will be triggered when we dispatch actions with the store (the same was we always send actions to the reducer or reducers). Then we see “this.action$.ofType(‘SUPER_SIMPLE_EFFECT’)”. Remeber, we’re translating the dispatched event into an observable, so .ofType means your taking in an observable and then returning the observable only if it is of that type.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-11-Angular-Module-Declaration-Import/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-01-11-Angular-Module-Declaration-Import/" class="post-title-link" itemprop="url">What is difference between declarations, providers and import in NgModule</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="What-is-difference-between-declarations-providers-and-import-in-NgModule"><a href="#What-is-difference-between-declarations-providers-and-import-in-NgModule" class="headerlink" title="What is difference between declarations, providers and import in NgModule"></a>What is difference between declarations, providers and import in NgModule</h1><ul>
+<li>imports: is used to import supporting modules likes FormsModule, RouterModule, CommonModule, or any other custom-made feature module. makes the exported declarations of other modules available in the current module</li>
+<li>declarations are to make directives (including components and pipes) from the current module available to other directives in the current module. Selectors of directives, components or pipes are only matched against the HTML if they are declared or imported. declaration is used to declare components, directives, pipes that belongs to the current module. Everything inside declarations knows each other. For example, if we have a component, say UsernameComponent, which display list of the usernames, and we also have a pipe, say toupperPipe, which transform string to uppercase letter string. Now If we want to show usernames in uppercase letters in our UsernameComponent, we can use the toupperPipe which we had created before but how UsernameComponent know that the toupperPipe exist and how we can access and use it, here comes the declarations, we can declare UsernameComponent and toupperPipe.</li>
+<li>providers are to make services and values known to DI. They are added to the root scope and they are injected to other services or directives that have them as dependency.provider is used to inject the services required by components, directives, pipes in our module.</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-03-18-NodeJs-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-03-18-NodeJs-Notes/" class="post-title-link" itemprop="url">NodeJs Notes</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="commands-to-read-files"><a href="#commands-to-read-files" class="headerlink" title="commands to read files"></a>commands to read files</h2><p> var lineReader = require(‘readline’).createInterface({<br>    input: require(‘fs’).createReadStream(‘C:\dev\node\input\git_reset_files.txt’)<br> });</p>
+<p> lineReader.on(‘line’, function(line){<br>    console.log(‘git checkout ‘+line);<br> });</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-02-27-MVP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-02-27-MVP/" class="post-title-link" itemprop="url">Minium Viable Product</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p><a href="https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418" target="_blank" rel="noopener">https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418</a></p>
+<p>What is a Minimum Viable Product (MVP)<br>A Minimum Viable Product is the smallest thing you can build that delivers customer value (and as a bonus captures some of that value back i.e. gets you paid).</p>
 
           
         
@@ -735,7 +1069,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-01-11-Angular-Module-Declaration-Import/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-11-Node-errors-DB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -751,7 +1085,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-01-11-Angular-Module-Declaration-Import/" class="post-title-link" itemprop="url">What is difference between declarations, providers and import in NgModule</a>
+              <a href="/2018-05-11-Node-errors-DB/" class="post-title-link" itemprop="url">Node errors troubleshooting</a>
             
           </h1>
         
@@ -783,257 +1117,23 @@
 
       
           
-            <h1 id="What-is-difference-between-declarations-providers-and-import-in-NgModule"><a href="#What-is-difference-between-declarations-providers-and-import-in-NgModule" class="headerlink" title="What is difference between declarations, providers and import in NgModule"></a>What is difference between declarations, providers and import in NgModule</h1><ul>
-<li>imports: is used to import supporting modules likes FormsModule, RouterModule, CommonModule, or any other custom-made feature module. makes the exported declarations of other modules available in the current module</li>
-<li>declarations are to make directives (including components and pipes) from the current module available to other directives in the current module. Selectors of directives, components or pipes are only matched against the HTML if they are declared or imported. declaration is used to declare components, directives, pipes that belongs to the current module. Everything inside declarations knows each other. For example, if we have a component, say UsernameComponent, which display list of the usernames, and we also have a pipe, say toupperPipe, which transform string to uppercase letter string. Now If we want to show usernames in uppercase letters in our UsernameComponent, we can use the toupperPipe which we had created before but how UsernameComponent know that the toupperPipe exist and how we can access and use it, here comes the declarations, we can declare UsernameComponent and toupperPipe.</li>
-<li>providers are to make services and values known to DI. They are added to the root scope and they are injected to other services or directives that have them as dependency.provider is used to inject the services required by components, directives, pipes in our module.</li>
-</ul>
+            <p>Here is the typical erros log:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">node_modules/@types/node/index.d.ts(6202,55): error TS2304: Cannot find name <span class="string">'Map'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6209,55): error TS2304: Cannot find name <span class="string">'Set'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6213,64): error TS2304: Cannot find name <span class="string">'Symbol'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6219,59): error TS2304: Cannot find name <span class="string">'WeakMap'</span>.</span><br><span class="line">node_modules/@types/node/index.d.ts(6220,59): error TS2304: Cannot find name <span class="string">'WeakSet'</span>.</span><br></pre></td></tr></table></figure>
 
-          
-        
-      
-    </div>
+<p>The main reason is above stuff are new to ES6, which are unavaiable in ES5. Hold no, you don’t need to change your typescript target to ES6, which may break projects and leads to tons of new regression testing.<br>Firsty, try to add following in tsconfig.json</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"lib": ["es2016", "dom"],</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
+<p>If no luck, try following in command line, it should resolve this issue.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tsc index.ts --lib <span class="string">"es6"</span></span><br></pre></td></tr></table></figure>
 
-    
-      
+<h2 id="certificate-error"><a href="#certificate-error" class="headerlink" title="certificate error"></a>certificate error</h2><p>Typical errors</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">events.js:183</span><br><span class="line">      throw er; // Unhandled <span class="string">'error'</span> event</span><br><span class="line">      ^</span><br><span class="line"></span><br><span class="line">Error: unable to verify the first certificate</span><br><span class="line">    at TLSSocket.&lt;anonymous&gt; (_tls_wrap.js:1103:38)</span><br><span class="line">    at emitNone (events.js:106:13)</span><br><span class="line">    at TLSSocket.emit (events.js:208:7)</span><br><span class="line">    at TLSSocket._finishInit (_tls_wrap.js:637:8)</span><br><span class="line">    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:467:38)</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-02-27-MVP/">
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>add following to https request options<br> ,<br>      rejectUnauthorized: false,<br>        requestCert: true,<br>        agent: false</p>
+<h2 id="error-ECONNREFUSED"><a href="#error-ECONNREFUSED" class="headerlink" title="error ECONNREFUSED"></a>error ECONNREFUSED</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: connect ECONNREFUSED 127.0.0.1:443</span><br><span class="line">    at Object._errnoException (util.js:1022:11)</span><br><span class="line">    at _exceptionWithHostPort (util.js:1044:20)</span><br><span class="line">    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1182:14)</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-02-27-MVP/" class="post-title-link" itemprop="url">Minium Viable Product</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p><a href="https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418" target="_blank" rel="noopener">https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418</a></p>
-<p>What is a Minimum Viable Product (MVP)<br>A Minimum Viable Product is the smallest thing you can build that delivers customer value (and as a bonus captures some of that value back i.e. gets you paid).</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-03-18-NodeJs-Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-03-18-NodeJs-Notes/" class="post-title-link" itemprop="url">NodeJs Notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="commands-to-read-files"><a href="#commands-to-read-files" class="headerlink" title="commands to read files"></a>commands to read files</h2><p> var lineReader = require(‘readline’).createInterface({<br>    input: require(‘fs’).createReadStream(‘C:\dev\node\input\git_reset_files.txt’)<br> });</p>
-<p> lineReader.on(‘line’, function(line){<br>    console.log(‘git checkout ‘+line);<br> });</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-05-14-Strategy-Of-Openshift-Releases/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-05-14-Strategy-Of-Openshift-Releases/" class="post-title-link" itemprop="url">Strategy-Of-Openshift-Releases</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Release-amp-Testing-Strategy"><a href="#Release-amp-Testing-Strategy" class="headerlink" title="Release &amp; Testing Strategy"></a>Release &amp; Testing Strategy</h1><p>There are various methods for safely releasing changes to Production. Each team must select what is appropriate for their own use case with consideration to risk, rollback approaches and testing approaches.</p>
-<h1 id="The-following-are-options"><a href="#The-following-are-options" class="headerlink" title="The following are options:"></a>The following are options:</h1><h2 id="Canary-Release"><a href="#Canary-Release" class="headerlink" title="Canary Release"></a>Canary Release</h2><p>This is the lowest risk strategy since it allows for testing on a subset of users, and it allows for fast rollback:</p>
-<ul>
-<li>Build a new Environment</li>
-<li>Use a routing tool (eg. Apigee) to test with a specific set of users</li>
-<li>Bleed traffic across</li>
-<li>Remove old environment</li>
-</ul>
-<h2 id="Blue-Green"><a href="#Blue-Green" class="headerlink" title="Blue Green"></a>Blue Green</h2><p> This is the classic zero-downtime deployment model that involves flipping traffic between two environments:</p>
-<ul>
-<li>Ensure your router has two entry points, one for Production Testing and one for Production traffic</li>
-<li>Have two environments: <code>blue</code> and <code>green</code></li>
-<li>If Production traffic is pointing to <code>blue</code> then deploy your changes on <code>green</code></li>
-<li>Point your Production Testing traffic to <code>green</code></li>
-<li>When verified, point Production traffic to <code>green</code></li>
-<li>On the next release, deploy changes to <code>blue</code></li>
-</ul>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution:"></a>Solution:</h3><p>in the http request, do not use ‘url’ but ‘host’ and path<br>host: <code>xxx.com</code>,
+    port: 443,<br>    path: <code>/login</code>,</p>
 
           
         
@@ -1385,7 +1485,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

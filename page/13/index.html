@@ -371,7 +371,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-26-Core-Java/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-21-Apigee/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -387,7 +387,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-06-26-Core-Java/" class="post-title-link" itemprop="url">Core Java</a>
+              <a href="/2018-06-21-Apigee/" class="post-title-link" itemprop="url">Apigee</a>
             
           </h1>
         
@@ -419,22 +419,27 @@
 
       
           
-            <h1 id="Annotation-retention-policy"><a href="#Annotation-retention-policy" class="headerlink" title="Annotation retention policy"></a>Annotation retention policy</h1><p>What is Retention policy in java annotations?</p>
-<p>A retention policy determines at what point annotation should be discarded.<br>Java defined 3 types of retention policies through java.lang.annotation.RetentionPolicy enumeration. It has SOURCE, CLASS and RUNTIME.<br>Annotation with retention policy SOURCE will be retained only with source code, and discarded during compile time.<br>Annotation with retention policy CLASS will be retained till compiling the code, and discarded during runtime.<br>Annotation with retention policy RUNTIME will be available to the JVM through runtime.<br>The retention policy will be specified by using java built-in annotation @Retention, and we have to pass the retention policy type.<br>The default retention policy type is CLASS.</p>
-<h1 id="overload-and-override"><a href="#overload-and-override" class="headerlink" title="overload and override"></a>overload and override</h1><p>“selection among overloaded methods is static, while selection among overridden methods is dynamic. ”</p>
-<p>“a method is overridden when a subclass contains a method declaration with the same signature as a method declaration in an ancestor.”</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">“<span class="comment">// Broken! - What does this program print?</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CollectionClassifier</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Set&lt;?&gt; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Set"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(List&lt;?&gt; lst)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"List"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Collection&lt;?&gt; c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Unknown Collection"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Collection&lt;?&gt;[] collections = &#123;</span><br><span class="line">            <span class="keyword">new</span> HashSet&lt;String&gt;(),</span><br><span class="line">            <span class="keyword">new</span> ArrayList&lt;BigInteger&gt;(),</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;String, String&gt;().values()</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Collection&lt;?&gt; c : collections)</span><br><span class="line">            System.out.println(classify(c));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p>App deployment, configuration management and orchestration - all from one system. Ansible is powerful IT automation that you can learn quickly.</p>
+<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>APIs are the glue that connect apps and act as the foundation for what we call the digital economy. Through every connection there is at least one API interacting with other applications and exchanging data. A business needs API management solutions that can support diverse users and not compromise the stability and reliability of back-end systems. Apigees intelligent API management platform allows companies to provide connected, seamless, digital experiences and increase the speed at which they innovate and adapt.</p>
+<h1 id="Apigee-Edge-Apigee’s-API-Management-platform-provides-a-unified-solution-that"><a href="#Apigee-Edge-Apigee’s-API-Management-platform-provides-a-unified-solution-that" class="headerlink" title="Apigee Edge, Apigee’s API Management platform, provides a unified solution that:"></a>Apigee Edge, Apigee’s API Management platform, provides a unified solution that:</h1><p>makes your APIs fail-proof<br>helps you grow your developer and partner ecosystem<br>enables you to run your APIs at scale<br>provides deep insights into your APIs and your business<br>Apigee Edge is the API management tool that offers the solutions today’s digital economy demands. For more information, download our Definitive Guide to API Management.</p>
+<h2 id="Build-RESTful-APIs"><a href="#Build-RESTful-APIs" class="headerlink" title="Build RESTful APIs"></a>Build RESTful APIs</h2><p>You have data, you have services, and you want to develop new business solutions quickly, both internally and externally.</p>
+<p>With Apigee, you can build API proxies—RESTful, HTTP-based APIs that interact with your services. With easy-to-use APIs, developers can be more productive, increasing your speed to market.</p>
+<p>API proxies give you the full power of Apigee’s API platform to secure API calls, throttle traffic, mediate messages, control error handling, cache things, build developer portals, document APIs, analyze API traffic data, make money on the use of your APIs, protect against bad bots, and more.</p>
+<h1 id="paybook"><a href="#paybook" class="headerlink" title="paybook"></a>paybook</h1><p><code>playbooks</code> contains <code>plays</code>, plays contains <code>tasks</code>, while taks call <code>modules</code>.
+<code>tasks</code> run sequentially<br><code>handlers</code> are trigered by tasks and are un once, at the end of plays.</p>
+<h2 id="Configuration-management"><a href="#Configuration-management" class="headerlink" title="Configuration management"></a>Configuration management</h2><p>Ansible configurations are simple data descriptions of your infrastructure (both human-readable and machine-parsable) - ensuring everyone on your team will be able to understand the meaning of each configuration task. New team members will be able to quickly dive in and make an impact. Existing team members can get work done faster - freeing up cycles to attend to more critical and strategic work instead of configuration management.</p>
+<p>Ansible requires nothing more than a password or SSH key in order to start managing systems and can start managing them without installing any agent software, avoiding the problem of “managing the management” common in many automation systems. There’s no more wondering why configuration management daemons are down, when to upgrade management agents, or when to patch security vulnerabilities in those agents.</p>
+<h3 id="GOAL-ORIENTED-NOT-SCRIPTED"><a href="#GOAL-ORIENTED-NOT-SCRIPTED" class="headerlink" title="GOAL-ORIENTED, NOT SCRIPTED"></a>GOAL-ORIENTED, NOT SCRIPTED</h3><p>Ansible features an state-driven resource model that describes the desired state of computer systems and services, not the paths to get them to this state. No matter what state a system is in, Ansible understands how to transform it to the desired state (and also supports a “dry run” mode to preview needed changes). This allows reliable and repeatable IT infrastructure configuration, avoiding the potential failures from scripting and script-based solutions that describe explicit and often irreversible actions rather than the end goal.</p>
+<h3 id="SECURE-amp-AGENTLESS"><a href="#SECURE-amp-AGENTLESS" class="headerlink" title="SECURE &amp; AGENTLESS"></a>SECURE &amp; AGENTLESS</h3><p>Ansible relies on the most secure remote configuration management system available as its default transport layer: OpenSSH. OpenSSH is available for a wide variety of platforms, is very lightweight and when security issues in OpenSSH are discovered, they are patched quickly.</p>
+<p>Further, Ansible does not require any remote agents. Ansible delivers all modules to remote systems and executes tasks, as needed, to enact the desired configuration. These modules run with user-supplied credentials, including support for sudo and even Kerberos and clean up after themselves when complete. Ansible does not require root login privileges, specific SSH keys, or dedicated users and respects the security model of the system under management.</p>
+<p>As a result, Ansible has a very low attack surface area and is quite easy to deploy into new environments.</p>
+<h2 id="EFFICIENT-ARCHITECTURE"><a href="#EFFICIENT-ARCHITECTURE" class="headerlink" title="EFFICIENT ARCHITECTURE"></a>EFFICIENT ARCHITECTURE</h2><p>Ansible works by connecting to your nodes and pushing out small programs, called “Ansible modules” to them. These programs are written to be resource models of the desired state of the system. Ansible then executes these modules (over SSH by default), and removes them when finished.</p>
+<p>Your library of modules can reside on any machine, and there are no servers, daemons, or databases required. Typically you’ll work with your favorite terminal program, a text editor, and probably a version control system to keep track of changes to your content.</p>
+<h1 id="MANAGE-YOUR-INVENTORY-IN-SIMPLE-TEXT-FILES"><a href="#MANAGE-YOUR-INVENTORY-IN-SIMPLE-TEXT-FILES" class="headerlink" title="MANAGE YOUR INVENTORY IN SIMPLE TEXT FILES"></a>MANAGE YOUR INVENTORY IN SIMPLE TEXT FILES</h1><p>By default, Ansible represents what machines it manages using a very simple INI file that puts all of your managed machines in groups of your own choosing.  </p>
+<p>To add new machines, there is no additional SSL signing server involved, so there’s never any hassle deciding why a particular machine didn’t get linked up due to obscure NTP or DNS issues.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[webservers]</span><br><span class="line">www1.example.com</span><br><span class="line">www2.example.com</span><br><span class="line"></span><br><span class="line">[dbservers]</span><br><span class="line">db0.example.com</span><br><span class="line">db1.example.com</span><br></pre></td></tr></table></figure>
 
-<p>You might expect this program to print Set, followed by List and Unknown Collection, but it doesn’t. It prints Unknown Collection three times. Why does this happen? Because the classify method is overloaded, and the choice of which overloading to invoke is made at compile time.”</p>
-<p>“the best way to fix the program is to replace all three overloadings of classify with a single method that does an explicit instanceof test:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Collection&lt;?&gt; c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> c <span class="keyword">instanceof</span> Set  ? <span class="string">"Set"</span> :</span><br><span class="line">           c <span class="keyword">instanceof</span> List ? <span class="string">"List"</span> : <span class="string">"Unknown Collection"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Because overriding is the norm and overloading is the exception, overriding sets people’s expectations for the behavior of method invocation. As demonstrated by the CollectionClassifier example, overloading can easily confound these expectations. It is bad practice to write code whose behavior is likely to confuse programmers. This is especially true for APIs.”</p>
-<p>“Exactly what constitutes a confusing use of overloading is open to some debate. A safe, conservative policy is never to export two overloadings with the same number of parameters. If a method uses varargs, a conservative policy is not to overload it at all,”</p>
-<p>“Functional programming is a term that means different things to different people.”<br>“At the heart of functional programming is thinking about your problem domain in terms of immutable values and functions that translate between them.”</p>
-<h1 id="Target-typing"><a href="#Target-typing" class="headerlink" title="Target typing"></a>Target typing</h1><p>“What is implicit in all these examples is that a lambda expression’s type is context dependent. It gets inferred by the compiler. This target typing isn’t entirely new, either.”</p>
-<p>“This restriction is relaxed a bit in Java 8. It’s possible to refer to variables that aren’t final; however, they still have to be effectively final. Although you haven’t declared the variable(s) as final, you still cannot use them as nonfinal variable(s) if they are to be used in lambda expressions. If you do use them as nonfinal variables, then the compiler will show an error.”</p>
-<h1 id="Functional-interface"><a href="#Functional-interface" class="headerlink" title="Functional interface"></a>Functional interface</h1><p>“A functional interface is an interface with a single abstract method that is used as the type of a lambda expression.”</p>
+<h2 id="installation"><a href="#installation" class="headerlink" title="installation"></a>installation</h2><p>Once Ansible is installed, it will not add a database, and there will be no daemons to start or keep running. You only need to install it on one machine (which could easily be a laptop) and it can manage an entire fleet of remote machines from that central point. When Ansible manages remote machines, it does not leave software installed or running on them, so there’s no real question about how to upgrade Ansible when moving to a new version.</p>
 
           
         
@@ -550,7 +555,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-21-Apigee/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-26-Core-Java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -566,7 +571,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-06-21-Apigee/" class="post-title-link" itemprop="url">Apigee</a>
+              <a href="/2018-06-26-Core-Java/" class="post-title-link" itemprop="url">Core Java</a>
             
           </h1>
         
@@ -598,27 +603,22 @@
 
       
           
-            <p>App deployment, configuration management and orchestration - all from one system. Ansible is powerful IT automation that you can learn quickly.</p>
-<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>APIs are the glue that connect apps and act as the foundation for what we call the digital economy. Through every connection there is at least one API interacting with other applications and exchanging data. A business needs API management solutions that can support diverse users and not compromise the stability and reliability of back-end systems. Apigees intelligent API management platform allows companies to provide connected, seamless, digital experiences and increase the speed at which they innovate and adapt.</p>
-<h1 id="Apigee-Edge-Apigee’s-API-Management-platform-provides-a-unified-solution-that"><a href="#Apigee-Edge-Apigee’s-API-Management-platform-provides-a-unified-solution-that" class="headerlink" title="Apigee Edge, Apigee’s API Management platform, provides a unified solution that:"></a>Apigee Edge, Apigee’s API Management platform, provides a unified solution that:</h1><p>makes your APIs fail-proof<br>helps you grow your developer and partner ecosystem<br>enables you to run your APIs at scale<br>provides deep insights into your APIs and your business<br>Apigee Edge is the API management tool that offers the solutions today’s digital economy demands. For more information, download our Definitive Guide to API Management.</p>
-<h2 id="Build-RESTful-APIs"><a href="#Build-RESTful-APIs" class="headerlink" title="Build RESTful APIs"></a>Build RESTful APIs</h2><p>You have data, you have services, and you want to develop new business solutions quickly, both internally and externally.</p>
-<p>With Apigee, you can build API proxies—RESTful, HTTP-based APIs that interact with your services. With easy-to-use APIs, developers can be more productive, increasing your speed to market.</p>
-<p>API proxies give you the full power of Apigee’s API platform to secure API calls, throttle traffic, mediate messages, control error handling, cache things, build developer portals, document APIs, analyze API traffic data, make money on the use of your APIs, protect against bad bots, and more.</p>
-<h1 id="paybook"><a href="#paybook" class="headerlink" title="paybook"></a>paybook</h1><p><code>playbooks</code> contains <code>plays</code>, plays contains <code>tasks</code>, while taks call <code>modules</code>.
-<code>tasks</code> run sequentially<br><code>handlers</code> are trigered by tasks and are un once, at the end of plays.</p>
-<h2 id="Configuration-management"><a href="#Configuration-management" class="headerlink" title="Configuration management"></a>Configuration management</h2><p>Ansible configurations are simple data descriptions of your infrastructure (both human-readable and machine-parsable) - ensuring everyone on your team will be able to understand the meaning of each configuration task. New team members will be able to quickly dive in and make an impact. Existing team members can get work done faster - freeing up cycles to attend to more critical and strategic work instead of configuration management.</p>
-<p>Ansible requires nothing more than a password or SSH key in order to start managing systems and can start managing them without installing any agent software, avoiding the problem of “managing the management” common in many automation systems. There’s no more wondering why configuration management daemons are down, when to upgrade management agents, or when to patch security vulnerabilities in those agents.</p>
-<h3 id="GOAL-ORIENTED-NOT-SCRIPTED"><a href="#GOAL-ORIENTED-NOT-SCRIPTED" class="headerlink" title="GOAL-ORIENTED, NOT SCRIPTED"></a>GOAL-ORIENTED, NOT SCRIPTED</h3><p>Ansible features an state-driven resource model that describes the desired state of computer systems and services, not the paths to get them to this state. No matter what state a system is in, Ansible understands how to transform it to the desired state (and also supports a “dry run” mode to preview needed changes). This allows reliable and repeatable IT infrastructure configuration, avoiding the potential failures from scripting and script-based solutions that describe explicit and often irreversible actions rather than the end goal.</p>
-<h3 id="SECURE-amp-AGENTLESS"><a href="#SECURE-amp-AGENTLESS" class="headerlink" title="SECURE &amp; AGENTLESS"></a>SECURE &amp; AGENTLESS</h3><p>Ansible relies on the most secure remote configuration management system available as its default transport layer: OpenSSH. OpenSSH is available for a wide variety of platforms, is very lightweight and when security issues in OpenSSH are discovered, they are patched quickly.</p>
-<p>Further, Ansible does not require any remote agents. Ansible delivers all modules to remote systems and executes tasks, as needed, to enact the desired configuration. These modules run with user-supplied credentials, including support for sudo and even Kerberos and clean up after themselves when complete. Ansible does not require root login privileges, specific SSH keys, or dedicated users and respects the security model of the system under management.</p>
-<p>As a result, Ansible has a very low attack surface area and is quite easy to deploy into new environments.</p>
-<h2 id="EFFICIENT-ARCHITECTURE"><a href="#EFFICIENT-ARCHITECTURE" class="headerlink" title="EFFICIENT ARCHITECTURE"></a>EFFICIENT ARCHITECTURE</h2><p>Ansible works by connecting to your nodes and pushing out small programs, called “Ansible modules” to them. These programs are written to be resource models of the desired state of the system. Ansible then executes these modules (over SSH by default), and removes them when finished.</p>
-<p>Your library of modules can reside on any machine, and there are no servers, daemons, or databases required. Typically you’ll work with your favorite terminal program, a text editor, and probably a version control system to keep track of changes to your content.</p>
-<h1 id="MANAGE-YOUR-INVENTORY-IN-SIMPLE-TEXT-FILES"><a href="#MANAGE-YOUR-INVENTORY-IN-SIMPLE-TEXT-FILES" class="headerlink" title="MANAGE YOUR INVENTORY IN SIMPLE TEXT FILES"></a>MANAGE YOUR INVENTORY IN SIMPLE TEXT FILES</h1><p>By default, Ansible represents what machines it manages using a very simple INI file that puts all of your managed machines in groups of your own choosing.  </p>
-<p>To add new machines, there is no additional SSL signing server involved, so there’s never any hassle deciding why a particular machine didn’t get linked up due to obscure NTP or DNS issues.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[webservers]</span><br><span class="line">www1.example.com</span><br><span class="line">www2.example.com</span><br><span class="line"></span><br><span class="line">[dbservers]</span><br><span class="line">db0.example.com</span><br><span class="line">db1.example.com</span><br></pre></td></tr></table></figure>
+            <h1 id="Annotation-retention-policy"><a href="#Annotation-retention-policy" class="headerlink" title="Annotation retention policy"></a>Annotation retention policy</h1><p>What is Retention policy in java annotations?</p>
+<p>A retention policy determines at what point annotation should be discarded.<br>Java defined 3 types of retention policies through java.lang.annotation.RetentionPolicy enumeration. It has SOURCE, CLASS and RUNTIME.<br>Annotation with retention policy SOURCE will be retained only with source code, and discarded during compile time.<br>Annotation with retention policy CLASS will be retained till compiling the code, and discarded during runtime.<br>Annotation with retention policy RUNTIME will be available to the JVM through runtime.<br>The retention policy will be specified by using java built-in annotation @Retention, and we have to pass the retention policy type.<br>The default retention policy type is CLASS.</p>
+<h1 id="overload-and-override"><a href="#overload-and-override" class="headerlink" title="overload and override"></a>overload and override</h1><p>“selection among overloaded methods is static, while selection among overridden methods is dynamic. ”</p>
+<p>“a method is overridden when a subclass contains a method declaration with the same signature as a method declaration in an ancestor.”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">“<span class="comment">// Broken! - What does this program print?</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CollectionClassifier</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Set&lt;?&gt; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Set"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(List&lt;?&gt; lst)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"List"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Collection&lt;?&gt; c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Unknown Collection"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Collection&lt;?&gt;[] collections = &#123;</span><br><span class="line">            <span class="keyword">new</span> HashSet&lt;String&gt;(),</span><br><span class="line">            <span class="keyword">new</span> ArrayList&lt;BigInteger&gt;(),</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;String, String&gt;().values()</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Collection&lt;?&gt; c : collections)</span><br><span class="line">            System.out.println(classify(c));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="installation"><a href="#installation" class="headerlink" title="installation"></a>installation</h2><p>Once Ansible is installed, it will not add a database, and there will be no daemons to start or keep running. You only need to install it on one machine (which could easily be a laptop) and it can manage an entire fleet of remote machines from that central point. When Ansible manages remote machines, it does not leave software installed or running on them, so there’s no real question about how to upgrade Ansible when moving to a new version.</p>
+<p>You might expect this program to print Set, followed by List and Unknown Collection, but it doesn’t. It prints Unknown Collection three times. Why does this happen? Because the classify method is overloaded, and the choice of which overloading to invoke is made at compile time.”</p>
+<p>“the best way to fix the program is to replace all three overloadings of classify with a single method that does an explicit instanceof test:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Collection&lt;?&gt; c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> c <span class="keyword">instanceof</span> Set  ? <span class="string">"Set"</span> :</span><br><span class="line">           c <span class="keyword">instanceof</span> List ? <span class="string">"List"</span> : <span class="string">"Unknown Collection"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Because overriding is the norm and overloading is the exception, overriding sets people’s expectations for the behavior of method invocation. As demonstrated by the CollectionClassifier example, overloading can easily confound these expectations. It is bad practice to write code whose behavior is likely to confuse programmers. This is especially true for APIs.”</p>
+<p>“Exactly what constitutes a confusing use of overloading is open to some debate. A safe, conservative policy is never to export two overloadings with the same number of parameters. If a method uses varargs, a conservative policy is not to overload it at all,”</p>
+<p>“Functional programming is a term that means different things to different people.”<br>“At the heart of functional programming is thinking about your problem domain in terms of immutable values and functions that translate between them.”</p>
+<h1 id="Target-typing"><a href="#Target-typing" class="headerlink" title="Target typing"></a>Target typing</h1><p>“What is implicit in all these examples is that a lambda expression’s type is context dependent. It gets inferred by the compiler. This target typing isn’t entirely new, either.”</p>
+<p>“This restriction is relaxed a bit in Java 8. It’s possible to refer to variables that aren’t final; however, they still have to be effectively final. Although you haven’t declared the variable(s) as final, you still cannot use them as nonfinal variable(s) if they are to be used in lambda expressions. If you do use them as nonfinal variables, then the compiler will show an error.”</p>
+<h1 id="Functional-interface"><a href="#Functional-interface" class="headerlink" title="Functional interface"></a>Functional interface</h1><p>“A functional interface is an interface with a single abstract method that is used as the type of a lambda expression.”</p>
 
           
         
@@ -696,6 +696,171 @@
           
             <h1 id="Exporting-your-beans-to-JMX"><a href="#Exporting-your-beans-to-JMX" class="headerlink" title="Exporting your beans to JMX"></a>Exporting your beans to JMX</h1><p>The core class in Spring’s JMX framework is the MBeanExporter. This class is responsible for taking your Spring beans and registering them with a JMX MBeanServer. </p>
 <p>when running inside a container that does not provide an MBeanServer. To address this you can create an MBeanServer instance declaratively by adding an instance of the org.springframework.jmx.support.MBeanServerFactoryBean class to your configuration. You can also ensure that a specific MBeanServer is used by setting the value of the MBeanExporter’s server property to the MBeanServer value returned by an MBeanServerFactoryBean</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-13-Camel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-13-Camel/" class="post-title-link" itemprop="url">Camel</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Endpoints"><a href="#Endpoints" class="headerlink" title="Endpoints"></a>Endpoints</h1><p>Camel supports the Message Endpoint pattern using the Endpoint interface. Endpoints are usually created by a Component and Endpoints are usually referred to in the DSL via their URIs.</p>
+<p>From an Endpoint you can use the following methods</p>
+<p>createProducer() will create a Producer for sending message exchanges to the endpoint<br>createConsumer() implements the Event Driven Consumer pattern for consuming message exchanges from the endpoint via a Processor when creating a Consumer<br>createPollingConsumer() implements the Polling Consumer pattern for consuming message exchanges from the endpoint via a PollingConsumer</p>
+<h1 id="implementation"><a href="#implementation" class="headerlink" title="implementation"></a>implementation</h1><p>When using the DSL to create Routes you typically refer to Message Endpoints by their URIs rather than directly using the Endpoint interface. Its then a responsibility of the CamelContext to create and activate the necessary Endpoint instances using the available Component implementations.</p>
+<h1 id="connector"><a href="#connector" class="headerlink" title="connector"></a>connector</h1><p>Sub interface including Initiator.<br>abstract class SessionConnector implements Connector</p>
+<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p>class Session.java</p>
+<h1 id="FieldMaps"><a href="#FieldMaps" class="headerlink" title="FieldMaps"></a>FieldMaps</h1><p>Which leverage TreeMap&lt;Integer, Field&lt;?&gt;&gt; fields;</p>
+<h2 id="Field"><a href="#Field" class="headerlink" title="Field"></a>Field</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Field</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">   <span class="title">public</span> <span class="title">Field</span>(<span class="title">int</span> <span class="title">field</span>, <span class="title">T</span> <span class="title">object</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.tag = field;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-16-FileUtils_Camel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-16-FileUtils_Camel/" class="post-title-link" itemprop="url">File Util in Apache Camel</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="FileUtil-class"><a href="#FileUtil-class" class="headerlink" title="FileUtil.class"></a>FileUtil.class</h1><h2 id="compactPath-String-path"><a href="#compactPath-String-path" class="headerlink" title="compactPath(String path)"></a>compactPath(String path)</h2><p>To normalize path and join with provided separator</p>
+<p>if path is null, return null<br>if path.indexOf(47) == -1 &amp;&amp; path.indexOf(92) ==-1 (means /, ) return path</p>
+<h3 id="normalizePath"><a href="#normalizePath" class="headerlink" title="normalizePath"></a>normalizePath</h3><p>check whether it is windows<br>String osName = System.getProperty(“os.name”).toLowerCase(Locale.ENGLISH);<br>        return osName.contains(“windows”);<br>for windows, replace / with \, for linux, replace \ with /</p>
+<p>split path by separator (\ or /) to get an array</p>
+<p>traverse array and check whether current is “..”, if so , call stack.pop<br>otherwise, stach.push(part)</p>
+<p>Then iterate stack and then combine them by a StringBuilder via provided addtional parameter separator</p>
 
           
         
@@ -954,7 +1119,7 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-13-Camel/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-28-Scala/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -970,7 +1135,7 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-07-13-Camel/" class="post-title-link" itemprop="url">Camel</a>
+              <a href="/2018-07-28-Scala/" class="post-title-link" itemprop="url">Scala</a>
             
           </h1>
         
@@ -1002,384 +1167,8 @@ return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<b
 
       
           
-            <h1 id="Endpoints"><a href="#Endpoints" class="headerlink" title="Endpoints"></a>Endpoints</h1><p>Camel supports the Message Endpoint pattern using the Endpoint interface. Endpoints are usually created by a Component and Endpoints are usually referred to in the DSL via their URIs.</p>
-<p>From an Endpoint you can use the following methods</p>
-<p>createProducer() will create a Producer for sending message exchanges to the endpoint<br>createConsumer() implements the Event Driven Consumer pattern for consuming message exchanges from the endpoint via a Processor when creating a Consumer<br>createPollingConsumer() implements the Polling Consumer pattern for consuming message exchanges from the endpoint via a PollingConsumer</p>
-<h1 id="implementation"><a href="#implementation" class="headerlink" title="implementation"></a>implementation</h1><p>When using the DSL to create Routes you typically refer to Message Endpoints by their URIs rather than directly using the Endpoint interface. Its then a responsibility of the CamelContext to create and activate the necessary Endpoint instances using the available Component implementations.</p>
-<h1 id="connector"><a href="#connector" class="headerlink" title="connector"></a>connector</h1><p>Sub interface including Initiator.<br>abstract class SessionConnector implements Connector</p>
-<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p>class Session.java</p>
-<h1 id="FieldMaps"><a href="#FieldMaps" class="headerlink" title="FieldMaps"></a>FieldMaps</h1><p>Which leverage TreeMap&lt;Integer, Field&lt;?&gt;&gt; fields;</p>
-<h2 id="Field"><a href="#Field" class="headerlink" title="Field"></a>Field</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Field</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">   <span class="title">public</span> <span class="title">Field</span>(<span class="title">int</span> <span class="title">field</span>, <span class="title">T</span> <span class="title">object</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.tag = field;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-16-FileUtils_Camel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-16-FileUtils_Camel/" class="post-title-link" itemprop="url">File Util in Apache Camel</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="FileUtil-class"><a href="#FileUtil-class" class="headerlink" title="FileUtil.class"></a>FileUtil.class</h1><h2 id="compactPath-String-path"><a href="#compactPath-String-path" class="headerlink" title="compactPath(String path)"></a>compactPath(String path)</h2><p>To normalize path and join with provided separator</p>
-<p>if path is null, return null<br>if path.indexOf(47) == -1 &amp;&amp; path.indexOf(92) ==-1 (means /, ) return path</p>
-<h3 id="normalizePath"><a href="#normalizePath" class="headerlink" title="normalizePath"></a>normalizePath</h3><p>check whether it is windows<br>String osName = System.getProperty(“os.name”).toLowerCase(Locale.ENGLISH);<br>        return osName.contains(“windows”);<br>for windows, replace / with \, for linux, replace \ with /</p>
-<p>split path by separator (\ or /) to get an array</p>
-<p>traverse array and check whether current is “..”, if so , call stack.pop<br>otherwise, stach.push(part)</p>
-<p>Then iterate stack and then combine them by a StringBuilder via provided addtional parameter separator</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-23-akka-scala/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-23-akka-scala/" class="post-title-link" itemprop="url">akka framework of scala</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="philosophy"><a href="#philosophy" class="headerlink" title="philosophy"></a>philosophy</h1><p>The actor model adopts the philosophy that everything is an actor. This is similar to the everything is an object philosophy used by some object-oriented programming languages.</p>
-<p>Decoupling the sender from communications sent was a fundamental advance of the Actor model enabling asynchronous communication and control structures as patterns of passing messages.</p>
-<p>Recipients of messages are identified by address, sometimes called “mailing address”. Thus an actor can only communicate with actors whose addresses it has.</p>
-<h1 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h1><p>Routes effectively are simply highly specialised functions that take a RequestContext and eventually complete it, which could (and often should) happen asynchronously.</p>
-<p>Directives create Routes.</p>
-<p>The Route is the central concept of Akka HTTP’s Routing DSL. All the structures you build with the DSL, no matter whether they consists of a single line or span several hundred lines, are type turning a RequestContext into a Future[RouteResult].</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Route</span> </span>= <span class="type">RequestContext</span> =&gt; <span class="type">Future</span>[<span class="type">RouteResult</span>]</span><br></pre></td></tr></table></figure>
-
-<p>Generally when a route receives a request (or rather a RequestContext for it) it can do one of these things:</p>
-<ul>
-<li>Complete the request by returning the value of requestContext.complete(…)</li>
-<li>Reject the request by returning the value of requestContext.reject(…) (see Rejections)</li>
-<li>Fail the request by returning the value of requestContext.fail(…) or by just throwing an exception (see Exception Handling)</li>
-<li>Do any kind of asynchronous processing and instantly return a Future[RouteResult] to be eventually completed later</li>
-</ul>
-<h2 id="The-Routing-Tree"><a href="#The-Routing-Tree" class="headerlink" title="The Routing Tree"></a>The Routing Tree</h2><p>Essentially, when you combine directives and custom routes via nesting and the ~ operator, you build a routing structure that forms a tree. When a request comes in it is injected into this tree at the root and flows down through all the branches in a depth-first manner until either some node completes it or it is fully rejected.</p>
-<p>In RouteDirective.scala</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Completes the request using the given arguments.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @group route</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">complete</span></span>(m: ? <span class="type">ToResponseMarshallable</span>): <span class="type">StandardRoute</span> =</span><br><span class="line">    <span class="type">StandardRoute</span>(_.complete(m))</span><br></pre></td></tr></table></figure>
-
-<h2 id="RouteResult"><a href="#RouteResult" class="headerlink" title="RouteResult"></a>RouteResult</h2><p>RouteResult is a simple abstract data type (ADT) that models the possible non-error results of a Route. It is defined as such:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sealed</span> <span class="class"><span class="keyword">trait</span> <span class="title">RouteResult</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">object</span> <span class="title">RouteResult</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> <span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Complete</span>(<span class="params">response: <span class="type">HttpResponse</span></span>) <span class="keyword">extends</span> <span class="title">RouteResult</span></span></span><br><span class="line"><span class="class">  <span class="title">final</span> <span class="title">case</span> <span class="title">class</span> <span class="title">Rejected</span>(<span class="params">rejections: immutable.<span class="type">Seq</span>[<span class="type">Rejection</span>]</span>) <span class="keyword">extends</span> <span class="title">RouteResult</span></span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Routing-DSL"><a href="#Routing-DSL" class="headerlink" title="Routing DSL"></a>Routing DSL</h2><p>In addition to the Core Server API Akka HTTP provides a very flexible ,Routing DSL, for elegantly defining RESTful web services.</p>
-<p>Http().bindAndHandle(routes ~ abcRoute, host, port)</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns a Route that chains two Routes. If the first Route rejects the request the second route is given a</span></span><br><span class="line"><span class="comment">     * chance to act upon the request.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">~</span></span>(other: <span class="type">Route</span>): <span class="type">Route</span> = &#123; ctx ?</span><br><span class="line">      <span class="keyword">import</span> ctx.executionContext</span><br><span class="line">      route(ctx).fast.flatMap &#123;</span><br><span class="line">        <span class="keyword">case</span> x: <span class="type">RouteResult</span>.<span class="type">Complete</span> ? <span class="type">FastFuture</span>.successful(x)</span><br><span class="line">        <span class="keyword">case</span> <span class="type">RouteResult</span>.<span class="type">Rejected</span>(outerRejections) ?</span><br><span class="line">          other(ctx).fast.map &#123;</span><br><span class="line">            <span class="keyword">case</span> x: <span class="type">RouteResult</span>.<span class="type">Complete</span>               ? x</span><br><span class="line">            <span class="keyword">case</span> <span class="type">RouteResult</span>.<span class="type">Rejected</span>(innerRejections) ? <span class="type">RouteResult</span>.<span class="type">Rejected</span>(outerRejections ++ innerRejections)</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Path-matching"><a href="#Path-matching" class="headerlink" title="Path matching"></a>Path matching</h3><blockquote>
-<p>Note<br>The path matching DSL describes what paths to accept after URL decoding. This is why the path-separating slashes have special status and cannot simply be specified as part of a string! The string ¡°foo/bar¡± would match the raw URI path ¡°foo%2Fbar¡±, which is most likely not what you want!</p>
-</blockquote>
-<h1 id="Sink"><a href="#Sink" class="headerlink" title="Sink"></a>Sink</h1><p>A Sink is a set of stream processing steps that has one open input. Can be used as a Subscriber</p>
-<h1 id="supervision"><a href="#supervision" class="headerlink" title="supervision"></a>supervision</h1><h2 id="What-Supervision-Means"><a href="#What-Supervision-Means" class="headerlink" title="What Supervision Means"></a>What Supervision Means</h2><p>As described in Actor Systems supervision describes a dependency relationship between actors: the supervisor delegates tasks to subordinates and therefore must respond to their failures. When a subordinate detects a failure (i.e. throws an exception), it suspends itself and all its subordinates and sends a message to its supervisor, signaling failure. Depending on the nature of the work to be supervised and the nature of the failure, the supervisor has a choice of the following four options:</p>
-<ul>
-<li>Resume the subordinate, keeping its accumulated internal state</li>
-<li>Restart the subordinate, clearing out its accumulated internal state</li>
-<li>Stop the subordinate permanently</li>
-<li>Escalate the failure, thereby failing itself</li>
-</ul>
-<h2 id="sealed-class"><a href="#sealed-class" class="headerlink" title="sealed class"></a>sealed class</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object Supervision &#123;</span><br><span class="line">  sealed trait Directive</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>A sealed class may not be directly inherited, except if the inheriting template is defined in the same source file as the inherited class. However, subclasses of a sealed class can inherited anywhere.</p>
-<h2 id="implicit"><a href="#implicit" class="headerlink" title="implicit"></a>implicit</h2><p>A method can have an implicit parameter list, marked by the implicit keyword at the start of the parameter list. If the parameters in that parameter list are not passed as usual, Scala will look if it can get an implicit value of the correct type, and if it can, pass it automatically.</p>
-<p>The places Scala will look for these parameters fall into two categories:</p>
-<p>Scala will first look for implicit definitions and implicit parameters that can be accessed directly (without a prefix) at the point the method with the implicit parameter block is called.<br>Then it looks for members marked implicit in all the companion objects associated with the implicit candidate type.</p>
-<h2 id="KillSwitch"><a href="#KillSwitch" class="headerlink" title="KillSwitch"></a>KillSwitch</h2><p>A KillSwitch allows completion of Graphs from the outside by completing Graphs of FlowShape linked to the switch. Depending on whether the KillSwitch is a UniqueKillSwitch or a SharedKillSwitch one or multiple streams might be linked with the switch.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">KillSwitch</span> </span>&#123;</span><br><span class="line"><span class="comment">//After calling KillSwitch.shutdown() the linked Graphs of FlowShape are completed normally.</span></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">shutdown</span></span>(): <span class="type">Unit</span></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">abort</span></span>(ex:<span class="type">Throwable</span>): <span class="type">Unit</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h2><p>A Source is a set of stream processing steps that has one open output. It can comprise any number of internal sources and transformations that are wired together, or it can be an atomic source, e.g. from a collection or a file. Materialization turns a Source into a Reactive Streams Publisher (at least conceptually).</p>
-<h3 id="connect-to-Sink"><a href="#connect-to-Sink" class="headerlink" title="connect to Sink"></a>connect to Sink</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Connect this [[akka.stream.scaladsl.Source]] to a [[akka.stream.scaladsl.Sink]],</span></span><br><span class="line"><span class="comment">   * concatenating the processing steps of both.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">to</span></span>[<span class="type">Mat2</span>](sink: <span class="type">Graph</span>[<span class="type">SinkShape</span>[<span class="type">Out</span>], <span class="type">Mat2</span>]): <span class="type">RunnableGraph</span>[<span class="type">Mat</span>] = toMat(sink)(<span class="type">Keep</span>.left)</span><br></pre></td></tr></table></figure>
-
-<h1 id="Future"><a href="#Future" class="headerlink" title="Future"></a>Future</h1><p>trait Future[+T]<br> extends Awaitable[T]<br>A Future represents a value which may or may not <em>currently</em> be available, but will be available at some point, or an exception if that value could not be made available. Asynchronous computations that yield futures are created with the Future.apply call and are computed using a supplied ExecutionContext, which can be backed by a Thread pool.</p>
-<p>   import ExecutionContext.Implicits.global<br>   val s = “Hello”<br>   val f: Future[String] = Future {<br>     s + “ future!”<br>   }<br>   f foreach {<br>     msg =&gt; println(msg)<br>   }</p>
-<h2 id="Future-introduction"><a href="#Future-introduction" class="headerlink" title="Future introduction"></a>Future introduction</h2><p>Futures provide a way to reason about performing many operations in parallel¨C in an efficient and non-blocking way. A Future is a placeholder object for a value that may not yet exist. Generally, the value of the Future is supplied concurrently and can subsequently be used. Composing concurrent tasks in this way tends to result in faster, asynchronous, non-blocking parallel code.</p>
-<p>By default, futures and promises are non-blocking, making use of callbacks instead of typical blocking operations. To simplify the use of callbacks both syntactically and conceptually, Scala provides combinators such as flatMap, foreach, and filter used to compose futures in a non-blocking way. Blocking is still possible - for cases where it is absolutely necessary, futures can be blocked on (although this is discouraged).</p>
-<h1 id="Scala-scope-protection"><a href="#Scala-scope-protection" class="headerlink" title="Scala scope protection:"></a>Scala scope protection:</h1><p>private[C] means that access is private “up to” C, where C is the corresponding package, class or singleton object.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>[http] <span class="function"><span class="keyword">def</span> <span class="title">build</span> </span>= &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>The modi?er can be quali?ed with an identi?er C (e.g. private[C]) that must denote a class or package enclosing the de?nition. Members labeled with such a modi?er are accessible respectively only from code inside the package C or only from code inside the class C and its companion module (¡ì5.4). Such members are also inherited only from templates inside C.</p>
-<h1 id="Scala-flexible-import"><a href="#Scala-flexible-import" class="headerlink" title="Scala flexible import"></a>Scala flexible import</h1><p>you can import several classes the Scala way:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.&#123;<span class="type">File</span>, <span class="type">IOException</span>, <span class="type">FileNotFoundException</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Use the following syntax to import everything from the java.io package:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io._</span><br></pre></td></tr></table></figure>
-
-<p>The _ character in this example is similar to the * wildcard character in Java.</p>
-<p>If the _ character feels unusual at first, it helps to know that it¡¯s used consistently throughout the Scala language as a wildcard character, and that consistency is very nice.</p>
-<h2 id="Directives"><a href="#Directives" class="headerlink" title="Directives"></a>Directives</h2><p>A ¡°Directive¡± is a small building block used for creating arbitrarily complex route structures. Akka HTTP already pre-defines a large number of directives and you can easily construct your own:</p>
-<h1 id="Regular-Expression"><a href="#Regular-Expression" class="headerlink" title="Regular Expression"></a>Regular Expression</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> pattern = <span class="string">"Scala"</span>.r</span><br><span class="line">      <span class="keyword">val</span> str = <span class="string">"Scala is Scalable and cool"</span></span><br><span class="line">      </span><br><span class="line">      println(pattern findFirstIn str)</span><br></pre></td></tr></table></figure>
-
-<p>We create a String and call the r( ) method on it. Scala implicitly converts the String to a RichString and invokes that method to get an instance of Regex. To find a first match of the regular expression, simply call the findFirstIn() method. If instead of finding only the first occurrence we would like to find all occurrences of the matching word, we can use the findAllIn( ) method and in case there are multiple Scala words available in the target string, this will return a collection of all matching words.</p>
-<h2 id="PathMatcher"><a href="#PathMatcher" class="headerlink" title="PathMatcher"></a>PathMatcher</h2><ul>
-<li>Segment: PathMatcher1[String]<br>Matches if the unmatched path starts with a path segment (i.e. not a slash). If so the path segment is extracted as a String instance.</li>
-</ul>
-<h1 id="Option"><a href="#Option" class="headerlink" title="Option"></a>Option</h1><p>In short, if you have a value of type A that may be absent, Scala uses an instance of Option[A] as its container. An Intance of Option is either an instance of case class Some when it is present or case object None when it is not. Since both Some and None are children of Option, your function signature should declare that the returned value is an Option of some type, e.g. Option[A]</p>
-<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><p>It is very easy to create an Option in Scala, i.e. you can use a present/absent value directly.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> optionalInt: <span class="type">Option</span>[<span class="type">Int</span>] = <span class="type">Some</span>(<span class="number">1</span>)</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="comment">// val optionalInt: Option[Int] = None</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="To-validate-user-login"><a href="#To-validate-user-login" class="headerlink" title="To validate user login"></a>To validate user login</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">auth</span></span>(user:<span class="type">String</span>, pwd:<span class="type">String</span>): <span class="type">AuthResult</span> =</span><br><span class="line">	(user, pwd) <span class="keyword">match</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> (u, _) <span class="keyword">if</span> <span class="type">Option</span>(u).exists(_.trim.isEmpty) =&gt; <span class="type">ErrorLogin</span></span><br><span class="line">	<span class="keyword">case</span> (_, p) <span class="keyword">if</span> <span class="type">Option</span>(p).exists(_.trim.isEmpty) =&gt; <span class="type">ErrorPwd</span></span><br><span class="line">	<span class="keyword">case</span> (u, p) =&gt; doAuth(u,p)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="isDefined"><a href="#isDefined" class="headerlink" title="isDefined"></a>isDefined</h2><p>you add a checker for the None value using the isDefined method and specify logic to handle each scenario accordingly.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">addTwoWithDefault</span></span>(a: <span class="type">Option</span>[<span class="type">Int</span>]): <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="keyword">if</span>(a.isDefined) a.get + <span class="number">2</span> <span class="keyword">else</span> <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="getOrElse"><a href="#getOrElse" class="headerlink" title="getOrElse"></a>getOrElse</h2><p>In many cases, you have a fallback or default value for your absent values, e.g. zero in the above example. With Option, you can easily provide a default value via the getOrElse method.</p>
-<p>def addTwoWithDefault(a: Option[Int]): Int = a.getOrElse(0) + 2</p>
-<h2 id="flatten"><a href="#flatten" class="headerlink" title="flatten"></a>flatten</h2><p>Assume that we have a List of Option[Int].</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> l: <span class="type">List</span>[<span class="type">Option</span>[<span class="type">Int</span>]] = <span class="type">List</span>(<span class="type">Some</span>(<span class="number">3</span>), <span class="type">Some</span>(<span class="number">1</span>), <span class="type">None</span>, <span class="type">Some</span>(<span class="number">5</span>), <span class="type">Some</span>(<span class="number">8</span>), <span class="type">None</span>)</span><br></pre></td></tr></table></figure>
-
-<p>A common scenario is that we need to filter out the absent values and return a List of Int. A straightfoward approach is to combine filter with .isDefined.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l.filter(_.isDefined).map(_.get) </span><br><span class="line"><span class="comment">// res1: List[Int] = List(3, 1, 5, 8)</span></span><br></pre></td></tr></table></figure>
-
-<p>However, Scala actually provides an elegent built-in function to achieve the same goal, which is often more preferred.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l.flatten</span><br><span class="line"><span class="comment">// res1: List[Int] = List(3, 1, 5, 8)</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="underscore"><a href="#underscore" class="headerlink" title="underscore"></a>underscore</h1><p>In Scala, pattern matching is somewhat similar to java switch statement. But it is more powerful.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">matchTest</span></span>(x: <span class="type">Int</span>): <span class="type">String</span> = x <span class="keyword">match</span> &#123;</span><br><span class="line">   <span class="keyword">case</span> <span class="number">1</span> =&gt; <span class="string">"one"</span></span><br><span class="line">   <span class="keyword">case</span> <span class="number">2</span> =&gt; <span class="string">"two"</span></span><br><span class="line">   <span class="keyword">case</span> _ =&gt; <span class="string">"anything other than one and two"</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>_ acts like a wildcard. It will match anything. Scala allows nested patterns, so we can nest the _ also.Lets see another example that uses _ in nested pattern.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">expr <span class="keyword">match</span> &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">List</span>(<span class="number">1</span>,_,_) =&gt; <span class="string">" a list with three element and the first element is 1"</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">List</span>(_*)  =&gt; <span class="string">" a list with zero or more elements "</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">Map</span>[_,_] =&gt; <span class="string">" matches a map with any key type and any value type "</span></span><br><span class="line">  <span class="keyword">case</span> _ =&gt;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Anonymous-Functions"><a href="#Anonymous-Functions" class="headerlink" title="Anonymous Functions"></a>Anonymous Functions</h2><p>Scala represents anonymous functions with a elegant syntax. The _ acts as a placeholder for parameters in the anonymous function. The _ should be used only once, But we can use two or more underscores to refer different parameters.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>).foreach(print(_))</span><br><span class="line"><span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>).foreach( a =&gt; print(a))</span><br><span class="line"><span class="comment">// Here the _ refers to the parameter. The first one is a short form of the second one. Lets look at another example which take two parameters.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> sum = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>).reduceLeft(_+_)</span><br><span class="line"><span class="keyword">val</span> sum = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>).reduceLeft((a, b) =&gt; a + b)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><p>Scala is a functional language. So we can treat function as a normal variable. If you try to assign a function to a new variable, the function will be invoked and the result will be assigned to the variable. This confusion occurs due to the optional braces for method invocation. We should use _ after the function name to assign it to another variable.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>).foreach(print(_))</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">fun</span> </span>= &#123;</span><br><span class="line">    <span class="comment">// some code</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">val</span> funLike = fun _</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>).foreach(print(_))</span><br></pre></td></tr></table></figure>
-
-<h1 id="Either-Left-Right"><a href="#Either-Left-Right" class="headerlink" title="Either, Left, Right"></a>Either, Left, Right</h1><p>Using Either, Left, and Right<br>Prior to Scala 2.10, an approach similar to Try was available with the Either, Left, and Right classes. With these classes, Either is analogous to Try, Right is similar to Success, and Left is similar to Failure.</p>
-<p>The following method demonstrates how to implement the Either approach:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">divideXByY</span></span>(x: <span class="type">Int</span>, y: <span class="type">Int</span>): <span class="type">Either</span>[<span class="type">String</span>, <span class="type">Int</span>] = &#123;</span><br><span class="line">    <span class="keyword">if</span> (y == <span class="number">0</span>) <span class="type">Left</span>(<span class="string">"Dude, can't divide by 0"</span>)</span><br><span class="line">    <span class="keyword">else</span> <span class="type">Right</span>(x / y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>As shown, your method should be declared to return an Either, and the method body should return a Right on success and a Left on failure. The Right type is the type your method returns when it runs successfully (an Int in this case), and the Left type is typically a String, because that¡¯s how the error message is returned.</p>
-<p>As with Option and Try, a method returning an Either can be called in a variety of ways, including getOrElse or a match expression:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = divideXByY(<span class="number">1</span>, <span class="number">1</span>).right.getOrElse(<span class="number">0</span>)   <span class="comment">// returns 1</span></span><br><span class="line"><span class="keyword">val</span> x = divideXByY(<span class="number">1</span>, <span class="number">0</span>).right.getOrElse(<span class="number">0</span>)   <span class="comment">// returns 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// prints "Answer: Dude, can't divide by 0"</span></span><br><span class="line">divideXByY(<span class="number">1</span>, <span class="number">0</span>) <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Left</span>(s) =&gt; println(<span class="string">"Answer: "</span> + s)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Right</span>(i) =&gt; println(<span class="string">"Answer: "</span> + i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>You can also access the error message by testing the result with isLeft, and then accessing the left value, but this isn¡¯t really the Scala way:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> x = divideXByY(<span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">x: <span class="type">Either</span>[<span class="type">String</span>,<span class="type">Int</span>] = <span class="type">Left</span>(<span class="type">Dude</span>, can<span class="symbol">'t</span> divide by <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; x.isLeft</span><br><span class="line">res0: <span class="type">Boolean</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">scala&gt; x.left</span><br><span class="line">res1: scala.util.<span class="type">Either</span>.<span class="type">LeftProjection</span>[<span class="type">String</span>,<span class="type">Int</span>] =</span><br><span class="line">      <span class="type">LeftProjection</span>(<span class="type">Left</span>(<span class="type">Dude</span>, can<span class="symbol">'t</span> divide by <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
-
-<p>Although the Either classes offered a potential solution prior to Scala 2.10, I now use the Try classes in all of my code instead of Either.</p>
-<h3 id="classOf"><a href="#classOf" class="headerlink" title="classOf"></a>classOf</h3><p>Retrieve the runtime representation of a class type. classOf[T] is equivalent to the class literal T.class in Java.</p>
-<h2 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h2><p>// Keywords<br>&lt;-  // Used on for-comprehensions, to separate pattern from generator<br>=&gt;  // Used for function types, function literals and import renaming</p>
-<h1 id="Akka-framework"><a href="#Akka-framework" class="headerlink" title="Akka framework"></a>Akka framework</h1><p>Akka is a toolkit and runtime for building highly concurrent, distributed, and fault-tolerant event-driven applications on the JVM. </p>
-<p>Actors are the unit of execution in Akka. The Actor model is an abstraction that makes it easier to write correct concurrent, parallel and distributed systems.</p>
-<p>This will get your feet wet, and hopefully inspire you to dive deeper into the wonderful sea of Akka!</p>
-<p>The Akka team refers to their creation as a toolkit rather than a framework. Frameworks tend to be a mechanism for providing a discrete element of a stack (e.g. the ui, or the web services layer). Akka provides a set of tools to render any part of the stack, and to provide the interconnects between them. </p>
-<p>He two ways (shared mutable state/message passing (Akka)) to solve the problem of selling tickets.</p>
-<p>Actors do not share state, can only communicate through immutable messages and do not talk to each other directly but through actor references, similar to the addresses we talked about. This approach satisfies the three things we wanted to change. So why is this simpler than the shared mutable state approach?</p>
-<ul>
-<li>We don’t need to manage locks. We don’t have to think about how to protect the shared data. Inside an actor we’re safe.</li>
-<li>We are more protected from deadlocks caused by out of order access by multiple threads, that cause the system to wait forever, or other problems like race conditions and thread starvation. Use of Akka precludes most of these problems, relieving us of the burden.</li>
-<li>Performance tuning a shared mutable state solution is hard work and error prone and verification through tests is nearly impossible.</li>
-</ul>
-<h2 id="Benefits-of-using-the-Actor-Model"><a href="#Benefits-of-using-the-Actor-Model" class="headerlink" title="Benefits of using the Actor Model"></a>Benefits of using the Actor Model</h2><p>The following characteristics of Akka allow you to solve difficult concurrency and scalability challenges in an intuitive way:</p>
-<ul>
-<li>Event-driven model — Actors perform work in response to messages. Communication between Actors is asynchronous, allowing Actors to send messages and continue their own work without blocking to wait for a reply.</li>
-<li>Strong isolation principles — Unlike regular objects in Java, an Actor does not have a public API in terms of methods that you can invoke. Instead, its public API is defined through messages that the actor handles. This prevents any sharing of state between Actors; the only way to observe another actor’s state is by sending it a message asking for it.</li>
-<li>Location transparency — The system constructs Actors from a factory and returns references to the instances. Because location doesn’t matter, Actor instances can start, stop, move, and restart to scale up and down as well as recover from unexpected failures.</li>
-<li>Lightweight — Each instance consumes only a few hundred bytes, which realistically allows millions of concurrent Actors to exist in a single application.</li>
-</ul>
-<h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p>two special channels. The first is the Dead Letter channel, which contain message that couldn’t be delivered. This is sometimes also called a dead message queue. This channel can help when debugging, why some messages aren’t processed or to monitor where there are problems.</p>
-<h3 id="EventStream"><a href="#EventStream" class="headerlink" title="EventStream"></a>EventStream</h3><p>the benefit of decoupling the receivers and the sender and the dynamic nature of the publish-subscribe channel, but because the EventStream is available for all actors is also a nice solution for messages which can be send from all over the system and needs to be collected at one or more Actors. A good example is logging. Logging can be done throughout the system and needs to be collected at one point and be written to a log file. Internally the ActorLogging is using the EventStream to collect the log lines from all over the system.</p>
-<h3 id="Dead-Letter-Message"><a href="#Dead-Letter-Message" class="headerlink" title="Dead Letter Message"></a>Dead Letter Message</h3><p>Akka is using the EventStream to implement the dead letter queue. This way only the actors which are interested in the failed messages are receiving them. When a message is queued in a mailbox of an actor that Terminates or is send after the Termination, the message is send to the EventStream of the ActorSystem. The message is wrapped into a DeadLetter object. This Object contains the original message, the sender of the message and the intended receiver. This way the Dead letter queue is integrated in the EventStream. To get these dead letter messages you only need to subscribe your actor to the EventStream with the DeadLetter class as the Classifier.</p>
-<p>Messages send to a Terminated Actor can’t be processed anymore and the ActorRef of this actor should not be used anymore. When there are messages send to a terminated Actor, these message will be send to the DeadLetter queue.</p>
-<p>Another use of the DeadLetter queue is when the processing fails. This is a Actor specific decision. An actor can decide that a received message couldn’t be processed and that it doesn’t know what to do with it. In this situation the messages can be send to the dead letter queue. </p>
-<h2 id="Design-recommendations"><a href="#Design-recommendations" class="headerlink" title="Design recommendations"></a>Design recommendations</h2><p>When defining Actors and their messages, keep these recommendations in mind:</p>
-<ul>
-<li>Since messages are the Actor’s public API, it is a good practice to define messages with good names and rich semantic and domain specific meaning, even if they just wrap your data type. This will make it easier to use, understand and debug actor-based systems.</li>
-<li>Messages should be immutable, since they are shared between different threads.</li>
-<li>It is a good practice to put an actor’s associated messages as static classes in the class of the Actor. This makes it easier to understand what type of messages the actor expects and handles.</li>
-<li>It is also a common pattern to use a static props method in the class of the Actor that describes how to construct the Actor.</li>
-</ul>
-<h3 id="Props"><a href="#Props" class="headerlink" title="Props"></a>Props</h3><p>The static props method creates and returns a Props instance. Props is a configuration class to specify options for the creation of actors, think of it as an immutable and thus freely shareable recipe for creating an actor that can include associated deployment information. This example simply passes the parameters that the Actor requires when being constructed. We will see the props method in action later in this tutorial.</p>
-<h2 id="configuration"><a href="#configuration" class="headerlink" title="configuration"></a>configuration</h2><p>When using the default, the library will try to find the configuration file. Since the library supports a number of different configuration formats, it looks for different files, in the following order:<br>application.properties<br>This file should contain the configuration properties in the java property file format.<br>application.json<br>This file should contain the configuration properties in the json style</p>
-<p>application.conf<br>This file should contain the configuration properties in the HOCON format. This is a format based on json but easier to read..<br>It is possible to use all the different files at the same time. For the example below, in listing 7.2 we use the last file:<br>MyAppl {<br>    version = 10<br>    description = “My application”<br>    database {<br>        connect=”jdbc:mysql://localhost/mydata”<br>        user=”me”<br>        }<br>}
-Nesting is done by simply grouping with {}s</p>
-<h3 id="substitution"><a href="#substitution" class="headerlink" title="substitution"></a>substitution</h3><p> hostname=”localhost”<br>hostname=${?HOST_NAME}<br>MyAppl {<br>    version = 10<br>    description = “My<br>    application”<br>    database {<br>        connect=”jdbc:mysql://${hostname}/mydata”<br>user=”me” }<br>}</p>
-<p>define the variable first, if system environment do exist, override it, otherwise use default<br>? means get a variable from system envrionment</p>
-<h3 id="Default-fallback-properies"><a href="#Default-fallback-properies" class="headerlink" title="Default/fallback properies"></a>Default/fallback properies</h3><p>Default properties are configured in the file reference.conf and placed in the root of the jar file; the idea is that every library contains its own defaults. The configuration library will find all the reference.conf files and integrate these settings into the configuration fall-back structure. </p>
-<h3 id="Order-of-properties"><a href="#Order-of-properties" class="headerlink" title="Order of properties"></a>Order of properties</h3><p>System properties-&gt;application.conf-&gt;applicaiton.json-&gt;application.properties-&gt;reference.conf</p>
-<h2 id="The-power-of-location-transparency"><a href="#The-power-of-location-transparency" class="headerlink" title="The power of location transparency"></a>The power of location transparency</h2><p>In Akka you can’t create an instance of an Actor using the new keyword. Instead, you create Actor instances using a factory. The factory does not return an actor instance, but a reference, akka.actor.ActorRef, that points to the actor instance. This level of indirection adds a lot of power and flexibility in a distributed system.</p>
-<p>In Akka location doesn’t matter. Location transparency means that the ActorRef can, while retaining the same semantics, represent an instance of the running actor in-process or on a remote machine. If needed, the runtime can optimize the system by changing an Actor’s location or the entire application topology while it is running. This enables the “let it crash” model of failure management in which the system can heal itself by crashing faulty Actors and restarting healthy ones.</p>
-<h2 id="The-Akka-ActorSystem"><a href="#The-Akka-ActorSystem" class="headerlink" title="The Akka ActorSystem"></a>The Akka ActorSystem</h2><p>The akka.actor.ActorSystem factory is, to some extent, similar to Spring’s BeanFactory. It acts as a container for Actors and manages their life-cycles. The actorOf factory method creates Actors and takes two parameters, a configuration object called Props and a name.</p>
-<h3 id="Asynchronous-communication"><a href="#Asynchronous-communication" class="headerlink" title="Asynchronous communication"></a>Asynchronous communication</h3><p>Actors are reactive and message driven. An Actor doesn’t do anything until it receives a message. Actors communicate using asynchronous messages. This ensures that the sender does not stick around waiting for their message to be processed by the recipient. Instead, the sender puts the message in the recipient’s mailbox and is free to do other work. The Actor’s mailbox is essentially a message queue with ordering semantics. The order of multiple messages sent from the same Actor is preserved, but can be interleaved with messages sent by another Actor.</p>
-<p>You might be wondering what the Actor is doing when it is not processing messages, i.e. doing actual work? It is in a suspended state in which it does not consume any resources apart from memory. Again, showing the lightweight, efficient nature of Actors.</p>
-<h3 id="Sending-messages-to-an-Actor"><a href="#Sending-messages-to-an-Actor" class="headerlink" title="Sending messages to an Actor"></a>Sending messages to an Actor</h3><p>To put a message into an Actor’s mailbox, use the tell method on the ActorRef. For example, the main class of Hello World sends messages to the Greeter Actor like this:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">howdyGreeter.tell(<span class="keyword">new</span> WhoToGreet(<span class="string">"Akka"</span>), ActorRef.noSender());</span><br><span class="line">howdyGreeter.tell(<span class="keyword">new</span> Greet(), ActorRef.noSender());</span><br></pre></td></tr></table></figure>
-
-<p>The test class is using akka.test.javadsl.TestKit, which is a module for integration testing of actors and actor systems. This class only uses a fraction of the functionality provided by TestKit.</p>
-<h2 id="Akka-under-the-hood"><a href="#Akka-under-the-hood" class="headerlink" title="Akka under the hood"></a>Akka under the hood</h2><p>So are there no concurrency primitives like locks used at all in Akka? Well, of course there are, it’s just that you don’t have to deal with them directly . Everything still eventually runs on threads and low level concurrency primitives. Akka uses the java.util.concurrent library to coordinate message processing and takes great care to minimize the number of locks used to an absolute bare minimum. It uses lock free and wait free algorithms where possible, for example compare-and-swap (CAS) techniques, which are beyond the scope of this book. And because nothing can be shared between actors, the shared locks that you would normally have between objects are not present at all. </p>
-<p>There are other benefits that stem from the message passing approach that Akka uses, which we will discuss in the next sections. We have touched on them briefly already:</p>
-<ol>
-<li>Even in this first, simple example, the message passing approach is clearly more fault tolerant, averting catastrophic failure if one component (no matter how key) fails.</li>
-<li>The shared mutable state is always in one place in the example (in one JVM if it is kept entirely in memory). If you need to scale beyond this constraint, you will have to (re)distribute the data somehow. Since the message passing style uses addresses, looking ahead, you can see that if local and remote addresses were interchangeable, scaling out would be possible without code changes of any kind.</li>
-</ol>
-<p>This scenario is one example of a fault tolerance strategy that Akka provides, which is called the Restart strategy. Other strategies that can be used are Resume, Stop and Escalate. </p>
-<h2 id="Scale-up-and-Scale-out"><a href="#Scale-up-and-Scale-out" class="headerlink" title="Scale up and Scale out"></a>Scale up and Scale out</h2><p>In our Ticketing example, scaling up would mean getting more TicketingAgents running on our one server, scaling out would be bringing up TicketingAgents on a number of machines.</p>
-<h2 id="Locking"><a href="#Locking" class="headerlink" title="Locking"></a>Locking</h2><p>locks result in contention, which will mean the number of threads doing work at any one time is often less than the total number, as some will have to wait on each other to finish. Sharing as little as possible means locking as little as possible, which is the goal of the message passing approach.</p>
-<p>Every thread has a stack to store runtime data. The size of the stack differs per operating system, for instance on the linux x64 platform it is normally 256kB. The stack size is one of the factors that limits the number of threads that run at the same time on a server. Around 4096 threads can fit in 1GB of memory on the linux x64 platform.</p>
-<h2 id="Dispatcher"><a href="#Dispatcher" class="headerlink" title="Dispatcher"></a>Dispatcher</h2><p>Actors run on an abstraction which is called a dispatcher. The dispatcher takes care of which threading model is used and processes the mailboxes.</p>
-<p>Actors are lightweight because they run on top of dispatchers, the actors are not necessarily directly proportional to the number of threads. Akka Actors take a lot less space than threads, around 2.7 million actors can fit in 1GB of memory. A big difference compared to 4096 threads, which means that you can create different types of actors more freely than you would when using threads directly. There are different types of dispatchers to choose from which can be tuned to specific needs.</p>
-<p>We identified that we had to make the following changes to get to a message passing style:</p>
-<ol>
-<li>No mutable shared data structure. </li>
-<li>Immutable message passing.</li>
-<li>Asynchronous message sending.</li>
-</ol>
-<p>Akka implements actors and which components compare to the concepts we’ve talked about so far: actors, addresses and mailboxes.</p>
-<h2 id="Actor-Path"><a href="#Actor-Path" class="headerlink" title="Actor Path"></a>Actor Path</h2><p>So how do you get an actor reference to an actor in the hierarchy? This is where ActorPaths come in. You could compare the hierarchy of actors to a URL path structure. Every actor has a name. This name needs to be unique per level in the hierarchy, two sibling actors cannot have the same name (if you do not provide a name Akka generates one for you, but it is a good idea to name all your actors). All actor references can be located directly by an actor path, absolute or relative, and it has to follow the URI generic syntax. An actor path is built just like a URI, starting with a scheme followed by a scheme-specific part,</p>
-<h2 id="Core-Actor-Operations"><a href="#Core-Actor-Operations" class="headerlink" title="Core Actor Operations"></a>Core Actor Operations</h2><p>Another way to look at an actor is to describe the operations that it supports. An Akka actor has four core operations :</p>
-<ol>
-<li>CREATE: An actor can create another actor. In Akka, actors are part of an actor system, which defines the root of the actor hierarchy and creates top-level actors. Every actor can create child actors. The topology of the actors is dynamic, it depends on which actors create other actors and which addresses are used to communicate with them.</li>
-<li>SEND: An actor can send a message to another actor. Messages are sent asynchronously, using an address to send to an Actor associated with a given Mailbox.</li>
-<li>BECOME: The behavior of an actor can be dynamically changed. Messages are received one at a time and an actor can designate that it wants to handle next messages in a different way, basically swapping its behavior, which we will look at in later chapters.</li>
-<li>SUPERVISE: An actor supervises and monitors its children in the actor hierarchy and manages the failures that happen. As we will see in chapter 3, this provides a clean separation between message processing and error handling.</li>
-</ol>
-<h2 id="Akka-concurrency"><a href="#Akka-concurrency" class="headerlink" title="Akka concurrency"></a>Akka concurrency</h2><p>Message passing enables an easier road to real concurrency<br> With that concurrent approach, we will be able to scale up and out<br>We can scale both the request and the processing elements of our application<br>Messages also unlock greater fault tolerance capabilities<br>Supervision provides a means of modeling for both concurrency and fault tolerance<br>Akka infuses our code with these powers in a lightweight, unobtrusive manner</p>
-<h3 id="Build-Akka"><a href="#Build-Akka" class="headerlink" title="Build Akka"></a>Build Akka</h3><p>using TypeSafe’s Simple Build Tool (SBT) to create a single jar file that can be used to run the app</p>
-<p>If you have not worked with the SBT DSL before it is important to note that you need to put en empty line between lines in the file (this is the price we pay for not telling Scala where each expression ends).</p>
-<h3 id="tell-vs-ask"><a href="#tell-vs-ask" class="headerlink" title="tell vs ask"></a>tell vs ask</h3><p>Messages are sent to an Actor through one of the following methods.</p>
-<p>! means “fire-and-forget”, e.g. send a message asynchronously and return immediately. Also known as tell.</p>
-<p>? sends a message asynchronously and returns a Future representing a possible reply. Also known as ask.</p>
-<p>So below line is equivalent to tell</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReceiveActor</span> <span class="keyword">extends</span> <span class="title">Actor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">receive</span> </span>= &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"Hello"</span> =&gt; sender ! <span class="string">"And Hello to you!"</span> <span class="comment">// same as sender.tell("And Hello to you!")</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Sample-of-actor"><a href="#Sample-of-actor" class="headerlink" title="Sample of actor"></a>Sample of actor</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.goticks</span><br><span class="line"><span class="keyword">import</span> akka.actor.&#123;<span class="type">PoisonPill</span>, <span class="type">Actor</span>&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TicketSeller</span> <span class="keyword">extends</span> <span class="title">Actor</span> </span>&#123;</span><br><span class="line">  <span class="keyword">import</span> <span class="type">TicketProtocol</span>._</span><br><span class="line">  <span class="keyword">var</span> tickets = <span class="type">Vector</span>[<span class="type">Ticket</span>]()</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">receive</span> </span>= &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">GetEvents</span> =&gt; sender ! tickets.size</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Tickets</span>(newTickets) =&gt;</span><br><span class="line">      tickets = tickets ++ newTickets</span><br><span class="line">    <span class="keyword">case</span> <span class="type">BuyTicket</span> =&gt;</span><br><span class="line">      <span class="keyword">if</span> (tickets.isEmpty) &#123;</span><br><span class="line">        sender ! <span class="type">SoldOut</span></span><br><span class="line">        self ! <span class="type">PoisonPill</span></span><br><span class="line">&#125;</span><br><span class="line">      tickets.headOption.foreach &#123; ticket =&gt;</span><br><span class="line">        tickets = tickets.tail</span><br><span class="line">        sender ! ticket</span><br><span class="line">&#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="type">Event</span>(name, nrOfTickets) =&gt;</span><br><span class="line">  <span class="keyword">if</span>(context.child(name).isEmpty) &#123;</span><br><span class="line"><span class="type">If</span> <span class="type">TicketSellers</span> have not been</span><br><span class="line">   <span class="keyword">val</span> ticketSeller = context.actorOf(<span class="type">Props</span>[<span class="type">TicketSeller</span>], name)</span><br><span class="line">  <span class="keyword">val</span> tickets = <span class="type">Tickets</span>((<span class="number">1</span> to nrOfTickets).map&#123;</span><br><span class="line">    nr=&gt; <span class="type">Ticket</span>(name, nr)).toList</span><br><span class="line">&#125;</span><br><span class="line">  ticketSeller ! tickets</span><br><span class="line">&#125;</span><br><span class="line">sender ! <span class="type">EventCreated</span></span><br></pre></td></tr></table></figure>
-
-<p>The BoxOffice creates TicketSellers for each event. Notice that it uses it’s context instead of the actor system to create the actor; Actors created with the context of another Actor are its children and subject to the parent Actor’s supervision</p>
-<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>Right now it always fails since it is not implemented yet, as is expected in Red-Green-Refactor style, where you first make sure the test fails (Red), then implement the code to make it pass (Green), after which you might refactor the code to make it nicer.</p>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><h3 id="UntypedActor"><a href="#UntypedActor" class="headerlink" title="UntypedActor"></a>UntypedActor</h3><p>This class is the Java cousin to the akka.actor.Actor Scala interface. Subclass this abstract class to create a MDB-style untyped actor.</p>
-<p>An actor has a well-defined (non-cyclic) life-cycle.</p>
-<pre><code>RUNNING (created and started actor) - can receive messages
-SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do anything</code></pre><p>The Actor’s own akka.actor.ActorRef is available as getSelf(), the current message’s sender as getSender() and the akka.actor.UntypedActorContext as getContext(). The only abstract method is onReceive() which is invoked for each processed message unless dynamically overridden using getContext().become().</p>
-<p>Annotations<br>    @Deprecated @deprecated<br>Deprecated</p>
-<pre><code>(Since version 2.5.0) Use AbstractActor instead of UntypedActor.</code></pre><h3 id="loggingAdaptor"><a href="#loggingAdaptor" class="headerlink" title="loggingAdaptor"></a>loggingAdaptor</h3><p>trait LoggingAdapter extends AnyRef</p>
-<p>Logging wrapper to make nicer and optimize: provide template versions which evaluate .toString only if the log level is actually enabled. Typically used by obtaining an implementation from the Logging object:</p>
-
+            <h1 id="Scala-String"><a href="#Scala-String" class="headerlink" title="Scala String"></a>Scala String</h1><p>Scala offers the magic of implicit conver‐ sions, String instances also have access to all the methods of the StringOps class, so you can do many other things with them, such as treating a String instance as a sequence of characters. As a result, you can iterate over every character in the string using the foreach method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"hello"</span>.foreach(println) h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l o</span><br><span class="line"><span class="comment">//You can treat a String as a sequence of characters in a for loop:</span></span><br><span class="line">scala&gt; <span class="keyword">for</span> (c &lt;- <span class="string">"hello"</span>) println(c)</span><br><span class="line"></span><br><span class="line">scala&gt; val result = <span class="string">"hello world"</span>.filter(_ != <span class="string">'l'</span>) result: String = heo word</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1730,7 +1519,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
