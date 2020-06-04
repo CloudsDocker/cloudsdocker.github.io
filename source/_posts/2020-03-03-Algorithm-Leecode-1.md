@@ -750,7 +750,7 @@ grid\[i\]\[j\] is only 0, 1, or 2.
 
 GraphRottingOrange inst = new GraphRottingOrange();
 
-int\[\]\[\] grid = new int\[\]\[\]{{2, 1, 1}, {1, 1, 0}, {0, 1, 1}};
+# deleted 2-D array due to hexo error
 
 System.out.println(\"===output of findRottenMinutes:\" +
 inst.orangesRotting(grid));
@@ -808,8 +808,7 @@ int y = strRotten.charAt(1) - \'0\';
 
 //to search 4 directions both vertically and horizontally
 
-int\[\]\[\] directions = new int\[\]\[\]{{-1, 0}, {1, 0}, {0, -1}, {0,
-1}};
+# deleted 2-D array due to hexo error
 
 for (int\[\] direction : directions) {
 
@@ -900,7 +899,7 @@ if(count\_fresh == 0) return 0;
 
 int count = 0;
 
-int\[\]\[\] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+# deleted 2-D array due to hexo error
 
 //bfs starting from initially rotten oranges
 
@@ -1429,8 +1428,7 @@ Number of distinct Islands
 
 private static int rows, cols;
 
-private static int\[\]\[\] directions = {{0, 1}, {1, 0}, {0, -1}, {-1,
-0}};
+# deleted 2-D array due to hexo error
 
 public int numDistinctIslands(int\[\]\[\] grid) {
 
@@ -1498,8 +1496,7 @@ shape.append(\"\_\");
 //=======
 
 class Solution {
-
-int\[\]\[\] dirs= new int\[\]\[\]{{1,0},{0,1},{-1,0},{0,-1}};
+# deleted 2-D array due to hexo error
 
 public int numDistinctIslands(int\[\]\[\] grid) {
 
