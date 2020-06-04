@@ -195,6 +195,211 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-11-Camel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-11-Camel/" class="post-title-link" itemprop="url">Apache Camel</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Camel’s-message-model"><a href="#Camel’s-message-model" class="headerlink" title="Camel’s message model"></a>Camel’s message model</h1><p>In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.</p>
+<ul>
+<li>org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel</li>
+<li>org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message</li>
+</ul>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><p>Messages are the entities used by systems to communicate with each other when using messaging channels. Messages flow in one direction from a sender to a receiver,  Messages have a body (a payload), headers, and optional attachments,</p>
+<p>Messages are uniquely identified with an identifier of type java.lang.String. The identifier’s uniqueness is enforced and guaranteed by the message creator, it’s protocol depen- dent, and it doesn’t have a guaranteed format.<br>For protocols that don’t define a unique message identification scheme, Camel uses its own UID generator.<br>HEADERS AND ATTACHMENTS<br>Headers are values associated with the message, such as sender identifiers, hints about content encoding, authentication infor- mation, and so on. Headers are name-value pairs; the name is a unique, case-insensitive string, and the value is of type java. lang.Object. This means that Camel imposes no constraints on the type of the headers. Headers are stored as a map within the message. A message can also have optional attachments, which are typically used for the web service and email components.</p>
+<h2 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h2><p>An exchange in Camel is the message’s container during routing. An exchange also provides support for the various types of interactions between systems, also known as message exchange patterns (MEPs). MEPs are used to differentiate between one-way and request-response messaging styles. The Camel exchange holds a pattern property that can be either</p>
+<ul>
+<li>InOnly—A one-way message (also known as an Event message). For example, JMS messaging is often one-way messaging.</li>
+<li>InOut—A request-response message. For example, HTTP-based transports are often request reply, where a client requests to retrieve a web page, waiting for the reply from the server.</li>
+</ul>
+<h1 id="Start-Camel-application"><a href="#Start-Camel-application" class="headerlink" title="Start Camel application"></a>Start Camel application</h1><p>Camel doesn’t start magically by itself. Often it’s the server (container) that Camel is running inside that invokes the start method on CamelContext, starting up Camel. This is also what you saw in chapter 1, where you used Camel inside a standalone Java application. A standalone Java application isn’t the only deployment choice—you can also run Camel inside a container such as Spring or OSGi.<br>Regardless of which container you use, the same principle applies. The container must prepare and create an instance of CamelContext up front, before Camel can be started.</p>
+<h2 id="Spring-container"><a href="#Spring-container" class="headerlink" title="Spring container"></a>Spring container</h2><p>Camel provides the CamelNamespaceHandler.<br>When using Camel in the Spring XML file, you would define the <camelcontext> tag as follows:<br><camelcontext xmlns="http://camel.apache.org/schema/spring"></camelcontext></camelcontext></p>
+<p>The <a href="http://camel.apache.org/schema/spring" target="_blank" rel="noopener">http://camel.apache.org/schema/spring</a> namespace is the Camel custom namespace. To let Spring know about this custom namespace, it must be identified in the META-INF/spring.handlers, where you map the namespace to the class implementation:<br>http://camel.apache.org/schema/spring=<br>     org.apache.camel.spring.handler.CamelNamespaceHandler</p>
+<p>The CamelNamespaceHandler is then responsible for parsing the XML and dele- gating to other factories for further pro- cessing. One of these factories is the Camel- ContextFactoryBean, which is responsible for creating the CamelContext that essen- tially is your Camel application.<br>When Spring is finished initializing, it signals to third-party frameworks that they can start by broadcasting the Context- RefreshedEvent event.</p>
+<h1 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h1><p>At this point, CamelContext is ready to be started. What happens next is the same regardless of which container or deploy- ment option you’re using with Camel. </p>
+<p>CamelContext is started by invoking its start method. The first step is to determines whether or not autostartup is enabled for Camel. If it’s disabled, the entire startup process is skipped. By default, Camel is set to autostart, which involves the following four steps.</p>
+<p>1 Start internal services—Prepares and starts internal services used by Camel, such as the type-converter mechanism.<br>2 Compute starting order—Computes the order in which the routes should be started. By default, Camel will start up all the routes in the order they are defined in the Spring XML files or the RouteBuilder classes. We’ll cover how to configure the order of routes in section 13.1.3.<br>3 Prepare routes—Prepares the routes before they’re started.<br>4 Start routes—Starts the routes by starting the consumers, which essentially opens<br>the gates to Camel and lets the messages start to flow in.</p>
+<p>After step 4, Camel writes a message to the log indicating that it has been started and that the startup process is complete.</p>
+<h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><h2 id="ENDPOINT"><a href="#ENDPOINT" class="headerlink" title="ENDPOINT"></a>ENDPOINT</h2><p>An endpoint is the Camel abstraction that models the end of a channel through which a system can send or receive messages.</p>
+<p>In Camel, you configure endpoints using URIs, such as </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:data/inbox?delay=5000</span><br></pre></td></tr></table></figure>
+
+<p> and you also refer to endpoints this way. At runtime, Camel will look up an endpoint based on the URI notation. </p>
+<p>The scheme  denotes which Camel component handles that type of endpoint. In this case,<br>the scheme of file selects the FileComponent.<br>The FileComponent then works as a factory creat-<br>ing the FileEndpoint based on the remaining parts of the URI.<br>The context path data/ inbox tells the FileComponent that the starting folder is data/inbox.<br>The option, delay=5000 indicates that files should be polled at a 5 second interval.</p>
+<p>There’s more to an endpoint than meets the eye. </p>
+<h2 id="JMS"><a href="#JMS" class="headerlink" title="JMS"></a>JMS</h2><p>Queues are strictly point-to-point, where each message has only one consumer. Topics operate on a publish/subscribe scheme; a single message may be delivered to many consumers if they have subscribed to the topic.</p>
+<p>JMS also provides a ConnectionFactory that clients (like Camel) can use to cre- ate a connection with a JMS provider. JMS providers are usually referred to as brokers because they manage the communication between a message producer and a mes- sage consumer.</p>
+<h3 id="HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER"><a href="#HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER" class="headerlink" title="HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER"></a>HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER</h3><p>To connect Camel to a specific JMS provider, you need to configure Camel’s JMS com- ponent with an appropriate ConnectionFactory.<br>Apache ActiveMQ is one of the most popular open source JMS providers, and it’s the primary JMS broker that the Camel team uses to test the JMS component. </p>
+<h3 id="JSM-destinations"><a href="#JSM-destinations" class="headerlink" title="JSM destinations"></a>JSM destinations</h3><p>There are two types of JMS destinations: queues and topics. The queue is a point-to-point channel, where each message has only one recipient. A topic delivers a copy of the message to all clients who have subscribed to receive it.</p>
+<h3 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h3><p>o in the case of Apache ActiveMQ, you can create an ActiveMQConnectionFactory<br>that points to the location of the running ActiveMQ broker:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConnectionFactory connectionFactory =</span><br><span class="line">  <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"vm://localhost"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>The vm://localhost URI means that you should connect to an embedded broker named “localhost” running inside the current JVM. The vm transport connector in ActiveMQ creates a broker on demand if one isn’t running already, so it’s very handy for quickly testing JMS applications; for production scenarios, it’s recommended that you connect to a broker that’s already running. </p>
+<p>Next, when you create your CamelContext, you can add the JMS component as follows:<br>CamelContext context = new DefaultCamelContext();<br>context.addComponent(“jms”,<br>    JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));<br>The JMS component and the ActiveMQ-specific connection factory aren’t part of the camel-core module. In order to use these, you’ll need to add some dependencies to your Maven-based project. For the plain JMS component, all you have to add is this:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.camel<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>camel-jms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">The connection factory comes directly from ActiveMQ, so you’ll need the following dependency:</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="USING-URIS-TO-SPECIFY-THE-DESTINATION"><a href="#USING-URIS-TO-SPECIFY-THE-DESTINATION" class="headerlink" title="USING URIS TO SPECIFY THE DESTINATION"></a>USING URIS TO SPECIFY THE DESTINATION</h3><p>Once the JMS component is configured, you can start sending and receiving JMS mes- sages at your leisure. Because you’re using URIs, this is a real breeze to configure.<br>Let’s say you want to send a JMS message to the queue named incomingOrders. The URI in this case would be</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jms:queue:incomingOrders</span><br></pre></td></tr></table></figure>
+
+<p>This is pretty self-explanatory. The “jms” prefix indicates that you’re using the JMS component you configured before. By specifying “queue”, the JMS component knows to send to a queue named incomingOrders. You could even have omitted the queue<br>qualifier, because the default behavior is to send to a queue rather than a topic.</p>
+<p>NOTE Some endpoints can have an intimidating list of endpoint URI proper- ties. For instance, the JMS component has about 60 options, many of which are only used in specific JMS scenarios. Camel always tries to provide built-in defaults that fit most cases, and you can always find out what the default values are by browsing to the component’s page in the online Camel documentation. </p>
+<p>Using Camel’s Java DSL, you can send a message to the incomingOrders queue by using the to keyword like this:<br>…to(“jms:queue:incomingOrders”)<br>This can be read as sending to the JMS queue named incomingOrders.</p>
+<h2 id="FINDING-ROUTE-BUILDERS"><a href="#FINDING-ROUTE-BUILDERS" class="headerlink" title="FINDING ROUTE BUILDERS"></a>FINDING ROUTE BUILDERS</h2><p>Using the Spring CamelContext as a runtime and the Java DSL for route development is a great way of using Camel. In fact, it’s the most frequent usage of Camel.<br>You saw before that you can explicitly tell the Spring CamelContext what route builders to load. You can do this by using the routerBuilder element:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">routeBuilder</span> <span class="attr">ref</span>=<span class="string">"ftpToJmsRoute"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Being this explicit results in a clean and concise definition of what is being loaded into Camel.<br>Sometimes, though, you may need to be a bit more dynamic. This is where the packageScan and contextScan elements come in:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>This packageScan element will load all RouteBuilder classes found in the camelinac- tion.routes package, including all subpackages.<br>You can even be a bit more picky about what route builders are included:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">excludes</span>&gt;</span>**.*Test*<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">includes</span>&gt;</span>**.*<span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>In this case, you’re loading all route builders in the camelinaction.routes package, except for ones with “Test” in the class name. The matching syntax is similar to what is used in Apache Ant’s file pattern matchers.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-28-Scala/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-28-Scala/" class="post-title-link" itemprop="url">Scala</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Scala-String"><a href="#Scala-String" class="headerlink" title="Scala String"></a>Scala String</h1><p>Scala offers the magic of implicit conver‐ sions, String instances also have access to all the methods of the StringOps class, so you can do many other things with them, such as treating a String instance as a sequence of characters. As a result, you can iterate over every character in the string using the foreach method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"hello"</span>.foreach(println) h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l o</span><br><span class="line"><span class="comment">//You can treat a String as a sequence of characters in a for loop:</span></span><br><span class="line">scala&gt; <span class="keyword">for</span> (c &lt;- <span class="string">"hello"</span>) println(c)</span><br><span class="line"></span><br><span class="line">scala&gt; val result = <span class="string">"hello world"</span>.filter(_ != <span class="string">'l'</span>) result: String = heo word</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-23-akka-scala/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -482,7 +687,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-16-FileUtils_Camel/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-15-PrestoDB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -498,7 +703,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-07-16-FileUtils_Camel/" class="post-title-link" itemprop="url">File Util in Apache Camel</a>
+              <a href="/2018-08-15-PrestoDB/" class="post-title-link" itemprop="url">Presto DB</a>
             
           </h1>
         
@@ -530,89 +735,15 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
 
       
           
-            <h1 id="FileUtil-class"><a href="#FileUtil-class" class="headerlink" title="FileUtil.class"></a>FileUtil.class</h1><h2 id="compactPath-String-path"><a href="#compactPath-String-path" class="headerlink" title="compactPath(String path)"></a>compactPath(String path)</h2><p>To normalize path and join with provided separator</p>
-<p>if path is null, return null<br>if path.indexOf(47) == -1 &amp;&amp; path.indexOf(92) ==-1 (means /, ) return path</p>
-<h3 id="normalizePath"><a href="#normalizePath" class="headerlink" title="normalizePath"></a>normalizePath</h3><p>check whether it is windows<br>String osName = System.getProperty(“os.name”).toLowerCase(Locale.ENGLISH);<br>        return osName.contains(“windows”);<br>for windows, replace / with \, for linux, replace \ with /</p>
-<p>split path by separator (\ or /) to get an array</p>
-<p>traverse array and check whether current is “..”, if so , call stack.pop<br>otherwise, stach.push(part)</p>
-<p>Then iterate stack and then combine them by a StringBuilder via provided addtional parameter separator</p>
+            <h1 id="WHAT-IS-PRESTO"><a href="#WHAT-IS-PRESTO" class="headerlink" title="WHAT IS PRESTO?"></a>WHAT IS PRESTO?</h1><p>Presto is an open source distributed SQL query engine for running interactive analytic queries against data sources of all sizes ranging from gigabytes to petabytes.</p>
+<p>Presto was designed and written from the ground up for interactive analytics and approaches the speed of commercial data warehouses while scaling to the size of organizations like Facebook.</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Presto is a distributed system that runs on a cluster of machines. A full installation includes a coordinator and multiple workers. Queries are submitted from a client such as the Presto CLI to the coordinator. The coordinator parses, analyzes and plans the query execution, then distributes the processing to the workers.</p>
+<p>Presto does not use MapReduce and thus only requires HDFS.</p>
+<h2 id="Separation-of-Storage-and-Compute"><a href="#Separation-of-Storage-and-Compute" class="headerlink" title="Separation of Storage and Compute"></a>Separation of Storage and Compute</h2><p>Architected for separation of storage and compute, Presto can scale up and down based on your analytics demand to access this data. There’s no need to move your data and provisioning compute to the exact need results in significant cost savings.</p>
+<h3 id="Config-Properties"><a href="#Config-Properties" class="headerlink" title="Config Properties"></a>Config Properties</h3><p>The config properties file, etc/config.properties, contains the configuration for the Presto server. Every Presto server can function as both a coordinator and a worker, but dedicating a single machine to only perform coordination work provides the best performance on larger clusters.</p>
+<h3 id="Catalog-Properties"><a href="#Catalog-Properties" class="headerlink" title="Catalog Properties"></a>Catalog Properties</h3><p>Presto accesses data via connectors, which are mounted in catalogs. The connector provides all of the schemas and tables inside of the catalog. For example, the Hive connector maps each Hive database to a schema, so if the Hive connector is mounted as the hive catalog, and Hive contains a table clicks in database web, that table would be accessed in Presto as hive.web.clicks.</p>
+<p>Catalogs are registered by creating a catalog properties file in the etc/catalog directory. For example, create etc/catalog/jmx.properties with the following contents to mount the jmx connector as the jmx catalog:</p>
 
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-28-Scala/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-28-Scala/" class="post-title-link" itemprop="url">Scala</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Scala-String"><a href="#Scala-String" class="headerlink" title="Scala String"></a>Scala String</h1><p>Scala offers the magic of implicit conver‐ sions, String instances also have access to all the methods of the StringOps class, so you can do many other things with them, such as treating a String instance as a sequence of characters. As a result, you can iterate over every character in the string using the foreach method:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"hello"</span>.foreach(println) h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l o</span><br><span class="line"><span class="comment">//You can treat a String as a sequence of characters in a for loop:</span></span><br><span class="line">scala&gt; <span class="keyword">for</span> (c &lt;- <span class="string">"hello"</span>) println(c)</span><br><span class="line"></span><br><span class="line">scala&gt; val result = <span class="string">"hello world"</span>.filter(_ != <span class="string">'l'</span>) result: String = heo word</span><br></pre></td></tr></table></figure>
           
         
       
@@ -887,7 +1018,7 @@ Notice that we’ve had to prefix the list of alternates with another bit of reg
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-15-PrestoDB/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-03-distruptor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -903,7 +1034,7 @@ Notice that we’ve had to prefix the list of alternates with another bit of reg
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-08-15-PrestoDB/" class="post-title-link" itemprop="url">Presto DB</a>
+              <a href="/2018-09-03-distruptor/" class="post-title-link" itemprop="url">Mockito</a>
             
           </h1>
         
@@ -935,14 +1066,10 @@ Notice that we’ve had to prefix the list of alternates with another bit of reg
 
       
           
-            <h1 id="WHAT-IS-PRESTO"><a href="#WHAT-IS-PRESTO" class="headerlink" title="WHAT IS PRESTO?"></a>WHAT IS PRESTO?</h1><p>Presto is an open source distributed SQL query engine for running interactive analytic queries against data sources of all sizes ranging from gigabytes to petabytes.</p>
-<p>Presto was designed and written from the ground up for interactive analytics and approaches the speed of commercial data warehouses while scaling to the size of organizations like Facebook.</p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Presto is a distributed system that runs on a cluster of machines. A full installation includes a coordinator and multiple workers. Queries are submitted from a client such as the Presto CLI to the coordinator. The coordinator parses, analyzes and plans the query execution, then distributes the processing to the workers.</p>
-<p>Presto does not use MapReduce and thus only requires HDFS.</p>
-<h2 id="Separation-of-Storage-and-Compute"><a href="#Separation-of-Storage-and-Compute" class="headerlink" title="Separation of Storage and Compute"></a>Separation of Storage and Compute</h2><p>Architected for separation of storage and compute, Presto can scale up and down based on your analytics demand to access this data. There’s no need to move your data and provisioning compute to the exact need results in significant cost savings.</p>
-<h3 id="Config-Properties"><a href="#Config-Properties" class="headerlink" title="Config Properties"></a>Config Properties</h3><p>The config properties file, etc/config.properties, contains the configuration for the Presto server. Every Presto server can function as both a coordinator and a worker, but dedicating a single machine to only perform coordination work provides the best performance on larger clusters.</p>
-<h3 id="Catalog-Properties"><a href="#Catalog-Properties" class="headerlink" title="Catalog Properties"></a>Catalog Properties</h3><p>Presto accesses data via connectors, which are mounted in catalogs. The connector provides all of the schemas and tables inside of the catalog. For example, the Hive connector maps each Hive database to a schema, so if the Hive connector is mounted as the hive catalog, and Hive contains a table clicks in database web, that table would be accessed in Presto as hive.web.clicks.</p>
-<p>Catalogs are registered by creating a catalog properties file in the etc/catalog directory. For example, create etc/catalog/jmx.properties with the following contents to mount the jmx connector as the jmx catalog:</p>
+            <h1 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h1><p>There only 2 things you can do with Mockito mocks - verify or stub. Stubbing goes before execution and verification afterwards.</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock" target="_blank" rel="noopener">https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock</a></li>
+</ul>
 
           
         
@@ -1096,6 +1223,93 @@ Notice that we’ve had to prefix the list of alternates with another bit of reg
 
 <p>nce we have connected to ZooKeeper, there will be a background thread that will maintain the ZooKeeper session. This thread is a daemon thread, which means that the program may exit even if the thread is still active. Here we sleep for a bit so that we can see some events come in before the program exits.<br>We can compile this simple example using the following:<br>$ javac -cp $CLASSPATH Master.java<br>Once we have compiled Master.java, we run it and see the following:<br>$ java -cp $CLASSPATH Master 127.0.0.1:2181</p>
 <h2 id="disconnect"><a href="#disconnect" class="headerlink" title="disconnect"></a>disconnect</h2><p>When developers see the Disconnected event, some think they need to create a new ZooKeeper handle to reconnect to the service. Do not do that! See what happens when you start the server, start the Master, and then stop and start the server while the Master is still running. You should see the SyncConnected event followed by the Disconnec ted event and then another SyncConnected event. The ZooKeeper client library takes care of reconnecting to the service for you. Unfortunately, network outages and server failures happen. Usually, ZooKeeper can deal with these failures.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-06-mockito/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-09-06-mockito/" class="post-title-link" itemprop="url">Distruptor</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="multithreading"><a href="#multithreading" class="headerlink" title="multithreading"></a>multithreading</h1><p>Concurrent execution of code ia bout two things: mutal exclusion and visibility of change.</p>
+<ul>
+<li>Mutual exclusion is about managing contented updtes to some resources.</li>
+<li>Visibiliyt of change is about controlling when such changes are made visible to other threads.</li>
+</ul>
+<h2 id="mutal-exclusion"><a href="#mutal-exclusion" class="headerlink" title="mutal exclusion"></a>mutal exclusion</h2><p>It is possible to avoid the need for mutal exclusion if you can eliminate the need for contented updates. If your algorithm can guarantee that any given resource is modified by only one thread then utal exclusion is unnecessary.</p>
+<p>Read and write operations require that all changes are made visible to other threads.</p>
+<p>The most costly operation in any concurrent environment is a contended write access.</p>
+<h3 id="locks"><a href="#locks" class="headerlink" title="locks"></a>locks</h3><p>Lock provide mutual exclusion and ensure that the visibility of change occurs in an ordered manner. Locks are incredibly expensive because they require arbitration when contended. This arbitration is achieved by a context switch to the OS kernerl which will suspend threads waiting on a lock until it’s released. During such a context switch , as well as releasing control to the OS which may decided to do other house-keeping tasks which it has control, execution context can lose previously cached data nad instrucionts. This can have a serious performance impact on modern CPU. </p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
+</ul>
 
           
         
@@ -1492,215 +1706,6 @@ public void writeByte(long address, byte b) {
 
 <h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><ul>
 <li><a href="https://www.sudo.ws/man/sudo.conf.man.html" target="_blank" rel="noopener">https://www.sudo.ws/man/sudo.conf.man.html</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-23-protobuf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-08-23-protobuf/" class="post-title-link" itemprop="url">Protobuf</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="What-are-protocol-buffers"><a href="#What-are-protocol-buffers" class="headerlink" title="What are protocol buffers?"></a>What are protocol buffers?</h1><p>Protocol buffers are a flexible, efficient, automated mechanism for serializing structured data – think XML, but smaller, faster, and simpler.</p>
-<p>You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. You can even update your data structure without breaking deployed programs that are compiled against the “old” format.</p>
-<h1 id="How-do-they-work"><a href="#How-do-they-work" class="headerlink" title="How do they work?"></a>How do they work?</h1><p>You specify how you want the information you’re serializing to be structured by defining protocol buffer message types in .proto files. Each protocol buffer message is a small logical record of information, containing a series of name-value pairs. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">message Person &#123;</span><br><span class="line">  required string name = <span class="number">1</span>;</span><br><span class="line">  required int32 id = <span class="number">2</span>;</span><br><span class="line">  optional string email = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">enum</span> PhoneType &#123;</span><br><span class="line">    MOBILE = <span class="number">0</span>;</span><br><span class="line">    HOME = <span class="number">1</span>;</span><br><span class="line">    WORK = <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  message PhoneNumber &#123;</span><br><span class="line">    required string number = <span class="number">1</span>;</span><br><span class="line">    optional PhoneType type = <span class="number">2</span> [<span class="keyword">default</span> = HOME];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  repeated PhoneNumber phone = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>As you can see, the message format is simple – each message type has one or more uniquely numbered fields, and each field has a name and a value type, where value types can be numbers (integer or floating-point), booleans, strings, raw bytes, or even (as in the example above) other protocol buffer message types, allowing you to structure your data hierarchically. You can specify optional fields, required fields, and repeated fields. </p>
-<h1 id="Why-not-just-use-XML"><a href="#Why-not-just-use-XML" class="headerlink" title="Why not just use XML?"></a>Why not just use XML?</h1><p>Protocol buffers have many advantages over XML for serializing structured data. Protocol buffers:</p>
-<ul>
-<li>are simpler</li>
-<li>are 3 to 10 times smaller</li>
-<li>are 20 to 100 times faster</li>
-<li>are less ambiguous</li>
-<li>generate data access classes that are easier to use programmatically</li>
-</ul>
-<h1 id="Assigning-Field-Numbers"><a href="#Assigning-Field-Numbers" class="headerlink" title="Assigning Field Numbers"></a>Assigning Field Numbers</h1><p>As you can see, each field in the message definition has a unique number. These numbers are used to identify your fields in the message binary format, and should not be changed once your message type is in use. Note that field numbers in the range 1 through 15 take one byte to encode, including the field number and the field’s type (you can find out more about this in Protocol Buffer Encoding). Field numbers in the range 16 through 2047 take two bytes. So you should reserve the field numbers 1 through 15 for very frequently occurring message elements. Remember to leave some room for frequently occurring elements that might be added in the future.</p>
-<h1 id="Field-Rules"><a href="#Field-Rules" class="headerlink" title="Field Rules"></a>Field Rules</h1><p>You specify that message fields are one of the following:</p>
-<ul>
-<li>required: a well-formed message must have exactly one of this field.</li>
-<li>optional: a well-formed message can have zero or one of this field (but not more than one).</li>
-<li>repeated: this field can be repeated any number of times (including zero) in a well-formed message. The order of the repeated values will be preserved.</li>
-</ul>
-<blockquote>
-<p>Some engineers at Google have come to the conclusion that using required does more harm than good; they prefer to use only optional and repeated. However, this view is not universal.</p>
-</blockquote>
-<p>Combining Messages leads to bloat While multiple message types (such as message, enum, and service) can be defined in a single .proto file, it can also lead to dependency bloat when large numbers of messages with varying dependencies are defined in a single file. It’s recommended to include as few message types per .proto file as possible.</p>
-<h1 id="Reserved-fields"><a href="#Reserved-fields" class="headerlink" title="Reserved fields"></a>Reserved fields</h1><p>to make sure this doesn’t happen is to specify that the field numbers (and/or names, which can also cause issues for JSON serialization) of your deleted fields are reserved. The protocol buffer compiler will complain if any future users try to use these field identifiers.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">message Foo &#123;</span><br><span class="line">  reserved <span class="number">2</span>, <span class="number">15</span>, <span class="number">9</span> to <span class="number">11</span>;</span><br><span class="line">  reserved <span class="string">"foo"</span>, <span class="string">"bar"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Note that you can’t mix field names and field numbers in the same reserved statement.</p>
-<h1 id="Optional-fields-and-default"><a href="#Optional-fields-and-default" class="headerlink" title="Optional fields and default"></a>Optional fields and default</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optional int32 result_per_page = <span class="number">3</span> [<span class="keyword">default</span> = <span class="number">10</span>];</span><br></pre></td></tr></table></figure>
-
-<h1 id="Importing-Definitions"><a href="#Importing-Definitions" class="headerlink" title="Importing Definitions"></a>Importing Definitions</h1><p>You can use definitions from other .proto files by importing them. To import another .proto’s definitions, you add an import statement to the top of your file:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"myproject/other_protos.proto"</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="To-generate-class"><a href="#To-generate-class" class="headerlink" title="To generate class"></a>To generate class</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../protoc-3/bin/protoc --java_out=./  ticket.proto</span><br></pre></td></tr></table></figure>
-
-<h1 id="Builders-vs-Messages"><a href="#Builders-vs-Messages" class="headerlink" title="Builders vs. Messages"></a>Builders vs. Messages</h1><p>The message classes generated by the protocol buffer compiler are all immutable. Once a message object is constructed, it cannot be modified, just like a Java String. To construct a message, you must first construct a builder, set any fields you want to set to your chosen values, then call the builder’s build() method.</p>
-<p>You may have noticed that each method of the builder which modifies the message returns another builder. The returned object is actually the same builder on which you called the method. It is returned for convenience so that you can string several setters together on a single line of code.</p>
-<p>Here’s an example of how you would create an instance of Person:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Person john =</span><br><span class="line">  Person.newBuilder()</span><br><span class="line">    .setId(<span class="number">1234</span>)</span><br><span class="line">    .setName(<span class="string">"John Doe"</span>)</span><br><span class="line">    .setEmail(<span class="string">"jdoe@example.com"</span>)</span><br><span class="line">    .addPhones(</span><br><span class="line">      Person.PhoneNumber.newBuilder()</span><br><span class="line">        .setNumber(<span class="string">"555-4321"</span>)</span><br><span class="line">        .setType(Person.PhoneType.HOME))</span><br><span class="line">    .build();</span><br></pre></td></tr></table></figure>
-
-<h1 id="Parsing-and-Serialization"><a href="#Parsing-and-Serialization" class="headerlink" title="Parsing and Serialization"></a>Parsing and Serialization</h1><p>Finally, each protocol buffer class has methods for writing and reading messages of your chosen type using the protocol buffer binary format. These include:</p>
-<ul>
-<li>byte[] toByteArray();: serializes the message and returns a byte array containing its raw bytes.</li>
-<li>static Person parseFrom(byte[] data);: parses a message from the given byte array.</li>
-<li>void writeTo(OutputStream output);: serializes the message and writes it to an OutputStream.</li>
-<li>pstatic Person parseFrom(InputStream input);: reads and parses a message from an InputStream.</li>
-</ul>
-<h1 id="Write-a-message"><a href="#Write-a-message" class="headerlink" title="Write a message"></a>Write a message</h1><p>// Write the new address book back to disk.<br>    FileOutputStream output = new FileOutputStream(args[0]);<br>    addressBook.build().writeTo(output);</p>
-<h1 id="Reading-A-Message"><a href="#Reading-A-Message" class="headerlink" title="Reading A Message"></a>Reading A Message</h1><p>Use message’s parseFrom method on stream:<br>      AddressBook.parseFrom(new FileInputStream(args[0]));</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.tutorial.AddressBookProtos.AddressBook;</span><br><span class="line"><span class="keyword">import</span> com.example.tutorial.AddressBookProtos.Person;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListPeople</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Iterates though all people in the AddressBook and prints info about them.</span></span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Print</span><span class="params">(AddressBook addressBook)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (Person person: addressBook.getPeopleList()) &#123;</span><br><span class="line">      System.out.println(<span class="string">"Person ID: "</span> + person.getId());</span><br><span class="line">      System.out.println(<span class="string">"  Name: "</span> + person.getName());</span><br><span class="line">      <span class="keyword">if</span> (person.hasEmail()) &#123;</span><br><span class="line">        System.out.println(<span class="string">"  E-mail address: "</span> + person.getEmail());</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (Person.PhoneNumber phoneNumber : person.getPhonesList()) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (phoneNumber.getType()) &#123;</span><br><span class="line">          <span class="keyword">case</span> MOBILE:</span><br><span class="line">            System.out.print(<span class="string">"  Mobile phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> HOME:</span><br><span class="line">            System.out.print(<span class="string">"  Home phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> WORK:</span><br><span class="line">            System.out.print(<span class="string">"  Work phone #: "</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(phoneNumber.getNumber());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Main function:  Reads the entire address book from a file and prints all</span></span><br><span class="line">  <span class="comment">//   the information inside.</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (args.length != <span class="number">1</span>) &#123;</span><br><span class="line">      System.err.println(<span class="string">"Usage:  ListPeople ADDRESS_BOOK_FILE"</span>);</span><br><span class="line">      System.exit(-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read the existing address book.</span></span><br><span class="line">    AddressBook addressBook =</span><br><span class="line">      AddressBook.parseFrom(<span class="keyword">new</span> FileInputStream(args[<span class="number">0</span>]));</span><br><span class="line"></span><br><span class="line">    Print(addressBook);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-03-distruptor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-09-03-distruptor/" class="post-title-link" itemprop="url">Mockito</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h1><p>There only 2 things you can do with Mockito mocks - verify or stub. Stubbing goes before execution and verification afterwards.</p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock" target="_blank" rel="noopener">https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock</a></li>
 </ul>
 
           

@@ -313,6 +313,94 @@ If Thread A reads a volatile variable, then all all variables visible to Thread 
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-04-Solace-MQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-04-Solace-MQ/" class="post-title-link" itemprop="url">Solace MQ</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Solace-PubSub"><a href="#Solace-PubSub" class="headerlink" title="Solace PubSub+"></a>Solace PubSub+</h1><p>It is a message broker that lets you establish event-driven interactions between applications and microservices across hybrid cloud environments using open APIs and protocols.</p>
+<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>Cloud<br>PubSub+ Cloud is enterprise-grade messaging available as a fully managed service in your favorite public clouds.</p>
+<h2 id="What-do-we-mean-by-“enterprise-grade-”"><a href="#What-do-we-mean-by-“enterprise-grade-”" class="headerlink" title="What do we mean by “enterprise grade?”"></a>What do we mean by “enterprise grade?”</h2><h3 id="Unrivaled-Reliability"><a href="#Unrivaled-Reliability" class="headerlink" title="Unrivaled Reliability"></a>Unrivaled Reliability</h3><p>Intelligent routing protocols always identify best path and adapt around network issues to keep your applications humming, and automatic message buffering keeps bursts of data from affecting slow consumers or your system as a whole.</p>
+<p>Built-in high availability and disaster recovery capabilities mean your system will bounce back in a flash, without ever losing a message, even in the event of major system or network failures.</p>
+<h3 id="Serious-Security"><a href="#Serious-Security" class="headerlink" title="Serious Security"></a>Serious Security</h3><p>PubSub+ supports authentication and authorization mechanisms ranging from username and password and one-time passwords to sophisticated access control lists and robust integration with existing security policies and systems such as LDAP, Radius, Kerberos.</p>
+<p>To protect messages in transit, Solace supports transport-layer TLS encryption using a variety of cypher suites.</p>
+<h2 id="Messaging"><a href="#Messaging" class="headerlink" title="Messaging"></a>Messaging</h2><p>In application development terms, messaging, which is also commonly known as message-oriented middleware or just middleware, refers to technology that lets computer systems share information without requiring direct connections or awareness of one another’s location.</p>
+<h1 id="Docker-on-Solace"><a href="#Docker-on-Solace" class="headerlink" title="Docker on Solace"></a>Docker on Solace</h1><p>To bounce solace server:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 -p 55555:55555 --shm-size=2g --env <span class="string">'username_admin_globalaccesslevel=admin'</span> --env <span class="string">'username_admin_password=admin'</span> --name=solace solace-pubsub-standard:8.11.0.1029</span><br><span class="line"></span><br><span class="line"><span class="comment"># or bring up an existing one</span></span><br><span class="line">docker start solace</span><br></pre></td></tr></table></figure>
+
+<p>Solace CLI management access:<br>Enter the following docker exec command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it solace /usr/sw/loads/currentload/bin/cli -A</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-06-14-flex-box/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -801,94 +889,6 @@ You have five commands at your disposal to use justify-content:</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-04-Solace-MQ/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-04-Solace-MQ/" class="post-title-link" itemprop="url">Solace MQ</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Solace-PubSub"><a href="#Solace-PubSub" class="headerlink" title="Solace PubSub+"></a>Solace PubSub+</h1><p>It is a message broker that lets you establish event-driven interactions between applications and microservices across hybrid cloud environments using open APIs and protocols.</p>
-<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>Cloud<br>PubSub+ Cloud is enterprise-grade messaging available as a fully managed service in your favorite public clouds.</p>
-<h2 id="What-do-we-mean-by-“enterprise-grade-”"><a href="#What-do-we-mean-by-“enterprise-grade-”" class="headerlink" title="What do we mean by “enterprise grade?”"></a>What do we mean by “enterprise grade?”</h2><h3 id="Unrivaled-Reliability"><a href="#Unrivaled-Reliability" class="headerlink" title="Unrivaled Reliability"></a>Unrivaled Reliability</h3><p>Intelligent routing protocols always identify best path and adapt around network issues to keep your applications humming, and automatic message buffering keeps bursts of data from affecting slow consumers or your system as a whole.</p>
-<p>Built-in high availability and disaster recovery capabilities mean your system will bounce back in a flash, without ever losing a message, even in the event of major system or network failures.</p>
-<h3 id="Serious-Security"><a href="#Serious-Security" class="headerlink" title="Serious Security"></a>Serious Security</h3><p>PubSub+ supports authentication and authorization mechanisms ranging from username and password and one-time passwords to sophisticated access control lists and robust integration with existing security policies and systems such as LDAP, Radius, Kerberos.</p>
-<p>To protect messages in transit, Solace supports transport-layer TLS encryption using a variety of cypher suites.</p>
-<h2 id="Messaging"><a href="#Messaging" class="headerlink" title="Messaging"></a>Messaging</h2><p>In application development terms, messaging, which is also commonly known as message-oriented middleware or just middleware, refers to technology that lets computer systems share information without requiring direct connections or awareness of one another’s location.</p>
-<h1 id="Docker-on-Solace"><a href="#Docker-on-Solace" class="headerlink" title="Docker on Solace"></a>Docker on Solace</h1><p>To bounce solace server:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 -p 55555:55555 --shm-size=2g --env <span class="string">'username_admin_globalaccesslevel=admin'</span> --env <span class="string">'username_admin_password=admin'</span> --name=solace solace-pubsub-standard:8.11.0.1029</span><br><span class="line"></span><br><span class="line"><span class="comment"># or bring up an existing one</span></span><br><span class="line">docker start solace</span><br></pre></td></tr></table></figure>
-
-<p>Solace CLI management access:<br>Enter the following docker exec command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it solace /usr/sw/loads/currentload/bin/cli -A</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-10-JMX/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -939,6 +939,171 @@ You have five commands at your disposal to use justify-content:</p>
           
             <h1 id="Exporting-your-beans-to-JMX"><a href="#Exporting-your-beans-to-JMX" class="headerlink" title="Exporting your beans to JMX"></a>Exporting your beans to JMX</h1><p>The core class in Spring’s JMX framework is the MBeanExporter. This class is responsible for taking your Spring beans and registering them with a JMX MBeanServer. </p>
 <p>when running inside a container that does not provide an MBeanServer. To address this you can create an MBeanServer instance declaratively by adding an instance of the org.springframework.jmx.support.MBeanServerFactoryBean class to your configuration. You can also ensure that a specific MBeanServer is used by setting the value of the MBeanExporter’s server property to the MBeanServer value returned by an MBeanServerFactoryBean</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-13-Camel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-13-Camel/" class="post-title-link" itemprop="url">Camel</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Endpoints"><a href="#Endpoints" class="headerlink" title="Endpoints"></a>Endpoints</h1><p>Camel supports the Message Endpoint pattern using the Endpoint interface. Endpoints are usually created by a Component and Endpoints are usually referred to in the DSL via their URIs.</p>
+<p>From an Endpoint you can use the following methods</p>
+<p>createProducer() will create a Producer for sending message exchanges to the endpoint<br>createConsumer() implements the Event Driven Consumer pattern for consuming message exchanges from the endpoint via a Processor when creating a Consumer<br>createPollingConsumer() implements the Polling Consumer pattern for consuming message exchanges from the endpoint via a PollingConsumer</p>
+<h1 id="implementation"><a href="#implementation" class="headerlink" title="implementation"></a>implementation</h1><p>When using the DSL to create Routes you typically refer to Message Endpoints by their URIs rather than directly using the Endpoint interface. Its then a responsibility of the CamelContext to create and activate the necessary Endpoint instances using the available Component implementations.</p>
+<h1 id="connector"><a href="#connector" class="headerlink" title="connector"></a>connector</h1><p>Sub interface including Initiator.<br>abstract class SessionConnector implements Connector</p>
+<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p>class Session.java</p>
+<h1 id="FieldMaps"><a href="#FieldMaps" class="headerlink" title="FieldMaps"></a>FieldMaps</h1><p>Which leverage TreeMap&lt;Integer, Field&lt;?&gt;&gt; fields;</p>
+<h2 id="Field"><a href="#Field" class="headerlink" title="Field"></a>Field</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Field</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">   <span class="title">public</span> <span class="title">Field</span>(<span class="title">int</span> <span class="title">field</span>, <span class="title">T</span> <span class="title">object</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.tag = field;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-16-FileUtils_Camel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-07-16-FileUtils_Camel/" class="post-title-link" itemprop="url">File Util in Apache Camel</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="FileUtil-class"><a href="#FileUtil-class" class="headerlink" title="FileUtil.class"></a>FileUtil.class</h1><h2 id="compactPath-String-path"><a href="#compactPath-String-path" class="headerlink" title="compactPath(String path)"></a>compactPath(String path)</h2><p>To normalize path and join with provided separator</p>
+<p>if path is null, return null<br>if path.indexOf(47) == -1 &amp;&amp; path.indexOf(92) ==-1 (means /, ) return path</p>
+<h3 id="normalizePath"><a href="#normalizePath" class="headerlink" title="normalizePath"></a>normalizePath</h3><p>check whether it is windows<br>String osName = System.getProperty(“os.name”).toLowerCase(Locale.ENGLISH);<br>        return osName.contains(“windows”);<br>for windows, replace / with \, for linux, replace \ with /</p>
+<p>split path by separator (\ or /) to get an array</p>
+<p>traverse array and check whether current is “..”, if so , call stack.pop<br>otherwise, stach.push(part)</p>
+<p>Then iterate stack and then combine them by a StringBuilder via provided addtional parameter separator</p>
 
           
         
@@ -1041,219 +1206,6 @@ You have five commands at your disposal to use justify-content:</p>
 }
 
 return sum &amp; 255;</code></pre><p>the checksum from above messageUtil is 87<br>?? how to get and set this.trailer.10=131 ?</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-11-Camel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-11-Camel/" class="post-title-link" itemprop="url">Apache Camel</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Camel’s-message-model"><a href="#Camel’s-message-model" class="headerlink" title="Camel’s message model"></a>Camel’s message model</h1><p>In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.</p>
-<ul>
-<li>org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel</li>
-<li>org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message</li>
-</ul>
-<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><p>Messages are the entities used by systems to communicate with each other when using messaging channels. Messages flow in one direction from a sender to a receiver,  Messages have a body (a payload), headers, and optional attachments,</p>
-<p>Messages are uniquely identified with an identifier of type java.lang.String. The identifier’s uniqueness is enforced and guaranteed by the message creator, it’s protocol depen- dent, and it doesn’t have a guaranteed format.<br>For protocols that don’t define a unique message identification scheme, Camel uses its own UID generator.<br>HEADERS AND ATTACHMENTS<br>Headers are values associated with the message, such as sender identifiers, hints about content encoding, authentication infor- mation, and so on. Headers are name-value pairs; the name is a unique, case-insensitive string, and the value is of type java. lang.Object. This means that Camel imposes no constraints on the type of the headers. Headers are stored as a map within the message. A message can also have optional attachments, which are typically used for the web service and email components.</p>
-<h2 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h2><p>An exchange in Camel is the message’s container during routing. An exchange also provides support for the various types of interactions between systems, also known as message exchange patterns (MEPs). MEPs are used to differentiate between one-way and request-response messaging styles. The Camel exchange holds a pattern property that can be either</p>
-<ul>
-<li>InOnly—A one-way message (also known as an Event message). For example, JMS messaging is often one-way messaging.</li>
-<li>InOut—A request-response message. For example, HTTP-based transports are often request reply, where a client requests to retrieve a web page, waiting for the reply from the server.</li>
-</ul>
-<h1 id="Start-Camel-application"><a href="#Start-Camel-application" class="headerlink" title="Start Camel application"></a>Start Camel application</h1><p>Camel doesn’t start magically by itself. Often it’s the server (container) that Camel is running inside that invokes the start method on CamelContext, starting up Camel. This is also what you saw in chapter 1, where you used Camel inside a standalone Java application. A standalone Java application isn’t the only deployment choice—you can also run Camel inside a container such as Spring or OSGi.<br>Regardless of which container you use, the same principle applies. The container must prepare and create an instance of CamelContext up front, before Camel can be started.</p>
-<h2 id="Spring-container"><a href="#Spring-container" class="headerlink" title="Spring container"></a>Spring container</h2><p>Camel provides the CamelNamespaceHandler.<br>When using Camel in the Spring XML file, you would define the <camelcontext> tag as follows:<br><camelcontext xmlns="http://camel.apache.org/schema/spring"></camelcontext></camelcontext></p>
-<p>The <a href="http://camel.apache.org/schema/spring" target="_blank" rel="noopener">http://camel.apache.org/schema/spring</a> namespace is the Camel custom namespace. To let Spring know about this custom namespace, it must be identified in the META-INF/spring.handlers, where you map the namespace to the class implementation:<br>http://camel.apache.org/schema/spring=<br>     org.apache.camel.spring.handler.CamelNamespaceHandler</p>
-<p>The CamelNamespaceHandler is then responsible for parsing the XML and dele- gating to other factories for further pro- cessing. One of these factories is the Camel- ContextFactoryBean, which is responsible for creating the CamelContext that essen- tially is your Camel application.<br>When Spring is finished initializing, it signals to third-party frameworks that they can start by broadcasting the Context- RefreshedEvent event.</p>
-<h1 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h1><p>At this point, CamelContext is ready to be started. What happens next is the same regardless of which container or deploy- ment option you’re using with Camel. </p>
-<p>CamelContext is started by invoking its start method. The first step is to determines whether or not autostartup is enabled for Camel. If it’s disabled, the entire startup process is skipped. By default, Camel is set to autostart, which involves the following four steps.</p>
-<p>1 Start internal services—Prepares and starts internal services used by Camel, such as the type-converter mechanism.<br>2 Compute starting order—Computes the order in which the routes should be started. By default, Camel will start up all the routes in the order they are defined in the Spring XML files or the RouteBuilder classes. We’ll cover how to configure the order of routes in section 13.1.3.<br>3 Prepare routes—Prepares the routes before they’re started.<br>4 Start routes—Starts the routes by starting the consumers, which essentially opens<br>the gates to Camel and lets the messages start to flow in.</p>
-<p>After step 4, Camel writes a message to the log indicating that it has been started and that the startup process is complete.</p>
-<h1 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h1><h2 id="ENDPOINT"><a href="#ENDPOINT" class="headerlink" title="ENDPOINT"></a>ENDPOINT</h2><p>An endpoint is the Camel abstraction that models the end of a channel through which a system can send or receive messages.</p>
-<p>In Camel, you configure endpoints using URIs, such as </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:data/inbox?delay=5000</span><br></pre></td></tr></table></figure>
-
-<p> and you also refer to endpoints this way. At runtime, Camel will look up an endpoint based on the URI notation. </p>
-<p>The scheme  denotes which Camel component handles that type of endpoint. In this case,<br>the scheme of file selects the FileComponent.<br>The FileComponent then works as a factory creat-<br>ing the FileEndpoint based on the remaining parts of the URI.<br>The context path data/ inbox tells the FileComponent that the starting folder is data/inbox.<br>The option, delay=5000 indicates that files should be polled at a 5 second interval.</p>
-<p>There’s more to an endpoint than meets the eye. </p>
-<h2 id="JMS"><a href="#JMS" class="headerlink" title="JMS"></a>JMS</h2><p>Queues are strictly point-to-point, where each message has only one consumer. Topics operate on a publish/subscribe scheme; a single message may be delivered to many consumers if they have subscribed to the topic.</p>
-<p>JMS also provides a ConnectionFactory that clients (like Camel) can use to cre- ate a connection with a JMS provider. JMS providers are usually referred to as brokers because they manage the communication between a message producer and a mes- sage consumer.</p>
-<h3 id="HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER"><a href="#HOW-TO-CONFIGURE-CAMEL-TO-USE-A-JMS-PROVIDER" class="headerlink" title="HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER"></a>HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER</h3><p>To connect Camel to a specific JMS provider, you need to configure Camel’s JMS com- ponent with an appropriate ConnectionFactory.<br>Apache ActiveMQ is one of the most popular open source JMS providers, and it’s the primary JMS broker that the Camel team uses to test the JMS component. </p>
-<h3 id="JSM-destinations"><a href="#JSM-destinations" class="headerlink" title="JSM destinations"></a>JSM destinations</h3><p>There are two types of JMS destinations: queues and topics. The queue is a point-to-point channel, where each message has only one recipient. A topic delivers a copy of the message to all clients who have subscribed to receive it.</p>
-<h3 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h3><p>o in the case of Apache ActiveMQ, you can create an ActiveMQConnectionFactory<br>that points to the location of the running ActiveMQ broker:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConnectionFactory connectionFactory =</span><br><span class="line">  <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"vm://localhost"</span>);</span><br></pre></td></tr></table></figure>
-
-<p>The vm://localhost URI means that you should connect to an embedded broker named “localhost” running inside the current JVM. The vm transport connector in ActiveMQ creates a broker on demand if one isn’t running already, so it’s very handy for quickly testing JMS applications; for production scenarios, it’s recommended that you connect to a broker that’s already running. </p>
-<p>Next, when you create your CamelContext, you can add the JMS component as follows:<br>CamelContext context = new DefaultCamelContext();<br>context.addComponent(“jms”,<br>    JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));<br>The JMS component and the ActiveMQ-specific connection factory aren’t part of the camel-core module. In order to use these, you’ll need to add some dependencies to your Maven-based project. For the plain JMS component, all you have to add is this:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.camel<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>camel-jms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">The connection factory comes directly from ActiveMQ, so you’ll need the following dependency:</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="USING-URIS-TO-SPECIFY-THE-DESTINATION"><a href="#USING-URIS-TO-SPECIFY-THE-DESTINATION" class="headerlink" title="USING URIS TO SPECIFY THE DESTINATION"></a>USING URIS TO SPECIFY THE DESTINATION</h3><p>Once the JMS component is configured, you can start sending and receiving JMS mes- sages at your leisure. Because you’re using URIs, this is a real breeze to configure.<br>Let’s say you want to send a JMS message to the queue named incomingOrders. The URI in this case would be</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jms:queue:incomingOrders</span><br></pre></td></tr></table></figure>
-
-<p>This is pretty self-explanatory. The “jms” prefix indicates that you’re using the JMS component you configured before. By specifying “queue”, the JMS component knows to send to a queue named incomingOrders. You could even have omitted the queue<br>qualifier, because the default behavior is to send to a queue rather than a topic.</p>
-<p>NOTE Some endpoints can have an intimidating list of endpoint URI proper- ties. For instance, the JMS component has about 60 options, many of which are only used in specific JMS scenarios. Camel always tries to provide built-in defaults that fit most cases, and you can always find out what the default values are by browsing to the component’s page in the online Camel documentation. </p>
-<p>Using Camel’s Java DSL, you can send a message to the incomingOrders queue by using the to keyword like this:<br>…to(“jms:queue:incomingOrders”)<br>This can be read as sending to the JMS queue named incomingOrders.</p>
-<h2 id="FINDING-ROUTE-BUILDERS"><a href="#FINDING-ROUTE-BUILDERS" class="headerlink" title="FINDING ROUTE BUILDERS"></a>FINDING ROUTE BUILDERS</h2><p>Using the Spring CamelContext as a runtime and the Java DSL for route development is a great way of using Camel. In fact, it’s the most frequent usage of Camel.<br>You saw before that you can explicitly tell the Spring CamelContext what route builders to load. You can do this by using the routerBuilder element:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">routeBuilder</span> <span class="attr">ref</span>=<span class="string">"ftpToJmsRoute"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Being this explicit results in a clean and concise definition of what is being loaded into Camel.<br>Sometimes, though, you may need to be a bit more dynamic. This is where the packageScan and contextScan elements come in:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>This packageScan element will load all RouteBuilder classes found in the camelinac- tion.routes package, including all subpackages.<br>You can even be a bit more picky about what route builders are included:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">camelContext</span> <span class="attr">xmlns</span>=<span class="string">"http://camel.apache.org/schema/spring"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packageScan</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span>&gt;</span>camelinaction.routes<span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">excludes</span>&gt;</span>**.*Test*<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">includes</span>&gt;</span>**.*<span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">packageScan</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">camelContext</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>In this case, you’re loading all route builders in the camelinaction.routes package, except for ones with “Test” in the class name. The matching syntax is similar to what is used in Apache Ant’s file pattern matchers.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-13-Camel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-07-13-Camel/" class="post-title-link" itemprop="url">Camel</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Endpoints"><a href="#Endpoints" class="headerlink" title="Endpoints"></a>Endpoints</h1><p>Camel supports the Message Endpoint pattern using the Endpoint interface. Endpoints are usually created by a Component and Endpoints are usually referred to in the DSL via their URIs.</p>
-<p>From an Endpoint you can use the following methods</p>
-<p>createProducer() will create a Producer for sending message exchanges to the endpoint<br>createConsumer() implements the Event Driven Consumer pattern for consuming message exchanges from the endpoint via a Processor when creating a Consumer<br>createPollingConsumer() implements the Polling Consumer pattern for consuming message exchanges from the endpoint via a PollingConsumer</p>
-<h1 id="implementation"><a href="#implementation" class="headerlink" title="implementation"></a>implementation</h1><p>When using the DSL to create Routes you typically refer to Message Endpoints by their URIs rather than directly using the Endpoint interface. Its then a responsibility of the CamelContext to create and activate the necessary Endpoint instances using the available Component implementations.</p>
-<h1 id="connector"><a href="#connector" class="headerlink" title="connector"></a>connector</h1><p>Sub interface including Initiator.<br>abstract class SessionConnector implements Connector</p>
-<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p>class Session.java</p>
-<h1 id="FieldMaps"><a href="#FieldMaps" class="headerlink" title="FieldMaps"></a>FieldMaps</h1><p>Which leverage TreeMap&lt;Integer, Field&lt;?&gt;&gt; fields;</p>
-<h2 id="Field"><a href="#Field" class="headerlink" title="Field"></a>Field</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Field</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">   <span class="title">public</span> <span class="title">Field</span>(<span class="title">int</span> <span class="title">field</span>, <span class="title">T</span> <span class="title">object</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.tag = field;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
 
           
         

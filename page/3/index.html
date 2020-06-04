@@ -195,6 +195,99 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-07-Load-Balancing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-07-Load-Balancing/" class="post-title-link" itemprop="url">Load Balancing</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><p><code>LVS</code> means Linux Virtual Server, which is one Linux built-in component. </p>
+<h1 id="Some-logics-of-LVS"><a href="#Some-logics-of-LVS" class="headerlink" title="Some logics of LVS"></a>Some logics of LVS</h1><h2 id="Never-Queue-Shceduling"><a href="#Never-Queue-Shceduling" class="headerlink" title="Never Queue Shceduling"></a>Never Queue Shceduling</h2><blockquote>
+<p>The never queue scheduling algorithm adpots a two-speed model</p>
+</blockquote>
+<ol>
+<li>When there is an idel server avaiable, the job will be sent to the idel server, instead of waiting for a fast one.</li>
+<li>When there is no idel server avaiable, the job will be sent to the server that minimize it’s expected delay.</li>
+</ol>
+<h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h1><h2 id="Setup-LVS"><a href="#Setup-LVS" class="headerlink" title="Setup LVS"></a>Setup LVS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -A -t 192.168.0.1:80 -s rr</span><br><span class="line">ipvsadm -a -t 192.168.0.1:80 -r 172.16.0.1:80 -m</span><br><span class="line">ipvsadm -a -t 192.168.0.1:80 -r 172.16.0.2:80 -m</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>The first command assign TCP port 80 on IP address 192.168.0.1 to the virtual server, the shceduling algorithm for load balancing is <code>-s rr</code> means using round-robin</li>
+<li>The 2nd and 3rd commands are adding IP addresss of <code>real servers</code> to the LVS setup</li>
+<li>the forwarded network packets shall be masked <code>-m</code></li>
+</ul>
+<h2 id="To-query-LVS-status"><a href="#To-query-LVS-status" class="headerlink" title="To query LVS status"></a>To query LVS status</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -L -n</span><br><span class="line">IP Virtual Server version 1.0.8 (size=65536)</span><br><span class="line">Prot LocalAddress:Port Scheduler Flags</span><br><span class="line">  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn</span><br><span class="line">TCP  192.168.0.1:80 rr</span><br><span class="line">  -&gt; 172.16.0.2:80                Masq    1      3          1</span><br><span class="line">  -&gt; 172.16.0.1:80                Masq    1      4          0</span><br></pre></td></tr></table></figure>
+
+<h2 id="Strucutre-of-LVS-in-wikipedia"><a href="#Strucutre-of-LVS-in-wikipedia" class="headerlink" title="Strucutre of LVS in wikipedia"></a>Strucutre of LVS in wikipedia</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Wikimedia_Server_Architecture_%28simplified%29.svg/743px-Wikimedia_Server_Architecture_%28simplified%29.svg.png" alt="Strucutre of LVS in wikipedia"></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-03-Storage-Management/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -246,6 +339,91 @@
             <h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><p><code>RAID</code> is Reductant Array Independent Disk, </p>
 <h1 id="JBOD"><a href="#JBOD" class="headerlink" title="JBOD"></a>JBOD</h1><p><code>JBOD</code> is abbreviated from “Just a bunch of disks”, is an architecutre using multiple hard drives, but not in a RAID configuration, thus providing neither redundancy nor performance improvement.Hard drives may be handled independently as separate logical volumnes, or they may be combined into a single logical volume using a volume manager like LVM, such volumes are usually called “spanned”</p>
 <h1 id="LVM"><a href="#LVM" class="headerlink" title="LVM"></a>LVM</h1><p>‘LVM’ means Logical Volume Manager, is part of Linux kenel, is a device mapper. LVM is used to manage large hard disk farms by allowing disks to be added and replaced without downtime or service distruption.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-09-Docker-Errors-Fixes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-09-Docker-Errors-Fixes/" class="post-title-link" itemprop="url">Docker Errors and Fixes</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Docker-Errors"><a href="#Docker-Errors" class="headerlink" title="Docker Errors"></a>Docker Errors</h1><ol>
+<li>Cannot connect to the Docker daemon. Is the docker daemon running on this host?<br>The solution is to run under root user, e.g. </li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>Docker service</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker status</span><br><span class="line">sudo service docker start</span><br><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -358,7 +536,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-07-Load-Balancing/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-GIT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -374,7 +552,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-07-Load-Balancing/" class="post-title-link" itemprop="url">Load Balancing</a>
+              <a href="/2016-06-13-GIT/" class="post-title-link" itemprop="url">Git commands notes</a>
             
           </h1>
         
@@ -406,108 +584,34 @@
 
       
           
-            <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><p><code>LVS</code> means Linux Virtual Server, which is one Linux built-in component. </p>
-<h1 id="Some-logics-of-LVS"><a href="#Some-logics-of-LVS" class="headerlink" title="Some logics of LVS"></a>Some logics of LVS</h1><h2 id="Never-Queue-Shceduling"><a href="#Never-Queue-Shceduling" class="headerlink" title="Never Queue Shceduling"></a>Never Queue Shceduling</h2><blockquote>
-<p>The never queue scheduling algorithm adpots a two-speed model</p>
-</blockquote>
-<ol>
-<li>When there is an idel server avaiable, the job will be sent to the idel server, instead of waiting for a fast one.</li>
-<li>When there is no idel server avaiable, the job will be sent to the server that minimize it’s expected delay.</li>
-</ol>
-<h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h1><h2 id="Setup-LVS"><a href="#Setup-LVS" class="headerlink" title="Setup LVS"></a>Setup LVS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -A -t 192.168.0.1:80 -s rr</span><br><span class="line">ipvsadm -a -t 192.168.0.1:80 -r 172.16.0.1:80 -m</span><br><span class="line">ipvsadm -a -t 192.168.0.1:80 -r 172.16.0.2:80 -m</span><br></pre></td></tr></table></figure>
+            <h1 id="How-to-to-list-of-what-branch-for-a-given-commit"><a href="#How-to-to-list-of-what-branch-for-a-given-commit" class="headerlink" title="How to to list of what branch for a given commit"></a>How to to list of what branch for a given commit</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author todd --grep e2e</span><br><span class="line">$ git name-rev 78a4c4c340de70c726844e97233c58fa4738fea9</span><br><span class="line"></span><br><span class="line">78a4c4c340de70c726844e97233c58fa4738fea9 remotes/origin/feature/term-deposit-protractors~1</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>The first command assign TCP port 80 on IP address 192.168.0.1 to the virtual server, the shceduling algorithm for load balancing is <code>-s rr</code> means using round-robin</li>
-<li>The 2nd and 3rd commands are adding IP addresss of <code>real servers</code> to the LVS setup</li>
-<li>the forwarded network packets shall be masked <code>-m</code></li>
+<h1 id="To-search-keywords-in-js-files-only"><a href="#To-search-keywords-in-js-files-only" class="headerlink" title="To search keywords in js files only"></a>To search keywords in js files only</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name <span class="string">'*.js'</span> | xargs grep -r <span class="string">'SearchKeywords'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="One-line-command-to-add-and-commit-file"><a href="#One-line-command-to-add-and-commit-file" class="headerlink" title="One line command to add and commit file"></a>One line command to add and commit file</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status --short | awk <span class="string">'&#123;split($0, a);print a[2]&#125;'</span> | xargs git add &amp;&amp; git commit -m <span class="string">'summit status'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="to-show-files-commited-but-not-pushed"><a href="#to-show-files-commited-but-not-pushed" class="headerlink" title="to show files commited but not pushed"></a>to show files commited but not pushed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --<span class="built_in">stat</span> --cached origin/feature/BRANCH_NAME</span><br></pre></td></tr></table></figure>
+
+<h1 id="to-view-file-content-changed"><a href="#to-view-file-content-changed" class="headerlink" title="to view file content changed"></a>to view file content changed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show PATH/FILE.sql</span><br></pre></td></tr></table></figure>
+
+<h1 id="One-line-to-fetch-checkout-newly-created-branch"><a href="#One-line-to-fetch-checkout-newly-created-branch" class="headerlink" title="One line to fetch, checkout newly created branch"></a>One line to fetch, checkout newly created branch</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch &amp;&amp; git <span class="keyword">for</span>-each-ref | grep <span class="string">'AO-106'</span>  | awk <span class="string">'&#123;split($0,a);print a[3]&#125;'</span> | awk <span class="string">"&#123;split(<span class="variable">$0</span>,a, '/');print a[-1]&#125;"</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="To-get-changed-files-NOT-contains-keyword"><a href="#To-get-changed-files-NOT-contains-keyword" class="headerlink" title="To get changed files NOT contains keyword"></a>To get changed files <code>NOT</code> contains keyword</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status | grep -v <span class="string">"node_"</span></span><br></pre></td></tr></table></figure>
+
+<p>-v is for reverse</p>
+<h1 id="Cherry-picking"><a href="#Cherry-picking" class="headerlink" title="Cherry picking"></a>Cherry picking</h1><p>Cherry picking in Git is designed to <code>apply some commit from one branch into another branch</code>. 
+It can be done if you eg. made a mistake and committed a change into wrong branch, but do not want to merge the whole branch. You can just eg. revert the commit and cherry-pick it on another branch.</p>
+<p>To use it, you just need git cherry-pick hash, where hash is a commit hash from other branch.</p>
+<h2 id="Differences-among-Git-and-subversion"><a href="#Differences-among-Git-and-subversion" class="headerlink" title="Differences among Git and subversion"></a>Differences among Git and subversion</h2><p> The differences between git and other source control (like subversion) is Git have to merge conflict before upload to server, while subversion will merge conflicts at server side</p>
+<h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
+<li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
+<li>gihub</li>
 </ul>
-<h2 id="To-query-LVS-status"><a href="#To-query-LVS-status" class="headerlink" title="To query LVS status"></a>To query LVS status</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -L -n</span><br><span class="line">IP Virtual Server version 1.0.8 (size=65536)</span><br><span class="line">Prot LocalAddress:Port Scheduler Flags</span><br><span class="line">  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn</span><br><span class="line">TCP  192.168.0.1:80 rr</span><br><span class="line">  -&gt; 172.16.0.2:80                Masq    1      3          1</span><br><span class="line">  -&gt; 172.16.0.1:80                Masq    1      4          0</span><br></pre></td></tr></table></figure>
+<h2 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h2><p>WARN  No layout: index.html</p>
+<h3 id="Following-errors-when-run-hexo-g"><a href="#Following-errors-when-run-hexo-g" class="headerlink" title="Following errors when run hexo g"></a>Following errors when run <code>hexo g</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Unhandled rejection Error: ENOENT: no such file or directory, open <span class="string">'/Users/todzhang/dev/git/blogSrc/themes/next/layout/_scripts/schemes/.swig'</span></span><br><span class="line">    at Error (native)</span><br><span class="line">    at Object.fs.openSync (fs.js:549:18)</span><br><span class="line">    at Object.fs.readFileSync (fs.js:397:15)</span><br><span class="line">    at Object.ret.load (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/loaders/filesystem.js:55:15)</span><br><span class="line">    at compileFile (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:695:31)</span><br><span class="line">    at Object.eval [as tpl] (<span class="built_in">eval</span> at &lt;anonymous&gt; (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:498:13), &lt;anonymous&gt;:338:18)</span><br><span class="line">    at compiled [as _compiledSync] (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:619:18)</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at null._compiled (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34)</span><br><span class="line">    at View.render (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/theme/view.js:29:15)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/index.js:387:25</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34</span><br><span class="line">    at RouteStream._read (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/router.js:134:3)</span><br><span class="line">    at RouteStream.Readable.read (_stream_readable.js:336:10)</span><br><span class="line">    at resume_ (_stream_readable.js:733:12)</span><br><span class="line">    at nextTickCallbackWith2Args (node.js:442:9)</span><br><span class="line">    at process._tickCallback (node.js:356:17)</span><br></pre></td></tr></table></figure>
 
-<h2 id="Strucutre-of-LVS-in-wikipedia"><a href="#Strucutre-of-LVS-in-wikipedia" class="headerlink" title="Strucutre of LVS in wikipedia"></a>Strucutre of LVS in wikipedia</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Wikimedia_Server_Architecture_%28simplified%29.svg/743px-Wikimedia_Server_Architecture_%28simplified%29.svg.png" alt="Strucutre of LVS in wikipedia"></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-09-Docker-Errors-Fixes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-09-Docker-Errors-Fixes/" class="post-title-link" itemprop="url">Docker Errors and Fixes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Docker-Errors"><a href="#Docker-Errors" class="headerlink" title="Docker Errors"></a>Docker Errors</h1><ol>
-<li>Cannot connect to the Docker daemon. Is the docker daemon running on this host?<br>The solution is to run under root user, e.g. </li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>Docker service</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker status</span><br><span class="line">sudo service docker start</span><br><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h4><p>That’s because one extra space required after semi colon in _config.yml of Next, as following config</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Duoshuo ShortName</span><br><span class="line">duoshuo_shortname: cloudsdocker</span><br></pre></td></tr></table></figure>
 
 
           
@@ -660,7 +764,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-GIT/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-github-pages/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -676,7 +780,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2016-06-13-GIT/" class="post-title-link" itemprop="url">Git commands notes</a>
+              <a href="/2016-06-13-github-pages/" class="post-title-link" itemprop="url">Github page commands notes</a>
             
           </h1>
         
@@ -708,35 +812,109 @@
 
       
           
-            <h1 id="How-to-to-list-of-what-branch-for-a-given-commit"><a href="#How-to-to-list-of-what-branch-for-a-given-commit" class="headerlink" title="How to to list of what branch for a given commit"></a>How to to list of what branch for a given commit</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author todd --grep e2e</span><br><span class="line">$ git name-rev 78a4c4c340de70c726844e97233c58fa4738fea9</span><br><span class="line"></span><br><span class="line">78a4c4c340de70c726844e97233c58fa4738fea9 remotes/origin/feature/term-deposit-protractors~1</span><br></pre></td></tr></table></figure>
+            <h1 id="404-error-for-customized-domain-such-as-godday"><a href="#404-error-for-customized-domain-such-as-godday" class="headerlink" title="404 error for customized domain (such as godday)"></a>404 error for customized domain (such as godday)</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">404</span><br><span class="line">There is not a GitHub Pages site here.</span><br></pre></td></tr></table></figure>
 
-<h1 id="To-search-keywords-in-js-files-only"><a href="#To-search-keywords-in-js-files-only" class="headerlink" title="To search keywords in js files only"></a>To search keywords in js files only</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name <span class="string">'*.js'</span> | xargs grep -r <span class="string">'SearchKeywords'</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="One-line-command-to-add-and-commit-file"><a href="#One-line-command-to-add-and-commit-file" class="headerlink" title="One line command to add and commit file"></a>One line command to add and commit file</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status --short | awk <span class="string">'&#123;split($0, a);print a[2]&#125;'</span> | xargs git add &amp;&amp; git commit -m <span class="string">'summit status'</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="to-show-files-commited-but-not-pushed"><a href="#to-show-files-commited-but-not-pushed" class="headerlink" title="to show files commited but not pushed"></a>to show files commited but not pushed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --<span class="built_in">stat</span> --cached origin/feature/BRANCH_NAME</span><br></pre></td></tr></table></figure>
-
-<h1 id="to-view-file-content-changed"><a href="#to-view-file-content-changed" class="headerlink" title="to view file content changed"></a>to view file content changed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show PATH/FILE.sql</span><br></pre></td></tr></table></figure>
-
-<h1 id="One-line-to-fetch-checkout-newly-created-branch"><a href="#One-line-to-fetch-checkout-newly-created-branch" class="headerlink" title="One line to fetch, checkout newly created branch"></a>One line to fetch, checkout newly created branch</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch &amp;&amp; git <span class="keyword">for</span>-each-ref | grep <span class="string">'AO-106'</span>  | awk <span class="string">'&#123;split($0,a);print a[3]&#125;'</span> | awk <span class="string">"&#123;split(<span class="variable">$0</span>,a, '/');print a[-1]&#125;"</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="To-get-changed-files-NOT-contains-keyword"><a href="#To-get-changed-files-NOT-contains-keyword" class="headerlink" title="To get changed files NOT contains keyword"></a>To get changed files <code>NOT</code> contains keyword</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status | grep -v <span class="string">"node_"</span></span><br></pre></td></tr></table></figure>
-
-<p>-v is for reverse</p>
-<h1 id="Cherry-picking"><a href="#Cherry-picking" class="headerlink" title="Cherry picking"></a>Cherry picking</h1><p>Cherry picking in Git is designed to <code>apply some commit from one branch into another branch</code>. 
-It can be done if you eg. made a mistake and committed a change into wrong branch, but do not want to merge the whole branch. You can just eg. revert the commit and cherry-pick it on another branch.</p>
-<p>To use it, you just need git cherry-pick hash, where hash is a commit hash from other branch.</p>
-<h2 id="Differences-among-Git-and-subversion"><a href="#Differences-among-Git-and-subversion" class="headerlink" title="Differences among Git and subversion"></a>Differences among Git and subversion</h2><p> The differences between git and other source control (like subversion) is Git have to merge conflict before upload to server, while subversion will merge conflicts at server side</p>
+<ul>
+<li>Go to github master branch for gitpages site, manually add CNAME file</li>
+</ul>
 <h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
 <li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
 <li>gihub</li>
 </ul>
-<h2 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h2><p>WARN  No layout: index.html</p>
-<h3 id="Following-errors-when-run-hexo-g"><a href="#Following-errors-when-run-hexo-g" class="headerlink" title="Following errors when run hexo g"></a>Following errors when run <code>hexo g</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Unhandled rejection Error: ENOENT: no such file or directory, open <span class="string">'/Users/todzhang/dev/git/blogSrc/themes/next/layout/_scripts/schemes/.swig'</span></span><br><span class="line">    at Error (native)</span><br><span class="line">    at Object.fs.openSync (fs.js:549:18)</span><br><span class="line">    at Object.fs.readFileSync (fs.js:397:15)</span><br><span class="line">    at Object.ret.load (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/loaders/filesystem.js:55:15)</span><br><span class="line">    at compileFile (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:695:31)</span><br><span class="line">    at Object.eval [as tpl] (<span class="built_in">eval</span> at &lt;anonymous&gt; (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:498:13), &lt;anonymous&gt;:338:18)</span><br><span class="line">    at compiled [as _compiledSync] (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/swig/lib/swig.js:619:18)</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at null._compiled (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34)</span><br><span class="line">    at View.render (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/theme/view.js:29:15)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/index.js:387:25</span><br><span class="line">    at tryCatcher (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at /Users/todzhang/dev/git/blogSrc/node_modules/hexo/node_modules/bluebird/js/release/method.js:15:34</span><br><span class="line">    at RouteStream._read (/Users/todzhang/dev/git/blogSrc/node_modules/hexo/lib/hexo/router.js:134:3)</span><br><span class="line">    at RouteStream.Readable.read (_stream_readable.js:336:10)</span><br><span class="line">    at resume_ (_stream_readable.js:733:12)</span><br><span class="line">    at nextTickCallbackWith2Args (node.js:442:9)</span><br><span class="line">    at process._tickCallback (node.js:356:17)</span><br></pre></td></tr></table></figure>
+<h1 id="Travis-errors"><a href="#Travis-errors" class="headerlink" title="Travis errors:"></a>Travis errors:</h1><p> Got following errors in Travis page:</p>
+<h2 id="branch-not-included-or-excluded"><a href="#branch-not-included-or-excluded" class="headerlink" title="branch not included or excluded"></a>branch not included or excluded</h2><p><code>solution</code>: that’s because your source branch, such as ‘blogSrc’ should be added in whitelist of .travis.yml, for instance</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">  - blogSrc</span><br></pre></td></tr></table></figure>
 
-<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h4><p>That’s because one extra space required after semi colon in _config.yml of Next, as following config</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Duoshuo ShortName</span><br><span class="line">duoshuo_shortname: cloudsdocker</span><br></pre></td></tr></table></figure>
+<h2 id="fatal-empty-ident-name"><a href="#fatal-empty-ident-name" class="headerlink" title="fatal: empty ident name"></a>fatal: empty ident name</h2><p>Because <em>–global</em> is requried when setting up travis , below is the sample</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email abc@def.com</span><br></pre></td></tr></table></figure>
 
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-SQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2016-06-14-SQL/" class="post-title-link" itemprop="url">SQL</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Differences-between-not-in-not-exists-and-left-join-with-null"><a href="#Differences-between-not-in-not-exists-and-left-join-with-null" class="headerlink" title="Differences between not in, not exists , and left join with null"></a>Differences between not in, not exists , and left join with null</h2><blockquote>
+<p>It seems to me that you can do the same thing in a SQL query using either NOT EXISTS, NOT IN, or LEFT JOIN WHERE IS NULL. For example:</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT a FROM table1 WHERE a NOT IN (SELECT a FROM table2)</span><br><span class="line">SELECT a FROM table1 WHERE NOT EXISTS (SELECT * FROM table2 WHERE table1.a = table2.a)</span><br><span class="line">SELECT a FROM table1 LEFT JOIN table2 ON table1.a = table2.a WHERE table1.a IS NULL</span><br></pre></td></tr></table></figure>
+
+<p>I’m not sure if I got all the syntax correct, but these are the general techniques I’ve seen. Why would I choose to use one over the other? Does performance differ…? Which one of these is the fastest / most efficient? (If it depends on implementation, when would I use each one?)</p>
+<h2 id="answer"><a href="#answer" class="headerlink" title="answer"></a>answer</h2><p>In a nutshell:</p>
+<p>NOT IN is a little bit different: it never matches if there is but a single NULL in the list.</p>
+<p>In MySQL, NOT EXISTS is a little bit less efficient</p>
+<p>In SQL Server, LEFT JOIN / IS NULL is less efficient</p>
+<p>In PostgreSQL, NOT IN is less efficient</p>
+<p>In Oracle, all three methods are the same.</p>
 
           
         
@@ -844,97 +1022,6 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-13-github-pages/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-13-github-pages/" class="post-title-link" itemprop="url">Github page commands notes</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="404-error-for-customized-domain-such-as-godday"><a href="#404-error-for-customized-domain-such-as-godday" class="headerlink" title="404 error for customized domain (such as godday)"></a>404 error for customized domain (such as godday)</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">404</span><br><span class="line">There is not a GitHub Pages site here.</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Go to github master branch for gitpages site, manually add CNAME file</li>
-</ul>
-<h2 id="following-lages-are-searchable-in-google"><a href="#following-lages-are-searchable-in-google" class="headerlink" title="following lages are searchable in google"></a>following lages are searchable in google</h2><ul>
-<li><a href="http://byalice.github.io/2016/06/04/Build-Blog/" target="_blank" rel="noopener">alice</a></li>
-<li>gihub</li>
-</ul>
-<h1 id="Travis-errors"><a href="#Travis-errors" class="headerlink" title="Travis errors:"></a>Travis errors:</h1><p> Got following errors in Travis page:</p>
-<h2 id="branch-not-included-or-excluded"><a href="#branch-not-included-or-excluded" class="headerlink" title="branch not included or excluded"></a>branch not included or excluded</h2><p><code>solution</code>: that’s because your source branch, such as ‘blogSrc’ should be added in whitelist of .travis.yml, for instance</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">  - blogSrc</span><br></pre></td></tr></table></figure>
-
-<h2 id="fatal-empty-ident-name"><a href="#fatal-empty-ident-name" class="headerlink" title="fatal: empty ident name"></a>fatal: empty ident name</h2><p>Because <em>–global</em> is requried when setting up travis , below is the sample</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email abc@def.com</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-HTTP-HTTPS2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -988,93 +1075,6 @@ It can be done if you eg. made a mistake and committed a change into wrong branc
 <li>HTTPS : HTTPS 协议传输过程全程加解密，相当于增加了一层 SSL/TSL 分层协议的 HTTP，让访问更加安全。</li>
 <li>HTTPS2 : HTTP/2 本身是 HTTP 协议自 1999 年发表后的第一次更新，于 2015 年 5 月正式发布。掐指一算，这个协议积累了 16 年才更新，憋了这么久，放的一定是大招，它的更新主要体现在多路复用，二进制传输，使用 HPACK 压缩头部信息，服务端 Push 。</li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2016-06-14-SQL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2016-06-14-SQL/" class="post-title-link" itemprop="url">SQL</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="Differences-between-not-in-not-exists-and-left-join-with-null"><a href="#Differences-between-not-in-not-exists-and-left-join-with-null" class="headerlink" title="Differences between not in, not exists , and left join with null"></a>Differences between not in, not exists , and left join with null</h2><blockquote>
-<p>It seems to me that you can do the same thing in a SQL query using either NOT EXISTS, NOT IN, or LEFT JOIN WHERE IS NULL. For example:</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT a FROM table1 WHERE a NOT IN (SELECT a FROM table2)</span><br><span class="line">SELECT a FROM table1 WHERE NOT EXISTS (SELECT * FROM table2 WHERE table1.a = table2.a)</span><br><span class="line">SELECT a FROM table1 LEFT JOIN table2 ON table1.a = table2.a WHERE table1.a IS NULL</span><br></pre></td></tr></table></figure>
-
-<p>I’m not sure if I got all the syntax correct, but these are the general techniques I’ve seen. Why would I choose to use one over the other? Does performance differ…? Which one of these is the fastest / most efficient? (If it depends on implementation, when would I use each one?)</p>
-<h2 id="answer"><a href="#answer" class="headerlink" title="answer"></a>answer</h2><p>In a nutshell:</p>
-<p>NOT IN is a little bit different: it never matches if there is but a single NULL in the list.</p>
-<p>In MySQL, NOT EXISTS is a little bit less efficient</p>
-<p>In SQL Server, LEFT JOIN / IS NULL is less efficient</p>
-<p>In PostgreSQL, NOT IN is less efficient</p>
-<p>In Oracle, all three methods are the same.</p>
 
           
         
