@@ -400,6 +400,89 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-15-PrestoDB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-08-15-PrestoDB/" class="post-title-link" itemprop="url">Presto DB</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="WHAT-IS-PRESTO"><a href="#WHAT-IS-PRESTO" class="headerlink" title="WHAT IS PRESTO?"></a>WHAT IS PRESTO?</h1><p>Presto is an open source distributed SQL query engine for running interactive analytic queries against data sources of all sizes ranging from gigabytes to petabytes.</p>
+<p>Presto was designed and written from the ground up for interactive analytics and approaches the speed of commercial data warehouses while scaling to the size of organizations like Facebook.</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Presto is a distributed system that runs on a cluster of machines. A full installation includes a coordinator and multiple workers. Queries are submitted from a client such as the Presto CLI to the coordinator. The coordinator parses, analyzes and plans the query execution, then distributes the processing to the workers.</p>
+<p>Presto does not use MapReduce and thus only requires HDFS.</p>
+<h2 id="Separation-of-Storage-and-Compute"><a href="#Separation-of-Storage-and-Compute" class="headerlink" title="Separation of Storage and Compute"></a>Separation of Storage and Compute</h2><p>Architected for separation of storage and compute, Presto can scale up and down based on your analytics demand to access this data. There’s no need to move your data and provisioning compute to the exact need results in significant cost savings.</p>
+<h3 id="Config-Properties"><a href="#Config-Properties" class="headerlink" title="Config Properties"></a>Config Properties</h3><p>The config properties file, etc/config.properties, contains the configuration for the Presto server. Every Presto server can function as both a coordinator and a worker, but dedicating a single machine to only perform coordination work provides the best performance on larger clusters.</p>
+<h3 id="Catalog-Properties"><a href="#Catalog-Properties" class="headerlink" title="Catalog Properties"></a>Catalog Properties</h3><p>Presto accesses data via connectors, which are mounted in catalogs. The connector provides all of the schemas and tables inside of the catalog. For example, the Hive connector maps each Hive database to a schema, so if the Hive connector is mounted as the hive catalog, and Hive contains a table clicks in database web, that table would be accessed in Presto as hive.web.clicks.</p>
+<p>Catalogs are registered by creating a catalog properties file in the etc/catalog directory. For example, create etc/catalog/jmx.properties with the following contents to mount the jmx connector as the jmx catalog:</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-07-23-akka-scala/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -687,7 +770,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-15-PrestoDB/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-19-ZooKeeper/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -703,7 +786,7 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-08-15-PrestoDB/" class="post-title-link" itemprop="url">Presto DB</a>
+              <a href="/2018-08-19-ZooKeeper/" class="post-title-link" itemprop="url">Zoo-keeper</a>
             
           </h1>
         
@@ -735,14 +818,84 @@ SHUTDOWN (when &apos;stop&apos; or &apos;exit&apos; is invoked) - can&apos;t do 
 
       
           
-            <h1 id="WHAT-IS-PRESTO"><a href="#WHAT-IS-PRESTO" class="headerlink" title="WHAT IS PRESTO?"></a>WHAT IS PRESTO?</h1><p>Presto is an open source distributed SQL query engine for running interactive analytic queries against data sources of all sizes ranging from gigabytes to petabytes.</p>
-<p>Presto was designed and written from the ground up for interactive analytics and approaches the speed of commercial data warehouses while scaling to the size of organizations like Facebook.</p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Presto is a distributed system that runs on a cluster of machines. A full installation includes a coordinator and multiple workers. Queries are submitted from a client such as the Presto CLI to the coordinator. The coordinator parses, analyzes and plans the query execution, then distributes the processing to the workers.</p>
-<p>Presto does not use MapReduce and thus only requires HDFS.</p>
-<h2 id="Separation-of-Storage-and-Compute"><a href="#Separation-of-Storage-and-Compute" class="headerlink" title="Separation of Storage and Compute"></a>Separation of Storage and Compute</h2><p>Architected for separation of storage and compute, Presto can scale up and down based on your analytics demand to access this data. There’s no need to move your data and provisioning compute to the exact need results in significant cost savings.</p>
-<h3 id="Config-Properties"><a href="#Config-Properties" class="headerlink" title="Config Properties"></a>Config Properties</h3><p>The config properties file, etc/config.properties, contains the configuration for the Presto server. Every Presto server can function as both a coordinator and a worker, but dedicating a single machine to only perform coordination work provides the best performance on larger clusters.</p>
-<h3 id="Catalog-Properties"><a href="#Catalog-Properties" class="headerlink" title="Catalog Properties"></a>Catalog Properties</h3><p>Presto accesses data via connectors, which are mounted in catalogs. The connector provides all of the schemas and tables inside of the catalog. For example, the Hive connector maps each Hive database to a schema, so if the Hive connector is mounted as the hive catalog, and Hive contains a table clicks in database web, that table would be accessed in Presto as hive.web.clicks.</p>
-<p>Catalogs are registered by creating a catalog properties file in the etc/catalog directory. For example, create etc/catalog/jmx.properties with the following contents to mount the jmx connector as the jmx catalog:</p>
+            <h1 id="ZK-Motto"><a href="#ZK-Motto" class="headerlink" title="ZK Motto"></a>ZK Motto</h1><blockquote>
+<p>the motto “ZooKeeper: Because Coordinating Distributed Systems is a Zoo.”</p>
+</blockquote>
+<h1 id="Features-of-Zookeeper"><a href="#Features-of-Zookeeper" class="headerlink" title="Features of Zookeeper"></a>Features of Zookeeper</h1><ul>
+<li>Synchronization − Mutual exclusion and co-operation between server processes.</li>
+<li>Ordered Messages - The strict ordering means that sophisticated synchronization primitives can be implemented at the client.</li>
+<li>Reliability - The reliability aspects keep it from being a single point of failure.</li>
+<li>Atomicity − Data transfer either succeeds or fails completely, but no transaction is partial.</li>
+<li>High performant - The performance aspects of Zookeeper means it can be used in large, distributed systems.</li>
+<li>Distributed.</li>
+<li>High avaliablity.</li>
+<li>Fault-tolerant.</li>
+<li>Loose coupling.</li>
+<li>Partial failure.</li>
+<li>High throughput and low latency - data is stored data in memory and on disk as well.</li>
+<li>Replicated.</li>
+<li>Automatic failover: When a Zookeeper dies, the session is automatically migrated over to another Zookeeper.</li>
+</ul>
+<h2 id="Different-type-of-data"><a href="#Different-type-of-data" class="headerlink" title="Different type of data"></a>Different type of data</h2><p>When designing an application with ZooKeeper, one ideally separates application data from control or coordination data. For example, the users of a web-mail service are interested in their mailbox content, but not on which server is handling the requests of a particular mailbox. The mailbox content is application data, whereas the mapping of the mailbox to a specific mail server is part of the coordination data (or metadata). A ZooKeeper ensemble manages the latter.</p>
+<p>The multiple processes consequently need to implement mutual exclusion. We can actually think of the task of acquiring mastership as the one of acquiring a lock: the process that acquires the mastership lock exercises the role of master.</p>
+<p>Coordination does not always take the form of synchronization primitives like leader election or locks. Configuration metadata is often used as a way for a process to convey what others should be doing. For example, in a master-worker system, workers need to know the tasks that have been assigned to them, and this information must be available even if the master crashes.</p>
+<h2 id="How-world-work-without-ZooKeeper"><a href="#How-world-work-without-ZooKeeper" class="headerlink" title="How world work without ZooKeeper"></a>How world work without ZooKeeper</h2><p>It is certainly possible to build distributed systems without using ZooKeeper. ZooKeep‐ er, however, offers developers the possibility of focusing more on application logic rather than on arcane distributed systems concepts. Programming distributed systems without ZooKeeper is possible, but more difficult.</p>
+<h2 id="What-does-ZooKeeper-does-not-do"><a href="#What-does-ZooKeeper-does-not-do" class="headerlink" title="What does ZooKeeper does not do"></a>What does ZooKeeper does not do</h2><p>The ensemble of ZooKeeper servers manages critical application data related to coor‐ dination. ZooKeeper is not for bulk storage. For bulk storage of application data, there are a number of options available, such as databases and distributed file systems. When designing an application with ZooKeeper, one ideally separates application data from control or coordination data.</p>
+<p>ZooKeeper, however, does not implement the tasks for you. It does not elect a master or track live processes for the application out of the box. Instead, it provides the tools for implementing such tasks. The developer decides what coordination tasks to implement.</p>
+<p>Processes in a distributed system have two broad options for communication: they can exchange messages directly through a network, or read and write to some shared storage. ZooKeeper uses the shared storage model to let applications implement coordination and synchronization primitives. But shared storage itself requires network communi‐ cation between the processes and the storage. It is important to stress the role of network communication because it is an important source of complications in the design of a distributed system.</p>
+<p>This scenario leads to a problem commonly called split-brain: two or more parts of the system make progress independ‐ ently, leading to inconsistent behavior. As part of coming up with a way to cope with master failures, it is critical that we avoid split-brain scenarios.</p>
+<h1 id="Tasks"><a href="#Tasks" class="headerlink" title="Tasks"></a>Tasks</h1><p>The following requirements for our master-worker architecture:<br>Master election<br>It is critical for progress to have a master available to assign tasks to workers.<br>Crash detection<br>The master must be able to detect when workers crash or disconnect.<br>Group membership management<br>The master must be able to figure out which workers are available to execute tasks.<br>Metadata management<br>The master and the workers must be able to store assignments and execution sta‐ tuses in a reliable manner.</p>
+<h1 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h1><p>known as CAP, which stands for Consistency, Availability, and Partition-tolerance, says that when designing a distributed system we may want all three of those properties, but that no system can handle all three.2 Zoo‐ Keeper has been designed with mostly consistency and availability in mind, although it also provides read-only capability in the presence of network partitions.</p>
+<h1 id="ZooKeeper-Basics"><a href="#ZooKeeper-Basics" class="headerlink" title="ZooKeeper Basics"></a>ZooKeeper Basics</h1><p>Several primitives used for coordination are commonly shared across many applica‐ tions. Consequently, one way of designing a service used for coordination is to come up with a list of primitives, expose calls to create instances of each primitive, and ma‐ nipulate these instances directly. For example, we could say that distributed locks con‐ stitute an important primitive and expose calls to create, acquire, and release locks.<br>Such a design, however, suffers from a couple of important shortcomings. First, we need to either come up with an exhaustive list of primitives used beforehand, or keep ex‐ tending the API to introduce new primitives. Second, it does not give flexibility to the application using the service to implement primitives in the way that is most suitable for it.<br>We consequently have taken a different path with ZooKeeper. ZooKeeper does not ex‐ pose primitives directly. Instead, it exposes a file system-like API comprised of a small set of calls that enables applications to implement their own primitives. We typically use recipes to denote these implementations of primitives. Recipes include ZooKeeper operations that manipulate small data nodes, called znodes, that are organized hier‐ archically as a tree, just like in a file system.</p>
+<h2 id="znodes"><a href="#znodes" class="headerlink" title="znodes"></a>znodes</h2><p>a few other znodes that could be useful in a master- worker configuration:</p>
+<ul>
+<li>The /workers znode is the parent znode to all znodes representing a worker avail‐ able in the system. Figure 2-1 shows that one worker (foo.com:2181) is available. If a worker becomes unavailable, its znode should be removed from /workers.</li>
+<li>The /tasks znode is the parent of all tasks created and waiting for workers to execute them. Clients of the master-worker application add new znodes as children of /tasks to represent new tasks and wait for znodes representing the status of the task.</li>
+<li>The /assign znode is the parent of all znodes representing an assignment of a task to a worker. When a master assigns a task to a worker, it adds a child znode to /assign.<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2>API Overview<br>Znodes may or may not contain data. If a znode contains any data, the data is stored as a byte array. The exact format of the byte array is specific to each application, and ZooKeeper does not directly provide support to parse it. Serialization packages such as Protocol Buffers, Thrift, Avro, and MessagePack may be handy for dealing with the format of the data stored in znodes, but sometimes string encodings such as UTF-8 or ASCII suffice.</li>
+</ul>
+<h2 id="The-ZooKeeper-API-exposes-the-following-operations"><a href="#The-ZooKeeper-API-exposes-the-following-operations" class="headerlink" title="The ZooKeeper API exposes the following operations:"></a>The ZooKeeper API exposes the following operations:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">create /path data</span><br><span class="line">Creates a znode named with /path and containing data</span><br><span class="line">delete /path</span><br><span class="line">Deletes the znode /path</span><br><span class="line">exists /path</span><br><span class="line">Checks whether /path exists</span><br><span class="line">setData /path data</span><br><span class="line">Sets the data of znode /path to data</span><br><span class="line">getData /path</span><br><span class="line">Returns the data in /path</span><br><span class="line">getChildren /path</span><br><span class="line">Returns the list of children under /path</span><br><span class="line">One important note is that ZooKeeper does not allow partial writes or reads of the znode data. When setting the data of a znode or reading it, the content of the znode is replaced or read entirely.</span><br></pre></td></tr></table></figure>
+
+<p>ZooKeeper clients connect to a ZooKeeper service and establish a session through which they make API calls. </p>
+<p>If a worker becomes unavailable, its session expires and its znode in /workers disappears automatically.</p>
+<p>An ephemeral znode can be deleted in two situations:</p>
+<ol>
+<li>When the session of the client creator ends, either by expiration or because it ex‐ plicitly closed.</li>
+<li>When a client, not necessarily the creator, deletes it.</li>
+</ol>
+<h3 id="Sequential-znodes"><a href="#Sequential-znodes" class="headerlink" title="Sequential znodes"></a>Sequential znodes</h3><p>A znode can also be set to be sequential. A sequential znode is assigned a unique, mo‐ notonically increasing integer. This sequence number is appended to the path used to create the znode. For example, if a client creates a sequential znode with the path /tasks/ task-, ZooKeeper assigns a sequence number, say 1, and appends it to the path. The path of the znode becomes /tasks/task-1. Sequential znodes provide an easy way to create znodes with unique names. They also provide a way to easily see the creation order of znodes.</p>
+<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><p>This is a common problem with polling. To replace the client polling, we have opted for a mechanism based on notifications: clients register with ZooKeeper to receive notifi‐ cations of changes to znodes. Registering to receive a notification for a given znode consists of setting a watch. A watch is a one-shot operation, which means that it triggers one notification. To receive multiple notifications over time, the client must set a new watch upon receiving each notification. </p>
+<h2 id="Versions"><a href="#Versions" class="headerlink" title="Versions"></a>Versions</h2><p>Each znode has a version number associated with it that is incremented every time its data changes. A couple of operations in the API can be executed conditionally: setDa ta and delete. Both calls take a version as an input parameter, and the operation suc‐ ceeds only if the version passed by the client matches the current version on the server. The use of versions is important when multiple ZooKeeper clients might be trying to perform operations over the same znode. For example, suppose that a client c1 writes a znode /config containing some configuration. If another client c2 concurrently updates the znode, the version c1 has is stale and the setData of c1 must not succeed. Using versions avoids such situations. In this case, the version that c1 uses when writing back doesn’t match and the operation fails. </p>
+<h1 id="ZooKeeper-Architecture"><a href="#ZooKeeper-Architecture" class="headerlink" title="ZooKeeper Architecture"></a>ZooKeeper Architecture</h1><p>Now that we have discussed at a high level the operations that ZooKeeper exposes to applications, we need to understand more of how the service actually works. Applica‐ tions make calls to ZooKeeper through a client library. The client library is responsible for the interaction with ZooKeeper servers.</p>
+<p>ZooKeeper servers run in two modes: standalone and quorum. Standalone mode is pretty much what the term says: there is a single server, and ZooKeeper state is not replicated. In quorum mode, a group of ZooKeeper servers, which we call a ZooKeeper ensemble, replicates the state, and together they serve client requests. From this point on, we use the term “ZooKeeper ensemble” to denote an installation of servers. This installation could contain a single server and operate in standalone mode or contain a group of servers and operate in quorum mode.</p>
+<h2 id="ZooKeeper-Quorums"><a href="#ZooKeeper-Quorums" class="headerlink" title="ZooKeeper Quorums"></a>ZooKeeper Quorums</h2><p>In quorum mode, ZooKeeper replicates its data tree across all servers in the ensemble. But if a client had to wait for every server to store its data before continuing, the delays might be unacceptable. In public administration, a quorum is the minimum number of legislators required to be present for a vote. In ZooKeeper, it is the minimum number of servers that have to be running and available in order for ZooKeeper to work. This number is also the minimum number of servers that have to store a client’s data before telling the client it is safely stored. For instance, we might have five ZooKeeper servers in total, but a quorum of three. So long as any three servers have stored the data, the client can continue, and the other two servers will eventually catch up and store the data.</p>
+<p>It is important to choose an adequate size for the quorum. Quorums must guarantee that, regardless of delays and crashes in the system, any update request the service pos‐ itively acknowledges will persist until another request supersedes it.</p>
+<p><code>The bottom line is that we should always shoot for an odd number of servers.</code></p>
+<h2 id="sessions"><a href="#sessions" class="headerlink" title="sessions"></a>sessions</h2><p>All operations a client submits to ZooKeeper are associated to a session. When a session ends for any reason, the ephemeral nodes created during that session disappear.</p>
+<p>the session may be moved to a different server if the client has not heard from its current server for some time. Moving a session to a different server is handled transparently by the ZooKeeper client library.</p>
+<p>Sessions offer order guarantees, which means that requests in a session are executed in FIFO (first in, first out) order. Typically, a client has only a single session open, so its requests are all executed in FIFO order. If a client has multiple concurrent sessions, FIFO ordering is not necessarily preserved across the sessions.</p>
+<h2 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 5] <span class="built_in">stat</span> /master</span><br><span class="line">cZxid = 0x4</span><br><span class="line">ctime = Mon Aug 20 21:10:23 AEST 2018</span><br><span class="line">mZxid = 0x4</span><br><span class="line">mtime = Mon Aug 20 21:10:23 AEST 2018</span><br><span class="line">pZxid = 0x4</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x10003c70e250001</span><br><span class="line">dataLength = 11</span><br><span class="line">numChildren = 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 8] create /workers <span class="string">""</span></span><br><span class="line">Created /workers</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 9] create /tasks <span class="string">""</span></span><br><span class="line">Created /tasks</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 10] create /assign <span class="string">""</span></span><br><span class="line">Created /assign</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 11] ls /</span><br><span class="line">[assign, master, tasks, workers, zookeeper]</span><br></pre></td></tr></table></figure>
+
+<h2 id="link-master-and-workers"><a href="#link-master-and-workers" class="headerlink" title="link master and workers"></a>link master and workers</h2><p>In a real application, these znodes need to be created either by a primary process before it starts assigning tasks or by some bootstrap procedure. Regardless of how they are created, once they exist, the master needs to watch for changes in the children of /workers and /tasks:<br>    [zk: localhost:2181(CONNECTED) 4] ls /workers true<br>    []<br>    [zk: localhost:2181(CONNECTED) 5] ls /tasks true<br>    []<br>    [zk: localhost:2181(CONNECTED) 6]<br>Note that we have used the optional true parameter with ls, as we did before with stat on the master. The true parameter, in this case, creates a watch for changes to the set of children of the corresponding znode.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 14] create -e /workers/todd-worker1 <span class="string">""</span></span><br><span class="line">Created /workers/todd-worker1</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeChildrenChanged path:/workers</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 15]</span><br></pre></td></tr></table></figure>
+
+<p>Recall that the master has set a watch for changes to the children of /workers. Once the worker creates a znode under /workers, the master observes the following notification:<br>    WATCHER::<br>    WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/workers</p>
+<h2 id="Tasks-workflows"><a href="#Tasks-workflows" class="headerlink" title="Tasks workflows"></a>Tasks workflows</h2><ul>
+<li>Clients add tasks to the system. Here we assume that the client asks the master-worker system to run a command cmd. To add a task to the system, a client executes the following:<br>  [zk: localhost:2181(CONNECTED) 0] create -s /tasks/task- “cmd”<br>  Created /tasks/task-0000000000</li>
+<li>The client now has to wait until the task is executed. </li>
+<li>The worker that executes the task creates a status znode for the task once the task completes. </li>
+<li>The client determines that the task has been executed when it sees that a status znode for the task has been created; </li>
+<li>the client consequently must watch for the creation of the status znode:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 18] create -s /tasks/task- <span class="string">"cmd"</span></span><br><span class="line">Created /tasks/task-0000000000</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 19] ls /tasks</span><br><span class="line">[task-0000000000]</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 20] ls -w /tasks/task-0000000000 </span><br><span class="line">[]</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 21] ls -w /workers</span><br><span class="line">[todd-worker1]</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 22] create /assign/todd-worker1/task-0000000000 <span class="string">""</span></span><br><span class="line">Ephemerals cannot have children: /assign/todd-worker1/task-0000000000</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 23] delete /assign/todd-worker1</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 24] create /assign/todd-worker1</span><br><span class="line">Created /assign/todd-worker1</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 25] create /assign/todd-worker1/task-0000000000 <span class="string">""</span></span><br><span class="line">Created /assign/todd-worker1/task-0000000000</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 26] ls /assign/todd-worker1</span><br><span class="line">[task-0000000000]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Once the worker finishes executing the task, it adds a status znode to /tasks:</span></span><br><span class="line">    [zk: localhost:2181(CONNECTED) 4] create /tasks/task-0000000000/status <span class="string">"done"</span></span><br><span class="line">    Created /tasks/task-0000000000/status</span><br><span class="line">    [zk: localhost:2181(CONNECTED) 5]</span><br><span class="line"><span class="comment"># and the client receives a notification and checks the result:</span></span><br><span class="line">WATCHER::</span><br><span class="line">    WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeChildrenChanged</span><br><span class="line">    path:/tasks/task-0000000000</span><br><span class="line">    [zk: localhost:2181(CONNECTED) 2] get /tasks/task-0000000000</span><br><span class="line">    <span class="string">"cmd"</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="ZooKeeper-API"><a href="#ZooKeeper-API" class="headerlink" title="ZooKeeper API"></a>ZooKeeper API</h1><h2 id="Setting-the-ZooKeeper-CLASSPATH"><a href="#Setting-the-ZooKeeper-CLASSPATH" class="headerlink" title="Setting the ZooKeeper CLASSPATH"></a>Setting the ZooKeeper CLASSPATH</h2><p> ZOOBINDIR=”<path_to_distro>/bin”<br>    . “$ZOOBINDIR”/zkEnv.sh</path_to_distro></p>
+<h2 id="handle"><a href="#handle" class="headerlink" title="handle"></a>handle</h2><p>The ZooKeeper API is built around a ZooKeeper handle that is passed to every API call. This handle represents a session with ZooKeeper. A session that is established with one ZooKeeper server will migrate to another ZooKeeper server if its connection is broken. As long as the session is alive, the handle will remain valid, and the ZooKeeper client library will continually try to keep an active connection to a ZooKeeper server to keep the session alive. If the handle is closed, the ZooKeeper client library will tell the ZooKeeper servers to kill the session. If ZooKeeper decides that a client has died, it will invalidate the session. If a client later tries to reconnect to a Zoo‐ Keeper server using the handle that corresponds to the invalidated session, the Zoo‐ Keeper server informs the client library that the session is no longer valid and the handle returns errors for all operations.</p>
+<p>The constructor that creates a ZooKeeper handle usually looks like:<br>ZooKeeper(<br>String connectString, int sessionTimeout, Watcher watcher)</p>
+<h3 id="Implementing-a-Watcher"><a href="#Implementing-a-Watcher" class="headerlink" title="Implementing a Watcher"></a>Implementing a Watcher</h3><p>To receive notifications from ZooKeeper, we need to implement watchers. Let’s look a bit more closely at the Watcher interface. It has the following declaration:<br>public interface Watcher {<br>void process(WatchedEvent event);<br>}</p>
+<h3 id="Sample-ZooKeeper-handle"><a href="#Sample-ZooKeeper-handle" class="headerlink" title="Sample ZooKeeper handle"></a>Sample ZooKeeper handle</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.zookeeper.ZooKeeper; </span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.Watcher;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Master</span> <span class="keyword">implements</span> <span class="title">Watcher</span> </span>&#123; </span><br><span class="line">  ZooKeeper zk;</span><br><span class="line">        String hostPort;</span><br><span class="line"></span><br><span class="line">Master(String hostPort) </span><br><span class="line">&#123; <span class="keyword">this</span>.hostPort = hostPort;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">startZK</span><span class="params">()</span> </span>&#123;</span><br><span class="line">zk = <span class="keyword">new</span> ZooKeeper(hostPort, <span class="number">15000</span>, <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent e)</span> </span>&#123; System.out.println(e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">Master m = <span class="keyword">new</span> Master(args[<span class="number">0</span>]);</span><br><span class="line">            m.startZK();</span><br><span class="line">            <span class="comment">// wait for a bit</span></span><br><span class="line">            Thread.sleep(<span class="number">60000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>nce we have connected to ZooKeeper, there will be a background thread that will maintain the ZooKeeper session. This thread is a daemon thread, which means that the program may exit even if the thread is still active. Here we sleep for a bit so that we can see some events come in before the program exits.<br>We can compile this simple example using the following:<br>$ javac -cp $CLASSPATH Master.java<br>Once we have compiled Master.java, we run it and see the following:<br>$ java -cp $CLASSPATH Master 127.0.0.1:2181</p>
+<h2 id="disconnect"><a href="#disconnect" class="headerlink" title="disconnect"></a>disconnect</h2><p>When developers see the Disconnected event, some think they need to create a new ZooKeeper handle to reconnect to the service. Do not do that! See what happens when you start the server, start the Master, and then stop and start the server while the Master is still running. You should see the SyncConnected event followed by the Disconnec ted event and then another SyncConnected event. The ZooKeeper client library takes care of reconnecting to the service for you. Unfortunately, network outages and server failures happen. Usually, ZooKeeper can deal with these failures.</p>
 
           
         
@@ -1018,6 +1171,118 @@ Notice that we’ve had to prefix the list of alternates with another bit of reg
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-21-sudo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2018-08-21-sudo/" class="post-title-link" itemprop="url">Sudo in a Nutshell</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Sudo-in-a-Nutshell"><a href="#Sudo-in-a-Nutshell" class="headerlink" title="Sudo in a Nutshell"></a>Sudo in a Nutshell</h1><p>Sudo (su “do”) allows a system administrator to give certain users (or groups of users) the ability to run some (or all) commands as root while logging all commands and arguments. Sudo operates on a per-command basis, it is not a replacement for the shell. Its features include:</p>
+<p>The ability to restrict what commands a user may run on a per-host basis.<br>Sudo does copious logging of each command, providing a clear audit trail of who did what. When used in tandem with syslogd, the system log daemon, sudo can log all commands to a central host (as well as on the local host). At CU, all admins use sudo in lieu of a root shell to take advantage of this logging.<br>Sudo uses timestamp files to implement a “ticketing” system. When a user invokes sudo and enters their password, they are granted a ticket for 5 minutes (this timeout is configurable at compile-time). Each subsequent sudo command updates the ticket for another 5 minutes. This avoids the problem of leaving a root shell where others can physically get to your keyboard. There is also an easy way for a user to remove their ticket file, useful for placing in a .logout file.<br>Sudo’s configuration file, the sudoers file, is setup in such a way that the same sudoers file may be used on many machines. This allows for central administration while keeping the flexibility to define a user’s privileges on a per-host basis. Please see the samples sudoers file below for a real-world example.</p>
+<h1 id="sudo-conf"><a href="#sudo-conf" class="headerlink" title="sudo.conf"></a>sudo.conf</h1><p>The sudo.conf file is used to configure the sudo front end. It specifies the security policy and I/O logging plugins, debug flags as well as plugin-agnostic path names and settings.</p>
+<p>sudo supports a plugin architecture for security policies and input/output logging. Third parties can develop and distribute their own policy and I/O logging plugins to work seamlessly with the sudo front end. Plugins are dynamically loaded based on the contents of sudo.conf.<br>A Plugin line consists of the Plugin keyword, followed by the symbol_name and the path to the dynamic shared object that contains the plugin. The symbol_name is the name of the struct policy_plugin or struct io_plugin symbol contained in the plugin. The path may be fully qualified or relative. If not fully qualified, it is relative to the directory specified by the plugin_dir Path setting, which defaults to /usr/local/libexec/sudo. In other words:<br>Plugin sudoers_policy sudoers.so<br>is equivalent to:<br>Plugin sudoers_policy /usr/local/libexec/sudo/sudoers.so</p>
+<h2 id="Configurations"><a href="#Configurations" class="headerlink" title="Configurations"></a>Configurations</h2><ul>
+<li><p>sudoers_file=pathname<br>The sudoers_file argument can be used to override the default path to the sudoers file.</p>
+</li>
+<li><p>sudoers_uid=uid<br>The sudoers_uid argument can be used to override the default owner of the sudoers file. It should be specified as a numeric user ID.</p>
+</li>
+</ul>
+<h1 id="email-notification"><a href="#email-notification" class="headerlink" title="email notification"></a>email notification</h1><p>If a user who is not listed in the policy tries to run a command via sudo, mail is sent to the proper authorities. The address used for such mail is configurable via the mailto Defaults entry (described later) and defaults to root.</p>
+<p>Note that no mail will be sent if an unauthorized user tries to run sudo with the -l or -v option unless there is an authentication error and either the mail_always or mail_badpass flags are enabled. This allows users to determine for themselves whether or not they are allowed to use sudo. All attempts to run sudo (successful or not) will be logged, regardless of whether or not mail is sent.</p>
+<p>sudoers uses per-user time stamp files for credential caching. Once a user has been authenticated, a record is written containing the user ID that was used to authenticate, the terminal session ID, the start time of the session leader (or parent process) and a time stamp (using a monotonic clock if one is available). The user may then use sudo without a password for a short period of time (5 minutes unless overridden by the timestamp_timeout option). By default, sudoers uses a separate record for each terminal, which means that a user’s login sessions are authenticated separately. The timestamp_type option can be used to select the type of time stamp record sudoers will use.</p>
+<h1 id="File-format"><a href="#File-format" class="headerlink" title="File format"></a>File format</h1><p>The sudoers file is composed of two types of entries: aliases (basically variables) and user specifications (which specify who may run what).</p>
+<p>When multiple entries match for a user, they are applied in order. Where there are multiple matches, the last match is used (which is not necessarily the most specific match).<br>The sudoers file grammar will be described below in Extended Backus-Naur Form (EBNF). Don’t despair if you are unfamiliar with EBNF; it is fairly simple, and the definitions below are annotated.</p>
+<h1 id="environment"><a href="#environment" class="headerlink" title="environment"></a>environment</h1><p>By default, the env_reset option is enabled. This causes commands to be executed with a new, minimal environment.</p>
+<p>Lists have two additional assignment operators, += and -=. These operators are used to add to and delete from a list respectively. It is not an error to use the -= operator to remove an element that does not exist in a list.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">35 Defaults    env_reset</span><br><span class="line">36 Defaults    env_keep += <span class="string">"BLOCKSIZE"</span></span><br><span class="line">37 Defaults    env_keep += <span class="string">"COLORFGBG COLORTERM"</span></span><br><span class="line">38 Defaults    env_keep += <span class="string">"__CF_USER_TEXT_ENCODING"</span></span><br><span class="line">39 Defaults    env_keep += <span class="string">"CHARSET LANG LANGUAGE LC_ALL LC_COLLATE LC_CTYPE"</span></span><br><span class="line">40 Defaults    env_keep += <span class="string">"LC_MESSAGES LC_MONETARY LC_NUMERIC LC_TIME"</span></span><br><span class="line">41 Defaults    env_keep += <span class="string">"LINES COLUMNS"</span></span><br><span class="line">42 Defaults    env_keep += <span class="string">"LSCOLORS"</span></span><br><span class="line">43 Defaults    env_keep += <span class="string">"SSH_AUTH_SOCK"</span></span><br><span class="line">44 Defaults    env_keep += <span class="string">"TZ"</span></span><br><span class="line">45 Defaults    env_keep += <span class="string">"DISPLAY XAUTHORIZATION XAUTHORITY"</span></span><br><span class="line">46 Defaults    env_keep += <span class="string">"EDITOR VISUAL"</span></span><br><span class="line">47 Defaults    env_keep += <span class="string">"HOME MAIL"</span></span><br><span class="line">48 </span><br><span class="line">49 Defaults    lecture_file = <span class="string">"/etc/sudo_lecture"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="lecture"><a href="#lecture" class="headerlink" title="lecture"></a>lecture</h3><h4 id="lecture-1"><a href="#lecture-1" class="headerlink" title="lecture"></a>lecture</h4><p>This option controls when a short lecture will be printed along with the password prompt. It has the following possible values:</p>
+<ul>
+<li>always<br>Always lecture the user.</li>
+<li>never<br>Never lecture the user.</li>
+<li>once<br>Only lecture the user the first time they run sudo.<br>If no value is specified, a value of once is implied. Negating the option results in a value of never being used. The default value is once.<h4 id="lecture-file"><a href="#lecture-file" class="headerlink" title="lecture_file"></a>lecture_file</h4>Path to a file containing an alternate sudo lecture that will be used in place of the standard lecture if the named file exists. By default, sudo uses a built-in lecture.  </li>
+</ul>
+<h1 id="Everything-is-file"><a href="#Everything-is-file" class="headerlink" title="Everything is file"></a>Everything is file</h1><p>A fundamental and very powerful, consistent abstraction provided in UNIX and compatible operating systems is the file abstraction. Many OS services and device interfaces are implemented to provide a file or file system metaphor to applications.</p>
+<h1 id="manage-user-group"><a href="#manage-user-group" class="headerlink" title="manage user group"></a>manage user group</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Alternatively, gpasswd may be used. Though the username can only be added (or removed) from one group at a time:</span></span><br><span class="line">gpasswd --add username group</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add users to a group with the gpasswd command:</span></span><br><span class="line">gpasswd -a user group</span><br><span class="line"></span><br><span class="line"><span class="comment">#To remove users from a group:</span></span><br><span class="line">gpasswd -d user group</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gpasswd - administer the /etc/group file</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EXAMPLES</span><br><span class="line">1. Add user (tracy) to the group (hrd)</span><br><span class="line">$ gpasswd -a tracy hrd</span><br><span class="line">2. Add multiper users to the group (developer)</span><br><span class="line">$ gpasswd -a pavan,john developer</span><br><span class="line">3. Remove user (rakesh) from group (sqa)</span><br><span class="line">$ gpasswd -d rakesh sqa</span><br><span class="line">4. Remove multiple users from group (managers)</span><br><span class="line">$ gpasswd -d shane,ron,ram managers</span><br><span class="line">5. Set user (joy) and group administrator <span class="keyword">for</span> (managers)</span><br><span class="line">$ gpasswd -A joy managers</span><br></pre></td></tr></table></figure>
+
+<h3 id="to-show-user-details"><a href="#to-show-user-details" class="headerlink" title="to show user details"></a>to show user details</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id todzhang</span><br></pre></td></tr></table></figure>
+
+<h3 id="Display-group-membership-with-the-groups-command"><a href="#Display-group-membership-with-the-groups-command" class="headerlink" title="Display group membership with the groups command:"></a>Display group membership with the groups command:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ groups user</span><br></pre></td></tr></table></figure>
+
+<h3 id="To-change-the-user’s-login-shell"><a href="#To-change-the-user’s-login-shell" class="headerlink" title="To change the user’s login shell:"></a>To change the user’s login shell:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># usermod -s /bin/bash username</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><ul>
+<li><a href="https://www.sudo.ws/man/sudo.conf.man.html" target="_blank" rel="noopener">https://www.sudo.ws/man/sudo.conf.man.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-03-distruptor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1069,246 +1334,6 @@ Notice that we’ve had to prefix the list of alternates with another bit of reg
             <h1 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h1><p>There only 2 things you can do with Mockito mocks - verify or stub. Stubbing goes before execution and verification afterwards.</p>
 <h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
 <li><a href="https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock" target="_blank" rel="noopener">https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-19-ZooKeeper/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-08-19-ZooKeeper/" class="post-title-link" itemprop="url">Zoo-keeper</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="ZK-Motto"><a href="#ZK-Motto" class="headerlink" title="ZK Motto"></a>ZK Motto</h1><blockquote>
-<p>the motto “ZooKeeper: Because Coordinating Distributed Systems is a Zoo.”</p>
-</blockquote>
-<h1 id="Features-of-Zookeeper"><a href="#Features-of-Zookeeper" class="headerlink" title="Features of Zookeeper"></a>Features of Zookeeper</h1><ul>
-<li>Synchronization − Mutual exclusion and co-operation between server processes.</li>
-<li>Ordered Messages - The strict ordering means that sophisticated synchronization primitives can be implemented at the client.</li>
-<li>Reliability - The reliability aspects keep it from being a single point of failure.</li>
-<li>Atomicity − Data transfer either succeeds or fails completely, but no transaction is partial.</li>
-<li>High performant - The performance aspects of Zookeeper means it can be used in large, distributed systems.</li>
-<li>Distributed.</li>
-<li>High avaliablity.</li>
-<li>Fault-tolerant.</li>
-<li>Loose coupling.</li>
-<li>Partial failure.</li>
-<li>High throughput and low latency - data is stored data in memory and on disk as well.</li>
-<li>Replicated.</li>
-<li>Automatic failover: When a Zookeeper dies, the session is automatically migrated over to another Zookeeper.</li>
-</ul>
-<h2 id="Different-type-of-data"><a href="#Different-type-of-data" class="headerlink" title="Different type of data"></a>Different type of data</h2><p>When designing an application with ZooKeeper, one ideally separates application data from control or coordination data. For example, the users of a web-mail service are interested in their mailbox content, but not on which server is handling the requests of a particular mailbox. The mailbox content is application data, whereas the mapping of the mailbox to a specific mail server is part of the coordination data (or metadata). A ZooKeeper ensemble manages the latter.</p>
-<p>The multiple processes consequently need to implement mutual exclusion. We can actually think of the task of acquiring mastership as the one of acquiring a lock: the process that acquires the mastership lock exercises the role of master.</p>
-<p>Coordination does not always take the form of synchronization primitives like leader election or locks. Configuration metadata is often used as a way for a process to convey what others should be doing. For example, in a master-worker system, workers need to know the tasks that have been assigned to them, and this information must be available even if the master crashes.</p>
-<h2 id="How-world-work-without-ZooKeeper"><a href="#How-world-work-without-ZooKeeper" class="headerlink" title="How world work without ZooKeeper"></a>How world work without ZooKeeper</h2><p>It is certainly possible to build distributed systems without using ZooKeeper. ZooKeep‐ er, however, offers developers the possibility of focusing more on application logic rather than on arcane distributed systems concepts. Programming distributed systems without ZooKeeper is possible, but more difficult.</p>
-<h2 id="What-does-ZooKeeper-does-not-do"><a href="#What-does-ZooKeeper-does-not-do" class="headerlink" title="What does ZooKeeper does not do"></a>What does ZooKeeper does not do</h2><p>The ensemble of ZooKeeper servers manages critical application data related to coor‐ dination. ZooKeeper is not for bulk storage. For bulk storage of application data, there are a number of options available, such as databases and distributed file systems. When designing an application with ZooKeeper, one ideally separates application data from control or coordination data.</p>
-<p>ZooKeeper, however, does not implement the tasks for you. It does not elect a master or track live processes for the application out of the box. Instead, it provides the tools for implementing such tasks. The developer decides what coordination tasks to implement.</p>
-<p>Processes in a distributed system have two broad options for communication: they can exchange messages directly through a network, or read and write to some shared storage. ZooKeeper uses the shared storage model to let applications implement coordination and synchronization primitives. But shared storage itself requires network communi‐ cation between the processes and the storage. It is important to stress the role of network communication because it is an important source of complications in the design of a distributed system.</p>
-<p>This scenario leads to a problem commonly called split-brain: two or more parts of the system make progress independ‐ ently, leading to inconsistent behavior. As part of coming up with a way to cope with master failures, it is critical that we avoid split-brain scenarios.</p>
-<h1 id="Tasks"><a href="#Tasks" class="headerlink" title="Tasks"></a>Tasks</h1><p>The following requirements for our master-worker architecture:<br>Master election<br>It is critical for progress to have a master available to assign tasks to workers.<br>Crash detection<br>The master must be able to detect when workers crash or disconnect.<br>Group membership management<br>The master must be able to figure out which workers are available to execute tasks.<br>Metadata management<br>The master and the workers must be able to store assignments and execution sta‐ tuses in a reliable manner.</p>
-<h1 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h1><p>known as CAP, which stands for Consistency, Availability, and Partition-tolerance, says that when designing a distributed system we may want all three of those properties, but that no system can handle all three.2 Zoo‐ Keeper has been designed with mostly consistency and availability in mind, although it also provides read-only capability in the presence of network partitions.</p>
-<h1 id="ZooKeeper-Basics"><a href="#ZooKeeper-Basics" class="headerlink" title="ZooKeeper Basics"></a>ZooKeeper Basics</h1><p>Several primitives used for coordination are commonly shared across many applica‐ tions. Consequently, one way of designing a service used for coordination is to come up with a list of primitives, expose calls to create instances of each primitive, and ma‐ nipulate these instances directly. For example, we could say that distributed locks con‐ stitute an important primitive and expose calls to create, acquire, and release locks.<br>Such a design, however, suffers from a couple of important shortcomings. First, we need to either come up with an exhaustive list of primitives used beforehand, or keep ex‐ tending the API to introduce new primitives. Second, it does not give flexibility to the application using the service to implement primitives in the way that is most suitable for it.<br>We consequently have taken a different path with ZooKeeper. ZooKeeper does not ex‐ pose primitives directly. Instead, it exposes a file system-like API comprised of a small set of calls that enables applications to implement their own primitives. We typically use recipes to denote these implementations of primitives. Recipes include ZooKeeper operations that manipulate small data nodes, called znodes, that are organized hier‐ archically as a tree, just like in a file system.</p>
-<h2 id="znodes"><a href="#znodes" class="headerlink" title="znodes"></a>znodes</h2><p>a few other znodes that could be useful in a master- worker configuration:</p>
-<ul>
-<li>The /workers znode is the parent znode to all znodes representing a worker avail‐ able in the system. Figure 2-1 shows that one worker (foo.com:2181) is available. If a worker becomes unavailable, its znode should be removed from /workers.</li>
-<li>The /tasks znode is the parent of all tasks created and waiting for workers to execute them. Clients of the master-worker application add new znodes as children of /tasks to represent new tasks and wait for znodes representing the status of the task.</li>
-<li>The /assign znode is the parent of all znodes representing an assignment of a task to a worker. When a master assigns a task to a worker, it adds a child znode to /assign.<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2>API Overview<br>Znodes may or may not contain data. If a znode contains any data, the data is stored as a byte array. The exact format of the byte array is specific to each application, and ZooKeeper does not directly provide support to parse it. Serialization packages such as Protocol Buffers, Thrift, Avro, and MessagePack may be handy for dealing with the format of the data stored in znodes, but sometimes string encodings such as UTF-8 or ASCII suffice.</li>
-</ul>
-<h2 id="The-ZooKeeper-API-exposes-the-following-operations"><a href="#The-ZooKeeper-API-exposes-the-following-operations" class="headerlink" title="The ZooKeeper API exposes the following operations:"></a>The ZooKeeper API exposes the following operations:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">create /path data</span><br><span class="line">Creates a znode named with /path and containing data</span><br><span class="line">delete /path</span><br><span class="line">Deletes the znode /path</span><br><span class="line">exists /path</span><br><span class="line">Checks whether /path exists</span><br><span class="line">setData /path data</span><br><span class="line">Sets the data of znode /path to data</span><br><span class="line">getData /path</span><br><span class="line">Returns the data in /path</span><br><span class="line">getChildren /path</span><br><span class="line">Returns the list of children under /path</span><br><span class="line">One important note is that ZooKeeper does not allow partial writes or reads of the znode data. When setting the data of a znode or reading it, the content of the znode is replaced or read entirely.</span><br></pre></td></tr></table></figure>
-
-<p>ZooKeeper clients connect to a ZooKeeper service and establish a session through which they make API calls. </p>
-<p>If a worker becomes unavailable, its session expires and its znode in /workers disappears automatically.</p>
-<p>An ephemeral znode can be deleted in two situations:</p>
-<ol>
-<li>When the session of the client creator ends, either by expiration or because it ex‐ plicitly closed.</li>
-<li>When a client, not necessarily the creator, deletes it.</li>
-</ol>
-<h3 id="Sequential-znodes"><a href="#Sequential-znodes" class="headerlink" title="Sequential znodes"></a>Sequential znodes</h3><p>A znode can also be set to be sequential. A sequential znode is assigned a unique, mo‐ notonically increasing integer. This sequence number is appended to the path used to create the znode. For example, if a client creates a sequential znode with the path /tasks/ task-, ZooKeeper assigns a sequence number, say 1, and appends it to the path. The path of the znode becomes /tasks/task-1. Sequential znodes provide an easy way to create znodes with unique names. They also provide a way to easily see the creation order of znodes.</p>
-<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><p>This is a common problem with polling. To replace the client polling, we have opted for a mechanism based on notifications: clients register with ZooKeeper to receive notifi‐ cations of changes to znodes. Registering to receive a notification for a given znode consists of setting a watch. A watch is a one-shot operation, which means that it triggers one notification. To receive multiple notifications over time, the client must set a new watch upon receiving each notification. </p>
-<h2 id="Versions"><a href="#Versions" class="headerlink" title="Versions"></a>Versions</h2><p>Each znode has a version number associated with it that is incremented every time its data changes. A couple of operations in the API can be executed conditionally: setDa ta and delete. Both calls take a version as an input parameter, and the operation suc‐ ceeds only if the version passed by the client matches the current version on the server. The use of versions is important when multiple ZooKeeper clients might be trying to perform operations over the same znode. For example, suppose that a client c1 writes a znode /config containing some configuration. If another client c2 concurrently updates the znode, the version c1 has is stale and the setData of c1 must not succeed. Using versions avoids such situations. In this case, the version that c1 uses when writing back doesn’t match and the operation fails. </p>
-<h1 id="ZooKeeper-Architecture"><a href="#ZooKeeper-Architecture" class="headerlink" title="ZooKeeper Architecture"></a>ZooKeeper Architecture</h1><p>Now that we have discussed at a high level the operations that ZooKeeper exposes to applications, we need to understand more of how the service actually works. Applica‐ tions make calls to ZooKeeper through a client library. The client library is responsible for the interaction with ZooKeeper servers.</p>
-<p>ZooKeeper servers run in two modes: standalone and quorum. Standalone mode is pretty much what the term says: there is a single server, and ZooKeeper state is not replicated. In quorum mode, a group of ZooKeeper servers, which we call a ZooKeeper ensemble, replicates the state, and together they serve client requests. From this point on, we use the term “ZooKeeper ensemble” to denote an installation of servers. This installation could contain a single server and operate in standalone mode or contain a group of servers and operate in quorum mode.</p>
-<h2 id="ZooKeeper-Quorums"><a href="#ZooKeeper-Quorums" class="headerlink" title="ZooKeeper Quorums"></a>ZooKeeper Quorums</h2><p>In quorum mode, ZooKeeper replicates its data tree across all servers in the ensemble. But if a client had to wait for every server to store its data before continuing, the delays might be unacceptable. In public administration, a quorum is the minimum number of legislators required to be present for a vote. In ZooKeeper, it is the minimum number of servers that have to be running and available in order for ZooKeeper to work. This number is also the minimum number of servers that have to store a client’s data before telling the client it is safely stored. For instance, we might have five ZooKeeper servers in total, but a quorum of three. So long as any three servers have stored the data, the client can continue, and the other two servers will eventually catch up and store the data.</p>
-<p>It is important to choose an adequate size for the quorum. Quorums must guarantee that, regardless of delays and crashes in the system, any update request the service pos‐ itively acknowledges will persist until another request supersedes it.</p>
-<p><code>The bottom line is that we should always shoot for an odd number of servers.</code></p>
-<h2 id="sessions"><a href="#sessions" class="headerlink" title="sessions"></a>sessions</h2><p>All operations a client submits to ZooKeeper are associated to a session. When a session ends for any reason, the ephemeral nodes created during that session disappear.</p>
-<p>the session may be moved to a different server if the client has not heard from its current server for some time. Moving a session to a different server is handled transparently by the ZooKeeper client library.</p>
-<p>Sessions offer order guarantees, which means that requests in a session are executed in FIFO (first in, first out) order. Typically, a client has only a single session open, so its requests are all executed in FIFO order. If a client has multiple concurrent sessions, FIFO ordering is not necessarily preserved across the sessions.</p>
-<h2 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 5] <span class="built_in">stat</span> /master</span><br><span class="line">cZxid = 0x4</span><br><span class="line">ctime = Mon Aug 20 21:10:23 AEST 2018</span><br><span class="line">mZxid = 0x4</span><br><span class="line">mtime = Mon Aug 20 21:10:23 AEST 2018</span><br><span class="line">pZxid = 0x4</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x10003c70e250001</span><br><span class="line">dataLength = 11</span><br><span class="line">numChildren = 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 8] create /workers <span class="string">""</span></span><br><span class="line">Created /workers</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 9] create /tasks <span class="string">""</span></span><br><span class="line">Created /tasks</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 10] create /assign <span class="string">""</span></span><br><span class="line">Created /assign</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 11] ls /</span><br><span class="line">[assign, master, tasks, workers, zookeeper]</span><br></pre></td></tr></table></figure>
-
-<h2 id="link-master-and-workers"><a href="#link-master-and-workers" class="headerlink" title="link master and workers"></a>link master and workers</h2><p>In a real application, these znodes need to be created either by a primary process before it starts assigning tasks or by some bootstrap procedure. Regardless of how they are created, once they exist, the master needs to watch for changes in the children of /workers and /tasks:<br>    [zk: localhost:2181(CONNECTED) 4] ls /workers true<br>    []<br>    [zk: localhost:2181(CONNECTED) 5] ls /tasks true<br>    []<br>    [zk: localhost:2181(CONNECTED) 6]<br>Note that we have used the optional true parameter with ls, as we did before with stat on the master. The true parameter, in this case, creates a watch for changes to the set of children of the corresponding znode.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 14] create -e /workers/todd-worker1 <span class="string">""</span></span><br><span class="line">Created /workers/todd-worker1</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeChildrenChanged path:/workers</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 15]</span><br></pre></td></tr></table></figure>
-
-<p>Recall that the master has set a watch for changes to the children of /workers. Once the worker creates a znode under /workers, the master observes the following notification:<br>    WATCHER::<br>    WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/workers</p>
-<h2 id="Tasks-workflows"><a href="#Tasks-workflows" class="headerlink" title="Tasks workflows"></a>Tasks workflows</h2><ul>
-<li>Clients add tasks to the system. Here we assume that the client asks the master-worker system to run a command cmd. To add a task to the system, a client executes the following:<br>  [zk: localhost:2181(CONNECTED) 0] create -s /tasks/task- “cmd”<br>  Created /tasks/task-0000000000</li>
-<li>The client now has to wait until the task is executed. </li>
-<li>The worker that executes the task creates a status znode for the task once the task completes. </li>
-<li>The client determines that the task has been executed when it sees that a status znode for the task has been created; </li>
-<li>the client consequently must watch for the creation of the status znode:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 18] create -s /tasks/task- <span class="string">"cmd"</span></span><br><span class="line">Created /tasks/task-0000000000</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 19] ls /tasks</span><br><span class="line">[task-0000000000]</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 20] ls -w /tasks/task-0000000000 </span><br><span class="line">[]</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 21] ls -w /workers</span><br><span class="line">[todd-worker1]</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 22] create /assign/todd-worker1/task-0000000000 <span class="string">""</span></span><br><span class="line">Ephemerals cannot have children: /assign/todd-worker1/task-0000000000</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 23] delete /assign/todd-worker1</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 24] create /assign/todd-worker1</span><br><span class="line">Created /assign/todd-worker1</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 25] create /assign/todd-worker1/task-0000000000 <span class="string">""</span></span><br><span class="line">Created /assign/todd-worker1/task-0000000000</span><br><span class="line">[zk: 127.0.0.1:2181,127.0.0.1:2182(CONNECTED) 26] ls /assign/todd-worker1</span><br><span class="line">[task-0000000000]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Once the worker finishes executing the task, it adds a status znode to /tasks:</span></span><br><span class="line">    [zk: localhost:2181(CONNECTED) 4] create /tasks/task-0000000000/status <span class="string">"done"</span></span><br><span class="line">    Created /tasks/task-0000000000/status</span><br><span class="line">    [zk: localhost:2181(CONNECTED) 5]</span><br><span class="line"><span class="comment"># and the client receives a notification and checks the result:</span></span><br><span class="line">WATCHER::</span><br><span class="line">    WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeChildrenChanged</span><br><span class="line">    path:/tasks/task-0000000000</span><br><span class="line">    [zk: localhost:2181(CONNECTED) 2] get /tasks/task-0000000000</span><br><span class="line">    <span class="string">"cmd"</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="ZooKeeper-API"><a href="#ZooKeeper-API" class="headerlink" title="ZooKeeper API"></a>ZooKeeper API</h1><h2 id="Setting-the-ZooKeeper-CLASSPATH"><a href="#Setting-the-ZooKeeper-CLASSPATH" class="headerlink" title="Setting the ZooKeeper CLASSPATH"></a>Setting the ZooKeeper CLASSPATH</h2><p> ZOOBINDIR=”<path_to_distro>/bin”<br>    . “$ZOOBINDIR”/zkEnv.sh</path_to_distro></p>
-<h2 id="handle"><a href="#handle" class="headerlink" title="handle"></a>handle</h2><p>The ZooKeeper API is built around a ZooKeeper handle that is passed to every API call. This handle represents a session with ZooKeeper. A session that is established with one ZooKeeper server will migrate to another ZooKeeper server if its connection is broken. As long as the session is alive, the handle will remain valid, and the ZooKeeper client library will continually try to keep an active connection to a ZooKeeper server to keep the session alive. If the handle is closed, the ZooKeeper client library will tell the ZooKeeper servers to kill the session. If ZooKeeper decides that a client has died, it will invalidate the session. If a client later tries to reconnect to a Zoo‐ Keeper server using the handle that corresponds to the invalidated session, the Zoo‐ Keeper server informs the client library that the session is no longer valid and the handle returns errors for all operations.</p>
-<p>The constructor that creates a ZooKeeper handle usually looks like:<br>ZooKeeper(<br>String connectString, int sessionTimeout, Watcher watcher)</p>
-<h3 id="Implementing-a-Watcher"><a href="#Implementing-a-Watcher" class="headerlink" title="Implementing a Watcher"></a>Implementing a Watcher</h3><p>To receive notifications from ZooKeeper, we need to implement watchers. Let’s look a bit more closely at the Watcher interface. It has the following declaration:<br>public interface Watcher {<br>void process(WatchedEvent event);<br>}</p>
-<h3 id="Sample-ZooKeeper-handle"><a href="#Sample-ZooKeeper-handle" class="headerlink" title="Sample ZooKeeper handle"></a>Sample ZooKeeper handle</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.zookeeper.ZooKeeper; </span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.Watcher;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Master</span> <span class="keyword">implements</span> <span class="title">Watcher</span> </span>&#123; </span><br><span class="line">  ZooKeeper zk;</span><br><span class="line">        String hostPort;</span><br><span class="line"></span><br><span class="line">Master(String hostPort) </span><br><span class="line">&#123; <span class="keyword">this</span>.hostPort = hostPort;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">startZK</span><span class="params">()</span> </span>&#123;</span><br><span class="line">zk = <span class="keyword">new</span> ZooKeeper(hostPort, <span class="number">15000</span>, <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent e)</span> </span>&#123; System.out.println(e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">Master m = <span class="keyword">new</span> Master(args[<span class="number">0</span>]);</span><br><span class="line">            m.startZK();</span><br><span class="line">            <span class="comment">// wait for a bit</span></span><br><span class="line">            Thread.sleep(<span class="number">60000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>nce we have connected to ZooKeeper, there will be a background thread that will maintain the ZooKeeper session. This thread is a daemon thread, which means that the program may exit even if the thread is still active. Here we sleep for a bit so that we can see some events come in before the program exits.<br>We can compile this simple example using the following:<br>$ javac -cp $CLASSPATH Master.java<br>Once we have compiled Master.java, we run it and see the following:<br>$ java -cp $CLASSPATH Master 127.0.0.1:2181</p>
-<h2 id="disconnect"><a href="#disconnect" class="headerlink" title="disconnect"></a>disconnect</h2><p>When developers see the Disconnected event, some think they need to create a new ZooKeeper handle to reconnect to the service. Do not do that! See what happens when you start the server, start the Master, and then stop and start the server while the Master is still running. You should see the SyncConnected event followed by the Disconnec ted event and then another SyncConnected event. The ZooKeeper client library takes care of reconnecting to the service for you. Unfortunately, network outages and server failures happen. Usually, ZooKeeper can deal with these failures.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-06-mockito/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Todd Zhang">
-      <meta itemprop="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-      <meta itemprop="image" content="/images/globe.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Clouds & Docker">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-              
-              <a href="/2018-09-06-mockito/" class="post-title-link" itemprop="url">Distruptor</a>
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-05-31 23:03:27" itemprop="dateCreated datePublished" datetime="2019-05-31T23:03:27+10:00">2019-05-31</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="multithreading"><a href="#multithreading" class="headerlink" title="multithreading"></a>multithreading</h1><p>Concurrent execution of code ia bout two things: mutal exclusion and visibility of change.</p>
-<ul>
-<li>Mutual exclusion is about managing contented updtes to some resources.</li>
-<li>Visibiliyt of change is about controlling when such changes are made visible to other threads.</li>
-</ul>
-<h2 id="mutal-exclusion"><a href="#mutal-exclusion" class="headerlink" title="mutal exclusion"></a>mutal exclusion</h2><p>It is possible to avoid the need for mutal exclusion if you can eliminate the need for contented updates. If your algorithm can guarantee that any given resource is modified by only one thread then utal exclusion is unnecessary.</p>
-<p>Read and write operations require that all changes are made visible to other threads.</p>
-<p>The most costly operation in any concurrent environment is a contended write access.</p>
-<h3 id="locks"><a href="#locks" class="headerlink" title="locks"></a>locks</h3><p>Lock provide mutual exclusion and ensure that the visibility of change occurs in an ordered manner. Locks are incredibly expensive because they require arbitration when contended. This arbitration is achieved by a context switch to the OS kernerl which will suspend threads waiting on a lock until it’s released. During such a context switch , as well as releasing control to the OS which may decided to do other house-keeping tasks which it has control, execution context can lose previously cached data nad instrucionts. This can have a serious performance impact on modern CPU. </p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
 </ul>
 
           
@@ -1622,7 +1647,7 @@ public void writeByte(long address, byte b) {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-08-21-sudo/">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2018-09-06-mockito/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Todd Zhang">
@@ -1638,7 +1663,7 @@ public void writeByte(long address, byte b) {
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/2018-08-21-sudo/" class="post-title-link" itemprop="url">Sudo in a Nutshell</a>
+              <a href="/2018-09-06-mockito/" class="post-title-link" itemprop="url">Distruptor</a>
             
           </h1>
         
@@ -1670,42 +1695,17 @@ public void writeByte(long address, byte b) {
 
       
           
-            <h1 id="Sudo-in-a-Nutshell"><a href="#Sudo-in-a-Nutshell" class="headerlink" title="Sudo in a Nutshell"></a>Sudo in a Nutshell</h1><p>Sudo (su “do”) allows a system administrator to give certain users (or groups of users) the ability to run some (or all) commands as root while logging all commands and arguments. Sudo operates on a per-command basis, it is not a replacement for the shell. Its features include:</p>
-<p>The ability to restrict what commands a user may run on a per-host basis.<br>Sudo does copious logging of each command, providing a clear audit trail of who did what. When used in tandem with syslogd, the system log daemon, sudo can log all commands to a central host (as well as on the local host). At CU, all admins use sudo in lieu of a root shell to take advantage of this logging.<br>Sudo uses timestamp files to implement a “ticketing” system. When a user invokes sudo and enters their password, they are granted a ticket for 5 minutes (this timeout is configurable at compile-time). Each subsequent sudo command updates the ticket for another 5 minutes. This avoids the problem of leaving a root shell where others can physically get to your keyboard. There is also an easy way for a user to remove their ticket file, useful for placing in a .logout file.<br>Sudo’s configuration file, the sudoers file, is setup in such a way that the same sudoers file may be used on many machines. This allows for central administration while keeping the flexibility to define a user’s privileges on a per-host basis. Please see the samples sudoers file below for a real-world example.</p>
-<h1 id="sudo-conf"><a href="#sudo-conf" class="headerlink" title="sudo.conf"></a>sudo.conf</h1><p>The sudo.conf file is used to configure the sudo front end. It specifies the security policy and I/O logging plugins, debug flags as well as plugin-agnostic path names and settings.</p>
-<p>sudo supports a plugin architecture for security policies and input/output logging. Third parties can develop and distribute their own policy and I/O logging plugins to work seamlessly with the sudo front end. Plugins are dynamically loaded based on the contents of sudo.conf.<br>A Plugin line consists of the Plugin keyword, followed by the symbol_name and the path to the dynamic shared object that contains the plugin. The symbol_name is the name of the struct policy_plugin or struct io_plugin symbol contained in the plugin. The path may be fully qualified or relative. If not fully qualified, it is relative to the directory specified by the plugin_dir Path setting, which defaults to /usr/local/libexec/sudo. In other words:<br>Plugin sudoers_policy sudoers.so<br>is equivalent to:<br>Plugin sudoers_policy /usr/local/libexec/sudo/sudoers.so</p>
-<h2 id="Configurations"><a href="#Configurations" class="headerlink" title="Configurations"></a>Configurations</h2><ul>
-<li><p>sudoers_file=pathname<br>The sudoers_file argument can be used to override the default path to the sudoers file.</p>
-</li>
-<li><p>sudoers_uid=uid<br>The sudoers_uid argument can be used to override the default owner of the sudoers file. It should be specified as a numeric user ID.</p>
-</li>
-</ul>
-<h1 id="email-notification"><a href="#email-notification" class="headerlink" title="email notification"></a>email notification</h1><p>If a user who is not listed in the policy tries to run a command via sudo, mail is sent to the proper authorities. The address used for such mail is configurable via the mailto Defaults entry (described later) and defaults to root.</p>
-<p>Note that no mail will be sent if an unauthorized user tries to run sudo with the -l or -v option unless there is an authentication error and either the mail_always or mail_badpass flags are enabled. This allows users to determine for themselves whether or not they are allowed to use sudo. All attempts to run sudo (successful or not) will be logged, regardless of whether or not mail is sent.</p>
-<p>sudoers uses per-user time stamp files for credential caching. Once a user has been authenticated, a record is written containing the user ID that was used to authenticate, the terminal session ID, the start time of the session leader (or parent process) and a time stamp (using a monotonic clock if one is available). The user may then use sudo without a password for a short period of time (5 minutes unless overridden by the timestamp_timeout option). By default, sudoers uses a separate record for each terminal, which means that a user’s login sessions are authenticated separately. The timestamp_type option can be used to select the type of time stamp record sudoers will use.</p>
-<h1 id="File-format"><a href="#File-format" class="headerlink" title="File format"></a>File format</h1><p>The sudoers file is composed of two types of entries: aliases (basically variables) and user specifications (which specify who may run what).</p>
-<p>When multiple entries match for a user, they are applied in order. Where there are multiple matches, the last match is used (which is not necessarily the most specific match).<br>The sudoers file grammar will be described below in Extended Backus-Naur Form (EBNF). Don’t despair if you are unfamiliar with EBNF; it is fairly simple, and the definitions below are annotated.</p>
-<h1 id="environment"><a href="#environment" class="headerlink" title="environment"></a>environment</h1><p>By default, the env_reset option is enabled. This causes commands to be executed with a new, minimal environment.</p>
-<p>Lists have two additional assignment operators, += and -=. These operators are used to add to and delete from a list respectively. It is not an error to use the -= operator to remove an element that does not exist in a list.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">35 Defaults    env_reset</span><br><span class="line">36 Defaults    env_keep += <span class="string">"BLOCKSIZE"</span></span><br><span class="line">37 Defaults    env_keep += <span class="string">"COLORFGBG COLORTERM"</span></span><br><span class="line">38 Defaults    env_keep += <span class="string">"__CF_USER_TEXT_ENCODING"</span></span><br><span class="line">39 Defaults    env_keep += <span class="string">"CHARSET LANG LANGUAGE LC_ALL LC_COLLATE LC_CTYPE"</span></span><br><span class="line">40 Defaults    env_keep += <span class="string">"LC_MESSAGES LC_MONETARY LC_NUMERIC LC_TIME"</span></span><br><span class="line">41 Defaults    env_keep += <span class="string">"LINES COLUMNS"</span></span><br><span class="line">42 Defaults    env_keep += <span class="string">"LSCOLORS"</span></span><br><span class="line">43 Defaults    env_keep += <span class="string">"SSH_AUTH_SOCK"</span></span><br><span class="line">44 Defaults    env_keep += <span class="string">"TZ"</span></span><br><span class="line">45 Defaults    env_keep += <span class="string">"DISPLAY XAUTHORIZATION XAUTHORITY"</span></span><br><span class="line">46 Defaults    env_keep += <span class="string">"EDITOR VISUAL"</span></span><br><span class="line">47 Defaults    env_keep += <span class="string">"HOME MAIL"</span></span><br><span class="line">48 </span><br><span class="line">49 Defaults    lecture_file = <span class="string">"/etc/sudo_lecture"</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="lecture"><a href="#lecture" class="headerlink" title="lecture"></a>lecture</h3><h4 id="lecture-1"><a href="#lecture-1" class="headerlink" title="lecture"></a>lecture</h4><p>This option controls when a short lecture will be printed along with the password prompt. It has the following possible values:</p>
+            <h1 id="multithreading"><a href="#multithreading" class="headerlink" title="multithreading"></a>multithreading</h1><p>Concurrent execution of code ia bout two things: mutal exclusion and visibility of change.</p>
 <ul>
-<li>always<br>Always lecture the user.</li>
-<li>never<br>Never lecture the user.</li>
-<li>once<br>Only lecture the user the first time they run sudo.<br>If no value is specified, a value of once is implied. Negating the option results in a value of never being used. The default value is once.<h4 id="lecture-file"><a href="#lecture-file" class="headerlink" title="lecture_file"></a>lecture_file</h4>Path to a file containing an alternate sudo lecture that will be used in place of the standard lecture if the named file exists. By default, sudo uses a built-in lecture.  </li>
+<li>Mutual exclusion is about managing contented updtes to some resources.</li>
+<li>Visibiliyt of change is about controlling when such changes are made visible to other threads.</li>
 </ul>
-<h1 id="Everything-is-file"><a href="#Everything-is-file" class="headerlink" title="Everything is file"></a>Everything is file</h1><p>A fundamental and very powerful, consistent abstraction provided in UNIX and compatible operating systems is the file abstraction. Many OS services and device interfaces are implemented to provide a file or file system metaphor to applications.</p>
-<h1 id="manage-user-group"><a href="#manage-user-group" class="headerlink" title="manage user group"></a>manage user group</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Alternatively, gpasswd may be used. Though the username can only be added (or removed) from one group at a time:</span></span><br><span class="line">gpasswd --add username group</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add users to a group with the gpasswd command:</span></span><br><span class="line">gpasswd -a user group</span><br><span class="line"></span><br><span class="line"><span class="comment">#To remove users from a group:</span></span><br><span class="line">gpasswd -d user group</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gpasswd - administer the /etc/group file</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EXAMPLES</span><br><span class="line">1. Add user (tracy) to the group (hrd)</span><br><span class="line">$ gpasswd -a tracy hrd</span><br><span class="line">2. Add multiper users to the group (developer)</span><br><span class="line">$ gpasswd -a pavan,john developer</span><br><span class="line">3. Remove user (rakesh) from group (sqa)</span><br><span class="line">$ gpasswd -d rakesh sqa</span><br><span class="line">4. Remove multiple users from group (managers)</span><br><span class="line">$ gpasswd -d shane,ron,ram managers</span><br><span class="line">5. Set user (joy) and group administrator <span class="keyword">for</span> (managers)</span><br><span class="line">$ gpasswd -A joy managers</span><br></pre></td></tr></table></figure>
-
-<h3 id="to-show-user-details"><a href="#to-show-user-details" class="headerlink" title="to show user details"></a>to show user details</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id todzhang</span><br></pre></td></tr></table></figure>
-
-<h3 id="Display-group-membership-with-the-groups-command"><a href="#Display-group-membership-with-the-groups-command" class="headerlink" title="Display group membership with the groups command:"></a>Display group membership with the groups command:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ groups user</span><br></pre></td></tr></table></figure>
-
-<h3 id="To-change-the-user’s-login-shell"><a href="#To-change-the-user’s-login-shell" class="headerlink" title="To change the user’s login shell:"></a>To change the user’s login shell:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># usermod -s /bin/bash username</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><ul>
-<li><a href="https://www.sudo.ws/man/sudo.conf.man.html" target="_blank" rel="noopener">https://www.sudo.ws/man/sudo.conf.man.html</a></li>
+<h2 id="mutal-exclusion"><a href="#mutal-exclusion" class="headerlink" title="mutal exclusion"></a>mutal exclusion</h2><p>It is possible to avoid the need for mutal exclusion if you can eliminate the need for contented updates. If your algorithm can guarantee that any given resource is modified by only one thread then utal exclusion is unnecessary.</p>
+<p>Read and write operations require that all changes are made visible to other threads.</p>
+<p>The most costly operation in any concurrent environment is a contended write access.</p>
+<h3 id="locks"><a href="#locks" class="headerlink" title="locks"></a>locks</h3><p>Lock provide mutual exclusion and ensure that the visibility of change occurs in an ordered manner. Locks are incredibly expensive because they require arbitration when contended. This arbitration is achieved by a context switch to the OS kernerl which will suspend threads waiting on a lock until it’s released. During such a context switch , as well as releasing control to the OS which may decided to do other house-keeping tasks which it has control, execution context can lose previously cached data nad instrucionts. This can have a serious performance impact on modern CPU. </p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/overview</a></li>
 </ul>
 
           
