@@ -1,173 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
+<html lang=en>
 <head><meta name="generator" content="Hexo 3.9.0">
-
+    <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--Description-->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Maven philosophy “It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies an">
+<meta name="keywords" content="java,maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven-Notes">
+<meta property="og:url" content="http://www.todzhang.com/2017-02-03-Maven-Notes/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="Maven philosophy “It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies an">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maven-Notes">
+<meta name="twitter:description" content="Maven philosophy “It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies an">
     
-        <meta name="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
     
-
-    <!--Author-->
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
     
-        <meta name="author" content="Todd Zhang">
-    
-
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="Maven-Notes">
-    
-
-    <!--Open Graph Description-->
-    
-        <meta property="og:description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-    
-
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="Clouds &amp; Docker">
-
-    <!--Type page-->
-    
-        <meta property="og:type" content="article">
-    
-
-    <!--Page Cover-->
-    
-
-    <meta name="twitter:card" content="summary">
-    
-
-    <!-- Title -->
-    
-    <title>Maven-Notes - Clouds &amp; Docker</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+    <!-- title -->
+    <title>Maven-Notes</title>
+    <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Google Analytics -->
+    <!-- persian styles -->
     
-
-
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
 </head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017-02-05-JVM/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017-02-09-R-Lang/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.todzhang.com/2017-02-03-Maven-Notes/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&text=Maven-Notes"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&is_video=false&description=Maven-Notes"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Maven-Notes&body=Check out this article: http://www.todzhang.com/2017-02-03-Maven-Notes/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&name=Maven-Notes&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-
-<div class="bg-gradient"></div>
-<div class="bg-pattern"></div>
-
-<!-- Menu -->
-<!--Menu Links and Overlay-->
-<div class="menu-bg">
-    <div class="menu-container">
-        <ul>
-            
-            <li class="menu-item">
-                <a href="/">
-                    Home
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/archives">
-                    Archives
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/about.html">
-                    About
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/tags">
-                    Tags
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/categories">
-                    Categories
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/contact.html">
-                    Contact
-                </a>
-            </li>
-            
-        </ul>
     </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven-philosophy"><span class="toc-number">1.</span> <span class="toc-text">Maven philosophy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Concepts"><span class="toc-number">2.</span> <span class="toc-text">Concepts</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Life-cycles"><span class="toc-number">2.1.</span> <span class="toc-text">Life cycles</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Concepts-summary"><span class="toc-number">3.</span> <span class="toc-text">Concepts summary</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#default-lifecycle"><span class="toc-number">3.0.1.</span> <span class="toc-text">default lifecycle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#goal"><span class="toc-number">3.1.</span> <span class="toc-text">goal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Samples"><span class="toc-number">3.1.1.</span> <span class="toc-text">Samples</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#To-see-what-goals-bined-to-lifecycle-phase"><span class="toc-number">3.1.2.</span> <span class="toc-text">To see what goals bined to lifecycle phase</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plugin"><span class="toc-number">3.2.</span> <span class="toc-text">Plugin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#position"><span class="toc-number">3.2.1.</span> <span class="toc-text">position</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#To-show-plugin-details-in-configuration"><span class="toc-number">3.2.2.</span> <span class="toc-text">To show plugin details in configuration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Help-Goal"><span class="toc-number">3.2.3.</span> <span class="toc-text">Help Goal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Samples-1"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">Samples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#plugin-execution"><span class="toc-number">3.2.4.</span> <span class="toc-text">plugin execution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#sample"><span class="toc-number">3.2.4.1.</span> <span class="toc-text">sample</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#concept"><span class="toc-number">3.2.4.2.</span> <span class="toc-text">concept</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-concepts"><span class="toc-number">3.3.</span> <span class="toc-text">core concepts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phase"><span class="toc-number">3.4.</span> <span class="toc-text">phase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lifecycle-and-phases-are-just-formal-names-for-jobs-and-steps-Maven-calls-the-jobs-as-lifecycles-and-tasks-or-steps-as-phases"><span class="toc-number">3.5.</span> <span class="toc-text">Lifecycle and phases are just formal names for jobs and steps. Maven calls the jobs as lifecycles and tasks (or steps) as phases.</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Some-Phases-Are-Not-Usually-Called-From-the-Command-Line"><span class="toc-number">3.5.1.</span> <span class="toc-text">Some Phases Are Not Usually Called From the Command Line</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Maven-default-repository"><span class="toc-number">3.6.</span> <span class="toc-text">Maven default repository</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven-Settings"><span class="toc-number">4.</span> <span class="toc-text">Maven Settings</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-contents-of-the-settings-xml-can-be-interpolated-using-the-following-expressions"><span class="toc-number">4.1.</span> <span class="toc-text">The contents of the settings.xml can be interpolated using the following expressions:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#All-Maven-pom-xml-inherits-from-super-POM"><span class="toc-number">4.2.</span> <span class="toc-text">All Maven pom.xml inherits from super POM</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Coc-Convention-over-Configuration"><span class="toc-number">5.</span> <span class="toc-text">Coc: Convention over Configuration</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Notes"><span class="toc-number">6.</span> <span class="toc-text">Notes</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Coordinate"><span class="toc-number">6.1.</span> <span class="toc-text">Coordinate</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven-vs-Ant"><span class="toc-number">7.</span> <span class="toc-text">Maven vs Ant</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-differences-between-Ant-and-Maven-in-this-example-are"><span class="toc-number">7.1.</span> <span class="toc-text">The differences between Ant and Maven in this example are:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Ant"><span class="toc-number">7.1.1.</span> <span class="toc-text">Apache Ant</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Maven"><span class="toc-number">7.1.2.</span> <span class="toc-text">Apache Maven</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Maven-life-cycle"><span class="toc-number">7.1.2.1.</span> <span class="toc-text">Maven life cycle</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dependency"><span class="toc-number">8.</span> <span class="toc-text">Dependency</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Transitive-Dependcies"><span class="toc-number">8.1.</span> <span class="toc-text">Transitive Dependcies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dependency-Scope"><span class="toc-number">8.2.</span> <span class="toc-text">Dependency Scope</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Common-errors"><span class="toc-number">9.</span> <span class="toc-text">Common errors</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Not-authorized-ReasonPhrase-Unauthorized"><span class="toc-number">9.1.</span> <span class="toc-text">Not authorized , ReasonPhrase:Unauthorized</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Newly-added-dependency-in-pom-not-working-class-not-found"><span class="toc-number">9.2.</span> <span class="toc-text">Newly added dependency in pom not working, class not found</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Setup-Proxy"><span class="toc-number">10.</span> <span class="toc-text">Setup Proxy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Multimodule-projects"><span class="toc-number">11.</span> <span class="toc-text">Multimodule projects</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-parent"><span class="toc-number">11.1.</span> <span class="toc-text">Generate parent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-web-module"><span class="toc-number">11.2.</span> <span class="toc-text">Generate web module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-a-service-jar-module"><span class="toc-number">11.3.</span> <span class="toc-text">Generate a service jar module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#To-start-the-module"><span class="toc-number">11.4.</span> <span class="toc-text">To start the module</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Create-archetype-from-project"><span class="toc-number">12.</span> <span class="toc-text">Create archetype from project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Site-life-cycle"><span class="toc-number">13.</span> <span class="toc-text">Site life cycle</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaDoc"><span class="toc-number">14.</span> <span class="toc-text">JavaDoc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unit-test-report"><span class="toc-number">15.</span> <span class="toc-text">Unit test report</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Code-coverate-report"><span class="toc-number">16.</span> <span class="toc-text">Code coverate report</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Find-bug-reports"><span class="toc-number">17.</span> <span class="toc-text">Find bug reports</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Integration-with-Nexus"><span class="toc-number">18.</span> <span class="toc-text">Integration with Nexus</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#To-enable-nexus-in-Maven"><span class="toc-number">18.1.</span> <span class="toc-text">To enable nexus in Maven</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#POM"><span class="toc-number">19.</span> <span class="toc-text">POM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Effective-POM"><span class="toc-number">19.1.</span> <span class="toc-text">Effective POM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#To-dump-effective-POM"><span class="toc-number">19.1.1.</span> <span class="toc-text">To dump effective POM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Packaging"><span class="toc-number">19.2.</span> <span class="toc-text">Packaging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#This-is-an-almost-standard-set-of-bindings-however-some-packagings-handle-them-differently-For-example-a-project-that-is-purely-metadata-packaging-value-is-pom-only-binds-goals-to-the-install-and-deploy-phases-for-a-complete-list-of-goal-to-build-phase-bindings-of-some-of-the-packaging-types-refer-to-the-Lifecycle-Reference"><span class="toc-number">19.3.</span> <span class="toc-text">This is an almost standard set of bindings; however, some packagings handle them differently. For example, a project that is purely metadata (packaging value is pom) only binds goals to the install and deploy phases (for a complete list of goal-to-build-phase bindings of some of the packaging types, refer to the Lifecycle Reference).</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#build-tools-options"><span class="toc-number">20.</span> <span class="toc-text">build tools options</span></a></li></ol>
+    </div>
+  </span>
 </div>
 
-<!--Hamburger Icon-->
-<nav>
-    <a href="#menu"></a>
-</nav>
-
-<div class="container">
-
-    <!-- Main Content -->
-    <div class="row">
-    <div class="col-sm-12">
-
-        <!--Title and Logo-->
+    
+    <div class="content index py4">
         
-            <header>
-    <div class="logo">
-        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
-        
-    </div>
-</header>
-            <section class="main">
-                
-<div class="post">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
 
-    <div class="post-header">
-        <h1 class="title">
-            <a href="/2017-02-03-Maven-Notes/">
-                Maven-Notes
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-05-31</span>
-            
-            
-            
-        </div>
-    </div>
-
-    <div class="content">
-
-        <!-- Gallery -->
-        
-
-        <!-- Post Content -->
-        <h1 id="Maven-philosophy"><a href="#Maven-philosophy" class="headerlink" title="Maven philosophy"></a>Maven philosophy</h1><ul>
+  <div class="content" itemprop="articleBody">
+      
+          <h1 id="Maven-philosophy"><a href="#Maven-philosophy" class="headerlink" title="Maven philosophy"></a>Maven philosophy</h1><ul>
 <li>“It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies and their versions.”</li>
 </ul>
 <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><h2 id="Life-cycles"><a href="#Life-cycles" class="headerlink" title="Life cycles"></a>Life cycles</h2><p>Maven defines three Lifecycles ֠default, clean and site and each Lifecycle consists of predefined Phases. </p>
@@ -498,193 +447,97 @@ The above configuration forces the clean plugin to delete *.java files in src/ma
 <p>Anyway, you shoud read specific documentation (not hate-articles) on both. Also, there is ant-maven-plugin, which allow to launch ant-scripts with maven.</p>
 <p>P.S. You can take a look on Gradle, which for me could provide more freedom than Maven, but is easier to use than Ant.</p>
 
-    </div>
-
-    
-
-    
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/java/">#java</a> <a href="/tags/maven/">#maven</a>
-        </div>
-    
-
-    <!-- Comments -->
-    
-
-</div>
-            </section>
         
+  </div>
+</article>
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
     </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven-philosophy"><span class="toc-number">1.</span> <span class="toc-text">Maven philosophy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Concepts"><span class="toc-number">2.</span> <span class="toc-text">Concepts</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Life-cycles"><span class="toc-number">2.1.</span> <span class="toc-text">Life cycles</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Concepts-summary"><span class="toc-number">3.</span> <span class="toc-text">Concepts summary</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#default-lifecycle"><span class="toc-number">3.0.1.</span> <span class="toc-text">default lifecycle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#goal"><span class="toc-number">3.1.</span> <span class="toc-text">goal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Samples"><span class="toc-number">3.1.1.</span> <span class="toc-text">Samples</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#To-see-what-goals-bined-to-lifecycle-phase"><span class="toc-number">3.1.2.</span> <span class="toc-text">To see what goals bined to lifecycle phase</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plugin"><span class="toc-number">3.2.</span> <span class="toc-text">Plugin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#position"><span class="toc-number">3.2.1.</span> <span class="toc-text">position</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#To-show-plugin-details-in-configuration"><span class="toc-number">3.2.2.</span> <span class="toc-text">To show plugin details in configuration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Help-Goal"><span class="toc-number">3.2.3.</span> <span class="toc-text">Help Goal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Samples-1"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">Samples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#plugin-execution"><span class="toc-number">3.2.4.</span> <span class="toc-text">plugin execution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#sample"><span class="toc-number">3.2.4.1.</span> <span class="toc-text">sample</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#concept"><span class="toc-number">3.2.4.2.</span> <span class="toc-text">concept</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-concepts"><span class="toc-number">3.3.</span> <span class="toc-text">core concepts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phase"><span class="toc-number">3.4.</span> <span class="toc-text">phase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lifecycle-and-phases-are-just-formal-names-for-jobs-and-steps-Maven-calls-the-jobs-as-lifecycles-and-tasks-or-steps-as-phases"><span class="toc-number">3.5.</span> <span class="toc-text">Lifecycle and phases are just formal names for jobs and steps. Maven calls the jobs as lifecycles and tasks (or steps) as phases.</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Some-Phases-Are-Not-Usually-Called-From-the-Command-Line"><span class="toc-number">3.5.1.</span> <span class="toc-text">Some Phases Are Not Usually Called From the Command Line</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Maven-default-repository"><span class="toc-number">3.6.</span> <span class="toc-text">Maven default repository</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven-Settings"><span class="toc-number">4.</span> <span class="toc-text">Maven Settings</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-contents-of-the-settings-xml-can-be-interpolated-using-the-following-expressions"><span class="toc-number">4.1.</span> <span class="toc-text">The contents of the settings.xml can be interpolated using the following expressions:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#All-Maven-pom-xml-inherits-from-super-POM"><span class="toc-number">4.2.</span> <span class="toc-text">All Maven pom.xml inherits from super POM</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Coc-Convention-over-Configuration"><span class="toc-number">5.</span> <span class="toc-text">Coc: Convention over Configuration</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Notes"><span class="toc-number">6.</span> <span class="toc-text">Notes</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Coordinate"><span class="toc-number">6.1.</span> <span class="toc-text">Coordinate</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven-vs-Ant"><span class="toc-number">7.</span> <span class="toc-text">Maven vs Ant</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-differences-between-Ant-and-Maven-in-this-example-are"><span class="toc-number">7.1.</span> <span class="toc-text">The differences between Ant and Maven in this example are:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Ant"><span class="toc-number">7.1.1.</span> <span class="toc-text">Apache Ant</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Maven"><span class="toc-number">7.1.2.</span> <span class="toc-text">Apache Maven</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Maven-life-cycle"><span class="toc-number">7.1.2.1.</span> <span class="toc-text">Maven life cycle</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dependency"><span class="toc-number">8.</span> <span class="toc-text">Dependency</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Transitive-Dependcies"><span class="toc-number">8.1.</span> <span class="toc-text">Transitive Dependcies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dependency-Scope"><span class="toc-number">8.2.</span> <span class="toc-text">Dependency Scope</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Common-errors"><span class="toc-number">9.</span> <span class="toc-text">Common errors</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Not-authorized-ReasonPhrase-Unauthorized"><span class="toc-number">9.1.</span> <span class="toc-text">Not authorized , ReasonPhrase:Unauthorized</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Newly-added-dependency-in-pom-not-working-class-not-found"><span class="toc-number">9.2.</span> <span class="toc-text">Newly added dependency in pom not working, class not found</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Setup-Proxy"><span class="toc-number">10.</span> <span class="toc-text">Setup Proxy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Multimodule-projects"><span class="toc-number">11.</span> <span class="toc-text">Multimodule projects</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-parent"><span class="toc-number">11.1.</span> <span class="toc-text">Generate parent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-web-module"><span class="toc-number">11.2.</span> <span class="toc-text">Generate web module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-a-service-jar-module"><span class="toc-number">11.3.</span> <span class="toc-text">Generate a service jar module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#To-start-the-module"><span class="toc-number">11.4.</span> <span class="toc-text">To start the module</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Create-archetype-from-project"><span class="toc-number">12.</span> <span class="toc-text">Create archetype from project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Site-life-cycle"><span class="toc-number">13.</span> <span class="toc-text">Site life cycle</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaDoc"><span class="toc-number">14.</span> <span class="toc-text">JavaDoc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unit-test-report"><span class="toc-number">15.</span> <span class="toc-text">Unit test report</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Code-coverate-report"><span class="toc-number">16.</span> <span class="toc-text">Code coverate report</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Find-bug-reports"><span class="toc-number">17.</span> <span class="toc-text">Find bug reports</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Integration-with-Nexus"><span class="toc-number">18.</span> <span class="toc-text">Integration with Nexus</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#To-enable-nexus-in-Maven"><span class="toc-number">18.1.</span> <span class="toc-text">To enable nexus in Maven</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#POM"><span class="toc-number">19.</span> <span class="toc-text">POM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Effective-POM"><span class="toc-number">19.1.</span> <span class="toc-text">Effective POM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#To-dump-effective-POM"><span class="toc-number">19.1.1.</span> <span class="toc-text">To dump effective POM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Packaging"><span class="toc-number">19.2.</span> <span class="toc-text">Packaging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#This-is-an-almost-standard-set-of-bindings-however-some-packagings-handle-them-differently-For-example-a-project-that-is-purely-metadata-packaging-value-is-pom-only-binds-goals-to-the-install-and-deploy-phases-for-a-complete-list-of-goal-to-build-phase-bindings-of-some-of-the-packaging-types-refer-to-the-Lifecycle-Reference"><span class="toc-number">19.3.</span> <span class="toc-text">This is an almost standard set of bindings; however, some packagings handle them differently. For example, a project that is purely metadata (packaging value is pom) only binds goals to the install and deploy phases (for a complete list of goal-to-build-phase bindings of some of the packaging types, refer to the Lifecycle Reference).</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#build-tools-options"><span class="toc-number">20.</span> <span class="toc-text">build tools options</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.todzhang.com/2017-02-03-Maven-Notes/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&text=Maven-Notes"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&is_video=false&description=Maven-Notes"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Maven-Notes&body=Check out this article: http://www.todzhang.com/2017-02-03-Maven-Notes/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&title=Maven-Notes"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.todzhang.com/2017-02-03-Maven-Notes/&name=Maven-Notes&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
 </div>
 
-
-</div>
-
-<!-- Footer -->
-<div class="push"></div>
-
-<footer class="footer-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
-                <h2>About</h2>
-                <p>
-                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
-                </p>
-            </div>
-            
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
-        <h2>Recent Posts</h2>
-        <ul>
-            
-            <li>
-                <a class="footer-post" href="/2020-03-03-Algorithm-Leecode-1/">Algorithm notes from Leec</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020-05-10-Java-Deep-Notes/">Java Deep Notes</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2019-08-25-AWS-Certificate/">AWS certification</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017-01-21-Algorithm/">Algorithm</a>
-            </li>
-            
-        </ul>
-    </div>
-
-
-
-            
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul class="list-inline footer-social-icons">
-                    
-                    <li class="list-inline-item">
-                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-github"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://twitter.com/?lang=en">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-twitter"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.facebook.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-facebook"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.instagram.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-instagram"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://dribbble.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-dribbble"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://plus.google.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-google-plus"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.behance.net/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-behance"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://500px.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-500px"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="mailto:test@example.com">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-envelope-o"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="\#">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-rss"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="footer-copyright">
-                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
-                </div>
-            </div>
-        </div>
-    </div>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Todd Zhang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
 </footer>
 
-<!-- After footer scripts -->
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Tween Max -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Custom JavaScript -->
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
 <script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
 
 <!-- Disqus Comments -->
 
 
-
 </body>
-
 </html>

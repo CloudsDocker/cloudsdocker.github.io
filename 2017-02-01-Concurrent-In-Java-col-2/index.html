@@ -1,173 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
+<html lang=en>
 <head><meta name="generator" content="Hexo 3.9.0">
-
+    <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--Description-->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="This is the second half about Java Concurrent of my blognon-blocking synchronization Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level a">
+<meta name="keywords" content="java,concurrent">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Concurrent Column 2">
+<meta property="og:url" content="http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/index.html">
+<meta property="og:site_name" content="Clouds &amp; Docker">
+<meta property="og:description" content="This is the second half about Java Concurrent of my blognon-blocking synchronization Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level a">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-31T13:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Concurrent Column 2">
+<meta name="twitter:description" content="This is the second half about Java Concurrent of my blognon-blocking synchronization Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level a">
     
-        <meta name="description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
     
-
-    <!--Author-->
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
     
-        <meta name="author" content="Todd Zhang">
-    
-
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="Java Concurrent Column 2">
-    
-
-    <!--Open Graph Description-->
-    
-        <meta property="og:description" content="Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
-    
-
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="Clouds &amp; Docker">
-
-    <!--Type page-->
-    
-        <meta property="og:type" content="article">
-    
-
-    <!--Page Cover-->
-    
-
-    <meta name="twitter:card" content="summary">
-    
-
-    <!-- Title -->
-    
-    <title>Java Concurrent Column 2 - Clouds &amp; Docker</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+    <!-- title -->
+    <title>Java Concurrent Column 2</title>
+    <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Google Analytics -->
+    <!-- persian styles -->
     
-
-
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
 </head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017-02-06-Eclipse-tips/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017-02-05-JVM/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&text=Java Concurrent Column 2"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&is_video=false&description=Java Concurrent Column 2"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java Concurrent Column 2&body=Check out this article: http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&name=Java Concurrent Column 2&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-
-<div class="bg-gradient"></div>
-<div class="bg-pattern"></div>
-
-<!-- Menu -->
-<!--Menu Links and Overlay-->
-<div class="menu-bg">
-    <div class="menu-container">
-        <ul>
-            
-            <li class="menu-item">
-                <a href="/">
-                    Home
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/archives">
-                    Archives
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/about.html">
-                    About
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/tags">
-                    Tags
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/categories">
-                    Categories
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/contact.html">
-                    Contact
-                </a>
-            </li>
-            
-        </ul>
     </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#This-is-the-second-half-about-Java-Concurrent-of-my-blog"><span class="toc-number">1.</span> <span class="toc-text">This is the second half about Java Concurrent of my blog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#non-blocking-synchronization"><span class="toc-number">1.1.</span> <span class="toc-text">non-blocking synchronization</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hardware"><span class="toc-number">2.</span> <span class="toc-text">hardware</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Compare-and-swap"><span class="toc-number">3.</span> <span class="toc-text">Compare and swap</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#counter-implemented-by-CAS"><span class="toc-number">3.1.</span> <span class="toc-text">counter implemented by CAS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS-support-in-JVM"><span class="toc-number">3.2.</span> <span class="toc-text">CAS support in JVM</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Other-liveness-hazards"><span class="toc-number">4.</span> <span class="toc-text">Other liveness hazards</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Starvation"><span class="toc-number">4.1.</span> <span class="toc-text">Starvation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Poor-responsiveness"><span class="toc-number">4.2.</span> <span class="toc-text">Poor responsiveness</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Livelock"><span class="toc-number">4.3.</span> <span class="toc-text">Livelock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solutions"><span class="toc-number">4.3.1.</span> <span class="toc-text">Solutions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">4.3.2.</span> <span class="toc-text">Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Performance"><span class="toc-number">6.</span> <span class="toc-text">Performance</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scalability"><span class="toc-number">6.1.</span> <span class="toc-text">Scalability</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Amdahl’s-law"><span class="toc-number">6.1.1.</span> <span class="toc-text">Amdahl’s law</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Costs-introduced-by-threads"><span class="toc-number">7.</span> <span class="toc-text">Costs introduced by threads</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Context-switching"><span class="toc-number">7.1.</span> <span class="toc-text">Context switching</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memory-synchronization"><span class="toc-number">7.2.</span> <span class="toc-text">memory synchronization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blocking"><span class="toc-number">7.3.</span> <span class="toc-text">Blocking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reducing-lock-contention"><span class="toc-number">7.4.</span> <span class="toc-text">Reducing lock contention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#There-are-three-ways-to-reduce-lock-contention"><span class="toc-number">7.4.1.</span> <span class="toc-text">There are three ways to reduce lock contention:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Narrowing-lock-scope"><span class="toc-number">7.5.</span> <span class="toc-text">Narrowing lock scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reducing-lock-granularity"><span class="toc-number">7.6.</span> <span class="toc-text">Reducing lock granularity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lock-stripping"><span class="toc-number">7.7.</span> <span class="toc-text">Lock stripping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Alternative-to-exclusive-lock"><span class="toc-number">7.8.</span> <span class="toc-text">Alternative to exclusive lock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ReadWriteLock"><span class="toc-number">7.8.1.</span> <span class="toc-text">ReadWriteLock</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Comparing-Map"><span class="toc-number">8.</span> <span class="toc-text">Comparing Map</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Building-a-asynchronous-log"><span class="toc-number">9.</span> <span class="toc-text">Building a asynchronous log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reducing-context-switching"><span class="toc-number">10.</span> <span class="toc-text">Reducing context switching</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Testing-concurrency"><span class="toc-number">11.</span> <span class="toc-text">Testing concurrency</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-resource-management"><span class="toc-number">11.1.</span> <span class="toc-text">Test resource management</span></a></li></ol></li></ol>
+    </div>
+  </span>
 </div>
 
-<!--Hamburger Icon-->
-<nav>
-    <a href="#menu"></a>
-</nav>
-
-<div class="container">
-
-    <!-- Main Content -->
-    <div class="row">
-    <div class="col-sm-12">
-
-        <!--Title and Logo-->
+    
+    <div class="content index py4">
         
-            <header>
-    <div class="logo">
-        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
-        
-    </div>
-</header>
-            <section class="main">
-                
-<div class="post">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
 
-    <div class="post-header">
-        <h1 class="title">
-            <a href="/2017-02-01-Concurrent-In-Java-col-2/">
-                Java Concurrent Column 2
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-05-31</span>
-            
-            
-            
-        </div>
-    </div>
-
-    <div class="content">
-
-        <!-- Gallery -->
-        
-
-        <!-- Post Content -->
-        <h1 id="This-is-the-second-half-about-Java-Concurrent-of-my-blog"><a href="#This-is-the-second-half-about-Java-Concurrent-of-my-blog" class="headerlink" title="This is the second half about Java Concurrent of my blog"></a>This is the second half about Java Concurrent of my blog</h1><h2 id="non-blocking-synchronization"><a href="#non-blocking-synchronization" class="headerlink" title="non-blocking synchronization"></a>non-blocking synchronization</h2><ul>
+  <div class="content" itemprop="articleBody">
+      
+          <h1 id="This-is-the-second-half-about-Java-Concurrent-of-my-blog"><a href="#This-is-the-second-half-about-Java-Concurrent-of-my-blog" class="headerlink" title="This is the second half about Java Concurrent of my blog"></a>This is the second half about Java Concurrent of my blog</h1><h2 id="non-blocking-synchronization"><a href="#non-blocking-synchronization" class="headerlink" title="non-blocking synchronization"></a>non-blocking synchronization</h2><ul>
 <li>Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures.</li>
 <li>Nonblocking algorithms are considerably more complicated to design and im- plement than lock-based alternatives, but they can <strong>offer significant scalability and liveness advantages</strong>. They coordinate at a finer level of granularity and can greatly reduce scheduling overhead because they don’t block when multiple threads contend for the same data. Further, they are <code>immune to deadlock and other liveness problems</code>. In lock-based algorithms, other threads cannot make progress if a thread goes to sleep or spins while holding a lock, whereas <code>nonblocking algorithms are impervious to individual thread failures</code>. As of Java 5.0, it is possible to build efficient <strong>nonblocking algorithms in Java using the atomic variable classes such as AtomicInteger and AtomicReference</strong>.</li>
 <li>Atomic variables can also be used as <strong>“better volatile variables”</strong> even if you are not developing nonblocking algorithms. <code>Atomic variables offer the same memory semantics as volatile variables</code>, but with additional support for atomic updates— making them ideal for counters, sequence generators, and statistics gathering while offering better scalability than lock-based alternatives.</li>
@@ -334,193 +283,97 @@ Access to resources guarded by an exclusive lock is serialized—only one thread
 <li><strong>The tests so far have been concerned with a class’s adherence to its specifica- tion—that it does what it is supposed to do. A secondary aspect to test is that it does not do things it is not supposed to do</strong>, such as leak resources. Any object that holds or manages other objects should not continue to maintain references to those objects longer than necessary. Such storage leaks prevent garbage collectors from reclaiming memory (or threads, file handles, sockets, database connections, or other limited resources) and can lead to resource exhaustion and application failure.</li>
 </ul>
 
-    </div>
-
-    
-
-    
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/java/">#java</a> <a href="/tags/concurrent/">#concurrent</a>
-        </div>
-    
-
-    <!-- Comments -->
-    
-
-</div>
-            </section>
         
+  </div>
+</article>
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
     </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#This-is-the-second-half-about-Java-Concurrent-of-my-blog"><span class="toc-number">1.</span> <span class="toc-text">This is the second half about Java Concurrent of my blog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#non-blocking-synchronization"><span class="toc-number">1.1.</span> <span class="toc-text">non-blocking synchronization</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hardware"><span class="toc-number">2.</span> <span class="toc-text">hardware</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Compare-and-swap"><span class="toc-number">3.</span> <span class="toc-text">Compare and swap</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#counter-implemented-by-CAS"><span class="toc-number">3.1.</span> <span class="toc-text">counter implemented by CAS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS-support-in-JVM"><span class="toc-number">3.2.</span> <span class="toc-text">CAS support in JVM</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Other-liveness-hazards"><span class="toc-number">4.</span> <span class="toc-text">Other liveness hazards</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Starvation"><span class="toc-number">4.1.</span> <span class="toc-text">Starvation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Poor-responsiveness"><span class="toc-number">4.2.</span> <span class="toc-text">Poor responsiveness</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Livelock"><span class="toc-number">4.3.</span> <span class="toc-text">Livelock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solutions"><span class="toc-number">4.3.1.</span> <span class="toc-text">Solutions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">4.3.2.</span> <span class="toc-text">Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Performance"><span class="toc-number">6.</span> <span class="toc-text">Performance</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scalability"><span class="toc-number">6.1.</span> <span class="toc-text">Scalability</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Amdahl’s-law"><span class="toc-number">6.1.1.</span> <span class="toc-text">Amdahl’s law</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Costs-introduced-by-threads"><span class="toc-number">7.</span> <span class="toc-text">Costs introduced by threads</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Context-switching"><span class="toc-number">7.1.</span> <span class="toc-text">Context switching</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memory-synchronization"><span class="toc-number">7.2.</span> <span class="toc-text">memory synchronization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blocking"><span class="toc-number">7.3.</span> <span class="toc-text">Blocking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reducing-lock-contention"><span class="toc-number">7.4.</span> <span class="toc-text">Reducing lock contention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#There-are-three-ways-to-reduce-lock-contention"><span class="toc-number">7.4.1.</span> <span class="toc-text">There are three ways to reduce lock contention:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Narrowing-lock-scope"><span class="toc-number">7.5.</span> <span class="toc-text">Narrowing lock scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reducing-lock-granularity"><span class="toc-number">7.6.</span> <span class="toc-text">Reducing lock granularity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lock-stripping"><span class="toc-number">7.7.</span> <span class="toc-text">Lock stripping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Alternative-to-exclusive-lock"><span class="toc-number">7.8.</span> <span class="toc-text">Alternative to exclusive lock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ReadWriteLock"><span class="toc-number">7.8.1.</span> <span class="toc-text">ReadWriteLock</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Comparing-Map"><span class="toc-number">8.</span> <span class="toc-text">Comparing Map</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Building-a-asynchronous-log"><span class="toc-number">9.</span> <span class="toc-text">Building a asynchronous log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reducing-context-switching"><span class="toc-number">10.</span> <span class="toc-text">Reducing context switching</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Testing-concurrency"><span class="toc-number">11.</span> <span class="toc-text">Testing concurrency</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-resource-management"><span class="toc-number">11.1.</span> <span class="toc-text">Test resource management</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&text=Java Concurrent Column 2"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&is_video=false&description=Java Concurrent Column 2"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java Concurrent Column 2&body=Check out this article: http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&title=Java Concurrent Column 2"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.todzhang.com/2017-02-01-Concurrent-In-Java-col-2/&name=Java Concurrent Column 2&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
 </div>
 
-
-</div>
-
-<!-- Footer -->
-<div class="push"></div>
-
-<footer class="footer-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
-                <h2>About</h2>
-                <p>
-                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
-                </p>
-            </div>
-            
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
-        <h2>Recent Posts</h2>
-        <ul>
-            
-            <li>
-                <a class="footer-post" href="/2020-03-03-Algorithm-Leecode-1/">Algorithm notes from Leec</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020-05-10-Java-Deep-Notes/">Java Deep Notes</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2019-08-25-AWS-Certificate/">AWS certification</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017-01-21-Algorithm/">Algorithm</a>
-            </li>
-            
-        </ul>
-    </div>
-
-
-
-            
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul class="list-inline footer-social-icons">
-                    
-                    <li class="list-inline-item">
-                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-github"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://twitter.com/?lang=en">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-twitter"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.facebook.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-facebook"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.instagram.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-instagram"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://dribbble.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-dribbble"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://plus.google.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-google-plus"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.behance.net/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-behance"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://500px.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-500px"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="mailto:test@example.com">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-envelope-o"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="\#">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-rss"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="footer-copyright">
-                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
-                </div>
-            </div>
-        </div>
-    </div>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Todd Zhang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
 </footer>
 
-<!-- After footer scripts -->
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Tween Max -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Custom JavaScript -->
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
 <script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
 
 <!-- Disqus Comments -->
 
 
-
 </body>
-
 </html>
