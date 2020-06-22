@@ -1,12 +1,61 @@
 <!DOCTYPE html>
-<html lang=en>
-<head><meta name="generator" content="Hexo 3.9.0">
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="KafkaKafka is fast. A single node can handle hundreds of read/writes from thousands of clients in real time. Kafka is also distributed and scalable. It creates and takes down nodes in an elastic manne">
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="KafkaKafka is fast. A single node can handle hundreds of read/writes from thousands of clients in real time. Kafka is also distributed and scalable. It creates and takes down nodes in an elastic manne">
 <meta name="keywords" content="2018-08-16-Kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka">
@@ -18,136 +67,184 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka">
 <meta name="twitter:description" content="KafkaKafka is fast. A single node can handle hundreds of read/writes from thousands of clients in real time. Kafka is also distributed and scalable. It creates and takes down nodes in an elastic manne">
-    
-    
-        
-          
-              <link rel="shortcut icon" href="/images/favicon.ico">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-          
-        
-    
-    <!-- title -->
-    <title>Kafka</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- persian styles -->
-    
-      <link rel="stylesheet" href="/css/rtl.css">
-    
-    <!-- rss -->
-    
-    
-</head>
-
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/projects_url">Projects</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2019-09-12-Conversations-with-God/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" href="/2019-09-02-Kafka-In-Spring/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.todzhang.com/2019-07-07-Kafka/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://www.todzhang.com/2019-07-07-Kafka/&text=Kafka"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.todzhang.com/2019-07-07-Kafka/&is_video=false&description=Kafka"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Kafka&body=Check out this article: http://www.todzhang.com/2019-07-07-Kafka/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.todzhang.com/2019-07-07-Kafka/&name=Kafka&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka"><span class="toc-number">1.</span> <span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#History-of-Kafka"><span class="toc-number">2.</span> <span class="toc-text">History of Kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka-features"><span class="toc-number">2.1.</span> <span class="toc-text">Kafka features</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Terminology"><span class="toc-number">2.2.</span> <span class="toc-text">Terminology:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Topics-and-Partitions"><span class="toc-number">2.3.</span> <span class="toc-text">Topics and Partitions</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Producers-and-consumers"><span class="toc-number">3.</span> <span class="toc-text">Producers and consumers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#producers"><span class="toc-number">3.1.</span> <span class="toc-text">producers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Consumers"><span class="toc-number">3.2.</span> <span class="toc-text">Consumers</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Consumer-group"><span class="toc-number">3.2.1.</span> <span class="toc-text">Consumer group</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Brokers-and-Clusters"><span class="toc-number">3.3.</span> <span class="toc-text">Brokers and Clusters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#retentions"><span class="toc-number">3.4.</span> <span class="toc-text">retentions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mirror-maker"><span class="toc-number">3.5.</span> <span class="toc-text">mirror maker</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-Kafka"><span class="toc-number">4.</span> <span class="toc-text">Why Kafka?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiple-Producers"><span class="toc-number">4.1.</span> <span class="toc-text">Multiple Producers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiple-Consumers"><span class="toc-number">4.2.</span> <span class="toc-text">Multiple Consumers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scalable"><span class="toc-number">4.3.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#High-Performance"><span class="toc-number">4.4.</span> <span class="toc-text">High Performance</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Process-of-producing-message"><span class="toc-number">5.</span> <span class="toc-text">Process of producing message</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Constructing-a-Kafka-Producer"><span class="toc-number">6.</span> <span class="toc-text">Constructing a Kafka Producer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bootstrap-servers"><span class="toc-number">6.1.</span> <span class="toc-text">bootstrap.servers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#key-serializer"><span class="toc-number">6.2.</span> <span class="toc-text">key.serializer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#value-serializer"><span class="toc-number">6.3.</span> <span class="toc-text">value.serializer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample-code-to-generate-producer-record"><span class="toc-number">6.4.</span> <span class="toc-text">Sample code to generate producer record</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deliver-message"><span class="toc-number">6.5.</span> <span class="toc-text">Deliver message</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fire-and-forget"><span class="toc-number">6.5.1.</span> <span class="toc-text">Fire-and-forget</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Synchronous-send"><span class="toc-number">6.5.2.</span> <span class="toc-text">Synchronous send</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Asynchronous-send"><span class="toc-number">6.5.3.</span> <span class="toc-text">Asynchronous send</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Samle-code-of-asynchronous"><span class="toc-number">6.5.4.</span> <span class="toc-text">Samle code of asynchronous</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rebalancing"><span class="toc-number">6.6.</span> <span class="toc-text">Rebalancing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cosumber"><span class="toc-number">6.7.</span> <span class="toc-text">cosumber</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Subscribing-to-Topics"><span class="toc-number">6.7.1.</span> <span class="toc-text">Subscribing to Topics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-consumer-code"><span class="toc-number">6.7.2.</span> <span class="toc-text">Sample consumer code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thread-safety"><span class="toc-number">6.7.3.</span> <span class="toc-text">Thread safety</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Commit"><span class="toc-number">6.8.</span> <span class="toc-text">Commit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Automatic-Commit"><span class="toc-number">6.8.1.</span> <span class="toc-text">Automatic Commit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Manual-commit"><span class="toc-number">6.8.2.</span> <span class="toc-text">Manual commit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Combining-Synchronous-and-Asynchronous-Commits"><span class="toc-number">6.9.</span> <span class="toc-text">Combining Synchronous and Asynchronous Commits</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exit"><span class="toc-number">6.10.</span> <span class="toc-text">Exit</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-Controller"><span class="toc-number">7.</span> <span class="toc-text">The Controller</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Replication"><span class="toc-number">8.</span> <span class="toc-text">Replication</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Memeroy"><span class="toc-number">8.1.</span> <span class="toc-text">Memeroy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Swap-usage"><span class="toc-number">8.1.1.</span> <span class="toc-text">Swap usage</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-Monitoring-Tools"><span class="toc-number">9.</span> <span class="toc-text">Kafka Monitoring Tools</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#commands"><span class="toc-number">10.</span> <span class="toc-text">commands</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-zookeeper"><span class="toc-number">10.1.</span> <span class="toc-text">Start zookeeper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list-topics"><span class="toc-number">10.2.</span> <span class="toc-text">list topics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#describe-topics"><span class="toc-number">10.3.</span> <span class="toc-text">describe topics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#using-connector"><span class="toc-number">10.3.1.</span> <span class="toc-text">using connector</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Security"><span class="toc-number">11.</span> <span class="toc-text">Security</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#With-user-prompts"><span class="toc-number">11.1.</span> <span class="toc-text">With user prompts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Without-user-prompts-pass-command-line-arguments"><span class="toc-number">11.2.</span> <span class="toc-text">Without user prompts, pass command line arguments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-your-own-Certificate-Authority-CA"><span class="toc-number">11.3.</span> <span class="toc-text">Create your own Certificate Authority (CA)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sign-the-certificate"><span class="toc-number">11.4.</span> <span class="toc-text">Sign the certificate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SASL"><span class="toc-number">11.5.</span> <span class="toc-text">SASL</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-number">12.</span> <span class="toc-text">References</span></a></li></ol>
-    </div>
-  </span>
-</div>
-
-    
-    <div class="content index py4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        Kafka
-    </h1>
+  <link rel="canonical" href="http://www.todzhang.com/2019-07-07-Kafka/">
 
 
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
 
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Clouds & Docker</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2019-09-11T10:37:44.000Z" itemprop="datePublished">2019-09-11</time>
-        
-      
-    </div>
-
-
-      
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/2018-08-16-Kafka/">2018-08-16-Kafka</a>
-    </div>
-
-
-    </div>
-  </header>
+  <title>Kafka | Clouds & Docker</title>
   
 
-  <div class="content" itemprop="articleBody">
-    <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>Kafka is fast. A single node can handle hundreds of read/writes from thousands of clients in real time. Kafka is also distributed and scalable. It creates and takes down nodes in an elastic manner, without incurring any downtime. Data streams are split into partitions and spread over different brokers for capability and redundancy.</p>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Clouds & Docker</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/CloudsDocker" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.todzhang.com/2019-07-07-Kafka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Todd Zhang">
+      <meta itemprop="description" content="Click "Archives" to view more & all my posts. Contact me via phray.zhang@gmail.com or wechat at helloworld_2000">
+      <meta itemprop="image" content="/images/globe.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clouds & Docker">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Kafka
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-11 20:37:44" itemprop="dateCreated datePublished" datetime="2019-09-11T20:37:44+10:00">2019-09-11</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>Kafka is fast. A single node can handle hundreds of read/writes from thousands of clients in real time. Kafka is also distributed and scalable. It creates and takes down nodes in an elastic manner, without incurring any downtime. Data streams are split into partitions and spread over different brokers for capability and redundancy.</p>
 <h1 id="History-of-Kafka"><a href="#History-of-Kafka" class="headerlink" title="History of Kafka"></a>History of Kafka</h1><p>The result was a publish/subscribe messaging system that had an interface typical of messaging systems but a storage layer more like a log-aggregation system. Combined with the adoption of Apache Avro for message serialization, Kafka was effective for handling both metrics and user-activity tracking at a scale of billions of messages per day.</p>
 <h2 id="Kafka-features"><a href="#Kafka-features" class="headerlink" title="Kafka features"></a>Kafka features</h2><ul>
 <li><p>Language Agnostic<br>Producers and consumers use binary protocol to talk to a Kafka cluster.</p>
@@ -254,97 +351,500 @@
 <li><a href="https://blog.serverdensity.com/how-to-monitor-kafka/" target="_blank" rel="noopener">https://blog.serverdensity.com/how-to-monitor-kafka/</a></li>
 </ul>
 
-  </div>
-</article>
+    </div>
 
+    
+    
+    
+        
+      
 
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/2018-08-16-Kafka/" rel="tag"># 2018-08-16-Kafka</a>
+            
+          </div>
+        
 
         
-          <div id="footer-post-container">
-  <div id="footer-post">
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/projects_url">Projects</a></li>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019-09-02-Kafka-In-Spring/" rel="next" title="Kafka In Spring">
+                  <i class="fa fa-chevron-left"></i> Kafka In Spring
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019-09-12-Conversations-with-God/" rel="prev" title="Conversations with God">
+                  Conversations with God <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
         
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka"><span class="toc-number">1.</span> <span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#History-of-Kafka"><span class="toc-number">2.</span> <span class="toc-text">History of Kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka-features"><span class="toc-number">2.1.</span> <span class="toc-text">Kafka features</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Terminology"><span class="toc-number">2.2.</span> <span class="toc-text">Terminology:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Topics-and-Partitions"><span class="toc-number">2.3.</span> <span class="toc-text">Topics and Partitions</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Producers-and-consumers"><span class="toc-number">3.</span> <span class="toc-text">Producers and consumers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#producers"><span class="toc-number">3.1.</span> <span class="toc-text">producers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Consumers"><span class="toc-number">3.2.</span> <span class="toc-text">Consumers</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Consumer-group"><span class="toc-number">3.2.1.</span> <span class="toc-text">Consumer group</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Brokers-and-Clusters"><span class="toc-number">3.3.</span> <span class="toc-text">Brokers and Clusters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#retentions"><span class="toc-number">3.4.</span> <span class="toc-text">retentions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mirror-maker"><span class="toc-number">3.5.</span> <span class="toc-text">mirror maker</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-Kafka"><span class="toc-number">4.</span> <span class="toc-text">Why Kafka?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiple-Producers"><span class="toc-number">4.1.</span> <span class="toc-text">Multiple Producers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiple-Consumers"><span class="toc-number">4.2.</span> <span class="toc-text">Multiple Consumers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scalable"><span class="toc-number">4.3.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#High-Performance"><span class="toc-number">4.4.</span> <span class="toc-text">High Performance</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Process-of-producing-message"><span class="toc-number">5.</span> <span class="toc-text">Process of producing message</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Constructing-a-Kafka-Producer"><span class="toc-number">6.</span> <span class="toc-text">Constructing a Kafka Producer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bootstrap-servers"><span class="toc-number">6.1.</span> <span class="toc-text">bootstrap.servers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#key-serializer"><span class="toc-number">6.2.</span> <span class="toc-text">key.serializer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#value-serializer"><span class="toc-number">6.3.</span> <span class="toc-text">value.serializer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample-code-to-generate-producer-record"><span class="toc-number">6.4.</span> <span class="toc-text">Sample code to generate producer record</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deliver-message"><span class="toc-number">6.5.</span> <span class="toc-text">Deliver message</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fire-and-forget"><span class="toc-number">6.5.1.</span> <span class="toc-text">Fire-and-forget</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Synchronous-send"><span class="toc-number">6.5.2.</span> <span class="toc-text">Synchronous send</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Asynchronous-send"><span class="toc-number">6.5.3.</span> <span class="toc-text">Asynchronous send</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Samle-code-of-asynchronous"><span class="toc-number">6.5.4.</span> <span class="toc-text">Samle code of asynchronous</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rebalancing"><span class="toc-number">6.6.</span> <span class="toc-text">Rebalancing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cosumber"><span class="toc-number">6.7.</span> <span class="toc-text">cosumber</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Subscribing-to-Topics"><span class="toc-number">6.7.1.</span> <span class="toc-text">Subscribing to Topics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-consumer-code"><span class="toc-number">6.7.2.</span> <span class="toc-text">Sample consumer code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thread-safety"><span class="toc-number">6.7.3.</span> <span class="toc-text">Thread safety</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Commit"><span class="toc-number">6.8.</span> <span class="toc-text">Commit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Automatic-Commit"><span class="toc-number">6.8.1.</span> <span class="toc-text">Automatic Commit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Manual-commit"><span class="toc-number">6.8.2.</span> <span class="toc-text">Manual commit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Combining-Synchronous-and-Asynchronous-Commits"><span class="toc-number">6.9.</span> <span class="toc-text">Combining Synchronous and Asynchronous Commits</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exit"><span class="toc-number">6.10.</span> <span class="toc-text">Exit</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-Controller"><span class="toc-number">7.</span> <span class="toc-text">The Controller</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Replication"><span class="toc-number">8.</span> <span class="toc-text">Replication</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Memeroy"><span class="toc-number">8.1.</span> <span class="toc-text">Memeroy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Swap-usage"><span class="toc-number">8.1.1.</span> <span class="toc-text">Swap usage</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-Monitoring-Tools"><span class="toc-number">9.</span> <span class="toc-text">Kafka Monitoring Tools</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#commands"><span class="toc-number">10.</span> <span class="toc-text">commands</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-zookeeper"><span class="toc-number">10.1.</span> <span class="toc-text">Start zookeeper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list-topics"><span class="toc-number">10.2.</span> <span class="toc-text">list topics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#describe-topics"><span class="toc-number">10.3.</span> <span class="toc-text">describe topics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#using-connector"><span class="toc-number">10.3.1.</span> <span class="toc-text">using connector</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Security"><span class="toc-number">11.</span> <span class="toc-text">Security</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#With-user-prompts"><span class="toc-number">11.1.</span> <span class="toc-text">With user prompts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Without-user-prompts-pass-command-line-arguments"><span class="toc-number">11.2.</span> <span class="toc-text">Without user prompts, pass command line arguments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-your-own-Certificate-Authority-CA"><span class="toc-number">11.3.</span> <span class="toc-text">Create your own Certificate Authority (CA)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sign-the-certificate"><span class="toc-number">11.4.</span> <span class="toc-text">Sign the certificate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SASL"><span class="toc-number">11.5.</span> <span class="toc-text">SASL</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-number">12.</span> <span class="toc-text">References</span></a></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.todzhang.com/2019-07-07-Kafka/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://www.todzhang.com/2019-07-07-Kafka/&text=Kafka"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.todzhang.com/2019-07-07-Kafka/&is_video=false&description=Kafka"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Kafka&body=Check out this article: http://www.todzhang.com/2019-07-07-Kafka/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://www.todzhang.com/2019-07-07-Kafka/&title=Kafka"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.todzhang.com/2019-07-07-Kafka/&name=Kafka&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
 
   </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/globe.gif"
+      alt="Todd Zhang">
+  <p class="site-author-name" itemprop="name">Todd Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Click "Archives" to view more & all my posts. Contact me via phray.zhang@gmail.com or wechat at helloworld_2000</div>
 </div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">131</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
 
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy; 2020 Todd Zhang
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/projects_url">Projects</a></li>
-        
-      </ul>
-    </nav>
-  </div>
-</footer>
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka"><span class="nav-number">1.</span> <span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#History-of-Kafka"><span class="nav-number">2.</span> <span class="nav-text">History of Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-features"><span class="nav-number">2.1.</span> <span class="nav-text">Kafka features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Terminology"><span class="nav-number">2.2.</span> <span class="nav-text">Terminology:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Topics-and-Partitions"><span class="nav-number">2.3.</span> <span class="nav-text">Topics and Partitions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Producers-and-consumers"><span class="nav-number">3.</span> <span class="nav-text">Producers and consumers</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#producers"><span class="nav-number">3.1.</span> <span class="nav-text">producers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consumers"><span class="nav-number">3.2.</span> <span class="nav-text">Consumers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Consumer-group"><span class="nav-number">3.2.1.</span> <span class="nav-text">Consumer group</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Brokers-and-Clusters"><span class="nav-number">3.3.</span> <span class="nav-text">Brokers and Clusters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#retentions"><span class="nav-number">3.4.</span> <span class="nav-text">retentions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mirror-maker"><span class="nav-number">3.5.</span> <span class="nav-text">mirror maker</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Why-Kafka"><span class="nav-number">4.</span> <span class="nav-text">Why Kafka?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiple-Producers"><span class="nav-number">4.1.</span> <span class="nav-text">Multiple Producers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiple-Consumers"><span class="nav-number">4.2.</span> <span class="nav-text">Multiple Consumers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scalable"><span class="nav-number">4.3.</span> <span class="nav-text">Scalable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High-Performance"><span class="nav-number">4.4.</span> <span class="nav-text">High Performance</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Process-of-producing-message"><span class="nav-number">5.</span> <span class="nav-text">Process of producing message</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Constructing-a-Kafka-Producer"><span class="nav-number">6.</span> <span class="nav-text">Constructing a Kafka Producer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bootstrap-servers"><span class="nav-number">6.1.</span> <span class="nav-text">bootstrap.servers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key-serializer"><span class="nav-number">6.2.</span> <span class="nav-text">key.serializer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value-serializer"><span class="nav-number">6.3.</span> <span class="nav-text">value.serializer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-code-to-generate-producer-record"><span class="nav-number">6.4.</span> <span class="nav-text">Sample code to generate producer record</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deliver-message"><span class="nav-number">6.5.</span> <span class="nav-text">Deliver message</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fire-and-forget"><span class="nav-number">6.5.1.</span> <span class="nav-text">Fire-and-forget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Synchronous-send"><span class="nav-number">6.5.2.</span> <span class="nav-text">Synchronous send</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Asynchronous-send"><span class="nav-number">6.5.3.</span> <span class="nav-text">Asynchronous send</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Samle-code-of-asynchronous"><span class="nav-number">6.5.4.</span> <span class="nav-text">Samle code of asynchronous</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rebalancing"><span class="nav-number">6.6.</span> <span class="nav-text">Rebalancing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cosumber"><span class="nav-number">6.7.</span> <span class="nav-text">cosumber</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Subscribing-to-Topics"><span class="nav-number">6.7.1.</span> <span class="nav-text">Subscribing to Topics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-consumer-code"><span class="nav-number">6.7.2.</span> <span class="nav-text">Sample consumer code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thread-safety"><span class="nav-number">6.7.3.</span> <span class="nav-text">Thread safety</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Commit"><span class="nav-number">6.8.</span> <span class="nav-text">Commit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Automatic-Commit"><span class="nav-number">6.8.1.</span> <span class="nav-text">Automatic Commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Manual-commit"><span class="nav-number">6.8.2.</span> <span class="nav-text">Manual commit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combining-Synchronous-and-Asynchronous-Commits"><span class="nav-number">6.9.</span> <span class="nav-text">Combining Synchronous and Asynchronous Commits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exit"><span class="nav-number">6.10.</span> <span class="nav-text">Exit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Controller"><span class="nav-number">7.</span> <span class="nav-text">The Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Replication"><span class="nav-number">8.</span> <span class="nav-text">Replication</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Memeroy"><span class="nav-number">8.1.</span> <span class="nav-text">Memeroy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swap-usage"><span class="nav-number">8.1.1.</span> <span class="nav-text">Swap usage</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka-Monitoring-Tools"><span class="nav-number">9.</span> <span class="nav-text">Kafka Monitoring Tools</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#commands"><span class="nav-number">10.</span> <span class="nav-text">commands</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Start-zookeeper"><span class="nav-number">10.1.</span> <span class="nav-text">Start zookeeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list-topics"><span class="nav-number">10.2.</span> <span class="nav-text">list topics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#describe-topics"><span class="nav-number">10.3.</span> <span class="nav-text">describe topics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#using-connector"><span class="nav-number">10.3.1.</span> <span class="nav-text">using connector</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Security"><span class="nav-number">11.</span> <span class="nav-text">Security</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#With-user-prompts"><span class="nav-number">11.1.</span> <span class="nav-text">With user prompts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Without-user-prompts-pass-command-line-arguments"><span class="nav-number">11.2.</span> <span class="nav-text">Without user prompts, pass command line arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-your-own-Certificate-Authority-CA"><span class="nav-number">11.3.</span> <span class="nav-text">Create your own Certificate Authority (CA)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sign-the-certificate"><span class="nav-number">11.4.</span> <span class="nav-text">Sign the certificate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SASL"><span class="nav-number">11.5.</span> <span class="nav-text">SASL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">12.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
-    <!-- styles -->
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
-    <!-- jquery -->
-<script src="/lib/jquery/jquery.min.js"></script>
-<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
-<script src="/js/main.js"></script>
-<!-- search -->
 
-<!-- Google Analytics -->
+      </div>
+    </main>
 
-<!-- Baidu Analytics -->
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Todd Zhang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
 
-<!-- Disqus Comments -->
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
 
 
 </body>
