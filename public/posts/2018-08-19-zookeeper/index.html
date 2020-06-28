@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Zoo-keeper | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Zoo-keeper" />
+<meta property="og:description" content="ZK Motto  the motto &ldquo;ZooKeeper: Because Coordinating Distributed Systems is a Zoo.&rdquo;
+ Features of Zookeeper  Synchronization − Mutual exclusion and co-operation between server processes. Ordered Messages - The strict ordering means that sophisticated synchronization primitives can be implemented at the client. Reliability - The reliability aspects keep it from being a single point of failure. Atomicity − Data transfer either succeeds or fails completely, but no transaction is partial." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2018-08-19-zookeeper/" />
+
+<meta itemprop="name" content="Zoo-keeper">
+<meta itemprop="description" content="ZK Motto  the motto &ldquo;ZooKeeper: Because Coordinating Distributed Systems is a Zoo.&rdquo;
+ Features of Zookeeper  Synchronization − Mutual exclusion and co-operation between server processes. Ordered Messages - The strict ordering means that sophisticated synchronization primitives can be implemented at the client. Reliability - The reliability aspects keep it from being a single point of failure. Atomicity − Data transfer either succeeds or fails completely, but no transaction is partial.">
+
+<meta itemprop="wordCount" content="2982">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Zoo-keeper"/>
+<meta name="twitter:description" content="ZK Motto  the motto &ldquo;ZooKeeper: Because Coordinating Distributed Systems is a Zoo.&rdquo;
+ Features of Zookeeper  Synchronization − Mutual exclusion and co-operation between server processes. Ordered Messages - The strict ordering means that sophisticated synchronization primitives can be implemented at the client. Reliability - The reliability aspects keep it from being a single point of failure. Atomicity − Data transfer either succeeds or fails completely, but no transaction is partial."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2018-08-19-zookeeper/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2018-08-19-zookeeper/&amp;text=Zoo-keeper" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2018-08-19-zookeeper/&amp;title=Zoo-keeper" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Zoo-keeper</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="zk-motto">ZK Motto</h1>
+<blockquote>
+<p>the motto &ldquo;ZooKeeper: Because Coordinating Distributed Systems is a Zoo.&rdquo;</p>
+</blockquote>
+<h1 id="features-of-zookeeper">Features of Zookeeper</h1>
+<ul>
+<li>Synchronization − Mutual exclusion and co-operation between server processes.</li>
+<li>Ordered Messages - The strict ordering means that sophisticated synchronization primitives can be implemented at the client.</li>
+<li>Reliability - The reliability aspects keep it from being a single point of failure.</li>
+<li>Atomicity − Data transfer either succeeds or fails completely, but no transaction is partial.</li>
+<li>High performant - The performance aspects of Zookeeper means it can be used in large, distributed systems.</li>
+<li>Distributed.</li>
+<li>High avaliablity.</li>
+<li>Fault-tolerant.</li>
+<li>Loose coupling.</li>
+<li>Partial failure.</li>
+<li>High throughput and low latency - data is stored data in memory and on disk as well.</li>
+<li>Replicated.</li>
+<li>Automatic failover: When a Zookeeper dies, the session is automatically migrated over to another Zookeeper.</li>
+</ul>
+<h2 id="different-type-of-data">Different type of data</h2>
+<p>When designing an application with ZooKeeper, one ideally separates application data from control or coordination data. For example, the users of a web-mail service are interested in their mailbox content, but not on which server is handling the requests of a particular mailbox. The mailbox content is application data, whereas the mapping of the mailbox to a specific mail server is part of the coordination data (or metadata). A ZooKeeper ensemble manages the latter.</p>
+<p>The multiple processes consequently need to implement mutual exclusion. We can actually think of the task of acquiring mastership as the one of acquiring a lock: the process that acquires the mastership lock exercises the role of master.</p>
+<p>Coordination does not always take the form of synchronization primitives like leader election or locks. Configuration metadata is often used as a way for a process to convey what others should be doing. For example, in a master-worker system, workers need to know the tasks that have been assigned to them, and this information must be available even if the master crashes.</p>
+<h2 id="how-world-work-without-zookeeper">How world work without ZooKeeper</h2>
+<p>It is certainly possible to build distributed systems without using ZooKeeper. ZooKeep‐ er, however, offers developers the possibility of focusing more on application logic rather than on arcane distributed systems concepts. Programming distributed systems without ZooKeeper is possible, but more difficult.</p>
+<h2 id="what-does-zookeeper-does-not-do">What does ZooKeeper does not do</h2>
+<p>The ensemble of ZooKeeper servers manages critical application data related to coor‐ dination. ZooKeeper is not for bulk storage. For bulk storage of application data, there are a number of options available, such as databases and distributed file systems. When designing an application with ZooKeeper, one ideally separates application data from control or coordination data.</p>
+<p>ZooKeeper, however, does not implement the tasks for you. It does not elect a master or track live processes for the application out of the box. Instead, it provides the tools for implementing such tasks. The developer decides what coordination tasks to implement.</p>
+<p>Processes in a distributed system have two broad options for communication: they can exchange messages directly through a network, or read and write to some shared storage. ZooKeeper uses the shared storage model to let applications implement coordination and synchronization primitives. But shared storage itself requires network communi‐ cation between the processes and the storage. It is important to stress the role of network communication because it is an important source of complications in the design of a distributed system.</p>
+<p>This scenario leads to a problem commonly called split-brain: two or more parts of the system make progress independ‐ ently, leading to inconsistent behavior. As part of coming up with a way to cope with master failures, it is critical that we avoid split-brain scenarios.</p>
+<h1 id="tasks">Tasks</h1>
+<p>The following requirements for our master-worker architecture:
+Master election
+It is critical for progress to have a master available to assign tasks to workers.
+Crash detection
+The master must be able to detect when workers crash or disconnect.
+Group membership management
+The master must be able to figure out which workers are available to execute tasks.
+Metadata management
+The master and the workers must be able to store assignments and execution sta‐ tuses in a reliable manner.</p>
+<h1 id="cap">CAP</h1>
+<p>known as CAP, which stands for Consistency, Availability, and Partition-tolerance, says that when designing a distributed system we may want all three of those properties, but that no system can handle all three.2 Zoo‐ Keeper has been designed with mostly consistency and availability in mind, although it also provides read-only capability in the presence of network partitions.</p>
+<h1 id="zookeeper-basics">ZooKeeper Basics</h1>
+<p>Several primitives used for coordination are commonly shared across many applica‐ tions. Consequently, one way of designing a service used for coordination is to come up with a list of primitives, expose calls to create instances of each primitive, and ma‐ nipulate these instances directly. For example, we could say that distributed locks con‐ stitute an important primitive and expose calls to create, acquire, and release locks.
+Such a design, however, suffers from a couple of important shortcomings. First, we need to either come up with an exhaustive list of primitives used beforehand, or keep ex‐ tending the API to introduce new primitives. Second, it does not give flexibility to the application using the service to implement primitives in the way that is most suitable for it.
+We consequently have taken a different path with ZooKeeper. ZooKeeper does not ex‐ pose primitives directly. Instead, it exposes a file system-like API comprised of a small set of calls that enables applications to implement their own primitives. We typically use recipes to denote these implementations of primitives. Recipes include ZooKeeper operations that manipulate small data nodes, called znodes, that are organized hier‐ archically as a tree, just like in a file system.</p>
+<h2 id="znodes">znodes</h2>
+<p>a few other znodes that could be useful in a master- worker configuration:</p>
+<ul>
+<li>The /workers znode is the parent znode to all znodes representing a worker avail‐ able in the system. Figure 2-1 shows that one worker (foo.com:2181) is available. If a worker becomes unavailable, its znode should be removed from /workers.</li>
+<li>The /tasks znode is the parent of all tasks created and waiting for workers to execute them. Clients of the master-worker application add new znodes as children of /tasks to represent new tasks and wait for znodes representing the status of the task.</li>
+<li>The /assign znode is the parent of all znodes representing an assignment of a task to a worker. When a master assigns a task to a worker, it adds a child znode to /assign.</li>
+</ul>
+<h2 id="api">API</h2>
+<p>API Overview
+Znodes may or may not contain data. If a znode contains any data, the data is stored as a byte array. The exact format of the byte array is specific to each application, and ZooKeeper does not directly provide support to parse it. Serialization packages such as Protocol Buffers, Thrift, Avro, and MessagePack may be handy for dealing with the format of the data stored in znodes, but sometimes string encodings such as UTF-8 or ASCII suffice.</p>
+<h2 id="the-zookeeper-api-exposes-the-following-operations">The ZooKeeper API exposes the following operations:</h2>
+<pre><code>create /path data
+Creates a znode named with /path and containing data
+delete /path
+Deletes the znode /path
+exists /path
+Checks whether /path exists
+setData /path data
+Sets the data of znode /path to data
+getData /path
+Returns the data in /path
+getChildren /path
+Returns the list of children under /path
+One important note is that ZooKeeper does not allow partial writes or reads of the znode data. When setting the data of a znode or reading it, the content of the znode is replaced or read entirely.
+</code></pre><p>ZooKeeper clients connect to a ZooKeeper service and establish a session through which they make API calls.</p>
+<p>If a worker becomes unavailable, its session expires and its znode in /workers disappears automatically.</p>
+<p>An ephemeral znode can be deleted in two situations:</p>
+<ol>
+<li>When the session of the client creator ends, either by expiration or because it ex‐ plicitly closed.</li>
+<li>When a client, not necessarily the creator, deletes it.</li>
+</ol>
+<h3 id="sequential-znodes">Sequential znodes</h3>
+<p>A znode can also be set to be sequential. A sequential znode is assigned a unique, mo‐ notonically increasing integer. This sequence number is appended to the path used to create the znode. For example, if a client creates a sequential znode with the path /tasks/ task-, ZooKeeper assigns a sequence number, say 1, and appends it to the path. The path of the znode becomes /tasks/task-1. Sequential znodes provide an easy way to create znodes with unique names. They also provide a way to easily see the creation order of znodes.</p>
+<h3 id="watch">watch</h3>
+<p>This is a common problem with polling. To replace the client polling, we have opted for a mechanism based on notifications: clients register with ZooKeeper to receive notifi‐ cations of changes to znodes. Registering to receive a notification for a given znode consists of setting a watch. A watch is a one-shot operation, which means that it triggers one notification. To receive multiple notifications over time, the client must set a new watch upon receiving each notification.</p>
+<h2 id="versions">Versions</h2>
+<p>Each znode has a version number associated with it that is incremented every time its data changes. A couple of operations in the API can be executed conditionally: setDa ta and delete. Both calls take a version as an input parameter, and the operation suc‐ ceeds only if the version passed by the client matches the current version on the server. The use of versions is important when multiple ZooKeeper clients might be trying to perform operations over the same znode. For example, suppose that a client c1 writes a znode /config containing some configuration. If another client c2 concurrently updates the znode, the version c1 has is stale and the setData of c1 must not succeed. Using versions avoids such situations. In this case, the version that c1 uses when writing back doesn’t match and the operation fails.</p>
+<h1 id="zookeeper-architecture">ZooKeeper Architecture</h1>
+<p>Now that we have discussed at a high level the operations that ZooKeeper exposes to applications, we need to understand more of how the service actually works. Applica‐ tions make calls to ZooKeeper through a client library. The client library is responsible for the interaction with ZooKeeper servers.</p>
+<p>ZooKeeper servers run in two modes: standalone and quorum. Standalone mode is pretty much what the term says: there is a single server, and ZooKeeper state is not replicated. In quorum mode, a group of ZooKeeper servers, which we call a ZooKeeper ensemble, replicates the state, and together they serve client requests. From this point on, we use the term “ZooKeeper ensemble” to denote an installation of servers. This installation could contain a single server and operate in standalone mode or contain a group of servers and operate in quorum mode.</p>
+<h2 id="zookeeper-quorums">ZooKeeper Quorums</h2>
+<p>In quorum mode, ZooKeeper replicates its data tree across all servers in the ensemble. But if a client had to wait for every server to store its data before continuing, the delays might be unacceptable. In public administration, a quorum is the minimum number of legislators required to be present for a vote. In ZooKeeper, it is the minimum number of servers that have to be running and available in order for ZooKeeper to work. This number is also the minimum number of servers that have to store a client’s data before telling the client it is safely stored. For instance, we might have five ZooKeeper servers in total, but a quorum of three. So long as any three servers have stored the data, the client can continue, and the other two servers will eventually catch up and store the data.</p>
+<p>It is important to choose an adequate size for the quorum. Quorums must guarantee that, regardless of delays and crashes in the system, any update request the service pos‐ itively acknowledges will persist until another request supersedes it.</p>
+<p><code>The bottom line is that we should always shoot for an odd number of servers.</code></p>
+<h2 id="sessions">sessions</h2>
+<p>All operations a client submits to ZooKeeper are associated to a session. When a session ends for any reason, the ephemeral nodes created during that session disappear.</p>
+<p>the session may be moved to a different server if the client has not heard from its current server for some time. Moving a session to a different server is handled transparently by the ZooKeeper client library.</p>
+<p>Sessions offer order guarantees, which means that requests in a session are executed in FIFO (first in, first out) order. Typically, a client has only a single session open, so its requests are all executed in FIFO order. If a client has multiple concurrent sessions, FIFO ordering is not necessarily preserved across the sessions.</p>
+<h2 id="commands">Commands</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 5<span style="color:#f92672">]</span> stat /master
+cZxid <span style="color:#f92672">=</span> 0x4
+ctime <span style="color:#f92672">=</span> Mon Aug <span style="color:#ae81ff">20</span> 21:10:23 AEST <span style="color:#ae81ff">2018</span>
+mZxid <span style="color:#f92672">=</span> 0x4
+mtime <span style="color:#f92672">=</span> Mon Aug <span style="color:#ae81ff">20</span> 21:10:23 AEST <span style="color:#ae81ff">2018</span>
+pZxid <span style="color:#f92672">=</span> 0x4
+cversion <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+dataVersion <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+aclVersion <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+ephemeralOwner <span style="color:#f92672">=</span> 0x10003c70e250001
+dataLength <span style="color:#f92672">=</span> <span style="color:#ae81ff">11</span>
+numChildren <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 8<span style="color:#f92672">]</span> create /workers <span style="color:#e6db74">&#34;&#34;</span>
+Created /workers
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 9<span style="color:#f92672">]</span> create /tasks <span style="color:#e6db74">&#34;&#34;</span>
+Created /tasks
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 10<span style="color:#f92672">]</span> create /assign <span style="color:#e6db74">&#34;&#34;</span>
+Created /assign
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 11<span style="color:#f92672">]</span> ls /
+<span style="color:#f92672">[</span>assign, master, tasks, workers, zookeeper<span style="color:#f92672">]</span>
+
+</code></pre></div><h2 id="link-master-and-workers">link master and workers</h2>
+<p>In a real application, these znodes need to be created either by a primary process before it starts assigning tasks or by some bootstrap procedure. Regardless of how they are created, once they exist, the master needs to watch for changes in the children of /workers and /tasks:
+[zk: localhost:2181(CONNECTED) 4] ls /workers true
+[]
+[zk: localhost:2181(CONNECTED) 5] ls /tasks true
+[]
+[zk: localhost:2181(CONNECTED) 6]
+Note that we have used the optional true parameter with ls, as we did before with stat on the master. The true parameter, in this case, creates a watch for changes to the set of children of the corresponding znode.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 14<span style="color:#f92672">]</span> create -e /workers/todd-worker1 <span style="color:#e6db74">&#34;&#34;</span>
+Created /workers/todd-worker1
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/workers
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 15<span style="color:#f92672">]</span>
+</code></pre></div><p>Recall that the master has set a watch for changes to the children of /workers. Once the worker creates a znode under /workers, the master observes the following notification:
+WATCHER::
+WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/workers</p>
+<h2 id="tasks-workflows">Tasks workflows</h2>
+<ul>
+<li>Clients add tasks to the system. Here we assume that the client asks the master-worker system to run a command cmd. To add a task to the system, a client executes the following:
+[zk: localhost:2181(CONNECTED) 0] create -s /tasks/task- &ldquo;cmd&rdquo;
+Created /tasks/task-0000000000</li>
+<li>The client now has to wait until the task is executed.</li>
+<li>The worker that executes the task creates a status znode for the task once the task completes.</li>
+<li>The client determines that the task has been executed when it sees that a status znode for the task has been created;</li>
+<li>the client consequently must watch for the creation of the status znode:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 18<span style="color:#f92672">]</span> create -s /tasks/task- <span style="color:#e6db74">&#34;cmd&#34;</span>
+Created /tasks/task-0000000000
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 19<span style="color:#f92672">]</span> ls /tasks
+<span style="color:#f92672">[</span>task-0000000000<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 20<span style="color:#f92672">]</span> ls -w /tasks/task-0000000000 
+<span style="color:#f92672">[]</span>
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 21<span style="color:#f92672">]</span> ls -w /workers
+<span style="color:#f92672">[</span>todd-worker1<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 22<span style="color:#f92672">]</span> create /assign/todd-worker1/task-0000000000 <span style="color:#e6db74">&#34;&#34;</span>
+Ephemerals cannot have children: /assign/todd-worker1/task-0000000000
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 23<span style="color:#f92672">]</span> delete /assign/todd-worker1
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 24<span style="color:#f92672">]</span> create /assign/todd-worker1
+Created /assign/todd-worker1
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 25<span style="color:#f92672">]</span> create /assign/todd-worker1/task-0000000000 <span style="color:#e6db74">&#34;&#34;</span>
+Created /assign/todd-worker1/task-0000000000
+<span style="color:#f92672">[</span>zk: 127.0.0.1:2181,127.0.0.1:2182<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 26<span style="color:#f92672">]</span> ls /assign/todd-worker1
+<span style="color:#f92672">[</span>task-0000000000<span style="color:#f92672">]</span>
+
+
+
+<span style="color:#75715e"># Once the worker finishes executing the task, it adds a status znode to /tasks:</span>
+    <span style="color:#f92672">[</span>zk: localhost:2181<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 4<span style="color:#f92672">]</span> create /tasks/task-0000000000/status <span style="color:#e6db74">&#34;done&#34;</span>
+    Created /tasks/task-0000000000/status
+    <span style="color:#f92672">[</span>zk: localhost:2181<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 5<span style="color:#f92672">]</span>
+<span style="color:#75715e"># and the client receives a notification and checks the result:</span>
+WATCHER::
+    WatchedEvent state:SyncConnected type:NodeChildrenChanged
+    path:/tasks/task-0000000000
+    <span style="color:#f92672">[</span>zk: localhost:2181<span style="color:#f92672">(</span>CONNECTED<span style="color:#f92672">)</span> 2<span style="color:#f92672">]</span> get /tasks/task-0000000000
+    <span style="color:#e6db74">&#34;cmd&#34;</span>
+</code></pre></div><h1 id="zookeeper-api">ZooKeeper API</h1>
+<h2 id="setting-the-zookeeper-classpath">Setting the ZooKeeper CLASSPATH</h2>
+<p>ZOOBINDIR=&quot;&lt;path_to_distro&gt;/bin&rdquo;
+. &ldquo;$ZOOBINDIR&rdquo;/zkEnv.sh</p>
+<h2 id="handle">handle</h2>
+<p>The ZooKeeper API is built around a ZooKeeper handle that is passed to every API call. This handle represents a session with ZooKeeper. A session that is established with one ZooKeeper server will migrate to another ZooKeeper server if its connection is broken. As long as the session is alive, the handle will remain valid, and the ZooKeeper client library will continually try to keep an active connection to a ZooKeeper server to keep the session alive. If the handle is closed, the ZooKeeper client library will tell the ZooKeeper servers to kill the session. If ZooKeeper decides that a client has died, it will invalidate the session. If a client later tries to reconnect to a Zoo‐ Keeper server using the handle that corresponds to the invalidated session, the Zoo‐ Keeper server informs the client library that the session is no longer valid and the handle returns errors for all operations.</p>
+<p>The constructor that creates a ZooKeeper handle usually looks like:
+ZooKeeper(
+String connectString, int sessionTimeout, Watcher watcher)</p>
+<h3 id="implementing-a-watcher">Implementing a Watcher</h3>
+<p>To receive notifications from ZooKeeper, we need to implement watchers. Let’s look a bit more closely at the Watcher interface. It has the following declaration:
+public interface Watcher {
+void process(WatchedEvent event);
+}</p>
+<h3 id="sample-zookeeper-handle">Sample ZooKeeper handle</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> org.apache.zookeeper.ZooKeeper<span style="color:#f92672">;</span> 
+<span style="color:#f92672">import</span> org.apache.zookeeper.Watcher<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Master</span> <span style="color:#66d9ef">implements</span> Watcher <span style="color:#f92672">{</span> 
+  ZooKeeper zk<span style="color:#f92672">;</span>
+        String hostPort<span style="color:#f92672">;</span>
+
+Master<span style="color:#f92672">(</span>String hostPort<span style="color:#f92672">)</span> 
+<span style="color:#f92672">{</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">hostPort</span> <span style="color:#f92672">=</span> hostPort<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">startZK</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+zk <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ZooKeeper<span style="color:#f92672">(</span>hostPort<span style="color:#f92672">,</span> 15000<span style="color:#f92672">,</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">process</span><span style="color:#f92672">(</span>WatchedEvent e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+Master m <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Master<span style="color:#f92672">(</span>args<span style="color:#f92672">[</span>0<span style="color:#f92672">]);</span>
+            m<span style="color:#f92672">.</span><span style="color:#a6e22e">startZK</span><span style="color:#f92672">();</span>
+            <span style="color:#75715e">// wait for a bit
+</span><span style="color:#75715e"></span>            Thread<span style="color:#f92672">.</span><span style="color:#a6e22e">sleep</span><span style="color:#f92672">(</span>60000<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>nce we have connected to ZooKeeper, there will be a background thread that will maintain the ZooKeeper session. This thread is a daemon thread, which means that the program may exit even if the thread is still active. Here we sleep for a bit so that we can see some events come in before the program exits.
+We can compile this simple example using the following:
+$ javac -cp $CLASSPATH Master.java
+Once we have compiled Master.java, we run it and see the following:
+$ java -cp $CLASSPATH Master 127.0.0.1:2181</p>
+<h2 id="disconnect">disconnect</h2>
+<p>When developers see the Disconnected event, some think they need to create a new ZooKeeper handle to reconnect to the service. Do not do that! See what happens when you start the server, start the Master, and then stop and start the server while the Master is still running. You should see the SyncConnected event followed by the Disconnec ted event and then another SyncConnected event. The ZooKeeper client library takes care of reconnecting to the service for you. Unfortunately, network outages and server failures happen. Usually, ZooKeeper can deal with these failures.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

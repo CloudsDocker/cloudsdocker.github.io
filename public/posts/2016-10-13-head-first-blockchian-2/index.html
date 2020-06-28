@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>【原创】深入浅出区块链系统：第二章 | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="【原创】深入浅出区块链系统：第二章" />
+<meta property="og:description" content="使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)
+ 引言 前面第一章 (位于微博上的链接)主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的无权限控制区块链，第二是有权限控制的区块链，这个又包括了私有链(Private Blockchain,以Overstock为代表)和联盟链(Consortium Blockchain,以R3为代表)，相对于公有链来说，这些链一般都是没有电子货币，因为他们不需要像公有链那样要靠电子货币作为挖矿的奖励来激励参与，所以速度也是比较快的。
+上一章都是讲的抽象的概括，下面我们就深入讲一些具体的东西，这样以便于大家有一个形象的概念，方便理解。我们这一章主要讲讲公有链，以方便讲解以及大家去继续研究，尝试，这里选择在公有链领域社区最为活跃以太坊（Ethereum），对于中国用户来说，其于2016年9月19号刚刚在中国上海举办了DevCon 2区块链峰会，很多人可能有所印象。第一步，这个东西怎么读啊？其实这是新构造的一个单词，而非一个已有的英语单词，其读作[i&rsquo;θi:&lsquo;riəm]。接下来我们会一起过一下涉及的一些概念，后面我会介绍几个如何进行太坊开发的技术工具，以及两个比较好用的应用框架。
+大家都知道，学习一个新技术最好的方式就是亲自动手试一把，几乎学习所有新编程语言上来都会写个HelloWorld并运行一把，在这一章最后一部分我会手把手的带领大家创建并运行一个智能合约。
+概念 Ethereum: Ethereum (官方链接) ，是个区块链公有链解决方案，如果比特币的区块链称作区块链1.0的话，那Ethereum可以称为区块链2.0 。 其主要特色就是支持可编程的智能合约。这个开源的系统相当于计算机中的操作系统一样，其是一个平台，提供了API及接口，以供其上运行不同的程序共享使用。同时因为它本质上是去中心化的区块链，因此号称是零宕机，零审查，以及不会有欺诈与人为篡改。就像所有的公有链需要激励机制的“代币”一样，它除了底层的区块链外，还有自己的加密电子货币，Ether，即以太币，在国内有些人戏称为“姨太”。目前一个“姨太”大约11美元，实时的价格趋势可以参见 这个交易所链接
+智能合约 智能合约 (解释链接 )，其实这个概念本身是远远早于区块链产生的（早在1994年就出现了）。智能合约，说白了就是自己写的一段代码放到区块链上，在这里可以添加自己需要的业务逻辑等，只是这段代码在创建后不像传统应用是部署到服务器上运行，而是放到区块链上，并且自动执行(其运行部署都会消耗Gas(气，也就是若干的以太币))。各个参与方不需要像以前需要一个或若干个中心节点/服务器，大家都各自在自己那里完全按照“合约”执行，中间没有人可以去篡改或者停止，此设计会大大提高flexibility(灵活性）以及互相不信任的问题。比如有一个智能合约定义的逻辑是：当A收到钱后，B就会收到货物，这些操作都是按照合约自动执行，中间不再会有违约或者被人为修改的风险。
+这些智能合约是以DAPP (Decentralized Application)的形式存在。智能合约是部署在区块链上，由于区块链的透明性，这些合约对任何人都是可见的，当然这个有利有弊。如果其有bug或者漏洞，就有可能被人抓住并利用，比如2016年6月的The DAO攻击，就造成相当于5千万美元的以太币丢失，这也直接导致了以太坊后面的一次更分叉，这块笔者后面会撰文详解。
+Web 3.0 大家可能听说过web 1.0， 其是指之前传统的网页技术，比如HTML，传统的JavaScript,VBScript,CSS。而web 2.0 是使用所谓的DHMTL,HTML5, Ajax,等众多的JavaScript技术，来创作类似于桌面程序效果般的网页应用。Web 2.0这些技术有个问题，就是过于依赖中心化的服务器/第三方机构，比如除了其应该做的提供网页访问服务外，还有验证，用户行为记录分析等。 而这里提出的web 3.0是有如下几个特性，首先是去中心化，比如通用的后台端，使用Swarm与bzz来作为内容寻址的存储系统，基于区块链的共识形成机制，基于Whisper的异步消息机制等，这样具体的业务逻辑都会分发到每个客户端去执行，而非位于昂贵且易于出问题的少数中心节点。
+这是刚刚提到的架构图
+Solidity 上面说到的这些智能合约一般来说是使用一种特殊的编程语言来创建的，即Solidity，这个语言是以太坊提出并创造的，面向对象的DSL特定领域编程语言(Domain Specific Language),它是以太坊支持的4种语言（另外三个是Serpent, LLL 和 Mutan），只不过其是最流行的一个语言。从技术上来讲，solidify源代码会编译成字节码，然后运行于EVM（Ethereum Virtual Machine）上面。如果你看到源代码后就会觉得其实Solidity是与JavaScript十分类似的语言，如下是一段代码：
+Gavin Wood (Solidity之父)说Solidity就是根据ECMAScript（是JavaScript,ActionScript等的标准祖先）所创建的，这样对于大多数开发人员来说学习曲线会很平滑。
+开发工具 由于发展时间不是很长，目前市面上可用的开发环境IDE不太多。下面介绍下稍微比较成熟可靠的开发工具。
+Microsoft Visual Studio Ethereum 插件 没错，就是那个市面上已经非常常见的visual studio，也就是dot net的开发工具，不是一个全新的开发工具。此开发集成环境只需要安装solidify插件即可。 这个也从侧面可以看到微软对于以太坊以及区块链的野心。
+安装此插件后在微软的Visual Studio后就可以在新建项目时的模板里看到这个Solidity 选项：
+当选择此模板后，visual studio他会自动构造出一个应用的基本文件结构。这样你可以省去一些每次开发一个智能合约都要重复的工作。你就可以集中时间精力到真正业务代码上。
+如下就是这个IDE自动生成的代码
+Ethereum Studio 除了背靠微软这个大旗的visual studio集成开发环境外，还有一个方便大家使用的免费的IDE。这个是基于Cloud9平台的一个在线IDE，其完全运行于浏览器中，不用安装，可以用于任何的操作系统。如下就是这个在线集成开发环境的样子。这个还是比较推荐的开发环境：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2016-10-13-head-first-blockchian-2/" />
+
+<meta itemprop="name" content="【原创】深入浅出区块链系统：第二章">
+<meta itemprop="description" content="使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)
+ 引言 前面第一章 (位于微博上的链接)主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的无权限控制区块链，第二是有权限控制的区块链，这个又包括了私有链(Private Blockchain,以Overstock为代表)和联盟链(Consortium Blockchain,以R3为代表)，相对于公有链来说，这些链一般都是没有电子货币，因为他们不需要像公有链那样要靠电子货币作为挖矿的奖励来激励参与，所以速度也是比较快的。
+上一章都是讲的抽象的概括，下面我们就深入讲一些具体的东西，这样以便于大家有一个形象的概念，方便理解。我们这一章主要讲讲公有链，以方便讲解以及大家去继续研究，尝试，这里选择在公有链领域社区最为活跃以太坊（Ethereum），对于中国用户来说，其于2016年9月19号刚刚在中国上海举办了DevCon 2区块链峰会，很多人可能有所印象。第一步，这个东西怎么读啊？其实这是新构造的一个单词，而非一个已有的英语单词，其读作[i&rsquo;θi:&lsquo;riəm]。接下来我们会一起过一下涉及的一些概念，后面我会介绍几个如何进行太坊开发的技术工具，以及两个比较好用的应用框架。
+大家都知道，学习一个新技术最好的方式就是亲自动手试一把，几乎学习所有新编程语言上来都会写个HelloWorld并运行一把，在这一章最后一部分我会手把手的带领大家创建并运行一个智能合约。
+概念 Ethereum: Ethereum (官方链接) ，是个区块链公有链解决方案，如果比特币的区块链称作区块链1.0的话，那Ethereum可以称为区块链2.0 。 其主要特色就是支持可编程的智能合约。这个开源的系统相当于计算机中的操作系统一样，其是一个平台，提供了API及接口，以供其上运行不同的程序共享使用。同时因为它本质上是去中心化的区块链，因此号称是零宕机，零审查，以及不会有欺诈与人为篡改。就像所有的公有链需要激励机制的“代币”一样，它除了底层的区块链外，还有自己的加密电子货币，Ether，即以太币，在国内有些人戏称为“姨太”。目前一个“姨太”大约11美元，实时的价格趋势可以参见 这个交易所链接
+智能合约 智能合约 (解释链接 )，其实这个概念本身是远远早于区块链产生的（早在1994年就出现了）。智能合约，说白了就是自己写的一段代码放到区块链上，在这里可以添加自己需要的业务逻辑等，只是这段代码在创建后不像传统应用是部署到服务器上运行，而是放到区块链上，并且自动执行(其运行部署都会消耗Gas(气，也就是若干的以太币))。各个参与方不需要像以前需要一个或若干个中心节点/服务器，大家都各自在自己那里完全按照“合约”执行，中间没有人可以去篡改或者停止，此设计会大大提高flexibility(灵活性）以及互相不信任的问题。比如有一个智能合约定义的逻辑是：当A收到钱后，B就会收到货物，这些操作都是按照合约自动执行，中间不再会有违约或者被人为修改的风险。
+这些智能合约是以DAPP (Decentralized Application)的形式存在。智能合约是部署在区块链上，由于区块链的透明性，这些合约对任何人都是可见的，当然这个有利有弊。如果其有bug或者漏洞，就有可能被人抓住并利用，比如2016年6月的The DAO攻击，就造成相当于5千万美元的以太币丢失，这也直接导致了以太坊后面的一次更分叉，这块笔者后面会撰文详解。
+Web 3.0 大家可能听说过web 1.0， 其是指之前传统的网页技术，比如HTML，传统的JavaScript,VBScript,CSS。而web 2.0 是使用所谓的DHMTL,HTML5, Ajax,等众多的JavaScript技术，来创作类似于桌面程序效果般的网页应用。Web 2.0这些技术有个问题，就是过于依赖中心化的服务器/第三方机构，比如除了其应该做的提供网页访问服务外，还有验证，用户行为记录分析等。 而这里提出的web 3.0是有如下几个特性，首先是去中心化，比如通用的后台端，使用Swarm与bzz来作为内容寻址的存储系统，基于区块链的共识形成机制，基于Whisper的异步消息机制等，这样具体的业务逻辑都会分发到每个客户端去执行，而非位于昂贵且易于出问题的少数中心节点。
+这是刚刚提到的架构图
+Solidity 上面说到的这些智能合约一般来说是使用一种特殊的编程语言来创建的，即Solidity，这个语言是以太坊提出并创造的，面向对象的DSL特定领域编程语言(Domain Specific Language),它是以太坊支持的4种语言（另外三个是Serpent, LLL 和 Mutan），只不过其是最流行的一个语言。从技术上来讲，solidify源代码会编译成字节码，然后运行于EVM（Ethereum Virtual Machine）上面。如果你看到源代码后就会觉得其实Solidity是与JavaScript十分类似的语言，如下是一段代码：
+Gavin Wood (Solidity之父)说Solidity就是根据ECMAScript（是JavaScript,ActionScript等的标准祖先）所创建的，这样对于大多数开发人员来说学习曲线会很平滑。
+开发工具 由于发展时间不是很长，目前市面上可用的开发环境IDE不太多。下面介绍下稍微比较成熟可靠的开发工具。
+Microsoft Visual Studio Ethereum 插件 没错，就是那个市面上已经非常常见的visual studio，也就是dot net的开发工具，不是一个全新的开发工具。此开发集成环境只需要安装solidify插件即可。 这个也从侧面可以看到微软对于以太坊以及区块链的野心。
+安装此插件后在微软的Visual Studio后就可以在新建项目时的模板里看到这个Solidity 选项：
+当选择此模板后，visual studio他会自动构造出一个应用的基本文件结构。这样你可以省去一些每次开发一个智能合约都要重复的工作。你就可以集中时间精力到真正业务代码上。
+如下就是这个IDE自动生成的代码
+Ethereum Studio 除了背靠微软这个大旗的visual studio集成开发环境外，还有一个方便大家使用的免费的IDE。这个是基于Cloud9平台的一个在线IDE，其完全运行于浏览器中，不用安装，可以用于任何的操作系统。如下就是这个在线集成开发环境的样子。这个还是比较推荐的开发环境：">
+
+<meta itemprop="wordCount" content="195">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="【原创】深入浅出区块链系统：第二章"/>
+<meta name="twitter:description" content="使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)
+ 引言 前面第一章 (位于微博上的链接)主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的无权限控制区块链，第二是有权限控制的区块链，这个又包括了私有链(Private Blockchain,以Overstock为代表)和联盟链(Consortium Blockchain,以R3为代表)，相对于公有链来说，这些链一般都是没有电子货币，因为他们不需要像公有链那样要靠电子货币作为挖矿的奖励来激励参与，所以速度也是比较快的。
+上一章都是讲的抽象的概括，下面我们就深入讲一些具体的东西，这样以便于大家有一个形象的概念，方便理解。我们这一章主要讲讲公有链，以方便讲解以及大家去继续研究，尝试，这里选择在公有链领域社区最为活跃以太坊（Ethereum），对于中国用户来说，其于2016年9月19号刚刚在中国上海举办了DevCon 2区块链峰会，很多人可能有所印象。第一步，这个东西怎么读啊？其实这是新构造的一个单词，而非一个已有的英语单词，其读作[i&rsquo;θi:&lsquo;riəm]。接下来我们会一起过一下涉及的一些概念，后面我会介绍几个如何进行太坊开发的技术工具，以及两个比较好用的应用框架。
+大家都知道，学习一个新技术最好的方式就是亲自动手试一把，几乎学习所有新编程语言上来都会写个HelloWorld并运行一把，在这一章最后一部分我会手把手的带领大家创建并运行一个智能合约。
+概念 Ethereum: Ethereum (官方链接) ，是个区块链公有链解决方案，如果比特币的区块链称作区块链1.0的话，那Ethereum可以称为区块链2.0 。 其主要特色就是支持可编程的智能合约。这个开源的系统相当于计算机中的操作系统一样，其是一个平台，提供了API及接口，以供其上运行不同的程序共享使用。同时因为它本质上是去中心化的区块链，因此号称是零宕机，零审查，以及不会有欺诈与人为篡改。就像所有的公有链需要激励机制的“代币”一样，它除了底层的区块链外，还有自己的加密电子货币，Ether，即以太币，在国内有些人戏称为“姨太”。目前一个“姨太”大约11美元，实时的价格趋势可以参见 这个交易所链接
+智能合约 智能合约 (解释链接 )，其实这个概念本身是远远早于区块链产生的（早在1994年就出现了）。智能合约，说白了就是自己写的一段代码放到区块链上，在这里可以添加自己需要的业务逻辑等，只是这段代码在创建后不像传统应用是部署到服务器上运行，而是放到区块链上，并且自动执行(其运行部署都会消耗Gas(气，也就是若干的以太币))。各个参与方不需要像以前需要一个或若干个中心节点/服务器，大家都各自在自己那里完全按照“合约”执行，中间没有人可以去篡改或者停止，此设计会大大提高flexibility(灵活性）以及互相不信任的问题。比如有一个智能合约定义的逻辑是：当A收到钱后，B就会收到货物，这些操作都是按照合约自动执行，中间不再会有违约或者被人为修改的风险。
+这些智能合约是以DAPP (Decentralized Application)的形式存在。智能合约是部署在区块链上，由于区块链的透明性，这些合约对任何人都是可见的，当然这个有利有弊。如果其有bug或者漏洞，就有可能被人抓住并利用，比如2016年6月的The DAO攻击，就造成相当于5千万美元的以太币丢失，这也直接导致了以太坊后面的一次更分叉，这块笔者后面会撰文详解。
+Web 3.0 大家可能听说过web 1.0， 其是指之前传统的网页技术，比如HTML，传统的JavaScript,VBScript,CSS。而web 2.0 是使用所谓的DHMTL,HTML5, Ajax,等众多的JavaScript技术，来创作类似于桌面程序效果般的网页应用。Web 2.0这些技术有个问题，就是过于依赖中心化的服务器/第三方机构，比如除了其应该做的提供网页访问服务外，还有验证，用户行为记录分析等。 而这里提出的web 3.0是有如下几个特性，首先是去中心化，比如通用的后台端，使用Swarm与bzz来作为内容寻址的存储系统，基于区块链的共识形成机制，基于Whisper的异步消息机制等，这样具体的业务逻辑都会分发到每个客户端去执行，而非位于昂贵且易于出问题的少数中心节点。
+这是刚刚提到的架构图
+Solidity 上面说到的这些智能合约一般来说是使用一种特殊的编程语言来创建的，即Solidity，这个语言是以太坊提出并创造的，面向对象的DSL特定领域编程语言(Domain Specific Language),它是以太坊支持的4种语言（另外三个是Serpent, LLL 和 Mutan），只不过其是最流行的一个语言。从技术上来讲，solidify源代码会编译成字节码，然后运行于EVM（Ethereum Virtual Machine）上面。如果你看到源代码后就会觉得其实Solidity是与JavaScript十分类似的语言，如下是一段代码：
+Gavin Wood (Solidity之父)说Solidity就是根据ECMAScript（是JavaScript,ActionScript等的标准祖先）所创建的，这样对于大多数开发人员来说学习曲线会很平滑。
+开发工具 由于发展时间不是很长，目前市面上可用的开发环境IDE不太多。下面介绍下稍微比较成熟可靠的开发工具。
+Microsoft Visual Studio Ethereum 插件 没错，就是那个市面上已经非常常见的visual studio，也就是dot net的开发工具，不是一个全新的开发工具。此开发集成环境只需要安装solidify插件即可。 这个也从侧面可以看到微软对于以太坊以及区块链的野心。
+安装此插件后在微软的Visual Studio后就可以在新建项目时的模板里看到这个Solidity 选项：
+当选择此模板后，visual studio他会自动构造出一个应用的基本文件结构。这样你可以省去一些每次开发一个智能合约都要重复的工作。你就可以集中时间精力到真正业务代码上。
+如下就是这个IDE自动生成的代码
+Ethereum Studio 除了背靠微软这个大旗的visual studio集成开发环境外，还有一个方便大家使用的免费的IDE。这个是基于Cloud9平台的一个在线IDE，其完全运行于浏览器中，不用安装，可以用于任何的操作系统。如下就是这个在线集成开发环境的样子。这个还是比较推荐的开发环境："/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2016-10-13-head-first-blockchian-2/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2016-10-13-head-first-blockchian-2/&amp;text=%e3%80%90%e5%8e%9f%e5%88%9b%e3%80%91%e6%b7%b1%e5%85%a5%e6%b5%85%e5%87%ba%e5%8c%ba%e5%9d%97%e9%93%be%e7%b3%bb%e7%bb%9f%ef%bc%9a%e7%ac%ac%e4%ba%8c%e7%ab%a0" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2016-10-13-head-first-blockchian-2/&amp;title=%e3%80%90%e5%8e%9f%e5%88%9b%e3%80%91%e6%b7%b1%e5%85%a5%e6%b5%85%e5%87%ba%e5%8c%ba%e5%9d%97%e9%93%be%e7%b3%bb%e7%bb%9f%ef%bc%9a%e7%ac%ac%e4%ba%8c%e7%ab%a0" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">【原创】深入浅出区块链系统：第二章</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><blockquote>
+<p>使用Solidity创建以太坊(Ethereum)智能合约(Smart Contract)</p>
+</blockquote>
+<h1 id="引言">引言</h1>
+<p>前面第一章 (<a href="http://weibo.com/ttarticle/p/show?id=2309404030129192967736#_0">位于微博上的链接</a>)主要介绍了区块链的概念，我们知道区块链分为两大类，一是以公有链为代表的<code>无权限控制区块链</code>，第二是<code>有权限控制的区块链</code>，这个又包括了<code>私有链</code>(Private Blockchain,以Overstock为代表)和<code>联盟链</code>(Consortium Blockchain,以R3为代表)，相对于公有链来说，这些链一般都是没有电子货币，因为他们不需要像公有链那样要靠电子货币作为挖矿的奖励来激励参与，所以速度也是比较快的。</p>
+<p>上一章都是讲的抽象的概括，下面我们就深入讲一些具体的东西，这样以便于大家有一个形象的概念，方便理解。我们这一章主要讲讲公有链，以方便讲解以及大家去继续研究，尝试，这里选择在公有链领域社区最为活跃以太坊（Ethereum），对于中国用户来说，其于2016年9月19号刚刚在中国上海举办了DevCon 2区块链峰会，很多人可能有所印象。第一步，这个东西怎么读啊？其实这是新构造的一个单词，而非一个已有的英语单词，其读作[i&rsquo;θi:&lsquo;riəm]。接下来我们会一起过一下涉及的一些概念，后面我会介绍几个如何进行太坊开发的技术工具，以及两个比较好用的应用框架。</p>
+<p>大家都知道，学习一个新技术最好的方式就是亲自动手试一把，几乎学习所有新编程语言上来都会写个<code>HelloWorld</code>并运行一把，在这一章最后一部分我会手把手的带领大家创建并运行一个智能合约。</p>
+<h1 id="概念">概念</h1>
+<h2 id="ethereum">Ethereum:</h2>
+<p>Ethereum (<a href="https://www.ethereum.org">官方链接</a>) ，是个区块链公有链解决方案，如果比特币的区块链称作区块链1.0的话，那Ethereum可以称为区块链2.0 。 其主要特色就是支持<code>可编程</code>的智能合约。这个开源的系统相当于计算机中的操作系统一样，其是一个平台，提供了API及接口，以供其上运行不同的程序共享使用。同时因为它本质上是<code>去中心化的区块链</code>，因此号称是零宕机，零审查，以及不会有欺诈与人为篡改。就像所有的公有链需要激励机制的“代币”一样，它除了底层的区块链外，还有自己的加密电子货币，Ether，即<code>以太币</code>，在国内有些人戏称为“姨太”。目前一个“姨太”大约11美元，实时的价格趋势可以参见 <a href="https://www.coingecko.com/en/price_charts/ethereum/usd">这个交易所链接</a></p>
+<p><img src="http://cloudsdocker.github.io/images/EtherUSD.png" alt=""></p>
+<h2 id="智能合约">智能合约</h2>
+<p>智能合约 (<a href="https://en.wikipedia.org/wiki/Smart_contract">解释链接</a> )，其实这个概念本身是远远早于区块链产生的（早在1994年就出现了）。智能合约，说白了就是自己写的一段代码放到区块链上，在这里可以添加自己需要的业务逻辑等，只是这段代码在创建后不像传统应用是部署到服务器上运行，而是放到区块链上，并且自动执行(其运行部署都会消耗Gas(气，也就是若干的以太币))。各个参与方不需要像以前需要一个或若干个中心节点/服务器，大家都各自在自己那里完全按照“合约”执行，中间没有人可以去篡改或者停止，此设计会大大提高flexibility(灵活性）以及互相不信任的问题。比如有一个智能合约定义的逻辑是：当A收到钱后，B就会收到货物，这些操作都是按照合约自动执行，中间不再会有违约或者被人为修改的风险。</p>
+<p>这些智能合约是以DAPP (Decentralized  Application)的形式存在。智能合约是部署在区块链上，由于区块链的透明性，这些合约对任何人都是可见的，当然这个有利有弊。如果其有bug或者漏洞，就有可能被人抓住并利用，比如2016年6月的The DAO攻击，就造成相当于5千万美元的以太币丢失，这也直接导致了以太坊后面的一次更分叉，这块笔者后面会撰文详解。</p>
+<h2 id="web-30">Web 3.0</h2>
+<p>大家可能听说过web 1.0， 其是指之前传统的网页技术，比如HTML，传统的JavaScript,VBScript,CSS。而web 2.0 是使用所谓的DHMTL,HTML5, Ajax,等众多的JavaScript技术，来创作类似于桌面程序效果般的网页应用。Web 2.0这些技术有个问题，就是<code>过于依赖</code>中心化的服务器/第三方机构，比如除了其应该做的提供网页访问服务外，还有验证，用户行为记录分析等。 而这里提出的web 3.0是有如下几个特性，首先是<code>去中心化</code>，比如通用的后台端，使用Swarm与bzz来作为<code>内容寻址的存储系统</code>，基于区块链的<code>共识形成机制</code>，基于Whisper的异步消息机制等，这样具体的业务逻辑都会分发到每个客户端去执行，而非位于昂贵且易于出问题的少数中心节点。</p>
+<p>这是刚刚提到的架构图</p>
+<p><img src="https://blog.ethereum.org/wp-content/uploads/2016/07/Screen-Shot-2016-07-08-at-5.37.32-PM.png" alt=""></p>
+<h2 id="solidity">Solidity</h2>
+<p>上面说到的这些智能合约一般来说是使用一种特殊的编程语言来创建的，即Solidity，这个语言是以太坊提出并创造的，面向对象的DSL特定领域编程语言(Domain Specific Language),它是以太坊支持的4种语言（另外三个是Serpent, LLL 和 Mutan），只不过其是最流行的一个语言。从技术上来讲，solidify源代码会编译成字节码，然后运行于EVM（Ethereum Virtual Machine）上面。如果你看到源代码后就会觉得其实Solidity是与JavaScript十分类似的语言，如下是一段代码：</p>
+<p><img src="http://cloudsdocker.github.io/images/Solidity.png" alt=""></p>
+<p>Gavin Wood (Solidity之父)说Solidity就是根据ECMAScript（是JavaScript,ActionScript等的标准祖先）所创建的，这样对于大多数开发人员来说学习曲线会很平滑。</p>
+<h1 id="开发工具">开发工具</h1>
+<p>由于发展时间不是很长，目前市面上可用的开发环境IDE不太多。下面介绍下稍微比较成熟可靠的开发工具。</p>
+<h2 id="microsoft-visual-studio-ethereum-插件">Microsoft Visual Studio Ethereum 插件</h2>
+<p>没错，就是那个市面上已经非常常见的visual studio，也就是dot net的开发工具，不是一个全新的开发工具。此开发集成环境只需要安装solidify插件即可。 这个也从侧面可以看到微软对于以太坊以及区块链的野心。</p>
+<p>安装此插件后在微软的Visual Studio后就可以在新建项目时的模板里看到这个Solidity 选项：</p>
+<p><img src="http://cloudsdocker.github.io/images/VisualStudio-Overview.png" alt=""></p>
+<p>当选择此模板后，visual studio他会自动构造出一个应用的基本文件结构。这样你可以省去一些每次开发一个智能合约都要重复的工作。你就可以集中时间精力到真正业务代码上。</p>
+<p>如下就是这个IDE自动生成的代码</p>
+<p><img src="http://cloudsdocker.github.io/images/VisualStudio-Outline.png" alt=""></p>
+<h2 id="ethereum-studio">Ethereum Studio</h2>
+<p>除了背靠微软这个大旗的visual studio集成开发环境外，还有一个方便大家使用的免费的IDE。这个是基于Cloud9平台的一个在线IDE，其完全运行于浏览器中，不用安装，可以用于任何的操作系统。如下就是这个在线集成开发环境的样子。这个还是比较推荐的开发环境：</p>
+<p><img src="http://cloudsdocker.github.io/images/Cloud9.png" alt=""></p>
+<h1 id="智能合约应用开发框架">智能合约应用开发框架</h1>
+<p>目前比较常用的智能合约构架有如下几个，都是开源并且免费的。这里我们来手把手的创建并运行一个智能合约，来体会一下。</p>
+<h2 id="embark">Embark</h2>
+<p>首先推荐的是这个叫做Embark的框架，他是一个让你可以轻松开发部署Dapps的平台，它支持的功能包括，在JS代码中部署智能合约，智能合约的热部署，可以集成grunt等构造工具。支持TDD（即测试驱动的开发）比如支持mocha等测试框架，可以方便的使用IPFS等去中心化的系统，支持增量，智能的部署修改过的智能合约等。这个工具是使用nodejs写的，因此你需要先安装nodejs的环境。这个平台会在你本地启动一个区块链服务模拟器，这样你就可以完全在本地开发测试，大大提高了工作效率。如下是启动后的截图。Embark的安装及源代码位于<a href="https://github.com/CloudsDocker/embark-framework">Gitub这里</a></p>
+<p>首先你需要来安装Embark以及区块链模拟器。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 安装Embark</span>
+npm -g install embark-framework
+
+<span style="color:#75715e"># 安装区块链模拟器</span>
+npm -g install ethersim
+
+<span style="color:#75715e"># 启动RPC模拟器</span>
+embark simulator
+</code></pre></div><p>启动的模拟器是下面这个样子
+<img src="http://cloudsdocker.github.io/images/Ethersim.png" alt=""></p>
+<p>然后我们去创建一个新的智能合约：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 创建一个叫做demo的智能合约基础结构</span>
+embark demo
+<span style="color:#75715e"># 进入这个目录，下面含有配置文件 embark.yaml</span>
+cd embark_demo
+<span style="color:#75715e"># 启动应用</span>
+embark run
+</code></pre></div><p>启动后,首先在后台看，Emark帮忙使用coffee script等构造并部署了合约。</p>
+<p><img src="http://cloudsdocker.github.io/images/EmbarkStart.png" alt=""></p>
+<p>你可以使用浏览器试验一下，比如打开<code>http://localhost:8000</code>，然后你可以试着输入个数值，去试试看看它是不是已经能够响应处理你的输入了：</p>
+<p><img src="http://cloudsdocker.github.io/images/EmbarkApp.png" alt=""></p>
+<p>是不是很神奇，短短两三分钟，已经从零开始构造出一个可以运行的以太坊DAPP
+，并运行于区块链之上。 接下来我们介绍另外一个框架选择方案。</p>
+<h2 id="truffle">Truffle</h2>
+<p>Truffle,是跟前面提到的 Ethereum Studio 同一个公司（ConsenSys）开发的一个框架， 这个跟前面的embark类似，也是可以提供一个智能合约的开发测试平台,他的一个特色就是它可以集成nodejs里面强大的测试功能，比如Mocha, Chai等等. 像Embark一样，你需要另外安装运行其他软件，来启动以太坊客户端模拟器，最常用的是EthereumJS TestRPC  <a href="https://github.com/ethereumjs/testrpc">Github link</a>, 它会在内存中启动一个Ethereum的客户端， 这样可以快速测试你开发的应用。</p>
+<p>因为这个也是使用nodejs创建的应用，因此使用如下命令来安装此程序，安装好了启动此应用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#安装以太坊模拟器</span>
+npm install -g ethereumjs-testrpc
+<span style="color:#75715e"># 启动模拟器</span>
+testrpc
+</code></pre></div><p>启动后是这样子的
+<img src="http://cloudsdocker.github.io/images/Testrpc.png" alt=""></p>
+<p>模拟器启动好了，接下来执行下面的命令来初始化truffle应用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir firstApp
+cd firstApp
+truffle init
+</code></pre></div><p>上面最后一个命令就会自动帮你构造好的程序框架，包括一些最基本的JavaScript文件，几个智能合约源代码，主应用程序的HTML代码及配套的CSS等文件 。如下是这个基本框架：
+<img src="http://cloudsdocker.github.io/images/Truffle_Window.png" alt=""></p>
+<p>接下来你可以添加自己的代码到<code>contracts</code>目录下的智能合约文件，也可以什么都不动，因为truffle已经自动生成了最基本的框架。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#这个命令会把智能合约源代码编译成字节码</span>
+truffle compile
+</code></pre></div><p>编译好的代码需要部署到区块链上才可以执行，在truffle中这个工作是由<code>migrates</code>目录下定义的migrate作业执行的，我们去修改文件<code>2_deploy_contracts.js</code>为如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">deployer</span>) {
+  <span style="color:#75715e">// deployer.deploy(ConvertLib);
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// deployer.autolink();
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// deployer.deploy(MetaCoin);
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">deployer</span>.<span style="color:#a6e22e">deploy</span>(<span style="color:#a6e22e">HelloEthereum</span>);
+};
+</code></pre></div><p>然后执行如下命令去执行代码部署，它除了把你的智能合约发布到区块链之外，还会做一些相关工作，比如link用到的library等。deployer可以使用<code>promise</code>的方式 (e.g. .then(function(xx)))来执行其他额外的工作等，比如创建一个其他的合约并调用，等。这个便于你来灵活的扩展应用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">truffle migrate
+truffle build
+</code></pre></div><h1 id="结语">结语</h1>
+<p>好了，至此我们已经了解了什么是以太坊已经其上运行的智能合约，DAPP等概念。后面又介绍了开发智能合约的工具已经可复用的框架，最后又手把手亲自做了一个智能合约。这样大家应该对区块链以及以太坊等公有链有了一个形象具体的感觉了吧。如果这里有什么问题或者建议，欢迎通过下面的联系方式与我沟通。</p>
+<h1 id="referece">Referece</h1>
+<ul>
+<li><a href="https://solidity.readthedocs.io/en/develop/introduction-to-smart-contracts.html">Introduction to Smart Contracts</a></li>
+<li><a href="https://solidity.readthedocs.io/en/develop/installing-solidity.html">Installing Solidity</a></li>
+<li><a href="https://blog.ethereum.org/2016/07/12/build-server-less-applications-mist/">以太坊官方教程</a></li>
+<li><a href="http://swarm-gateways.net/bzz:/swarm/">Swarm</a></li>
+<li><a href="http://truffle.readthedocs.io/en/latest/">Truffle Official Doc</a></li>
+</ul>
+<h2 id="联系我">联系我：</h2>
+<ul>
+<li><a href="mailto:phray.zhang@gmail.com">phray.zhang@gmail.com</a> (email/邮件，whatsapp, linkedin)</li>
+<li>helloworld_2000 (wechat/微信)</li>
+<li><a href="https://github.com/CloudsDocker/">github</a></li>
+<li>[简书 jianshu]（http://www.jianshu.com/users/a9e7b971aafc）</li>
+<li>微信公众号：vibex</li>
+<li><a href="http://weibo.com/cloudsdocker">webo/微博</a>: cloudsdocker</li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>KDB | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="KDB" />
+<meta property="og:description" content="KDB However kdb&#43; evaluates expressions right-to-left. There are no precedence rules. The reason commonly given for this behaviour is that it is a much simpler to understand system, many q-gods would agree, beginners however may not.
+The kdb&#43; built-in commands are mostly a single letter. If a system command that is not built-in is entered, that command will be passed to the underlying operating system.
+Created with financial institutions in mind, the database was developed as a central repository to store time series data that supports real-time analysis of billions of records." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2018-06-12-kdb/" />
+
+<meta itemprop="name" content="KDB">
+<meta itemprop="description" content="KDB However kdb&#43; evaluates expressions right-to-left. There are no precedence rules. The reason commonly given for this behaviour is that it is a much simpler to understand system, many q-gods would agree, beginners however may not.
+The kdb&#43; built-in commands are mostly a single letter. If a system command that is not built-in is entered, that command will be passed to the underlying operating system.
+Created with financial institutions in mind, the database was developed as a central repository to store time series data that supports real-time analysis of billions of records.">
+
+<meta itemprop="wordCount" content="3696">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="KDB"/>
+<meta name="twitter:description" content="KDB However kdb&#43; evaluates expressions right-to-left. There are no precedence rules. The reason commonly given for this behaviour is that it is a much simpler to understand system, many q-gods would agree, beginners however may not.
+The kdb&#43; built-in commands are mostly a single letter. If a system command that is not built-in is entered, that command will be passed to the underlying operating system.
+Created with financial institutions in mind, the database was developed as a central repository to store time series data that supports real-time analysis of billions of records."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2018-06-12-kdb/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2018-06-12-kdb/&amp;text=KDB" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2018-06-12-kdb/&amp;title=KDB" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">KDB</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="kdb">KDB</h1>
+<p>However kdb+ evaluates expressions right-to-left. There are no precedence rules. The reason commonly given for this behaviour is that it is a much simpler to understand system, many q-gods would agree, beginners however may not.</p>
+<p>The kdb+ built-in commands are mostly a single letter. If a system command that is not built-in is entered, that command will be passed to the underlying operating system.</p>
+<p>Created with financial institutions in mind, the database was developed as a central repository <em>to store time series data</em> that <em>supports real-time analysis of billions of records</em>.</p>
+<p>Columnar databases return answers to some queries in a more efficient way than row-based database management systems.</p>
+<p>kdb+ dictionaries, tables and nanosecond time stamps are native data types and are used to store time series data.</p>
+<p>In 1998, Kx Systems released kdb, a database built on the language K written by Arthur Whitney. In 2003, kdb+ was released as a 64-bit version of kdb.</p>
+<p>kdb/q/kdb+ is both a database (kdb) and a vector language (q). It&rsquo;s used by almost every major financial institution</p>
+<p><strong>Kdb+ is an in-memory column-oriented database based on the concept of ordered lists</strong>. In-memory means it primarily stores its data in RAM. This makes it extremely fast with a much simplified database engine but it requires a lot of RAM (Which no longer poses a problem as servers with massive amounts of RAM are now inexpensive). Column oriented database means that each column of data is stored sequentially in memory</p>
+<h1 id="column-db">Column DB</h1>
+<p>The main reason why indexes dramatically improve performance on large datasets is that database indexes on one or more columns are typically sorted by value, which makes range queries operations (like the above &ldquo;find all records with salaries between 40,000 and 50,000&rdquo; example) very fast (lower time-complexity).</p>
+<p>Kdb+ the Database - Column Oriented DB allowing fast timeseries analysis</p>
+<h2 id="column-oriented-systems">Column-oriented systems</h2>
+<p>A column-oriented database serializes all of the values of a column together, then the values of the next column, and so on. For our example table, the data would be stored in this fashion:
+10:001,12:002,11:003,22:004;
+Smith:001,Jones:002,Johnson:003,Jones:004;
+Joe:001,Mary:002,Cathy:003,Bob:004;
+40000:001,50000:002,44000:003,55000:004;
+In this layout, any one of the columns more closely matches the structure of an index in a row-based system. This may cause confusion that can lead to the mistaken belief a column-oriented store &ldquo;is really just&rdquo; a row-store with an index on every column. However, it is the mapping of the data that differs dramatically. In a row-oriented indexed system, the primary key is the rowid that is mapped from indexed data. In the column-oriented system, the primary key is the data, which is mapped from rowids.[2] This may seem subtle, but the difference can be seen in this common modification to the same store:</p>
+<blockquote>
+<p>…;Smith:001;Jones:002,004;Johnson:003;…</p>
+</blockquote>
+<p>Whether or not a column-oriented system will be more efficient in operation depends heavily on the workload being automated. Operations that retrieve all the data for a given object (the entire row) are slower. A row-based system can retrieve the row in a single disk read, whereas numerous disk operations to collect data from multiple columns are required from a columnar database. However, these whole-row operations are generally rare. In the majority of cases, only a limited subset of data is retrieved. In a rolodex application, for instance, collecting the first and last names from many rows to build a list of contacts is far more common than reading all data for any single address. This is even more true for writing data into the database, especially if the data tends to be &ldquo;sparse&rdquo; with many optional columns. For this reason, column stores have demonstrated excellent real-world performance in spite of many theoretical disadvantages.</p>
+<h2 id="why-are-most-databases-row-oriented">Why are most databases row-oriented?</h2>
+<p>Imagine we want to add one row somewhere in the middle of our data for 2011-02-26, on the row oriented database no problem, column oriented we will have to move almost all the data! Lucky since we <code>mostly deal with time series new data only appends to the end</code> of our table.</p>
+<h2 id="difference-vs-row-based-db">Difference vs row based DB</h2>
+<p>a subtle point is that unlike most standard <code>SQL which is based on set theory</code>, <code>kdb+ is based on vectors of ordered lists</code>. Where standard SQL has struggled with queries like find the top 3 stocks by price, find the bottom 3 by market cap because it has no concept of order, kdb&rsquo;s ordering significantly simplifies many queries. This ordered concept allows kdb+ to provide unique timeseries joins that would be be extremely difficult in other variations of SQL and require the use of slow cursors.</p>
+<h1 id="language-q">Language Q</h1>
+<p>the primary design objectives of q are expressiveness, speed and efficiency. In these, it is beyond compare. The design trade-off is a terseness that can be disconcerting to programmers coming from verbose traditional database programming environments – e.g., C++, Java, C# or Python – and a relational DBMS</p>
+<p>Q evolved from APL (A Programming Language), which was first invented as a mathematical notation by Kenneth Iverson at Harvard University in the 1950s. APL was introduced in the 1960s by IBM as a vector programming language, meaning that it processes a list of numbers in a single operation. It was successful in finance and other industries that required heavy number crunching.</p>
+<p>q is Kx’s proprietary language. It’s a powerful, concise and elegant array language, which means that a production system could just be a single page of code, not pages and pages of code and a nightmare to maintain. Clearly there is an initial investment in learning it, but the power it gives you to manipulate streaming, real-time and historical data makes that initial investment really worthwhile.</p>
+<p>q language - fast, interpreted vector based language</p>
+<p>Q is a interpreted vector based dynamically typed language built for speed and expressiveness.</p>
+<p>Since q is interpreted you can enter commands straight into the console there is no waiting for compilation, feedback is instantaneous.</p>
+<h2 id="key-features-of-q">Key features of Q</h2>
+<p>Interpreted Q is interpreted, not compiled. During execution, data and functions live in an in-memory workspace. Iterations of the development cycle tend to be quick because all run-time information needed to test and debug is immediately available in the workspace. Q programs are stored and executed as simple text files called scripts. The interpreter&rsquo;s eval and parse routines are exposed so that you can dynamically generate code in a controlled manner.</p>
+<p>Types Q is a dynamically typed language, in which type checking is mostly unobtrusive. Each variable has the type of its currently assigned value and type promotion is automatic for most numeric operations. Types are checked on operations to homogenous lists.</p>
+<p>Evaluation Order While q is entered left-to-right, expressions are evaluated right-to-left or, as the q gods prefer, left of right – meaning that a function is applied to the argument on its right. There is no operator precedence and function application can be written without brackets. Punctuation noise is significantly reduced.</p>
+<p>Null and Infinity Values In classical SQL, the value NULL represents missing data for a field of any type and takes no storage space. In q, null values are typed and take the same space as non-nulls. Numeric types also have infinity values. Infinite and null values can participate in arithmetic and other operations with (mostly) predictable results.</p>
+<p>Integrated I/O I/O is done through function handles that act as windows to the outside world. Once such a handle is initialized, passing a value to the handle is a write.</p>
+<p>Table Oriented Give up objects, ye who enter here. In contrast to traditional languages, you&rsquo;ll find no classes, objects, inheritance and virtual methods in q. Instead, q has tables as first class entities. The lack of objects is not as severe as might first appear. Objects are essentially glorified records (i.e., entities with named fields), which are modeled by q dictionaries. A table can be viewed as a list of record dictionaries.</p>
+<p>Ordered Lists Because classical SQL is the algebra of sets – which are unordered with no duplicates – row order and column order are not defined, making time series processing cumbersome and slow. In q, data structures are based on ordered lists, so time series maintain the order in which they are created. Moreover, simple lists occupy contiguous storage, so processing big data is fast. Very fast.</p>
+<p>Column Oriented SQL tables are organized as rows distributed across storage and operations apply to fields within a row. Q tables are column lists in contiguous storage and operations apply on entire columns.</p>
+<p>In-Memory Database One can think of kdb+ as an in-memory database with persistent backing. Since data manipulation is performed with q, there is no separate stored procedure language. In fact, kdb+ comprises serialized q column lists written to the file system and then mapped into memory.</p>
+<p>In q, data structures are based on ordered lists, so time series maintain the order in which they are created. Moreover, simple lists occupy contiguous storage, so processing big data is fast. Very fast.</p>
+<p>Q tables are column lists in contiguous storage and operations apply on entire columns.</p>
+<h2 id="sample-of-q-code">Sample of Q code</h2>
+<pre><code class="language-q" data-lang="q">q)l:10 12 14 16 18 22 32 45
+q)sum l
+169
+q)avg l
+21.125
+q)l*10
+100 120 140 160 180 220 320 450
+
+q)k:til 8
+q)k
+0 1 2 3 4 5 6 7
+q)l+k
+10 13 16 19 22 27 38 52
+        
+</code></pre><p>Notice in the example code above the absence of loops, no for/while/do yet we could easily express adding one array to another. This is because the vector/list is the primary unit of data in kdb+. Operations are intended to be performed and expressed as being on an entire set of data. Dictionaries can be defined using lists, they provide a hashmap datastructure for quick lookups. Tables are constructed from dictionaries and lists. This brevity of data structures is actually one of the attributes that gives q its ability to express concisely what would take many lines in other languages.</p>
+<h1 id="some-of-the-practical-applications-of-being-able-to-combine-both-streaming-and-real-time-data-together-with-historical-all-in-the-same-database">Some of the practical applications of being able to combine both streaming and real-time data together with historical, all in the same database?</h1>
+<p>The most important thing is the simplicity, which translates into speed and ease of doing analysis. For example, it allows you to do complicated, time-critical analysis, such as pre-trade risk. This means that you are likely to see interesting trading opportunities before those who are using the same off-the-shelf solution as everybody else. So you’re there first and you’re there so early, you can afford to do comprehensive pre-trade risk analysis, and you’re able to look for patterns you’ve seen in the past.</p>
+<p>In addition to capturing market data, firms are using kdb+ for order-book management, algorithmic trading, and risk assessment. “They are using kdb+/q for queries being performed on both streaming or historical data — the latter easily accommodating research and back-testing,”</p>
+<p>DeltaFlow, a platform from First Derivatives that’s based on kdb+, is used by traders for high volume, low-latency algorithmic trading and by regulators for real-time detection of market abuse and unauthorized trading activity across multiple asset classes.</p>
+<h1 id="combined-power-of-kdbq">Combined power of kdb+/q</h1>
+<p>What&rsquo;s beautiful about kdb+ is that since tables are columns of vectors, all the power of the q language can be used as easily on table data as it was on lists. Where we had sum[l],avg[l],weightedAvg[l1;l2] of lists we can write similar qSQL:
+select avg price, sum volume, weightedAvg[time;price] from trade
+Want to apply a function to a timeseries, simply place it inline:
+select {a:avg x; sqrt avg (x<em>x)-a</em>a} price from trade</p>
+<h1 id="q-commadns">Q commadns</h1>
+<p>To obtain official console display of any q value, apply the built-in function show to it.</p>
+<p>q)show a:42</p>
+<h3 id="comments">comments</h3>
+<p>At least one whitespace character must separate / intended to begin a comment from any text to the left of it on a line.</p>
+<h3 id="boolean">boolean</h3>
+<p>Boolean values in q are stored in a single byte and are denoted as the binary values they really are with an explicit type suffix b. One way to generate boolean values is to test for equality.</p>
+<p>q)42=40+2
+1b</p>
+<h3 id="date">date</h3>
+<p>One interesting and useful feature of q temporal values is that, as integral values under the covers, they naturally participate in arithmetic. For example, to advance a date five days, add 5.</p>
+<p>q)2000.01.01+5
+_
+Or to advance a time by one microsecond (i.e., 1000 nanoseconds) add 1000.</p>
+<p>q)12:00:00.000000000+1000
+_
+Or to verify that temporal values are indeed their underlying values, test for equality.</p>
+<p>q)2000.01.01=0</p>
+<h3 id="symbols">Symbols</h3>
+<p>Symbols are denoted by a leading back-quote (called &ldquo;back tick&rdquo; in q-speak) followed by characters. Symbols without embedded blanks or other special characters can be entered literally into the console.
+q)`aapl
+_</p>
+<p>Since symbols are atoms, any two can be tested for equality.</p>
+<p>q)<code>aapl=</code>apl
+_</p>
+<h2 id="list">list</h2>
+<p>The fundamental q data structure is a list, which is an ordered collection of items sequenced from left to right. The notation for a general list encloses items with ( and ) and uses ; as separator. Spaces after the semi-colons are optional but can improve readability.</p>
+<p>q)(1; 1.2; `one)
+_</p>
+<p>In the case of a homogenous list of atoms, called a simple list, q adopts a simplified format for both storage and display. The parentheses and semicolons are dropped. For example, a list of underlying numeric type separates its items with a space.</p>
+<p>q)(1; 2; 3)
+1 2 3</p>
+<p>A simple list of booleans is juxtaposed with no spaces and has a trailing b type indicator.</p>
+<p>q)(1b; 0b; 1b)
+101b
+A simple list of symbols is displayed with no separating spaces.</p>
+<p>q)(<code>one; </code>two; <code>three)</code>one<code>two</code>three</p>
+<h3 id="basic-operations">basic operations</h3>
+<p>to construct and manipulate lists. The most fundamental is til, which takes a non-negative integer n and returns the first n integers starting at 0 (n itself is not included in the result).</p>
+<p>q)til 10
+0 1 2 3 4 5 6 7 8 9</p>
+<h4 id="til-list-tips">til list tips</h4>
+<p>Be mindful that q always evaluates expressions from right to left and that operations work on vectors whenever possible.</p>
+<p>q)1+til 10
+1 2 3 4 5 6 7 8 9 10</p>
+<p>Similarly, we obtain the first 10 even numbers and the first ten odd numbers.</p>
+<p>q)2<em>til 10
+_
+q)1+2</em>til 10
+_
+Finally, we obtain the first 10 even numbers starting at 42.</p>
+<p>q)42+2*til 10
+_</p>
+<p>Another frequently used list primitive is join , that returns the list obtained by concatenating its right operand to its left operand.</p>
+<p>q)1 2 3,4 5
+1 2 3 4 5</p>
+<h3 id="extract">extract</h3>
+<p>To extract items from the front or back of a list, use the take operator #. Positive argument means take from the front, negative from the back.</p>
+<p>q)2#til 10
+0 1
+q)-2#til 10</p>
+<blockquote>
+<p>Applying # always results in a list.</p>
+</blockquote>
+<p>In particular, the idiom 0# returns an empty list of the same type as the first item in its argument. Using an atom argument is a succinct way to create a typed empty list of the type of the atom.</p>
+<p>q)0#1 2 3
+`long$()</p>
+<p>Should you extract more items than there are in the list, # restarts at the beginning and continues extracting. It does this until the specified number of items is reached.</p>
+<p>q)5#1 2 3
+1 2 3 1 2</p>
+<p>As with atoms, a list can be assigned to a variable.</p>
+<p>q)L:10 20 30
+The items of a list can be accessed via indexing, which uses square brackets and is relative to 0.</p>
+<p>q)L[0]
+10</p>
+<h3 id="function">Function</h3>
+<p>Conceptually, a q function is a sequence of steps that produces an output result from an input value. Since q is not purely functional, these rules can interact with the world by reaching outside the context of the function. Such actions are called side effects and should be carefully controlled.</p>
+<p>Function definition is delimited by matching curly braces { and }. Immediately after the opening brace, the formal parameters are names enclosed in square brackets [ and ] and separated by semi-colons. These parameters presumably appear in the body of the function, which follows the formal parameters and is a succession of expressions sequenced by semi-colons.</p>
+<p>Following is a simple function that returns the square of its input. On the next line we assign the same function to the variable sq. The whitespace is optional.</p>
+<p>q){[x] x<em>x}
+_
+q)sq:{[x] x</em>x}
+_</p>
+<p>Here is a function that takes two input values and returns the sum of their squares.</p>
+<p>q){[x;y] a:x<em>x; b:y</em>y; a+b}
+_
+q)pyth:{[x;y] a:x<em>x; b:y</em>y; a+b}
+_</p>
+<p>Here are the previous functions applied to arguments.</p>
+<p>q){[x] x<em>x}[5]
+25
+q)sq[5]
+_
+q){[x;y] a:x</em>x; b:y*y; a+b}[3;4]
+25
+q)pyth[3;4]
+_</p>
+<h3 id="monadic-function">monadic function</h3>
+<p>In q, as in most functional languages, we don&rsquo;t need no stinkin’ brackets for application of a monadic function – i.e., with one parameter. Simply separate the function from its argument by whitespace. This is called function juxtaposition.</p>
+<p>q){x<em>x} 5
+_
+q)f:{x</em>x}
+q)f 5
+_</p>
+<h3 id="xyz">x,y,z</h3>
+<p>It is common in mathematics to use function parameters x, y, or z. If you are content with these names (in the belief that descriptive names provide no useful information to the poor soul reading your code), you can omit their declaration and q will understand that you mean the implicit parameters x, y, and z in that order.</p>
+<p>q){x<em>x}[5]
+25
+q){a:x</em>x; b:y*y; a+b}[3;4]
+25</p>
+<h3 id="verbs">verbs</h3>
+<p>higher order functions, or as they are called in q, adverbs.</p>
+<p>In words, we tell q to start with the initial value of 0 in the accumulator and then modify + with the adverb / so that it adds across the list.</p>
+<p>q)0 +/ 1 2 3 4 5
+15</p>
+<p>In this situation we don&rsquo;t really need the flexibility to specify the initial value of the accumulator. It suffices to start with the first item of the list and proceed across the rest of the list. There is an even simpler form for this case.</p>
+<p>q)(+/) 1 2 3 4 5</p>
+<h4 id="for-loop">for loop</h4>
+<p>If you are new to functional programming, you may think, &ldquo;Big deal, I write for loops in my sleep.&rdquo;</p>
+<p>More importantly, you can focus on what you want done without the irrelevant scaffolding of how to set up control structures. This is called declarative programming.</p>
+<p>What else can we do with our newfound adverb? Change addition to multiplication for factorial.</p>
+<p>q)(*/) 1+til 10
+3628800</p>
+<h3 id="larger-vs-smaller">larger vs smaller</h3>
+<p>The fun isn&rsquo;t limited to arithmetic primitives. We introduce |, which returns the larger of its operands and &amp;, which returns the smaller of its operands.</p>
+<p>q)42|98
+98
+q)42&amp;98</p>
+<p>Use | or &amp; with over and you have maximum or minimum.</p>
+<p>q)(|/) 20 10 40 30
+40
+q)(&amp;/) 20 10 40 30</p>
+<h3 id="command-over-adverb">command &lsquo;over&rsquo; adverb</h3>
+<p>Some applications of / are so common that they have their own names.</p>
+<p>q)sum 1+til 10
+55
+q)prd 1+til 10 &ldquo;o&rdquo;
+_
+q)max 20 10 40 30
+_
+q)min 20 10 40 30</p>
+<p>At this point the / pattern should be clear: it takes a given function and produces a new function that accumulates across the original list, producing a single result. In particular, / converts a dyadic function to a monadic aggregate function – i.e., one that collapses a list to an atom.</p>
+<h1 id="data-type">data type</h1>
+<p>long¶</p>
+<p>In q versions 3.0 and later, the basic integer type is a signed eight-byte integer, called long. A literal is identified as a long by the fact that it contains only numeric digits, with an optional leading minus sign, and no decimal point. It may also have an optional trailing type indicator j indicating it is a long and not another integer type. Here is a typical long integer value.</p>
+<p>q)42
+42
+Observe that the type indicator j is accepted but redundant.</p>
+<p>q)42j
+42</p>
+<p>The short type represents a two-byte signed integer and requires the trailing type indicator h. For example,</p>
+<p>q)-123h
+_
+Similarly, the int type represents a four-byte signed integer and requires the trailing type indicator i.</p>
+<p>The float type represents an IEEE standard eight-byte floating-point number, often called &ldquo;double&rdquo; in traditional languages. A float can hold (at least) 15 decimal digits of precision. It is denoted by optionally signed numeric digits with either a decimal point or an optional trailing type indicator f. Observe that the console shortens the display of floats with no significant digits to the right of the decimal.</p>
+<p>You can change this by using the \P command (note upper case) to specify a display width up to 16 digits. If you issue \P 0 the console will display all 17 decimal digits of the underlying binary representation, although the last digit is unreliable.</p>
+<p>boolean¶</p>
+<p>The boolean type uses one byte to store a bit and is denoted by the bit value with the trailing type indicator b. There are no keywords for &lsquo;true&rsquo; or &lsquo;false&rsquo;, nor are there separate logical operators for booleans.</p>
+<p>q)0b
+_
+q)1b</p>
+<p>Text Data¶</p>
+<p>There are two atomic text types in q. They are more akin to the SQL types CHAR and VARCHAR than the character types of traditional languages.</p>
+<p>2.4.1 char¶</p>
+<p>A char holds an individual ASCII or 8-bit Unicode character that is stored in one byte. It corresponds to a SQL CHAR. It is denoted by a single character enclosed in double quotes.</p>
+<p>q)&ldquo;q&rdquo;</p>
+<p>Some keyboard characters – e.g., the double-quote – cannot be entered directly into a char since they have special meaning in the q console. As in C, special characters are escaped with a preceding back-slash . The console display somewhat confusingly displays the escape, but the following are all actually single characters.</p>
+<p>q)&quot;&quot;&rdquo;
+&ldquo;&quot;&rdquo;
+q)&quot;\&rdquo;
+_
+q)&quot;\n&rdquo;
+_
+q)&quot;\r&rdquo;
+_
+q)&quot;\t&rdquo;
+_
+Also as in C, you can escape any ASCII character by specifying its underlying numeric value as three octal digits.</p>
+<p>q)&quot;\142&rdquo;
+&ldquo;b&rdquo;</p>
+<p>symbol¶</p>
+<p>A symbol is an atom holding text. It is denoted by a leading back-quote, read &ldquo;back tick&rdquo; in q-speak.</p>
+<p>q)<code>q _ q)</code>zaphod
+_</p>
+<p>a symbol is not a collection of char. The symbol `a and the char &ldquo;a&rdquo; are not the same, as we can see by asking q if they are identical.</p>
+<p>q)`a~&quot;a&rdquo;
+0b</p>
+<h1 id="list-1">list</h1>
+<h2 id="index-notation">Index Notation¶</h2>
+<p>To access the item at index i in a list, follow the list immediately with [i]. This is called item indexing. For example,</p>
+<p>q)(100; 200; 300)[0]</p>
+<p>Indexed Assignment¶</p>
+<p>Items in a list can also be assigned via item indexing. Thus,</p>
+<p>q)L:1 2 3
+q)L[1]:42
+q)L
+1 42 3</p>
+<p>An omitted index returns the entire list.</p>
+<p>q)L:10 20 30 40
+q)L[]
+10 20 30 40</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

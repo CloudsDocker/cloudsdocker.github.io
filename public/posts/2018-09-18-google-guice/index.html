@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Guice | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Guice" />
+<meta property="og:description" content="A new type of Juice Put simply, Guice alleviates the need for factories and the use of new in your Java code. Think of Guice&rsquo;s @Inject as the new new. You will still need to write factories in some cases, but your code will not depend directly on them. Your code will be easier to change, unit test and reuse in other contexts.
+Guice embraces Java&rsquo;s type safe nature, especially when it comes to features introduced in Java 5 such as generics and annotations." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2018-09-18-google-guice/" />
+
+<meta itemprop="name" content="Guice">
+<meta itemprop="description" content="A new type of Juice Put simply, Guice alleviates the need for factories and the use of new in your Java code. Think of Guice&rsquo;s @Inject as the new new. You will still need to write factories in some cases, but your code will not depend directly on them. Your code will be easier to change, unit test and reuse in other contexts.
+Guice embraces Java&rsquo;s type safe nature, especially when it comes to features introduced in Java 5 such as generics and annotations.">
+
+<meta itemprop="wordCount" content="1468">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Guice"/>
+<meta name="twitter:description" content="A new type of Juice Put simply, Guice alleviates the need for factories and the use of new in your Java code. Think of Guice&rsquo;s @Inject as the new new. You will still need to write factories in some cases, but your code will not depend directly on them. Your code will be easier to change, unit test and reuse in other contexts.
+Guice embraces Java&rsquo;s type safe nature, especially when it comes to features introduced in Java 5 such as generics and annotations."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2018-09-18-google-guice/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2018-09-18-google-guice/&amp;text=Guice" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2018-09-18-google-guice/&amp;title=Guice" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Guice</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="a-new-type-of-juice">A new type of Juice</h1>
+<p>Put simply, Guice alleviates the need for factories and the use of new in your Java code. Think of Guice&rsquo;s @Inject as the new new. You will still need to write factories in some cases, but your code will not depend directly on them. Your code will be easier to change, unit test and reuse in other contexts.</p>
+<p>Guice embraces Java&rsquo;s type safe nature, especially when it comes to features introduced in Java 5 such as generics and annotations. You might think of Guice as filling in missing features for core Java. Ideally, the language itself would provide most of the same features, but until such a language comes along, we have Guice.</p>
+<p>Guice helps you design better APIs, and the Guice API itself sets a good example. Guice is not a kitchen sink. We justify each feature with at least three use cases. When in doubt, we leave it out. We build general functionality which enables you to extend Guice rather than adding every feature to the core framework.</p>
+<h1 id="guice-vs-spring">Guice vs Spring</h1>
+<p>Spring and Google Guice are two powerful dependency injection frameworks in use today. Both frameworks fully embrace the concepts of dependency injection, but each has its own way of implementing them. Although Spring provides many benefits, it was created in a pre-Java-5 world. The Guice framework takes DI to the next level.</p>
+<p>The advent of Java 5 brought significant changes to the language like generics and annotations: features that enhance the power of Java static typing. Guice is a DI framework that was built from the ground up with the intent to take full advantage of these new features and that has focused on one primary goal: to do dependency injection well.</p>
+<p>Guice aims to make development and debugging easier and faster, not harder and slower. In that vein, Guice steers clear of surprises and magic. You should be able to understand code with or without tools, though tools can make things even easier. When errors do occur, Guice goes the extra mile to generate helpful messages.</p>
+<h3 id="core-differences-between-the-two-and-see-why-i-prefer-to-use-guice">core differences between the two, and see why I prefer to use Guice.</h3>
+<ol>
+<li>Living in XML Hell</li>
+<li>Eliminating reliance on String identifiers</li>
+<li>Preferring Constructor Injection</li>
+</ol>
+<p>Although Spring and Guice both support constructor and setter injection, each framework has a preference. Spring has long favored setter injection. Back in the early days of Spring, the authors believed the lack of argument names and default arguments in constructor injection reduced clarity. In addition, constructor injection makes it difficult to have optional dependencies, requires dependencies to be configured in a specific order, and forces subclasses to deal with superclass dependencies. Using setter injection eliminates these problems, and so Spring favors that approach.</p>
+<p>The Guice authors saw difficulties with setter injection. One problem is immutability: it is impossible to make immutable a class that uses setter injection. Constructor injection, on the other hand, makes the creation of immutable classes easy, an important consideration in writing multi-threaded applications. In addition, optional dependencies, while perhaps convenient, can introduce confusion about how a class is configured at runtime. Configuring a class through setter injection can often lead to missed required dependencies. Though Spring does provide a @Required annotation to solve this problem, using constructor injection eliminates it by default.</p>
+<p>Constructor injection also makes a class&rsquo;s dependencies immediately clear at a glance. If you&rsquo;re writing or modifying a unit test, it&rsquo;s easy to read what the system-under-test needs. Lastly, because Guice uses types to wire classes together, constructor argument order isn&rsquo;t an issue. You can feel free to reorder them how you want without needing to modify configuration code at all.</p>
+<p>The potential drawbacks posed by setter injection outweigh the benefits in many common scenarios, and so Guice established a best practice of favoring constructor injection instead. Its API is well-suited to that approach. But if you should choose to switch from one form of injection to the other, Guice makes that easy too. Changing from setter to constructor injection or vice versa is simply a matter of modifying the class in question. Unlike in Spring, you need never touch a configuration file.</p>
+<ol start="4">
+<li>Nullifying NullPointerExceptions</li>
+</ol>
+<p>Null is easily one of the most non-communicative return values possible from a method call.
+Guice hates nulls as much as I do. By default, Guice refuses to inject a null into any object, and if an accidental null shows up during wiring, it fails-fast with a ProvisionException. Guice does allow for the exception case by permitting fields to be annotated with @Nullable, but this is discouraged.</p>
+<ol start="5">
+<li>Intruding into the domain</li>
+</ol>
+<p>Guice aims to eliminate all of this boilerplate without sacrificing maintainability.
+With Guice, you implement modules. Guice passes a binder to your module, and your module uses the binder to map interfaces to implementations. The following module tells Guice to map Service to ServiceImpl in singleton scope:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">       <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyModule</span> <span style="color:#66d9ef">implements</span> Module <span style="color:#f92672">{</span>
+         <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">configure</span><span style="color:#f92672">(</span>Binder binder<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          binder<span style="color:#f92672">.</span><span style="color:#a6e22e">bind</span><span style="color:#f92672">(</span>Service<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+           <span style="color:#f92672">.</span><span style="color:#a6e22e">to</span><span style="color:#f92672">(</span>ServiceImpl<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+           <span style="color:#f92672">.</span><span style="color:#a6e22e">in</span><span style="color:#f92672">(</span>Scopes<span style="color:#f92672">.</span><span style="color:#a6e22e">SINGLETON</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>A module tells Guice what we want to inject. Now, how do we tell Guice where we want it injected? With Guice, you annotate constructors, methods and fields with @Inject.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">       <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Client</span> <span style="color:#f92672">{</span>
+         <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> Service service<span style="color:#f92672">;</span>
+<span style="color:#a6e22e">@Inject</span>
+         <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Client</span><span style="color:#f92672">(</span>Service service<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+           <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">service</span> <span style="color:#f92672">=</span> service<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+         <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">go</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+           service<span style="color:#f92672">.</span><span style="color:#a6e22e">go</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
+</code></pre></div><h2 id="guice-vs-dependency-injection-by-hand">Guice vs. Dependency Injection By Hand</h2>
+<p>As you can see, Guice saves you from having to write factory classes. You don&rsquo;t have to write explicit code wiring clients to their dependencies. If you forget to provide a dependency, Guice fails at startup. Guice handles circular dependencies automatically.
+Guice enables you to specify scopes declaratively. For example, you don&rsquo;t have to write the same code to store an object in the HttpSession over and over.
+In the real world, you often don&rsquo;t know an implementation class until runtime. You need meta factories or service locators for your factories. Guice addresses these problems with minimal effort.
+When injecting dependencies by hand, you can easily slip back into old habits and introduce direct dependencies, especially if you&rsquo;re new to the concept of dependency injection. Using Guice turns the tables and makes doing the right thing easier. Guice helps keep you on track.</p>
+<h2 id="guice-annotations">Guice annotations</h2>
+<p>When possible, Guice enables you to use annotations in lieu of explicit bindings and eliminate even more boilerplate code. Back to our example, if you need an interface to simplify unit testing but you don&rsquo;t care about compile time dependencies, you can point to a default implementation directly from your interface.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">       <span style="color:#a6e22e">@ImplementedBy</span><span style="color:#f92672">(</span>ServiceImpl<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+       <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Service</span> <span style="color:#f92672">{</span>
+         <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">go</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>If a client needs a Service and Guice can&rsquo;t find an explicit binding, Guice will
+inject an instance of ServiceImpl.</p>
+<p>By default, Guice injects a new instance every time. If you want to specify a
+different scope, you can annotate the implementation class, too.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Singleton</span>
+       <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ServiceImpl</span> <span style="color:#66d9ef">implements</span> Service <span style="color:#f92672">{</span>
+         <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">go</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+<span style="color:#f92672">...</span> <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h1 id="architectural-overview">Architectural Overview</h1>
+<p>We can break Guice&rsquo;s architecture down into two distinct stages: startup and
+runtime. You build an Injector during startup and use it to inject objects at runtime.</p>
+<h2 id="startup">Startup</h2>
+<p>You configure Guice by implementing Module. You pass Guice a module, Guice passes your module a Binder, and your module uses the binder to configure bindings. A binding most commonly consists of a mapping between an interface and a concrete implementation. For example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">       <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyModule</span> <span style="color:#66d9ef">implements</span> Module <span style="color:#f92672">{</span>
+         <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">configure</span><span style="color:#f92672">(</span>Binder binder<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#75715e">// Bind Foo to FooImpl. Guice will create a new
+</span><span style="color:#75715e"></span>           <span style="color:#75715e">// instance of FooImpl for every injection.
+</span><span style="color:#75715e"></span>           binder<span style="color:#f92672">.</span><span style="color:#a6e22e">bind</span><span style="color:#f92672">(</span>Foo<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">).</span><span style="color:#a6e22e">to</span><span style="color:#f92672">(</span>FooImpl<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+           <span style="color:#75715e">// Bind Bar to an instance of Bar.
+</span><span style="color:#75715e"></span>           Bar bar <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Bar<span style="color:#f92672">();</span>
+           binder<span style="color:#f92672">.</span><span style="color:#a6e22e">bind</span><span style="color:#f92672">(</span>Bar<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">).</span><span style="color:#a6e22e">toInstance</span><span style="color:#f92672">(</span>bar<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h1 id="injecting-providers">Injecting Providers</h1>
+<p>With normal dependency injection, each type gets exactly one instance of each of its dependent types. The RealBillingService gets one CreditCardProcessor and one TransactionLog. Sometimes you want more than one instance of your dependent types. When this flexibility is necessary, Guice binds a provider. Providers produce a value when the get() method is invoked:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Provider</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+  T <span style="color:#a6e22e">get</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h1 id="provides-methods">@Provides Methods</h1>
+<p>When you need code to create an object, use an @Provides method. The method must be defined within a module, and it must have an @Provides annotation. The method&rsquo;s return type is the bound type. Whenever the injector needs an instance of that type, it will invoke the method.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BillingModule</span> <span style="color:#66d9ef">extends</span> AbstractModule <span style="color:#f92672">{</span>
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">configure</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">...</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#a6e22e">@Provides</span>
+  TransactionLog <span style="color:#a6e22e">provideTransactionLog</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    DatabaseTransactionLog transactionLog <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> DatabaseTransactionLog<span style="color:#f92672">();</span>
+    transactionLog<span style="color:#f92672">.</span><span style="color:#a6e22e">setJdbcUrl</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;jdbc:mysql://localhost/pizza&#34;</span><span style="color:#f92672">);</span>
+    transactionLog<span style="color:#f92672">.</span><span style="color:#a6e22e">setThreadPoolSize</span><span style="color:#f92672">(</span>30<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">return</span> transactionLog<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>If the @Provides method has a binding annotation like @PayPal or @Named(&ldquo;Checkout&rdquo;), Guice binds the annotated type. Dependencies can be passed in as parameters to the method. The injector will exercise the bindings for each of these before invoking the method.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#a6e22e">@Provides</span> <span style="color:#a6e22e">@PayPal</span>
+  CreditCardProcessor <span style="color:#a6e22e">providePayPalCreditCardProcessor</span><span style="color:#f92672">(</span>
+      <span style="color:#a6e22e">@Named</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PayPal API key&#34;</span><span style="color:#f92672">)</span> String apiKey<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    PayPalCreditCardProcessor processor <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PayPalCreditCardProcessor<span style="color:#f92672">();</span>
+    processor<span style="color:#f92672">.</span><span style="color:#a6e22e">setApiKey</span><span style="color:#f92672">(</span>apiKey<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">return</span> processor<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+</code></pre></div><h1 id="references">References</h1>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

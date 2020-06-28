@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>IntelliJ Tips | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="IntelliJ Tips" />
+<meta property="og:description" content="Shortcuts   Ctrl&#43;J: To show JavaDoc
+  Cmd&#43;Alt&#43;B: To show interface implementations
+  Alt&#43;Enter: when cursor on class declare line, press Alt&#43;Enter can quickly create a unit test against this test class
+  Ctrl&#43;Shift&#43;A: Action window, just like sublime, search IDE actions
+  F11: add bookmark,
+  Shift&#43;F11: show bookmarks
+  Shift &#43; Escape: close bottom source pannel or left side barGo to settings, Editor-&gt;General-&gt;Mouse-&gt; change font size (Zoom)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-01-03-intellij-tips/" />
+
+<meta itemprop="name" content="IntelliJ Tips">
+<meta itemprop="description" content="Shortcuts   Ctrl&#43;J: To show JavaDoc
+  Cmd&#43;Alt&#43;B: To show interface implementations
+  Alt&#43;Enter: when cursor on class declare line, press Alt&#43;Enter can quickly create a unit test against this test class
+  Ctrl&#43;Shift&#43;A: Action window, just like sublime, search IDE actions
+  F11: add bookmark,
+  Shift&#43;F11: show bookmarks
+  Shift &#43; Escape: close bottom source pannel or left side barGo to settings, Editor-&gt;General-&gt;Mouse-&gt; change font size (Zoom)">
+
+<meta itemprop="wordCount" content="1277">
+
+
+
+<meta itemprop="keywords" content="java,intelliJ," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="IntelliJ Tips"/>
+<meta name="twitter:description" content="Shortcuts   Ctrl&#43;J: To show JavaDoc
+  Cmd&#43;Alt&#43;B: To show interface implementations
+  Alt&#43;Enter: when cursor on class declare line, press Alt&#43;Enter can quickly create a unit test against this test class
+  Ctrl&#43;Shift&#43;A: Action window, just like sublime, search IDE actions
+  F11: add bookmark,
+  Shift&#43;F11: show bookmarks
+  Shift &#43; Escape: close bottom source pannel or left side barGo to settings, Editor-&gt;General-&gt;Mouse-&gt; change font size (Zoom)"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-01-03-intellij-tips/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-01-03-intellij-tips/&amp;text=IntelliJ%20Tips" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-01-03-intellij-tips/&amp;title=IntelliJ%20Tips" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">IntelliJ Tips</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="shortcuts">Shortcuts</h1>
+<ul>
+<li>
+<p>Ctrl+J: To show JavaDoc</p>
+</li>
+<li>
+<p>Cmd+Alt+B: To show interface implementations</p>
+</li>
+<li>
+<p>Alt+Enter: when cursor on class declare line, press Alt+Enter can quickly create a unit test against this test class</p>
+</li>
+<li>
+<p>Ctrl+Shift+A: Action window, just like sublime, search IDE actions</p>
+</li>
+<li>
+<p>F11: add bookmark,</p>
+</li>
+<li>
+<p>Shift+F11: show bookmarks</p>
+</li>
+<li>
+<p>Shift + Escape: close bottom source pannel or left side barGo to settings, Editor-&gt;General-&gt;Mouse-&gt; change font size (Zoom)</p>
+</li>
+<li>
+<p>Alt + F: Git refresh : Assign it in Intellij key map</p>
+</li>
+<li>
+<p>Ctrl + T: swich different editorsAlt + F1: Show in , then preses &lsquo;1&rsquo; to show file in project viewer, like &ldquo;scroll from source&quot;use Ctrl+Q to show quick documentation for the element at caret. to show javadocAlt + F12: to open terminal window, then &lsquo;mvn package&rsquo;</p>
+</li>
+<li>
+<p>Ctrl+I: implement methodsAlt+A: code completion, this is customized in keymap, for &lsquo;basic&rsquo;Press Tab / Shift+Tab. To change indentation of a text fragmentCtrl+Alt+I To fix indentationCtrl+D  Duplicate Line or SelectionAlt + Insert: generate code (getter or setter, toString)Ctrl+F12: List all opened files, press Enter to selectAlt+1: to show the project tree window, press Alt+1 again will close the project structureAlt+7: show structureGo to interface implementations, the shortcut In PC, it is CTRL + ALT + B: JetBrains navigation documentation.</p>
+</li>
+<li>
+<p>maximize edito pane: Ctrl + Shift + F12 (Default keymap).- Ctrl+R: repalce- F6: move file, Shift+F6: rename file- Ctrl+Alt+ &lt;-: go back to previous position- Ctrl+Alt+S: show settings- bookmakr: F11 toggle for annonymous bookmark, Shift+F11: show all bookmarks. Ctrl+F11: then press 0,1,2,3, etc. then Ctrl +1, Ctrl +3, to go to that bookmarkmaster password: hello123- copy file name: focus file in &ldquo;project view&rdquo;, press Ctrl+C- Incremental search: Ctrl+F, then use up/down arrow keys to navigate- Ctrl+Shift+N: open files by file name pattern- Press Ctrl+Shift+B . Press the Ctrl+Shift keys and hover your mouse pointer over the symbol. When the symbol turns to a hyperlink, click it without releasing Ctrl+Shift keys. The type declaration of the symbol opens in the editor.</p>
+</li>
+<li>
+<p>Ctrl+Shift+F7: highlight all references (of selected method)
+put carpet on a name, Ctrl+B will show the definition
+Ctrl+Shift+Alt+F: copy current file name
+&ndash; go to matching braceCtrl+} will move to the close bracket.Ctrl+{ will move to the open bracket
+&ndash; split editorgo to menu &ldquo;window&rdquo; -&gt; &ldquo;editor tabs&rdquo; -&gt; split
+Firslty open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-acecss-ui, it will load module.Use F2/Shift+F2 keys to jump between highlighted syntax errors.Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.Use Ctrl+J to complete any valid Live Template abbreviation if you don&rsquo;t remember it. For example, type it and press Ctrl+J to see what happens.</p>
+</li>
+<li>
+<p>Navigating to the declaration of a symbol
+Place the caret at the desired symbol in the editor.Do one of the following:On the main menu, choose Navigate | Declaration.Press Ctrl+B.Click the middle mouse button.Keeping Ctrl pressed, point to the symbol, and click, when it turns to a hyperlink. You can also see declaration at the tooltip while keeping Ctrl pressed.</p>
+</li>
+</ul>
+<p>Ctrl+Shift+A: Action window, just like sublime, search IDE actions
+F11: add bookmark,
+Shift+F11: show bookmarks
+Shift + Escape: close bottom source pannel or left side bar
+Go to settings, Editor-&gt;General-&gt;Mouse-&gt; change font size (Zoom)
+Alt + F: Git refresh : Assign it in Intellij key map
+Ctrl + T: swich different editors
+Alt + F1: Show in , then preses &lsquo;1&rsquo; to show file in project viewer, like &ldquo;scroll from source&rdquo;
+use Ctrl+Q to show quick documentation for the element at caret. to show javadoc
+Alt + F12: to open terminal window, then &lsquo;mvn package&rsquo;
+Ctrl+I: implement methods
+Alt+A: code completion, this is customized in keymap, for &lsquo;basic&rsquo;
+Press Tab / Shift+Tab. To change indentation of a text fragment
+Ctrl+Alt+I To fix indentation
+Ctrl+D  Duplicate Line or Selection
+Alt + Insert: generate code (getter or setter, toString)
+Ctrl+F12: List all opened files, press Enter to select
+Alt+1: to show the project tree window, press Alt+1 again will close the project structure
+Alt+7: show structure
+Go to interface implementations, the shortcut In PC, it is CTRL + ALT + B: JetBrains navigation documentation.</p>
+<ul>
+<li>
+<p>maximize edito pane: Ctrl + Shift + F12 (Default keymap).</p>
+</li>
+<li>
+<p>Ctrl+R: repalce</p>
+</li>
+<li>
+<p>F6: move file, Shift+F6: rename file</p>
+</li>
+<li>
+<p>Ctrl+Alt+ &lt;-: go back to previous position</p>
+</li>
+<li>
+<p>Ctrl+Alt+S: show settings</p>
+</li>
+<li>
+<p>bookmakr: F11 toggle for annonymous bookmark, Shift+F11: show all bookmarks. Ctrl+F11: then press 0,1,2,3, etc. then Ctrl +1, Ctrl +3, to go to that bookmark
+master password: hello123</p>
+</li>
+<li>
+<p>copy file name: focus file in &ldquo;project view&rdquo;, press Ctrl+C</p>
+</li>
+<li>
+<p>Incremental search: Ctrl+F, then use up/down arrow keys to navigate</p>
+</li>
+<li>
+<p>Ctrl+Shift+N: open files by file name pattern</p>
+</li>
+<li>
+<p>Press Ctrl+Shift+B . Press the Ctrl+Shift keys and hover your mouse pointer over the symbol. When the symbol turns to a hyperlink, click it without releasing Ctrl+Shift keys. The type declaration of the symbol opens in the editor.</p>
+</li>
+<li>
+<p>Ctrl+Shift+F7: highlight all references (of selected method)</p>
+</li>
+</ul>
+<p>put carpet on a name, Ctrl+B will show the definition</p>
+<p>Ctrl+Shift+Alt+F: copy current file name</p>
+<p>&ndash; go to matching brace
+Ctrl+} will move to the close bracket.
+Ctrl+{ will move to the open bracket</p>
+<p>&ndash; split editor
+go to menu &ldquo;window&rdquo; -&gt; &ldquo;editor tabs&rdquo; -&gt; split</p>
+<p>Firslty open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-acecss-ui, it will load module.
+Use F2/Shift+F2 keys to jump between highlighted syntax errors.
+Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.
+Use Ctrl+J to complete any valid Live Template abbreviation if you don&rsquo;t remember it. For example, type it and press Ctrl+J to see what happens.</p>
+<ul>
+<li>Navigating to the declaration of a symbol</li>
+</ul>
+<p>Place the caret at the desired symbol in the editor.
+Do one of the following:
+On the main menu, choose Navigate | Declaration.
+Press Ctrl+B.
+Click the middle mouse button.
+Keeping Ctrl pressed, point to the symbol, and click, when it turns to a hyperlink. You can also see declaration at the tooltip while keeping Ctrl pressed.</p>
+<p>By defining a Scope when searching, you can include/exclude arbitrary files/folders from that scope.
+Detailed Answer
+One way to achieve your requirement (excluding files and folders from a search) is to define a custom scope. This is specifically useful because sometimes you just want to exclude a folder from your search and not from the whole project.
+Follow these steps:
+Edit -&gt; Find -&gt; Find in path or press Ctrl+Shift+F.Choose Custom in the Scope section and then choose <!-- raw HTML omitted --></p>
+<h2 id="how-to-add-xx-properties-project-to-xx-project-as-dependencies">how to add xx-properties project to xx project as dependencies</h2>
+<p>select project and press F4 to open properites, chose &lsquo;module&rsquo; in left pane and then click &ldquo;+&rdquo;, chose &lsquo;import module&rsquo;, then chose the properties project</p>
+<h1 id="intelij-classes">Intelij classes</h1>
+<h2 id="annotation-nullable">Annotation Nullable</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/*
+</span><span style="color:#75715e"> * Copyright 2000-2009 JetBrains s.r.o.
+</span><span style="color:#75715e"> *
+</span><span style="color:#75715e"> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+</span><span style="color:#75715e"> * you may not use this file except in compliance with the License.
+</span><span style="color:#75715e"> * You may obtain a copy of the License at
+</span><span style="color:#75715e"> *
+</span><span style="color:#75715e"> * http://www.apache.org/licenses/LICENSE-2.0
+</span><span style="color:#75715e"> *
+</span><span style="color:#75715e"> * Unless required by applicable law or agreed to in writing, software
+</span><span style="color:#75715e"> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+</span><span style="color:#75715e"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+</span><span style="color:#75715e"> * See the License for the specific language governing permissions and
+</span><span style="color:#75715e"> * limitations under the License.
+</span><span style="color:#75715e"> */</span>
+
+<span style="color:#f92672">package</span> org.jetbrains.annotations<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.lang.annotation.*<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * An element annotated with Nullable claims &lt;code&gt;null&lt;/code&gt; value is perfectly &lt;em&gt;valid&lt;/em&gt;
+</span><span style="color:#75715e"> * to return (for methods), pass to (parameters) and hold (local variables and fields).
+</span><span style="color:#75715e"> * Apart from documentation purposes this annotation is intended to be used by static analysis tools
+</span><span style="color:#75715e"> * to validate against probable runtime errors and element contract violations.
+</span><span style="color:#75715e"> * @author max
+</span><span style="color:#75715e"> */</span>
+<span style="color:#a6e22e">@Documented</span>
+<span style="color:#a6e22e">@Retention</span><span style="color:#f92672">(</span>RetentionPolicy<span style="color:#f92672">.</span><span style="color:#a6e22e">CLASS</span><span style="color:#f92672">)</span>
+<span style="color:#a6e22e">@Target</span><span style="color:#f92672">({</span>ElementType<span style="color:#f92672">.</span><span style="color:#a6e22e">METHOD</span><span style="color:#f92672">,</span> ElementType<span style="color:#f92672">.</span><span style="color:#a6e22e">FIELD</span><span style="color:#f92672">,</span> ElementType<span style="color:#f92672">.</span><span style="color:#a6e22e">PARAMETER</span><span style="color:#f92672">,</span> ElementType<span style="color:#f92672">.</span><span style="color:#a6e22e">LOCAL_VARIABLE</span><span style="color:#f92672">})</span>
+<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">@interface</span> Nullable <span style="color:#f92672">{</span>
+  String <span style="color:#a6e22e">value</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">default</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/java" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">java</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/intellij" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">intelliJ</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-compare-in-java/">Compare-In-Java</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-20-deadlock/">Dead Lock</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-hashcode-contract/">Hash Code Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-16-java-hashmap/">HashMap in JDK</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-06-24-jdk-sources/">JDK source</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-17-java-collections-misc/">Java Collections Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-01-concurrent-in-java-col-2/">Java Concurrent Column 2</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-02-enum-misc/">Java Enum Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-java-gc/">Java GC notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-21-java-jit/">Java JIT compiler</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-05-jvm/">Java JVM</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-02-java-new-io/">Java New IO</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-15-java-security/">Java Security Notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-java-tricky-tech-questions/">Java-Tricky-Tech-Questions.md</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-03-maven-notes/">Maven-Notes</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

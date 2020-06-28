@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Java 8 Tips | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Java 8 Tips" />
+<meta property="og:description" content="This blog is listing key new features introduced in Java 8 It is best to think of a lambda expression as a function, not an object, and to accept that it can be converted to a functional interface.
+New comparator method in Java 8 List&lt;Track&gt; tracks = asList(new Track(&#34;Bakai&#34;, 524), new Track(&#34;Violets for Your Furs&#34;, 378), new Track(&#34;Time Was&#34;, 451)); Track shortestTrack = tracks.stream() .min(Comparator.comparing(track -&gt; track.getLength())) .get(); assertEquals(tracks.get(1), shortestTrack); When we think about maximum and minimum elements, the first thing we need to think about is the ordering that we’re going to be using." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-01-14-java-8/" />
+
+<meta itemprop="name" content="Java 8 Tips">
+<meta itemprop="description" content="This blog is listing key new features introduced in Java 8 It is best to think of a lambda expression as a function, not an object, and to accept that it can be converted to a functional interface.
+New comparator method in Java 8 List&lt;Track&gt; tracks = asList(new Track(&#34;Bakai&#34;, 524), new Track(&#34;Violets for Your Furs&#34;, 378), new Track(&#34;Time Was&#34;, 451)); Track shortestTrack = tracks.stream() .min(Comparator.comparing(track -&gt; track.getLength())) .get(); assertEquals(tracks.get(1), shortestTrack); When we think about maximum and minimum elements, the first thing we need to think about is the ordering that we’re going to be using.">
+
+<meta itemprop="wordCount" content="13040">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java 8 Tips"/>
+<meta name="twitter:description" content="This blog is listing key new features introduced in Java 8 It is best to think of a lambda expression as a function, not an object, and to accept that it can be converted to a functional interface.
+New comparator method in Java 8 List&lt;Track&gt; tracks = asList(new Track(&#34;Bakai&#34;, 524), new Track(&#34;Violets for Your Furs&#34;, 378), new Track(&#34;Time Was&#34;, 451)); Track shortestTrack = tracks.stream() .min(Comparator.comparing(track -&gt; track.getLength())) .get(); assertEquals(tracks.get(1), shortestTrack); When we think about maximum and minimum elements, the first thing we need to think about is the ordering that we’re going to be using."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-01-14-java-8/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-01-14-java-8/&amp;text=Java%208%20Tips" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-01-14-java-8/&amp;title=Java%208%20Tips" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Java 8 Tips</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="this-blog-is-listing-key-new-features-introduced-in-java-8">This blog is listing key new features introduced in Java 8</h1>
+<p>It is best to think of a lambda expression as a function, not an object, and to accept that it can be converted to a functional interface.</p>
+<h2 id="new-comparator-method-in-java-8">New comparator method in Java 8</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#f92672">&lt;</span>Track<span style="color:#f92672">&gt;</span> tracks <span style="color:#f92672">=</span> asList<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Track<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Bakai&#34;</span><span style="color:#f92672">,</span> 524<span style="color:#f92672">),</span>
+                            <span style="color:#66d9ef">new</span> Track<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Violets for Your Furs&#34;</span><span style="color:#f92672">,</span> 378<span style="color:#f92672">),</span>
+                            <span style="color:#66d9ef">new</span> Track<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Time Was&#34;</span><span style="color:#f92672">,</span> 451<span style="color:#f92672">));</span>
+
+Track shortestTrack <span style="color:#f92672">=</span> tracks<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+                            <span style="color:#f92672">.</span><span style="color:#a6e22e">min</span><span style="color:#f92672">(</span>Comparator<span style="color:#f92672">.</span><span style="color:#a6e22e">comparing</span><span style="color:#f92672">(</span>track <span style="color:#f92672">-&gt;</span> track<span style="color:#f92672">.</span><span style="color:#a6e22e">getLength</span><span style="color:#f92672">()))</span>
+                            <span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">();</span>
+
+assertEquals<span style="color:#f92672">(</span>tracks<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>1<span style="color:#f92672">),</span> shortestTrack<span style="color:#f92672">);</span>
+</code></pre></div><p>When we think about maximum and minimum elements, the first thing we need to think about is the ordering that we’re going to be using. When it comes to finding the shortest track, the ordering is provided by the length of the ”</p>
+<p>In order to inform the Stream that we’re using the length of the track, we give it a Comparator. Conveniently, Java 8 has added a static method called comparing that lets us build a comparator using keys. Previously, we always encountered an ugly pattern in which we had to write code that got a field out of both the objects being compared, then compare these field values. Now, to get the same element out of both elements being compared, we just provide a getter function for the value. In this case we’ll use length, which is a getter function in disguise.
+It’s worth reflecting on the comparing method for a moment. This is actually a function that takes a function and returns a function. Pretty meta, I know, but also incredibly useful. At any point in the past, this method could have been added to the Java standard library, but the poor readability and verbosity issues surrounding anonymous inner classes would have made it impractical. Now, with lambda expressions, it’s convenient and concise.
+”
+But thinking of passing code to methods as a mere consequence of Streamsdownplays its range of uses within Java 8. It gives you a new concise way to express behavior parameterization.</p>
+<p>It might sound surprising, but interfaces in Java 8 can now declare methods with implementation code; this can happen in two ways. First, Java 8 allows static methods inside interfaces. Second, Java 8 introduces a new feature called default methods that allows you to provide a default implementation for methods in an interface. In other words, interfaces can provide concrete implementation for methods. As a result, existing classes implementing an interface will automatically inherit the default implementations if they don’t provide one explicitly. This allows you to evolve interfaces nonintrusively. You’ve been using several default methods all along. Two examples you’ve seen are sort in the List interface and stream in the Collection interface.
+Wow! Are interfaces like abstract classes now? Yes and no; there are fundamental differences, which we explain in this chapter. But more important, why should you care about default methods? The main users of default methods are library designers. As we explain later, default methods were introduced to evolve libraries such as the Java API in a compatible way,</p>
+<p>Now that static methods can exist inside interfaces, such utility classes in your code can go away and their static methods can be moved inside an interface. These companion classes will remain in the Java API in order to preserve backward compatibility.
+Adding a new method to an interface is binary compatible; this means existing class file implementations will still run without the implementation of the new method, if there’s no attempt to recompile them. In this case the game will still run (unless it’s recompiled) despite adding the method setRelativeSize to the Resizable interface</p>
+<h2 id="abstract-classes-vs-interfaces-in-java-8">Abstract classes vs. interfaces in Java 8</h2>
+<p>So what’s the difference between an abstract class and an interface? They both can contain abstract methods and methods with a body.</p>
+<ul>
+<li>
+<p>First, a class can extend only from one abstract class, but a class can implement multiple interfaces.</p>
+</li>
+<li>
+<p>Second, an abstract class can enforce a common state through instance variables (fields). An interface can’t have instance variables.</p>
+</li>
+</ul>
+<p>Keeping interfaces minimal and orthogonal lets you achieve great reuse and composition of behavior inside your codebase.</p>
+<p>Minimal interfaces with orthogonal functionalities
+Inheritance considered harmful
+Inheritance shouldn’t be your answer to everything when it comes down to reusing code. For example, inheriting from a class that has 100 methods and fields just to reuse one method is a bad idea, because it adds unnecessary complexity. You’d be better off using delegation: create a method that calls directly the method of the class you need via a member variable. This is why you’ll sometime find classes that are declared “final” intentionally: they can’t be inherited from to prevent this kind of antipattern or have their core behavior messed with. Note that sometimes final classes have a place; for example, String is final because we don’t want anybody to be able to interfere with such core functionality.</p>
+<h2 id="three-resolution-rules-to-know">Three resolution rules to know</h2>
+<p>There are three rules to follow when a class inherits a method with the same signature from multiple places (such as another class or interface):</p>
+<ol>
+<li>
+<p>Classes always win. A method declaration in the class or a superclass takes priority over any default method declaration.</p>
+</li>
+<li>
+<p>Otherwise, sub-interfaces win: the method with the same signature in the most specific default-providing interface is selected. (If B extends A, B is more specific than A).</p>
+</li>
+<li>
+<p>Finally, if the choice is still ambiguous, the class inheriting from multiple interfaces has to explicitly select which default method implementation to use by overriding it and calling the desired method explicitly.</p>
+</li>
+</ol>
+<p>These are the only rules you need to know!</p>
+<h2 id="lambda-interfaces">Lambda Interfaces</h2>
+<p>This conversion to interfaces is what makes lambda expressions so compelling. The syntax is short and simple.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">BiFunction<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> comp
+   <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>first<span style="color:#f92672">,</span> second<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>first<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">(),</span> second<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">());</span>
+</code></pre></div><p>The expression System.out::printlnis a method reference that is equivalent to the lambda expression x -&gt; System.out.println(x).</p>
+<p>There are three principal cases:</p>
+<ul>
+<li>object::instanceMethod</li>
+<li>Class::staticMethod</li>
+<li>Class::instanceMethod</li>
+</ul>
+<p>In the third case, the first parameter becomes the target of the method. For example, String::compareToIgnoreCaseis the same as (x, y) -&gt; x.compareToIgnoreCase(y).</p>
+<p>Just like lambda expressions, method references don’t live in isolation. They are always turned into instances of functional interfaces.</p>
+<h2 id="constructor-references">Constructor References</h2>
+<p><code>Constructor references are just like method references, except that the name of the method is new</code>å. For example, Button::new is a reference to a Button constructor. Which constructor? It depends on the context.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> labels <span style="color:#f92672">=</span> <span style="color:#f92672">...;</span>
+Stream<span style="color:#f92672">&lt;</span>Button<span style="color:#f92672">&gt;</span> stream <span style="color:#f92672">=</span> labels<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>Button<span style="color:#f92672">::</span><span style="color:#66d9ef">new</span><span style="color:#f92672">);</span>
+List<span style="color:#f92672">&lt;</span>Button<span style="color:#f92672">&gt;</span> buttons <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</code></pre></div><p>For example, suppose we want to have an array of buttons. The Stream interface has a toArraymethod that returns an Object array:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Object<span style="color:#f92672">[]</span> buttons <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">();</span>
+</code></pre></div><p>we need to refine our understanding of a lambda expression. A lambda expression has three ingredients:</p>
+<ol>
+<li>A block of code</li>
+<li>Parameters</li>
+<li>Values for the free variables, that is, the variables that are not parameters and not defined inside the code</li>
+</ol>
+<p>The technical term for a block of code together with the values of the free variables is a closure. If someone gloats that their language has closures, rest assured that Java has them as well. In Java, lambda expressions are closures. In fact, inner classes have been closures all along. Java 8 gives us closures with an attractive syntax.</p>
+<p>Inner classes can also capture values from an enclosing scope. Before Java 8, inner classes were only allowed to access finallocal variables. This rule has now been relaxed to match that for lambda expressions. An inner class can access any effectively final local variable—that is, any variable whose value does not change.</p>
+<p>When you use the this keyword in a lambda expression, you refer to the this parameter of the method that creates the lambda. For example, consider</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Application</span> <span style="color:#f92672">{</span>
+   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doWork</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+      Runnable runner <span style="color:#f92672">=</span> <span style="color:#f92672">()</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span> <span style="color:#f92672">...;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">());</span> <span style="color:#f92672">...</span> <span style="color:#f92672">};</span>
+      <span style="color:#f92672">...</span>
+   <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>The expression this.toString()calls the toString method of the Application object, not the Runnable instance. There is nothing special about the use of this in a lambda expression. The scope of the lambda expression is nested inside the doWork method, and this has the same meaning anywhere in that method.</p>
+<h1 id="default-methods">default methods</h1>
+<p>The Java designers decided to solve this problem once and for all by allowing interface methods with concrete implementations (called default methods). Those methods can be safely added to existing interfaces.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Person</span> <span style="color:#f92672">{</span>
+   <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getId</span><span style="color:#f92672">();</span>
+   <span style="color:#66d9ef">default</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;John Q. Public&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>The interface has two methods: getId, which is an abstract method, and the default method getName. A concrete class that implements the Person interface must, of course, provide an implementation of getId, but it can choose to keep the implementation of getName or to override it.</p>
+<p>Default methods put an end to the classic pattern of providing an interface and an abstract class that implements most or all of its methods, such as Collection/AbstractCollectionor/WindowListener/WindowAdapter. Now you can just implement the methods in the interface.</p>
+<p>To compare Person objects by name, use Comparator.comparing(Person::getName).</p>
+<p>we have compared strings by length with the lambda expression</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">(</span>first<span style="color:#f92672">,</span> second<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>first<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">(),</span> second<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()).</span> 
+</code></pre></div><p>But with the static compare method, we can do much better and simply use</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Comparator<span style="color:#f92672">.</span><span style="color:#a6e22e">comparing</span><span style="color:#f92672">(</span>String<span style="color:#f92672">::</span>length<span style="color:#f92672">).</span>
+</code></pre></div><p>In Java 8, static methods have been added to quite a few interfaces. For example, the Comparator interface has a very useful static comparing method that accepts a “key extraction” function and yields a comparator that compares the extracted keys.</p>
+<h2 id="stream-vs-collections">Stream vs collections</h2>
+<p>A stream seems superficially similar to a collection, allowing you to transform and retrieve data. But there are significant differences:</p>
+<ul>
+<li>A stream does not store its elements. They may be stored in an underlying collection or generated on demand.</li>
+<li>Stream operations don’t mutate their source. Instead, they return new streams that hold the result.</li>
+<li>Stream operations are lazy when possible. This means they are not executed until their result is needed. For example, if you only ask for the first five long words instead of counting them all, then the filter method will stop filtering after the fifth match. As a consequence, you can even have infinite streams!</li>
+</ul>
+<p><code>Streams follow the “what, not how” principle</code>. In our stream example, we describe what needs to be done: get the long words and count them. We don’t specify in which order, or in which thread, this should happen.</p>
+<h2 id="work-with-streams">Work with streams</h2>
+<p>When you work with streams, you set up a pipeline of operations in three stages.</p>
+<ol>
+<li>You create a stream.</li>
+<li>You specify intermediate operations for transforming the initial stream into others, in one or more steps.</li>
+<li>You apply a terminal operation to produce a result. This operation forces the execution of the lazy operations that precede it. Afterwards, the stream can no longer be used.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">long</span> count <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">parallelStream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> w<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">&gt;</span> 12<span style="color:#f92672">).</span><span style="color:#a6e22e">count</span><span style="color:#f92672">();</span>
+</code></pre></div><p>Stream operations are not executed on the elements in the order in which they are invoked on the streams. In our example, nothing happens until count is called. When the count method asks for the first element, then the filter method starts requesting elements, until it finds one that has length &gt; 12.</p>
+<p>To produce infinite sequences such as 0 1 2 3 &hellip;, use the iterate method instead. It takes a “seed” value and a function (technically, a UnaryOperator<!-- raw HTML omitted -->), and repeatedly applies the function to the previous result. For example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>BigInteger<span style="color:#f92672">&gt;</span> integers
+   <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">iterate</span><span style="color:#f92672">(</span>BigInteger<span style="color:#f92672">.</span><span style="color:#a6e22e">ZERO</span><span style="color:#f92672">,</span> n <span style="color:#f92672">-&gt;</span> n<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>BigInteger<span style="color:#f92672">.</span><span style="color:#a6e22e">ONE</span><span style="color:#f92672">));</span>
+</code></pre></div><p>The first element in the sequence is the seed</p>
+<p>You can use the following statement to split a string into words:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> words
+   <span style="color:#f92672">=</span> Pattern<span style="color:#f92672">.</span><span style="color:#a6e22e">compile</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;[\\P{L}]+&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">splitAsStream</span><span style="color:#f92672">(</span>contents<span style="color:#f92672">);</span>
+</code></pre></div><p>The static Files.linesmethod returns a Stream of all lines in a file.</p>
+<p>The Stream interface has AutoCloseableas a superinterface. When the close method is called on the stream, the underlying file is also closed.</p>
+<p>To make sure that this happens, it is best to use the Java 7 try-with-resources statement:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">try</span> <span style="color:#f92672">(</span>Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> lines <span style="color:#f92672">=</span> Files<span style="color:#f92672">.</span><span style="color:#a6e22e">lines</span><span style="color:#f92672">(</span>path<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+   Do something with lines
+<span style="color:#f92672">}</span>
+</code></pre></div><p>The stream, and the underlying file with it, will be closed when the try block exits normally or through an exception.</p>
+<p>The filter, map, and flatMapMethods
+A stream transformation reads data from a stream and puts the transformed data into another stream. You have already seen the filter transformation that yields a new stream with all elements that match a certain condition.</p>
+<p>2.3. The filter, map, and flatMap Methods
+A stream transformation reads data from a stream and puts the transformed data into another stream. You have already seen the filtertransformation that yields a new stream with all elements that match a certain condition. Here, we transform a stream of strings into another stream containing only long words:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> wordList <span style="color:#f92672">=</span> <span style="color:#f92672">...;</span>
+Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> words <span style="color:#f92672">=</span> wordList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">();</span>
+Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> longWords <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> w<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">&gt;</span> 12<span style="color:#f92672">);</span>
+</code></pre></div><p>The argument of filter is a Predicate<!-- raw HTML omitted -->—that is, a function from T to boolean.</p>
+<p>Often, you want to transform the values in a stream in some way. Use the map method and pass the function that carries out the transformation. For example, you can transform all words to lowercase like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> lowercaseWords <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>String<span style="color:#f92672">::</span>toLowerCase<span style="color:#f92672">);</span>
+</code></pre></div><p>Here, we used mapwith a method reference. Often, you will use a lambda expression instead:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> firstChars <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>s <span style="color:#f92672">-&gt;</span> s<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>0<span style="color:#f92672">));</span>
+</code></pre></div><p>The resulting stream contains the first character of each word.</p>
+<p>When you use map, a function is applied to each element, and the return values are collected in a new stream. Now suppose that you have a function that returns not just one value but a stream of values, such as this one:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Stream<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">characterStream</span><span style="color:#f92672">(</span>String s<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+   List<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+   <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span> c <span style="color:#f92672">:</span> s<span style="color:#f92672">.</span><span style="color:#a6e22e">toCharArray</span><span style="color:#f92672">())</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+   <span style="color:#66d9ef">return</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>For example, characterStream(&ldquo;boat&rdquo;)is the stream [&lsquo;b&rsquo;, &lsquo;o&rsquo;, &lsquo;a&rsquo;, &rsquo;t&rsquo;]. Suppose you map this method on a stream of strings:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>Stream<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;&gt;</span> result <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> characterStream<span style="color:#f92672">(</span>w<span style="color:#f92672">));</span>
+</code></pre></div><p>You will get a stream of streams, like [&hellip; [&lsquo;y&rsquo;, &lsquo;o&rsquo;, &lsquo;u&rsquo;, &lsquo;r&rsquo;], [&lsquo;b&rsquo;, &lsquo;o&rsquo;, &lsquo;a&rsquo;, &rsquo;t&rsquo;], &hellip;] To flatten it out to a stream of characters [&hellip; &lsquo;y&rsquo;, &lsquo;o&rsquo;, &lsquo;u&rsquo;, &lsquo;r&rsquo;, &lsquo;b&rsquo;, &lsquo;o&rsquo;, &lsquo;a&rsquo;, &rsquo;t&rsquo;, &hellip;], use the flatMapmethod instead of map:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> letters <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">flatMap</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> characterStream<span style="color:#f92672">(</span>w<span style="color:#f92672">))</span>
+    <span style="color:#75715e">// CallscharacterStream on each word and flattens the results
+</span></code></pre></div><p>NOTE</p>
+<p>You may find a flatMap method in classes other than streams. It is a general concept in computer science. Suppose you have a generic type G (such as Stream) and functions ffrom some type T to G<!-- raw HTML omitted -->and g from U to G<!-- raw HTML omitted -->. Then you can compose them, that is, first apply f and then g, by using flatMap. This is a key idea in the theory of monads. But don’t worry—you can use flatMapwithout knowing anything about monads.</p>
+<p>This method is particularly useful for cutting infinite streams down to size. For example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> randoms <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">generate</span><span style="color:#f92672">(</span>Math<span style="color:#f92672">::</span>random<span style="color:#f92672">).</span><span style="color:#a6e22e">limit</span><span style="color:#f92672">(</span>100<span style="color:#f92672">);</span>
+</code></pre></div><p>yields a stream with 100 random numbers.</p>
+<p>The peek method yields another stream with the same elements as the original, but a function is invoked every time an element is retrieved. That is handy for debugging:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Object<span style="color:#f92672">[]</span> powers <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">iterate</span><span style="color:#f92672">(</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">,</span> p <span style="color:#f92672">-&gt;</span> p <span style="color:#f92672">*</span> 2<span style="color:#f92672">)</span>
+   <span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">(</span>e <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Fetching &#34;</span> <span style="color:#f92672">+</span> e<span style="color:#f92672">))</span>
+   <span style="color:#f92672">.</span><span style="color:#a6e22e">limit</span><span style="color:#f92672">(</span>20<span style="color:#f92672">).</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">();</span>
+</code></pre></div><p>When an element is actually accessed, a message is printed. This way you can verify that the infinite stream returned by iterate is processed lazily.</p>
+<p>The stream transformations of the preceding sections were stateless. When an element is retrieved from a filtered or mapped stream, the answer does not depend on the previous elements. There are also a few stateful transformations. For example, the distinct method returns a stream that yields elements from the original stream, in the same order, except that duplicates are suppressed.</p>
+<p>The stream must obviously remember the elements that it has already seen.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> uniqueWords
+   <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;merrily&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;merrily&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;merrily&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;gently&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">distinct</span><span style="color:#f92672">();</span>
+   <span style="color:#75715e">// Only one&#34;merrily&#34; is retained
+</span></code></pre></div><p>The sorted method must see the entire stream and sort it before it can give out any elements—after all, the smallest one might be the last one. Clearly, you can’t sort an infinite stream.</p>
+<p>There are several sorted methods. One works for streams of Comparableelements, and another accepts a Comparator. Here, we sort strings so that the longest ones come first:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> longestFirst =
+words.sorted(Comparator.comparing(String::length).reversed());
+Of course, you can sort a collection without using streams. The sorted method is useful when the sorting process is a part of a stream pipeline.</p>
+<p>NOTE</p>
+<p>The Collections.sortmethod sorts a collection in place, whereas Stream.sortedreturns a new sorted stream.</p>
+<p>The methods that we cover in this section are called reductions. They reduce the stream to a value that can be used in your program. Reductions are terminal operations. After a terminal operation has been applied, the stream ceases to be usable.</p>
+<p>In Java 8, the Optional type is the preferred way of indicating a missing return value. We discuss the Optional type in detail in the next section. Here is how you can get the maximum of a stream:</p>
+<p>Click here to view code image</p>
+<p>Optional<!-- raw HTML omitted --> largest = words.max(String::compareToIgnoreCase);
+if (largest.isPresent())
+System.out.println(&ldquo;largest: &quot; + largest.get());</p>
+<p>reduce. Each segment needs to start out with its own empty hash set, and reduce only lets you supply one identity value. Instead, use collect. It takes three arguments:</p>
+<ol>
+<li>
+<p>A supplier to make new instances of the target object, for example, a constructor for a hash set</p>
+</li>
+<li>
+<p>An accumulatorthat adds an element to the target, for example, an addmethod</p>
+</li>
+<li>
+<p>A combiner that merges two objects into one, such as addAll</p>
+</li>
+</ol>
+<p>NOTE</p>
+<p>The target object need not be a collection. It could be a StringBuilderor an object that tracks a count and a sum.</p>
+<p>Here is how the collect method works for a hash set:</p>
+<p>Click here to view code image</p>
+<p>HashSet<!-- raw HTML omitted --> result = stream.collect(HashSet::new, HashSet::add, HashSet::addAll);</p>
+<p>In practice, you don’t have to do that because there is a convenient Collector interface for these three functions, and a Collectors class with factory methods for common collectors. To collect a stream into a list or set, you can simply call</p>
+<p>Click here to view code image</p>
+<p>List<!-- raw HTML omitted --> result = stream.collect(Collectors.toList());</p>
+<p>or</p>
+<p>Click here to view code image</p>
+<p>Set<!-- raw HTML omitted --> result = stream.collect(Collectors.toSet());</p>
+<p>If you want to control which kind of set you get, use the following call instead:</p>
+<p>Click here to view code image</p>
+<p>TreeSet<!-- raw HTML omitted --> result = stream.collect(Collectors.toCollection(TreeSet::new));</p>
+<p>Suppose you want to collect all strings in a stream by concatenating them. You can call</p>
+<p>String result = stream.collect(Collectors.joining());</p>
+<p>If you want a delimiter between elements, pass it to the joiningmethod:</p>
+<p>Click here to view code image</p>
+<p>String result = stream.collect(Collectors.joining(&rdquo;, &ldquo;));</p>
+<p>If your stream contains objects other than strings, you need to first convert them to strings, like this:</p>
+<p>Click here to view code image</p>
+<p>String result = stream.map(Object::toString).collect(Collectors.joining(&rdquo;, &ldquo;));</p>
+<p>If you want to reduce the stream results to a sum, average, maximum, or minimum, then use one of the methods summarizing(Int|Long|Double). These methods take a function that maps the stream objects to a number and yield a result of type (Int|Long|Double)SummaryStatistics, with methods for obtaining the sum, average, maximum, and minumum.</p>
+<p>Click here to view code image</p>
+<p>IntSummaryStatistics summary = words.collect(
+Collectors.summarizingInt(String::length));
+double averageWordLength = summary.getAverage();
+double maxWordLength = summary.getMax();</p>
+<p>NOTE</p>
+<p>So far, you have seen how to reduce or collect stream values. But perhaps you just want to print them or put them in a database. Then you can use the forEachmethod:</p>
+<p>stream.forEach(System.out::println);</p>
+<p>The function that you pass is applied to each element. On a parallel stream, it’s your responsibility to ensure that the function can be executed concurrently. We discuss this in Section 2.13, “Parallel Streams,” on page 40.</p>
+<p>On a parallel stream, the elements can be traversed in arbitrary order. If you want to execute them in stream order, call forEachOrderedinstead. Of course, you might then give up most or all of the benefits of parallelism.</p>
+<p>The forEachand forEachOrderedmethods are terminal operations. You cannot use the stream again after calling them. If you want to continue using the stream, use peekinstead—see</p>
+<p>In the common case that the values should be the actual elements, use Function.identity()for the second function.</p>
+<p>Click here to view code image</p>
+<p>Map&lt;Integer, Person&gt; idToPerson = people.collect(
+Collectors.toMap(Person::getId, Function.identity()));
+If there is more than one element with the same key, the collector will throw an IllegalStateException. You can override that behavior by supplying a third function argument that determines the value for the key, given the existing and the new value. Your function could return the existing value, the new value, or a combination of them.</p>
+<p>Here, we construct a map that contains, for each language in the available locales, as key its name in your default locale (such as &ldquo;German&rdquo;), and as value its localized name (such as &ldquo;Deutsch&rdquo;).</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> locales = Stream.of(Locale.getAvailableLocales());
+Map&lt;String, String&gt; languageNames = locales.collect(
+Collectors.toMap(
+l -&gt; l.getDisplayLanguage(),
+l -&gt; l.getDisplayLanguage(l),
+(existingValue, newValue) -&gt; existingValue));
+We don’t care that the same language might occur twice—for example, German in Germany and in Switzerland, and we just keep the first entry.</p>
+<p>However, suppose we want to know all languages in a given country. Then we need a Map&lt;String, Set<!-- raw HTML omitted -->&gt;. For example, the value for &ldquo;Switzerland&quot;is the set [French, German, Italian]. At first, we store a singleton set for each language. Whenever a new language is found for a given country, we form the union of the existing and the new set.</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, Set<!-- raw HTML omitted -->&gt; countryLanguageSets = locales.collect(
+Collectors.toMap(
+l -&gt; l.getDisplayCountry(),
+l -&gt; Collections.singleton(l.getDisplayLanguage()),
+(a, b) -&gt; { // Union of a and b
+Set<!-- raw HTML omitted --> r = new HashSet&lt;&gt;(a);
+r.addAll(b);
+return r; }));
+You will see a simpler way of obtaining this map in the next section.</p>
+<p>If you want a TreeMap, then you supply the constructor as the fourth argument. You must provide a merge function. Here is one of the examples from the beginning of the section, now yielding a TreeMap:</p>
+<p>Click here to view code image</p>
+<p>Map&lt;Integer, Person&gt; idToPerson = people.collect(
+Collectors.toMap(
+Person::getId,
+Function.identity(),
+(existingValue, newValue) -&gt; { throw new IllegalStateException(); },
+TreeMap::new));</p>
+<p>For example, if you want sets instead of lists, you can use the Collectors.toSetcollector that you saw in the preceding section:</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, Set<!-- raw HTML omitted -->&gt; countryToLocaleSet = locales.collect(
+groupingBy(Locale::getCountry, toSet()));</p>
+<p>Several other collectors are provided for downstream processing of grouped elements:</p>
+<p>• countingproduces a count of the collected elements. For example,</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, Long&gt; countryToLocaleCounts = locales.collect(
+groupingBy(Locale::getCountry, counting()));
+counts how many locales there are for each country.</p>
+<p>• summing(Int|Long|Double) takes a function argument, applies the function to the downstream elements, and produces their sum. For example,</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, Integer&gt; stateToCityPopulation = cities.collect(
+groupingBy(City::getState, summingInt(City::getPopulation)));
+computes the sum of populations per state in a stream of cities.</p>
+<p>• maxBy and minBytake a comparator and produce maximum and minimum of the downstream elements. For example,</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, City&gt; stateToLargestCity = cities.collect(
+groupingBy(City::getState,
+maxBy(Comparator.comparing(City::getPopulation))));
+produces the largest city per state.</p>
+<p>• mapping applies a function to downstream results, and it requires yet another collector for processing its results. For example,</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, Optional<!-- raw HTML omitted -->&gt; stateToLongestCityName = cities.collect(
+groupingBy(City::getState,
+mapping(City::getName,
+maxBy(Comparator.comparing(String::length)))));
+Here, we group cities by state. Within each state, we produce the names of the cities and reduce by maximum length.</p>
+<p>The mappingmethod also yields a nicer solution to a problem from the preceding section, to gather a set of all languages in a country.</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, Set<!-- raw HTML omitted -->&gt; countryToLanguages = locales.collect(
+groupingBy(l -&gt; l.getDisplayCountry(),
+mapping(l -&gt; l.getDisplayLanguage(),
+toSet())));
+In the preceding section, I used toMap instead of groupingBy. In this form, you don’t need to worry about combining the individual sets.</p>
+<p>• If the grouping or mapping function has return type int, long, or double, you can collect elements into a summary statistics object, as discussed in Section 2.9, “Collecting Results,” on page 33. For example,</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, IntSummaryStatistics&gt; stateToCityPopulationSummary = cities.collect(
+groupingBy(City::getState,
+summarizingInt(City::getPopulation)));
+Then you can get the sum, count, average, minimum, and maximum of the function values from the summary statistics objects of each group.</p>
+<p>• Finally, the reducingmethods apply a general reduction to downstream elements. There are three forms: reducing(binaryOperator), reducing(identity, binaryOperator), and reducing(identity, mapper, binaryOperator). In the first form, the identity is null. (Note that this is different from the forms of Stream::reduce, where the method without an identity parameter yields an Optional result.) In the third form, the mapperfunction is applied and its values are reduced.</p>
+<p>Here is an example that gets a comma-separated string of all city names in each state. We map each city to its name and then concatenate them.</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, String&gt; stateToCityNames = cities.collect(
+groupingBy(City::getState,
+reducing(&quot;&rdquo;, City::getName,
+(s, t) -&gt; s.length() == 0 ? t : s + &ldquo;, &quot; + t)));
+As with Stream.reduce, Collectors.reducingis rarely necessary. In this case, you can achieve the same result more naturally as</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, String&gt; stateToCityNames = cities.collect(
+groupingBy(City::getState,
+mapping(City::getName,
+joining(&rdquo;, &ldquo;))));
+Frankly, the downstream collectors can yield very convoluted expressions. You should only use them in connection with groupingBy or partitioningBy to process the “downstream” map values. Otherwise, simply apply methods such as map, reduce, count, max, or mindirectly on streams.</p>
+<p>2.12. Primitive Type Streams
+So far, we have collected integers in a Stream<!-- raw HTML omitted -->, even though it is clearly inefficient to wrap each integer into a wrapper object. The same is true for the other primitive types double, float, long, short, char, byte, and boolean. The stream library has specialized types IntStream, LongStream, and DoubleStream that store primitive values directly, without using wrappers. If you want to store short, char, byte, and boolean, use an IntStream, and for float, use a DoubleStream. The library designers didn’t think it was worth adding another five stream types.</p>
+<p>To create an IntStream, you can call the IntStream.of and Arrays.streammethods:</p>
+<p>Click here to view code image</p>
+<p>IntStream stream = IntStream.of(1, 1, 2, 3, 5);
+stream = Arrays.stream(values, from, to); // values is an int[] array
+As with object streams, you can also use the static generate and iterate methods. In addition, IntStreamand LongStreamhave static methods range and rangeClosed that generate integer ranges with step size one:</p>
+<p>Click here to view code image</p>
+<p>IntStream zeroToNinetyNine = IntStream.range(0, 100); // Upper bound is excluded
+IntStream zeroToHundred = IntStream.rangeClosed(0, 100); // Upper bound is included
+The CharSequenceinterface has methods codePoints and chars that yield an IntStream of the Unicode codes of the characters or of the code units in the UTF-16 encoding. (If you don’t know what code units are, you probably shouldn’t use the chars method. Read up on the sordid details in Core Java, 9th Edition, Volume 1, Section 3.3.3.)</p>
+<p>Click here to view code image</p>
+<p>String sentence = &ldquo;\uD835\uDD46 is the set of octonions.&quot;;
+// \uD835\uDD46 is the UTF-16 encoding of the letter</p>
+<p>, unicode U+1D546</p>
+<p>IntStream codes = sentence.codePoints();
+// The stream with hex values 1D546 20 69 73 20 &hellip;
+When you have a stream of objects, you can transform it to a primitive type stream with the mapToInt, mapToLong, or mapToDoublemethods. For example, if you have a stream of strings and want to process their lengths as integers, you might as well do it in an IntStream:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> words = &hellip;;
+IntStream lengths = words.mapToInt(String::length);
+To convert a primitive type stream to an object stream, use the boxed method:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> integers = IntStream.range(0, 100).boxed();</p>
+<p>Generally, the methods on primitive type streams are analogous to those on object streams. Here are the most notable differences:</p>
+<p>• The toArraymethods return primitive type arrays.</p>
+<p>• Methods that yield an optional result return an OptionalInt, OptionalLong, or OptionalDouble. These classes are analogous to the Optional class, but they have methods getAsInt, getAsLong, and getAsDoubleinstead of the getmethod.</p>
+<p>• There are methods sum, average, max, and min that return the sum, average, maximum, and minimum. These methods are not defined for object streams.</p>
+<p>• The summaryStatisticsmethod yields an object of type IntSummaryStatistics, LongSummaryStatistics, or DoubleSummaryStatisticsthat can simultaneously report the sum, average, maximum, and minimum of the stream.</p>
+<p>NOTE</p>
+<p>The Randomclass has methods ints, longs, and doubles that return primitive type streams of random numbers.</p>
+<p>2.13. Parallel Streams
+Streams make it easy to parallelize bulk operations. The process is mostly automatic, but you need to follow a few rules. First of all, you must have a parallel stream. By default, stream operations create sequential streams, except for Collection.parallelStream(). The parallelmethod converts any sequential stream into a parallel one. For example:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> parallelWords = Stream.of(wordArray).parallel();</p>
+<p>As long as the stream is in parallel mode when the terminal method executes, all lazy intermediate stream operations will be parallelized.</p>
+<p>When stream operations run in parallel, the intent is that the same result is returned as if they had run serially. It is important that the operations are stateless and can be executed in an arbitrary order.</p>
+<p>Here is an example of something you cannot do. Suppose you want to count all short words in a stream of strings:</p>
+<p>Click here to view code image</p>
+<p>int[] shortWords = new int[12];
+words.parallel().forEach(
+s -&gt; { if (s.length() &lt; 12) shortWords[s.length()]++; });
+// Error—race condition!
+System.out.println(Arrays.toString(shortWords));
+This is very, very bad code. The function passed to forEachruns concurrently in multiple threads, updating a shared array. That’s a classic race condition. If you run this program multiple times, you are quite likely to get a different sequence of counts in each run, each of them wrong.</p>
+<p>It is your responsibility to ensure that any functions that you pass to parallel stream operations are threadsafe. In our example, you could use an array of AtomicIntegerobjects for the counters (see Exercise 12). Or you could simply use the facilities of the streams library and group strings by length (see Exercise 13).</p>
+<p>By default, streams that arise from ordered collections (arrays and lists), from ranges, generators, and iterators, or from calling Stream.sorted, are ordered. Results are accumulated in the order of the original elements, and are entirely predictable. If you run the same operations twice, you will get exactly the same results.</p>
+<p>Ordering does not preclude parallelization. For example, when computing stream.map(fun), the stream can be partitioned into nsegments, each of which is concurrently processed. Then the results are reassembled in order.</p>
+<p>Some operations can be more effectively parallelized when the ordering requirement is dropped. By calling the Stream.unorderedmethod, you indicate that you are not interested in ordering. One operation that can benefit from this is Stream.distinct. On an ordered stream, distinct retains the first of all equal elements. That impedes parallelization—the thread processing a segment can’t know which elements to discard until the preceding segment has been processed. If it is acceptable to retain any of the unique elements, all segments can be processed concurrently (using a shared set to track duplicates).</p>
+<p>You can also speed up the limit method by dropping ordering. If you just want any nelements from a stream and you don’t care which ones you get, call</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> sample = stream.parallel().unordered().limit(n);</p>
+<p>As discussed in Section 2.10, “Collecting into Maps,” on page 34, merging maps is expensive. For that reason, the Collectors.groupingByConcurrentmethod uses a shared concurrent map. Clearly, to benefit from parallelism, the order of the map values will not be the same as the stream order. Even on an ordered stream, that collector has a “characteristic” of being unordered, so that it can be used efficiently without having to make the stream unordered. You still need to make the stream parallel, though:</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, List<!-- raw HTML omitted -->&gt; result = cities.parallel().collect(
+Collectors.groupingByConcurrent(City::getState));
+// Values aren’t collected in stream order</p>
+<p>CAUTION</p>
+<p>It is very important that you don’t modify the collection that is backing a stream while carrying out a stream operation (even if the modification is threadsafe). Remember that streams don’t collect their own data—the data is always in a separate collection. If you were to modify that collection, the outcome of the stream operations would be undefined. The JDK documentation refers to this requirement as noninterference. It applies both to sequential and parallel streams.</p>
+<p>To be exact, since intermediate stream operations are lazy, it is possible to mutate the collection up to the point when the terminal operation executes. For example, the following is correct:</p>
+<p>Click here to view code image</p>
+<p>List<!-- raw HTML omitted --> wordList = &hellip;;
+Stream<!-- raw HTML omitted --> words = wordList.stream();
+wordList.add(&ldquo;END&rdquo;); // Ok
+long n = words.distinct().count();
+But this code is not:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> words = wordList.stream();
+words.forEach(s -&gt; if (s.length() &lt; 12) wordList.remove(s));
+// Error—interference</p>
+<p>Exercises</p>
+<ol>
+<li>
+<p>Write a parallel version of the forloop in Section 2.1, “From Iteration to Stream Operations,” on page 22. Obtain the number of processors. Make that many separate threads, each working on a segment of the list, and total up the results as they come in. (You don’t want the threads to update a single counter. Why?)</p>
+</li>
+<li>
+<p>Verify that asking for the first five long words does not call the filter method once the fifth long word has been found. Simply log each method call.</p>
+</li>
+<li>
+<p>Measure the difference when counting long words with a parallelStreaminstead of a stream. Call System.nanoTimebefore and after the call, and print the difference. Switch to a larger document (such as War and Peace) if you have a fast computer.</p>
+</li>
+<li>
+<p>Suppose you have an array int[] values = { 1, 4, 9, 16 }. What is Stream.of(values)? How do you get a stream of intinstead?</p>
+</li>
+<li>
+<p>Using Stream.iterate, make an infinite stream of random numbers—not by calling Math.random but by directly implementing a linear congruential generator. In such a generator, you start with x0 = seedand then produce xn + 1 = (a xn + c) %m, for appropriate values of a, c, and m. You should implement a method with parameters a, c, m, and seed that yields a Stream<!-- raw HTML omitted -->. Try out a = 25214903917, c = 11, and m = 248.</p>
+</li>
+<li>
+<p>The characterStreammethod in Section 2.3, “The filter, map, and flatMapMethods,” on page 25, was a bit clumsy, first filling an array list and then turning it into a stream. Write a stream-based one-liner instead. One approach is to make a stream of integers from 0 to s.length() - 1and map that with the s::charAtmethod reference.</p>
+</li>
+<li>
+<p>Your manager asks you to write a method public static <!-- raw HTML omitted --> boolean isFinite(Stream<!-- raw HTML omitted --> stream). Why isn’t that such a good idea? Go ahead and write it anyway.</p>
+</li>
+<li>
+<p>Write a method public static <!-- raw HTML omitted --> Stream<!-- raw HTML omitted --> zip(Stream<!-- raw HTML omitted --> first, Stream<!-- raw HTML omitted --> second) that alternates elements from the streams first and second, stopping when one of them runs out of elements.</p>
+</li>
+<li>
+<p>Join all elements in a Stream&lt;ArrayList<!-- raw HTML omitted -->&gt;to one ArrayList<!-- raw HTML omitted -->. Show how to do this with the three forms of reduce.</p>
+</li>
+<li>
+<p>Write a call to reduce that can be used to compute the average of a Stream<!-- raw HTML omitted -->. Why can’t you simply compute the sum and divide by count()?</p>
+</li>
+<li>
+<p>It should be possible to concurrently collect stream results in a single ArrayList, instead of merging multiple array lists, provided it has been constructed with the stream’s size, since concurrent setoperations at disjoint positions are threadsafe. How can you achieve that?</p>
+</li>
+<li>
+<p>Count all short words in a parallel Stream<!-- raw HTML omitted -->, as described in Section 2.13, “Parallel Streams,” on page 40, by updating an array of AtomicInteger. Use the atomic getAndIncrementmethod to safely increment each counter.</p>
+</li>
+<li>
+<p>Repeat the preceding exercise, but filter out the short strings and use the collectmethod with Collectors.groupingByand Collectors.counting.</p>
+</li>
+</ol>
+<p>A function type is alwayscontravariant in its arguments and covariant in its return value. For example, if you have a Function&lt;Person, Employee&gt;, you can safely pass it on to someone who needs a Function&lt;Employee, Person&gt;. They will only call it with employees, whereas your function can handle any person. They will expect the function to return a person, and you give them something even better.</p>
+<p>For example, look at the javadoc for Stream<!-- raw HTML omitted -->:</p>
+<p>Click here to view code image</p>
+<p>void forEach(Consumer&lt;? super T&gt; action)
+Stream<!-- raw HTML omitted --> filter(Predicate&lt;? super T&gt; predicate)
+<!-- raw HTML omitted --> Stream<!-- raw HTML omitted --> map(Function&lt;? super T, ? extends R&gt; mapper)
+The general rule is that you use superfor argument types, extends for return types. That way, you can pass a Consumer<!-- raw HTML omitted -->to forEach on a Stream<!-- raw HTML omitted -->. If it is willing to consume any object, surely it can consume strings.</p>
+<p>But the wildcards are not always there. Look at</p>
+<p>For example, consider the doInOrderAsyncmethod of the preceding section. Instead of</p>
+<p>Click here to view code image</p>
+<p>public static <!-- raw HTML omitted --> void doInOrderAsync(Supplier<!-- raw HTML omitted --> first,
+Consumer<!-- raw HTML omitted --> second, Consumer<!-- raw HTML omitted --> handler)
+it should be</p>
+<p>Click here to view code image</p>
+<p>public static <!-- raw HTML omitted --> void doInOrderAsync(Supplier&lt;? extends T&gt; first,
+Consumer&lt;? super T&gt; second, Consumer&lt;? superThrowable&gt; handler)</p>
+<p>In our example, we can call</p>
+<p>Click here to view code image</p>
+<p>largest.updateAndGet(x -&gt; Math.max(x, observed));</p>
+<p>or</p>
+<p>Click here to view code image</p>
+<p>largest.accumulateAndGet(observed, Math::max);</p>
+<p>The accumulateAndGetmethod takes a binary operator that is used to combine the atomic value and the supplied argument.</p>
+<h2 id="default-in-java"><strong>default</strong> in Java</h2>
+<h3 id="there-are-three-rules-about-default">There are three rules about <strong>default</strong></h3>
+<p>Regarding how to handle the situation of same default method in multiple inheritance.</p>
+<ul>
+<li><strong>class win</strong>, any class wins over any interfaces.So if there’s a method with a body, or an abstract declaration, in the superclass chain, we can ignore the interfaces completely.</li>
+<li><strong>subtype win supertype</strong>, “which two interfaces are competing to provide a default method and one interface extends the other, the subclass wins.”</li>
+<li><strong>No rule 3</strong>. if the previous two rules don&rsquo;t give us the answer, the subclass must either implement the method or declare it <strong>abstract</strong>.</li>
+</ul>
+<p>“Interfaces give you multiple inheritance but no fields, while abstract classes let you “inherit fields but you don’t get multiple inheritance.”</p>
+<h2 id="static-method-in-interface">Static method in Interface</h2>
+<p>We’ve seen a lot of calling of <strong>Stream.of</strong> but haven’t gotten into its details yet. You may recall that Stream is an interface, but this is a static method on an interface.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">stream<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>toCollection<span style="color:#f92672">(</span>TreeSet<span style="color:#f92672">::</span><span style="color:#66d9ef">new</span><span style="color:#f92672">));</span>
+</code></pre></div><h1 id="optional-is-a-better-of-null"><strong>Optional</strong> is a better of <strong>null</strong></h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//Optional can be created via factory method &#39;of&#39;, 
+</span><span style="color:#75715e"></span>Optional<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> a <span style="color:#f92672">=</span> Optional<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#75715e">// Optional is just a container, you can get the underlying value by &#39;get&#39; method
+</span><span style="color:#75715e"></span>assertEquals<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span> a<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">());</span>
+
+<span style="color:#75715e">// at the meanwhile, Optional can represent &#39;absent&#39;
+</span><span style="color:#75715e">// factory method empty or ofNullable from a nullable object can be used
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testOptional</span><span style="color:#f92672">(){</span>
+        Optional<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> optA<span style="color:#f92672">=</span>Optional<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">);</span>
+        Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">assertEquals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span> optA<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testEmpty</span><span style="color:#f92672">(){</span>
+        Optional emp<span style="color:#f92672">=</span>Optional<span style="color:#f92672">.</span><span style="color:#a6e22e">ofNullable</span><span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+        Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">assertEquals</span><span style="color:#f92672">(</span>Optional<span style="color:#f92672">.</span><span style="color:#a6e22e">empty</span><span style="color:#f92672">(),</span> emp<span style="color:#f92672">);</span>
+        Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">assertFalse</span><span style="color:#f92672">(</span>emp<span style="color:#f92672">.</span><span style="color:#a6e22e">isPresent</span><span style="color:#f92672">());</span>
+        Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">assertEquals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">,</span> emp<span style="color:#f92672">.</span><span style="color:#a6e22e">orElse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">));</span>
+        Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">assertEquals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;c&#34;</span><span style="color:#f92672">,</span> emp<span style="color:#f92672">.</span><span style="color:#a6e22e">orElseGet</span><span style="color:#f92672">(()-&gt;</span><span style="color:#e6db74">&#34;c&#34;</span><span style="color:#f92672">));</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h1 id="method-reference">method reference</h1>
+<ul>
+<li>** Classname::methodname** , such as Artist::getName is equivalant to artist-&gt;artist.getName()</li>
+<li>For constructors can be used Artist::new</li>
+<li>You can alos to create new array, String[]::new</li>
+</ul>
+<h1 id="stream">Stream</h1>
+<p>“The purpose of streams isn’t just to convert from one collection to another; it’s to be able to provide a common set of operations over data.”</p>
+<h2 id="partitioningby">partitioningBy</h2>
+<p>To split a stream into two groups, one for &lsquo;trueGroup&rsquo; and another group</p>
+<h2 id="lanmbda">Lanmbda</h2>
+<ul>
+<li>It is best to think of a lambda expression as a function, not an object, and to accept that it can be converted to a functional interface.</li>
+<li>This conversion to interfaces is what makes lambda expressions so compelling. The syntax is short and simple.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">BiFunction<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> comp
+   <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>first<span style="color:#f92672">,</span> second<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>first<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">(),</span> second<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">());</span>
+</code></pre></div><p>The expression System.out::printlnis a method reference that is equivalent to the lambda expression x -&gt; System.out.println(x).</p>
+<h3 id="there-are-three-principal-cases">There are three principal cases:</h3>
+<ul>
+<li>object::instanceMethod</li>
+<li>Class::staticMethod</li>
+<li>Class::instanceMethod</li>
+</ul>
+<p>In the third case, the first parameter becomes the target of the method. For example, String::compareToIgnoreCaseis the same as (x, y) -&gt; x.compareToIgnoreCase(y).</p>
+<p>Just like lambda expressions, method references don’t live in isolation. They are always turned into instances of functional interfaces.</p>
+<h3 id="constructor-references-1">Constructor References</h3>
+<p>Constructor references are just like method references, except that the name of the method is new. For example, Button::new is a reference to a Button constructor. Which constructor? It depends on the context.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> labels <span style="color:#f92672">=</span> <span style="color:#f92672">...;</span>
+Stream<span style="color:#f92672">&lt;</span>Button<span style="color:#f92672">&gt;</span> stream <span style="color:#f92672">=</span> labels<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>Button<span style="color:#f92672">::</span><span style="color:#66d9ef">new</span><span style="color:#f92672">);</span>
+List<span style="color:#f92672">&lt;</span>Button<span style="color:#f92672">&gt;</span> buttons <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</code></pre></div><p>For example, suppose we want to have an array of buttons. The Stream interface has a toArraymethod that returns an Object array:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+Object<span style="color:#f92672">[]</span> buttons <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">();</span>
+</code></pre></div><p>we need to refine our understanding of a lambda expression. A lambda expression has three ingredients:</p>
+<ul>
+<li>
+<ol>
+<li>A block of code</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Parameters</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Values for the free variables, that is, the variables that are not parameters and not defined inside the code</li>
+</ol>
+</li>
+</ul>
+<p>The technical term for a block of code together with the values of the <code>free variables</code> is a <code>closure</code>. If someone gloats that their language has closures, rest assured that Java has them as well. In Java, lambda expressions are closures. In fact, inner classes have been closures all along. Java 8 gives us closures with an attractive syntax.</p>
+<p>Inner classes can also capture values from an enclosing scope. Before Java 8, inner classes were only allowed to access <code>final local variables</code>. This rule has now been relaxed to match that for lambda expressions. An inner class can access any effectively final local variable—that is, any variable whose value does not change.</p>
+<p>When you use the this keyword in a lambda expression, you refer to the this parameter of the method that creates the lambda. For example, consider</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Application</span> <span style="color:#f92672">{</span>
+   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doWork</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+      Runnable runner <span style="color:#f92672">=</span> <span style="color:#f92672">()</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span> <span style="color:#f92672">...;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">());</span> <span style="color:#f92672">...</span> <span style="color:#f92672">};</span>
+      <span style="color:#f92672">...</span>
+   <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>The expression this.toString()calls the toString method of the Application object, not the Runnable instance. There is nothing special about the use of this in a lambda expression. The scope of the lambda expression is nested inside the doWorkmethod, and thishas the same meaning anywhere in that method.</p>
+<p>The Java designers decided to solve this problem once and for all by allowing interface methods with concrete implementations (called default methods). Those methods can be safely added to existing interfaces.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Person</span> <span style="color:#f92672">{</span>
+   <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getId</span><span style="color:#f92672">();</span>
+   <span style="color:#66d9ef">default</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;John Q. Public&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>The interface has two methods: getId, which is an abstract method, and the default method getName. A concrete class that implements the Person interface must, of course, provide an implementation of getId, but it can choose to keep the implementation of getName or to override it.</p>
+<p>Default methods put an end to the classic pattern of providing an interface and an abstract class that implements most or all of its methods, such as Collection/AbstractCollectionor WindowListener/WindowAdapter. Now you can just implement the methods in the interface.</p>
+<p>To compare Person objects by name, use Comparator.comparing(Person::getName).</p>
+<p>In this chapter, we have compared strings by length with the lambda expression (first, second) -&gt; Integer.compare(first.length(), second.length()). But But with the static compare method, we can do much better and simply use Comparator.comparing(String::length).</p>
+<p>In Java 8, static methods have been added to quite a few interfaces. For example, the Comparator interface has a very useful static comparing method that accepts a “key extraction” function and yields a comparator that compares the extracted keys.</p>
+<h3 id="exercises">Exercises</h3>
+<ol>
+<li>
+<p>Is the comparator code in the Arrays.sort method called in the same thread as the call to sortor a different thread?</p>
+</li>
+<li>
+<p>Using the listFiles(FileFilter)and isDirectorymethods of the java.io.Fileclass, write a method that returns all subdirectories of a given directory. Use a lambda expression instead of a FileFilterobject. Repeat with a method reference.</p>
+</li>
+<li>
+<p>Using the list(FilenameFilter)method of the java.io.Fileclass, write a method that returns all files in a given directory with a given extension. Use a lambda expression, not a FilenameFilter. Which variables from the enclosing scope does it capture?</p>
+</li>
+<li>
+<p>Given an array of File objects, sort it so that the directories come before the files, and within each group, elements are sorted by path name. Use a lambda expression, not a Comparator.</p>
+</li>
+<li>
+<p>Take a file from one of your projects that contains a number of ActionListener, Runnable, or the like. Replace them with lambda expressions. How many lines did it save? Was the code easier to read? Were you able to use method references?</p>
+</li>
+<li>
+<p>Didn’t you always hate it that you had to deal with checked exceptions in a Runnable? Write a method uncheck that catches all checked exceptions and turns them into unchecked exceptions. For example,</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span>uncheck<span style="color:#f92672">(</span>
+   <span style="color:#f92672">()</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Zzz&#34;</span><span style="color:#f92672">);</span> Thread<span style="color:#f92672">.</span><span style="color:#a6e22e">sleep</span><span style="color:#f92672">(</span>1000<span style="color:#f92672">);</span> <span style="color:#f92672">})).</span><span style="color:#a6e22e">start</span><span style="color:#f92672">();</span>
+      <span style="color:#75715e">// Look, nocatch (InterruptedException)!
+</span></code></pre></div><p>Hint: Define an interface RunnableExwhose runmethod may throw any exceptions. Then implement public static Runnable uncheck(RunnableEx runner). Use a lambda expression inside the uncheckmethod.</p>
+<p>Why can’t you just use Callable<!-- raw HTML omitted -->instead of RunnableEx?</p>
+<ol start="7">
+<li>
+<p>Write a static method andThenthat takes as parameters two Runnableinstances and returns a Runnable that runs the first, then the second. In the main method, pass two lambda expressions into a call to andThen, and run the returned instance.</p>
+</li>
+<li>
+<p>What happens when a lambda expression captures values in an enhanced forloop such as this one?</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+String<span style="color:#f92672">[]</span> names <span style="color:#f92672">=</span> <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;Peter&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Paul&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Mary&#34;</span> <span style="color:#f92672">};</span>
+List<span style="color:#f92672">&lt;</span>Runnable<span style="color:#f92672">&gt;</span> runners <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String name <span style="color:#f92672">:</span> names<span style="color:#f92672">)</span>
+   runners<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(()</span> <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>name<span style="color:#f92672">));</span>
+</code></pre></div><p>Is it legal? Does each lambda expression capture a different value, or do they all get the last value? What happens if you use a traditional loop for (int i = 0; i &lt; names.length; i++)?</p>
+<ol start="9">
+<li>
+<p>Form a subinterface Collection2from Collectionand add a default method void forEachIf(Consumer<!-- raw HTML omitted --> action, Predicate<!-- raw HTML omitted --> filter) that applies action to each element for which filterreturns true. How could you use it?</p>
+</li>
+<li>
+<p>Go through the methods of the Collectionsclass. If you were king for a day, into which interface would you place each method? Would it be a default method or a static method?</p>
+</li>
+<li>
+<p>Suppose you have a class that implements two interfaces I and J, each of which has a method void f(). Exactly what happens if f is an abstract, default, or static method of I and an abstract, default, or static method of J? Repeat where a class extends a superclass S and implements an interface I, each of which has a method void f().</p>
+</li>
+<li>
+<p>In the past, you were told that it’s bad form to add methods to an interface because it would break existing code. Now you are told that it’s okay to add new methods, provided you also supply a default implementation. How safe is that? Describe a scenario where the new streammethod of the Collectioninterface causes legacy code to fail compilation. What about binary compatibility? Will legacy code from a JAR file still run?</p>
+</li>
+</ol>
+<h3 id="stream-vs-collections-1">Stream vs Collections</h3>
+<p>A stream seems superficially similar to a collection, allowing you to transform and retrieve data. But there are significant differences:</p>
+<ol>
+<li>A stream <code>does not store</code> its elements. They may be stored in an underlying collection or generated on demand.</li>
+<li><code>Stream operations don’t mutate their source</code>. Instead, they return new streams that hold the result.</li>
+<li><code>Stream operations are lazy</code> when possible. This means they are not executed until their result is needed. For example, if you only ask for the first five long words instead of counting them all, then the filter method will stop filtering after the fifth match. As a consequence, you can even have infinite streams!</li>
+</ol>
+<ul>
+<li>
+<p>Streams follow <code>the “what, not how” principle</code>. In our stream example, we describe what needs to be done: get the long words and count them. We don’t specify in which order, or in which thread, this should happen.</p>
+</li>
+<li>
+<p>When you work with streams, you set up a pipeline of operations in three stages.</p>
+</li>
+</ul>
+<ol>
+<li>You create a stream.</li>
+<li>You specify intermediate operations for transforming the initial stream into others, in one or more steps.</li>
+<li>You apply a terminal operation to produce a result. This operation forces the execution of the lazy operations that precede it. Afterwards, the stream can no longer be used.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">long</span> count <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">parallelStream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> w<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">&gt;</span> 12<span style="color:#f92672">).</span><span style="color:#a6e22e">count</span><span style="color:#f92672">();</span>
+</code></pre></div><p><code>Stream operations are not executed on the elements in the order in which they are invoked on the streams</code>. In our example, nothing happens until count is called. When the count method asks for the first element, then the filter method starts requesting elements, until it finds one that has length &gt; 12.</p>
+<p>To produce infinite sequences such as 0 1 2 3 &hellip;, use the iterate method instead. It takes a “seed” value and a function (technically, a UnaryOperator<!-- raw HTML omitted -->), and repeatedly applies the function to the previous result. For example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>BigInteger<span style="color:#f92672">&gt;</span> integers
+   <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">iterate</span><span style="color:#f92672">(</span>BigInteger<span style="color:#f92672">.</span><span style="color:#a6e22e">ZERO</span><span style="color:#f92672">,</span> n <span style="color:#f92672">-&gt;</span> n<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>BigInteger<span style="color:#f92672">.</span><span style="color:#a6e22e">ONE</span><span style="color:#f92672">));</span>
+</code></pre></div><p>The first element in the sequence is the seed</p>
+<p>You can use the following statement to split a string into words:</p>
+<p>Stream<!-- raw HTML omitted --> words
+= Pattern.compile(&quot;[\P{L}]+&rdquo;).splitAsStream(contents);
+The static Files.linesmethod returns a Stream of all lines in a file.</p>
+<p>The Streaminterface has AutoCloseableas a superinterface. When the close method is called on the stream, the underlying file is also closed.</p>
+<p>To make sure that this happens, it is best to use the Java 7 try-with-resources statement:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">try</span> <span style="color:#f92672">(</span>Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> lines <span style="color:#f92672">=</span> Files<span style="color:#f92672">.</span><span style="color:#a6e22e">lines</span><span style="color:#f92672">(</span>path<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+   Do something with lines
+<span style="color:#f92672">}</span>
+</code></pre></div><p>The stream, and the underlying file with it, will be closed when the try block exits normally or through an exception.</p>
+<p>The filter, map, and flatMapMethods
+A stream transformation reads data from a stream and puts the transformed data into another stream. You have already seen the filtertransformation that yields a new stream with all elements that match a certain condition.</p>
+<p>2.3. The filter, map, and flatMapMethods
+A stream transformation reads data from a stream and puts the transformed data into another stream. You have already seen the filtertransformation that yields a new stream with all elements that match a certain condition. Here, we transform a stream of strings into another stream containing only long words:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> wordList <span style="color:#f92672">=</span> <span style="color:#f92672">...;</span>
+Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> words <span style="color:#f92672">=</span> wordList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">();</span>
+Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> longWords <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> w<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">&gt;</span> 12<span style="color:#f92672">);</span>
+</code></pre></div><p>The argument of filter is a Predicate<!-- raw HTML omitted -->—that is, a function from T to boolean.</p>
+<p>Often, you want to transform the values in a stream in some way. Use the map method and pass the function that carries out the transformation. For example, you can transform all words to lowercase like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> lowercaseWords <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>String<span style="color:#f92672">::</span>toLowerCase<span style="color:#f92672">);</span>
+</code></pre></div><p>Here, we used map with a method reference. Often, you will use a lambda expression instead:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> firstChars <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>s <span style="color:#f92672">-&gt;</span> s<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>0<span style="color:#f92672">));</span>
+</code></pre></div><p>The resulting stream contains the first character of each word.</p>
+<p>When you use map, a function is applied to each element, and the return values are collected in a new stream. Now suppose that you have a function that returns not just one value but a stream of values, such as this one:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Stream<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">characterStream</span><span style="color:#f92672">(</span>String s<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+   List<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+   <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span> c <span style="color:#f92672">:</span> s<span style="color:#f92672">.</span><span style="color:#a6e22e">toCharArray</span><span style="color:#f92672">())</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+   <span style="color:#66d9ef">return</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>For example, characterStream(&ldquo;boat&rdquo;)is the stream [&lsquo;b&rsquo;, &lsquo;o&rsquo;, &lsquo;a&rsquo;, &rsquo;t&rsquo;]. Suppose you map this method on a stream of strings:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>Stream<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;&gt;</span> result <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> characterStream<span style="color:#f92672">(</span>w<span style="color:#f92672">));</span>
+</code></pre></div><p>You will get a stream of streams, like [&hellip; [&lsquo;y&rsquo;, &lsquo;o&rsquo;, &lsquo;u&rsquo;, &lsquo;r&rsquo;], [&lsquo;b&rsquo;, &lsquo;o&rsquo;, &lsquo;a&rsquo;, &rsquo;t&rsquo;], &hellip;] To flatten it out to a stream of characters [&hellip; &lsquo;y&rsquo;, &lsquo;o&rsquo;, &lsquo;u&rsquo;, &lsquo;r&rsquo;, &lsquo;b&rsquo;, &lsquo;o&rsquo;, &lsquo;a&rsquo;, &rsquo;t&rsquo;, &hellip;], use the flatMapmethod instead of map:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> letters <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">flatMap</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> characterStream<span style="color:#f92672">(</span>w<span style="color:#f92672">))</span>
+    <span style="color:#75715e">// CallscharacterStream on each word and flattens the results
+</span><span style="color:#75715e"></span> NOTE
+</code></pre></div><p>You may find a flatMap method in classes other than streams. It is a general concept in computer science. Suppose you have a generic type G (such as Stream) and functions ffrom some type T to G<!-- raw HTML omitted -->and g from U to G<!-- raw HTML omitted -->. Then you can compose them, that is, first apply f and then g, by using flatMap. This is a key idea in the theory of monads. But don’t worry—you can use flatMapwithout knowing anything about monads.</p>
+<p>This method is particularly useful for cutting infinite streams down to size. For example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> randoms <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">generate</span><span style="color:#f92672">(</span>Math<span style="color:#f92672">::</span>random<span style="color:#f92672">).</span><span style="color:#a6e22e">limit</span><span style="color:#f92672">(</span>100<span style="color:#f92672">);</span>
+</code></pre></div><p>yields a stream with 100 random numbers.</p>
+<p>The peek method yields another stream with the same elements as the original, but a function is invoked every time an element is retrieved. That is handy for debugging:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Object<span style="color:#f92672">[]</span> powers <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">iterate</span><span style="color:#f92672">(</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">,</span> p <span style="color:#f92672">-&gt;</span> p <span style="color:#f92672">*</span> 2<span style="color:#f92672">)</span>
+   <span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">(</span>e <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Fetching &#34;</span> <span style="color:#f92672">+</span> e<span style="color:#f92672">))</span>
+   <span style="color:#f92672">.</span><span style="color:#a6e22e">limit</span><span style="color:#f92672">(</span>20<span style="color:#f92672">).</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">();</span>
+</code></pre></div><p>When an element is actually accessed, a message is printed. This way you can verify that the infinite stream returned by iterate is processed lazily.</p>
+<p>The stream transformations of the preceding sections were <code>stateless</code>. When an element is retrieved from a filtered or mapped stream, the answer does not depend on the previous elements. There are also a few stateful transformations. For example, the distinct method returns a stream that yields elements from the original stream, in the same order, except that duplicates are suppressed.</p>
+<p>The stream must obviously remember the elements that it has already seen.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> uniqueWords
+   <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;merrily&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;merrily&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;merrily&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;gently&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">distinct</span><span style="color:#f92672">();</span>
+   <span style="color:#75715e">// Only one&#34;merrily&#34; is retained
+</span></code></pre></div><p>The sorted method must see the entire stream and sort it before it can give out any elements—after all, the smallest one might be the last one. Clearly, you can’t sort an infinite stream.</p>
+<ul>
+<li>There are several sorted methods. One works for streams of Comparableelements, and another accepts a Comparator. Here, we sort strings so that the longest ones come first:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> longestFirst <span style="color:#f92672">=</span>
+   words<span style="color:#f92672">.</span><span style="color:#a6e22e">sorted</span><span style="color:#f92672">(</span>Comparator<span style="color:#f92672">.</span><span style="color:#a6e22e">comparing</span><span style="color:#f92672">(</span>String<span style="color:#f92672">::</span>length<span style="color:#f92672">).</span><span style="color:#a6e22e">reversed</span><span style="color:#f92672">());</span>
+</code></pre></div><p>Of course, you can sort a collection without using streams. The sorted method is useful when the sorting process is a part of a stream pipeline.</p>
+<p><code>The Collections.sort method sorts a collection in place, whereas Stream.sorted returns a new sorted stream.</code></p>
+<p>The methods that we cover in this section are called reductions. <code>They reduce the stream to a value that can be used in your program</code>. Reductions are terminal operations. After a terminal operation has been applied, the stream ceases to be usable.</p>
+<p>In Java 8, <code>the Optional type is the preferred way of indicating a missing return value</code>. We discuss the Optional type in detail in the next section. Here is how you can get the maximum of a stream:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Optional<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> largest <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">max</span><span style="color:#f92672">(</span>String<span style="color:#f92672">::</span>compareToIgnoreCase<span style="color:#f92672">);</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>largest<span style="color:#f92672">.</span><span style="color:#a6e22e">isPresent</span><span style="color:#f92672">())</span>
+   System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;largest: &#34;</span> <span style="color:#f92672">+</span> largest<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">());</span>
+</code></pre></div><p>reduce. Each segment needs to start out with its own empty hash set, and reduce only lets you supply one identity value.</p>
+<h2 id="instead-use-collect-it-takes-three-arguments">Instead, use collect. It takes three arguments:</h2>
+<ol>
+<li>A <code>supplier to make new instances of the target object</code>, for example, a constructor for a hash set</li>
+<li>An <code>accumulatorthat adds an element to the target</code>, for example, an addmethod</li>
+<li>A <code>combiner that merges two objects into one</code>, such as addAll</li>
+</ol>
+<p>The target object need not be a collection. It could be a StringBuilder or an object that tracks a count and a sum.</p>
+<p>Here is how the collect method works for a hash set:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">HashSet<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>HashSet<span style="color:#f92672">::</span><span style="color:#66d9ef">new</span><span style="color:#f92672">,</span> HashSet<span style="color:#f92672">::</span>add<span style="color:#f92672">,</span> HashSet<span style="color:#f92672">::</span>addAll<span style="color:#f92672">);</span>
+</code></pre></div><p>In practice, you don’t have to do that because there is a convenient Collector interface for these three functions, and a Collectors class with factory methods for common collectors. To collect a stream into a list or set, you can simply call</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+<span style="color:#75715e">// or
+</span><span style="color:#75715e"></span>
+Set<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toSet</span><span style="color:#f92672">());</span>
+</code></pre></div><p>If you want to control which kind of set you get, use the following call instead:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">TreeSet<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toCollection</span><span style="color:#f92672">(</span>TreeSet<span style="color:#f92672">::</span><span style="color:#66d9ef">new</span><span style="color:#f92672">));</span>
+</code></pre></div><p>Suppose you want to collect all strings in a stream by concatenating them. You can call</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">String result <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">joining</span><span style="color:#f92672">());</span>
+</code></pre></div><p>If you want a delimiter between elements, pass it to the joiningmethod:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">String result <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">joining</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;, &#34;</span><span style="color:#f92672">));</span>
+</code></pre></div><p>If your stream contains objects other than strings, you need to first convert them to strings, like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">String result <span style="color:#f92672">=</span> stream<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>Object<span style="color:#f92672">::</span>toString<span style="color:#f92672">).</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">joining</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;, &#34;</span><span style="color:#f92672">));</span>
+</code></pre></div><p>If you want to reduce the stream results to a sum, average, maximum, or minimum, then use one of the methods summarizing(Int|Long|Double). These methods take a function that maps the stream objects to a number and yield a result of type (Int|Long|Double)SummaryStatistics, with methods for obtaining the sum, average, maximum, and minumum.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">IntSummaryStatistics summary <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">summarizingInt</span><span style="color:#f92672">(</span>String<span style="color:#f92672">::</span>length<span style="color:#f92672">));</span>
+<span style="color:#66d9ef">double</span> averageWordLength <span style="color:#f92672">=</span> summary<span style="color:#f92672">.</span><span style="color:#a6e22e">getAverage</span><span style="color:#f92672">();</span>
+<span style="color:#66d9ef">double</span> maxWordLength <span style="color:#f92672">=</span> summary<span style="color:#f92672">.</span><span style="color:#a6e22e">getMax</span><span style="color:#f92672">();</span>
+</code></pre></div><p>So far, you have seen how to reduce or collect stream values. But perhaps you just want to print them or put them in a database. Then you can use the forEach method:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">stream<span style="color:#f92672">.</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</code></pre></div><p>The function that you pass is applied to each element. On a parallel stream, it’s your responsibility to ensure that the function can be executed concurrently. We discuss this in Section 2.13, “Parallel Streams,”.</p>
+<p>On a parallel stream, the elements can be traversed in arbitrary order. If you want to execute them in stream order, call forEachOrderedinstead. Of course, you might then give up most or all of the benefits of parallelism.</p>
+<p><code>The forEach and forEachOrdered methods are terminal operations</code>. You cannot use the stream again after calling them. If you want to continue using the stream, use peek instead—see</p>
+<p>In the common case that the values should be the actual elements, use Function.identity() for the second function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> Person<span style="color:#f92672">&gt;</span> idToPerson <span style="color:#f92672">=</span> people<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toMap</span><span style="color:#f92672">(</span>Person<span style="color:#f92672">::</span>getId<span style="color:#f92672">,</span> Function<span style="color:#f92672">.</span><span style="color:#a6e22e">identity</span><span style="color:#f92672">()));</span>
+</code></pre></div><p>If there is more than one element with the same key, the collector will throw an IllegalStateException. You can override that behavior by supplying a third function argument that determines the value for the key, given the existing and the new value. Your function could return the existing value, the new value, or a combination of them.</p>
+<p>Here, we construct a map that contains, for each language in the available locales, as key its name in your default locale (such as &ldquo;German&rdquo;), and as value its localized name (such as &ldquo;Deutsch&rdquo;).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream<span style="color:#f92672">&lt;</span>Locale<span style="color:#f92672">&gt;</span> locales <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span>Locale<span style="color:#f92672">.</span><span style="color:#a6e22e">getAvailableLocales</span><span style="color:#f92672">());</span>
+Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> languageNames <span style="color:#f92672">=</span> locales<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toMap</span><span style="color:#f92672">(</span>
+      l <span style="color:#f92672">-&gt;</span> l<span style="color:#f92672">.</span><span style="color:#a6e22e">getDisplayLanguage</span><span style="color:#f92672">(),</span>
+      l <span style="color:#f92672">-&gt;</span> l<span style="color:#f92672">.</span><span style="color:#a6e22e">getDisplayLanguage</span><span style="color:#f92672">(</span>l<span style="color:#f92672">),</span>
+      <span style="color:#f92672">(</span>existingValue<span style="color:#f92672">,</span> newValue<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> existingValue<span style="color:#f92672">));</span>
+</code></pre></div><p>We don’t care that the same language might occur twice—for example, German in Germany and in Switzerland, and we just keep the first entry.</p>
+<p>However, suppose we want to know all languages in a given country. Then we need a Map&lt;String, Set<!-- raw HTML omitted -->&gt;. For example, the value for &ldquo;Switzerland&quot;is the set [French, German, Italian]. At first, we store a singleton set for each language. Whenever a new language is found for a given country, we form the union of the existing and the new set.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Set<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;&gt;</span> countryLanguageSets <span style="color:#f92672">=</span> locales<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toMap</span><span style="color:#f92672">(</span>
+      l <span style="color:#f92672">-&gt;</span> l<span style="color:#f92672">.</span><span style="color:#a6e22e">getDisplayCountry</span><span style="color:#f92672">(),</span>
+      l <span style="color:#f92672">-&gt;</span> Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">singleton</span><span style="color:#f92672">(</span>l<span style="color:#f92672">.</span><span style="color:#a6e22e">getDisplayLanguage</span><span style="color:#f92672">()),</span>
+      <span style="color:#f92672">(</span>a<span style="color:#f92672">,</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span> <span style="color:#75715e">// Union of a and b
+</span><span style="color:#75715e"></span>         Set<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> r <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;(</span>a<span style="color:#f92672">);</span>
+         r<span style="color:#f92672">.</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>b<span style="color:#f92672">);</span>
+         <span style="color:#66d9ef">return</span> r<span style="color:#f92672">;</span> <span style="color:#f92672">}));</span>
+</code></pre></div><p>You will see a simpler way of obtaining this map in the next section.</p>
+<p>If you want a TreeMap, then you supply the constructor as the fourth argument. You must provide a merge function. Here is one of the examples from the beginning of the section, now yielding a TreeMap:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> Person<span style="color:#f92672">&gt;</span> idToPerson <span style="color:#f92672">=</span> people<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toMap</span><span style="color:#f92672">(</span>
+      Person<span style="color:#f92672">::</span>getId<span style="color:#f92672">,</span>
+      Function<span style="color:#f92672">.</span><span style="color:#a6e22e">identity</span><span style="color:#f92672">(),</span>
+      <span style="color:#f92672">(</span>existingValue<span style="color:#f92672">,</span> newValue<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalStateException<span style="color:#f92672">();</span> <span style="color:#f92672">},</span>
+      TreeMap<span style="color:#f92672">::</span><span style="color:#66d9ef">new</span><span style="color:#f92672">));</span>
+</code></pre></div><p>For example, if you want sets instead of lists, you can use the Collectors.toSetcollector that you saw in the preceding section:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Set<span style="color:#f92672">&lt;</span>Locale<span style="color:#f92672">&gt;&gt;</span> countryToLocaleSet <span style="color:#f92672">=</span> locales<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   groupingBy<span style="color:#f92672">(</span>Locale<span style="color:#f92672">::</span>getCountry<span style="color:#f92672">,</span> toSet<span style="color:#f92672">()));</span>
+</code></pre></div><p>Several other collectors are provided for downstream processing of grouped elements:</p>
+<p>• counting produces a count of the collected elements. For example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Long<span style="color:#f92672">&gt;</span> countryToLocaleCounts <span style="color:#f92672">=</span> locales<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   groupingBy<span style="color:#f92672">(</span>Locale<span style="color:#f92672">::</span>getCountry<span style="color:#f92672">,</span> counting<span style="color:#f92672">()));</span>
+</code></pre></div><p>counts how many locales there are for each country.</p>
+<p>• summing(Int|Long|Double) takes a function argument, applies the function to the downstream elements, and produces their sum. For example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> stateToCityPopulation <span style="color:#f92672">=</span> cities<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   groupingBy<span style="color:#f92672">(</span>City<span style="color:#f92672">::</span>getState<span style="color:#f92672">,</span> summingInt<span style="color:#f92672">(</span>City<span style="color:#f92672">::</span>getPopulation<span style="color:#f92672">)));</span>
+</code></pre></div><p>computes the sum of populations per state in a stream of cities.</p>
+<p>• maxBy and minBy take a comparator and produce maximum and minimum of the downstream elements. For example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> City<span style="color:#f92672">&gt;</span> stateToLargestCity <span style="color:#f92672">=</span> cities<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   groupingBy<span style="color:#f92672">(</span>City<span style="color:#f92672">::</span>getState<span style="color:#f92672">,</span>
+      maxBy<span style="color:#f92672">(</span>Comparator<span style="color:#f92672">.</span><span style="color:#a6e22e">comparing</span><span style="color:#f92672">(</span>City<span style="color:#f92672">::</span>getPopulation<span style="color:#f92672">))));</span>
+</code></pre></div><p>produces the largest city per state.</p>
+<p>• mapping applies a function to downstream results, and it requires yet another collector for processing its results. For example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Optional<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;&gt;</span> stateToLongestCityName <span style="color:#f92672">=</span> cities<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   groupingBy<span style="color:#f92672">(</span>City<span style="color:#f92672">::</span>getState<span style="color:#f92672">,</span>
+      mapping<span style="color:#f92672">(</span>City<span style="color:#f92672">::</span>getName<span style="color:#f92672">,</span>
+         maxBy<span style="color:#f92672">(</span>Comparator<span style="color:#f92672">.</span><span style="color:#a6e22e">comparing</span><span style="color:#f92672">(</span>String<span style="color:#f92672">::</span>length<span style="color:#f92672">)))));</span>
+</code></pre></div><p>Here, we group cities by state. Within each state, we produce the names of the cities and reduce by maximum length.</p>
+<p>The mapping method also yields a nicer solution to a problem from the preceding section, to gather a set of all languages in a country.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Set<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;&gt;</span> countryToLanguages <span style="color:#f92672">=</span> locales<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   groupingBy<span style="color:#f92672">(</span>l <span style="color:#f92672">-&gt;</span> l<span style="color:#f92672">.</span><span style="color:#a6e22e">getDisplayCountry</span><span style="color:#f92672">(),</span>
+      mapping<span style="color:#f92672">(</span>l <span style="color:#f92672">-&gt;</span> l<span style="color:#f92672">.</span><span style="color:#a6e22e">getDisplayLanguage</span><span style="color:#f92672">(),</span>
+         toSet<span style="color:#f92672">())));</span>
+</code></pre></div><p>In the preceding section, I used toMap instead of groupingBy. In this form, you don’t need to worry about combining the individual sets.</p>
+<p>• If the grouping or mapping function has return type int, long, or double, you can collect elements into a summary statistics object, as discussed in Section 2.9, “Collecting Results,” on page 33. For example,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> IntSummaryStatistics<span style="color:#f92672">&gt;</span> stateToCityPopulationSummary <span style="color:#f92672">=</span> cities<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+   groupingBy<span style="color:#f92672">(</span>City<span style="color:#f92672">::</span>getState<span style="color:#f92672">,</span>
+      summarizingInt<span style="color:#f92672">(</span>City<span style="color:#f92672">::</span>getPopulation<span style="color:#f92672">)));</span>
+</code></pre></div><p>Then you can get the sum, count, average, minimum, and maximum of the function values from the summary statistics objects of each group.</p>
+<p>• Finally, the reducingmethods apply a general reduction to downstream elements. There are three forms: reducing(binaryOperator), reducing(identity, binaryOperator), and reducing(identity, mapper, binaryOperator). In the first form, the identity is null. (Note that this is different from the forms of Stream::reduce, where the method without an identity parameter yields an Optional result.) In the third form, the mapperfunction is applied and its values are reduced.</p>
+<p>Here is an example that gets a comma-separated string of all city names in each state. We map each city to its name and then concatenate them.</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, String&gt; stateToCityNames = cities.collect(
+groupingBy(City::getState,
+reducing(&quot;&rdquo;, City::getName,
+(s, t) -&gt; s.length() == 0 ? t : s + &ldquo;, &quot; + t)));
+As with Stream.reduce, Collectors.reducingis rarely necessary. In this case, you can achieve the same result more naturally as</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, String&gt; stateToCityNames = cities.collect(
+groupingBy(City::getState,
+mapping(City::getName,
+joining(&rdquo;, &ldquo;))));
+Frankly, the downstream collectors can yield very convoluted expressions. You should only use them in connection with groupingBy or partitioningBy to process the “downstream” map values. Otherwise, simply apply methods such as map, reduce, count, max, or mindirectly on streams.</p>
+<p>2.12. Primitive Type Streams
+So far, we have collected integers in a Stream<!-- raw HTML omitted -->, even though it is clearly inefficient to wrap each integer into a wrapper object. The same is true for the other primitive types double, float, long, short, char, byte, and boolean. The stream library has specialized types IntStream, LongStream, and DoubleStream that store primitive values directly, without using wrappers. If you want to store short, char, byte, and boolean, use an IntStream, and for float, use a DoubleStream. The library designers didn’t think it was worth adding another five stream types.</p>
+<p>To create an IntStream, you can call the IntStream.of and Arrays.streammethods:</p>
+<p>Click here to view code image</p>
+<p>IntStream stream = IntStream.of(1, 1, 2, 3, 5);
+stream = Arrays.stream(values, from, to); // values is an int[] array
+As with object streams, you can also use the static generate and iterate methods. In addition, IntStreamand LongStreamhave static methods range and rangeClosed that generate integer ranges with step size one:</p>
+<p>Click here to view code image</p>
+<p>IntStream zeroToNinetyNine = IntStream.range(0, 100); // Upper bound is excluded
+IntStream zeroToHundred = IntStream.rangeClosed(0, 100); // Upper bound is included
+The CharSequenceinterface has methods codePoints and chars that yield an IntStream of the Unicode codes of the characters or of the code units in the UTF-16 encoding. (If you don’t know what code units are, you probably shouldn’t use the chars method. Read up on the sordid details in Core Java, 9th Edition, Volume 1, Section 3.3.3.)</p>
+<p>Click here to view code image</p>
+<p>String sentence = &ldquo;\uD835\uDD46 is the set of octonions.&quot;;
+// \uD835\uDD46 is the UTF-16 encoding of the letter  , unicode U+1D546</p>
+<p>IntStream codes = sentence.codePoints();
+// The stream with hex values 1D546 20 69 73 20 &hellip;
+When you have a stream of objects, you can transform it to a primitive type stream with the mapToInt, mapToLong, or mapToDoublemethods. For example, if you have a stream of strings and want to process their lengths as integers, you might as well do it in an IntStream:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> words = &hellip;;
+IntStream lengths = words.mapToInt(String::length);
+To convert a primitive type stream to an object stream, use the boxed method:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> integers = IntStream.range(0, 100).boxed();</p>
+<p>Generally, the methods on primitive type streams are analogous to those on object streams. Here are the most notable differences:</p>
+<p>• The toArraymethods return primitive type arrays.</p>
+<p>• Methods that yield an optional result return an OptionalInt, OptionalLong, or OptionalDouble. These classes are analogous to the Optional class, but they have methods getAsInt, getAsLong, and getAsDoubleinstead of the getmethod.</p>
+<p>• There are methods sum, average, max, and min that return the sum, average, maximum, and minimum. These methods are not defined for object streams.</p>
+<p>• The summaryStatisticsmethod yields an object of type IntSummaryStatistics, LongSummaryStatistics, or DoubleSummaryStatisticsthat can simultaneously report the sum, average, maximum, and minimum of the stream.</p>
+<p>NOTE</p>
+<p>The Randomclass has methods ints, longs, and doubles that return primitive type streams of random numbers.</p>
+<p>2.13. Parallel Streams
+Streams make it easy to parallelize bulk operations. The process is mostly automatic, but you need to follow a few rules. First of all, you must have a parallel stream. By default, stream operations create sequential streams, except for Collection.parallelStream(). The parallelmethod converts any sequential stream into a parallel one. For example:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> parallelWords = Stream.of(wordArray).parallel();</p>
+<p>As long as the stream is in parallel mode when the terminal method executes, all lazy intermediate stream operations will be parallelized.</p>
+<p>When stream operations run in parallel, the intent is that the same result is returned as if they had run serially. It is important that the operations are stateless and can be executed in an arbitrary order.</p>
+<p>Here is an example of something you cannot do. Suppose you want to count all short words in a stream of strings:</p>
+<p>Click here to view code image</p>
+<p>int[] shortWords = new int[12];
+words.parallel().forEach(
+s -&gt; { if (s.length() &lt; 12) shortWords[s.length()]++; });
+// Error—race condition!
+System.out.println(Arrays.toString(shortWords));
+This is very, very bad code. The function passed to forEachruns concurrently in multiple threads, updating a shared array. That’s a classic race condition. If you run this program multiple times, you are quite likely to get a different sequence of counts in each run, each of them wrong.</p>
+<p>It is your responsibility to ensure that any functions that you pass to parallel stream operations are threadsafe. In our example, you could use an array of AtomicIntegerobjects for the counters (see Exercise 12). Or you could simply use the facilities of the streams library and group strings by length (see Exercise 13).</p>
+<p>By default, streams that arise from ordered collections (arrays and lists), from ranges, generators, and iterators, or from calling Stream.sorted, are ordered. Results are accumulated in the order of the original elements, and are entirely predictable. If you run the same operations twice, you will get exactly the same results.</p>
+<p>Ordering does not preclude parallelization. For example, when computing stream.map(fun), the stream can be partitioned into nsegments, each of which is concurrently processed. Then the results are reassembled in order.</p>
+<p>Some operations can be more effectively parallelized when the ordering requirement is dropped. By calling the Stream.unorderedmethod, you indicate that you are not interested in ordering. One operation that can benefit from this is Stream.distinct. On an ordered stream, distinct retains the first of all equal elements. That impedes parallelization—the thread processing a segment can’t know which elements to discard until the preceding segment has been processed. If it is acceptable to retain any of the unique elements, all segments can be processed concurrently (using a shared set to track duplicates).</p>
+<p>You can also speed up the limit method by dropping ordering. If you just want any nelements from a stream and you don’t care which ones you get, call</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> sample = stream.parallel().unordered().limit(n);</p>
+<p>As discussed in Section 2.10, “Collecting into Maps,” on page 34, merging maps is expensive. For that reason, the Collectors.groupingByConcurrentmethod uses a shared concurrent map. Clearly, to benefit from parallelism, the order of the map values will not be the same as the stream order. Even on an ordered stream, that collector has a “characteristic” of being unordered, so that it can be used efficiently without having to make the stream unordered. You still need to make the stream parallel, though:</p>
+<p>Click here to view code image</p>
+<p>Map&lt;String, List<!-- raw HTML omitted -->&gt; result = cities.parallel().collect(
+Collectors.groupingByConcurrent(City::getState));
+// Values aren’t collected in stream order
+CAUTION</p>
+<p>It is very important that you don’t modify the collection that is backing a stream while carrying out a stream operation (even if the modification is threadsafe). Remember that streams don’t collect their own data—the data is always in a separate collection. If you were to modify that collection, the outcome of the stream operations would be undefined. The JDK documentation refers to this requirement as noninterference. It applies both to sequential and parallel streams.</p>
+<p>To be exact, since intermediate stream operations are lazy, it is possible to mutate the collection up to the point when the terminal operation executes. For example, the following is correct:</p>
+<p>Click here to view code image</p>
+<p>List<!-- raw HTML omitted --> wordList = &hellip;;
+Stream<!-- raw HTML omitted --> words = wordList.stream();
+wordList.add(&ldquo;END&rdquo;); // Ok
+long n = words.distinct().count();
+But this code is not:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> words = wordList.stream();
+words.forEach(s -&gt; if (s.length() &lt; 12) wordList.remove(s));
+// Error—interference</p>
+<p>Exercises</p>
+<ol>
+<li>
+<p>Write a parallel version of the forloop in Section 2.1, “From Iteration to Stream Operations,” on page 22. Obtain the number of processors. Make that many separate threads, each working on a segment of the list, and total up the results as they come in. (You don’t want the threads to update a single counter. Why?)</p>
+</li>
+<li>
+<p>Verify that asking for the first five long words does not call the filter method once the fifth long word has been found. Simply log each method call.</p>
+</li>
+<li>
+<p>Measure the difference when counting long words with a parallelStreaminstead of a stream. Call System.nanoTimebefore and after the call, and print the difference. Switch to a larger document (such as War and Peace) if you have a fast computer.</p>
+</li>
+<li>
+<p>Suppose you have an array int[] values = { 1, 4, 9, 16 }. What is Stream.of(values)? How do you get a stream of intinstead?</p>
+</li>
+<li>
+<p>Using Stream.iterate, make an infinite stream of random numbers—not by calling Math.random but by directly implementing a linear congruential generator. In such a generator, you start with x0 = seedand then produce xn + 1 = (a xn + c) %m, for appropriate values of a, c, and m. You should implement a method with parameters a, c, m, and seed that yields a Stream<!-- raw HTML omitted -->. Try out a = 25214903917, c = 11, and m = 248.</p>
+</li>
+<li>
+<p>The characterStreammethod in Section 2.3, “The filter, map, and flatMapMethods,” on page 25, was a bit clumsy, first filling an array list and then turning it into a stream. Write a stream-based one-liner instead. One approach is to make a stream of integers from 0 to s.length() - 1and map that with the s::charAtmethod reference.</p>
+</li>
+<li>
+<p>Your manager asks you to write a method public static <!-- raw HTML omitted --> boolean isFinite(Stream<!-- raw HTML omitted --> stream). Why isn’t that such a good idea? Go ahead and write it anyway.</p>
+</li>
+<li>
+<p>Write a method public static <!-- raw HTML omitted --> Stream<!-- raw HTML omitted --> zip(Stream<!-- raw HTML omitted --> first, Stream<!-- raw HTML omitted --> second) that alternates elements from the streams first and second, stopping when one of them runs out of elements.</p>
+</li>
+<li>
+<p>Join all elements in a Stream&lt;ArrayList<!-- raw HTML omitted -->&gt;to one ArrayList<!-- raw HTML omitted -->. Show how to do this with the three forms of reduce.</p>
+</li>
+<li>
+<p>Write a call to reduce that can be used to compute the average of a Stream<!-- raw HTML omitted -->. Why can’t you simply compute the sum and divide by count()?</p>
+</li>
+<li>
+<p>It should be possible to concurrently collect stream results in a single ArrayList, instead of merging multiple array lists, provided it has been constructed with the stream’s size, since concurrent setoperations at disjoint positions are threadsafe. How can you achieve that?</p>
+</li>
+<li>
+<p>Count all short words in a parallel Stream<!-- raw HTML omitted -->, as described in Section 2.13, “Parallel Streams,” on page 40, by updating an array of AtomicInteger. Use the atomic getAndIncrementmethod to safely increment each counter.</p>
+</li>
+<li>
+<p>Repeat the preceding exercise, but filter out the short strings and use the collectmethod with Collectors.groupingByand Collectors.counting.</p>
+</li>
+</ol>
+<p>A function type is alwayscontravariant in its arguments and covariant in its return value. For example, if you have a Function&lt;Person, Employee&gt;, you can safely pass it on to someone who needs a Function&lt;Employee, Person&gt;. They will only call it with employees, whereas your function can handle any person. They will expect the function to return a person, and you give them something even better.</p>
+<p>For example, look at the javadoc for Stream<!-- raw HTML omitted -->:</p>
+<p>Click here to view code image</p>
+<p>void forEach(Consumer&lt;? super T&gt; action)
+Stream<!-- raw HTML omitted --> filter(Predicate&lt;? super T&gt; predicate)
+<!-- raw HTML omitted --> Stream<!-- raw HTML omitted --> map(Function&lt;? super T, ? extends R&gt; mapper)
+The general rule is that you use superfor argument types, extends for return types. That way, you can pass a Consumer<!-- raw HTML omitted -->to forEach on a Stream<!-- raw HTML omitted -->. If it is willing to consume any object, surely it can consume strings.</p>
+<p>But the wildcards are not always there. Look at</p>
+<p>For example, consider the doInOrderAsyncmethod of the preceding section. Instead of</p>
+<p>Click here to view code image</p>
+<p>public static <!-- raw HTML omitted --> void doInOrderAsync(Supplier<!-- raw HTML omitted --> first,
+Consumer<!-- raw HTML omitted --> second, Consumer<!-- raw HTML omitted --> handler)
+it should be</p>
+<p>Click here to view code image</p>
+<p>public static <!-- raw HTML omitted --> void doInOrderAsync(Supplier&lt;? extends T&gt; first,
+Consumer&lt;? super T&gt; second, Consumer&lt;? superThrowable&gt; handler)</p>
+<p>In our example, we can call</p>
+<p>Click here to view code image</p>
+<p>largest.updateAndGet(x -&gt; Math.max(x, observed));</p>
+<p>or</p>
+<p>Click here to view code image</p>
+<p>largest.accumulateAndGet(observed, Math::max);</p>
+<p>The accumulateAndGetmethod takes a binary operator that is used to combine the atomic value and the supplied argument.</p>
+<p>If you anticipate high contention, you should simply use a LongAdder instead of an AtomicLong. The method names are slightly different. Call increment to increment a counter or add to add a quantity, and sum to retrieve the total.</p>
+<p>Click here to view code image</p>
+<p>final LongAdder adder = new LongAdder();
+for (&hellip;)
+pool.submit(() -&gt; {
+while (&hellip;) {
+&hellip;
+if (&hellip;) adder.increment();
+}
+});
+&hellip;
+long total = adder.sum());
+NOTE</p>
+<p>The Arrays class now has a number of parallelized operations. The static Arrays.parallelSortmethod can sort an array of primitive values or objects. For example,</p>
+<p>Click here to view code image</p>
+<p>String contents = new String(Files.readAllBytes(
+Paths.get(&ldquo;alice.txt&rdquo;)), StandardCharsets.UTF_8); // Read file into string
+String[] words = contents.split(&quot;[\P{L}]+&rdquo;); // Split along nonletters
+Arrays.parallelSort(words);
+When you sort objects, you can supply a Comparator. With all methods, you can supply the bounds of a range, such as</p>
+<p>Click here to view code image</p>
+<p>Arrays.parallelSort(values, values.length / 2, values.length); // Sort the upper half</p>
+<p>There was no easy way of saying: “When the result becomes available, here is how to process it.” This is the crucial feature that the new CompletableFuture<!-- raw HTML omitted -->class provides.</p>
+<p>This composability is the key aspect of the CompletableFutureclass. Composing future actions solves a serious problem in programming asynchronous applications. The traditional approach for dealing with nonblocking calls is to use event handlers. The programmer registers a handler for the next action after completion. Of course, if the next action is also asynchronous, then the next action after that is in a different event handler. Even though the programmer thinks in terms of “first do step 1, then step 2, then step 3,” the program logic becomes dispersed in different places.</p>
+<p>For example, here is a two-stage pipeline for reading and processing the web page:</p>
+<p>Click here to view code image</p>
+<p>CompletableFuture&lt;List<!-- raw HTML omitted -->&gt; links
+= CompletableFuture.supplyAsync(() -&gt; blockingReadPage(url))
+.thenApply(Parser::getLinks);
+You can have additional processing steps. Eventually, you’ll be done, and you will need to save the results somewhere. Here, we just print the result.</p>
+<p>Click here to view code image</p>
+<p>CompletableFuture<!-- raw HTML omitted --> links
+= CompletableFuture.supplyAsync(() -&gt; blockingReadPage(url))
+.thenApply(Parser::getLinks)
+.thenAccept(System.out::println);
+The thenAcceptmethod takes a Consumer—that is, a function with return type void.</p>
+<p>Ideally, you would never call get on a future. The last step in the pipeline simply deposits the result where it belongs.</p>
+<p>Files.lineslazily reads a stream of lines.</p>
+<p>• Files.listlazily lists the entries of a directory, and Files.walktraverses them recursively.</p>
+<p>8.4.2. Comparators
+The Comparatorinterface has a number of useful new methods, taking advantage of the fact that interfaces can now have concrete methods.</p>
+<p>The static comparingmethod takes a “key extractor” function that maps a type T to a comparable type (such as String). The function is applied to the objects to be compared, and the comparison is then made on the returned keys. For example, suppose you have an array of Personobjects. Here is how you can sort them by name:</p>
+<p>Click here to view code image</p>
+<p>Arrays.sort(people, Comparator.comparing(Person::getName));</p>
+<p>You can chain comparators with the thenComparingmethod for breaking ties. For example,</p>
+<p>Click here to view code image</p>
+<p>Arrays.sort(people,
+Comparator.comparing(Person::getLastName)
+.thenComparing(Person::getFirstName));
+If two people have the same last name, then the second comparator is used.</p>
+<p>There are a few variations of these methods. You can specify a comparator to be used for the keys that the comparingand thenComparingmethods extract. For example, here we sort people by the length of their names:</p>
+<p>Click here to view code image</p>
+<p>Arrays.sort(people, Comparator.comparing(Person::getName,
+(s, t) -&gt; Integer.compare(s.length(), t.length())));
+Moreover, both the comparing and thenComparingmethods have variants that avoid boxing of int, long, or doublevalues. An easier way of producing the preceding operation would be</p>
+<p>Click here to view code image</p>
+<p>Arrays.sort(people, Comparator.comparingInt(p -&gt; p.getName().length()));</p>
+<p>If your key function can return null, you will like the nullsFirst and nullsLast adapters. These static methods take an existing comparator and modify it so that it doesn’t throw an exception when encountering nullvalues but ranks them as smaller or larger than regular values. For example, suppose getMiddleNamereturns a null when a person has no middle name. Then you can use Comparator.comparing(Person::getMiddleName(), Comparator.nullsFirst(&hellip;)).</p>
+<p>The nullsFirstmethod needs a comparator—in this case, one that compares two strings. The naturalOrdermethod makes a comparator for any class implementing Comparable. A Comparator.<!-- raw HTML omitted -->naturalOrder()is what we need. Here is the complete call for sorting by potentially null middle names. I use a static import of java.util.Comparator.*, to make the expression more legible. Note that the type for naturalOrder is inferred.</p>
+<p>Click here to view code image</p>
+<p>Arrays.sort(people, comparing(Person::getMiddleName,
+nullsFirst(naturalOrder())));
+The static reverseOrdermethod gives the reverse of the natural order. To reverse any comparator, use the reversed instance method. For example, naturalOrder().reversed()is the same as reverseOrder().</p>
+<p>To read the lines of a file lazily, use the Files.linesmethod. It yields a stream of strings, one per line of input:</p>
+<p>Click here to view code image</p>
+<p>Stream<!-- raw HTML omitted --> lines = Files.lines(path);
+Optional<!-- raw HTML omitted --> passwordEntry = lines.filter(s -&gt; s.contains(&ldquo;password&rdquo;)).findFirst();
+As soon as the first line containing password is found, no further lines are read from the underlying file.</p>
+<p>You will want to close the underlying file. Fortunately, the Stream interface extends AutoCloseable. The streams that you have seen in Chapter 2didn’t need to close any resources. But the Files.linesmethod produces a stream whose closemethod closes the file. The easiest way to make sure the file is indeed closed is to use a Java 7 try-with-resources block:</p>
+<p>Click here to view code image</p>
+<p>try (Stream<!-- raw HTML omitted --> lines = Files.lines(path)) {
+Optional<!-- raw HTML omitted --> passwordEntry
+= lines.filter(s -&gt; s.contains(&ldquo;password&rdquo;)).findFirst();
+&hellip;
+} // The stream, and hence the file, will be closed here
+When a stream spawns another, the close methods are chained. Therefore, you can also write</p>
+<p>Click here to view code image</p>
+<p>try (Stream<!-- raw HTML omitted --> filteredLines
+= Files.lines(path).filter(s -&gt; s.contains(&ldquo;password&rdquo;))) {
+Optional<!-- raw HTML omitted --> passwordEntry = filteredLines.findFirst();
+&hellip;
+}
+When filteredLines is closed, it closes the underlying stream, which closes the underlying file.</p>
+<p>If you want to be notified when the stream is closed, you can attach an onClosehandler. Here is how you can verify that closing filteredLinesactually closes the underlying stream:</p>
+<p>Click here to view code image</p>
+<p>try (Stream<!-- raw HTML omitted --> filteredLines
+= Files.lines(path).onClose(() -&gt; System.out.println(&ldquo;Closing&rdquo;))
+.filter(s -&gt; s.contains(&ldquo;password&rdquo;))) { &hellip; }
+If an IOExceptionoccurs as the stream fetches the lines, that exception is wrapped into an UncheckedIOExceptionwhich is thrown out of the stream operation.</p>
+<p>In Java 8, just use Files.list.</p>
+<p>The list method does not enter subdirectories. To process all descendants of a directory, use the Files.walk method instead.</p>
+<p>Click here to view code image</p>
+<p>try (Stream<!-- raw HTML omitted --> entries = Files.walk(pathToRoot)) {
+// Contains all descendants, visited in depth-first order
+}</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

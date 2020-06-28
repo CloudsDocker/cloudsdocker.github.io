@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>GIT useful scripts or error solutions | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="GIT useful scripts or error solutions" />
+<meta property="og:description" content="Script bible to list merge conflicts files in command line You can use either one of below three commands
+git diff --name-only --diff-filter=U git status --short | grep &#34;^UU &#34; git ls-files -u One line command to add, commit and push one changed file git status --short | awk &#39;{split($0, a);print a[2]}&#39; | xargs git add &amp;&amp; git commit -m &#39;commit changes&#39; &amp;&amp; git push origin BRANCH_NAME to show files commited but not pushed git diff --stat --cached origin/feature/BRANCH_NAME to view file content changed git show PATH/abc." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2018-05-24-git-scripts-bible-errors/" />
+<meta property="article:published_time" content="2007-04-28T06:40:12+00:00" />
+<meta property="article:modified_time" content="2007-04-28T06:40:12+00:00" />
+<meta itemprop="name" content="GIT useful scripts or error solutions">
+<meta itemprop="description" content="Script bible to list merge conflicts files in command line You can use either one of below three commands
+git diff --name-only --diff-filter=U git status --short | grep &#34;^UU &#34; git ls-files -u One line command to add, commit and push one changed file git status --short | awk &#39;{split($0, a);print a[2]}&#39; | xargs git add &amp;&amp; git commit -m &#39;commit changes&#39; &amp;&amp; git push origin BRANCH_NAME to show files commited but not pushed git diff --stat --cached origin/feature/BRANCH_NAME to view file content changed git show PATH/abc.">
+<meta itemprop="datePublished" content="2007-04-28T06:40:12&#43;00:00" />
+<meta itemprop="dateModified" content="2007-04-28T06:40:12&#43;00:00" />
+<meta itemprop="wordCount" content="250">
+
+
+
+<meta itemprop="keywords" content="DevOps," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GIT useful scripts or error solutions"/>
+<meta name="twitter:description" content="Script bible to list merge conflicts files in command line You can use either one of below three commands
+git diff --name-only --diff-filter=U git status --short | grep &#34;^UU &#34; git ls-files -u One line command to add, commit and push one changed file git status --short | awk &#39;{split($0, a);print a[2]}&#39; | xargs git add &amp;&amp; git commit -m &#39;commit changes&#39; &amp;&amp; git push origin BRANCH_NAME to show files commited but not pushed git diff --stat --cached origin/feature/BRANCH_NAME to view file content changed git show PATH/abc."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2018-05-24-git-scripts-bible-errors/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2018-05-24-git-scripts-bible-errors/&amp;text=GIT%20useful%20scripts%20or%20error%20solutions" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2018-05-24-git-scripts-bible-errors/&amp;title=GIT%20useful%20scripts%20or%20error%20solutions" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">GIT useful scripts or error solutions</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-04-28T06:40:12Z">April 28, 2007</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="script-bible">Script bible</h1>
+<h2 id="to-list-merge-conflicts-files-in-command-line">to list merge conflicts files in command line</h2>
+<p>You can use either one of below three commands</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git diff --name-only --diff-filter<span style="color:#f92672">=</span>U
+git status --short | grep <span style="color:#e6db74">&#34;^UU &#34;</span>
+git ls-files -u
+</code></pre></div><h2 id="one-line-command-to-add-commit-and-push-one-changed-file">One line command to add, commit and push one changed file</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git status --short | awk <span style="color:#e6db74">&#39;{split($0, a);print a[2]}&#39;</span> | xargs git add <span style="color:#f92672">&amp;&amp;</span> git commit -m <span style="color:#e6db74">&#39;commit changes&#39;</span> <span style="color:#f92672">&amp;&amp;</span> git push origin BRANCH_NAME
+</code></pre></div><h2 id="to-show-files-commited-but-not-pushed">to show files commited but not pushed</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git diff --stat --cached origin/feature/BRANCH_NAME
+</code></pre></div><h2 id="to-view-file-content-changed">to view file content changed</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git show PATH/abc.sql
+</code></pre></div><h2 id="show-file-change-logs">show file change logs</h2>
+<p><code>git log</code> is the powerful command for this kind of tasks, as below sample commands</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git log --pretty<span style="color:#f92672">=</span>format:<span style="color:#e6db74">&#34;%h [%an] %s&#34;</span> --graph
+
+git log --pretty<span style="color:#f92672">=</span>format:<span style="color:#e6db74">&#34;%h [%an] %s&#34;</span> --graph --since<span style="color:#f92672">=</span>7.days
+</code></pre></div><ul>
+<li>%h means short hash</li>
+<li>%s is subject</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git log --pretty<span style="color:#f92672">=</span>format:<span style="color:#e6db74">&#34;%h [%an] %s&#34;</span> --graph --since<span style="color:#f92672">=</span>7.days -S bower.json 
+git log --pretty<span style="color:#f92672">=</span>format:<span style="color:#e6db74">&#34;%h [%an] %s&#34;</span> --graph --since<span style="color:#f92672">=</span>7.days --grep Npm
+git log --pretty<span style="color:#f92672">=</span>format:<span style="color:#e6db74">&#34;%h [%an] %s&#34;</span> --graph --since<span style="color:#f92672">=</span>7.days --committer todd
+</code></pre></div><ul>
+<li>-S keyword_of_filter_files</li>
+</ul>
+<h2 id="get-correct-branch-name">Get <code>correct</code> branch name</h2>
+<p>Sometimes, if you checkout new branch with incorrect case. It still can check it out to local but you&rsquo;ll get errors when you try to push it to remote.</p>
+<p>To solve this issue, please use following command to get <code>correct</code> branch to checkout</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git fetch <span style="color:#f92672">&amp;&amp;</span> git <span style="color:#66d9ef">for</span>-each-ref | grep -i <span style="color:#e6db74">&#39;THE KEY WORD&#39;</span>  | awk <span style="color:#e6db74">&#39;{split($0,a);print a[3]}&#39;</span>
+git checkout -b BRANCH_NAME_FROM_ABOVE
+</code></pre></div><h1 id="errors">Errors</h1>
+<h2 id="failed-to-push-change">failed to push change</h2>
+<p>Errors as below</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">fatal: unable to access <span style="color:#e6db74">&#39;https://tzhang@stash.xxx.com/scm/abc.git/&#39;</span>: SSL certificate prob
+lem: self signed certificate in certificate chain
+</code></pre></div><h3 id="solutions">Solutions:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git config --global http.sslVerify false
+</code></pre></div><ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/devops" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">DevOps</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2018-01-10-cors/">CORS :Cross-Origin Resource Sharing</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-12-02-container/">Container</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-09-04-kubernets-vs-swarm/">Kubernetes 与 Docker Swarm的对比</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-11-29-openshift/">Openshift tips</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

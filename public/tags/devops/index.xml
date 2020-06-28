@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DevOps on My New Hugo Site</title>
+    <link>http://example.org/tags/devops/</link>
+    <description>Recent content in DevOps on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 28 Apr 2007 06:40:12 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GIT useful scripts or error solutions</title>
+      <link>http://example.org/posts/2018-05-24-git-scripts-bible-errors/</link>
+      <pubDate>Sat, 28 Apr 2007 06:40:12 +0000</pubDate>
+      
+      <guid>http://example.org/posts/2018-05-24-git-scripts-bible-errors/</guid>
+      <description>Script bible to list merge conflicts files in command line You can use either one of below three commands
+git diff --name-only --diff-filter=U git status --short | grep &amp;#34;^UU &amp;#34; git ls-files -u One line command to add, commit and push one changed file git status --short | awk &amp;#39;{split($0, a);print a[2]}&amp;#39; | xargs git add &amp;amp;&amp;amp; git commit -m &amp;#39;commit changes&amp;#39; &amp;amp;&amp;amp; git push origin BRANCH_NAME to show files commited but not pushed git diff --stat --cached origin/feature/BRANCH_NAME to view file content changed git show PATH/abc.</description>
+    </item>
+    
+    <item>
+      <title>Container</title>
+      <link>http://example.org/posts/2017-12-02-container/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/posts/2017-12-02-container/</guid>
+      <description>The Docker project was responsible for popularizing container development in Linux systems. The original project defined a command and service (both named docker) and a format in which containers are structured. This chapter provides a hands-on approach to using the docker command and service to begin working with containers in Red Hat Enterprise Linux 7 and RHEL Atomic Host by getting and using container images and working with running containers.</description>
+    </item>
+    
+    <item>
+      <title>CORS :Cross-Origin Resource Sharing</title>
+      <link>http://example.org/posts/2018-01-10-cors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/posts/2018-01-10-cors/</guid>
+      <description>Cross-Origin Request Sharing - CORS (A.K.A. Cross-Domain AJAX request) is an issue that most web developers might encounter, according to Same-Origin-Policy, browsers restrict client JavaScript in a security sandbox, usually JS cannot directly communicate with a remote server from a different domain. In the past developers created many tricky ways to achieve Cross-Domain resource request, most commonly using ways are:
+Use Flash/Silverlight or server side as a &amp;ldquo;proxy&amp;rdquo; to communicate with remote.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes 与 Docker Swarm的对比</title>
+      <link>http://example.org/posts/2016-09-04-kubernets-vs-swarm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/posts/2016-09-04-kubernets-vs-swarm/</guid>
+      <description>Kubernetes 和Docker Swarm 可能是使用最广泛的工具，用于在集群环境中部署容器。但是这两个工具还是有很大的差别。
+Kubernetes Google根据其在Linux上容器管理经验，改造到docker管理上，就是kubernetes。他的在许多方面表现良好。最重要的是构造于Google多年的宝贵经验只上。
+如果你从docker1.0以上开始使用kubernetes，你得到的用户体验会非常良好。比如你会发现kubernetes解决一些docker自身的问题。例如你可以mount（绑定）持久化存储卷（volume），以便于在迁移docker时不至于丢失数据。
+kubernetes使用flannel（一个使用go写的虚拟网络的开源系统）构造容器间的网络通信。它还内置有负载均衡。除此之外，它的“服务发现”使用了etcd（一个使用golang编写的开源虚拟网络系统）。然而，使用kubernetes是有代价的。首先，它用一个不同的命令行接口，不同的编程接口及不同的YAML文件定义等。换言之，你不能使用docker命令行接口也不能用docker compose来定义容器。为了使用kubernetes，所有所有的东西都需要从头开始。这就好像这个工具并不是为了docker写的一样（这个在某种程度上确实是）。kubernetes把集群带到了一个全新的高度，代价是学习曲线比较陡。
+Docker Swarm docker-swarm 使用了一个不同的方式。它是docker原生的集群工具。
+最方便的部分是它暴露了docker标准的编程接口，意味着你之前一直在使用的任何与docker沟通的工具（docker命令行接口，docker compose，dokku，krane等等），都可以无缝的在docker swarm上使用。
+这个其实是个双刃剑，毁誉参半。一直可以使用自己得心应手熟悉的工具，这再好不过了，然而，这样意味着我们又被docker紧紧的“耦合”了（而非业界一直追求的松耦合”）。如果你需要的都能满足，那皆大欢喜。可是如果不是呢，要是你有特殊需求这些API满足不了怎么办？这是就不得不去耍一些“小聪明”。
+我们来仔细剖析下这两个工具，主要会从如何在集群中运行容器，这两个工具分别如何安装以及他们提供的功能。
+安装设置 安装设置swarm非常简单，简单明了并且很灵活。我们需要做的就是安装一个服务发现工具，然后在所有的节点上安装swarm容器。因为它自己就是以一个docker容器来部署的，因此它在不同的操作系统上运行方式都是没有差别的。我们运行swarm容器，开放一个端口，然后告知服务发现模块的地址。这不能再简单了。我们甚至可以在没有任何服务发现模块的情况下开始使用，来看看我们是否喜欢它，当开始真正认真的要使用时再去添加etcd，consul或者其他支持的工具。
+相比较而言，kubernetes的安装就有点复杂晦涩了。不同的操作系统上安装都不同。每个操作系统都有自己的独立安装指令和运维团队。比如说，如果你选择使用vagrant来试用，然后在Fedora这里遇到问题卡住了，但这不是意味着其他的（比如Ubuntu或者coreos）也不能用。你可以，不过要开始在kubernetes官方以外到处搜索. 你所需要的很可能在某个社区论坛里提供的解决方案，但是你需要时间去查询，运气好的话可以在第一次尝试就能用。一个严重的问题是安装kubernetes依赖于bash脚本。如果我们是处于配置管理不是必须的情况下是，这个本身可能不是大问题。我们可能不希望运行一个脚本，而是希望kubernetes成为puppet，chef或者ansible的一部分。同样，这个也是可以解决的。你可以找到ansible 的安装手册来动行kubernetes或者你自己去写。跟swarm比这些都不是什么大问题,只是一点点的小痛苦而已。使用刀砍请不要期待任何的安装文档，除非都可使用docker命令行的时候运行的参数而已。我们打算去运行容器，swarm可以实现这个，但kubernetes 没有。有些人可能并不在意具体是使用哪个服务发现的工具。我喜欢swarm背后提倡的那种极简风格，以及他背后的逻辑，内置电池，拆留由已。任何东西都是拆箱可用但是我们还提供了选项让你去替换其中的任一个模块。
+与swarm不同的是，kubernetes 是一个可配置的工具。你需要跟kubernetes提供的各个选项来共生存。例如，如果你打算使用kubernets,你必须要使用etcd.我不是说etcd不好(实际上正好相反)，但是如果你习惯于，比如你在非常复杂的业务场景下使用consul，如果要使用服务发现，必须特别针对kubernets使用一个，而剩下的其他部分使用其他一个产品。另外一个对使用Kubernets觉得不方便的地方就是你需要在事先了解各种事情。比如，你需要告诉他要用到的所有节点的地址，每个节点的职责是什么,这个集群有多少个“小黄人” (minion,是kubernet对于一个集群中机器之前叫的名字)，等等。 而使用Swarm，我们只需要启动一个节点，告诉他加入网络，就可以了。我们不需要提前告诉关于集群其他的信息，因为这些信息会通过各个节点间的 “八卦”（gossip protocol）来传输。
+配置本身也许并不是这些工具之间最大的差别。不管你使用哪个工具，或早或晚，所有都会配置好并运行起来，到时候你们就会忘掉在配置时的痛苦经历。你可能会说我们之所以选择某个工具就是因为它安装配置简单吧。很公平的。我们继续往下讨论如何定义容器及之上的这些工具。
+运行容器 如果使用Swarm来运行Docker容器，你如何去定义所有的参数呢？ 实际上你根本不需要！你所做的跟使用Swarm之前没有什么不同。比如，你习惯于使用Docker CLI（命令行接口），你可以继续使用几乎相同的命令。如果你习惯于使用Docker Componse来运行容器，你可以继续在Swarm集群中使用。不管你之前习惯于怎么使用容器，你仍旧可以使用，只是在更大级别的集群中使用。
+Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你不能使用你之前创建的docker-compose.yml配置，你必须要去新建与Kubernetes对应的配置。你也不能使用之前学习的Docker CLI（命令行接口）。你必须要去学习 Kubernetes CLI（命令行接口），并且很有可能，确保你整个公司机构也要去学习。
+不管你选择哪个工具来部署集群，你都要先熟悉Docker。你可能已经习惯于使用 使用Docker Compose来定义你运行容器的参数。如果你曾经使用它超过几个小时，你可能就会直接使用它而扔掉Docker CLI。你可以使用它运行容器，跟踪日志变化，等等。另外一方面，你可能是Docker的 “死忠”，看不上 Docker Compose，而是任何事都使用Docker CLI，或者你甚至自己写bash脚本来运行容器。不管哪种方式，这些都可以在Docker Swarm上使用。
+如果你选择Kubernetes，请先准备好同一件事需要有多个定义配置。你需要使用 Docker Compose来运行Kubernetes范围外的容器。开发人员需要继续在他们的笔记本电脑上运行容器，你的测试环境可能也不是一个大集群，等等。换言之，如果你选择了Docker，那么 Docker Compose 和 Docker CLI将是不可避免的。你肯定会在某些地方或者以某种方式用到它们。一旦你开始使用 Kubernetes，你就会发现你所有的 Docker Compose的配置都要翻译成 Kubernetes的方式，从这个时候，你也要开始维护这两个版本了。使用 Kubernetes，这些重复的事情意味着维护成本的提高。重复只是一个问题，另外的是你在集群中运行的命令将于集群外使用的命令不一样了。你之前学习并喜爱的Docker的所有命令在 Kubernetes集群内将是完全行不通了。
+Kubernetes的开发团队强制你去按照他们的办事方式行事，其实不是为了让你过的那么苦。如此巨大差别的主要原因是 Swarm 和 Kubernetes针对同一问题采取了不同的处理手段。 Swarm团队决定使用跟Docker相同的API接口，因此我们看到这些之前有如此好的兼容性。结果就是，你可以使用几乎所有之前的东西，只是在更大级别的集群中使用而已。没有新的东西要去做，不需要去重复配置参数，也不需要去新学习什么。不管你是直接使用Docker CLIgipj使用Swarm，这些API接口是基本上一致的。不好的方面是如果你想Swarm去做某件事，但是这个在Docker API中没有，这样你就悲催了。简单来说，如果你在找一个工具，可以部署使用Docker API的容器到集群中，那么 Swarm就是解决方案。另一方面，如果你想要一个工具，可以解决Docker API办不到的事情，你就应该去试试 Kubernetes了。这就是功能性（ Kubernetes）VS.</description>
+    </item>
+    
+    <item>
+      <title>Openshift tips</title>
+      <link>http://example.org/posts/2017-11-29-openshift/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/posts/2017-11-29-openshift/</guid>
+      <description>Commands bible install cli in Mac brew install openshift-cli Frequently used commands Start mini shift minishift start OC commands oc config view Start a new application oc new-app https://github.com/openshift/nodejs-ex -l name=toddapp To switch project oc project Show a high level overview of the current project oc status # Export the overview of the current project in an svg file. oc status -o dot | dot -T svg -o project.svg # See an overview of the current project including details for any identified issues.</description>
+    </item>
+    
+  </channel>
+</rss>

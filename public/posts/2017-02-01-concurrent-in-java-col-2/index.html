@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Java Concurrent Column 2 | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Java Concurrent Column 2" />
+<meta property="og:description" content="This is the second half about Java Concurrent of my blog non-blocking synchronization  Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-02-01-concurrent-in-java-col-2/" />
+
+<meta itemprop="name" content="Java Concurrent Column 2">
+<meta itemprop="description" content="This is the second half about Java Concurrent of my blog non-blocking synchronization  Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures.">
+
+<meta itemprop="wordCount" content="5269">
+
+
+
+<meta itemprop="keywords" content="java,concurrent," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Concurrent Column 2"/>
+<meta name="twitter:description" content="This is the second half about Java Concurrent of my blog non-blocking synchronization  Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-02-01-concurrent-in-java-col-2/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-02-01-concurrent-in-java-col-2/&amp;text=Java%20Concurrent%20Column%202" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-02-01-concurrent-in-java-col-2/&amp;title=Java%20Concurrent%20Column%202" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Java Concurrent Column 2</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="this-is-the-second-half-about-java-concurrent-of-my-blog">This is the second half about Java Concurrent of my blog</h1>
+<h2 id="non-blocking-synchronization">non-blocking synchronization</h2>
+<ul>
+<li>Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures.</li>
+<li>Nonblocking algorithms are considerably more complicated to design and im- plement than lock-based alternatives, but they can <strong>offer significant scalability and liveness advantages</strong>. They coordinate at a finer level of granularity and can greatly reduce scheduling overhead because they don’t block when multiple threads contend for the same data. Further, they are <code>immune to deadlock and other liveness problems</code>. In lock-based algorithms, other threads cannot make progress if a thread goes to sleep or spins while holding a lock, whereas <code>nonblocking algorithms are impervious to individual thread failures</code>. As of Java 5.0, it is possible to build efficient <strong>nonblocking algorithms in Java using the atomic variable classes such as AtomicInteger and AtomicReference</strong>.</li>
+<li>Atomic variables can also be used as <strong>“better volatile variables”</strong> even if you are not developing nonblocking algorithms. <code>Atomic variables offer the same memory semantics as volatile variables</code>, but with additional support for atomic updates— making them ideal for counters, sequence generators, and statistics gathering while offering better scalability than lock-based alternatives.</li>
+<li>Coordinating access to shared state using a consistent locking protocol ensures that whichever thread holds the lock guarding a set of variables has exclusive access to those variables, and that any changes made to those variables are visible to other threads that subsequently acquire the lock.</li>
+<li><code>Volatile variables are a lighter-weight synchronization mechanism</code> than locking <code>because they do not involve context switches or thread scheduling</code>. However, volatile variables have some limitations compared to locking: while they provide similar visibility guarantees, they <code>cannot be used to construct atomic compound actions</code>. This means that volatile variables cannot be used when one variable de- pends on another, or when the new value of a variable depends on its old value. This limits when volatile variables are appropriate, since they cannot be used to reliably implement common tools such as counters or mutexes.</li>
+<li>This can be a serious problem <strong>if the blocked thread is a high-priority thread but the thread holding the lock is a lower-priority thread—a performance hazard known as priority inversion</strong>. Even though the higher-priority thread should have precedence, it must wait until the lock is released, and this effectively down- grades its priority to that of the lower-priority thread. If a thread holding a lock is permanently blocked (due to an infinite loop, deadlock, livelock, or other liveness failure), any threads waiting for that lock can never make progress.</li>
+</ul>
+<h1 id="hardware">hardware</h1>
+<ul>
+<li><code>Exclusive locking is a pessimistic technique</code>—it assumes the worst (if you don’t lock your door, gremlins will come in and rearrange your stuff) and doesn’t proceed until you can guarantee, by acquiring the appropriate locks, that other threads will not interfere.</li>
+<li>For fine-grained operations, there is an alternate approach that is often more efficient—<code>the optimistic approach</code>, whereby you proceed with an update, hopeful that you can complete it without interference. <code>This approach relies on collision detection to determine if there has been interference from other parties during the update</code>, in which case the operation fails and can be retried (or not). The optimistic approach is like the old saying, <code>“It is easier to obtain forgiveness than permission”</code>, where “easier” here means “more efficient”.</li>
+<li>Processors designed for multiprocessor operation provide special instructions for managing concurrent access to shared variables. Early processors had atomic <strong>test-and-set, fetch-and-increment, or swap</strong> instructions sufficient for implementing mutexes that could in turn be used to implement more sophisticated concurrent objects. Today, nearly every modern processor has some form of atomic read- modify-write instruction, such as <strong>compare-and-swap or load-linked/store-conditional</strong>. Operating systems and JVMs use these instructions to implement locks and con- current data structures, but until Java 5.0 they had not been available directly to Java classes.</li>
+</ul>
+<h1 id="compare-and-swap">Compare and swap</h1>
+<ul>
+<li>The approach taken by most processor architectures, including IA32 and Sparc, is to implement a <strong>compare-and-swap (CAS)</strong> instruction. (Other processors, such as PowerPC, implement the same functionality with a pair of instructions: load- linked and store-conditional.) <code>CAS has three operands—a memory location V on which to operate, the expected old value A, and the new value B. CAS atomically updates V to the new value B, but only if the value in V matches the expected old value A; otherwise it does nothing</code>. In either case, it returns the value currently in V. (The <code>variant called compare-and-set instead returns whether the operation succeeded</code>.) <strong>CAS means “I think V should have the value A; if it does, put B there, otherwise don’t change it but tell me I was wrong.” CAS is an optimistic technique</strong>—<code>it proceeds with the update in the hope of success</code>, and can detect failure if another thread has updated the variable since it was last examined. SimulatedCAS in Listing 15.1 illustrates the semantics (but not the implementation or performance) of CAS.</li>
+<li><code>When multiple threads attempt to update the same variable simultaneously using CAS, one wins and updates the variable’s value, and the rest lose</code>. But the losers are not punished by suspension, as they could be if they failed to acquire a lock; instead, they are told that they didn’t win the race this time but can try again. Because a thread that loses a CAS is not blocked, it can decide whether it wants to try again, take some other recovery action, or do nothing.3 This flexibility eliminates many of the liveness hazards associated with locking (though in unusual cases can introduce the risk of livelock—see Section 10.3.3).</li>
+<li>CAS addresses the problem of <strong>implementing atomic read-modify-write sequences without locking</strong>, <code>because it can detect interference from other threads</code>.</li>
+</ul>
+<h2 id="counter-implemented-by-cas">counter implemented by CAS</h2>
+<ul>
+<li>At first glance, the CAS-based counter looks as if it should perform worse than a lock-based counter; it has more operations and a more complicated control flow, and depends on the seemingly complicated CAS operation. But in reality, CAS-based counters significantly outperform lock-based counters if there is even a small amount of contention, and often even if there is no contention. The fast path for uncontended lock acquisition typically requires at least one CAS plus other lock-related housekeeping, so more work is going on in the best case for a lock-based counter than in the normal case for the CAS-based counter. Since the CAS succeeds most of the time (assuming low to moderate contention), the hardware will correctly predict the branch implicit in the while loop, minimizing the overhead of the more complicated control logic.</li>
+<li>The language syntax for locking may be compact, but the work done by the JVM and OS to manage locks is not. Locking entails traversing a relatively com- plicated code path in the JVM and may entail OS-level locking, thread suspension, and context switches. In the best case, locking requires at least one CAS, so using locks moves the CAS out of sight but doesn’t save any actual execution cost. On the other hand, executing a CAS from within the program involves no JVM code, system calls, or scheduling activity. What looks like a longer code path at the ap- plication level is in fact a much shorter code path when JVM and OS activity are taken into account. <code>The primary disadvantage of CAS is that it forces the caller to deal with contention (by retrying, backing off, or giving up), whereas locks deal with contention automatically by blocking until the lock is available</code>.</li>
+<li>Competitive forces will likely result in continued CAS performance improvement over the next sev- eral years. A good rule of thumb is that the <strong>cost of the “fast path” for uncontended lock acquisition and release on most processors is approximately twice the cost of a CAS</strong>.</li>
+</ul>
+<h2 id="cas-support-in-jvm">CAS support in JVM</h2>
+<ul>
+<li>So, how does Java code convince the processor to execute a CAS on its behalf? Prior to Java 5.0, there was no way to do this short of writing native code. <code>In Java 5.0, low-level support was added to expose CAS operations on int, long, and object references</code>, and the <code>JVM compiles these into the most efficient means provided by the underlying hardware</code>. On platforms supporting CAS, the run- time inlines them into the appropriate machine instruction(s); <code>in the worst case, if a CAS-like instruction is not available the JVM uses a spin lock</code>. This low-level JVM support is used by the atomic variable classes (AtomicXxx in java.util.con- current.atomic) to provide an efficient CAS operation on numeric and reference types; these atomic variable classes are used, directly or indirectly, to implement most of the classes in java.util.concurrent.</li>
+</ul>
+<h1 id="other-liveness-hazards">Other liveness hazards</h1>
+<ul>
+<li>While deadlock is the most widely encountered liveness hazard, there are sev- eral other liveness hazards you may encounter in concurrent programs including starvation, missed signals, and livelock.</li>
+</ul>
+<h2 id="starvation">Starvation</h2>
+<ul>
+<li>Starvation occurs when a thread is perpetually denied access to resources it needs in order to make progress; the most commonly starved resource is CPU cycles. Starvation in Java applications can be caused by inappropriate use of thread prior- ities. It can also be caused by executing nonterminating constructs (infinite loops or resource waits that do not terminate) with a lock held, since other threads that need that lock will never be able to acquire it.</li>
+<li>The thread priorities defined in the Thread API are merely scheduling hints. The Thread API defines ten priority levels that the JVM can map to operating system scheduling priorities as it sees fit. This mapping is platform-specific, so two Java priorities can map to the same OS priority on one system and different OS priorities on another.</li>
+<li><strong>Avoid the temptation to use thread priorities, since they increase platform dependence and can cause liveness problems</strong>. Most concurrent applica- tions can use the default priority for all threads.</li>
+</ul>
+<h2 id="poor-responsiveness">Poor responsiveness</h2>
+<ul>
+<li>One step removed from starvation is poor responsiveness, which is not uncom- mon in GUI applications using background threads.</li>
+<li>If the work done by other threads are truly background tasks, lowering their priority can make the foreground tasks more responsive.</li>
+</ul>
+<h2 id="livelock">Livelock</h2>
+<ul>
+<li><strong>Livelock is a form of liveness failure</strong> in which a thread, while <strong>not blocked</strong>, still <strong>cannot make progress</strong> because it keeps retrying an operation that <strong>will always fail</strong>.</li>
+<li>Livelock often occurs in transactional messaging applications, where the messaging infrastructure rolls back a transaction if a message cannot be processed successfully, and puts it back at the head of the queue. If a bug in the message handler for a particular type of message causes it to fail, <strong>every time the message is dequeued and passed to the buggy handler, the transaction is rolled back</strong>. Since the message is now back at the head of the queue, the <strong>handler is called over and over with the same result</strong>. (This is sometimes called the <strong>poison message</strong> problem.) The <strong>message handling thread is not blocked, but it will never make progress either</strong>. This form of livelock often comes from <strong>overeager error-recovery code that mistakenly treats an unrecoverable error as a recoverable one</strong>.</li>
+<li>This is similar to what happens when <strong>two overly polite people</strong> are walking in opposite directions in a hallway: each steps out of the other’s way, and now they are again in each other’s way. So they both step aside again, and again, and again. . .</li>
+</ul>
+<h3 id="solutions">Solutions</h3>
+<ul>
+<li>The solution for this variety of livelock is <strong>to introduce some randomness into the retry mechanism</strong>. For example, when two stations in an ethernet network try to send a packet on the shared carrier at the same time, the packets collide. The stations detect the collision, and each tries to send their packet again later. If they each retry exactly one second later, they collide over and over, and neither packet ever goes out, even if there is plenty of available bandwidth. To avoid this, we make each wait an amount of time that includes a random component. (The ethernet protocol also includes exponential backoff after repeated collisions, reducing both congestion and the risk of repeated failure with multiple colliding stations.) Retrying with random waits and backoffs can be equally effective for avoiding livelock in concurrent applications.</li>
+</ul>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>Liveness failures are a serious problem because there is no way to recover from them short of aborting the application. The most common form of liveness failure is lock-ordering deadlock. Avoiding lock ordering deadlock starts at design time: ensure that when threads acquire multiple locks, they do so in a consistent order. The best way to do this is by using open calls throughout your program. This greatly reduces the number of places where multiple locks are held at once, and makes it more obvious where those places are.</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<h1 id="performance">Performance</h1>
+<ul>
+<li>One of the primary reasons to use threads is to improve performance.</li>
+<li>First make your program right, then make it fast—and then only if your performance requirements and measurements tell you it needs to be faster. In designing a con- current application, squeezing out the last bit of performance is often the least of your concerns.</li>
+<li>When the performance of an activity is limited by availability of a par- ticular resource, we say it is bound by that resource: CPU-bound, database-bound, etc.</li>
+<li>using multiple threads always introduces some performance costs compared to the single-threaded approach. These include the overhead associated with coordinating between threads (locking, signaling, and memory synchronization), increased context switching,thread creation and teardown, and scheduling overhead. When threading is employed effectively, these costs are more than made up for by greater throughput, responsiveness, or capacity. On the other hand, a poorly designed concurrent application can perform even worse than a comparable sequential one.</li>
+<li>we want to keep the CPUs busy with <strong>useful</strong> work</li>
+</ul>
+<h2 id="scalability">Scalability</h2>
+<ul>
+<li>Scalability describes the ability to improve throughput or capacity when additional computing resources (such as additional CPUs, memory, stor- age, or I/O bandwidth) are added.</li>
+<li>Nearly all engineering decisions involve some form of tradeoff.</li>
+<li>This is one of the reasons why most optimizations are premature: <strong>they are often undertaken before a clear set of requirements is available</strong>.</li>
+<li>Avoid premature optimization. <strong>First make it right, then make it fast</strong>—if it is not already fast enough.</li>
+<li>Measure, don’t guess.</li>
+</ul>
+<h3 id="amdahls-law">Amdahl&rsquo;s law</h3>
+<ul>
+<li>the theoretical speedup is always limited by the part of the task that cannot benefit from the improvement.</li>
+<li>If F is the fraction of the calculation that must be executed serially, then Amdahl’s law says that on a machine with N processors, we can achieve a speedup of at most:
+Speedup ≤ 1 / (F + (1 − F)/N)</li>
+<li>As N approaches infinity, the maximum speedup converges to 1/F, meaning that <strong>a program in which fifty percent of the processing must be executed serially can be sped up only by a factor of two</strong>, regardless of how many processors are available, and a program in which ten percent must be executed serially can be sped up by at most a factor of ten.</li>
+<li>Amdahl’s law also quantifies the efficiency cost of serialization. With ten processors, a program with 10% serialization can achieve at most a speedup of 5.3 (at 53% utilization), and with 100 processors it can achieve at most a speedup of 9.2 (at 9% utilization). It takes a lot of inefficiently utilized CPUs to never get to that factor of ten.</li>
+<li>It is clear that as processor counts increase, even a small percentage of serialized execution limits how much throughput can be increased with additional computing resources.</li>
+<li>All concurrent applications have some sources of serialization; if you think yours does not, look again.</li>
+<li>Amdahl’s law tells us that the scalability of an application is driven by the proportion of code that must be executed serially. Since the primary source of serialization in Java programs is the exclusive resource lock, scalability can often be improved by spending less time holding locks, either by reducing lock granu- larity, reducing the duration for which locks are held, or replacing exclusive locks with nonexclusive or nonblocking alternatives.</li>
+</ul>
+<h1 id="costs-introduced-by-threads">Costs introduced by threads</h1>
+<h2 id="context-switching">Context switching</h2>
+<ul>
+<li>Context switches are not free; thread scheduling requires manipulating shared data structures in the OS and JVM. The OS and JVM use the same CPUs your pro- gram does; more CPU time spent in JVM and OS code means less is available for your program.</li>
+<li>When a new thread is switched in, the data it needs is unlikely to be in the local processor cache, so a context switch causes a flurry of cache misses, and thus threads run a little more slowly when they are first scheduled.</li>
+<li>The actual cost of context switching varies across platforms, but a good rule of thumb is that a <strong>context switch costs the equivalent of 5,000 to 10,000 clock cycles</strong>, or several microseconds on most current processors.</li>
+</ul>
+<h2 id="memory-synchronization">memory synchronization</h2>
+<ul>
+<li>The performance cost of synchronization comes from several sources. The visibility guarantees provided by synchronized and volatile may entail using <strong>special instructions called memory barriers</strong> that can flush or invalidate caches, flush hard- ware write buffers, and stall execution pipelines. <strong>Memory barriers</strong> may also have indirect performance consequences because they <strong>inhibit other compiler optimizations</strong>; most operations cannot be reordered with memory barriers.</li>
+<li>When assessing the performance impact of synchronization, it is <strong>important to distinguish between contended and uncontended synchronization</strong>. The synchronized mechanism is optimized for the uncontended case (<strong>volatile is always uncontended</strong>), and at this writing, the performance cost of <strong>a “fast-path” uncontended synchronization ranges from 20 to 250 clock cycles</strong> for most systems. While this is certainly not zero, the effect of needed, uncontended synchronization is rarely significant in overall application performance, and the alternative involves compromising safety and potentially signing yourself (or your succes- sor) up for some very painful bug hunting later.</li>
+<li>Modern <strong>JVMs can reduce the cost of incidental synchronization</strong> by optimizing away locking that can be proven never to contend. If a lock object is accessible only to the current thread, the JVM is permitted to optimize away a lock acquisi- tion because there is no way another thread could synchronize on the same lock. For example, the lock acquisition in following Listing can always be eliminated by the JVM.</li>
+</ul>
+<p>Following synchronization has no effect</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">synchronized</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Object<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// do something
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>More sophisticated JVMs can use <strong>escape analysis</strong> to identify when a local object reference is never published to the heap and is therefore thread-local. As below sample:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getStoogeNames</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> stooges <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Vector<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;();</span> stooges<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Moe&#34;</span><span style="color:#f92672">);</span>
+stooges<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Larry&#34;</span><span style="color:#f92672">);</span>
+stooges<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Curly&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#66d9ef">return</span> stooges<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>the only reference to the List is the local variable stooges, and <strong>stack-confined variables are automatically thread-local</strong>. A naive execution of getStoogeNames would acquire and release the lock on the Vector four times, once for each call to add or toString. However, a smart runtime compiler can inline these calls and then see <strong>that stooges and its internal state never escape</strong>, and therefore that <strong>all four lock acquisitions can be eliminated</strong>.</li>
+<li>Even without escape analysis, compilers can also perform <strong>lock coarsening</strong>, the <strong>merging of adjacent synchronized blocks using the same lock</strong>. For getStooge- Names, a JVM that performs lock coarsening might combine the three calls to add and the call to toString into a single lock acquisition and release, using heuristics on the relative cost of synchronization versus the instructions inside the synch- ronized block.5 Not only does this reduce the synchronization overhead, but it also gives the optimizer a much larger block to work with, likely enabling other optimizations.</li>
+</ul>
+<blockquote>
+<p>Don’t worry excessively about the cost of uncontended synchronization. The basic mechanism is already quite fast, and JVMs can perform addi- tional optimizations that further reduce or eliminate the cost. Instead, focus optimization efforts on areas where lock contention actually occurs.</p>
+</blockquote>
+<ul>
+<li>Synchronization by one thread can also affect the performance of other threads. Synchronization creates traffic on the shared memory bus; this bus has a limited bandwidth and is shared across all processors. If threads must compete for synchronization bandwidth, all threads using synchronization will suffer.</li>
+</ul>
+<h2 id="blocking">Blocking</h2>
+<ul>
+<li><strong>Uncontended synchronization</strong> can be handled <strong>entirely within the JVM</strong> (Bacon et al., 1998); <strong>contended synchronization may require OS activity</strong>, which adds to the cost. When locking is contended, the losing thread(s) must block. The JVM can implement blocking either via spin-waiting (repeatedly trying to acquire the lock until it succeeds) or by suspending the blocked thread through the operating system. Which is more efficient depends on the relationship between context switch overhead and the time until the lock becomes available; spin-waiting is preferable for short waits and suspension is preferable for long waits. Some JVMs choose between the two adaptively based on profiling data of past wait times, but most just suspend threads waiting for a lock.</li>
+</ul>
+<h2 id="reducing-lock-contention">Reducing lock contention</h2>
+<ul>
+<li>We’ve seen that <strong>serialization hurts scalability</strong> and that <strong>context switches hurt performance</strong>. <strong>Contended locking causes both</strong>, so <strong>reducing lock contention can improve both performance and scalability</strong>.
+Access to resources guarded by an exclusive lock is serialized—only one thread at a time may access it. Of course, we use locks for good reasons, such as preventing data corruption, but this safety comes at a price. Persistent contention for a lock limits scalability.</li>
+<li>The principal threat to scalability in concurrent applications is the exclu- sive resource lock.</li>
+<li>Two factors influence the likelihood of contention for a lock: how often that lock is requested and how long it is held once acquired.7 If the product of these factors is sufficiently small, then most attempts to acquire the lock will be uncon- tended, and lock contention will not pose a significant scalability impediment.</li>
+</ul>
+<h3 id="there-are-three-ways-to-reduce-lock-contention">There are three ways to reduce lock contention:</h3>
+<ul>
+<li>Reduce the duration for which locks are held;</li>
+<li>Reduce the frequency with which locks are requested; or</li>
+<li>Replace exclusive locks with coordination mechanisms that permit
+greater concurrency.</li>
+</ul>
+<h2 id="narrowing-lock-scope">Narrowing lock scope</h2>
+<ul>
+<li><strong>An effective way to reduce the likelihood of contention is to hold locks as briefly as possible</strong>. This can be done by moving code that doesn’t require the lock out of synchronized blocks, especially for expensive operations and potentially block- ing operations such as I/O.</li>
+<li>It is easy to see how holding a “hot” lock for too long can limit scalability</li>
+<li>Reducing the scope of the lock in userLocationMatches substantially reduces the number of instructions that are executed with the lock held. <strong>By Amdahl’s law, this removes an impediment to scalability because the amount of serialized code is reduced</strong>.</li>
+<li>Because AttributeStore has only one state variable, attributes, we can im- prove it further by the technique of <strong>delegating thread safety</strong> (Section 4.3). By replacing attributes with a thread-safe Map (a Hashtable, synchronizedMap, or Con- currentHashMap), AttributeStore can delegate all its thread safety obligations to the underlying thread-safe collection.</li>
+</ul>
+<h2 id="reducing-lock-granularity">Reducing lock granularity</h2>
+<ul>
+<li>The other way to reduce the fraction of time that a lock is held (and therefore the likelihood that it will be contended) is to <strong>have threads ask for it less often</strong>. This can be accomplished <strong>by lock splitting and lock striping</strong>, which involve <strong>using separate locks to guard multiple independent state variables previously guarded by a single lock</strong>. These techniques reduce the granularity at which locking occurs, potentially allowing greater scalability—but using more locks also increases the risk of deadlock.</li>
+<li>If a lock guards more than one <strong>independent</strong> state variable, you may be able to improve scalability by splitting it into multiple locks that each guard different variables. This results in each lock being requested less often.</li>
+<li>After splitting the lock, each new finer-grained lock will see less locking traffic than the original coarser lock would have.</li>
+</ul>
+<h2 id="lock-stripping">Lock stripping</h2>
+<ul>
+<li>Splitting a heavily contended lock into two is likely to result in two heavily contended locks.</li>
+<li>Lock splitting can sometimes be extended to partition locking on a variable- sized set of independent objects, in which case it is called lock striping. For exam- ple, the implementation of ConcurrentHashMap uses an array of 16 locks, each of which guards 1/16 of the hash buckets; bucket N is guarded by lock N mod 16.</li>
+<li>One of the downsides of lock striping is that locking the collection for ex- clusive access is more difficult and costly than with a single lock. Usually <strong>an operation can be performed by acquiring at most one lock</strong>, but <strong>occasionally you need to lock the entire collection</strong>, as when ConcurrentHashMap needs <strong>to expand the map and rehash the values</strong> into a larger set of buckets. This is typically done by acquiring all of the locks in the stripe set</li>
+<li>common optimizations such as caching frequently computed values can introduce “hot fields” that limit scalability.</li>
+<li>A common optimization is to update a separate counter as entries are added or removed; this slightly increases the cost of a put or remove operation to keep the counter up-to-date, but reduces the cost of the size operation from O(n) to O(1).</li>
+<li>In this case, the counter is called a <strong>hot field</strong> because every mutative operation needs to access it.</li>
+<li>ConcurrentHashMap avoids this problem by having size enumerate the stripes and add up the number of elements in each stripe, instead of maintaining a global count. To avoid enumerating every element, ConcurrentHashMap maintains a separate count field for each stripe, also guarded by the stripe lock.</li>
+</ul>
+<h2 id="alternative-to-exclusive-lock">Alternative to exclusive lock</h2>
+<ul>
+<li>A third technique for mitigating the effect of lock contention <strong>is to forego the use of exclusive locks</strong> in favor of a more concurrency-friendly means of managing shared state. These include <strong>using the concurrent collections, read-write locks, immutable objects and atomic variables</strong>.</li>
+</ul>
+<h3 id="readwritelock">ReadWriteLock</h3>
+<ul>
+<li>enforces a <strong>multiple-reader, single-writer</strong> locking discipline: more than one reader can access the shared resource concurrently so long as none of them wants to modify it, but writers must acquire the lock excusively. For read-mostly data structures, ReadWriteLock can offer greater concurrency than exclusive locking; <strong>for read-only data structures, immutability can eliminate the need for locking entirely</strong>.</li>
+<li>Atomic variables (see Chapter 15) offer a means of reducing the cost of updat- ing “hot fields” such as statistics counters, sequence generators, or the reference</li>
+<li>If size is called frequently compared to mutative operations, striped data structures can optimize for this by caching the collection size in a volatile whenever size is called and invalidating the cache (setting it to -1) whenever the collection is modified. If the cached value is nonnegative on entry to size, it is accurate and can be returned; otherwise it is recomputed.</li>
+<li>The atomic variable classes pro- vide very fine-grained (and therefore more scalable) atomic operations on integers or object references, and are implemented using low-level concurrency primitives (such as compare-and-swap) provided by most modern processors. If your class has a small number of hot fields that do not participate in invariants with other variables, replacing them with atomic variables may improve scalability.</li>
+</ul>
+<h1 id="comparing-map">Comparing Map</h1>
+<ul>
+<li>The single-threaded performance of ConcurrentHashMap is slightly better than that of a synchronized HashMap, but it is in concurrent use that it really shines. The implementation of ConcurrentHashMap assumes the most common operation is retrieving a value that already exists, and is therefore optimized to <strong>provide highest performance and concurrency for successful get operations</strong>.</li>
+<li>The major scalability impediment for the synchronized Map implementations is that there is a single lock for the entire map, so only one thread can access the map at a time. On the other hand, ConcurrentHashMap does no locking for most successful read operations, and <strong>uses lock striping for write operations</strong> and those few read operations that do require locking. As a result, multiple threads can access the Map concurrently without blocking.</li>
+<li>The numbers for the synchronized collections are not as encouraging. Perfor- mance for the one-thread case is comparable to ConcurrentHashMap, but once the load transitions from mostly uncontended to mostly contended—which happens here at two threads—the synchronized collections suffer badly. This is common behavior for code whose scalability is limited by lock contention. So long as contention is low, time per operation is dominated by the time to actually do the work and throughput may improve as threads are added. Once contention becomes significant, time per operation is dominated by context switch and scheduling delays, and adding more threads has little effect on throughput.</li>
+</ul>
+<h1 id="building-a-asynchronous-log">Building a asynchronous log</h1>
+<ul>
+<li>Building a logger that moves the I/O to another thread may improve performance, but it also introduces a number of design complications, such as interruption (what happens if a thread blocked in a logging operation is interrupted?), service guarantees (does the logger guarantee that a success- fully queued log message will be logged prior to service shutdown?), saturation policy (what happens when the producers log messages faster than the logger thread can handle them?), and service lifecycle (how do we shut down the logger, and how do we communicate the service state to producers?).</li>
+</ul>
+<h1 id="reducing-context-switching">Reducing context switching</h1>
+<ul>
+<li>The “get in, get out” principle of Section 11.4.1 tells us that <strong>we should hold locks as briefly as possible</strong>, because <strong>the longer a lock is held, the more likely that lock will be contended</strong>. If a thread blocks waiting for I/O while holding a lock, another thread is more likely to want the lock while the first thread is holding it. Concurrent systems perform much better when most lock acquisitions are uncontended, because contended lock acquisition means more context switches. A coding style that encourages more context switches thus yields lower overall throughput.</li>
+</ul>
+<h1 id="testing-concurrency">Testing concurrency</h1>
+<ul>
+<li>we defined safety as “nothing bad ever happens” and liveness as “something good eventually happens”.</li>
+<li>when interrupted, it throws InterruptedException. This is one of the few cases in which it is appropriate to subclass Thread explicitly instead of using a Runnable in a pool: in order to test proper termination with join.</li>
+<li>The result of <strong>Thread.getState should not be used</strong> for concurrency control, and is of limited usefulness for testing—its primary utility is as a source of debugging information.</li>
+<li>a common error in implementing semaphore-controlled buffers is to forget that the code actually doing the insertion and extraction requires mutual exclu- sion (using synchronized or ReentrantLock). A sample run of PutTakeTest with a version of BoundedBuffer that omits making doInsert and doExtract synch- ronized fails fairly quickly.</li>
+<li><strong>Tests should be run on multiprocessor systems to increase the diversity of potential interleavings. However, having more than a few CPUs does not necessarily make tests more effective. To maximize the chance of detecting timing-sensitive data races, there should be more active threads than CPUs, so that at any given time some threads are running and some are switched out, thus reducing the predicatability of interactions between threads</strong>.</li>
+<li>Tests like PutTakeTest tend to be good at finding safety violations. For exam- ple, a common error in implementing semaphore-controlled buffers is to forget that the code actually doing the insertion and extraction requires mutual exclu- sion (using synchronized or ReentrantLock). A sample run of PutTakeTest with a version of BoundedBuffer that omits making doInsert and doExtract synch- ronized fails fairly quickly. Running PutTakeTest with a few dozen threads iterating a few million times on buffers of various capacity on various systems increases our confidence about the lack of data corruption in put and take.</li>
+<li>The source code <strong>PutTakeTest.java</strong> demonstreated aforesaid logic.</li>
+</ul>
+<h2 id="test-resource-management">Test resource management</h2>
+<ul>
+<li><strong>The tests so far have been concerned with a class’s adherence to its specifica- tion—that it does what it is supposed to do. A secondary aspect to test is that it does not do things it is not supposed to do</strong>, such as leak resources. Any object that holds or manages other objects should not continue to maintain references to those objects longer than necessary. Such storage leaks prevent garbage collectors from reclaiming memory (or threads, file handles, sockets, database connections, or other limited resources) and can lead to resource exhaustion and application failure.</li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/java" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">java</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/concurrent" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">concurrent</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-compare-in-java/">Compare-In-Java</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-20-deadlock/">Dead Lock</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-hashcode-contract/">Hash Code Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-16-java-hashmap/">HashMap in JDK</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-03-intellij-tips/">IntelliJ Tips</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-06-24-jdk-sources/">JDK source</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-17-java-collections-misc/">Java Collections Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-02-enum-misc/">Java Enum Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-java-gc/">Java GC notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-21-java-jit/">Java JIT compiler</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-05-jvm/">Java JVM</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-02-java-new-io/">Java New IO</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-15-java-security/">Java Security Notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-java-tricky-tech-questions/">Java-Tricky-Tech-Questions.md</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-03-maven-notes/">Maven-Notes</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Kubernetes 与 Docker Swarm的对比 | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Kubernetes 与 Docker Swarm的对比" />
+<meta property="og:description" content="Kubernetes 和Docker Swarm 可能是使用最广泛的工具，用于在集群环境中部署容器。但是这两个工具还是有很大的差别。
+Kubernetes Google根据其在Linux上容器管理经验，改造到docker管理上，就是kubernetes。他的在许多方面表现良好。最重要的是构造于Google多年的宝贵经验只上。
+如果你从docker1.0以上开始使用kubernetes，你得到的用户体验会非常良好。比如你会发现kubernetes解决一些docker自身的问题。例如你可以mount（绑定）持久化存储卷（volume），以便于在迁移docker时不至于丢失数据。
+kubernetes使用flannel（一个使用go写的虚拟网络的开源系统）构造容器间的网络通信。它还内置有负载均衡。除此之外，它的“服务发现”使用了etcd（一个使用golang编写的开源虚拟网络系统）。然而，使用kubernetes是有代价的。首先，它用一个不同的命令行接口，不同的编程接口及不同的YAML文件定义等。换言之，你不能使用docker命令行接口也不能用docker compose来定义容器。为了使用kubernetes，所有所有的东西都需要从头开始。这就好像这个工具并不是为了docker写的一样（这个在某种程度上确实是）。kubernetes把集群带到了一个全新的高度，代价是学习曲线比较陡。
+Docker Swarm docker-swarm 使用了一个不同的方式。它是docker原生的集群工具。
+最方便的部分是它暴露了docker标准的编程接口，意味着你之前一直在使用的任何与docker沟通的工具（docker命令行接口，docker compose，dokku，krane等等），都可以无缝的在docker swarm上使用。
+这个其实是个双刃剑，毁誉参半。一直可以使用自己得心应手熟悉的工具，这再好不过了，然而，这样意味着我们又被docker紧紧的“耦合”了（而非业界一直追求的松耦合”）。如果你需要的都能满足，那皆大欢喜。可是如果不是呢，要是你有特殊需求这些API满足不了怎么办？这是就不得不去耍一些“小聪明”。
+我们来仔细剖析下这两个工具，主要会从如何在集群中运行容器，这两个工具分别如何安装以及他们提供的功能。
+安装设置 安装设置swarm非常简单，简单明了并且很灵活。我们需要做的就是安装一个服务发现工具，然后在所有的节点上安装swarm容器。因为它自己就是以一个docker容器来部署的，因此它在不同的操作系统上运行方式都是没有差别的。我们运行swarm容器，开放一个端口，然后告知服务发现模块的地址。这不能再简单了。我们甚至可以在没有任何服务发现模块的情况下开始使用，来看看我们是否喜欢它，当开始真正认真的要使用时再去添加etcd，consul或者其他支持的工具。
+相比较而言，kubernetes的安装就有点复杂晦涩了。不同的操作系统上安装都不同。每个操作系统都有自己的独立安装指令和运维团队。比如说，如果你选择使用vagrant来试用，然后在Fedora这里遇到问题卡住了，但这不是意味着其他的（比如Ubuntu或者coreos）也不能用。你可以，不过要开始在kubernetes官方以外到处搜索. 你所需要的很可能在某个社区论坛里提供的解决方案，但是你需要时间去查询，运气好的话可以在第一次尝试就能用。一个严重的问题是安装kubernetes依赖于bash脚本。如果我们是处于配置管理不是必须的情况下是，这个本身可能不是大问题。我们可能不希望运行一个脚本，而是希望kubernetes成为puppet，chef或者ansible的一部分。同样，这个也是可以解决的。你可以找到ansible 的安装手册来动行kubernetes或者你自己去写。跟swarm比这些都不是什么大问题,只是一点点的小痛苦而已。使用刀砍请不要期待任何的安装文档，除非都可使用docker命令行的时候运行的参数而已。我们打算去运行容器，swarm可以实现这个，但kubernetes 没有。有些人可能并不在意具体是使用哪个服务发现的工具。我喜欢swarm背后提倡的那种极简风格，以及他背后的逻辑，内置电池，拆留由已。任何东西都是拆箱可用但是我们还提供了选项让你去替换其中的任一个模块。
+与swarm不同的是，kubernetes 是一个可配置的工具。你需要跟kubernetes提供的各个选项来共生存。例如，如果你打算使用kubernets,你必须要使用etcd.我不是说etcd不好(实际上正好相反)，但是如果你习惯于，比如你在非常复杂的业务场景下使用consul，如果要使用服务发现，必须特别针对kubernets使用一个，而剩下的其他部分使用其他一个产品。另外一个对使用Kubernets觉得不方便的地方就是你需要在事先了解各种事情。比如，你需要告诉他要用到的所有节点的地址，每个节点的职责是什么,这个集群有多少个“小黄人” (minion,是kubernet对于一个集群中机器之前叫的名字)，等等。 而使用Swarm，我们只需要启动一个节点，告诉他加入网络，就可以了。我们不需要提前告诉关于集群其他的信息，因为这些信息会通过各个节点间的 “八卦”（gossip protocol）来传输。
+配置本身也许并不是这些工具之间最大的差别。不管你使用哪个工具，或早或晚，所有都会配置好并运行起来，到时候你们就会忘掉在配置时的痛苦经历。你可能会说我们之所以选择某个工具就是因为它安装配置简单吧。很公平的。我们继续往下讨论如何定义容器及之上的这些工具。
+运行容器 如果使用Swarm来运行Docker容器，你如何去定义所有的参数呢？ 实际上你根本不需要！你所做的跟使用Swarm之前没有什么不同。比如，你习惯于使用Docker CLI（命令行接口），你可以继续使用几乎相同的命令。如果你习惯于使用Docker Componse来运行容器，你可以继续在Swarm集群中使用。不管你之前习惯于怎么使用容器，你仍旧可以使用，只是在更大级别的集群中使用。
+Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你不能使用你之前创建的docker-compose.yml配置，你必须要去新建与Kubernetes对应的配置。你也不能使用之前学习的Docker CLI（命令行接口）。你必须要去学习 Kubernetes CLI（命令行接口），并且很有可能，确保你整个公司机构也要去学习。
+不管你选择哪个工具来部署集群，你都要先熟悉Docker。你可能已经习惯于使用 使用Docker Compose来定义你运行容器的参数。如果你曾经使用它超过几个小时，你可能就会直接使用它而扔掉Docker CLI。你可以使用它运行容器，跟踪日志变化，等等。另外一方面，你可能是Docker的 “死忠”，看不上 Docker Compose，而是任何事都使用Docker CLI，或者你甚至自己写bash脚本来运行容器。不管哪种方式，这些都可以在Docker Swarm上使用。
+如果你选择Kubernetes，请先准备好同一件事需要有多个定义配置。你需要使用 Docker Compose来运行Kubernetes范围外的容器。开发人员需要继续在他们的笔记本电脑上运行容器，你的测试环境可能也不是一个大集群，等等。换言之，如果你选择了Docker，那么 Docker Compose 和 Docker CLI将是不可避免的。你肯定会在某些地方或者以某种方式用到它们。一旦你开始使用 Kubernetes，你就会发现你所有的 Docker Compose的配置都要翻译成 Kubernetes的方式，从这个时候，你也要开始维护这两个版本了。使用 Kubernetes，这些重复的事情意味着维护成本的提高。重复只是一个问题，另外的是你在集群中运行的命令将于集群外使用的命令不一样了。你之前学习并喜爱的Docker的所有命令在 Kubernetes集群内将是完全行不通了。
+Kubernetes的开发团队强制你去按照他们的办事方式行事，其实不是为了让你过的那么苦。如此巨大差别的主要原因是 Swarm 和 Kubernetes针对同一问题采取了不同的处理手段。 Swarm团队决定使用跟Docker相同的API接口，因此我们看到这些之前有如此好的兼容性。结果就是，你可以使用几乎所有之前的东西，只是在更大级别的集群中使用而已。没有新的东西要去做，不需要去重复配置参数，也不需要去新学习什么。不管你是直接使用Docker CLIgipj使用Swarm，这些API接口是基本上一致的。不好的方面是如果你想Swarm去做某件事，但是这个在Docker API中没有，这样你就悲催了。简单来说，如果你在找一个工具，可以部署使用Docker API的容器到集群中，那么 Swarm就是解决方案。另一方面，如果你想要一个工具，可以解决Docker API办不到的事情，你就应该去试试 Kubernetes了。这就是功能性（ Kubernetes）VS." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2016-09-04-kubernets-vs-swarm/" />
+
+<meta itemprop="name" content="Kubernetes 与 Docker Swarm的对比">
+<meta itemprop="description" content="Kubernetes 和Docker Swarm 可能是使用最广泛的工具，用于在集群环境中部署容器。但是这两个工具还是有很大的差别。
+Kubernetes Google根据其在Linux上容器管理经验，改造到docker管理上，就是kubernetes。他的在许多方面表现良好。最重要的是构造于Google多年的宝贵经验只上。
+如果你从docker1.0以上开始使用kubernetes，你得到的用户体验会非常良好。比如你会发现kubernetes解决一些docker自身的问题。例如你可以mount（绑定）持久化存储卷（volume），以便于在迁移docker时不至于丢失数据。
+kubernetes使用flannel（一个使用go写的虚拟网络的开源系统）构造容器间的网络通信。它还内置有负载均衡。除此之外，它的“服务发现”使用了etcd（一个使用golang编写的开源虚拟网络系统）。然而，使用kubernetes是有代价的。首先，它用一个不同的命令行接口，不同的编程接口及不同的YAML文件定义等。换言之，你不能使用docker命令行接口也不能用docker compose来定义容器。为了使用kubernetes，所有所有的东西都需要从头开始。这就好像这个工具并不是为了docker写的一样（这个在某种程度上确实是）。kubernetes把集群带到了一个全新的高度，代价是学习曲线比较陡。
+Docker Swarm docker-swarm 使用了一个不同的方式。它是docker原生的集群工具。
+最方便的部分是它暴露了docker标准的编程接口，意味着你之前一直在使用的任何与docker沟通的工具（docker命令行接口，docker compose，dokku，krane等等），都可以无缝的在docker swarm上使用。
+这个其实是个双刃剑，毁誉参半。一直可以使用自己得心应手熟悉的工具，这再好不过了，然而，这样意味着我们又被docker紧紧的“耦合”了（而非业界一直追求的松耦合”）。如果你需要的都能满足，那皆大欢喜。可是如果不是呢，要是你有特殊需求这些API满足不了怎么办？这是就不得不去耍一些“小聪明”。
+我们来仔细剖析下这两个工具，主要会从如何在集群中运行容器，这两个工具分别如何安装以及他们提供的功能。
+安装设置 安装设置swarm非常简单，简单明了并且很灵活。我们需要做的就是安装一个服务发现工具，然后在所有的节点上安装swarm容器。因为它自己就是以一个docker容器来部署的，因此它在不同的操作系统上运行方式都是没有差别的。我们运行swarm容器，开放一个端口，然后告知服务发现模块的地址。这不能再简单了。我们甚至可以在没有任何服务发现模块的情况下开始使用，来看看我们是否喜欢它，当开始真正认真的要使用时再去添加etcd，consul或者其他支持的工具。
+相比较而言，kubernetes的安装就有点复杂晦涩了。不同的操作系统上安装都不同。每个操作系统都有自己的独立安装指令和运维团队。比如说，如果你选择使用vagrant来试用，然后在Fedora这里遇到问题卡住了，但这不是意味着其他的（比如Ubuntu或者coreos）也不能用。你可以，不过要开始在kubernetes官方以外到处搜索. 你所需要的很可能在某个社区论坛里提供的解决方案，但是你需要时间去查询，运气好的话可以在第一次尝试就能用。一个严重的问题是安装kubernetes依赖于bash脚本。如果我们是处于配置管理不是必须的情况下是，这个本身可能不是大问题。我们可能不希望运行一个脚本，而是希望kubernetes成为puppet，chef或者ansible的一部分。同样，这个也是可以解决的。你可以找到ansible 的安装手册来动行kubernetes或者你自己去写。跟swarm比这些都不是什么大问题,只是一点点的小痛苦而已。使用刀砍请不要期待任何的安装文档，除非都可使用docker命令行的时候运行的参数而已。我们打算去运行容器，swarm可以实现这个，但kubernetes 没有。有些人可能并不在意具体是使用哪个服务发现的工具。我喜欢swarm背后提倡的那种极简风格，以及他背后的逻辑，内置电池，拆留由已。任何东西都是拆箱可用但是我们还提供了选项让你去替换其中的任一个模块。
+与swarm不同的是，kubernetes 是一个可配置的工具。你需要跟kubernetes提供的各个选项来共生存。例如，如果你打算使用kubernets,你必须要使用etcd.我不是说etcd不好(实际上正好相反)，但是如果你习惯于，比如你在非常复杂的业务场景下使用consul，如果要使用服务发现，必须特别针对kubernets使用一个，而剩下的其他部分使用其他一个产品。另外一个对使用Kubernets觉得不方便的地方就是你需要在事先了解各种事情。比如，你需要告诉他要用到的所有节点的地址，每个节点的职责是什么,这个集群有多少个“小黄人” (minion,是kubernet对于一个集群中机器之前叫的名字)，等等。 而使用Swarm，我们只需要启动一个节点，告诉他加入网络，就可以了。我们不需要提前告诉关于集群其他的信息，因为这些信息会通过各个节点间的 “八卦”（gossip protocol）来传输。
+配置本身也许并不是这些工具之间最大的差别。不管你使用哪个工具，或早或晚，所有都会配置好并运行起来，到时候你们就会忘掉在配置时的痛苦经历。你可能会说我们之所以选择某个工具就是因为它安装配置简单吧。很公平的。我们继续往下讨论如何定义容器及之上的这些工具。
+运行容器 如果使用Swarm来运行Docker容器，你如何去定义所有的参数呢？ 实际上你根本不需要！你所做的跟使用Swarm之前没有什么不同。比如，你习惯于使用Docker CLI（命令行接口），你可以继续使用几乎相同的命令。如果你习惯于使用Docker Componse来运行容器，你可以继续在Swarm集群中使用。不管你之前习惯于怎么使用容器，你仍旧可以使用，只是在更大级别的集群中使用。
+Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你不能使用你之前创建的docker-compose.yml配置，你必须要去新建与Kubernetes对应的配置。你也不能使用之前学习的Docker CLI（命令行接口）。你必须要去学习 Kubernetes CLI（命令行接口），并且很有可能，确保你整个公司机构也要去学习。
+不管你选择哪个工具来部署集群，你都要先熟悉Docker。你可能已经习惯于使用 使用Docker Compose来定义你运行容器的参数。如果你曾经使用它超过几个小时，你可能就会直接使用它而扔掉Docker CLI。你可以使用它运行容器，跟踪日志变化，等等。另外一方面，你可能是Docker的 “死忠”，看不上 Docker Compose，而是任何事都使用Docker CLI，或者你甚至自己写bash脚本来运行容器。不管哪种方式，这些都可以在Docker Swarm上使用。
+如果你选择Kubernetes，请先准备好同一件事需要有多个定义配置。你需要使用 Docker Compose来运行Kubernetes范围外的容器。开发人员需要继续在他们的笔记本电脑上运行容器，你的测试环境可能也不是一个大集群，等等。换言之，如果你选择了Docker，那么 Docker Compose 和 Docker CLI将是不可避免的。你肯定会在某些地方或者以某种方式用到它们。一旦你开始使用 Kubernetes，你就会发现你所有的 Docker Compose的配置都要翻译成 Kubernetes的方式，从这个时候，你也要开始维护这两个版本了。使用 Kubernetes，这些重复的事情意味着维护成本的提高。重复只是一个问题，另外的是你在集群中运行的命令将于集群外使用的命令不一样了。你之前学习并喜爱的Docker的所有命令在 Kubernetes集群内将是完全行不通了。
+Kubernetes的开发团队强制你去按照他们的办事方式行事，其实不是为了让你过的那么苦。如此巨大差别的主要原因是 Swarm 和 Kubernetes针对同一问题采取了不同的处理手段。 Swarm团队决定使用跟Docker相同的API接口，因此我们看到这些之前有如此好的兼容性。结果就是，你可以使用几乎所有之前的东西，只是在更大级别的集群中使用而已。没有新的东西要去做，不需要去重复配置参数，也不需要去新学习什么。不管你是直接使用Docker CLIgipj使用Swarm，这些API接口是基本上一致的。不好的方面是如果你想Swarm去做某件事，但是这个在Docker API中没有，这样你就悲催了。简单来说，如果你在找一个工具，可以部署使用Docker API的容器到集群中，那么 Swarm就是解决方案。另一方面，如果你想要一个工具，可以解决Docker API办不到的事情，你就应该去试试 Kubernetes了。这就是功能性（ Kubernetes）VS.">
+
+<meta itemprop="wordCount" content="114">
+
+
+
+<meta itemprop="keywords" content="Mac,shortcut,DevOps," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kubernetes 与 Docker Swarm的对比"/>
+<meta name="twitter:description" content="Kubernetes 和Docker Swarm 可能是使用最广泛的工具，用于在集群环境中部署容器。但是这两个工具还是有很大的差别。
+Kubernetes Google根据其在Linux上容器管理经验，改造到docker管理上，就是kubernetes。他的在许多方面表现良好。最重要的是构造于Google多年的宝贵经验只上。
+如果你从docker1.0以上开始使用kubernetes，你得到的用户体验会非常良好。比如你会发现kubernetes解决一些docker自身的问题。例如你可以mount（绑定）持久化存储卷（volume），以便于在迁移docker时不至于丢失数据。
+kubernetes使用flannel（一个使用go写的虚拟网络的开源系统）构造容器间的网络通信。它还内置有负载均衡。除此之外，它的“服务发现”使用了etcd（一个使用golang编写的开源虚拟网络系统）。然而，使用kubernetes是有代价的。首先，它用一个不同的命令行接口，不同的编程接口及不同的YAML文件定义等。换言之，你不能使用docker命令行接口也不能用docker compose来定义容器。为了使用kubernetes，所有所有的东西都需要从头开始。这就好像这个工具并不是为了docker写的一样（这个在某种程度上确实是）。kubernetes把集群带到了一个全新的高度，代价是学习曲线比较陡。
+Docker Swarm docker-swarm 使用了一个不同的方式。它是docker原生的集群工具。
+最方便的部分是它暴露了docker标准的编程接口，意味着你之前一直在使用的任何与docker沟通的工具（docker命令行接口，docker compose，dokku，krane等等），都可以无缝的在docker swarm上使用。
+这个其实是个双刃剑，毁誉参半。一直可以使用自己得心应手熟悉的工具，这再好不过了，然而，这样意味着我们又被docker紧紧的“耦合”了（而非业界一直追求的松耦合”）。如果你需要的都能满足，那皆大欢喜。可是如果不是呢，要是你有特殊需求这些API满足不了怎么办？这是就不得不去耍一些“小聪明”。
+我们来仔细剖析下这两个工具，主要会从如何在集群中运行容器，这两个工具分别如何安装以及他们提供的功能。
+安装设置 安装设置swarm非常简单，简单明了并且很灵活。我们需要做的就是安装一个服务发现工具，然后在所有的节点上安装swarm容器。因为它自己就是以一个docker容器来部署的，因此它在不同的操作系统上运行方式都是没有差别的。我们运行swarm容器，开放一个端口，然后告知服务发现模块的地址。这不能再简单了。我们甚至可以在没有任何服务发现模块的情况下开始使用，来看看我们是否喜欢它，当开始真正认真的要使用时再去添加etcd，consul或者其他支持的工具。
+相比较而言，kubernetes的安装就有点复杂晦涩了。不同的操作系统上安装都不同。每个操作系统都有自己的独立安装指令和运维团队。比如说，如果你选择使用vagrant来试用，然后在Fedora这里遇到问题卡住了，但这不是意味着其他的（比如Ubuntu或者coreos）也不能用。你可以，不过要开始在kubernetes官方以外到处搜索. 你所需要的很可能在某个社区论坛里提供的解决方案，但是你需要时间去查询，运气好的话可以在第一次尝试就能用。一个严重的问题是安装kubernetes依赖于bash脚本。如果我们是处于配置管理不是必须的情况下是，这个本身可能不是大问题。我们可能不希望运行一个脚本，而是希望kubernetes成为puppet，chef或者ansible的一部分。同样，这个也是可以解决的。你可以找到ansible 的安装手册来动行kubernetes或者你自己去写。跟swarm比这些都不是什么大问题,只是一点点的小痛苦而已。使用刀砍请不要期待任何的安装文档，除非都可使用docker命令行的时候运行的参数而已。我们打算去运行容器，swarm可以实现这个，但kubernetes 没有。有些人可能并不在意具体是使用哪个服务发现的工具。我喜欢swarm背后提倡的那种极简风格，以及他背后的逻辑，内置电池，拆留由已。任何东西都是拆箱可用但是我们还提供了选项让你去替换其中的任一个模块。
+与swarm不同的是，kubernetes 是一个可配置的工具。你需要跟kubernetes提供的各个选项来共生存。例如，如果你打算使用kubernets,你必须要使用etcd.我不是说etcd不好(实际上正好相反)，但是如果你习惯于，比如你在非常复杂的业务场景下使用consul，如果要使用服务发现，必须特别针对kubernets使用一个，而剩下的其他部分使用其他一个产品。另外一个对使用Kubernets觉得不方便的地方就是你需要在事先了解各种事情。比如，你需要告诉他要用到的所有节点的地址，每个节点的职责是什么,这个集群有多少个“小黄人” (minion,是kubernet对于一个集群中机器之前叫的名字)，等等。 而使用Swarm，我们只需要启动一个节点，告诉他加入网络，就可以了。我们不需要提前告诉关于集群其他的信息，因为这些信息会通过各个节点间的 “八卦”（gossip protocol）来传输。
+配置本身也许并不是这些工具之间最大的差别。不管你使用哪个工具，或早或晚，所有都会配置好并运行起来，到时候你们就会忘掉在配置时的痛苦经历。你可能会说我们之所以选择某个工具就是因为它安装配置简单吧。很公平的。我们继续往下讨论如何定义容器及之上的这些工具。
+运行容器 如果使用Swarm来运行Docker容器，你如何去定义所有的参数呢？ 实际上你根本不需要！你所做的跟使用Swarm之前没有什么不同。比如，你习惯于使用Docker CLI（命令行接口），你可以继续使用几乎相同的命令。如果你习惯于使用Docker Componse来运行容器，你可以继续在Swarm集群中使用。不管你之前习惯于怎么使用容器，你仍旧可以使用，只是在更大级别的集群中使用。
+Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你不能使用你之前创建的docker-compose.yml配置，你必须要去新建与Kubernetes对应的配置。你也不能使用之前学习的Docker CLI（命令行接口）。你必须要去学习 Kubernetes CLI（命令行接口），并且很有可能，确保你整个公司机构也要去学习。
+不管你选择哪个工具来部署集群，你都要先熟悉Docker。你可能已经习惯于使用 使用Docker Compose来定义你运行容器的参数。如果你曾经使用它超过几个小时，你可能就会直接使用它而扔掉Docker CLI。你可以使用它运行容器，跟踪日志变化，等等。另外一方面，你可能是Docker的 “死忠”，看不上 Docker Compose，而是任何事都使用Docker CLI，或者你甚至自己写bash脚本来运行容器。不管哪种方式，这些都可以在Docker Swarm上使用。
+如果你选择Kubernetes，请先准备好同一件事需要有多个定义配置。你需要使用 Docker Compose来运行Kubernetes范围外的容器。开发人员需要继续在他们的笔记本电脑上运行容器，你的测试环境可能也不是一个大集群，等等。换言之，如果你选择了Docker，那么 Docker Compose 和 Docker CLI将是不可避免的。你肯定会在某些地方或者以某种方式用到它们。一旦你开始使用 Kubernetes，你就会发现你所有的 Docker Compose的配置都要翻译成 Kubernetes的方式，从这个时候，你也要开始维护这两个版本了。使用 Kubernetes，这些重复的事情意味着维护成本的提高。重复只是一个问题，另外的是你在集群中运行的命令将于集群外使用的命令不一样了。你之前学习并喜爱的Docker的所有命令在 Kubernetes集群内将是完全行不通了。
+Kubernetes的开发团队强制你去按照他们的办事方式行事，其实不是为了让你过的那么苦。如此巨大差别的主要原因是 Swarm 和 Kubernetes针对同一问题采取了不同的处理手段。 Swarm团队决定使用跟Docker相同的API接口，因此我们看到这些之前有如此好的兼容性。结果就是，你可以使用几乎所有之前的东西，只是在更大级别的集群中使用而已。没有新的东西要去做，不需要去重复配置参数，也不需要去新学习什么。不管你是直接使用Docker CLIgipj使用Swarm，这些API接口是基本上一致的。不好的方面是如果你想Swarm去做某件事，但是这个在Docker API中没有，这样你就悲催了。简单来说，如果你在找一个工具，可以部署使用Docker API的容器到集群中，那么 Swarm就是解决方案。另一方面，如果你想要一个工具，可以解决Docker API办不到的事情，你就应该去试试 Kubernetes了。这就是功能性（ Kubernetes）VS."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2016-09-04-kubernets-vs-swarm/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2016-09-04-kubernets-vs-swarm/&amp;text=Kubernetes%20%e4%b8%8e%20Docker%20Swarm%e7%9a%84%e5%af%b9%e6%af%94" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2016-09-04-kubernets-vs-swarm/&amp;title=Kubernetes%20%e4%b8%8e%20Docker%20Swarm%e7%9a%84%e5%af%b9%e6%af%94" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Kubernetes 与 Docker Swarm的对比</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Kubernetes 和Docker Swarm 可能是使用最广泛的工具，用于在集群环境中部署容器。但是这两个工具还是有很大的差别。</p>
+<h2 id="kubernetes">Kubernetes</h2>
+<p><img src="https://technologyconversations.files.wordpress.com/2015/10/kubernetes.png?w=600&amp;h=532" alt="">
+Google根据其在Linux上容器管理经验，改造到docker管理上，就是kubernetes。他的在许多方面表现良好。最重要的是构造于Google多年的宝贵经验只上。</p>
+<p>如果你从docker1.0以上开始使用kubernetes，你得到的用户体验会非常良好。比如你会发现kubernetes解决一些docker自身的问题。例如你可以mount（绑定）持久化存储卷（volume），以便于在迁移docker时不至于丢失数据。</p>
+<p>kubernetes使用<code>flannel</code>（一个使用go写的虚拟网络的开源系统）构造容器间的网络通信。它还内置有负载均衡。除此之外，它的“服务发现”使用了etcd（一个使用golang编写的开源虚拟网络系统）。然而，使用kubernetes是有代价的。首先，它用一个不同的命令行接口，不同的编程接口及不同的YAML文件定义等。换言之，你不能使用docker命令行接口也不能用docker compose来定义容器。为了使用kubernetes，所有所有的东西都需要从头开始。这就好像这个工具并不是为了docker写的一样（这个在某种程度上确实是）。kubernetes把集群带到了一个全新的高度，代价是学习曲线比较陡。</p>
+<h2 id="docker-swarm">Docker Swarm</h2>
+<p><img src="https://technologyconversations.files.wordpress.com/2015/11/docker-swarm.png?w=438&amp;h=600" alt="">
+docker-swarm 使用了一个不同的方式。它是docker原生的集群工具。</p>
+<p>最方便的部分是它暴露了docker标准的编程接口，意味着你之前一直在使用的任何与docker沟通的工具（docker命令行接口，docker compose，dokku，krane等等），都可以无缝的在docker swarm上使用。</p>
+<p>这个其实是个双刃剑，毁誉参半。一直可以使用自己得心应手熟悉的工具，这再好不过了，然而，这样意味着我们又被docker紧紧的“耦合”了（而非业界一直追求的松耦合”）。如果你需要的都能满足，那皆大欢喜。可是如果不是呢，要是你有特殊需求这些API满足不了怎么办？这是就不得不去耍一些“小聪明”。</p>
+<p>我们来仔细剖析下这两个工具，主要会从如何在集群中运行容器，这两个工具分别如何安装以及他们提供的功能。</p>
+<h2 id="安装设置">安装设置</h2>
+<p>安装设置swarm非常简单，简单明了并且很灵活。我们需要做的就是安装一个服务发现工具，然后在所有的节点上安装swarm容器。因为它自己就是以一个docker容器来部署的，因此它在不同的操作系统上运行方式都是没有差别的。我们运行swarm容器，开放一个端口，然后告知服务发现模块的地址。这不能再简单了。我们甚至可以在没有任何服务发现模块的情况下开始使用，来看看我们是否喜欢它，当开始真正认真的要使用时再去添加etcd，consul或者其他支持的工具。</p>
+<p>相比较而言，kubernetes的安装就有点复杂晦涩了。不同的操作系统上安装都不同。每个操作系统都有自己的独立安装指令和运维团队。比如说，如果你选择使用vagrant来试用，然后在Fedora这里遇到问题卡住了，但这不是意味着其他的（比如Ubuntu或者coreos）也不能用。你可以，不过要开始在kubernetes官方以外到处搜索. 你所需要的很可能在某个社区论坛里提供的解决方案，但是你需要时间去查询，运气好的话可以在第一次尝试就能用。一个严重的问题是安装kubernetes依赖于bash脚本。如果我们是处于配置管理不是必须的情况下是，这个本身可能不是大问题。我们可能不希望运行一个脚本，而是希望kubernetes成为puppet，chef或者ansible的一部分。同样，这个也是可以解决的。你可以找到ansible 的安装手册来动行kubernetes或者你自己去写。跟swarm比这些都不是什么大问题,只是一点点的小痛苦而已。使用刀砍请不要期待任何的安装文档，除非都可使用docker命令行的时候运行的参数而已。我们打算去运行容器，swarm可以实现这个，但kubernetes 没有。有些人可能并不在意具体是使用哪个服务发现的工具。我喜欢swarm背后提倡的那种极简风格，以及他背后的逻辑，内置电池，拆留由已。任何东西都是拆箱可用但是我们还提供了选项让你去替换其中的任一个模块。</p>
+<p>与swarm不同的是，kubernetes 是一个可配置的工具。你需要跟kubernetes提供的各个选项来共生存。例如，如果你打算使用kubernets,你必须要使用etcd.我不是说etcd不好(实际上正好相反)，但是如果你习惯于，比如你在非常复杂的业务场景下使用consul，如果要使用服务发现，必须特别针对kubernets使用一个，而剩下的其他部分使用其他一个产品。另外一个对使用Kubernets觉得不方便的地方就是你需要在事先了解各种事情。比如，你需要告诉他要用到的所有节点的地址，每个节点的职责是什么,这个集群有多少个“小黄人” (minion,是kubernet对于一个集群中机器之前叫的名字)，等等。
+而使用Swarm，我们只需要启动一个节点，告诉他加入网络，就可以了。我们不需要提前告诉关于集群其他的信息，因为这些信息会通过各个节点间的 “八卦”（gossip protocol）来传输。</p>
+<p>配置本身也许并不是这些工具之间最大的差别。不管你使用哪个工具，或早或晚，所有都会配置好并运行起来，到时候你们就会忘掉在配置时的痛苦经历。你可能会说我们之所以选择某个工具就是因为它安装配置简单吧。很公平的。我们继续往下讨论如何定义容器及之上的这些工具。</p>
+<h2 id="运行容器">运行容器</h2>
+<p>如果使用Swarm来运行Docker容器，你如何去定义所有的参数呢？
+实际上你根本不需要！你所做的跟使用Swarm之前没有什么不同。比如，你习惯于使用Docker CLI（命令行接口），你可以继续使用几乎相同的命令。如果你习惯于使用Docker Componse来运行容器，你可以继续在Swarm集群中使用。不管你之前习惯于怎么使用容器，你仍旧可以使用，只是在更大级别的集群中使用。</p>
+<p>Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你不能使用你之前创建的docker-compose.yml配置，你必须要去新建与Kubernetes对应的配置。你也不能使用之前学习的Docker CLI（命令行接口）。你必须要去学习 Kubernetes CLI（命令行接口），并且很有可能，确保你整个公司机构也要去学习。</p>
+<p>不管你选择哪个工具来部署集群，你都要先熟悉Docker。你可能已经习惯于使用 使用Docker Compose来定义你运行容器的参数。如果你曾经使用它超过几个小时，你可能就会直接使用它而扔掉Docker CLI。你可以使用它运行容器，跟踪日志变化，等等。另外一方面，你可能是Docker的  “死忠”，看不上 Docker Compose，而是任何事都使用Docker CLI，或者你甚至自己写bash脚本来运行容器。不管哪种方式，这些都可以在Docker Swarm上使用。</p>
+<p>如果你选择Kubernetes，请先准备好同一件事需要有多个定义配置。你需要使用 Docker Compose来运行Kubernetes范围外的容器。开发人员需要继续在他们的笔记本电脑上运行容器，你的测试环境可能也不是一个大集群，等等。换言之，如果你选择了Docker，那么 Docker Compose 和 Docker CLI将是不可避免的。你肯定会在某些地方或者以某种方式用到它们。一旦你开始使用 Kubernetes，你就会发现你所有的 Docker Compose的配置都要翻译成 Kubernetes的方式，从这个时候，你也要开始<code>维护这两个版本了</code>。使用 Kubernetes，这些重复的事情意味着维护成本的提高。重复只是一个问题，另外的是你在集群中运行的命令将于集群外使用的命令不一样了。你之前学习并喜爱的Docker的所有命令在 Kubernetes集群内将是完全行不通了。</p>
+<p>Kubernetes的开发团队强制你去按照他们的办事方式行事，其实不是为了让你过的那么苦。如此巨大差别的主要原因是 Swarm 和 Kubernetes针对同一问题采取了不同的处理手段。 Swarm团队决定使用跟Docker相同的API接口，因此我们看到这些之前有如此好的兼容性。结果就是，你可以使用几乎所有之前的东西，只是在更大级别的集群中使用而已。没有新的东西要去做，不需要去重复配置参数，也不需要去新学习什么。不管你是直接使用Docker CLIgipj使用Swarm，这些API接口是基本上一致的。不好的方面是如果你想Swarm去做某件事，但是这个在Docker API中没有，这样你就悲催了。简单来说，如果你在找一个工具，<code>可以部署使用Docker API的容器到集群中，那么 Swarm就是解决方案</code>。另一方面，如果你想要一个工具，<code>可以解决Docker API办不到的事情，你就应该去试试 Kubernetes</code>了。这就是功能性（ Kubernetes）VS. 简易性（Swarm）。</p>
+<p>这里唯一还没有回答的问题就是这些限制是什么。主要的限制中有两个，网络配置和持续化存储卷。走到Swarm1.0，我们不能连接运行于不同服务器上的容器。事实上，现在我们仍然不能连接他们，但是我们可能通过跨主机网络来协助连接运行于不同服务器上的容器。这是个非常强大的功能。而 Kubernetes使用 flannel（一个使用go写的虚拟网络的开源系统）来实现网络路由。目前自从Docker1.0开始， 这个功能也成为Docker CLI的一部分了。</p>
+<p>另外一个问题是持续化存储卷。Docker在1.9版本中引入此功能。直到最近，如果你持久化一个数据卷，这个容器就绑定到这个持续化卷所在的服务器上了。它不能再次移动，除非你使用一些恶心的小花招，比如在不同的服务器间复制这些数据卷文件。这些本身是一些比较慢的操作，这与Swarm等工具的初衷也是相违背的。即便你有时间去复制，你也不知道从哪里去复制，因为集群工具会认为你整个数据中心是一个实体。你的容器会部署到它认为最合适的地方（比如，运行最少容器，CPU或者内容使用率最低，等等）。现在已经有Docker内置的持久化卷了。网络和持久化卷缺失曾经是许多人放弃Swarm而去选择 Kubernetes。自从Docker1.9，这此已经成为过去式。</p>
+<h2 id="选择">选择</h2>
+<p>当需要在Docker Swarm 和 Kubernetes做出选择时，可以考虑如下几点。你是否想依赖于Docker自己来解决集群的问题。如果是，选择Swarm。如果某些功能在Docker中不支持，那它也非常可能在Swarm中找不到，因为Swarm是依赖于Docker API的。另外一方面，如果你想要一个工具可以解决Docker的限制，Kubernetes将是不错的选择。Kubernetes不是基于Docker，而是基于Google多年对于管理容器的经验。它是按照自己的方式来行事。</p>
+<p>真正的问题是Kubernetes这种自我的方式（与Docker非常的不同）相比于它提供的优点是否值得。或者，我们是不是应该押宝在Docker本身上，期待Docker将来会解决这些难题。在回答这些问题之前，请先看一下Docker1.9之后的版本。它已经有个网络配置及持久化卷。也有了所谓的“除非死掉 才去重启”的策略，这次方便去管理那些讨厌的错误。现在Kubernetes 和 Swarm之间的差异又少了3个。实际上，现如今，Kubernetes 相对于 Swarm的优势很少了。另一方面，Swarm使用了Docker API意味着你可以共用命令的配置。个人认为，我倾向于押宝于Docker引擎变得越来越好，这样Docker Swarm也会受益。这两者之间的差异已经非常小。两个都是可用于生产环境，但是Swarm更易于去配置，易于使用，并且可以重用在上集群之前的配置，不需要在集群和非集群环境下重复工作。</p>
+<p>我个人的建议是使用Docker Swarm。而 Kubernetes太“任性”了，不易于配置，与Docker CLI，API差别太大，并且在Docker1.0之后，相对于Swarm来说没有太多的优势。<code>他们之间其他的差距影响真的是不太大</code>。但是Docker Swarm更易于配置。</p>
+<h2 id="其他">其他</h2>
+<ul>
+<li>使用kubernetes的好处是在其前后基于Google对container管理几十年的经验，比如Borg。</li>
+<li>使用某个特定容器其实并不是特别重要的事，最主要的还是集群技术。kubernetes类似于数据库操作领域的hibernate/ibates，即解耦合。在需要的时候我们可以使用Rocket替换Docker，对使用者透明。kubernetes这个功能在swarm中是找不到的。在生产环境中，如果需要，对于上层是透明的，没有任何影响。</li>
+<li>不得不承认，Swarm更多的是一个部署工具，而Kubernetes是用于HA（高可用）架构的大规模的编配平台。</li>
+<li>Kubernetes是介于中间的产品，没有Swarm那么简单友好，也没有Mesos那么功能强大。因此很有可能是在Mesos上层使用Docker，而非与Kubernetes集成。</li>
+<li>人们使用Mesos是因为它本身不是为了Docker或者容器设计的，它只是个集群抽象层。人们用就是因为它是唯一一个既支持部署应用程序又可以同时管理hadoop。（将来有可能不一定）</li>
+<li>如果我是个开发人员，我会选择 Compose+Swarm,它简单易用。但是如果我是CTO，我会选择k8s，因为这样我就不用关于Docker API的兼容性问题了。</li>
+</ul>
+<p>原文地址 ： <a href="https://technologyconversations.com/2015/11/04/docker-clustering-tools-compared-kubernetes-vs-docker-swarm/">https://technologyconversations.com/2015/11/04/docker-clustering-tools-compared-kubernetes-vs-docker-swarm/</a></p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/mac" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Mac</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/shortcut" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">shortcut</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/devops" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">DevOps</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2016-09-01-mac-tips/">Mac tips</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2018-05-24-git-scripts-bible-errors/">GIT useful scripts or error solutions</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2018-01-10-cors/">CORS :Cross-Origin Resource Sharing</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-12-02-container/">Container</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-11-29-openshift/">Openshift tips</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

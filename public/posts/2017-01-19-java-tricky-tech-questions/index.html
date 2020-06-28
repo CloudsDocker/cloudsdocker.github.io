@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Java-Tricky-Tech-Questions.md | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Java-Tricky-Tech-Questions.md" />
+<meta property="og:description" content="What is the difference between Serializable and Externalizable in Java?  In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applications) was a bit of a performance problem. To handle this situation, the java.io.Externalizable interface was provided, which is like java.io.Serializable but with custom-written mechanisms to perform the marshalling and unmarshalling functions (you need to implement readExternal and writeExternal methods on your class)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-01-19-java-tricky-tech-questions/" />
+
+<meta itemprop="name" content="Java-Tricky-Tech-Questions.md">
+<meta itemprop="description" content="What is the difference between Serializable and Externalizable in Java?  In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applications) was a bit of a performance problem. To handle this situation, the java.io.Externalizable interface was provided, which is like java.io.Serializable but with custom-written mechanisms to perform the marshalling and unmarshalling functions (you need to implement readExternal and writeExternal methods on your class).">
+
+<meta itemprop="wordCount" content="3865">
+
+
+
+<meta itemprop="keywords" content="java,Questions," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java-Tricky-Tech-Questions.md"/>
+<meta name="twitter:description" content="What is the difference between Serializable and Externalizable in Java?  In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applications) was a bit of a performance problem. To handle this situation, the java.io.Externalizable interface was provided, which is like java.io.Serializable but with custom-written mechanisms to perform the marshalling and unmarshalling functions (you need to implement readExternal and writeExternal methods on your class)."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-01-19-java-tricky-tech-questions/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-01-19-java-tricky-tech-questions/&amp;text=Java-Tricky-Tech-Questions.md" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-01-19-java-tricky-tech-questions/&amp;title=Java-Tricky-Tech-Questions.md" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Java-Tricky-Tech-Questions.md</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="what-is-the-difference-between-serializable-and-externalizable-in-java">What is the difference between Serializable and Externalizable in Java?</h1>
+<ul>
+<li>In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applications) was a bit of a performance problem. To handle this situation, the java.io.Externalizable interface was provided, which is like java.io.Serializable but with custom-written mechanisms to perform the marshalling and unmarshalling functions (you need to implement readExternal and writeExternal methods on your class). This gives you the means to get around the reflection performance bottleneck.</li>
+<li>In recent versions of Java (1.3 onwards, certainly) the performance of reflection is vastly better than it used to be, and so this is much less of a problem. I suspect you&rsquo;d be hard-pressed to get a meaningful benefit from Externalizable with a modern JVM.</li>
+<li>Also, the built-in Java serialization mechanism isn&rsquo;t the only one, you can get third-party replacements, such as JBoss Serialization, which is considerably quicker, and is a drop-in replacement for the default.</li>
+<li>A big downside of Externalizable is that you have to maintain this logic yourself - if you add, remove or change a field in your class, you have to change your writeExternal/readExternal methods to account for it.</li>
+<li>In summary, Externalizable is a relic of the Java 1.1 days. There&rsquo;s really no need for it any more.</li>
+</ul>
+<h2 id="write-transcient-fields">write transcient fields</h2>
+<ul>
+<li>Storing and reconstituting the transient data can also be achieved by implementing the Externalizable interface and implementing the writeExternal( ) and the readExternal( ) methods of that interface.</li>
+</ul>
+<h1 id="java-class">Java Class</h1>
+<ul>
+<li>Class objects for known types can also be written as “class literals”:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// Express a class literal as a type name followed by &#34;.class&#34;
+</span><span style="color:#75715e"></span>c <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span> <span style="color:#75715e">// Same as Integer.TYPE
+</span><span style="color:#75715e"></span>c <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span> <span style="color:#75715e">// Same as &#34;a string&#34;.getClass()
+</span><span style="color:#75715e"></span>c <span style="color:#f92672">=</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[].</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span> <span style="color:#75715e">// Type of byte arrays
+</span></code></pre></div><ul>
+<li>For primitive types and void, we also have class objects that are represented as literals:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// Obtain a Class object for primitive types with various 
+</span><span style="color:#75715e">// predefined constants
+</span><span style="color:#75715e"></span>c <span style="color:#f92672">=</span> Void<span style="color:#f92672">.</span><span style="color:#a6e22e">TYPE</span><span style="color:#f92672">;</span> <span style="color:#75715e">// The special &#34;no-return-value&#34; type
+</span><span style="color:#75715e"></span>c <span style="color:#f92672">=</span> Byte<span style="color:#f92672">.</span><span style="color:#a6e22e">TYPE</span><span style="color:#f92672">;</span> <span style="color:#75715e">// Class object that represents a byte
+</span><span style="color:#75715e"></span>c <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">TYPE</span><span style="color:#f92672">;</span> <span style="color:#75715e">// Class object that represents an int
+</span><span style="color:#75715e"></span>c <span style="color:#f92672">=</span> Double<span style="color:#f92672">.</span><span style="color:#a6e22e">TYPE</span><span style="color:#f92672">;</span> <span style="color:#75715e">// etc; see also Short, Character, Long, Float
+</span></code></pre></div><h1 id="convert-arrays-to-arraylist-two-different-approaches">Convert arrays to ArrayList, two different approaches</h1>
+<p>// View array as an ungrowable list
+List<!-- raw HTML omitted --> l = Arrays.asList(a);       <br>
+// Make a growable copy of the view
+List<!-- raw HTML omitted --> m = new ArrayList<!-- raw HTML omitted -->(l);</p>
+<h1 id="whats-seed-in-java">What&rsquo;s seed in Java</h1>
+<p>Since the next number in a pseudorandom generator is determined by the pre- vious number(s), such a generator always needs <strong>a place to start, which is called its seed</strong>. The sequence of numbers generated for <strong>a given seed will always be the same</strong>. The seed for an instance of the java.util.Random class can be set in its constructor or with its setSeed() method.</p>
+<h1 id="cipher">Cipher</h1>
+<ul>
+<li>Given a variable c that is known to be an uppercase letter, the Java computation, j = c − &lsquo;A&rsquo; produces the desired index j. <strong>As a sanity check</strong>, if character c is &lsquo;A&rsquo;, then j = 0. When c is &lsquo;B&rsquo;, the difference is 1.</li>
+</ul>
+<h1 id="uncaught-exception-handler">Uncaught exception handler</h1>
+<ul>
+<li>The Thread API also provides <strong>the UncaughtExceptionHandler facility, which lets you detect when a thread dies due to an uncaught exception</strong>. The two approaches are complementary: taken together, they provide defense-in- depth against thread leakage.</li>
+<li>When <strong>a thread exits due to an uncaught exception</strong>, the <strong>JVM reports this event to an application-provided UncaughtExceptionHandler</strong> (see Listing 7.24); if no handler exists, the default behavior is to print the stack trace to System.err</li>
+<li>In long-running applications, always use uncaught exception handlers for all threads that at least log the exception.</li>
+<li>To set an UncaughtExceptionHandler for pool threads, provide a ThreadFac- tory to the ThreadPoolExecutor constructor.</li>
+<li>Somewhat confusingly, exceptions thrown from tasks make it to the uncaught exception handler <strong>only for tasks submitted with execute</strong> ; for tasks submitted with submit, any thrown exception, checked or not, is considered to be part of the task’s return status. If a task submitted with submit terminates with an exception, it is rethrown by Future.get, wrapped in an ExecutionException.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UEHLogger</span> <span style="color:#66d9ef">implements</span> Thread<span style="color:#f92672">.</span><span style="color:#a6e22e">UncaughtExceptionHandler</span><span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">uncaughtException</span><span style="color:#f92672">(</span>Thread t<span style="color:#f92672">,</span> Throwable e<span style="color:#f92672">){</span>
+    Logger logger<span style="color:#f92672">=</span>Logger<span style="color:#f92672">.</span><span style="color:#a6e22e">getAnonymousLogger</span><span style="color:#f92672">();</span>
+    logger<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>Level<span style="color:#f92672">.</span><span style="color:#a6e22e">SEVERE</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Thread terminated with exception:&#34;</span><span style="color:#f92672">+</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">(),</span>e<span style="color:#f92672">);</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="what-is-the-difference-between-iterator-and-enumeration">What is the difference between Iterator and Enumeration</h2>
+<ul>
+<li>Iterator duplicate functionality of Enumeration with one addition of <strong>remove() method</strong></li>
+<li>Another difference is that Iterator is more safe than Enumeration and doesn&rsquo;t allow another thread to modify collection object during iteration except remove() method and <strong>throws ConcurrentModificaitonException</strong>.</li>
+</ul>
+<h2 id="how-does-hashset-is-implemented-in-java-how-does-it-use-hashing">How does HashSet is implemented in Java, How does it use Hashing</h2>
+<ul>
+<li>HashSet is built on top of HashMap. If you look at source code of java.util.HashSet class, you will find that that it uses a HashMap with same values for all keys, as shown below:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">transient</span> HashMap map<span style="color:#f92672">;</span>
+<span style="color:#75715e">// Dummy value to associate with an Object in the backing Map
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Object PRESENT <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">();</span>
+<span style="color:#75715e">// When you call add() method of HashSet, it put entry in HashMap :
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>E e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">return</span> map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>e<span style="color:#f92672">,</span> PRESENT<span style="color:#f92672">)==</span><span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="what-do-you-need-to-do-to-use-a-custom-object-as-a-key-in-collection-classes-like-map-or-set-answer">What do you need to do to use a custom object as a key in Collection classes like Map or Set? (answer)</h2>
+<ul>
+<li>If you are using any custom object in Map as key, you need to <strong>override equals() and hashCode() method</strong>, and make sure they <strong>follow their contract</strong>.</li>
+<li>On the other hand if you are storing a custom object <strong>in Sorted Collection</strong> e.g. SortedSet or SortedMap, you also need to make sure that your <strong>equals() method is consistent to compareTo() method</strong>, otherwise that collection will not follow there contacts e.g. Set may allow duplicates.</li>
+</ul>
+<h1 id="java-generics---e-and-t-what-is-the-difference">Java Generics ? , E and T what is the difference?</h1>
+<p>Well there&rsquo;s no difference between the first two - they&rsquo;re just using different names for the type parameter (E or T).</p>
+<p>The third isn&rsquo;t a valid declaration - ? is used as a wildcard which is used when providing a type argument, e.g. List&lt;?&gt; foo = &hellip; means that foo refers to a list of some type, but we don&rsquo;t know what.</p>
+<h1 id="question-what-does-the-following-java-program-print">Question: What does the following Java program print?</h1>
+<p>public class Test {
+public static void main(String[] args) {
+System.out.println(Math.min(Double.MIN_VALUE, 0.0d));
+}
+}</p>
+<h2 id="anwser-00d">Anwser 0.0d</h2>
+<p>The Double.MIN_VALUE is 2^(-1074), a double constant whose magnitude is the least among all double values.</p>
+<h1 id="what-will-happen-if-you-put-return-statement-or-systemexit--on-try-or-catch-block-will-finally-block-execute">What will happen if you put return statement or System.exit () on try or catch block? Will finally block execute?</h1>
+<p>Answer of this tricky question in Java is that <strong>finally block will execute even if you put a return statement</strong> in the try block or catch block but finally block <strong>won&rsquo;t run if you call System.exit()</strong> from try or catch block.</p>
+<h1 id="question-can-you-override-a-private-or-static-method-in-java">Question: Can you override a private or static method in Java?</h1>
+<p>Another popular Java tricky question, As I said method overriding is a good topic to ask trick questions in Java. Anyway, you <strong>can not override a private or static method</strong> in Java, if you <strong>create a similar method with same return type and same method arguments in child class</strong> then it will <strong>hide the superclass method</strong>, this is known as <strong>method hiding</strong>.</p>
+<p>Similarly, you cannot override a private method in sub class because it&rsquo;s not accessible there, what you do is create another private method with the same name in the child class. See Can you override a private method in Java or more details</p>
+<h1 id="question-what-do-the-expression-10--00-will-return-will-it-throw-exception-any-compile-time-error">Question: What do the expression 1.0 / 0.0 will return? will it throw Exception? any compile time error?</h1>
+<p>Answer: This is another tricky question from Double class. Though Java developer knows about the double primitive type and Double class, while doing floating point arithmetic they don&rsquo;t pay enough attention to Double.INFINITY , NaN, and -0.0
+and other rules that govern the arithmetic calculations involving them. The simple answer to this question is that it will not throw ArithmeticExcpetion and <strong>return Double.INFINITY</strong>.</p>
+<p>Also, note that the comparison <strong>x == Double.NaN always evaluates to false</strong>, even if x itself is a NaN. To test if x is a NaN, one should use the method call Double.isNaN(x) to check if given number is NaN or not. If you know SQL, this is very close to NULL there.</p>
+<h1 id="overloading-vs-overriding">Overloading vs Overriding</h1>
+<ul>
+<li>Main difference comes from the fact that method <strong>overloading is resolved during compile time</strong>, while method <strong>overriding is resolved at runtime</strong></li>
+<li>Also rules of overriding or overloading a method are different in Java.
+<ul>
+<li>a private, static and final method cannot be overriding in Java but you can still overload them</li>
+<li>overriding both name and signature of the method must remain same, but in for overloading method, the signature must be different</li>
+<li>call to <strong>overloaded</strong> methods are <strong>resolved using static binding</strong> while the call to <strong>overridden method is resolved using dynamic binding</strong> in Java.</li>
+</ul>
+</li>
+<li>Java programmer to declare method with same name but different behavior. Method overloading and method overriding is based on Polymorphism in Java.</li>
+<li>In case of method overloading, method with same name co-exists in <strong>same class</strong> but they must have <strong>different method signature</strong>, while in case of method <strong>overriding</strong>, method with <strong>same name</strong> is declared in <strong>derived class or sub class</strong></li>
+<li>If you have <strong>two methods with same name</strong> in one Java class <strong>with different method signature</strong> than its called <strong>overloaded</strong> method in Java. You can also overload constructor in Java</li>
+<li>Since <strong>return type is not part of method signature</strong> simply changing return type will result in duplicate method and you will get compile time error in Java.</li>
+<li>you can also <strong>overload private and final method</strong> in Java but you <strong>can not override</strong> them</li>
+<li>When you <strong>override a method</strong> in Java its signature remains exactly same <strong>including return type</strong>. Rules of override:
+<ul>
+<li>Method signature must be same including return type, number of method parameters, type of parameters <strong>and order of parameters</strong> . Be advised: as of Java 5, you&rsquo;re allowed to change the return type in the overriding method as long as the new return type is a subtype of the declared return type of the overridden (super class) method</li>
+<li>Overriding method <strong>can not throw higher Exception</strong> than original or overridden method. means if original method throws IOException than overriding method can not throw super class of IOException e.g. Exception but it can throw any sub class of IOException or simply does not throw any Exception. This rule only applies to checked Exception in Java, overridden method is free to throw any unchecked Exception.</li>
+<li>Overriding method <strong>can not reduce accessibility of overridden method</strong> , means if original or overridden method is public than overriding method <strong>can not make it protected</strong>.</li>
+</ul>
+</li>
+<li>Another important point is that you <strong>can not override static method</strong> in Java because <strong>they are associated with Class</strong> <strong>rather than object</strong> and resolved and <strong>bonded during compile time</strong> and that’s the reason you cannot override main method in Java</li>
+<li>From Java 5 onwards you can use annotation in Java to declare overridden method just like we did with @override. ** @override annotation allows compiler** , IDE like NetBeans and Eclipse **to cross verify or check**  if this method is really overrides super class method or not.</li>
+</ul>
+<h1 id="static-vs-dynamic-binding">Static vs. Dynamic binding</h1>
+<ul>
+<li><strong>private, final and static methods and variables uses static binding</strong> and bonded by compiler while <strong>virtual methods</strong> are bonded during <strong>runtime</strong> based upon runtime object.</li>
+<li>Here is sample of static binding</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StaticBindingTest</span> <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span>  <span style="color:#f92672">{</span>
+       Collection c <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">();</span>
+       StaticBindingTest et <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StaticBindingTest<span style="color:#f92672">();</span>
+       et<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+          <span style="color:#f92672">}</span>
+   
+    <span style="color:#75715e">//overloaded method takes Collection argument
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> Collection <span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>Collection c<span style="color:#f92672">){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Inside Collection sort method&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> c<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+   <span style="color:#75715e">//another overloaded method which takes HashSet argument which is sub class
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> Collection <span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>HashSet hs<span style="color:#f92672">){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Inside HashSet sort method&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> hs<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+      <span style="color:#f92672">}</span>
+Output: Inside Collection sort method
+</code></pre></div><p><strong>because it was bonded on compile time based on type of variable (Static binding)  which was collection.</strong></p>
+<ul>
+<li>Here is sample of dynamic binding</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DynamicBindingTest</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+        Vehicle vehicle <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Car<span style="color:#f92672">();</span> <span style="color:#75715e">//here Type is vehicle but object will be Car
+</span><span style="color:#75715e"></span>        vehicle<span style="color:#f92672">.</span><span style="color:#a6e22e">start</span><span style="color:#f92672">();</span>       <span style="color:#75715e">//Car&#39;s start called because start() is overridden method
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vehicle</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">start</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Inside start method of Vehicle&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Car</span> <span style="color:#66d9ef">extends</span> Vehicle <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">start</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Inside start method of Car&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+Output: Inside start method of Car
+</code></pre></div><p>In summary, bottom line is static binding is a compile time operation while dynamic binding is a runtime. one uses Type and other uses Object to bind. static, private and final methods and variables are resolved using static binding which makes there execution fast because no time is wasted to find correct method during runtime.</p>
+<h1 id="static-in-java">Static in Java</h1>
+<ul>
+<li>static keyword can not be applied on top level class. Making a top level class static in Java will result in compile time error.</li>
+<li>Beware that if your static initialize block throws Exception than you may <strong>get java.lang.NoClassDefFoundError</strong> when you try to access the class which failed to load.</li>
+<li><strong>Static method can not be overridden</strong> in Java as they belong to class and not to object</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TradingSystem</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        TradingSystem system <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> DirectMarketAccess<span style="color:#f92672">();</span>
+        DirectMarketAccess dma <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> DirectMarketAccess<span style="color:#f92672">();</span>
+        
+        <span style="color:#75715e">// static method of Instrument class will be called,
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// even though object is of sub-class DirectMarketAccess
+</span><span style="color:#75715e"></span>        system<span style="color:#f92672">.</span><span style="color:#a6e22e">printCategory</span><span style="color:#f92672">();</span>
+        
+        <span style="color:#75715e">//static method of EquityInstrument class will be called
+</span><span style="color:#75715e"></span>        dma<span style="color:#f92672">.</span><span style="color:#a6e22e">printCategory</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printCategory</span><span style="color:#f92672">(){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;inside super class static method&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DirectMarketAccess</span> <span style="color:#66d9ef">extends</span> TradingSystem<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printCategory</span><span style="color:#f92672">(){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;inside sub class static method&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+Output:
+inside <span style="color:#66d9ef">super</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">static</span> method
+inside sub <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">static</span> method
+</code></pre></div><ul>
+<li>This shows that static method can not be overridden in Java and concept of method overloading doesn&rsquo;t apply to static methods. Instead declaring same static method on Child class <strong>is known as method hiding</strong> in Java</li>
+<li>Consider <strong>making a static variable final</strong> in Java to make it constant and avoid changing it from anywhere in the code</li>
+<li>when to use Singleton vs Static Class in Java for those purpose,answer is that if its <strong>completely stateless</strong> and it work on provided data then you can <strong>go for static class</strong> <strong>otherwise Singleton</strong> pattern is a better choice.</li>
+</ul>
+<h2 id="when-to-make-a-method-static-in-java">When to make a method static in Java</h2>
+<ul>
+<li>Method <strong>doesn&rsquo;t depends on object&rsquo;s state</strong>, in other words <strong>doesn&rsquo;t depend on any member variable</strong> and <strong>everything they need is passes as parameter</strong> to them</li>
+<li>Utility methods are good candidate of making static in Java because then they can directly be accessed using class name without even creating any instance. Classic example is java.lang.Math</li>
+<li>Static method in Java is very popular to implement Factory design pattern. Since Generics also provides type inference during method invocation, use of static factory method to create object is popular Java idiom.</li>
+</ul>
+<h1 id="phone">Phone</h1>
+<ul>
+<li>Key to success in telephonic is <strong>to the point</strong> and <strong>concise answer</strong>.</li>
+</ul>
+<h2 id="difference-between-string-stringbuffer-and-stringbuilder-in-java">Difference between String, StringBuffer and StringBuilder in Java</h2>
+<ul>
+<li>String is <strong>immutable</strong> while both StringBuffer and StringBuilder <strong>is mutable</strong>, which means any change e.g. converting String to upper case or trimming white space will <strong>produce another instance</strong> rather than changing the same instance. On later two, <strong>StringBuffer is synchronized</strong> while <strong>StringBuilder is not</strong>, in fact its a ditto replacement of StringBuffer added in Java 1.5.</li>
+</ul>
+<h2 id="difference-between-extends-thread-vs-implements-runnable-in-java">Difference between extends Thread vs implements Runnable in Java?</h2>
+<ul>
+<li>Difference comes from the fact that you <strong>can only extend one class</strong> in Java, which means if you extend Thread class you lose your opportunity to extend another class, on the other hand if you implement Runnable, you can still extend another class.</li>
+</ul>
+<h2 id="difference-between-runnable-and-callable-interface-in-java">Difference between Runnable and Callable interface in Java?</h2>
+<ul>
+<li>Runnable was the only way to implement a task in Java which can be executed in parallel before JDK 1.5 adds Callable. Just like Runnable, Callable also defines a single <strong>call() method</strong> but unlike run() it <strong>can return values and throw exceptions</strong>.</li>
+</ul>
+<h2 id="difference-between-arraylist-and-linkedlist-in-java">Difference between ArrayList and LinkedList in Java?</h2>
+<ul>
+<li>In short, ArrayList is backed by array in Java, while <strong>LinkedList is just collection of nodes</strong>, similar to linked list data structure. ArrayList also provides <strong>random search</strong> if you know the index, while <strong>LinkedList only allows sequential search</strong>. On other hand, <strong>adding and removing element from middle</strong> is <strong>efficient in LinkedList</strong> as compared to ArrayList because it only require to modify links and no other element is rearranged.</li>
+</ul>
+<h2 id="what-is-difference-between-wait-and-notify-in-java">What is difference between wait and notify in Java?</h2>
+<ul>
+<li>Both wait and notify methods are used for <strong>inter thread communication</strong>, where <strong>wait is used to pause</strong> the thread on a condition and <strong>notify is used to send notification</strong> to waiting threads. Both must be called from synchronized context e.g. <strong>synchronized method or block</strong>.</li>
+</ul>
+<h2 id="difference-between-hashmap-and-hashtable-in-java">Difference between HashMap and Hashtable in Java?</h2>
+<ul>
+<li>Though both HashMap and Hashtable are based upon hash table data structure, there are subtle difference between them. HashMap is non synchronized while Hashtable is synchronized and because of that HashMap is faster than Hashtable, as there is no cost of synchronization associated with it. One more minor difference is that HashMap allows a null key but Hashtable doesn&rsquo;t.</li>
+</ul>
+<h1 id="check-a-number-is-prime-or-not">Check a number is prime or not</h1>
+<ul>
+<li>We learned numbers are prime if the only divisors they have are 1 and itself. Trivially, we can check every integer from 1 to itself (exclusive) and test whether it divides evenly. Check the source code of ** PrimeTester.java**
+<ul>
+<li>naive approach:  We learned numbers are prime if the only divisors they have are 1 and itself. Trivially,  we can check every integer from 1 to itself (exclusive)  and test whether it divides evenly.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>2<span style="color:#f92672">;</span>2<span style="color:#f92672">*</span>i<span style="color:#f92672">&lt;=</span>n<span style="color:#f92672">;</span>i<span style="color:#f92672">++){</span>
+         <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>n<span style="color:#f92672">%</span>i<span style="color:#f92672">==</span>0<span style="color:#f92672">)</span>
+</code></pre></div><ul>
+<li>power of 2 approach:    further enhance, as if 2 divides some interger n, then (n/2) divides n as well so we&rsquo;ll times of 2. Please be advised in for loop, should use 2*i&lt;=n, rather than &ldquo;&lt;n&rdquo;,   otherwise, 4 will be return as ture mistakely</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>2<span style="color:#f92672">;</span>2<span style="color:#f92672">*</span>i<span style="color:#f92672">&lt;=</span>n<span style="color:#f92672">;</span>i<span style="color:#f92672">++){</span>
+         <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>n<span style="color:#f92672">%</span>i<span style="color:#f92672">==</span>0<span style="color:#f92672">)</span>
+</code></pre></div><ul>
+<li>isPrimeSquare approach:  	 we notice that you really only have to go up to the square root of n,   because if you list out all of the factors of a number,  the square root will always be in the middle Finally, we know 2 is the &ldquo;oddest&rdquo; prime - it happens to be the only even prime number. Because of this, we need only check 2 separately, then traverse  odd numbers up to the square root of n.  In the end, our code will resemble this:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// check if n is a multiple of 2
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>n<span style="color:#f92672">&gt;</span>2<span style="color:#f92672">&amp;&amp;</span>n<span style="color:#f92672">%</span>2<span style="color:#f92672">==</span>0<span style="color:#f92672">)</span>
+         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>		
+     <span style="color:#75715e">// if not, then just check the odds
+</span><span style="color:#75715e"></span>     <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>3<span style="color:#f92672">;</span>i<span style="color:#f92672">*</span>i<span style="color:#f92672">&lt;=</span>n<span style="color:#f92672">;</span>i<span style="color:#f92672">+=</span>2<span style="color:#f92672">){</span>
+         <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>n<span style="color:#f92672">%</span>i<span style="color:#f92672">==</span>0<span style="color:#f92672">)</span> 
+</code></pre></div></li>
+</ul>
+<h1 id="difference-between-abstract-class-and-interface">Difference between abstract class and interface?</h1>
+<ul>
+<li>From Java 8 onwards difference between abstract class and interface in Java has minimized, now even interface can have implementation in terms of default and static method. BTW, in Java you can still extend just one class but can extend multiple inheritance. Abstract class is used to provide default implementation with just something left to customize, while interface is used heavily in API to define contract of a class.</li>
+</ul>
+<h1 id="how-to-swap-two-numbers-without-temp-or-third-variable-in-java">How to Swap Two Numbers without Temp or Third variable in Java</h1>
+<h2 id="swapping-two-numbers-without-using-temp-variable-in-java">Swapping two numbers without using temp variable in Java</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;value of a and b before swapping, a: &#34;</span> <span style="color:#f92672">+</span> a <span style="color:#f92672">+</span><span style="color:#e6db74">&#34; b: &#34;</span> <span style="color:#f92672">+</span> b<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">//swapping value of two numbers without using temp variable
+</span><span style="color:#75715e"></span>a <span style="color:#f92672">=</span> a<span style="color:#f92672">+</span> b<span style="color:#f92672">;</span> <span style="color:#75715e">//now a is 30 and b is 20
+</span><span style="color:#75715e"></span>b <span style="color:#f92672">=</span> a <span style="color:#f92672">-</span>b<span style="color:#f92672">;</span> <span style="color:#75715e">//now a is 30 but b is 10 (original value of a)
+</span><span style="color:#75715e"></span>a <span style="color:#f92672">=</span> a <span style="color:#f92672">-</span>b<span style="color:#f92672">;</span> <span style="color:#75715e">//now a is 20 and b is 10, numbers are swapped
+</span><span style="color:#75715e"></span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;value of a and b after swapping, a: &#34;</span> <span style="color:#f92672">+</span> a <span style="color:#f92672">+</span><span style="color:#e6db74">&#34; b: &#34;</span> <span style="color:#f92672">+</span> b<span style="color:#f92672">);</span>
+Output:
+value of a and b before swapping<span style="color:#f92672">,</span> a<span style="color:#f92672">:</span> 10 b<span style="color:#f92672">:</span> 20
+value of a and b after swapping<span style="color:#f92672">,</span> a<span style="color:#f92672">:</span> 20 b<span style="color:#f92672">:</span> 10
+</code></pre></div><h2 id="swapping-two-numbers-without-using-temp-variable-in-java-with-bitwise-operator">Swapping two numbers without using temp variable in Java with bitwise operator</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span> <span style="color:#75715e">//0010 in binary
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 4<span style="color:#f92672">;</span> <span style="color:#75715e">//0100 in binary
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;value of a and b before swapping, a: &#34;</span> <span style="color:#f92672">+</span> a <span style="color:#f92672">+</span><span style="color:#e6db74">&#34; b: &#34;</span> <span style="color:#f92672">+</span> b<span style="color:#f92672">);</span>
+<span style="color:#75715e">// 6  is     0110
+</span><span style="color:#75715e">//swapping value of two numbers without using temp variable and XOR bitwise operator     
+</span><span style="color:#75715e"></span>a <span style="color:#f92672">=</span> a<span style="color:#f92672">^</span>b<span style="color:#f92672">;</span> <span style="color:#75715e">//now a is 6 (0110) and b is 4(0100)
+</span><span style="color:#75715e"></span>b <span style="color:#f92672">=</span> a<span style="color:#f92672">^</span>b<span style="color:#f92672">;</span> <span style="color:#75715e">//now a is 6 but b is 2 (0010) (original value of a)
+</span><span style="color:#75715e"></span>a <span style="color:#f92672">=</span> a<span style="color:#f92672">^</span>b<span style="color:#f92672">;</span> <span style="color:#75715e">//now a is 4 and b is 2, numbers are swapped
+</span><span style="color:#75715e"></span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;value of a and b after swapping using XOR bitwise operation, a: &#34;</span> <span style="color:#f92672">+</span> a <span style="color:#f92672">+</span><span style="color:#e6db74">&#34; b: &#34;</span> <span style="color:#f92672">+</span> b<span style="color:#f92672">);</span>
+value of a and b before swapping<span style="color:#f92672">,</span> a<span style="color:#f92672">:</span> 2 b<span style="color:#f92672">:</span> 4
+value of a and b after swapping using XOR bitwise operation<span style="color:#f92672">,</span> a<span style="color:#f92672">:</span> 4 b<span style="color:#f92672">:</span> 2
+</code></pre></div><h2 id="swapping-two-numbers-without-using-temp-variable-in-java-with-division-and-multiplication">Swapping two numbers without using temp variable in Java with division and multiplication</h2>
+<ul>
+<li>There is another, third way of swapping two numbers without using third variable, which involves multiplication and division operator.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 6<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 3<span style="color:#f92672">;</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;value of a and b before swapping, a: &#34;</span> <span style="color:#f92672">+</span> a <span style="color:#f92672">+</span><span style="color:#e6db74">&#34; b: &#34;</span> <span style="color:#f92672">+</span> b<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">//swapping value of two numbers without using temp variable using multiplication and division
+</span><span style="color:#75715e"></span>a <span style="color:#f92672">=</span> a<span style="color:#f92672">*</span>b<span style="color:#f92672">;</span> <span style="color:#75715e">//now a is 18 and b is 3
+</span><span style="color:#75715e"></span>b <span style="color:#f92672">=</span> a<span style="color:#f92672">/</span>b<span style="color:#f92672">;</span> <span style="color:#75715e">//now a is 18 but b is 6 (original value of a)
+</span><span style="color:#75715e"></span>a <span style="color:#f92672">=</span> a<span style="color:#f92672">/</span>b<span style="color:#f92672">;</span> <span style="color:#75715e">//now a is 3 and b is 6, numbers are swapped
+</span><span style="color:#75715e"></span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;value of a and b after swapping using multiplication and division, a: &#34;</span> <span style="color:#f92672">+</span> a <span style="color:#f92672">+</span><span style="color:#e6db74">&#34; b: &#34;</span> <span style="color:#f92672">+</span> b<span style="color:#f92672">);</span>
+Output:
+value of a and b before swapping<span style="color:#f92672">,</span> a<span style="color:#f92672">:</span> 6 b<span style="color:#f92672">:</span> 3
+value of a and b after swapping using multiplication and division<span style="color:#f92672">,</span> a<span style="color:#f92672">:</span> 3 b<span style="color:#f92672">:</span> 6
+</code></pre></div><ul>
+<li>That&rsquo;s all on 3 ways to swap two variables without using third variable in Java. Its good to know multiple ways of swapping two variables without using temp or third variable to handle any follow-up question. Swapping numbers <strong>using bitwise operator is the fastest</strong> among three, because it <strong>involves bitwise operation</strong>. It’s also great way to show your knowledge of bitwise operator in Java and impress interviewer, which then may ask some question on bitwise operation. A nice trick to drive interview on your expert area.</li>
+</ul>
+<h1 id="bitwise-operator">Bitwise operator</h1>
+<ul>
+<li>&ldquo;~&rdquo; inverts a bit pattern; it can be applied to any of the integral types, making every &ldquo;0&rdquo; a &ldquo;1&rdquo; and every &ldquo;1&rdquo; a &ldquo;0&rdquo;.</li>
+<li>The bitwise &amp; operator performs a bitwise AND operation.</li>
+<li>The bitwise ^ operator performs a bitwise exclusive OR operation.</li>
+<li>The bitwise | operator performs a bitwise inclusive OR operation.</li>
+</ul>
+<h1 id="how-to-check-if-linked-list-contains-loop-in-java">How to check if linked list contains loop in Java?</h1>
+<ul>
+<li>Algorithm to find if linked list contains loops or cycles. Two pointers, fast and slow is used while iterating over linked list. <strong>Fast pointer moves two nodes</strong> in each iteration, while <strong>slow pointer moves to one node</strong>. If linked list contains loop or cycle than both <strong>fast and slow pointer will meet</strong> at some point during iteration. If they don&rsquo;t meet and fast or slow will point to null, then linked list is not cyclic and it doesn&rsquo;t contain any loop.</li>
+</ul>
+<ol>
+<li>Use two pointers fast and slow</li>
+<li>Move fast two nodes and slow one node in each iteration</li>
+<li>If fast and slow meet then linked list contains cycle</li>
+<li>if fast points to null or fast.next points to null then linked list is not cyclic</li>
+</ol>
+<ul>
+<li>This algorithm is also known as Floyd’s cycle finding algorithm and popularly <strong>known as tortoise and hare algorithm</strong> to find cycles in linked list. Sample can be found via &ldquo;LoopInList.java&rdquo;</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="http://www.java67.com/2012/09/top-10-tricky-java-interview-questions-answers.html">http://www.java67.com/2012/09/top-10-tricky-java-interview-questions-answers.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2012/03/what-is-static-and-dynamic-binding-in.html">http://javarevisited.blogspot.in/2012/03/what-is-static-and-dynamic-binding-in.html</a></li>
+<li><a href="http://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html">http://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html</a></li>
+<li><a href="http://www.mkyong.com/java/how-to-determine-a-prime-number-in-java/">http://www.mkyong.com/java/how-to-determine-a-prime-number-in-java/</a></li>
+<li><a href="http://javarevisited.blogspot.in/2013/02/swap-two-numbers-without-third-temp-variable-java-program-example-tutorial.html">http://javarevisited.blogspot.in/2013/02/swap-two-numbers-without-third-temp-variable-java-program-example-tutorial.html</a></li>
+<li><a href="http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html">http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2013/05/find-if-linked-list-contains-loops-cycle-cyclic-circular-check.html">http://javarevisited.blogspot.in/2013/05/find-if-linked-list-contains-loops-cycle-cyclic-circular-check.html</a></li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/java" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">java</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/questions" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Questions</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-compare-in-java/">Compare-In-Java</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-20-deadlock/">Dead Lock</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-hashcode-contract/">Hash Code Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-16-java-hashmap/">HashMap in JDK</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-26-it-architect/">IT-Architect</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-03-intellij-tips/">IntelliJ Tips</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-06-24-jdk-sources/">JDK source</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-17-java-collections-misc/">Java Collections Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-01-concurrent-in-java-col-2/">Java Concurrent Column 2</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-02-enum-misc/">Java Enum Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-java-gc/">Java GC notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-21-java-jit/">Java JIT compiler</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-05-jvm/">Java JVM</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-02-java-new-io/">Java New IO</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-15-java-security/">Java Security Notes</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

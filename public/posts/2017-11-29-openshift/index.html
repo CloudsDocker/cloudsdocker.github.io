@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Openshift tips | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Openshift tips" />
+<meta property="og:description" content="Commands bible install cli in Mac brew install openshift-cli Frequently used commands Start mini shift minishift start OC commands oc config view Start a new application oc new-app https://github.com/openshift/nodejs-ex -l name=toddapp To switch project oc project Show a high level overview of the current project oc status # Export the overview of the current project in an svg file. oc status -o dot | dot -T svg -o project.svg # See an overview of the current project including details for any identified issues." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-11-29-openshift/" />
+
+<meta itemprop="name" content="Openshift tips">
+<meta itemprop="description" content="Commands bible install cli in Mac brew install openshift-cli Frequently used commands Start mini shift minishift start OC commands oc config view Start a new application oc new-app https://github.com/openshift/nodejs-ex -l name=toddapp To switch project oc project Show a high level overview of the current project oc status # Export the overview of the current project in an svg file. oc status -o dot | dot -T svg -o project.svg # See an overview of the current project including details for any identified issues.">
+
+<meta itemprop="wordCount" content="1506">
+
+
+
+<meta itemprop="keywords" content="cloud,DevOps," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Openshift tips"/>
+<meta name="twitter:description" content="Commands bible install cli in Mac brew install openshift-cli Frequently used commands Start mini shift minishift start OC commands oc config view Start a new application oc new-app https://github.com/openshift/nodejs-ex -l name=toddapp To switch project oc project Show a high level overview of the current project oc status # Export the overview of the current project in an svg file. oc status -o dot | dot -T svg -o project.svg # See an overview of the current project including details for any identified issues."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-11-29-openshift/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-11-29-openshift/&amp;text=Openshift%20tips" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-11-29-openshift/&amp;title=Openshift%20tips" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Openshift tips</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="commands-bible">Commands bible</h1>
+<h2 id="install-cli-in-mac">install cli in Mac</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew install openshift-cli
+</code></pre></div><h2 id="frequently-used-commands">Frequently used commands</h2>
+<h3 id="start-mini-shift">Start mini shift</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">minishift start
+</code></pre></div><h3 id="oc-commands">OC commands</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">oc config view
+</code></pre></div><h4 id="start-a-new-application">Start a new application</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">oc new-app https://github.com/openshift/nodejs-ex -l name<span style="color:#f92672">=</span>toddapp
+</code></pre></div><h4 id="to-switch-project">To switch project</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">oc project 
+</code></pre></div><h4 id="show-a-high-level-overview-of-the-current-project">Show a high level overview of the current project</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">oc status
+<span style="color:#75715e"># Export the overview of the current project in an svg file.</span>
+  oc status -o dot | dot -T svg -o project.svg
+  
+  <span style="color:#75715e"># See an overview of the current project including details for any identified issues.</span>
+  oc status -v
+</code></pre></div><p>This command will show services, deployment configs, build configurations, and active deployments.
+If you have any misconfigured components information about them will be shown. For more information
+about individual items, use the describe command (e.g. oc describe buildConfig, oc describe
+deploymentConfig, oc describe service).</p>
+<p>You can specify an output format of &ldquo;-o dot&rdquo; to have this command output the generated status graph
+in DOT format that is suitable for use by the &ldquo;dot&rdquo; command.</p>
+<h2 id="openshift-command-line-tool">OpenShift command-line tool</h2>
+<p>The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster.</p>
+<h2 id="pod">Pod</h2>
+<p>The most basic unit in OpenShift are pods. A pod is one or more containers guaranteed to be running on the same host. The containers within a pod share a unique IP address. They can communicate with each other via the “localhost” and also all share any volumes (persistent storage). The containers themselves are started from an image, which in our case is a Docker image.</p>
+<p>OpenShift Origin leverages the Kubernetes concept of a pod, which is one or more containers deployed together on one host, and the smallest compute unit that can be defined, deployed, and managed.</p>
+<p>Pods are the rough equivalent of a machine instance (physical or virtual) to a container. Each pod is allocated its own internal IP address, therefore owning its entire port space, and containers within pods can share their local storage and networking.</p>
+<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
+<p>Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason. Pods, depending on policy and exit code, may be removed after exiting, or may be retained in order to enable access to the logs of their containers.</p>
+<p>OpenShift Origin treats pods as largely immutable; changes cannot be made to a pod definition while it is running. OpenShift Origin implements changes by terminating an existing pod and recreating it with modified configuration, base image(s), or both. Pods are also treated as expendable, and do not maintain state when recreated. Therefore pods should usually be managed by higher-level controllers, rather than directly by users.</p>
+<h2 id="scale-up">Scale up</h2>
+<p>When scaled up, an application will have more than one copy of itself, and each copy will have its own local state. Each copy corresponds to a different instance of a pod with the pods being managed by the replication controller. As each pod has a unique IP, we need an easy way to address the set of all pods as a whole. This is where a service comes into play. The service gets its own IP and a DNS name. When making a connection to a service, OpenShift will automatically route the connection to one of the pods associated with that service.</p>
+<p>caling from the Web Console
+Scaling up the number of instances of your application running can be done from the Overview page for your application in the OpenShift web console (the page with those tell-tale up and down arrows we saw previously). Jump to that page and click the up arrow key twice to increase the replica count to 3
+If your application is a web application that adheres to the 12-factor methodology, or what might also be called a cloud native application, then it would generally be safe to scale up.</p>
+<p>Applications that can’t usually be able to be scaled up include traditional relational databases backed by persistent storage. Databases cannot be scaled in the traditional way as only the primary instance of the database should have the ability to update data. Scaling can still be performed, but usually only on read-only instances of the database.</p>
+<h2 id="kubernetes-and-openshift">Kubernetes and Openshift</h2>
+<p>The basic concepts of Kubernetes and discuss how OpenShift builds on them. In general, you can view Kubernetes as being aimed at Ops teams, providing them with a tool for running containers at scale in production. OpenShift adds to this by also supporting the work of a Dev team and others by making the job of the Ops team easier, which helps to bridge the gap between Dev and Ops and thus enable the latest DevOps philosophy.OpenShift provides a number of different ways to interact with an OpenShift cluster. The OpenShift command-line tool oc is the primary way most users interact with OpenShift. The command-line tool talks via a REST API exposed by the OpenShift cluster.
+If you want to avoid using the command line tool, or you want to automate your interactions with the OpenShift cluster, you can always use the REST API directly.</p>
+<p>You may be wondering: “Is a namespace the same thing as an application?” OpenShift has no formal concept of an application, thereby allowing an application to be flexible depending on a user’s needs.</p>
+<p>You can dedicate one to everything related to just one application. Or, so long as you label all the resources making up an application so you know what goes with what, you can also use the namespace to hold more than one.</p>
+<h1 id="secrets">Secrets</h1>
+<p>This topic discusses important properties of secrets and provides an overview on how developers can use them.</p>
+<p>The Secret object type provides a mechanism to hold sensitive information such as passwords, OpenShift Origin client configuration files, dockercfg files, private source repository credentials, and so on. Secrets decouple sensitive content from the pods. You can mount secrets into containers using a volume plug-in or the system can use secrets to perform actions on behalf of a pod.</p>
+<h2 id="route">Route</h2>
+<p>Although a service has a DNS name, it is still only accessible within the OpenShift cluster and is not accessible externally. To make a service externally accessible, a route needs to be created. Creating a route automatically sets up haproxy or a hardware-based router, with an externally addressable DNS name, exposing the service and load-balancing inbound traffic across the pods.</p>
+<h2 id="image">image</h2>
+<p>The output of the build process is an image, which is stored in an integrated Docker registry ready for distribution out to nodes when the application is deployed. The image stream is how the image and its versions are tracked by OpenShift. If you already have an existing Docker image on an external registry such as Docker Hub, it can also be referenced by an image stream instead of building it locally.</p>
+<p>use the handy online cheat sheet available by running the oc types command. It gives you a quick summary of the different conceptual types and definitions used in OpenShift like those we covered here:</p>
+<h2 id="vagrant">Vagrant</h2>
+<p>Vagrant is a software tool that allows users to create and configure lightweight, reproducible, and portable development environments. It works in conjunction with virtualization (both VMs and IaaS) to automate all the steps necessary to get your dev environment going</p>
+<p>One of the advantages of creating and deploying applications from the web console is that a route is automatically created for you. When deploying new containers while using the oc tool, you will need to expose the service manually</p>
+<h2 id="volumes">Volumes</h2>
+<p>One of the great features of the OpenShift platform is the ability to provide persistent volumes for your running pods. This ensures that data in your database doesn’t suddenly disappear if the container is restarted. Another important aspect of persistent volumes is the ability to run both stateful and stateless applications on the platform. This is sometimes referred to as mode 1 and mode 2 applications as well as legacy and 12-factor applications.</p>
+<h2 id="webhooks">webhooks</h2>
+<p>Automatic Deployments Using Webhooks
+A webhook (also called a web callback or HTTP push API) is a way an application can provide other applications with real-time information or notifications.</p>
+<p>We can configure the GitHub code hosting service to trigger a webhook each time we push a set of changes to your project code repository. Using this tool, we can notify OpenShift when you have made code changes and thus initiate rebuild and redeployment of our application.</p>
+<h2 id="deployment-strategies">Deployment Strategies</h2>
+<p>A deployment strategy defines the process by which a new version of your application is started and the existing instances shut down. By default OpenShift uses a rolling deployment strategy that enables you to perform an update with no apparent down time.</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/cloud" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">cloud</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/devops" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">DevOps</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2018-05-24-git-scripts-bible-errors/">GIT useful scripts or error solutions</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2018-01-10-cors/">CORS :Cross-Origin Resource Sharing</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-12-02-container/">Container</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-09-04-kubernets-vs-swarm/">Kubernetes 与 Docker Swarm的对比</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-12-18-openstack-vs-openshift/">cloud computering</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-12-18-clouding/">cloud computering</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

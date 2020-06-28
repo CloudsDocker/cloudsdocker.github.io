@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>flexbox | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="flexbox" />
+<meta property="og:description" content="How Flexbox works — explained with big, colorful, animated gifs
+Flexbox promises to save us from the evils of plain CSS (like vertical alignment).
+Well, Flexbox does deliver on that goal. But mastering its new mental model can be challenging.
+So let’s take an animated look at how Flexbox works, so we can use it to build better layouts.
+Flexbox’s underlying principle is to make layouts flexible and intuitive.
+To accomplish this, it lets containers decide for themselves how to evenly distribute their children — including their size and the space between them." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2018-06-14-flex-box/" />
+
+<meta itemprop="name" content="flexbox">
+<meta itemprop="description" content="How Flexbox works — explained with big, colorful, animated gifs
+Flexbox promises to save us from the evils of plain CSS (like vertical alignment).
+Well, Flexbox does deliver on that goal. But mastering its new mental model can be challenging.
+So let’s take an animated look at how Flexbox works, so we can use it to build better layouts.
+Flexbox’s underlying principle is to make layouts flexible and intuitive.
+To accomplish this, it lets containers decide for themselves how to evenly distribute their children — including their size and the space between them.">
+
+<meta itemprop="wordCount" content="845">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="flexbox"/>
+<meta name="twitter:description" content="How Flexbox works — explained with big, colorful, animated gifs
+Flexbox promises to save us from the evils of plain CSS (like vertical alignment).
+Well, Flexbox does deliver on that goal. But mastering its new mental model can be challenging.
+So let’s take an animated look at how Flexbox works, so we can use it to build better layouts.
+Flexbox’s underlying principle is to make layouts flexible and intuitive.
+To accomplish this, it lets containers decide for themselves how to evenly distribute their children — including their size and the space between them."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2018-06-14-flex-box/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2018-06-14-flex-box/&amp;text=flexbox" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2018-06-14-flex-box/&amp;title=flexbox" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">flexbox</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>How Flexbox works — explained with big, colorful, animated gifs</p>
+<p>Flexbox promises to save us from the evils of plain CSS (like vertical alignment).</p>
+<p>Well, Flexbox does deliver on that goal. But mastering its new mental model can be challenging.</p>
+<p>So let’s take an animated look at how Flexbox works, so we can use it to build better layouts.</p>
+<p>Flexbox’s underlying principle is to make layouts flexible and intuitive.</p>
+<p>To accomplish this, it lets containers decide for themselves how to evenly distribute their children — including their size and the space between them.</p>
+<p>This all sounds good in principle. But let’s see what it looks like in practice.</p>
+<p>In this article, we’ll dive into the 5 most common Flexbox properties. We’ll explore what they do, how you can use them, and what their results will actually look like.</p>
+<p>Property #1: Display: Flex
+Here’s our example webpage:</p>
+<p>You have four colored divs of various sizes, held within a grey container div. As of now, each div has defaulted to display: block. Each square thus takes up the full width of its line.</p>
+<p>In order to get started with Flexbox, you need to make your container into a flex container. This is as easy as:</p>
+<p>#container {
+display: flex;
+}</p>
+<p>Not a lot has changed — your divs are displayed inline now, but that’s about it. But behind the scenes, you’ve done something powerful. You gave your squares something called a flex context.</p>
+<p>You can now start to position them within that context, with far less difficulty than traditional CSS.</p>
+<p>Property #2: Flex Direction
+A Flexbox container has two axes: a main axis and a cross axis, which default to looking like this:</p>
+<p>By default, items are arranged along the main axis, from left to right. This is why your squares defaulted to a horizontal line once you applied display: flex.</p>
+<p>Flex-direction, however, let’s you rotate the main axis.</p>
+<p>#container {
+display: flex;
+flex-direction: column;
+}</p>
+<p>There’s an important distinction to make here: flex-direction: column doesn’t align the squares on the cross axis instead of the main axis. It makes the main axis itself go from horizontal to vertical.</p>
+<p>There are a couple of other options for flex-direction, as well: row-reverse and column-reverse.</p>
+<p>Property #3: Justify Content
+Justify-content controls how you align items on the main axis.</p>
+<p>Here, you’ll dive a bit deeper into the main/cross axis distinction. First, let’s go back to flex-direction: row.</p>
+<p>#container {
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+}
+You have five commands at your disposal to use justify-content:</p>
+<p>Flex-start
+Flex-end
+Center
+Space-between
+Space-around</p>
+<p>Space-around and space-between are the least intuitive. Space-between gives equal space between each square, but not between it and the container.</p>
+<p>Space-around puts an equal cushion of space on either side of the square — which means the space between the outermost squares and the container is half as much as the space between two squares (each square contributing a non-overlapping equal amount of margin, thus doubling the space).</p>
+<p>A final note: remember that justify-content works along the main-axis, and flex-direction switches the main-axis. This will be important as you move to…</p>
+<p>Property #4: Align Items
+If you ‘get’ justify-content, align-items will be a breeze.</p>
+<p>As justify-content works along the main axis, align-items applies to the cross axis.</p>
+<p>Let’s reset our flex-direction to row, so our axes look the same as the above image.</p>
+<p>Then, let’s dive into the align-items commands.</p>
+<p>flex-start
+flex-end
+center
+stretch
+baseline
+The first three are exactly the same as justify-content, so nothing too fancy here.</p>
+<p>The next two are a bit different, however.</p>
+<p>You have stretch, in which the items take up the entirety of the cross-axis, and baseline, in which the bottom of the paragraph tags are aligned.</p>
+<p>(Note that for align-items: stretch, I had to set the height of the squares to auto. Otherwise the height property would override the stretch.)</p>
+<p>For baseline, be aware that if you take away the paragraph tags, it aligns the bottom of the squares instead, like so:</p>
+<p>To demonstrate the main and cross axes better, let’s combine justify-content and align-items and see how centering works different for the two flex-direction commands:</p>
+<p>With row, the squares are set up along a horizontal main axis. With column, they fall along a vertical main axis.</p>
+<p>Even if the squares are centered both vertically and horizontally in both cases, the two are not interchangeable!</p>
+<p>Property #5: Align Self
+Align-self allows you to manually manipulate the alignment of one particular element.</p>
+<p>It’s basically overriding align-items for one square. All the properties are the same, though it defaults to auto, in which it follows the align-items of the container.</p>
+<p>#container {
+align-items: flex-start;
+}
+.square#one {
+align-self: center;
+}
+// Only this square will be centered.
+Let’s see what this looks like. You’ll apply align-self to two squares, and for the rest apply align-items: center and flex-direction: row.</p>
+<p>Conclusion
+Even though we’ve just scratched the surface of Flexbox, these commands should be enough for you to handle most basic alignments — and to vertically align to your heart’s content.</p>
+<ul>
+<li><a href="https://github.com/angular/flex-layout">https://github.com/angular/flex-layout</a></li>
+<li><a href="https://medium.freecodecamp.org/an-animated-guide-to-flexbox-d280cf6afc35">https://medium.freecodecamp.org/an-animated-guide-to-flexbox-d280cf6afc35</a></li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

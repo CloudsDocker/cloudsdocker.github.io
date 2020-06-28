@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Router in angular | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Router in angular" />
+<meta property="og:description" content="Lettable operators RxJS 5.5, piping all the things
+So now we want a way to use those operators, how could we do that?
+Well, we said those operators are “lettable” that means we can use them by calling the let method on an observable:
+And if we want to chain multiple lettable operators we can keep dot chaining:
+import { Observable } from &lsquo;rxjs/Rx&rsquo;; import { filter, map, reduce } from &lsquo;rxjs/operators&rsquo;;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-12-10-rxjs/" />
+
+<meta itemprop="name" content="Router in angular">
+<meta itemprop="description" content="Lettable operators RxJS 5.5, piping all the things
+So now we want a way to use those operators, how could we do that?
+Well, we said those operators are “lettable” that means we can use them by calling the let method on an observable:
+And if we want to chain multiple lettable operators we can keep dot chaining:
+import { Observable } from &lsquo;rxjs/Rx&rsquo;; import { filter, map, reduce } from &lsquo;rxjs/operators&rsquo;;">
+
+<meta itemprop="wordCount" content="2438">
+
+
+
+<meta itemprop="keywords" content="angular,rxjs,typescript,javascript,node," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Router in angular"/>
+<meta name="twitter:description" content="Lettable operators RxJS 5.5, piping all the things
+So now we want a way to use those operators, how could we do that?
+Well, we said those operators are “lettable” that means we can use them by calling the let method on an observable:
+And if we want to chain multiple lettable operators we can keep dot chaining:
+import { Observable } from &lsquo;rxjs/Rx&rsquo;; import { filter, map, reduce } from &lsquo;rxjs/operators&rsquo;;"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-12-10-rxjs/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-12-10-rxjs/&amp;text=Router%20in%20angular" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-12-10-rxjs/&amp;title=Router%20in%20angular" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Router in angular</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="lettable-operators">Lettable operators</h1>
+<p>RxJS 5.5, piping all the things</p>
+<p>So now we want a way to use those operators, how could we do that?</p>
+<p>Well, we said those operators are “lettable” that means we can use them by calling the let method on an observable:</p>
+<p>And if we want to chain multiple lettable operators we can keep dot chaining:</p>
+<p>import { Observable } from &lsquo;rxjs/Rx&rsquo;;
+import { filter, map, reduce } from &lsquo;rxjs/operators&rsquo;;</p>
+<p>const filterOutEvens = filter(x =&gt; x % 2);
+const sum = reduce((acc, next) =&gt; acc + next, 0);
+const doubleBy = x =&gt; map(value =&gt; value * x);</p>
+<p>const source$ = Observable.range(0, 10);</p>
+<p>source$
+.let(filterOutEvens)
+.let(doubleBy(2))
+.let(sum)
+.subscribe(x =&gt; console.log(x)); // 50</p>
+<hr>
+<p>Meaning we can easily compose a bunch of pure function operators and pass them as a single operator to an observable!</p>
+<p>Conclusion
+With those tools in hand, you can write RxJS code that is much more re-usable by just piping your (pure functions) operators together and easily re-use shared logic.</p>
+<p>import { Observable, pipe } from &lsquo;rxjs/Rx&rsquo;;
+import { filter, map, reduce } from &lsquo;rxjs/operators&rsquo;;</p>
+<p>const filterOutEvens = filter(x =&gt; x % 2);
+const sum = reduce((acc, next) =&gt; acc + next, 0);
+const doubleBy = x =&gt; map(value =&gt; value * x);</p>
+<p>const complicatedLogic = pipe(
+filterOutEvens,
+doubleBy(2),
+sum
+);</p>
+<p>const source$ = Observable.range(0, 10);</p>
+<p>source$.let(complicatedLogic).subscribe(x =&gt; console.log(x)); // 50</p>
+<p><a href="https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md">https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md</a>
+What?
+What is a pipeable operator? Simply put, a function that can be used with the current let operator. It used to be the origin of the name (&ldquo;lettable&rdquo;), but that was confusing and we call them &ldquo;pipeable&rdquo; now because they&rsquo;re intended to be used with the pipe utility. <code>A pipeable operator is basically any function that returns a function with the signature: &lt;T, R&gt;(source: Observable&lt;T&gt;) =&gt; Observable&lt;R&gt;.</code></p>
+<p>There is a pipe method built into Observable now at Observable.prototype.pipe that сan be used to compose the operators in similar manner to what you&rsquo;re used to with dot-chaining (shown below).</p>
+<p>There is also a pipe utility function at rxjs/util/pipe that can be used to build reusable pipeable operators from other pipeable operators.</p>
+<h2 id="usage">Usage</h2>
+<p>You pull in any operator you need from one spot, under &lsquo;rxjs/operators&rsquo; (plural!). It&rsquo;s also recommended to pull in the Observable creation methods you need directly as shown below with range:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">range</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;rxjs/observable/range&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">map</span>, <span style="color:#a6e22e">filter</span>, <span style="color:#a6e22e">scan</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;rxjs/operators&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source$</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">range</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>);
+
+<span style="color:#a6e22e">source$</span>.<span style="color:#a6e22e">pipe</span>(
+  <span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>),
+  <span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">x</span>),
+  <span style="color:#a6e22e">scan</span>((<span style="color:#a6e22e">acc</span>, <span style="color:#a6e22e">x</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">acc</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">x</span>, <span style="color:#ae81ff">0</span>)
+)
+.<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">x</span>))
+</code></pre></div><p><a href="https://blog.angularindepth.com/rxjs-understanding-lettable-operators-fe74dda186d3">https://blog.angularindepth.com/rxjs-understanding-lettable-operators-fe74dda186d3</a>
+RxJS: Understanding Lettable Operators</p>
+<h2 id="what-are-lettable-operators-and-what-does-lettable-mean">What are lettable operators and what does lettable mean?</h2>
+<p>If lettable operators are used with a method named pipe, you might wonder why they are referred to as lettable. The term is derived from RxJS’s let operator.</p>
+<p><code>The let operator is conceptually similar to the map operator, but instead of taking a projection function that receives and returns a value, let takes a function that receives and returns an observable. </code> It’s unfortunate that let is one of the less-well-known operators, as it’s very useful for composing reusable functionality.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">Rx</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;rxjs&#34;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">retry</span>&lt;<span style="color:#f92672">T</span>&gt;(
+  <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">number</span>,
+  <span style="color:#a6e22e">wait</span>: <span style="color:#66d9ef">number</span>
+)<span style="color:#f92672">:</span> (<span style="color:#a6e22e">source</span>: <span style="color:#66d9ef">Rx.Observable</span>&lt;<span style="color:#f92672">T</span>&gt;) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Rx</span>.<span style="color:#a6e22e">Observable</span>&lt;<span style="color:#f92672">T</span>&gt; {
+
+  <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">source</span>: <span style="color:#66d9ef">Rx.Observable</span>&lt;<span style="color:#f92672">T</span>&gt;) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">source</span>
+    .<span style="color:#a6e22e">retryWhen</span>(<span style="color:#a6e22e">errors</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">errors</span>
+      <span style="color:#75715e">// Each time an error occurs, increment the accumulator.
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">// When the maximum number of retries have been attempted, throw the error.
+</span><span style="color:#75715e"></span>      .<span style="color:#a6e22e">scan</span>((<span style="color:#a6e22e">acc</span>, <span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">acc</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">count</span>) { <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">error</span>; }
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">acc</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+      }, <span style="color:#ae81ff">0</span>)
+      <span style="color:#75715e">// Wait the specified number of milliseconds between retries.
+</span><span style="color:#75715e"></span>      .<span style="color:#a6e22e">delay</span>(<span style="color:#a6e22e">wait</span>)
+    );
+}
+</code></pre></div><p>When retry is called, it’s passed the number of retry attempts that should be made and the number of milliseconds to wait between attempts, and it returns a function that receives an observable and returns another observable into which the retry logic is composed. The returned function can be passed to the let operator, like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">Rx</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;rxjs&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">retry</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./retry&#34;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Rx</span>.<span style="color:#a6e22e">Observable</span>.<span style="color:#a6e22e">ajax</span>
+  .<span style="color:#a6e22e">getJSON</span><span style="color:#f92672">&lt;</span>{ <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;/api/employees/alice&#34;</span>)
+  .<span style="color:#66d9ef">let</span>(<span style="color:#a6e22e">retry</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1000</span>))
+  .<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">employee</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">employee</span>.<span style="color:#a6e22e">name</span>)
+  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">error</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Rx</span>.<span style="color:#a6e22e">Observable</span>.<span style="color:#a6e22e">of</span>(<span style="color:#66d9ef">null</span>));
+</code></pre></div><p><code>Using the let operator, we’ve been able to create a reusable function much more simply than we would have been able to create a prototype-patching operator</code>. What we’ve created is a lettable operator.</p>
+<p><code>Lettable operators are a higher-order functions. Lettable operators return functions that receive and return observables; and those functions can be passed to the let operator</code>.</p>
+<p>We can also use our lettable retry operator with pipe, like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ajax</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;rxjs/observable/dom/ajax&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">of</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;rxjs/observable/of&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">catchError</span>, <span style="color:#a6e22e">map</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;rxjs/operators&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">retry</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./retry&#34;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ajax</span>
+  .<span style="color:#a6e22e">getJSON</span><span style="color:#f92672">&lt;</span>{ <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;/api/employees/alice&#34;</span>)
+  .<span style="color:#a6e22e">pipe</span>(
+    <span style="color:#a6e22e">retry</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1000</span>),
+    <span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">employee</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">employee</span>.<span style="color:#a6e22e">name</span>),
+    <span style="color:#a6e22e">catchError</span>(<span style="color:#a6e22e">error</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">of</span>(<span style="color:#66d9ef">null</span>))
+  );
+</code></pre></div><p>Let’s return to our retry function and replace the chained methods with lettable operators and a pipe call, so that it looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Observable</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;rxjs/Observable&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">delay</span>, <span style="color:#a6e22e">retryWhen</span>, <span style="color:#a6e22e">scan</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;rxjs/operators&#34;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">retry</span>&lt;<span style="color:#f92672">T</span>&gt;(
+  <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">number</span>,
+  <span style="color:#a6e22e">wait</span>: <span style="color:#66d9ef">number</span>
+)<span style="color:#f92672">:</span> (<span style="color:#a6e22e">source</span>: <span style="color:#66d9ef">Observable</span>&lt;<span style="color:#f92672">T</span>&gt;) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Observable</span>&lt;<span style="color:#f92672">T</span>&gt; {
+
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">retryWhen</span>(<span style="color:#a6e22e">errors</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">pipe</span>(
+    <span style="color:#75715e">// Each time an error occurs, increment the accumulator.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// When the maximum number of retries have been attempted, throw the error.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">scan</span>((<span style="color:#a6e22e">acc</span>, <span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">acc</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">count</span>) { <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">error</span>; }
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">acc</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+    }, <span style="color:#ae81ff">0</span>),
+    <span style="color:#75715e">// Wait the specified number of milliseconds between retries.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">delay</span>(<span style="color:#a6e22e">wait</span>)
+  ));
+}
+</code></pre></div><p>With the chained methods replaced, we now have a proper, reusable lettable operator that imports only what it requires.</p>
+<h2 id="why-should-lettable-operators-should-be-preferred">Why should lettable operators should be preferred?</h2>
+<p>For application developers, lettable operators are much easier to manage:</p>
+<ul>
+<li>Rather then relying upon operators being patched into Observable.prototype, lettable operators are explicitly imported into the modules in which they are used.</li>
+<li>It’s easy for TypeScript and bundlers to determine whether the lettable operators imported into a module are actually used. And if they are not, they can be left unbundled. If prototype patching is used, this task is manual and tedious.</li>
+<li>For library authors, lettable operators are much less verbose than call-based alternative, but it’s the correct inference of types that is — at least for me — the biggest advantage.</li>
+</ul>
+<hr>
+<p>Agreed, the pipe is awesome for composing custom rx operators. But why do we see more and more people using it even when not combining re-usable variables — instead of just chaining methods?</p>
+<p>Meaning, we use to write e.g…</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source$</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Observable</span>.<span style="color:#a6e22e">range</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>); 
+<span style="color:#a6e22e">source$</span>
+  .<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>)
+  .<span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">acc</span>, <span style="color:#a6e22e">next</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">acc</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">next</span>, <span style="color:#ae81ff">0</span>)
+  .<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">value</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
+  .<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">x</span>));
+</code></pre></div><p>Above is imho much cleaner than what I see more nowadays:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source$</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Observable</span>.<span style="color:#a6e22e">range</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>);
+<span style="color:#a6e22e">source$</span>.<span style="color:#a6e22e">pipe</span>(
+  <span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>),
+  <span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">acc</span>, <span style="color:#a6e22e">next</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">acc</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">next</span>, <span style="color:#ae81ff">0</span>),
+  <span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">value</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
+).<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">x</span>));
+</code></pre></div><p>Are there performance advantages by using the standalone operators instead of chaining?</p>
+<p>debounceInput is a function that takes and returns an observable, so it can be passed to the Observable.prototype.pipe function, like this: valueChanges.pipe(debounceInput).</p>
+<p>So, <code>whenever you find yourself using the same combination of operators in many places, you could consider using the static pipe function to create a reusable operator combination</code>.</p>
+<p>The static pipe function also makes something else much simpler: dealing with pipe-like overload signatures. Let’s look at that next.</p>
+<h2 id="tree-shaking">Tree Shaking</h2>
+<p><a href="https://webpack.js.org/guides/tree-shaking/">https://webpack.js.org/guides/tree-shaking/</a>
+Tree shaking is a term commonly used in the JavaScript context for dead-code elimination. It relies on the static structure of ES2015 module syntax, i.e. import and export. The name and concept have been popularized by the ES2015 module bundler rollup.</p>
+<p>So, what we&rsquo;ve learned is that in order to take advantage of tree shaking, you must&hellip;</p>
+<p>Use ES2015 module syntax (i.e. import and export).
+Add a &ldquo;sideEffects&rdquo; entry to your project&rsquo;s package.json file.
+Include a minifier that supports dead code removal (e.g. the UglifyJSPlugin).</p>
+<h1 id="mergemap-vs-flatmap-vs-concatmap-vs-switchmap">mergeMap vs flatMap vs concatMap vs switchMap</h1>
+<p>Today we’re going to look at the difference between these four three RxJS operators. The simple part is that flatMap is just an alias for mergeMap. Other operators have a difference that might be important in some cases.</p>
+<h2 id="when-do-you-need-them">When do you need them?</h2>
+<p>All these operators are used with so-called higher order Observables. This is when items of an Observable are Observables themselves (or they are mapped to Observables) and we need to flatten all of them into one final Observable. You can easily identify this situation when you subscribe to an Observable inside subscription to another Observable (Note: this is not a recommended approach):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#a6e22e">outerObservable</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">outerItem</span> <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">outerItem</span>.<span style="color:#a6e22e">subsribe</span>(<span style="color:#a6e22e">innerItem</span> <span style="color:#f92672">=&gt;</span> {
+            <span style="color:#a6e22e">foo</span>(<span style="color:#a6e22e">innerItem</span>);
+        })});
+</code></pre></div><p>In my examples, initial Observable is called outer Observable. And items of the outer Observable are called inner Observables. Technically inner and outer Observables are just plain Observables.</p>
+<p>A usage example for such operators can be a search box (search box text changes as outer Observable) with a request being sent to a server for each search text change (HTTP responses as inner Observables). Another example is mouse button clicks (outer Observable) that trigger an interval timer for each mouse click (timer events as inner Observables).</p>
+<p>Learning plan
+To tackle these operators you need to understand more basic ones first. In this article I won’t give any definitions or explanations per se, but rather just a small learning plan with links:</p>
+<p>Map, Merge, Concat. Basic Observable operators.
+MergeAll, ConcatAll, Switch. These are for higher order Observables already.
+After that MergeMap, ConcatMap, and SwitchMap should be easy for you.
+Operators from the third group are two step operators. First, they map outer Observable items to inner Observables. The second step is to merge a result set of inner Observables in some way. The way they are merged depends on the operator you use.</p>
+<pre><code>mergeMap = map + mergeAll
+concatMap = map + concatAll
+switchMap = map + switch
+</code></pre><p>Here are some reworked reactivex.io diagrams. At first some explanations for the diagrams:</p>
+<h2 id="mergemap">MergeMap</h2>
+<p>Outer (initial) Observable emits circles. Each circle is then mapped to its own inner Observable - collection of rhombuses. Collections are identified by color; each collection has its own color. All those inner Observables are then merged into one final Observable - resulting collection of rhombuses.</p>
+<p>MergeMap
+mergeMap emits items into the resulting Observable just as they are emitted from inner Observables. It doesn’t wait for anything.
+mergeMap doesn’t preserve the order from outer Observable. Collections of rhombuses interleave.
+mergeMap doesn’t cancel any inner Observables. All rhombuses from inner Observables get to final collection.</p>
+<h2 id="concatmap">ConcatMap</h2>
+<p>concatMap waits for inner Observable to complete before taking items from the next inner Observable.
+concatMap does preserve the order from outer Observable. Collections of rhombuses don’t interleave.
+Just as mergeMap, concatMap doesn’t cancel any inner Observables. All rhombuses from inner Observables get to the final collection.</p>
+<h2 id="switchmap">SwitchMap</h2>
+<p>switchMap emits items only from the most recent inner Observable.
+switchMap cancels previous inner Observables when a new inner Observable appears. Items of inner Observable that were emitted after the Observable was canceled will be lost (not included in the resulting Observable).</p>
+<p>“Talk is cheap. Show me the code.”
+I still wasn’t sure I had cracked the difference between the discussed operators even after reading all the results from Google’s first page :) I’ve set up a small example on JsFiddle to see the difference in practice.</p>
+<p>In the example, outer Observable emits three items with a one-second interval. Each item is then mapped to an inner Observable, which in its turn emits another three items with a one-second interval. The final result depends on the operator you use. Hope this small example will help you understand these operators without too much googling.</p>
+<h1 id="router">Router</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">appRoutes</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Routes</span> <span style="color:#f92672">=</span> [
+  { <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;crisis-center&#39;</span>, <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">CrisisListComponent</span> },
+  { <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hero/:id&#39;</span>,      <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">HeroDetailComponent</span> },
+  {
+    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;heroes&#39;</span>,
+    <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">HeroListComponent</span>,
+    <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Heroes List&#39;</span> }
+  },
+  { <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+    <span style="color:#a6e22e">redirectTo</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/heroes&#39;</span>,
+    <span style="color:#a6e22e">pathMatch</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;full&#39;</span>
+  },
+  { <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;**&#39;</span>, <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">PageNotFoundComponent</span> }
+];
+
+<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">NgModule</span>({
+  <span style="color:#a6e22e">imports</span><span style="color:#f92672">:</span> [
+    <span style="color:#a6e22e">RouterModule</span>.<span style="color:#a6e22e">forRoot</span>(
+      <span style="color:#a6e22e">appRoutes</span>,
+      { <span style="color:#a6e22e">enableTracing</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> } <span style="color:#75715e">// &lt;-- debugging purposes only
+</span><span style="color:#75715e"></span>    )
+    <span style="color:#75715e">// other imports here
+</span><span style="color:#75715e"></span>  ],
+  ...
+})
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppModule</span> { }
+</code></pre></div><ul>
+<li>The data property in the third route is a place to store arbitrary data associated with this specific route. The data property is accessible within each activated route. Use it to store items such as page titles, breadcrumb text, and other read-only, static data. You&rsquo;ll use the resolve guard to retrieve dynamic data</li>
+<li>The empty path in the fourth route represents the default path for the application, the place to go when the path in the URL is empty, as it typically is at the start. This default route redirects to the route for the /heroes URL and, therefore, will display the HeroesListComponent.</li>
+<li>The ** path in the last route is a wildcard. The router will select this route if the requested URL doesn&rsquo;t match any paths for routes defined earlier in the configuration. This is useful for displaying a &ldquo;404 - Not Found&rdquo; page or redirecting to another route.</li>
+<li>The order of the routes in the configuration matters and this is by design. The router uses a <strong>first-match wins strategy</strong> when matching routes, so <strong>more specific routes should be placed above less specific routes</strong>.</li>
+</ul>
+<h2 id="router-outlet">Router outlet</h2>
+<p>The router matches that URL to the route path  and displays the Component after a RouterOutlet that you&rsquo;ve placed in the host view&rsquo;s HTML.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">content_copy</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">outlet</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/router-outlet&gt;</span>
+<span style="color:#75715e">&lt;!--</span> <span style="color:#a6e22e">Routed</span> <span style="color:#a6e22e">views</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">here</span> <span style="color:#f92672">--&gt;</span>
+</code></pre></div><h2 id="define-routes">Define routes</h2>
+<p>A router must be configured with a list of route definitions.</p>
+<h2 id="mechanism">mechanism</h2>
+<ul>
+<li>When the application requests navigation to the path /crisis-center, the router activates an instance of CrisisListComponent, displays its view, and updates the browser&rsquo;s address location and history with the URL for that path.</li>
+<li>Pass the array of routes, appRoutes, to the RouterModule.forRoot method. It returns a module, containing the configured Router service provider, plus other providers that the routing library requires. Once the application is bootstrapped, the Router performs the initial navigation based on the current browser URL</li>
+</ul>
+<h2 id="some-key-points-of-setting-up-router">Some key points of setting up router</h2>
+<ul>
+<li>Load the router library.</li>
+<li>Add a nav bar to the shell template with anchor tags, routerLink and routerLinkActive directives.</li>
+<li>Add a router-outlet to the shell template where views will be displayed.</li>
+<li>Configure the router module with RouterModule.forRoot.</li>
+<li>Set the router to compose HTML5 browser URLs.</li>
+<li>handle invalid routes with a wildcard route.</li>
+<li>navigate to the default route when the app launches with an empty path.</li>
+</ul>
+<h1 id="difference-between-forroot-and-forchild">Difference between forRoot and forChild</h1>
+<p>Only call RouterModule.forRoot in the root AppRoutingModule (or the AppModule if that&rsquo;s where you register top level application routes). In any other module, you must call the RouterModule.forChild method to register additional routes.</p>
+<p><strong>Leave the default and the wildcard routes! These are concerns at the top level</strong> of the application itself.</p>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="https://angular.io/guide/router">https://angular.io/guide/router</a></li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/angular" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">angular</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/rxjs" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">rxjs</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/typescript" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">typescript</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/javascript" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">javascript</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/node" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">node</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2018-05-15-how-to-setup-node-config-in-intranet/">How to setup nodejs to install package from intranet</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-12-12-redux/">Redux</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-12-07-errors-in-npm/">common errors in NPM or node</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2018-01-08-ngrx/">ngrx</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

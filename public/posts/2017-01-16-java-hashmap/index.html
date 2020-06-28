@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>HashMap in JDK | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="HashMap in JDK" />
+<meta property="og:description" content="Hashmap in JDK Some note worth points about hashmap  Lookup process  Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()). Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).   Immutability of keys In Node&lt;K,V&gt; node of hashMap, besides key, value, hash, there is Node next link inside. So undelrying table is a linked list." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-01-16-java-hashmap/" />
+
+<meta itemprop="name" content="HashMap in JDK">
+<meta itemprop="description" content="Hashmap in JDK Some note worth points about hashmap  Lookup process  Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()). Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).   Immutability of keys In Node&lt;K,V&gt; node of hashMap, besides key, value, hash, there is Node next link inside. So undelrying table is a linked list.">
+
+<meta itemprop="wordCount" content="805">
+
+
+
+<meta itemprop="keywords" content="java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HashMap in JDK"/>
+<meta name="twitter:description" content="Hashmap in JDK Some note worth points about hashmap  Lookup process  Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()). Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).   Immutability of keys In Node&lt;K,V&gt; node of hashMap, besides key, value, hash, there is Node next link inside. So undelrying table is a linked list."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-01-16-java-hashmap/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-01-16-java-hashmap/&amp;text=HashMap%20in%20JDK" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-01-16-java-hashmap/&amp;title=HashMap%20in%20JDK" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">HashMap in JDK</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="hashmap-in-jdk">Hashmap in JDK</h1>
+<h2 id="some-note-worth-points-about-hashmap">Some note worth points about hashmap</h2>
+<ul>
+<li>Lookup process
+<ul>
+<li>Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()).</li>
+<li>Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).</li>
+</ul>
+</li>
+<li>Immutability of keys</li>
+<li>In Node&lt;K,V&gt; node of hashMap, besides key, value, hash, there is Node next link inside. So undelrying table is a linked list.</li>
+<li>For <strong>get()</strong>, firstly using hashcode calculation, divide by bucket number and get reminder, to locate the bucket, then compare key via &ldquo;.euqals()&rdquo;, if matched, the value will be returned.</li>
+<li>Load factor and resize
+When new hashHap is being populated, the linkedList associated with each bucket of source hashMap is iterated and nodes are copied to the destination bucket. However, note that these new nodes are prepended to the head of the destination linkedList. So resizing has an side effect of reversing the order of the items in the list. Default load factor for hashMap is 0.75.</li>
+<li>Worst-case performance:
+In the worst case, a hashMap reduces to a linkedList.
+However with Java 8, there is a change,
+Java 8 intelligently determines if we are running in the worst-case performance scenario and converts the list into a binary search tree.</li>
+<li>Collisions
+Collisions happen when 2 distinct keys generate the same hashCode() value. Multiple collisions are the result of bad hashCode() algorithm.There are many collision-resolution strategies - chaining, double-hashing, clustering.
+However, java has chosen chaining strategy for hashMap, so in case of collisions, items are chained together just like in a linkedList.</li>
+<li>Some specialized hashMaps for specific purposes:
+&ndash; ConcurrentHashMap: HashMap to be used in multithreaded applications.
+&ndash; EnumMap: HashMap with Enum values as keys.
+&ndash; LinkedHashMap: HashMap with predictable iteration order (great for FIFO/LIFO caches)</li>
+</ul>
+<h2 id="weakreferencemap-softreference-map-etc">WeakReferenceMap, SoftReference Map etc.</h2>
+<p>Weak references (a WeakHashMap) aren&rsquo;t particularly good for this either, because as the elements in the cache become dereferenced by the application code they will quickly be removed from the cache by the garbage collector. This basically means there will be cache faults often (in other words, the cache lookups will fail).</p>
+<p>Soft references can be very handy in situations such as this. Because soft references only exist if the memory is available, they can make very effective use of the space that is available. Unfortunately, although there is a WeakHashMap , there is no java.util.SoftHashMap . Why? I&rsquo;m not really sure. Thankfully, a little trip back over to Jakarta-Commons-Collections digs up the org.apache.commons.collections.map.ReferenceMap .</p>
+<p>SoftReferences are typically used for implementing memory caching. The JVM should try to keep softly referenced objects in memory as long as possible, and when memory is low clear the oldest soft references first. According to the JavaDoc, there are no guarantees though.</p>
+<p>WeakReferences is the reference type I use most frequently. It&rsquo;s typically used when you want weak listeners or if you want to connect additional information to an object (using WeakHashMap for example). Very useful stuff when you want to reduce class coupling.</p>
+<p>Phantom references can be used to perform pre-garbage collection actions such as freeing resources. Instead, people usually use the finalize() method for this which is not a good idea. Finalizers have a horrible impact on the performance of the garbage collector and can break data integrity of your application if you&rsquo;re not very careful since the &ldquo;finalizer&rdquo; is invoked in a random thread, at a random time.</p>
+<p>In the constructor of a phantom reference, you specify a ReferenceQueue where the phantom references are enqueued once the referenced objects becomes &ldquo;phantom reachable&rdquo;. Phantom reachable means unreachable other than through the phantom reference. The initially confusing thing is that although the phantom reference continues to hold the referenced object in a private field (unlike soft or weak references), its getReference() method always returns null. This is so that you cannot make the object strongly reachable again.</p>
+<p>From time to time, you can poll the ReferenceQueue and check if there are any new PhantomReferences whose referenced objects have become phantom reachable. In order to be able to to anything useful, one can for example derive a class from java.lang.ref.PhantomReference that references resources that should be freed before garbage collection. The referenced object is only garbage collected once the phantom reference becomes unreachable itself.</p>
+<h2 id="source-code-analysis">Source code analysis</h2>
+<h3 id="internal-data-structure">Internal data structure</h3>
+<ul>
+<li>transient Entry&lt;K, V&gt;[] elementData;</li>
+<li>transient int modCount = 0;</li>
+<li>private transient V[] cache;</li>
+</ul>
+<h3 id="put">Put</h3>
+<p>It will call return putImpl(key, value); directly</p>
+<h4 id="v-putimplk-key-v-value">V putImpl(K key, V value)</h4>
+<ul>
+<li>if(key == null)
+&ndash; entry = findNullKeyEntry();</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">entry <span style="color:#f92672">=</span> findNullKeyEntry<span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>entry <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                modCount<span style="color:#f92672">++;</span>
+                entry <span style="color:#f92672">=</span> createHashedEntry<span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(++</span>elementCount <span style="color:#f92672">&gt;</span> threshold<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    rehash<span style="color:#f92672">();</span>
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>
+</code></pre></div><p>&mdash; findNullKeyEntry
+Iterate the internal array to locate null entry</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">final</span> Entry<span style="color:#f92672">&lt;</span>K<span style="color:#f92672">,</span>V<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findNullKeyEntry</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        Entry<span style="color:#f92672">&lt;</span>K<span style="color:#f92672">,</span>V<span style="color:#f92672">&gt;</span> m <span style="color:#f92672">=</span> elementData<span style="color:#f92672">[</span>0<span style="color:#f92672">];</span>
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>m <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">key</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            m <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> m<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>else (if key is not null)</li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/java" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">java</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-compare-in-java/">Compare-In-Java</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-20-deadlock/">Dead Lock</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-hashcode-contract/">Hash Code Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-03-intellij-tips/">IntelliJ Tips</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-06-24-jdk-sources/">JDK source</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-17-java-collections-misc/">Java Collections Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-01-concurrent-in-java-col-2/">Java Concurrent Column 2</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-02-enum-misc/">Java Enum Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-java-gc/">Java GC notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-21-java-jit/">Java JIT compiler</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-05-jvm/">Java JVM</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-02-java-new-io/">Java New IO</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-15-java-security/">Java Security Notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-java-tricky-tech-questions/">Java-Tricky-Tech-Questions.md</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-03-maven-notes/">Maven-Notes</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

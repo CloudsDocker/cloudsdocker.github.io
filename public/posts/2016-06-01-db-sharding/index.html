@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Database sharding | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Database sharding" />
+<meta property="og:description" content="DB sharding in YHD There are two solutions when DB becoming bottleneck in yihaodian.
+ Scale up Upgrade Oracle DB, adding more CPU , Disk and memory to incrase I/O performance. This is for short term only, high cost. Scale out Divide the order table to multiple DBs, which is support horizontal extension, for long term purpose.  Orgional Oracle is replaced by multiple MySQL DB, supporintg one master and multiple slaves, supporitng segratation of read and write." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2016-06-01-db-sharding/" />
+
+<meta itemprop="name" content="Database sharding">
+<meta itemprop="description" content="DB sharding in YHD There are two solutions when DB becoming bottleneck in yihaodian.
+ Scale up Upgrade Oracle DB, adding more CPU , Disk and memory to incrase I/O performance. This is for short term only, high cost. Scale out Divide the order table to multiple DBs, which is support horizontal extension, for long term purpose.  Orgional Oracle is replaced by multiple MySQL DB, supporintg one master and multiple slaves, supporitng segratation of read and write.">
+
+<meta itemprop="wordCount" content="978">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Database sharding"/>
+<meta name="twitter:description" content="DB sharding in YHD There are two solutions when DB becoming bottleneck in yihaodian.
+ Scale up Upgrade Oracle DB, adding more CPU , Disk and memory to incrase I/O performance. This is for short term only, high cost. Scale out Divide the order table to multiple DBs, which is support horizontal extension, for long term purpose.  Orgional Oracle is replaced by multiple MySQL DB, supporintg one master and multiple slaves, supporitng segratation of read and write."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2016-06-01-db-sharding/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2016-06-01-db-sharding/&amp;text=Database%20sharding" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2016-06-01-db-sharding/&amp;title=Database%20sharding" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Database sharding</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="db-sharding-in-yhd">DB sharding in YHD</h1>
+<p>There are two solutions when DB becoming bottleneck in yihaodian.</p>
+<ul>
+<li>Scale up
+Upgrade Oracle DB, adding more CPU , Disk and memory to incrase I/O performance. This is for short term only, high cost.</li>
+<li>Scale out
+Divide the order table to multiple DBs, which is support horizontal extension, for long term purpose.</li>
+</ul>
+<p>Orgional Oracle is replaced by multiple MySQL DB, supporintg one master and multiple slaves, supporitng segratation of read and write. Leveraging <code>MySQL built-in</code> Master-slave replication (SLA&lt;1 second)</p>
+<h2 id="sharding-dimensions">sharding dimensions</h2>
+<ul>
+<li>DB Field chosing, it should chose the filed that lead to least SQL and code change, to make the access fall in <code>one database</code>, instead of multiple DBs, which result in high I/O and significant logic change.</li>
+<li>Here is one practice
+&ndash; Get all SQL
+&ndash; Pick up top fields appear in <code>where</code> clause.
+&ndash; List break down from three categories</li>
+</ul>
+<ol>
+<li>Single ID, i.e. userID=?</li>
+<li>Multiple ID. i.e. userID in (?,?,?)</li>
+<li>Not show</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Single ID</th>
+<th align="right">Multiple ID</th>
+<th align="right">Not show</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">userID</td>
+<td align="right">120</td>
+<td align="right">40</td>
+<td align="right">330</td>
+</tr>
+<tr>
+<td align="left">orderID</td>
+<td align="right">60</td>
+<td align="right">80</td>
+<td align="right">360</td>
+</tr>
+<tr>
+<td align="left">shopID</td>
+<td align="right">15</td>
+<td align="right">0</td>
+<td align="right">485</td>
+</tr>
+<tr>
+<td align="left">It&rsquo;s obviously we should chose userID for sharding. Hold on, this is just <strong>static</strong> analysis, we should conduct <em>dynamic</em>* study as well, so list most executed SQLs, e.g. top 15 SQL (account to 85% of SQL calls), if we conduct sharding by user ID, 85% of those SQL will fall in single DB and 13% fall in multiple DB, and only 2% will scan all DB, so the performance is must better than sharding on other ID fields.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="sharding-strategy">sharding strategy</h2>
+<p>There are two type of strategies</p>
+<ol>
+<li>By value range, e.g. user ID 1-9999 to DB1, and 10000-20000 to DB2. For this option,</li>
+<li>By value mod, e.g. userID mod n, when reminder is 0, go to DB1, reminder is 1, to DB2, etc.</li>
+</ol>
+<p>Pros and Cons:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Criteria</th>
+<th align="left">By Range</th>
+<th align="left">By Mod</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">number of DBs</td>
+<td align="left">initially only require small amount of DBs, can increasse by business requests</td>
+<td align="left">initially number based on mod number, normally a big number</td>
+</tr>
+<tr>
+<td align="left">Accessibility</td>
+<td align="left">initially only few DBs, perforamce cost is small, single DB performance query is poor</td>
+<td align="left">initially big number of DBs, query acorss DBs may consume many resources, better for query on single DB</td>
+</tr>
+<tr>
+<td align="left">DBs adjustment</td>
+<td align="left">easy, just add new DB, and impact is limit when split existing DB</td>
+<td align="left">not easy, change mod value  may result in DB migration across DBs</td>
+</tr>
+<tr>
+<td align="left">Data hotspot</td>
+<td align="left">there are data hotspot issues</td>
+<td align="left">no data hotspot issues</td>
+</tr>
+</tbody>
+</table>
+<p>In practice, for the sake of simplicity, mod sharding is often used. To manage further sharding, and for smooth data migration, normally new DBs are added by folds, e.g. intially 4 DBs, furhter split will be 8 DBs, then 16 DBs. This is becuase only half of data in existing DB will be migrated to new DB, while the rest half will be remain unchanged. However, there are some super IDs, e.g. one big shop with massive records than normal, if we shard DB by user ID, there will one DB will many records than others. For this case, we need to provide separate DB for those super IDs.</p>
+<h2 id="sharding-numbers">sharding numbers</h2>
+<p>Firslty, that&rsquo;s depends on the ability of single DB, e.g. normally one MySQL DB can support upto 50mio records, and Oracle can support 100mio. Normally multiple DBs may leads to certain perforamnce issues, when data query across multiple DBs, if there are multithreading call, it will cost precious thread resource, while it&rsquo;s single thread, the wating time will be unacceptable. Normally, the initial sharding is 4-8 DBs.</p>
+<h2 id="router-transparency">Router transparency</h2>
+<p>To certain extent, DB sharding means change of DBSChema, which inevitable result in application, however, this is irrelavent to business logic, so the DB sharding should be transparent to business logic code, therefore, DB sharding should be handled at DAL (Data Access Layer) or DDAL (Distributed Data Access Layer).</p>
+<ol>
+<li>For access to single DB, e.g. query by certain user id, DAL will automatically route to that DB, even further split by mod, still no applicaiton logic code change impacted.</li>
+<li>For simple across DB query, DAL in charge to aggregate results from every DB query, still transparent to upper application logic.</li>
+<li>For query involves multiple DBs with aggretation functions, e.g. groupBy, order by, min, max, avg. It&rsquo;s recommended DAL consolidate request from single DB, while upper layers do further processing. That&rsquo;s becuase if rely on DAL, it would be too complex, and such case is relatively rare case, so leave it to upper layer.</li>
+</ol>
+<h1 id="oracle-sharding">Oracle Sharding</h1>
+<p>It&rsquo;s required in Web 2.0 and high availability technologies</p>
+<p>Shardingis an application-managed scaling technique using many (hundreds /thousands of) independent databases</p>
+<ul>
+<li>Data is split into multiple databases (shards)</li>
+<li>Each database holds a subset (either range or hash) of the data</li>
+<li>Split the shards as data volume or access grows</li>
+<li>Shards are replicated for availability and scalability</li>
+</ul>
+<p>Sharding is the dominant approach for scaling massive websites</p>
+<ul>
+<li>Application code dispatches request to a specific database based on key value</li>
+<li>Queries are constrained -simple queries on shard-key</li>
+<li>Data isdenormalizedto avoid cross-shard operations (no joins)</li>
+<li>Each database holds all the data</li>
+<li>Request dispatched to a specific database based on read/write,key value</li>
+<li>Updates go to one database, changes are replicated to the other databases. The other databases are available for reads</li>
+<li>Provides read scalability</li>
+<li>Can be combined with horizontal sharding so that each shard is replicated to a different degree</li>
+<li>Main benefit is that you do not need to reshard</li>
+</ul>
+<h2 id="downsides-of-db-replica">Downsides of DB replica</h2>
+<ul>
+<li>Only async log shipping which can lose data in case of failure</li>
+<li>Slaves can return inconsistent data</li>
+<li>Statement based replication has correctness issues &amp; row-based replication is immature</li>
+<li>Replication is slow (high overhead on each reader, slaves are single-threaded)</li>
+<li>No support for failover between master (primary) &amp; slaves (backup)</li>
+<li>Does not handle failure conditions such as missing or damaged logs</li>
+<li>Storage engine and replication state may become inconsistent after a crash</li>
+<li>Bringing a failed master back requires copying the database</li>
+</ul>
+<p>&ndash;End&ndash;</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

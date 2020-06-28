@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Kafka In Spring | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Kafka In Spring" />
+<meta property="og:description" content="Enable Kafka listener annotated endpoints that are created under the covers by a AbstractListenerContainerFactory. To be used on Configuration classes as follows: @Configuration @EnableKafka public class AppConfig { @Bean public ConcurrentKafkaListenerContainerFactory myKafkaListenerContainerFactory() { ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory(); factory.setConsumerFactory(consumerFactory()); factory.setConcurrency(4); return factory; } // other @Bean definitions }
+The KafkaListenerContainerFactory is responsible to create the listener container for a particular endpoint. Typical implementations, as the ConcurrentKafkaListenerContainerFactory used in the sample above, provides the necessary configuration options that are supported by the underlying MessageListenerContainer." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2019-09-02-kafka-in-spring/" />
+
+<meta itemprop="name" content="Kafka In Spring">
+<meta itemprop="description" content="Enable Kafka listener annotated endpoints that are created under the covers by a AbstractListenerContainerFactory. To be used on Configuration classes as follows: @Configuration @EnableKafka public class AppConfig { @Bean public ConcurrentKafkaListenerContainerFactory myKafkaListenerContainerFactory() { ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory(); factory.setConsumerFactory(consumerFactory()); factory.setConcurrency(4); return factory; } // other @Bean definitions }
+The KafkaListenerContainerFactory is responsible to create the listener container for a particular endpoint. Typical implementations, as the ConcurrentKafkaListenerContainerFactory used in the sample above, provides the necessary configuration options that are supported by the underlying MessageListenerContainer.">
+
+<meta itemprop="wordCount" content="800">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kafka In Spring"/>
+<meta name="twitter:description" content="Enable Kafka listener annotated endpoints that are created under the covers by a AbstractListenerContainerFactory. To be used on Configuration classes as follows: @Configuration @EnableKafka public class AppConfig { @Bean public ConcurrentKafkaListenerContainerFactory myKafkaListenerContainerFactory() { ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory(); factory.setConsumerFactory(consumerFactory()); factory.setConcurrency(4); return factory; } // other @Bean definitions }
+The KafkaListenerContainerFactory is responsible to create the listener container for a particular endpoint. Typical implementations, as the ConcurrentKafkaListenerContainerFactory used in the sample above, provides the necessary configuration options that are supported by the underlying MessageListenerContainer."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2019-09-02-kafka-in-spring/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2019-09-02-kafka-in-spring/&amp;text=Kafka%20In%20Spring" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2019-09-02-kafka-in-spring/&amp;title=Kafka%20In%20Spring" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Kafka In Spring</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Enable Kafka listener annotated endpoints that are created under the covers by a AbstractListenerContainerFactory. To be used on Configuration classes as follows:
+@Configuration
+@EnableKafka
+public class AppConfig {
+@Bean
+public ConcurrentKafkaListenerContainerFactory myKafkaListenerContainerFactory() {
+ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory();
+factory.setConsumerFactory(consumerFactory());
+factory.setConcurrency(4);
+return factory;
+}
+// other @Bean definitions
+}</p>
+<p>The KafkaListenerContainerFactory is responsible to create the listener container for a particular endpoint. Typical implementations, as the ConcurrentKafkaListenerContainerFactory used in the sample above, provides the necessary configuration options that are supported by the underlying MessageListenerContainer.
+@EnableKafka enables detection of KafkaListener annotations on any Spring-managed bean in the container. For example, given a class MyService:
+package com.acme.foo;</p>
+<p>public class MyService {
+@KafkaListener(containerFactory = &ldquo;myKafkaListenerContainerFactory&rdquo;, topics = &ldquo;myTopic&rdquo;)
+public void process(String msg) {
+// process incoming message
+}
+}</p>
+<p>The container factory to use is identified by the containerFactory attribute defining the name of the KafkaListenerContainerFactory bean to use. When none is set a KafkaListenerContainerFactory bean with name kafkaListenerContainerFactory is assumed to be present.
+the following configuration would ensure that every time a message is received from topic &ldquo;myQueue&rdquo;, MyService.process() is called with the content of the message:
+@Configuration
+@EnableKafka
+public class AppConfig {
+@Bean
+public MyService myService() {
+return new MyService();
+}</p>
+<pre><code>// Kafka infrastructure setup
+</code></pre>
+<p>}</p>
+<p>Alternatively, if MyService were annotated with @Component, the following configuration would ensure that its @KafkaListener annotated method is invoked with a matching incoming message:
+@Configuration
+@EnableKafka
+@ComponentScan(basePackages = &ldquo;com.acme.foo&rdquo;)
+public class AppConfig {
+}</p>
+<p>Note that the created containers are not registered with the application context but can be easily located for management purposes using the KafkaListenerEndpointRegistry.
+Annotated methods can use a flexible signature; in particular, it is possible to use the Message abstraction and related annotations, see KafkaListener Javadoc for more details. For instance, the following would inject the content of the message and the kafka partition header:
+@KafkaListener(containerFactory = &ldquo;myKafkaListenerContainerFactory&rdquo;, topics = &ldquo;myTopic&rdquo;)
+public void process(String msg, @Header(&ldquo;kafka_partition&rdquo;) int partition) {
+// process incoming message
+}</p>
+<p>These features are abstracted by the MessageHandlerMethodFactory that is responsible to build the necessary invoker to process the annotated method. By default, DefaultMessageHandlerMethodFactory is used.
+When more control is desired, a @Configuration class may implement KafkaListenerConfigurer. This allows access to the underlying KafkaListenerEndpointRegistrar instance. The following example demonstrates how to specify an explicit default KafkaListenerContainerFactory
+{
+@code
+@Configuration
+@EnableKafka
+public class AppConfig implements KafkaListenerConfigurer {
+@Override
+public void configureKafkaListeners(KafkaListenerEndpointRegistrar registrar) {
+registrar.setContainerFactory(myKafkaListenerContainerFactory());
+}</p>
+<pre><code>    @Bean
+    public KafkaListenerContainerFactory&lt;?, ?&gt; myKafkaListenerContainerFactory() {
+        // factory settings
+    }
+
+    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+</code></pre>
+<p>}</p>
+<p>It is also possible to specify a custom KafkaListenerEndpointRegistry in case you need more control on the way the containers are created and managed. The example below also demonstrates how to customize the org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory as well as how to supply a custom Validator so that payloads annotated with Validated are first validated against a custom Validator.
+{
+@code
+@Configuration
+@EnableKafka
+public class AppConfig implements KafkaListenerConfigurer {
+@Override
+public void configureKafkaListeners(KafkaListenerEndpointRegistrar registrar) {
+registrar.setEndpointRegistry(myKafkaListenerEndpointRegistry());
+registrar.setMessageHandlerMethodFactory(myMessageHandlerMethodFactory);
+registrar.setValidator(new MyValidator());
+}</p>
+<pre><code>    @Bean
+    public KafkaListenerEndpointRegistry myKafkaListenerEndpointRegistry() {
+        // registry configuration
+    }
+
+    @Bean
+    public MessageHandlerMethodFactory myMessageHandlerMethodFactory() {
+        DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
+        // factory configuration
+        return factory;
+    }
+
+    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+</code></pre>
+<p>}</p>
+<p>Implementing KafkaListenerConfigurer also allows for fine-grained control over endpoints registration via the KafkaListenerEndpointRegistrar. For example, the following configures an extra endpoint:
+{
+@code
+@Configuration
+@EnableKafka
+public class AppConfig implements KafkaListenerConfigurer {
+@Override
+public void configureKafkaListeners(KafkaListenerEndpointRegistrar registrar) {
+SimpleKafkaListenerEndpoint myEndpoint = new SimpleKafkaListenerEndpoint();
+// &hellip; configure the endpoint
+registrar.registerEndpoint(endpoint, anotherKafkaListenerContainerFactory());
+}</p>
+<pre><code>    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+
+    @Bean
+    public KafkaListenerContainerFactory&lt;?, ?&gt; anotherKafkaListenerContainerFactory() {
+        // ...
+    }
+
+    // Kafka infrastructure setup
+}
+</code></pre>
+<p>}</p>
+<p>Note that all beans implementing KafkaListenerConfigurer will be detected and invoked in a similar fashion. The example above can be translated in a regular bean definition registered in the context in case you use the XML configuration.
+See Also:
+KafkaListener, KafkaListenerAnnotationBeanPostProcessor, org.springframework.kafka.config.KafkaListenerEndpointRegistrar, org.springframework.kafka.config.KafkaListenerEndpointRegistry
+spring-kafka-dist.spring-kafka.main</p>
+<h1 id="flush">flush</h1>
+<p>If you wish to block the sending thread, to await the result, you can invoke the future’s get() method. You may wish to invoke flush() before waiting or, for convenience, the template has a constructor with an autoFlush parameter which will cause the template to flush() on each send. Note, however that flushing will likely significantly reduce performance.</p>
+<h2 id="non-blocking-async">Non Blocking (Async).</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sendToKafka</span><span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> MyOutputData data<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+<span style="color:#66d9ef">final</span> ProducerRecord<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> record <span style="color:#f92672">=</span> createRecord<span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+ListenableFuture<span style="color:#f92672">&lt;</span>SendResult<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;&gt;</span> future <span style="color:#f92672">=</span> template<span style="color:#f92672">.</span><span style="color:#a6e22e">send</span><span style="color:#f92672">(</span>record<span style="color:#f92672">);</span> future<span style="color:#f92672">.</span><span style="color:#a6e22e">addCallback</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> ListenableFutureCallback<span style="color:#f92672">&lt;</span>SendResult<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;&gt;()</span> <span style="color:#f92672">{</span>
+<span style="color:#a6e22e">@Override</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onSuccess</span><span style="color:#f92672">(</span>SendResult<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> result<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> handleSuccess<span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+<span style="color:#a6e22e">@Override</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onFailure</span><span style="color:#f92672">(</span>Throwable ex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> handleFailure<span style="color:#f92672">(</span>data<span style="color:#f92672">,</span> record<span style="color:#f92672">,</span> ex<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+<span style="color:#f92672">});</span> <span style="color:#f92672">}</span>
+</code></pre></div><h2 id="blocking-sync">Blocking (Sync).</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sendToKafka</span><span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> MyOutputData data<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+<span style="color:#66d9ef">final</span> ProducerRecord<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> record <span style="color:#f92672">=</span> createRecord<span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+<span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+template<span style="color:#f92672">.</span><span style="color:#a6e22e">send</span><span style="color:#f92672">(</span>record<span style="color:#f92672">).</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>10<span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">);</span> handleSuccess<span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>ExecutionException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        handleFailure<span style="color:#f92672">(</span>data<span style="color:#f92672">,</span> record<span style="color:#f92672">,</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getCause</span><span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>TimeoutException <span style="color:#f92672">|</span> InterruptedException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> handleFailure<span style="color:#f92672">(</span>data<span style="color:#f92672">,</span> record<span style="color:#f92672">,</span> e<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
+</code></pre></div><h2 id="kafkatransactionmanager">KafkaTransactionManager</h2>
+<p>The <code>KafkaTransactionManager</code> is an implementation of Spring Framework’s <code>PlatformTransactionManager</code>;</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

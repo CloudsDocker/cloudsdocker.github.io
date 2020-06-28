@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Algorithm | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Algorithm" />
+<meta property="og:description" content="This page is about key points about Algorithm Methodology  The easiest way to improve search efficiency on a set of data is to put it in a data structure that allows more efficient searching. What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1))." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-01-21-algorithm/" />
+
+<meta itemprop="name" content="Algorithm">
+<meta itemprop="description" content="This page is about key points about Algorithm Methodology  The easiest way to improve search efficiency on a set of data is to put it in a data structure that allows more efficient searching. What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1)).">
+
+<meta itemprop="wordCount" content="2999">
+
+
+
+<meta itemprop="keywords" content="Dev,algorithm," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Algorithm"/>
+<meta name="twitter:description" content="This page is about key points about Algorithm Methodology  The easiest way to improve search efficiency on a set of data is to put it in a data structure that allows more efficient searching. What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1))."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-01-21-algorithm/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-01-21-algorithm/&amp;text=Algorithm" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-01-21-algorithm/&amp;title=Algorithm" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Algorithm</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="this-page-is-about-key-points-about-algorithm">This page is about key points about Algorithm</h1>
+<h2 id="methodology">Methodology</h2>
+<ul>
+<li>The easiest way to improve search efficiency on a set of data is to put it in a data structure that allows more efficient searching.
+What data structures can be searched more efficiency than O(n)? Binary tree can be searched in O(log(n)). Arrays and hash tables both have constant time element look up (has tables have worse-case lookup of O(n) but the average case is O(1)).</li>
+<li>Then need to determine which data structure to be used. If the underlying characters are just ASCII, then a array[128] would be enough. But characters are UNICODe, then it need 100,000 (100K) array, which is a concern of memory, so hash table would be a better option, which only keep exist characters.
+In general, arrays are a better choice for long strings with a limited set of possible characters values, hash tables are more efficient for shorter strings or when there are many possible character values.</li>
+<li>For some problems, obvious iterative alternatives like the one just shown don’t exist, but it’s always possible to implement a recursive algorithm without using recursive calls.</li>
+<li>For a simple recursive function like factorial, many computer architectures spend more time on call overhead than on the actual calculation. Iterative functions, which use looping constructs instead of recursive function calls, do not suffer from this overhead and are frequently more efficient.</li>
+<li>NOTE Iterative solutions are usually more efficient than recursive solutions.</li>
+<li>NOTE Every recursive case must eventually lead to a base case.</li>
+<li>NOTE Recursive algorithms have two cases: recursive cases and base cases</li>
+</ul>
+<h1 id="sort">Sort</h1>
+<h2 id="i-collectionssort">I collections.sort()</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Object<span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">();</span>
+        Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>a<span style="color:#f92672">);</span>
+        ListIterator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> i <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">listIterator</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> j<span style="color:#f92672">&lt;</span>a<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> j<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            i<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">();</span>
+            i<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">((</span>T<span style="color:#f92672">)</span>a<span style="color:#f92672">[</span>j<span style="color:#f92672">]);</span>
+        <span style="color:#f92672">}</span>
+
+</code></pre></div><h2 id="arrayssort">Arrays.sort</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>Object<span style="color:#f92672">[]</span> a<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>LegacyMergeSort<span style="color:#f92672">.</span><span style="color:#a6e22e">userRequested</span><span style="color:#f92672">)</span>
+            legacyMergeSort<span style="color:#f92672">(</span>a<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">else</span>
+            ComparableTimSort<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>a<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mergeSort</span><span style="color:#f92672">(</span>Object<span style="color:#f92672">[]</span> src<span style="color:#f92672">,</span>
+                                  Object<span style="color:#f92672">[]</span> dest<span style="color:#f92672">,</span>
+                                  <span style="color:#66d9ef">int</span> low<span style="color:#f92672">,</span>
+                                  <span style="color:#66d9ef">int</span> high<span style="color:#f92672">,</span>
+                                  <span style="color:#66d9ef">int</span> off<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> length <span style="color:#f92672">=</span> high <span style="color:#f92672">-</span> low<span style="color:#f92672">;</span>
+
+        <span style="color:#75715e">// Insertion sort on smallest arrays
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>length <span style="color:#f92672">&lt;</span> INSERTIONSORT_THRESHOLD<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">// threshold is 7
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>low<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>high<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span>
+                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i<span style="color:#f92672">;</span> j<span style="color:#f92672">&gt;</span>low <span style="color:#f92672">&amp;&amp;</span>
+                         <span style="color:#f92672">((</span>Comparable<span style="color:#f92672">)</span> dest<span style="color:#f92672">[</span>j<span style="color:#f92672">-</span>1<span style="color:#f92672">]).</span><span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>dest<span style="color:#f92672">[</span>j<span style="color:#f92672">])&gt;</span>0<span style="color:#f92672">;</span> j<span style="color:#f92672">--)</span>
+                    swap<span style="color:#f92672">(</span>dest<span style="color:#f92672">,</span> j<span style="color:#f92672">,</span> j<span style="color:#f92672">-</span>1<span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// else use mergeSort
+</span><span style="color:#75715e"></span>
+</code></pre></div><h1 id="self-review">Self review</h1>
+<h2 id="ceasarcipher">CeasarCipher:</h2>
+<p>Generally: it’s a rotation of English alphabic. E.g. if rotation is 2, the encode is start from A+2, i.e. A is at -2 of the encode array.
+And decode is start with 26-2, and “A” start at positon 2, then the increase by 1 character to constitute the array
+That’s why need to “%26”, to make it loop across 26 characters</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">If rotation is 2:
+--- encrytpion code is:<span style="color:#f92672">[</span>C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B<span style="color:#f92672">]</span>
+--- decrytpion code is:<span style="color:#f92672">[</span>Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X<span style="color:#f92672">]</span>
+If rotation is 4:
+--- encrytpion code is:<span style="color:#f92672">[</span>E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A, B, C, D<span style="color:#f92672">]</span>
+--- decrytpion code is:<span style="color:#f92672">[</span>W, X, Y, Z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V<span style="color:#f92672">]</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ABC:
+Msg <span style="color:#f92672">={</span><span style="color:#960050;background-color:#1e0010">‘</span>A<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">,</span><span style="color:#960050;background-color:#1e0010">’</span>B<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">,</span><span style="color:#960050;background-color:#1e0010">’</span>C<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">};</span>
+Char<span style="color:#f92672">[]</span> encode<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">’</span>A<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">+(</span>k<span style="color:#f92672">+</span>rotation<span style="color:#f92672">)%</span>26<span style="color:#f92672">);</span>
+Char<span style="color:#f92672">[]</span> decode<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">’</span>A<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">+(</span>k<span style="color:#f92672">-</span>rotation<span style="color:#f92672">+</span>26<span style="color:#f92672">)%</span>26<span style="color:#f92672">);</span> <span style="color:#75715e">// +26 to avoid negative
+</span><span style="color:#75715e"></span>
+Encode<span style="color:#f92672">={</span><span style="color:#960050;background-color:#1e0010">‘</span>C<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">,</span><span style="color:#960050;background-color:#1e0010">’</span>D<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">,</span><span style="color:#960050;background-color:#1e0010">’</span>E<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">};</span> <span style="color:#75715e">// rotation=3, so A+3, A+4,A+5,xxx, A+26=&gt;3,4,5,6,xxx,0
+</span><span style="color:#75715e"></span>Decode<span style="color:#f92672">={</span><span style="color:#960050;background-color:#1e0010">‘</span>M<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">,</span><span style="color:#960050;background-color:#1e0010">’</span>N<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">,</span><span style="color:#960050;background-color:#1e0010">’</span>O<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">};</span><span style="color:#75715e">//as k-rotation+26 % 26, so it’s 26-3+0,26-3+1 ,xx: =&gt; 23,24,25,0,1,2,3,4,is: A+23,A+24,A+25=&gt;‘M’,’N’,’O’. that’s rotation, rotain-1, rotaion -2 xxxx
+</span><span style="color:#75715e"></span>For<span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>i<span style="color:#f92672">&lt;</span>msg<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span>i<span style="color:#f92672">++){</span>
+  Int j<span style="color:#f92672">=</span>msg<span style="color:#f92672">[</span>i<span style="color:#f92672">]-</span><span style="color:#960050;background-color:#1e0010">‘</span>A<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">;</span> <span style="color:#75715e">// to remove the base ‘A”, so sync with the “k” in encode, 3,4,5,xxx 3+26
+</span><span style="color:#75715e"></span>  Msg<span style="color:#f92672">[</span>i<span style="color:#f92672">]=</span>codes<span style="color:#f92672">[</span>j<span style="color:#f92672">];</span>
+<span style="color:#f92672">}</span>
+<span style="color:#75715e">// encode
+</span><span style="color:#75715e"></span>Int j<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">’</span>A<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">-</span><span style="color:#960050;background-color:#1e0010">‘</span>A<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">;</span> <span style="color:#75715e">//0
+</span><span style="color:#75715e"></span>Msg<span style="color:#f92672">[</span>0<span style="color:#f92672">]=</span><span style="color:#960050;background-color:#1e0010">’</span>C<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">;</span>
+Msg<span style="color:#f92672">[</span>1<span style="color:#f92672">]=</span><span style="color:#960050;background-color:#1e0010">’</span>D<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">;</span>
+Msg<span style="color:#f92672">[</span>2<span style="color:#f92672">]=</span><span style="color:#960050;background-color:#1e0010">’</span>E<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">;</span>
+
+<span style="color:#75715e">//decode
+</span><span style="color:#75715e"></span>Int j<span style="color:#f92672">=</span>msg<span style="color:#f92672">[</span>i<span style="color:#f92672">]-</span><span style="color:#960050;background-color:#1e0010">‘</span>A<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">;</span> <span style="color:#75715e">//’C’-‘A’=3
+</span><span style="color:#75715e"></span>Msg<span style="color:#f92672">[</span>i<span style="color:#f92672">]=</span>decode<span style="color:#f92672">[</span>j<span style="color:#f92672">];</span> <span style="color:#75715e">// correspoindg to the postion 0,-xxx, 26 in decode, 
+</span><span style="color:#75715e"></span>Msg<span style="color:#f92672">[</span>0<span style="color:#f92672">]=</span>
+</code></pre></div><ul>
+<li>If you says “tree,” it’s a good idea to clarify whether she is referring to a generic tree or a binary tree.</li>
+</ul>
+<h1 id="to-print-content-of-array">To print content of Array</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Import java<span style="color:#f92672">.</span><span style="color:#a6e22e">util</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Arrays</span><span style="color:#f92672">;</span>
+Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span>ary<span style="color:#f92672">);</span>
+Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">deepToString</span><span style="color:#f92672">(</span>ary<span style="color:#f92672">);</span>
+</code></pre></div><h1 id="search-without-recursive">search without recursive</h1>
+<p>Node findNode( Node root, int value ){
+while( root != null ){
+int currval = root.getValue();
+if( currval == value ) break;
+if( currval &lt; value ){
+root = root.getRight();
+} else { // currval &gt; value
+root = root.getLeft();
+}
+}</p>
+<pre><code>return root;
+</code></pre>
+<p>}</p>
+<ul>
+<li>
+<p>preceding lookup operation can be reimplemented recursively as follows:
+Node findNode( Node root, int value ){
+if( root == null ) return null;
+int currval = root.getValue();     <br>
+if( currval == value ) return root;        <br>
+if( currval &lt; value ){
+return findNode( root.getRight(), value );
+} else { // currval &gt; value
+return findNode( root.getLeft(), value );
+}<br>
+}</p>
+</li>
+<li>
+<p>This subtree property is conducive to recursion because recursion generally involves solving a problem in terms of similar subproblems and a base case.</p>
+</li>
+</ul>
+<h1 id="big-o-sequencey">Big O sequencey</h1>
+<p>1, logn, n, n log n, n2, n3, 2n(2 power n).</p>
+<h1 id="big-o">Big O</h1>
+<ul>
+<li>It is also considered poor taste to include constant factors and lower-order terms in the big-Oh notation. For example, it is not fashionable to say that the function 2n2 is O(4n2 + 6n log n), although this is completely correct. We should strive instead to describe the function in the big-Oh <strong>in simplest terms</strong>.</li>
+<li>So, for example, we would say that an algorithm that runs in worst-case time 4n2 + n log n is a quadratic-time algorithm, since it runs in O(n2) time. Likewise, an algorithm running in time at most 5n + 20logn + 4 would be called a linear-time algorithm.</li>
+</ul>
+<h1 id="big-omega">Big Omega</h1>
+<ul>
+<li>Just as the big-Oh notation provides an asymptotic way of saying that a function is “less than or equal to” another function, the following notations provide <strong>an asymptotic way</strong> of saying that a function grows at a rate that is “<strong>greater than or equal to</strong>” that of another.</li>
+<li>Example 4.14: 3n log n ? 2n is Ω(n log n).</li>
+</ul>
+<h1 id="big-theta">Big-Theta</h1>
+<ul>
+<li>In addition, there is a notation that allows us to say that two functions grow at the same rate, up to constant factors. We say that f(n) is Θ(g(n)), pronounced “f(n) is big-Theta of g(n),”</li>
+</ul>
+<h1 id="comparative-analysis">Comparative Analysis</h1>
+<ul>
+<li>asymptotically[,?simp&rsquo;t?tik,-k?l] better</li>
+<li>Suppose two algorithms solving the same problem are available: an algorithm A, which has a running time of O(n), and an algorithm B, which has a running time of O(n2). Which algorithm is better? We know that n is O(n2), which implies that algorithm A <strong>is asymptotically better</strong> than algorithm B, although for a small value of n, B may have a lower running time than A.</li>
+</ul>
+<h1 id="some-words-of-caution">Some Words of Caution</h1>
+<ul>
+<li>First, note that the use of the big-Oh and related notations can be somewhat misleading should the constant factors they “hide” be very large. For example, while it is true that the function 10100n is O(n), if this is the running time of an algorithm being compared to one whose running time is 10n log n, we should prefer the O(nlog n)-time algorithm, even though the linear-time algorithm is asymptotically faster. This preference is because the constant factor, 10100, which is called “one googol,” is believed by many astronomers to be an upper bound on the number of atoms in the observable universe. So we are unlikely to ever have a real-world problem that has this number as its input size.</li>
+</ul>
+<h1 id="exponential-ekspnenl-running-times">Exponential [,eksp?&lsquo;nen?(?)l] Running Times</h1>
+<ul>
+<li>To see how fast the function 2n grows, consider the famous story about the inventor of the game of chess. He asked only that his king pay him 1 grain of rice for the first square on the board, 2 grains for the second, 4 grains for the third, 8 for the fourth, and so on. The number of grains in the 64th square would be
+263 = 9, 223, 372, 036, 854, 775, 808,
+which is about nine billion billions!</li>
+<li>If we must draw a line between efficient and inefficient algorithms, therefore, it is natural to make this distinction be that between those algorithms running in <strong>polynomial [,p?l?&lsquo;n??m??l] time</strong> and those running in <strong>exponential time</strong>. That is, make the distinction between algorithms with a running time that is <strong>O(nc)</strong> (power c based on n), for some constant c &gt; 1, and those with a running time that is <strong>O(bn)</strong> (power n based on b), for some constant b &gt; 1. Like so many notions we have discussed in this section, this too should be taken with a “grain of salt,” for an algorithm running in O(n100) time should probably not be considered “efficient.” Even so, the distinction between polynomial-time and exponential-time algorithms is considered a robust measure of tractability.</li>
+</ul>
+<h1 id="examples-of-algorithm-analysis">Examples of Algorithm Analysis</h1>
+<h2 id="constant-time-operation">constant time operation</h2>
+<ul>
+<li>All of the primitive operations, originally described on page 154, are assumed to run in constant time; Assume that variable A is an array of n elements. The expression A.length in Java is evaluated in constant time, because arrays are represented internally with an explicit variable that records the length of the array. Another central behavior of arrays is that for any valid index j, the individual element, A[j], can be accessed in constant time. This is because an array uses a consecutive block of memory. The jth element can be found, not by iterating through the array one element at a time, but by validating the index, and using it as an offset from the beginning of the array in determining the appropriate memory address. Therefore, we say that the expression A[j] is evaluated in O(1) time for an array.</li>
+</ul>
+<h2 id="finding-the-maximum-of-an-array">Finding the Maximum of an Array</h2>
+<p>Proposition 4.16: The algorithm, arrayMax, for computing the maximum element of an array of n numbers, runs in O(n) time.</p>
+<p>Justification: The initialization at lines 3 and 4 and the return statement at line 8 require only a constant number of primitive operations. Each iteration of the loop also requires only a constant number of primitive operations, and the loop executes n ? 1 times.</p>
+<h2 id="composing-long-strings">Composing Long Strings</h2>
+<ul>
+<li>
+<p>Therefore, the overall time taken by this algorithm is proportional to
+1 + 2 + ··· + n,
+which we recognize as the familiar O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->) summation from Proposition 4.3. Therefore, the total time complexity of the repeat1 algorithm is O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->).</p>
+</li>
+<li>
+<p>x = logbn if and only if bx = n.
+The value b is known as the base of the logarithm. Note that by the above definition, for any base b &gt; 0, we have that logb 1 = 0.</p>
+</li>
+</ul>
+<h1 id="three-way-set-disjointness">Three-Way Set Disjointness</h1>
+<h2 id="origional-solution">Origional solution</h2>
+<p>Suppose we are given three sets, A, B, and C, stored in three different integer arrays. We will assume that no individual set contains duplicate values, but that there may be some numbers that are in two or three of the sets. The three-way set disjointness problem is to determine if the intersection of the three sets is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">disjoint1</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span>  groupA<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> groupB<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> groupC<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span> <span style="color:#66d9ef">int</span> i <span style="color:#f92672">:</span> groupA<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> j <span style="color:#f92672">:</span> groupB<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> k <span style="color:#f92672">:</span> groupC<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>i<span style="color:#f92672">==</span>j <span style="color:#f92672">&amp;&amp;</span> j<span style="color:#f92672">==</span>k<span style="color:#f92672">){</span>
+                        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+                    <span style="color:#f92672">}</span>
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>This simple algorithm loops through each possible triple of values from the three sets to see if those values are equivalent. If each of the original sets has size n, then the worst-case running time of this method is O(n<!-- raw HTML omitted -->3<!-- raw HTML omitted -->) .</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">disjoint2</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span>  groupA<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> groupB<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> groupC<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span> <span style="color:#66d9ef">int</span> i <span style="color:#f92672">:</span> groupA<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> j <span style="color:#f92672">:</span> groupB<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>i<span style="color:#f92672">==</span>j<span style="color:#f92672">){</span>
+                    <span style="color:#75715e">// add this checking to reduce complexitiy
+</span><span style="color:#75715e"></span>                    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> k <span style="color:#f92672">:</span> groupC<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>j<span style="color:#f92672">==</span>k<span style="color:#f92672">){</span>
+                            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+                        <span style="color:#f92672">}</span>
+                    <span style="color:#f92672">}</span>
+                <span style="color:#f92672">}</span>
+
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>In the improved version, it is not simply that we save time if we get lucky. We claim that the worst-case running time for disjoint2 is O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->).</p>
+<h1 id="by-sorting">by sorting</h1>
+<p>Sorting algorithms will be the focus of Chapter 12. The best sorting algorithms (including those used by Array.sort in Java) guarantee a worst-case running time of O(nlog n). Once the data is sorted, the subsequent loop runs in O(n) time, and so the entire unique2 algorithm runs in O(n log n) time. Exercise C-4.35 explores the use of sorting to solve the three-way set disjointness problem in O(n log n) time.</p>
+<h1 id="prefixaverage">prefixAverage</h1>
+<p>Check the source code at PrefixAverage.java, the inital implementation is two for loop, which is O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->), while the better approach is reuse existing total sum.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// naiive approach,
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> n<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+			<span style="color:#66d9ef">double</span> total<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>
+			<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> j <span style="color:#f92672">&lt;=</span>i<span style="color:#f92672">;</span> j<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">// be awre it&#39;s &lt;=, instead of &#34;&lt;&#34;
+</span><span style="color:#75715e"></span>				total<span style="color:#f92672">+=</span>x<span style="color:#f92672">[</span>j<span style="color:#f92672">];</span>				
+			<span style="color:#f92672">}</span>
+			a<span style="color:#f92672">[</span>i<span style="color:#f92672">]=</span>total<span style="color:#f92672">/(</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">);</span>			
+		<span style="color:#f92672">}</span>
+<span style="color:#75715e">// better approach
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> total<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>
+		<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> n<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+			total <span style="color:#f92672">+=</span> x<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+			a<span style="color:#f92672">[</span>i<span style="color:#f92672">]=</span>total<span style="color:#f92672">/(</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">);</span>			
+		<span style="color:#f92672">}</span>
+</code></pre></div><h1 id="recursive">Recursive</h1>
+<h2 id="definitions">Definitions</h2>
+<ol>
+<li>We have one or more <strong>base cases</strong>, which refer to fixed values of the function. e.g. for n!=1 as  n=1 is base.</li>
+<li>Then we have one or more <strong>recursive cases</strong>, which define the function in terms of itself. for n!, it&rsquo;s =n*(n-1)! for n&gt;=1</li>
+</ol>
+<ul>
+<li>Repetition is achieved through repeated recursive invocations of the method. The process i finite because each time the method is invoked, its argument is smaller by one, and when a base case is reached, no further recursive calls are made.</li>
+<li>In the case of computing the factorial function, there is no compelling reason for prefereing recursion over a direct iteration with a loop.</li>
+</ul>
+<h1 id="tree">Tree</h1>
+<h2 id="adt-abstract-data-type">ADT (Abstract Data Type)</h2>
+<ul>
+<li>we define a tree ADT using the concept of a position as an abstraction for a node of a tree. An element is stored at each position, and positions satisfy parent-child relationships that define the tree structure.</li>
+</ul>
+<h2 id="depth-and-height">Depth and Height</h2>
+<h3 id="depth">Depth</h3>
+<ul>
+<li>The depth of p is the number of ancestors of p, other than p itself.</li>
+<li>The running time of depth(p) for position p is O(dp + 1), where dp denotes the depth of p in the tree, because the algorithm performs a constant-time recursive step for each ancestor of p. Thus, algorithm depth(p) runs in O(n) worst-case time, where n is the total number of positions of T, because a position of T may have depth n - 1 <strong>if all nodes form a single branch</strong>.</li>
+<li>Method depth, as implemented within the AbstractTree class.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">depth</span><span style="color:#f92672">(</span>Position<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> p<span style="color:#f92672">){</span>
+	<span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>isRoot<span style="color:#f92672">(</span>p<span style="color:#f92672">))</span>
+		<span style="color:#66d9ef">return</span> 0<span style="color:#f92672">;</span>
+	<span style="color:#66d9ef">else</span>
+		<span style="color:#66d9ef">return</span> 1<span style="color:#f92672">+</span>depth<span style="color:#f92672">(</span>parent<span style="color:#f92672">(</span>p<span style="color:#f92672">));</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="height">Height</h3>
+<ul>
+<li>We next define the height of a tree to be equal to the maximum of the depths of its positions (or zero, if the tree is empty).</li>
+<li>Folloing worst time cost is O(n), it progresses in a <strong>top-down</strong> fashion.</li>
+<li>If the method is initially called on the root of T, it will eventually be called once for each position of T. This is because the root eventually invokes the recursion on each of its children, which in turn invokes the recursion on each of their children, and so on.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">(</span>Position<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> p<span style="color:#f92672">){</span>
+	<span style="color:#66d9ef">int</span> h<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>
+	<span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>Position<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> c<span style="color:#f92672">:</span> children<span style="color:#f92672">(</span>p<span style="color:#f92672">))</span>
+		h<span style="color:#f92672">=</span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">max</span><span style="color:#f92672">(</span>h<span style="color:#f92672">,</span>1<span style="color:#f92672">+</span>height<span style="color:#f92672">(</span>c<span style="color:#f92672">));</span>
+	<span style="color:#66d9ef">return</span> h<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="binary-tree">Binary Tree</h2>
+<ul>
+<li>A binary tree is an ordered tree with the following properties:
+<ul>
+<li>Every node has at most two children.</li>
+<li>Each child node is labeled as being either a left child or a right child.</li>
+<li>A left child precedes a right child in the order of children of a node.</li>
+</ul>
+</li>
+<li>A binary <strong>tree is proper if each node has either zero or two children</strong>. Some people also refer to <strong>such trees as being full binary trees</strong>. Thus, <strong>in a proper binary tree, every internal node has exactly two children</strong>. A binary tree that is not proper is <strong>improper</strong>.</li>
+</ul>
+<h3 id="some-binary-trees">Some binary trees</h3>
+<h4 id="decision-tree">decision tree</h4>
+<ul>
+<li>An important class of binary trees arises in contexts where we wish to represent a number of different outcomes that can result from answering a series of yes-or-no questions. Each internal node is associated with a question. Starting at the root, we go to the left or right child of the current node, depending on whether the answer to the question is “Yes” or “No.” With each decision, we follow an edge from a parent to a child, eventually tracing a path in the tree from the root to a leaf. Such binary trees are known as decision trees, because a leaf position p in such a tree represents a decision of what to do if the questions associated with p&rsquo;s ancestors are answered in a way that leads to p. <strong>A decision tree is a proper binary tree</strong>.</li>
+</ul>
+<h4 id="arithmetic-expression">Arithmetic expression</h4>
+<ul>
+<li>An arithmetic expression can be represented by a binary tree whose leaves are associated with variables or constants, and whose internal nodes are associated with one of the operators +, ?, *, and /, as demonstrated in Figure 8.6. Each node in such a tree has a value associated with it.
+<ul>
+<li>If a node is leaf, then its value is that of its variable or constant.</li>
+<li>If a node is internal, then its value is defined by applying its operation to the values of its children.</li>
+</ul>
+</li>
+</ul>
+<h3 id="properties-of-binary-trees">Properties of Binary trees</h3>
+<ul>
+<li>
+<p>level d has at most 2<!-- raw HTML omitted -->d<!-- raw HTML omitted --> nodes</p>
+</li>
+<li>
+<p>Let T be a nonempty binary tree, and let n, nE, nI, and h denote the number of nodes, number of external nodes, number of internal nodes, and height of T, respectively. Then T has the following properties:</p>
+<ul>
+<li>h + 1 ≤ n ≤ 2<!-- raw HTML omitted -->h+1<!-- raw HTML omitted --> - 1</li>
+<li>1 ≤ nE ≤ 2<!-- raw HTML omitted -->h<!-- raw HTML omitted --></li>
+<li>h ≤ nI ≤ 2<!-- raw HTML omitted -->h<!-- raw HTML omitted --> - 1</li>
+<li>log(n + 1) - 1 ≤ h ≤ n - 1</li>
+</ul>
+</li>
+<li>
+<p>Also, if T is proper, then T has the following properties:</p>
+<ul>
+<li>2h + 1 ≤ n ≤ 2<!-- raw HTML omitted -->h+1<!-- raw HTML omitted --> - 1</li>
+<li>h + 1 ≤ nE ≤ 2<!-- raw HTML omitted -->h<!-- raw HTML omitted --></li>
+<li>h ≤ nI ≤ 2<!-- raw HTML omitted -->h<!-- raw HTML omitted --> - 1</li>
+<li>log(n + 1) - 1 ≤ h ≤ (n - 1)/2</li>
+</ul>
+</li>
+<li>
+<p>In a nonempty proper binary tree T, with nE external nodes and nI internal nodes, we have nE = nI + 1.</p>
+</li>
+</ul>
+<h1 id="why-use-tree">Why use tree</h1>
+<ul>
+<li>You can search, insert/delete items quickly in a tree</li>
+<li>Ordered Arrays are bad at Insertions/Deletions</li>
+<li>Finding items in a Linkedlist is slow</li>
+<li>Time needed to perform an operation on a tree is O(log N)</li>
+<li>On average a tree is more efficient if you need to perform many different types of operations.</li>
+</ul>
+<h1 id="code-practice">Code practice</h1>
+<p><a href="http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159">http://www.practice.geeksforgeeks.org/problem-page.php?pid=700159</a></p>
+<h1 id="geek-ide">Geek IDE</h1>
+<p><a href="http://code.geeksforgeeks.org/index.php">http://code.geeksforgeeks.org/index.php</a></p>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/">http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/</a></li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/dev" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Dev</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/algorithm" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">algorithm</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

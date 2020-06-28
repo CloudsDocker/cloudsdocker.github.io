@@ -1,0 +1,3182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Algorithm notes from Leecode -- 1 | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Algorithm notes from Leecode -- 1" />
+<meta property="og:description" content="Algorithm Leetcode
+Links
+  [https://www.dailycodingproblem.com/?ref=csdojo]{.underline}
+  [https://www.csdojo.io/#]{.underline}
+  https://github.com/mission-peace/interview/tree/master/src/com/interview/dynamic
+  [https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns]{.underline}
+  daily coding problem book pdf free download
+  [https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20题解%20-%20目录.md]{.underline}
+leetcodeGithub project in intelliJ
+tasks to hands on
+  0/1 knapsack
+  fibnachi memoized and bottom up approaches
+  median of two sorted array
+  64 minimum path sum
+   Maximum sub array (kadane algorithm)
+   [Slide Window]" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2020-03-03-algorithm-leecode-1/" />
+
+<meta itemprop="name" content="Algorithm notes from Leecode -- 1">
+<meta itemprop="description" content="Algorithm Leetcode
+Links
+  [https://www.dailycodingproblem.com/?ref=csdojo]{.underline}
+  [https://www.csdojo.io/#]{.underline}
+  https://github.com/mission-peace/interview/tree/master/src/com/interview/dynamic
+  [https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns]{.underline}
+  daily coding problem book pdf free download
+  [https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20题解%20-%20目录.md]{.underline}
+leetcodeGithub project in intelliJ
+tasks to hands on
+  0/1 knapsack
+  fibnachi memoized and bottom up approaches
+  median of two sorted array
+  64 minimum path sum
+   Maximum sub array (kadane algorithm)
+   [Slide Window]">
+
+<meta itemprop="wordCount" content="13069">
+
+
+
+<meta itemprop="keywords" content="Leetcode,Algorithm," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Algorithm notes from Leecode -- 1"/>
+<meta name="twitter:description" content="Algorithm Leetcode
+Links
+  [https://www.dailycodingproblem.com/?ref=csdojo]{.underline}
+  [https://www.csdojo.io/#]{.underline}
+  https://github.com/mission-peace/interview/tree/master/src/com/interview/dynamic
+  [https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns]{.underline}
+  daily coding problem book pdf free download
+  [https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20题解%20-%20目录.md]{.underline}
+leetcodeGithub project in intelliJ
+tasks to hands on
+  0/1 knapsack
+  fibnachi memoized and bottom up approaches
+  median of two sorted array
+  64 minimum path sum
+   Maximum sub array (kadane algorithm)
+   [Slide Window]"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2020-03-03-algorithm-leecode-1/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2020-03-03-algorithm-leecode-1/&amp;text=Algorithm%20notes%20from%20Leecode%20--%201" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2020-03-03-algorithm-leecode-1/&amp;title=Algorithm%20notes%20from%20Leecode%20--%201" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Algorithm notes from Leecode -- 1</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Algorithm Leetcode</p>
+<p>Links</p>
+<ul>
+<li>
+<p><a href="https://www.dailycodingproblem.com/?ref=csdojo">[https://www.dailycodingproblem.com/?ref=csdojo]{.underline}</a></p>
+</li>
+<li>
+<p><a href="https://www.csdojo.io/#">[https://www.csdojo.io/#]{.underline}</a></p>
+</li>
+<li>
+<p><a href="https://github.com/mission-peace/interview/tree/master/src/com/interview/dynamic">https://github.com/mission-peace/interview/tree/master/src/com/interview/dynamic</a></p>
+</li>
+<li>
+<p><a href="https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns">[https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns]{.underline}</a></p>
+</li>
+<li>
+<p>daily coding problem book pdf free download</p>
+</li>
+</ul>
+<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md">[https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20题解%20-%20目录.md]{.underline}</a></p>
+<p>leetcodeGithub project in intelliJ</p>
+<p>tasks to hands on</p>
+<ul>
+<li>
+<p><del>0/1 knapsack</del></p>
+</li>
+<li>
+<p><del>fibnachi memoized and bottom up approaches</del></p>
+</li>
+<li>
+<p>median of two sorted array</p>
+</li>
+<li>
+<p>64 minimum path sum</p>
+</li>
+<li></li>
+<li>
+<p>Maximum sub array (kadane algorithm)</p>
+</li>
+<li></li>
+</ul>
+<p>[Slide Window]</p>
+<p>（1）没有重复字符的子字符的最大长度：给一个字符串，获得没有重复字符的最长子字符的长度</p>
+<p>例子：</p>
+<p>输入：&quot;abcbabcbb&quot;</p>
+<p>输出：3</p>
+<p>解释：因为没有重复字符的子字符是'abc'，所以长度是3</p>
+<p>public class Solution {//时间复杂度O(2n)</p>
+<p>//滑动窗口算法</p>
+<p>public int <strong>[lengthOfLongestSubstring]{.underline}</strong>(String s) {</p>
+<p>int n = s.length();</p>
+<p>Set&lt;Character&gt; set = new HashSet&lt;&gt;();</p>
+<p>int ans = 0, i = 0, j = 0;</p>
+<p>while (i &lt; n &amp;&amp; j &lt; n)
+{//窗口的左边是i，右边是j，下列算法将窗口的左右移动，截取出其中一段</p>
+<p>// try to extend the range [i, j]</p>
+<p>if
+(!set.contains(s.charAt(j))){//如果set中不存在该字母，就将j+1，相当于窗口右边向右移动一格，左边不动</p>
+<p>set.add(s.charAt(j++));</p>
+<p>ans = Math.max(ans, j - i);//记录目前存在过的最大的子字符长度</p>
+<p>}</p>
+<p>else
+{//如果set中存在该字母，则将窗口左边向右移动一格，右边不动，直到该窗口中不存在重复的字符</p>
+<p>set.remove(s.charAt(i++));</p>
+<p>}</p>
+<p>}</p>
+<p>return ans;</p>
+<p>}</p>
+<p>}</p>
+<p>作者：DrXu</p>
+<p>链接：https://juejin.im/post/5c74a2e2f265da2dea053355</p>
+<p>来源：掘金</p>
+<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>====</p>
+<h3 id="解法3优化的滑动窗口算法"><strong>解法3：优化的滑动窗口算法</strong></h3>
+<p>上面的滑动窗口算法最多需要2n的步骤，但这其实是能被优化为只需要n步。我们可以使用HashMap定义字符到索引之间的映射，然后，当我们发现子字符串中的重复字符时，可以直接跳过遍历过的字符了。</p>
+<p>（2）public class Solution {//时间复杂度o(n)</p>
+<p>public int lengthOfLongestSubstring(String s) {</p>
+<p>int n = s.length(), ans = 0;</p>
+<p>//使用hashmap记录遍历过的字符的索引，当发现重复的字符时，可以将窗口的左边直接跳到该重复字符的索引处</p>
+<p>Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;(); // current index of
+character</p>
+<p>// try to extend the range [i, j]</p>
+<p>for (int j = 0, i = 0; j &lt; n; j++)
+{//j负责向右边遍历，i根据重复字符的情况进行调整</p>
+<p>if (map.containsKey(s.charAt(j)))
+{//当发现重复的字符时,将字符的索引与窗口的左边进行对比，将窗口的左边直接跳到该重复字符的索引处</p>
+<p>i = Math.max(map.get(s.charAt(j)), i);</p>
+<p>}</p>
+<p>//记录子字符串的最大的长度</p>
+<p>ans = Math.max(ans, j - i + 1);</p>
+<p>//map记录第一次遍历到key时的索引位置，j+1,保证i跳到不包含重复字母的位置</p>
+<p>map.put(s.charAt(j), j + 1);</p>
+<p>}</p>
+<p>return ans;</p>
+<p>}</p>
+<p>}</p>
+<p>作者：DrXu</p>
+<p>链接：https://juejin.im/post/5c74a2e2f265da2dea053355</p>
+<p>来源：掘金</p>
+<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>[Slide Window]</p>
+<p>Min Windows</p>
+<p>------------- best solution---</p>
+<p>（3）public static String <strong>minWindowBetter</strong>(String s, String t){</p>
+<p>if(s==null||t==null|s.length()==0||t.length()==0){</p>
+<p>return &quot;&quot;;</p>
+<p>}</p>
+<p>int left=0,right=0,count=0,min=Integer.MAX_VALUE;</p>
+<p>int pool[] = new int[256];</p>
+<p>String rtn=&quot;&quot;;</p>
+<p>for(int i =0;i&lt;t.length();i++){</p>
+<p>pool[t.charAt(i)]++;</p>
+<p>}</p>
+<p>while(right&lt;s.length()){</p>
+<p>if(pool[s.charAt(right++)]--&gt;0){//[!]</p>
+<p>// (a) if(pool[s.charAt(right++)]--&gt;=0), rather than
+if(pool[right++]--&gt;=0)</p>
+<p>// (b) this is &quot;&gt;0&quot;, but not &quot;&gt;=0&quot;</p>
+<p>count++;</p>
+<p>}</p>
+<p>while(count==t.length()){</p>
+<p>if((right-left)&lt;min){</p>
+<p>min=right-left;</p>
+<p>rtn=s.substring(left,right);</p>
+<p>}</p>
+<p>//shrink window</p>
+<p>if(++pool[s.charAt(left++)]&gt;0){</p>
+<p>count--;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return rtn;</p>
+<p>}</p>
+<p>10 lines code to solve most &ldquo;substring&rdquo; problem</p>
+<p>I will first give the solution then show you the magic template.</p>
+<p>The code of solving this problem is below. It might be the shortest
+among all solutions provided in Discuss.</p>
+<p>string minWindow(string s, string t) {</p>
+<p>vector&lt;int&gt; map(128,0);</p>
+<p>for(auto c: t) map[c]++;</p>
+<p>int counter=t.size(), begin=0, end=0, d=INT_MAX, head=0;</p>
+<p>while(end&lt;s.size()){</p>
+<p>if(map[s[end++]]--&gt;0) counter--; //in t</p>
+<p>while(counter==0){ //valid</p>
+<p>if(end-begin&lt;d) d=end-(head=begin);</p>
+<p>if(map[s[begin++]]++==0) counter++; //make it invalid</p>
+<p>}</p>
+<p>}</p>
+<p>return d==INT_MAX? &quot;&quot;:s.substr(head, d);</p>
+<p>}</p>
+<p>Here comes the template.</p>
+<p>For most substring problem, we are given a string and need to find a
+substring of it which satisfy some restrictions. A general way is to use
+a hashmap assisted with two pointers. The template is given below.</p>
+<p>int findSubstring(string s){</p>
+<p>vector&lt;int&gt; map(128,0);</p>
+<p>int counter; // check whether the substring is valid</p>
+<p>int begin=0, end=0; //two pointers, one point to tail and one head</p>
+<p>int d; //the length of substring</p>
+<p>for() { /* initialize the hash map here */ }</p>
+<p>while(end&lt;s.size()){</p>
+<p>if(map[s[end++]]-- ?){ /* modify counter here */ }</p>
+<p>while(/* counter condition */){</p>
+<p>/* update d here if finding minimum*/</p>
+<p>//increase begin to make it invalid/valid again</p>
+<p>if(map[s[begin++]]++ ?){ /*modify counter here*/ }</p>
+<p>}</p>
+<p>/* update d here if finding maximum*/</p>
+<p>}</p>
+<p>return d;</p>
+<p>}</p>
+<p>One thing needs to be mentioned is that when asked to find maximum
+substring, we should update maximum after the inner while loop to
+guarantee that the substring is valid. On the other hand, when asked to
+find minimum substring, we should update minimum inside the inner while
+loop.</p>
+<p>The code of solving <strong>[Longest Substring with At Most Two Distinct
+Characters]{.underline}</strong> is below:</p>
+<p>（4）int lengthOfLongestSubstringTwoDistinct(string s) {</p>
+<p>vector&lt;int&gt; map(128, 0);</p>
+<p>int counter=0, begin=0, end=0, d=0;</p>
+<p>while(end&lt;s.size()){</p>
+<p>if(map[s[end++]]++==0) counter++;</p>
+<p>while(counter&gt;2) if(map[s[begin++]]--==1) counter--;</p>
+<p>d=max(d, end-begin);</p>
+<p>}</p>
+<p>return d;</p>
+<p>}</p>
+<p>The code of solving <strong>[Longest Substring Without Repeating
+Characters]{.underline}</strong> is below:</p>
+<p>Update 01.04.2016, thanks @weiyi3 for advice.</p>
+<p>**[（5）]{.underline}**int lengthOfLongestSubstring(string s) {</p>
+<p>vector&lt;int&gt; map(128,0);</p>
+<p>int counter=0, begin=0, end=0, d=0;</p>
+<p>while(end&lt;s.size()){</p>
+<p>if(map[s[end++]]++&gt;0) counter++;</p>
+<p>while(counter&gt;0) if(map[s[begin++]]--&gt;1) counter--;</p>
+<p>d=max(d, end-begin); //while valid, update d</p>
+<p>}</p>
+<p>return d;</p>
+<p>}</p>
+<p>I think this post deserves some upvotes! : )</p>
+<p><strong>[[sliding window ]]{.underline}</strong></p>
+<p>string minWindow(string s, string t) {</p>
+<p>unordered_map&lt;char, int&gt; m;</p>
+<p>// Statistic for count of char in t</p>
+<p>for (auto c : t) m[c]++;</p>
+<p>// counter represents the number of chars of t to be found in s.</p>
+<p>size_t start = 0, end = 0, counter = t.size(), minStart = 0, minLen =
+INT_MAX;</p>
+<p>size_t size = s.size();</p>
+<p>// Move to find a valid window.</p>
+<p>while (end &lt; size) {</p>
+<p>// If char in s exists in t, decrease counter</p>
+<p>if (m[s[end]] &gt; 0)</p>
+<p>counter--;</p>
+<p>// Decrease m[s[end]]. If char does not exist in t, m[s[end]]
+will be negative.</p>
+<p>m[s[end]]--;</p>
+<p>end++;</p>
+<p>// When we find a valid window, the move starts to find a smaller
+window.</p>
+<p>while (counter == 0) {</p>
+<p>if (end - start &lt; minLen) {</p>
+<p>minStart = start;</p>
+<p>minLen = end - start;</p>
+<p>}</p>
+<p>m[s[start]]++;</p>
+<p>// When char exists in t, increase the counter.</p>
+<p>if (m[s[start]] &gt; 0)</p>
+<p>counter++;</p>
+<p>start++;</p>
+<p>}</p>
+<p>}</p>
+<p>if (minLen != INT_MAX)</p>
+<p>return s.substr(minStart, minLen);</p>
+<p>return &quot;&quot;;</p>
+<p>}</p>
+<p>～～～～java version～～</p>
+<p>public String minWindow(String s, String t) {</p>
+<p>HashMap&lt;Character,Integer&gt; map = new HashMap();</p>
+<p>for(char c : s.toCharArray())</p>
+<p>map.put(c,0);</p>
+<p>for(char c : t.toCharArray())</p>
+<p>{</p>
+<p>if(map.containsKey(c))</p>
+<p>map.put(c,map.get(c)+1);</p>
+<p>else</p>
+<p>return &quot;&quot;;</p>
+<p>}</p>
+<p>int start =0, end=0, minStart=0,minLen = Integer.MAX_VALUE, counter =
+t.length();</p>
+<p>while(end &lt; s.length())</p>
+<p>{</p>
+<p>char c1 = s.charAt(end);</p>
+<p>if(map.get(c1) &gt; 0)</p>
+<p>counter--;</p>
+<p>map.put(c1,map.get(c1)-1);</p>
+<p>end++;</p>
+<p>while(counter == 0)</p>
+<p>{</p>
+<p>if(minLen &gt; end-start)</p>
+<p>{</p>
+<p>minLen = end-start;</p>
+<p>minStart = start;</p>
+<p>}</p>
+<p>char c2 = s.charAt(start);</p>
+<p>map.put(c2, map.get(c2)+1);</p>
+<p>if(map.get(c2) &gt; 0)</p>
+<p>counter++;</p>
+<p>start++;</p>
+<p>}</p>
+<p>}</p>
+<p>return minLen == Integer.MAX_VALUE ? &quot;&quot; :
+s.substring(minStart,minStart+minLen);</p>
+<p>}</p>
+<p>[DP]</p>
+<p><strong>[（6]{.underline}</strong>）longestCommonSubsequence</p>
+<p>public int longestCommonSubsequence(String text1, String text2) {</p>
+<p>// xx-est is meant for dynamic programming</p>
+<p>// x keys for DP</p>
+<p>// 1st, declare a DP table for bottom up</p>
+<p>// 2nd set global value</p>
+<p>// ================</p>
+<p>// for top down, use memo</p>
+<p>int m = text1.length(); //[!!!!] it's &quot;length()&quot; method for String</p>
+<p>int n = text2.length();</p>
+<p>int[][] memo = new int[m+1][n+1];</p>
+<p>for(int i=0;i&lt;m;i++){</p>
+<p>for(int j=0;j&lt;n;j++){</p>
+<p>// if(i==0||j==0){ //[!!!!!222] here is no need, because default
+value in array is zero</p>
+<p>// // 1st col or 1st row, set to 0</p>
+<p>// memo[i][j]=0;</p>
+<p>// }else{</p>
+<p>if(text1.charAt(i)==text2.charAt(j)){</p>
+<p>memo[i+1][j+1] = 1 + memo[i][j];</p>
+<p>}else{</p>
+<p>// current char is different, so go to carry previous biggest value from
+either left or up</p>
+<p>memo[i+1][j+1] = Math.max(memo[i+1][j],memo[i][j+1]);</p>
+<p>}</p>
+<p>// }</p>
+<p>}</p>
+<p>}</p>
+<p>return memo[m][n];</p>
+<p>}</p>
+<p><strong>[DP]</strong></p>
+<p>LengthOfLIS</p>
+<p><strong>[（7]{.underline}</strong>）public class LengthOfLIS {</p>
+<p>System.out.println(&quot;===test failed case (DP)
+:&quot;+inst.lengthOfLIS_tail(new int[]{4,10,4,3,8,9}));</p>
+<p>System.out.println(&quot;===test failed case (DP)
+:&quot;+inst.lengthOfLIS_tail(new int[]{2,2})); //expect output &quot;1&quot;</p>
+<p>public int lengthOfLIS_naive(int[] nums){</p>
+<p>//edge case</p>
+<p>if(nums.length&lt;0){</p>
+<p>return 0;</p>
+<p>}</p>
+<p>int m=nums.length;</p>
+<p>int max=0; // global max</p>
+<p>int[] dp=new int[m];</p>
+<p>//embedded loop to search max value brute forcely</p>
+<p>for (int i = 0; i &lt;m ; i++) {</p>
+<p>// loop each digits</p>
+<p>int localMax=0; // holder for MAX length of increase sequence before i</p>
+<p>for (int j = 0; j &lt; i; j++) {</p>
+<p>// loop to find all increasing BEFORE this number</p>
+<p>if(dp[j]&gt;localMax &amp;&amp; nums[j]&lt;nums[i]){</p>
+<p>// previous number is SMALLER than i and greater than local max, that
+means it's increasing</p>
+<p>localMax=dp[j];</p>
+<p>}</p>
+<p>}</p>
+<p>// after looped ALL previous numbers, add current one</p>
+<p>dp[i]=localMax+1;</p>
+<p>max = Math.max(max,dp[i]);</p>
+<p>}</p>
+<p>return max;</p>
+<p>}</p>
+<p>public int <strong>[lengthOfLIS_tail]{.underline}</strong>(int[] nums){</p>
+<p>int m=nums.length;</p>
+<p>if(m==0) return 0;</p>
+<p>int[] dp=new int[m]; // dp[x]=y : value &quot;y&quot; of dp stores &quot;the
+last number&quot; (tail) of increasing sequence whose length is &quot;x&quot;</p>
+<p>int maxLen=0;</p>
+<p>dp[0]=nums[0];</p>
+<p>//for loop each number in array</p>
+<p>for (int i = 1; i &lt; m; i++) { //[!!!!!!!!1111111] it should start
+with &quot;1&quot;, as &quot;0&quot; is already setup</p>
+<p>// there are 3 scenarios we need to update dp</p>
+<p>if(nums[i]&lt;dp[0]){</p>
+<p>// current number is even smaller than most smallest LIS, update it</p>
+<p>dp[0]=nums[i];</p>
+<p>}else if(nums[i]&gt;dp[maxLen]){</p>
+<p>//current number is greater than 'tail' of largest LIS, then update
+the last LIS</p>
+<p>dp[++maxLen]=nums[i];</p>
+<p>}else{</p>
+<p>// current number is in the middle, so we go to find the *correct*
+position to locate the LIS in DP</p>
+<p>dp[binarySearchLIS(dp,0,maxLen,nums[i])]=nums[i];</p>
+<p>}</p>
+<p>}</p>
+<p>return maxLen+1; // because dp is zero based, so add one for result</p>
+<p>}</p>
+<p>public int <strong>binarySearchLIS</strong>(int[] dp, int min, int max, int
+target){</p>
+<p>while(min&lt;=max){</p>
+<p>int middle =min + (max-min)/2; //[!!!!!!!] don't forget to add prefix
+&quot;min +&quot; in front of (max-min)/2</p>
+<p>if(dp[middle]==target){</p>
+<p>return middle;</p>
+<p>}else if(dp[middle]&gt;target){</p>
+<p>max=middle-1;</p>
+<p>} else if(dp[middle]&lt;target){</p>
+<p>min=middle+1;</p>
+<p>}</p>
+<p>}</p>
+<p>return min;</p>
+<p>}</p>
+<p>}</p>
+<p>[Graph]</p>
+<p>RottingOrange</p>
+<p><strong>[（8]{.underline}</strong>）public class GraphRottingOrange {</p>
+<p>public static void main(String[] args) {</p>
+<p>/*</p>
+<p>In a given grid, each cell can have one of three values:</p>
+<p>the value 0 representing an empty cell;</p>
+<p>the value 1 representing a fresh orange;</p>
+<p>the value 2 representing a rotten orange.</p>
+<p>Every minute, any fresh orange that is adjacent (4-directionally) to a
+rotten orange becomes rotten.</p>
+<p>Return the minimum number of minutes that must elapse until no cell has
+a fresh orange. If this is impossible, return -1 instead.</p>
+<p>Example 1:</p>
+<p>Input: [[2,1,1],[1,1,0],[0,1,1]]</p>
+<p>Output: 4</p>
+<p>Example 2:</p>
+<p>Input: [[2,1,1],[0,1,1],[1,0,1]]</p>
+<p>Output: -1</p>
+<p>Explanation: The orange in the bottom left corner (row 2, column 0) is
+never rotten, because rotting only happens 4-directionally.</p>
+<p>Example 3:</p>
+<p>Input: [[0,2]]</p>
+<p>Output: 0</p>
+<p>Explanation: Since there are already no fresh oranges at minute 0, the
+answer is just 0.</p>
+<p>Note:</p>
+<p>1 &lt;= grid.length &lt;= 10</p>
+<p>1 &lt;= grid[0].length &lt;= 10</p>
+<p>grid[i][j] is only 0, 1, or 2.</p>
+<p>*/</p>
+<p>GraphRottingOrange inst = new GraphRottingOrange();</p>
+<h1 id="deleted-2-d-array-due-to-hexo-error">deleted 2-D array due to hexo error</h1>
+<p>System.out.println(&quot;===output of findRottenMinutes:&quot; +
+inst.orangesRotting(grid));</p>
+<p>}</p>
+<p>public int orangesRotting(int[][] grid) {</p>
+<p>int m = grid.length;</p>
+<p>int n = grid[0].length;</p>
+<p>List&lt;String&gt; listRotten = new ArrayList&lt;&gt;();</p>
+<p>List&lt;String&gt; listFresh = new ArrayList&lt;&gt;();</p>
+<p>int nMinutes = 0;</p>
+<p>//firstly, find and enlist rotten ones</p>
+<p>for (int i = 0; i &lt; m; i++) {</p>
+<p>for (int j = 0; j &lt; n; j++) {</p>
+<p>if (grid[i][j] == 2) {</p>
+<p>//current cell is a rotten tomato, so check adjacent and contract them</p>
+<p>listRotten.add(i + &quot;&quot; + j);</p>
+<p>} else if (grid[i][j] == 1) {</p>
+<p>// fresh tomato, to record it , so check zero of this list to confirm
+ALL tomato got infected</p>
+<p>listFresh.add(i + &quot;&quot; + j);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>// loop until empty of fresh ones</p>
+<p>while (!listFresh.isEmpty()) {</p>
+<p>List&lt;String&gt; infected = new ArrayList&lt;&gt;();</p>
+<p>for (String strRotten : listRotten) {</p>
+<p>int x = strRotten.charAt(0) - '0';</p>
+<p>int y = strRotten.charAt(1) - '0';</p>
+<p>//to search 4 directions both vertically and horizontally</p>
+<h1 id="deleted-2-d-array-due-to-hexo-error-1">deleted 2-D array due to hexo error</h1>
+<p>for (int[] direction : directions) {</p>
+<p>int newX = x + direction[0];</p>
+<p>int newY = y + direction[1];</p>
+<p>String newLoc = newX + &quot;&quot; + newY;</p>
+<p>if (listFresh.contains(newLoc)) {</p>
+<p>// make new tomato as rotten</p>
+<p>listFresh.remove(newLoc);</p>
+<p>// listRotten.add(newLoc);</p>
+<p>infected.add(newLoc); // add to infected, rather than Rotten to avoid
+&quot;ConcurrentModificationException&quot; as it's our loop list</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>// return -1 in case no more been infected</p>
+<p>if (infected.isEmpty()) {</p>
+<p>return -1;</p>
+<p>}</p>
+<p>// assign infected to listRotten to further check</p>
+<p>listRotten=infected;</p>
+<p>++nMinutes;</p>
+<p>}</p>
+<p>return nMinutes;</p>
+<p>}</p>
+<p>}</p>
+<p>public int orangesRotting_Iterative(int[][] grid) {</p>
+<p>if(grid == null || grid.length == 0) return 0;</p>
+<p>int rows = grid.length;</p>
+<p>int cols = grid[0].length;</p>
+<p>Queue&lt;int[]&gt; queue = new LinkedList&lt;&gt;();</p>
+<p>int count_fresh = 0;</p>
+<p>//Put the position of all rotten oranges in queue</p>
+<p>//count the number of fresh oranges</p>
+<p>for(int i = 0 ; i &lt; rows ; i++) {</p>
+<p>for(int j = 0 ; j &lt; cols ; j++) {</p>
+<p>if(grid[i][j] == 2) {</p>
+<p>queue.offer(new int[]{i , j});</p>
+<p>}</p>
+<p>else if(grid[i][j] == 1) {</p>
+<p>count_fresh++;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>//if count of fresh oranges is zero --&gt; return 0</p>
+<p>if(count_fresh == 0) return 0;</p>
+<p>int count = 0;</p>
+<h1 id="deleted-2-d-array-due-to-hexo-error-2">deleted 2-D array due to hexo error</h1>
+<p>//bfs starting from initially rotten oranges</p>
+<p>while(!queue.isEmpty()) {</p>
+<p>++count;</p>
+<p>int size = queue.size();</p>
+<p>for(int i = 0 ; i &lt; size ; i++) {</p>
+<p>int[] point = queue.poll();</p>
+<p>for(int dir[] : dirs) {</p>
+<p>int x = point[0] + dir[0];</p>
+<p>int y = point[1] + dir[1];</p>
+<p>//if x or y is out of bound</p>
+<p>//or the orange at (x , y) is already rotten</p>
+<p>//or the cell at (x , y) is empty</p>
+<p>//we do nothing</p>
+<p>if(x &lt; 0 || y &lt; 0 || x &gt;= rows || y &gt;= cols ||
+grid[x][y] == 0 || grid[x][y] == 2) continue;</p>
+<p>//mark the orange at (x , y) as rotten</p>
+<p>grid[x][y] = 2;</p>
+<p>//put the new rotten orange at (x , y) in queue</p>
+<p>queue.offer(new int[]{x , y});</p>
+<p>//decrease the count of fresh oranges by 1</p>
+<p>count_fresh--;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return count_fresh == 0 ? count-1 : -1;</p>
+<p>}</p>
+<p>[DP]</p>
+<p>DecodeWays</p>
+<p>package algo;</p>
+<p><strong>[（9]{.underline}</strong>）public class DecodeWays {</p>
+<p>public static void main(String[] args) {</p>
+<p>/*</p>
+<p>Similar questions:</p>
+<p>62. Unique Paths</p>
+<p>70. Climbing Stairs</p>
+<p>509. Fibonacci Number</p>
+<p>91. Decode Ways</p>
+<p>A message containing letters from A-Z is being encoded to numbers using
+the following mapping:</p>
+<p>'A' -&gt; 1</p>
+<p>'B' -&gt; 2</p>
+<p>...</p>
+<p>'Z' -&gt; 26</p>
+<p>Given a non-empty string containing only digits, determine the total
+number of ways to decode it.</p>
+<p>Example 1:</p>
+<p>Input: &quot;12&quot;</p>
+<p>Output: 2</p>
+<p>Explanation: It could be decoded as &quot;AB&quot; (1 2) or &quot;L&quot; (12).</p>
+<p>Example 2:</p>
+<p>Input: &quot;226&quot;</p>
+<p>Output: 3</p>
+<p>Explanation: It could be decoded as &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), or
+&quot;BBF&quot; (2 2 6).</p>
+<p>*/</p>
+<p>DecodeWays inst = new DecodeWays();</p>
+<p>System.out.println(&quot; decode ways: &quot;+ inst.numDecodings(&quot;12&quot;));</p>
+<p>}</p>
+<p>/*</p>
+<p>&quot;&quot;&quot;</p>
+<p>s = 123</p>
+<p>build up from right =&gt;</p>
+<p>num_ways (&quot;&quot;) =&gt; 1 (empty string can be represented by empty string)
+(i.e. num_ways[n] = 1) NOTE: only for build up with a valid string.
+Empty string on it's own doesn't need to be decoded.</p>
+<p>num_ways (&quot;3&quot;) =&gt; 1 (only one way), i.e. num_ways[n-1] = 1</p>
+<p>num_ways (&quot;23&quot;) =&gt; &quot;23&quot; or &quot;2&quot;-&quot;3&quot;,</p>
+<p>num_ways (&quot;33&quot;) =&gt; &quot;3&quot;&quot;3&quot;</p>
+<p>num_ways (&quot;123&quot;) =&gt; &quot;12&quot;(num_ways(&quot;3&quot;)) +
+&quot;1&quot;(&quot;num_ways(&quot;23&quot;)) (i.e. num_ways[i+2] + num_ways[i+1])</p>
+<p>num_ways (&quot;323&quot;) =&gt; &quot;3&quot;(num_ways(&quot;23&quot;)) (i.e. num_ways[i+1])</p>
+<p>so basically if s[i:i+1] (both included) &lt;= 26,</p>
+<p>num_ways[i+2] + num_ways[i+1]</p>
+<p>else:</p>
+<p>num_ways[i+1]</p>
+<p>case with 0:</p>
+<p>num_ways (&quot;103&quot;)</p>
+<p>num_ways (&quot;3&quot;) =&gt; 1 (only one way)</p>
+<p>num_ways (&quot;03&quot;) =&gt; 0 (can't decode 0)</p>
+<p>num_ways (&quot;003&quot;) =&gt; &quot;00&quot;(num_ways(&quot;3&quot;)) +
+&quot;0&quot;(num_ways(&quot;03&quot;)) =&gt; no way to decode &quot;00&quot; = 0 + 0</p>
+<p>num_ways (&quot;103&quot;) =&gt; &quot;10&quot;(num_ways(&quot;3&quot;)) +
+&quot;1&quot;(num_ways(&quot;03&quot;)) =&gt; num_ways[i+2] + num_ways[i+1](= 0 in
+this case)</p>
+<p>num_ways (&quot;1003&quot;) =&gt; &quot;10&quot;(num_ways(&quot;03&quot;)) +
+&quot;1&quot;(num_ways(&quot;003&quot;)) =&gt; same eq = 0(no way to decode &quot;03&quot;) +
+0(no way to decode 003)</p>
+<p>Therefore, if i = '0', let memo[i] = 0, also implements for a string
+where the ith character == '0', string[i:end] can be decoded in 0
+ways.</p>
+<p>&quot;&quot;&quot;</p>
+<p>*/</p>
+<p>// public class Solution {</p>
+<p>public int numDecodings(String s) {</p>
+<p>int n = s.length();</p>
+<p>if (n == 0) return 0;</p>
+<p>int[] memo = new int[n+1];</p>
+<p>memo[n] = 1;</p>
+<p>memo[n-1] = s.charAt(n-1) != '0' ? 1 : 0;</p>
+<p>for (int i = n - 2; i &gt;= 0; i--)</p>
+<p>if (s.charAt(i) == '0') continue;</p>
+<p>else memo[i] = (Integer.parseInt(s.substring(i,i+2))&lt;=26) ?
+memo[i+1]+memo[i+2] : memo[i+1];</p>
+<p>return memo[0];</p>
+<p>}</p>
+<p>// }</p>
+<p>/*</p>
+<p>Thank you so much for this clean and intuitive solution!!</p>
+<p>I wrote some notes for myself reference, hope it might help someone to
+understand this solution.</p>
+<p>dp[i]: represents possible decode ways to the ith char(include i),
+whose index in string is i-1</p>
+<p>Base case: dp[0] = 1 is just for creating base; dp[1], when there's
+one character, if it is not zero, it can only be 1 decode way. If it is
+0, there will be no decode ways.</p>
+<p>Here only need to look at at most two digits before i, cuz biggest valid
+code is 26, which has two digits.</p>
+<p>For dp[i]: to avoid index out of boundry, extract substring of
+(i-1,i)- which is the ith char(index in String is i-1) and
+substring(i-2, i)</p>
+<p>First check if substring (i-1,i) is 0 or not. If it is 0, skip it,
+continue right to check substring (i-2,i), cuz 0 can only be decode by
+being together with the char before 0.</p>
+<p>Second, check if substring (i-2,i) falls in 10~26. If it does, means
+there are dp[i-2] more new decode ways.</p>
+<p>Time: should be O(n), where n is the length of String</p>
+<p>Space: should be O(n), where n is the length of String</p>
+<p>*/</p>
+<p>public int <strong>numDecodings_v2</strong>(String s) {</p>
+<p>// this is one DP question, so create DP matrxi first</p>
+<p>int[] dp = new int[s.length()+1];</p>
+<p>// base case</p>
+<p>dp[0]=1;</p>
+<p>// for only one char, if first char is 0, which is not in the mapping
+list, so return 0, otherwise return 1</p>
+<p>dp[1]=s.charAt(0)=='0'?0:1;</p>
+<p>int m=s.length();</p>
+<p>for (int i = 2; i &lt;=m ; i++) {</p>
+<p>int digitOne=Integer.valueOf(s.substring(i-1,i));</p>
+<p>int digitTwo=Integer.valueOf(s.substring(i-2,i));</p>
+<p>if(digitOne&gt;=1){</p>
+<p>dp[i] = dp[i] +dp[i-1]; // add one to DP as take this single digit
+into account</p>
+<p>}</p>
+<p>if(digitTwo&gt;=10 &amp;&amp; digitTwo&lt;=26){</p>
+<p>dp[i] = dp[i] + dp[i-2];</p>
+<p>}</p>
+<p>}</p>
+<p>return dp[m];</p>
+<p>}</p>
+<p>}</p>
+<p>[DP]</p>
+<p>class Solution {</p>
+<p>public int coinChange(int[] coins, int amount) {</p>
+<p>// this is one DP problem, so create matrix for number of fewest numbers
+of coins to form the</p>
+<p>int[] dp = new int[amount+1]; // index of array is the amount to be
+calculated</p>
+<p>Arrays.fill(dp,amount+1); // fill DP with *invalid* value so we can
+update it to valid one late</p>
+<p>//base case</p>
+<p>dp[0]=0;</p>
+<p>for(int i=0;i&lt;=amount;i++){ //[!!!] should be &quot;&lt;=&quot;, rather than
+&quot;&lt;&quot;</p>
+<p>for(int j=0;j&lt;coins.length;j++){</p>
+<p>// if current coin is not greater than i (current amount to calculate
+fewest number)</p>
+<p>if(coins[j]&lt;=i){</p>
+<p>// two options, do not take current change OR take current change</p>
+<p>dp[i] = Math.min(dp[i], 1+dp[i-coins[j]]);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>// if dp[amount] &gt; amount, it means it's amount+1, which is invalid</p>
+<p>return dp[amount] &gt; amount ? -1:dp[amount];</p>
+<p>}</p>
+<p>}</p>
+<p><strong>[[Recursive]]{.underline}</strong></p>
+<p><strong>[Combination sum II]{.underline}</strong></p>
+<p>Each number in candidates may only be used <strong>once</strong> in the combination.</p>
+<p>Example 1:</p>
+<p>Input: candidates = [10,1,2,7,6,1,5], target = 8,</p>
+<p>A solution set is:</p>
+<p>[</p>
+<p>[1, 7],</p>
+<p>[1, 2, 5],</p>
+<p>[2, 6],</p>
+<p>[1, 1, 6]</p>
+<p>]</p>
+<p>class Solution {</p>
+<p>public List&lt;List&lt;Integer&gt;&gt; combinationSum2(int[] candidates, int
+target) {</p>
+<p>List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();</p>
+<p>Arrays.sort(candidates); // here is key to make array increasing</p>
+<p>findCombination(candidates,0,target,new ArrayList&lt;&gt;(),result);</p>
+<p>return result;</p>
+<p>}</p>
+<p>public void findCombination(int[] candidates, int idx, int target,
+List&lt;&gt; current, List&lt;List&lt;&gt;&gt; result){</p>
+<p>//base case</p>
+<p>if(target == 0){</p>
+<p>// found correct combination</p>
+<p>result.add(current);</p>
+<p>return; // should return right away after add</p>
+<p>}</p>
+<p>// base case 2</p>
+<p>if(target&lt;0){</p>
+<p>// last element lead to combination&gt;target</p>
+<p>return;</p>
+<p>}</p>
+<p>for(int i=idx;i&lt;candidates.length;i++){</p>
+<p>// loop to try combination by DFS</p>
+<p>if(i==idx || candidates[i]!=candidates[i-1]){</p>
+<p>// here is key for &quot;non dup element&quot;</p>
+<p>// as first loop is always unique, no dup</p>
+<p>// for non first loop, check it with previous value</p>
+<p>current.add(candidates[i]); // Not same as previous one</p>
+<p>findCombination(candidates,i+1, target-candidates[i], current,
+result); // here will DFS try to keep on adding new element to current</p>
+<p>current.remove(candidates.length-1);// when above line returned, it
+means last element is too big</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<h2 id="reverse-integerunderline"><strong>[reverse integer]{.underline}</strong></h2>
+<p>class Solution {</p>
+<p>public int reverse(int x) {</p>
+<p>long res = 0;</p>
+<p>while (x != 0) {</p>
+<p>res *= 10;</p>
+<p>res += x % 10;</p>
+<p>x /= 10;</p>
+<p>}</p>
+<p>return (int)res == res ? (int)res : 0;</p>
+<p>}</p>
+<p>}</p>
+<p>public class Solution {</p>
+<p>public int reverse(int x) {</p>
+<p>long result =0;</p>
+<p>while(x != 0)</p>
+<p>{</p>
+<p>result = (result*10) + (x%10);</p>
+<p>if(result &gt; Integer.MAX_VALUE) return 0;</p>
+<p>if(result &lt; Integer.MIN_VALUE) return 0;</p>
+<p>x = x/10;</p>
+<p>}</p>
+<p>return (int)result;</p>
+<p>}</p>
+<p>}</p>
+<p><strong>Find median of two sorted array</strong></p>
+<p>&lt;1&gt; Set imin = 0, imax = m, then start searching in [imin, imax]</p>
+<p>&lt;2&gt; Set i = (imin + imax)/2, j = (m + n + 1)/2 - i</p>
+<p>&lt;3&gt; Now we have len(left_part)==len(right_part). And there are only
+3 situations</p>
+<p>that we may encounter:</p>
+<p>&lt;a&gt; B[j-1] &lt;= A[i] and A[i-1] &lt;= B[j]</p>
+<p>Means we have found the object `i`, so stop searching.</p>
+<p>&lt;b&gt; B[j-1] &gt; A[i]</p>
+<p>Means A[i] is too small. We must `ajust` i to get `B[j-1] &lt;=
+A[i]`.</p>
+<p>Can we `increase` i?</p>
+<p>Yes. Because when i is increased, j will be decreased.</p>
+<p>So B[j-1] is decreased and A[i] is increased, and `B[j-1] &lt;=
+A[i]` may</p>
+<p>be satisfied.</p>
+<p>Can we `decrease` i?</p>
+<p>`No!` Because when i is decreased, j will be increased.</p>
+<p>So B[j-1] is increased and A[i] is decreased, and B[j-1] &lt;=
+A[i] will</p>
+<p>be never satisfied.</p>
+<p>So we must `increase` i. That is, we must ajust the searching range to</p>
+<p>[i+1, imax]. So, set imin = i+1, and goto &lt;2&gt;.</p>
+<p>&lt;c&gt; A[i-1] &gt; B[j]</p>
+<p>Means A[i-1] is too big. And we must `decrease` i to get
+`A[i-1]&lt;=B[j]`.</p>
+<p>That is, we must ajust the searching range to [imin, i-1].</p>
+<p>So, set imax = i-1, and goto &lt;2&gt;.</p>
+<p>When the object i is found, the median is:</p>
+<p>max(A[i-1], B[j-1]) (when m + n is odd)</p>
+<p>or (max(A[i-1], B[j-1]) + min(A[i], B[j]))/2 (when m + n is
+even)</p>
+<p>Number of distinct Islands</p>
+<p>private static int rows, cols;</p>
+<h1 id="deleted-2-d-array-due-to-hexo-error-3">deleted 2-D array due to hexo error</h1>
+<p>public int numDistinctIslands(int[][] grid) {</p>
+<p>cols = grid[0].length;</p>
+<p>rows = grid.length;</p>
+<p>Set&lt;String&gt; uniqueShapes = new HashSet&lt;&gt;(); // Unique shpes.</p>
+<p>StringBuilder shape;</p>
+<p>for (int i = 0; i &lt; rows; i++) {</p>
+<p>for (int j = 0; j &lt; cols; j++) {</p>
+<p>if (grid[i][j] == 1) {</p>
+<p>grid[i][j] = 0; // mark it as 'visited'</p>
+<p>shape = new StringBuilder(&quot;s&quot;); //'s' indicate Start</p>
+<p>dfsTraversal(i, j, grid, shape);</p>
+<p>uniqueShapes.add(shape.toString());</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return uniqueShapes.size();</p>
+<p>}</p>
+<p>private static void dfsTraversal(int x, int y, int[][] matrix,
+StringBuilder shape) {</p>
+<p>for (int i = 0; i &lt; directions.length; i++) {</p>
+<p>int nx = x + directions[i][0];</p>
+<p>int ny = y + directions[i][1];</p>
+<p>if (nx &gt;= 0 &amp;&amp; ny &gt;= 0 &amp;&amp; nx &lt; rows &amp;&amp; ny &lt; cols) {</p>
+<p>if (matrix[nx][ny] == 1) {</p>
+<p>matrix[nx][ny] = 0; // mark as 'visited'</p>
+<p>shape.append(i);</p>
+<p>dfsTraversal(nx, ny, matrix, shape);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>shape.append(&quot;_&quot;);</p>
+<p>}</p>
+<p>//=======</p>
+<p>class Solution {</p>
+<h1 id="deleted-2-d-array-due-to-hexo-error-4">deleted 2-D array due to hexo error</h1>
+<p>public int numDistinctIslands(int[][] grid) {</p>
+<p>Set&lt;String&gt; set= new HashSet&lt;&gt;();</p>
+<p>int res=0;</p>
+<p>for(int i=0;i&lt;grid.length;i++){</p>
+<p>for(int j=0;j&lt;grid[0].length;j++){</p>
+<p>if(grid[i][j]==1) {</p>
+<p>StringBuilder sb= new StringBuilder();</p>
+<p>helper(grid,i,j,0,0, sb);</p>
+<p>String s=sb.toString();</p>
+<p>if(!set.contains(s)){</p>
+<p>res++;</p>
+<p>set.add(s);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return res;</p>
+<p>}</p>
+<p>public void helper(int[][] grid,int i,int j, int xpos, int
+ypos,StringBuilder sb){</p>
+<p>grid[i][j]=0;</p>
+<p>sb.append(xpos+&quot;&quot;+ypos);</p>
+<p>for(int[] dir : dirs){</p>
+<p>int x=i+dir[0];</p>
+<p>int y=j+dir[1];</p>
+<p>if(x&lt;0 || y&lt;0 || x&gt;=grid.length || y&gt;=grid[0].length ||
+grid[x][y]==0) continue;</p>
+<p>helper(grid,x,y,xpos+dir[0],ypos+dir[1],sb);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>UPDATE: We can use direction string instead of using number string in
+set.</p>
+<p>Below is @wavy code using direction string.</p>
+<p>public int numDistinctIslands(int[][] grid) {</p>
+<p>Set&lt;String&gt; set = new HashSet&lt;&gt;();</p>
+<p>for(int i = 0; i &lt; grid.length; i++) {</p>
+<p>for(int j = 0; j &lt; grid[i].length; j++) {</p>
+<p>if(grid[i][j] != 0) {</p>
+<p>StringBuilder sb = new StringBuilder();</p>
+<p>dfs(grid, i, j, sb, &quot;o&quot;); // origin</p>
+<p>grid[i][j] = 0;</p>
+<p>set.add(sb.toString());</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return set.size();</p>
+<p>}</p>
+<p>private void dfs(int[][] grid, int i, int j, StringBuilder sb,
+String dir) {</p>
+<p>if(i &lt; 0 || i == grid.length || j &lt; 0 || j == grid[i].length</p>
+<p>|| grid[i][j] == 0) return;</p>
+<p>sb.append(dir);</p>
+<p>grid[i][j] = 0;</p>
+<p>dfs(grid, i-1, j, sb, &quot;u&quot;);</p>
+<p>dfs(grid, i+1, j, sb, &quot;d&quot;);</p>
+<p>dfs(grid, i, j-1, sb, &quot;l&quot;);</p>
+<p>dfs(grid, i, j+1, sb, &quot;r&quot;);</p>
+<p>sb.append(&quot;b&quot;); // back</p>
+<p>}</p>
+<ul>
+<li>In a <strong>complete</strong> binary tree every level, *except possibly the
+<blockquote>
+<p>last*, is completely filled, and all nodes in the last level are
+as far left as possible. It can have between 1 and 2*^h^* nodes at
+the last level
+*h*.<a href="https://en.wikipedia.org/wiki/Binary_tree#cite_note-complete_binary_tree-18">^[18]^</a>
+An alternative definition is a perfect tree whose rightmost leaves
+(perhaps all) have been removed. Some authors use the term
+**complete** to refer instead to a perfect binary tree as defined
+below, in which case they call this type of tree (with a possibly
+not filled last level) an **almost complete** binary tree or
+**nearly complete** binary
+tree.^<a href="https://en.wikipedia.org/wiki/Binary_tree#cite_note-almost_complete_binary_tree-19">[19]</a><a href="https://en.wikipedia.org/wiki/Binary_tree#cite_note-nearly_complete_binary_tree-20">[20]</a>^
+A complete binary tree can be efficiently represented using an
+array.<a href="https://en.wikipedia.org/wiki/Binary_tree#cite_note-complete_binary_tree-18">^[18]^</a></p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p><img src="media/image1.png" alt="">{width=&quot;2.2916666666666665in&rdquo;
+height=&quot;1.1944444444444444in&rdquo;}</p>
+<p>A complete binary tree (that is not full)</p>
+</blockquote>
+<ul>
+<li>A <strong>perfect</strong> binary tree is a binary tree in which all interior
+<blockquote>
+<p>nodes have two children <em>and</em> all leaves have the same <em>depth</em> or
+same
+<em>level</em>.<a href="https://en.wikipedia.org/wiki/Binary_tree#cite_note-21">^[21]^</a>
+An example of a perfect binary tree is the (non-incestuous)
+<a href="https://en.wikipedia.org/wiki/Ancestry_chart">ancestry chart</a> of
+a person to a given depth, as each person has exactly two
+biological parents (one mother and one father). Provided the
+ancestry chart always displays the mother and the father on the
+same side for a given node, their sex can be seen as an analogy of
+left and right children, <em>children</em> being understood here as an
+algorithmic term. A perfect tree is therefore always complete but
+a complete tree is not necessarily perfect.</p>
+</blockquote>
+</li>
+</ul>
+<p>Heap Tree is a special balanced binary tree data structure where root
+node is compared with its children and averaged accordingly. There are
+two type of trees, min heap tree and map heap tree.</p>
+<p>For Min heap tree, it&rsquo;s parent is either smaller or equals its childers.</p>
+<h3 id="get-tree-height">Get Tree Height</h3>
+<p>static int getHeight_recursive(TreeNode root){</p>
+<p>if(root==null){</p>
+<p>return 0;</p>
+<p>}</p>
+<p>return
+Math.max(getHeight_recursive(root.left),getHeight_recursive(root.right))+1;
+//[!!!!!] Here is the key point, it should add &quot;1&quot; at last</p>
+<p>}</p>
+<p>/*</p>
+<p>The basic idea:</p>
+<p>1. traverse layer by layer</p>
+<p>2. For each layer, firslty get number of element,</p>
+<p>3. Then add its left &amp; right child for each element</p>
+<p>4. Increase height once all element of current layer finished</p>
+<p>*/</p>
+<p>static int getHeight_Iteratively(TreeNode root) {</p>
+<p>int height=0;</p>
+<p>Stack&lt;TreeNode&gt; stack=new Stack&lt;&gt;();</p>
+<p>stack.add(root);</p>
+<p>while(!stack.isEmpty()){</p>
+<p>int numberOfSibling=stack.size();</p>
+<p>// loop in all element in this layer till none is left</p>
+<p>while(numberOfSibling-- &gt;0){</p>
+<p>root = stack.pop();</p>
+<p>// add current element's children</p>
+<p>if(root.left!=null) stack.push(root.left);</p>
+<p>if(root.right!=null) stack.push(root.right);</p>
+<p>}</p>
+<p>height++;</p>
+<p>}</p>
+<p>return height;</p>
+<p>}</p>
+<h2 id="inverttree">InvertTree</h2>
+<p>package algo;</p>
+<p>public class TreeInvertBST {</p>
+<p>public static void main(String[] args) {</p>
+<p>System.out.printf(&quot;===start===&quot;);</p>
+<p>TreeNode root = invertTree(TreeNode.buildBSTTree());</p>
+<p>System.out.printf(&quot;invert tree: &quot;+ root);</p>
+<p>}</p>
+<p>static TreeNode invertTree(TreeNode root){</p>
+<p>if(root==null) return null;</p>
+<p><strong>TreeNode tmpLeft = root.left;</strong></p>
+<p><strong>root.left=invertTree(root.right);</strong></p>
+<p><strong>root.right=invertTree(tmpLeft);</strong></p>
+<p>return root;</p>
+<p>}</p>
+<p>}</p>
+<h3 id="number-of-islandsunderline"><strong>[Number of islands]{.underline}</strong></h3>
+<p>static int numberOfIslands(char[][] grid){</p>
+<p>int number = 0;</p>
+<p>if(grid==null || grid.length &lt;0 || grid[0].length&lt;0 ) {</p>
+<p>return 0;</p>
+<p>}</p>
+<p>for (int i = 0; i &lt; grid.length; i++) {</p>
+<p>for (int j = 0; j &lt;grid[i].length ; j++) {</p>
+<p>if(grid[i][j]=='1') {</p>
+<p>// DFS to clear adjacent &quot;1&quot; to avoid dup counting</p>
+<p>DFS(grid, i, j);</p>
+<p>++number;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return number;</p>
+<p>}</p>
+<p>// the main purpose of calling DFS is to set &ldquo;0&rdquo; for all adjacent &ldquo;1&rdquo;
+cells. As they all together to form one island</p>
+<p>static void DFS(char[][] grid, int x, int y){</p>
+<p>//edge case</p>
+<p>if(grid==null || x&lt;0 || x &gt;= grid.length || y&lt;0 ||
+y&gt;=grid[0].length <strong>|| grid[x][y]=='0') { //[!!!!] should
+&gt;= length, not &quot;&gt;&quot;</strong></p>
+<p>// if(grid==null || x&lt;0 || x &gt; grid.length || y&lt;0 ||
+y&gt;grid[0].length || grid[x][y]==0) {</p>
+<p>// return if cursor node is NOT 1</p>
+<p>return;</p>
+<p>}</p>
+<p>// means current cursor node is &quot;1&quot;</p>
+<p>grid[x][y]='0'; // mark this cell as visited</p>
+<p>// check all adjacent cells</p>
+<p>DFS(grid, x-1, y);</p>
+<p>DFS(grid, x+1, y);</p>
+<p>DFS(grid, x, y-1);</p>
+<p>DFS(grid, x, y+1);</p>
+<p>}</p>
+<p>---------</p>
+<p><strong>Is a same tree:</strong></p>
+<p>static boolean isSameTree(TreeNode tree1, TreeNode tree2) {</p>
+<p>// check base case, null checking</p>
+<p>if(tree1==null || tree2 ==null){</p>
+<p>return tree1 == tree2; // true when both null, false when only one is
+null</p>
+<p>}</p>
+<p>/* same tress should be :</p>
+<p>1. node data is same</p>
+<p>2. left sub tree is same</p>
+<p>4. right sub tree is same</p>
+<p>*/</p>
+<p>return tree1.val==tree2.val &amp;&amp; isSameTree(tree1.left,tree2.left) &amp;&amp;
+isSameTree(tree1.right,tree2.right);</p>
+<p>}</p>
+<p><strong>Search BST</strong></p>
+<p>public static TreeNode searchBST(TreeNode root, int val) {</p>
+<p>if(root==null){</p>
+<p>return null;</p>
+<p>}</p>
+<p>if(root.val==val){</p>
+<p>return root;</p>
+<p>}else if(val &gt; root.val){</p>
+<p>return searchBST(root.right, val);</p>
+<p>} else {</p>
+<p>return searchBST(root.left,val);</p>
+<p>}</p>
+<p>}</p>
+<p>public static TreeNode searchBST_Iterative(TreeNode root, int val) {</p>
+<p>// recursive approach means recursively assgin/update variables</p>
+<p>while(root != null &amp;&amp; root.val != val){</p>
+<p>root = val&lt;root.val? root.left:root.right;</p>
+<p>}</p>
+<p>return root;</p>
+<p>}</p>
+<p>}</p>
+<p><strong>Tree Traverse:</strong></p>
+<p>static public List&lt;Integer&gt; <strong>inorderTraversal_better</strong>(TreeNode
+root) {</p>
+<p>List&lt;Integer&gt; listRtn = new ArrayList&lt;&gt;();</p>
+<p>// for inorder trave iteratively we'll push/pop stacks</p>
+<p>Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();</p>
+<p>// to determine when to push stack</p>
+<p>// for inorder traverse, to push left first, then pop root, then last
+right</p>
+<p>while(root!=null || !stack.empty()) {</p>
+<p>while(root!=null){</p>
+<p>stack.push(root);</p>
+<p>// keep on assign left to root for in order traverse</p>
+<p>root=root.left;</p>
+<p>}</p>
+<p>root = stack.pop(); // pop up value of root</p>
+<p>listRtn.add(root.val);</p>
+<p>root=root.right;</p>
+<p>}</p>
+<p>return listRtn;</p>
+<p>}</p>
+<p>/*</p>
+<p>This one is more intuitive</p>
+<p>*/</p>
+<p>static public List&lt;Integer&gt; <strong>preorderTraversal_better</strong>(TreeNode
+root) {</p>
+<p>List&lt;Integer&gt; listRtn = new ArrayList&lt;&gt;();</p>
+<p>Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();</p>
+<p>stack.push(root);</p>
+<p>while (!stack.empty()) {</p>
+<p>root = stack.pop(); // pop up value of root</p>
+<p>if (root != null) {</p>
+<p>listRtn.add(root.val);</p>
+<p>stack.push(root.right);</p>
+<p>stack.push(root.left);</p>
+<p>}</p>
+<p>}</p>
+<p>return listRtn;</p>
+<p>}</p>
+<p>static List&lt;Integer&gt; <strong>postOrderTraversal_stack_better</strong>(TreeNode
+node) {</p>
+<p>List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</p>
+<p>if(node==null) {</p>
+<p>return list;</p>
+<p>}</p>
+<p>Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();</p>
+<p>stack.push(node);</p>
+<p>while(!stack.isEmpty()){</p>
+<p>node= stack.pop();</p>
+<p>list.add(0, node.val); //[!!!!!!!!!!] here is key logic, add item at
+postion &quot;0&quot; means at the begining</p>
+<p>if(node.left!=null) stack.push(node.left);</p>
+<p>if(node.right!=null) stack.push(node.right);</p>
+<p>}</p>
+<p>return list;</p>
+<p>}</p>
+<p>binaryTreeIsBST</p>
+<p>/*</p>
+<p>The key logic are:</p>
+<p>1. assign two boundaries (lower , upper) for each node,</p>
+<p>2. update upper to current node for its left child and lower for its
+right child</p>
+<p>3. recursively check each node</p>
+<p>*/</p>
+<p>static boolean binaryTreeIsBST(TreeNode node, int lower, int upper){</p>
+<p>// for recursive, base case</p>
+<p>// Number 1: base case is null return true</p>
+<p>if(node==null) return true;</p>
+<p>// Number 2: check data</p>
+<p>if(node.val &lt; lower || node.val&gt;upper) {</p>
+<p>System.out.printf(&quot;%s failed in BST check [%d,%d]: &quot;, node,
+lower,upper);</p>
+<p>return false;</p>
+<p>}</p>
+<p>// for left child node, it's value should between current's node's
+lower boundary and current node's value</p>
+<p>// for right child node, it's value should between current node's
+value and current's node's upper boundary</p>
+<p>return binaryTreeIsBST(node.left,lower,node.val) &amp;&amp;
+binaryTreeIsBST(node.right,node.val, upper);</p>
+<p>}</p>
+<p><strong>Iteratively check binary tree is BST</strong>: (use inOrder search , only
+replace list.add with checking pre)</p>
+<p>public boolean isValidBST(TreeNode root) {</p>
+<p>if (root == null) return true;</p>
+<p>Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();</p>
+<p>TreeNode pre = null;</p>
+<p>while (root != null || !stack.isEmpty()) {</p>
+<p>while (root != null) {</p>
+<p>stack.push(root);</p>
+<p>root = root.left;</p>
+<p>}</p>
+<p>root = stack.pop();</p>
+<p><strong>if(pre != null &amp;&amp; root.val &lt;= pre.val) return false;</strong></p>
+<p><strong>pre = root;</strong></p>
+<p>root = root.right;</p>
+<p>}</p>
+<p>return true;</p>
+<p>}</p>
+<p>======</p>
+<p><strong>Kth smallest element</strong></p>
+<p>public int kthSmallest(TreeNode root, int k) {</p>
+<p>Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();</p>
+<p>while(root != null || !stack.isEmpty()) {</p>
+<p>while(root != null) {</p>
+<p>stack.push(root);</p>
+<p>root = root.left;</p>
+<p>}</p>
+<p>root = stack.pop();</p>
+<p><strong>if(--k == 0) break;</strong></p>
+<p>root = root.right;</p>
+<p>}</p>
+<p>return root.val;</p>
+<p>}</p>
+<p>contrapositive</p>
+<p>contradiction</p>
+<p>cases</p>
+<p>induction</p>
+<p>Interview tips:</p>
+<ul>
+<li>
+<p>Do not silent, ask&rdquo; can I think for a second &quot;</p>
+</li>
+<li>
+<p>Think out loud</p>
+</li>
+<li>
+<p>Use examples</p>
+</li>
+<li>
+<p>Ask &quot; does that sound a good strategy&rdquo; rather than write code right</p>
+<blockquote>
+<p>away</p>
+</blockquote>
+</li>
+<li>
+<p>Better naming variable. For dynamic programing. If you use memoized</p>
+<blockquote>
+<p>solution, better to name array as &ldquo;// memorized solitoon memo[]</p>
+</blockquote>
+</li>
+</ul>
+<p>编辑距离问题就是给我们两个字符串 s1 和 s2，只能用三种操作，让我们把 s1
+变成 s2，求最少的操作数。需要明确的是，不管是把 s1 变成 s2
+还是反过来，结果都是一样的，所以后文就以 s1 变成 s2 举例。</p>
+<p>前文「」说过，解决两个字符串的动态规划问题，一般都是用两个指针 i,j
+分别指向两个字符串的最后，然后一步步往前走，缩小问题的规模。</p>
+<p>一、动态规划解法</p>
+<p>动态规划的核心设计思想是数学归纳法</p>
+<p>总结一下动态规划的设计流程：</p>
+<p>首先明确 dp
+数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。</p>
+<p>然后根据 dp 数组的定义，运用数学归纳法的思想，假设 $dp[0...i-1]$
+都已知，想办法求出 $dp[i]$，一旦这一步完成，整个题目基本就解决了。</p>
+<p>但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp
+数组的含义；或者可能是 dp
+数组存储的信息还不够，不足以推出下一步的答案，需要把 dp
+数组扩大成二维数组甚至三维数组。</p>
+<p>最后想一想问题的 base case 是什么，以此来初始化 dp
+数组，以保证算法正确运行。</p>
+<p>最长递增子序列（Longest Increasing Subsequence，简写
+LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度
+O(N^2)，</p>
+<p>我们的定义是这样的：dp[i] 表示以 nums[i]
+这个数结尾的最长递增子序列的长度。</p>
+<p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以
+nums[5] 为结尾的最长递增子序列。</p>
+<p>nums[5] = 3，既然是递增子序列，我们只要找到前面那些结尾比 3
+小的子序列，然后把 3
+接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
+<p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为
+dp[5] 的值即可。</p>
+<p>还有一个细节问题，dp 数组应该全部初始化为
+1，因为子序列最少也要包含自己，所以长度最小为
+1。下面我们看一下完整代码：</p>
+<p>public int <strong>[lengthOfLIS]{.underline}</strong>(int[] nums) {</p>
+<p>int[] dp = new int[nums.length];</p>
+<p>// dp 数组全都初始化为 1</p>
+<p>Arrays.fill(dp, 1);</p>
+<p>for (int i = 0; i &lt; nums.length; i++) {</p>
+<p>for (int j = 0; j &lt; i; j++) {</p>
+<p>if (nums[i] &gt; nums[j])</p>
+<p>dp[i] = Math.max(dp[i], dp[j] + 1);</p>
+<p>}</p>
+<p>}</p>
+<p>int res = 0;</p>
+<p>for (int i = 0; i &lt; dp.length; i++) {</p>
+<p>res = Math.max(res, dp[i]);</p>
+<p>}</p>
+<p>return res;</p>
+<p>}</p>
+<p>public int lengthOfLIS(int[] nums) {</p>
+<p>int[] top = new int[nums.length];</p>
+<p>// 牌堆数初始化为 0</p>
+<p>int piles = 0;</p>
+<p>for (int i = 0; i &lt; nums.length; i++) {</p>
+<p>// 要处理的扑克牌</p>
+<p>int poker = nums[i];</p>
+<p>/***** 搜索左侧边界的二分查找 *****/</p>
+<p>int left = 0, right = piles;</p>
+<p>while (left &lt; right) {</p>
+<p>int mid = (left + right) / 2;</p>
+<p>if (top[mid] &gt; poker) {</p>
+<p>right = mid;</p>
+<p>} else if (top[mid] &lt; poker) {</p>
+<p>left = mid + 1;</p>
+<p>} else {</p>
+<p>right = mid;</p>
+<p>}</p>
+<p>}</p>
+<p>/*********************************/</p>
+<p>// 没找到合适的牌堆，新建一堆</p>
+<p>if (left == piles) piles++;</p>
+<p>// 把这张牌放到牌堆顶</p>
+<p>top[left] = poker;</p>
+<p>}</p>
+<p>// 牌堆数就是 LIS 长度</p>
+<p>return piles;</p>
+<p>}</p>
+<p>至此，二分查找的解法也讲解完毕。</p>
+<p>这个解法确实很难想到。首先涉及数学证明，谁能想到按照这些规则执行，就能得到最长递增子序列呢？其次还有二分查找的运用，要是对二分查找的细节不清楚，给了思路也很难写对</p>
+<p>/* Dynamic Programming Java implementation of LIS problem */</p>
+<p>class LIS</p>
+<p>{</p>
+<p>/* lis() returns the length of the longest increasing</p>
+<p>subsequence in arr[] of size n */</p>
+<p>static int lis(int arr[],int n)</p>
+<p>{</p>
+<p>int lis[] = new int[n];</p>
+<p>int i,j,max = 0;</p>
+<p>/* Initialize LIS values for all indexes */</p>
+<p>for ( i = 0; i &lt; n; i++ )</p>
+<p>lis[i] = 1;</p>
+<p>/* Compute optimized LIS values in bottom up manner */</p>
+<p>for ( i = 1; i &lt; n; i++ )</p>
+<p>for ( j = 0; j &lt; i; j++ )</p>
+<p>if ( arr[i] &gt; arr[j] &amp;&amp; lis[i] &lt; lis[j] + 1)</p>
+<p>lis[i] = lis[j] + 1;</p>
+<p>/* Pick maximum of all LIS values */</p>
+<p>for ( i = 0; i &lt; n; i++ )</p>
+<p>if ( max &lt; lis[i] )</p>
+<p>max = lis[i];</p>
+<p>return max;</p>
+<p>}</p>
+<p>public static void main(String args[])</p>
+<p>{</p>
+<p>int arr[] = { 10, 22, 9, 33, 21, 50, 41, 60 };</p>
+<p>int n = arr.length;</p>
+<p>System.out.println(&quot;Length of lis is &quot; + lis( arr, n ) + &quot;\n&quot; );</p>
+<p>}</p>
+<p>}</p>
+<p>/*This code is contributed by Raja</p>
+<p>-----</p>
+<p>Find number of days between two given dates</p>
+<p>Given two dates, find total number of days between them. The count of
+days must be calculated in O(1) time and O(1) auxiliary space.</p>
+<p>Examples:</p>
+<p>Input: dt1 = {10, 2, 2014}</p>
+<p>dt2 = {10, 3, 2015}</p>
+<p>Output: 393</p>
+<p>dt1 represents &quot;10-Feb-2014&quot; and dt2 represents &quot;10-Mar-2015&quot;</p>
+<p>The difference is 365 + 28</p>
+<p>Input: dt1 = {10, 2, 2000}</p>
+<p>dt2 = {10, 3, 2000}</p>
+<p>Output: 29</p>
+<p>Note that 2000 is a leap year</p>
+<p>Input: dt1 = {10, 2, 2000}</p>
+<p>dt2 = {10, 2, 2000}</p>
+<p>Output: 0</p>
+<p>Both dates are same</p>
+<p>Input: dt1 = {1, 2, 2000};</p>
+<p>dt2 = {1, 2, 2004};</p>
+<p>Output: 1461</p>
+<p>Number of days is 365*4 + 1</p>
+<p>One Naive Solution is to start from dt1 and keep counting days till dt2
+is reached. This solution requires more than O(1) time.</p>
+<p>A Better and Simple solution is to count total number of days before dt1
+from i.e., total days from 00/00/0000 to dt1, then count total number of
+days before dt2. Finally return the difference between two counts.</p>
+<p>Let the given two dates be &quot;1-Feb-2000&quot; and &quot;1-Feb-2004&quot;</p>
+<p>dt1 = {1, 2, 2000};</p>
+<p>dt2 = {1, 2, 2004};</p>
+<p>Count number of days before dt1. Let this count be n1.</p>
+<p>Every leap year adds one extra day (29 Feb) to total days.</p>
+<p>n1 = 2000*365 + 31 + 1 + Number of leap years</p>
+<p>Count of leap years for a date 'd/m/y' can be calculated</p>
+<p>using following formula:</p>
+<p>Number leap years</p>
+<p>= y/4 - y/100 + y/400 if m &gt; 2</p>
+<p>= (y-1)/4 - (y-1)/100 + (y-1)/400 if m &lt;= 2</p>
+<p>All above divisions must be done using integer arithmetic</p>
+<p>so that the remainder is ignored.</p>
+<p>For 01/01/2000, leap year count is 1999/4 - 1999/100</p>
+<p>+ 1999/400 which is 499 - 19 + 4 = 484</p>
+<p>Therefore n1 is 2000*365 + 31 + 1 + 484</p>
+<p>Similarly, count number of days before dt2. Let this</p>
+<p>count be n2.</p>
+<p>Finally return n2-n1</p>
+<hr>
+<p>// Java program two find number of</p>
+<p>// days between two given dates</p>
+<p>class GFG</p>
+<p>{</p>
+<p>// A date has day 'd', month 'm' and year 'y'</p>
+<p>static class Date</p>
+<p>{</p>
+<p>int d, m, y;</p>
+<p>public Date(int d, int m, int y)</p>
+<p>{</p>
+<p>this.d = d;</p>
+<p>this.m = m;</p>
+<p>this.y = y;</p>
+<p>}</p>
+<p>};</p>
+<p>// To store number of days in</p>
+<p>// all months from January to Dec.</p>
+<p>static int monthDays[] = {31, 28, 31, 30, 31, 30,</p>
+<p>31, 31, 30, 31, 30, 31};</p>
+<p>// This function counts number of</p>
+<p>// leap years before the given date</p>
+<p>static int countLeapYears(Date d)</p>
+<p>{</p>
+<p>int years = d.y;</p>
+<p>// Check if the current year needs to be considered</p>
+<p>// for the count of leap years or not</p>
+<p>if (d.m &lt;= 2)</p>
+<p>{</p>
+<p>years--;</p>
+<p>}</p>
+<p>// An year is a leap year if it is a multiple of 4,</p>
+<p>// multiple of 400 and not a multiple of 100.</p>
+<p>return years / 4 - years / 100 + years / 400;</p>
+<p>}</p>
+<p>// This function returns number</p>
+<p>// of days between two given dates</p>
+<p>static int getDifference(Date dt1, Date dt2)</p>
+<p>{</p>
+<p>// COUNT TOTAL NUMBER OF DAYS BEFORE FIRST DATE 'dt1'</p>
+<p>// initialize count using years and day</p>
+<p>int n1 = dt1.y * 365 + dt1.d;</p>
+<p>// Add days for months in given date</p>
+<p>for (int i = 0; i &lt; dt1.m - 1; i++)</p>
+<p>{</p>
+<p>n1 += monthDays[i];</p>
+<p>}</p>
+<p>// Since every leap year is of 366 days,</p>
+<p>// Add a day for every leap year</p>
+<p>n1 += countLeapYears(dt1);</p>
+<p>// SIMILARLY, COUNT TOTAL NUMBER OF DAYS BEFORE 'dt2'</p>
+<p>int n2 = dt2.y * 365 + dt2.d;</p>
+<p>for (int i = 0; i &lt; dt2.m - 1; i++)</p>
+<p>{</p>
+<p>n2 += monthDays[i];</p>
+<p>}</p>
+<p>n2 += countLeapYears(dt2);</p>
+<p>// return difference between two counts</p>
+<p>return (n2 - n1);</p>
+<p>}</p>
+<p>// Driver code</p>
+<p>public static void main(String[] args)</p>
+<p>{</p>
+<p>Date dt1 = new Date(1, 2, 2000);</p>
+<p>Date dt2 = new Date(1, 2, 2004);</p>
+<p>System.out.println(&quot;Difference between two dates is &quot; +</p>
+<p>getDifference(dt1, dt2));</p>
+<p>}</p>
+<p>}</p>
+<p>Last Edit: 6 hours ago</p>
+<p>karansingh1559</p>
+<p>karansingh1559</p>
+<p>179</p>
+<p>I am trying to compile a list of DP questions commonly asked in
+interviews. This will help me and others trying to get better at DP. The
+list will be sorted by difficulty. If you've come across DP questions,
+do mention them in the comments.</p>
+<p>EASY:</p>
+<p>121. Best time to buy and sell stock</p>
+<p>198. House Robber</p>
+<p>256. Paint House</p>
+<p>MEDIUM:</p>
+<p>63. Unique Paths II</p>
+<p>64. Minimum Path Sum</p>
+<p>91. Decode Ways</p>
+<p>139. Word Break</p>
+<p>221. Maximal Square</p>
+<p>300. Longest Increasing Subsequence</p>
+<p>322. Coin Change</p>
+<p>464. Can I Win</p>
+<p>474. Ones and Zeroes</p>
+<p>516. Longest Palindromic Subsequence</p>
+<p>698. Partition to K Equal Sum Subsets</p>
+<p>787. Cheapest Flights Within K Stops</p>
+<p>1027. Longest Arithmetic Sequence</p>
+<p>1049. Last Stone Weight II</p>
+<p>1105. Filling Bookcase Shelves</p>
+<p>1143. Longest Common Subsequence</p>
+<p>1155. Dice Roll Sum</p>
+<p>HARD:</p>
+<p>32. Longest Valid Parantheses</p>
+<p>44. Wildcard Matching</p>
+<p>72. Edit Distance</p>
+<p>123. Best Time to Buy and Sell Stock III</p>
+<p>312. Burst Balloons</p>
+<p>1000. Minimum Cost to Merge Stones</p>
+<p>1335. Minimum Difficulty of a Job Schedule</p>
+<p>dynamic programming</p>
+<p><strong>Minimum (Maximum) Path to Reach a Target</strong></p>
+<p><strong>Generate problem statement for this pattern</strong></p>
+<p>Statement</p>
+<p>Given a target find minimum (maximum) cost / path / sum to reach the
+target.</p>
+<p>Approach</p>
+<p>Choose minimum (maximum) path among all possible paths before the
+current state, then add value for the current state.</p>
+<p>routes[i] = min(routes[i-1], routes[i-2], ... , routes[i-k]) +
+cost[i]</p>
+<p>Generate optimal solutions for all values in the target and return the
+value for the target.</p>
+<p>for (int i = 1; i &lt;= target; ++i) {</p>
+<p>for (int j = 0; j &lt; ways.size(); ++j) {</p>
+<p>if (ways[j] &lt;= i) {</p>
+<p>dp[i] = min(dp[i], dp[i - ways[j]]) + cost / path / sum;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return dp[target]</p>
+<p>Similar Problems</p>
+<p>746. <strong>[Min Cost Climbing Stairs Easy]{.underline}</strong></p>
+<p>for (int i = 2; i &lt;= n; ++i) {</p>
+<p>dp[i] = min(dp[i-1], dp[i-2]) + (i == n ? 0 : cost[i]);</p>
+<p>}</p>
+<p>return dp[n]</p>
+<p>64. Minimum Path Sum Medium</p>
+<p>for (int i = 1; i &lt; n; ++i) {</p>
+<p>for (int j = 1; j &lt; m; ++j) {</p>
+<p>grid[i][j] = min(grid[i-1][j], grid[i][j-1]) +
+grid[i][j];</p>
+<p>}</p>
+<p>}</p>
+<p>return grid[n-1][m-1]</p>
+<p>322. Coin Change Medium</p>
+<p>for (int j = 1; j &lt;= amount; ++j) {</p>
+<p>for (int i = 0; i &lt; coins.size(); ++i) {</p>
+<p>if (coins[i] &lt;= j) {</p>
+<p>dp[j] = min(dp[j], dp[j - coins[i]] + 1);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<h1 id="tree">Tree</h1>
+<h2 id="find-minimum-path">Find minimum path</h2>
+<p>class Solution {</p>
+<p>public int minDepth(TreeNode root) {</p>
+<p>if(root == null) return 0; // base case</p>
+<p>int left = minDepth(root.left); // get depth of left</p>
+<p>int right = minDepth(root.right); // get depth of right</p>
+<p>if(root.left == null) return right + 1; // leaf nodes are in right
+subtree</p>
+<p>if(root.right == null) return left + 1; // leaf nodes are in left
+subtree</p>
+<p>// if left/right subtrees both contains leaf nodes</p>
+<p>return Math.min(left, right) + 1;</p>
+<p>}</p>
+<p>}</p>
+<p>Get min depth in Iterative approach</p>
+<p>public int minDepth(TreeNode root) {</p>
+<p>if(root == null)</p>
+<p>return 0;</p>
+<p>Queue&lt;TreeNode&gt; que = new LinkedList();</p>
+<p>int level =1;</p>
+<p>que.add(root);</p>
+<p>while(!que.isEmpty()){</p>
+<p>int size = que.size();</p>
+<p>while(size&gt;0){</p>
+<p>TreeNode node =que.poll();</p>
+<p>if(node.left == null &amp;&amp; node.right ==null)</p>
+<p>return level;</p>
+<p>if(node.left != null)</p>
+<p>que.add(node.left);</p>
+<p>if(node.right != null)</p>
+<p>que.add(node.right);</p>
+<p>size--;</p>
+<p>}</p>
+<p>level++;</p>
+<p>}</p>
+<p>return level;</p>
+<p>}</p>
+<p>=================</p>
+<p>two solutions with explanation: DFS &amp; BFS:</p>
+<p>/** Solution 1: DFS</p>
+<p>* Key point:</p>
+<p>* if a node only has one child -&gt; MUST return the depth of the side
+with child, i.e. MAX(left, right) + 1</p>
+<p>* if a node has two children on both side -&gt; return min depth of two
+sides, i.e. MIN(left, right) + 1</p>
+<p>* */</p>
+<p>public int minDepth(TreeNode root) {</p>
+<p>if (root == null) {</p>
+<p>return 0;</p>
+<p>}</p>
+<p>int left = minDepth(root.left);</p>
+<p>int right = minDepth(root.right);</p>
+<p>if (left == 0 || right == 0) {</p>
+<p>return Math.max(left, right) + 1;</p>
+<p>}</p>
+<p>else {</p>
+<p>return Math.min(left, right) + 1;</p>
+<p>}</p>
+<p>}</p>
+<p>/** Solution 2: BFS level order traversal */</p>
+<p>public int minDepth2(TreeNode root) {</p>
+<p>if (root == null) {</p>
+<p>return 0;</p>
+<p>}</p>
+<p>Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();</p>
+<p>queue.offer(root);</p>
+<p>int level = 1;</p>
+<p>while (!queue.isEmpty()) {</p>
+<p>int size = queue.size();</p>
+<p>for (int i = 0; i &lt; size; i++) {</p>
+<p>TreeNode curNode = queue.poll();</p>
+<p>if (curNode.left == null &amp;&amp; curNode.right == null) {</p>
+<p>return level;</p>
+<p>}</p>
+<p>if (curNode.left != null) {</p>
+<p>queue.offer(curNode.left);</p>
+<p>}</p>
+<p>if (curNode.right != null) {</p>
+<p>queue.offer(curNode.right);</p>
+<p>}</p>
+<p>}</p>
+<p>level++;</p>
+<p>}</p>
+<p>return level;</p>
+<p>}</p>
+<p>Preorder Traversal</p>
+<p>In preorder traversal, we traverse the root first, then the left and
+right subtrees.</p>
+<p>We can simply implement preorder traversal using recursion:</p>
+<p>public void traversePreOrder(Node node) {</p>
+<p>if (node != null) {</p>
+<p>visit(node.value);</p>
+<p>traversePreOrder(node.left);</p>
+<p>traversePreOrder(node.right);</p>
+<p>}</p>
+<p>}</p>
+<p>We can also implement preorder traversal without recursion.</p>
+<p>To implement an iterative preorder traversal, we'll need a Stack, and
+we'll go through these steps:</p>
+<p>Push root in our stack</p>
+<p>While stack is not empty</p>
+<p>Pop current node</p>
+<p>Visit current node</p>
+<p>Push right child, then left child to stack</p>
+<p>public void traversePreOrderWithoutRecursion() {</p>
+<p>Stack&lt;Node&gt; stack = new Stack&lt;Node&gt;();</p>
+<p>Node current = root;</p>
+<p>stack.push(root);</p>
+<p>while(!stack.isEmpty()) {</p>
+<p>current = stack.pop();</p>
+<p>visit(current.value);</p>
+<p>if(current.right != null) {</p>
+<p>stack.push(current.right);</p>
+<p>}</p>
+<p>if(current.left != null) {</p>
+<p>stack.push(current.left);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>Convert Sorted List to Binary Search Tree</p>
+<p>Medium</p>
+<p>1503</p>
+<p>79</p>
+<p>Add to List</p>
+<p>Share</p>
+<p>Given a singly linked list where elements are sorted in ascending order,
+convert it to a height balanced BST.</p>
+<p>For this problem, a height-balanced binary tree is defined as a binary
+tree in which the depth of the two subtrees of <em>every</em> node never differ
+by more than 1.</p>
+<p>Example:</p>
+<p>Given the sorted linked list: [-10,-3,0,5,9],</p>
+<p>One possible answer is: [0,-3,9,-10,null,5], which represents the
+following height balanced BST:</p>
+<p>0</p>
+<p>/ \</p>
+<p>-3 9</p>
+<p>/ /</p>
+<p>-10 5</p>
+<p><strong>breadth first search</strong></p>
+<p>First of all, let's reuse the algorithm from above, adapted to the new
+structure:</p>
+<p>public static &lt;T&gt; Optional&lt;Node&lt;T&gt;&gt; search(T value, Node&lt;T&gt;
+start) {</p>
+<p>Queue&lt;Node&lt;T&gt;&gt; queue = new ArrayDeque&lt;&gt;();</p>
+<p>queue.add(start);</p>
+<p>Node&lt;T&gt; currentNode;</p>
+<p>while (!queue.isEmpty()) {</p>
+<p>currentNode = queue.remove();</p>
+<p>if (currentNode.getValue().equals(value)) {</p>
+<p>return Optional.of(currentNode);</p>
+<p>} else {</p>
+<p>queue.addAll(currentNode.getNeighbors());</p>
+<p>}</p>
+<p>}</p>
+<p>return Optional.empty();</p>
+<p>}</p>
+<h1 class="underline" id="binary-search">[Binary search]</h1>
+<p><strong>分析二分查找的一个技巧是：不要出现 else，而是把所有情况用 else if
+写清楚，这样可以清楚地展现所有细节</strong>。</p>
+<p>------</p>
+<p>Sliding window</p>
+<p>In any sliding window based problem we have two pointers. One <em>right</em>
+pointer whose job is to expand the current window and then we have the
+<em>left</em> pointer whose job is to contract a given window. At any point in
+time only one of these pointers move and the other one remains fixed.</p>
+<p>Smallest window contains sub string</p>
+<p>public class Solution {</p>
+<p>public String minWindow(String s, String t) {</p>
+<p>if(s == null || s.length() &lt; t.length() || s.length() == 0){</p>
+<p>return &quot;&quot;;</p>
+<p>}</p>
+<p>HashMap&lt;Character,Integer&gt; map = new HashMap&lt;Character,Integer&gt;();</p>
+<p>for(char c : t.toCharArray()){</p>
+<p>if(map.containsKey(c)){</p>
+<p>map.put(c,map.get(c)+1);</p>
+<p>}else{</p>
+<p>map.put(c,1);</p>
+<p>}</p>
+<p>}</p>
+<p>int left = 0;</p>
+<p>int minLeft = 0;</p>
+<p>int minLen = s.length()+1;</p>
+<p>int count = 0;</p>
+<p>for(int right = 0; right &lt; s.length(); right++){</p>
+<p>if(map.containsKey(s.charAt(right))){</p>
+<p>map.put(s.charAt(right),map.get(s.charAt(right))-1);</p>
+<p>if(map.get(s.charAt(right)) &gt;= 0){</p>
+<p>count ++;</p>
+<p>}</p>
+<p>while(count == t.length()){</p>
+<p>if(right-left+1 &lt; minLen){</p>
+<p>minLeft = left;</p>
+<p>minLen = right-left+1;</p>
+<p>}</p>
+<p>if(map.containsKey(s.charAt(left))){</p>
+<p>map.put(s.charAt(left),map.get(s.charAt(left))+1);</p>
+<p>if(map.get(s.charAt(left)) &gt; 0){</p>
+<p>count --;</p>
+<p>}</p>
+<p>}</p>
+<p>left ++ ;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>if(minLen&gt;s.length())</p>
+<p>{</p>
+<p>return &quot;&quot;;</p>
+<p>}</p>
+<p>return s.substring(minLeft,minLeft+minLen);</p>
+<p>}</p>
+<p>}</p>
+<p>--</p>
+<p>public static String minWindowOp(String s, String t) {</p>
+<p>int [] map = new int[128];//map to track number of occurrence of
+each character of sub string</p>
+<p>for (char c : t.toCharArray()) {</p>
+<p>map[c]++;</p>
+<p>}</p>
+<p>int start = 0, end = 0, minStart = 0, minLen = Integer.MAX_VALUE,
+counter = t.length();</p>
+<p>// counter is number of distinct chars in sub string</p>
+<p>while (end &lt; s.length()) {</p>
+<p>final char c1 = s.charAt(end);// walk through each char in source string</p>
+<p>if (map[c1] &gt; 0) {</p>
+<p>counter--; // if cached char number greater than 0, decrease counter</p>
+<p>}</p>
+<p>map[c1]--;//decrease cached char number, for chars not in substring,
+it will be negative</p>
+<p>end++; //move right pointer</p>
+<p>while (counter == 0) { //counter is zero means all chars found</p>
+<p>if (minLen &gt; end - start) { //to find and cache minimum sliding window
+length and minimum start</p>
+<p>minLen = end - start;</p>
+<p>minStart = start;</p>
+<p>}</p>
+<p>final char c2 = s.charAt(start);</p>
+<p>map[c2]++;// A is -2， B is 1</p>
+<p>if (map[c2] &gt; 0) {</p>
+<p>counter++; //if current char exist in cache, increase counter, otherwise
+keep counter zero</p>
+<p>}</p>
+<p>start++;</p>
+<p>}</p>
+<p>}</p>
+<p>return minLen == Integer.MAX_VALUE ? &quot;&quot; : s.substring(minStart,
+minStart + minLen);</p>
+<p>}</p>
+<p>------</p>
+<p>I agree with your code, but I prefer this code when count == t.length(),</p>
+<p>class Solution {</p>
+<p>public String minWindow(String s, String t) {</p>
+<p>// corner case</p>
+<p>if(s == null || t == null || s.length() == 0 || t.length() == 0
+|| s.length() &lt; t.length()) return &quot;&quot;;</p>
+<p>// construct model</p>
+<p>int minLeft = 0;</p>
+<p>int minRight = 0;</p>
+<p>int min = s.length();</p>
+<p>boolean flag = false;</p>
+<p>Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();</p>
+<p>int count = t.length(); // the number of characters that I need to match</p>
+<p>for(char c : t.toCharArray()) map.put(c, map.getOrDefault(c, 0) + 1);</p>
+<p>// unfixed sliding window, 2 pointers</p>
+<p>int i = 0;</p>
+<p>int j = 0;</p>
+<p>while(j &lt; s.length()){</p>
+<p>char c = s.charAt(j);</p>
+<p>if(map.containsKey(c)){</p>
+<p>map.put(c, map.get(c) - 1);</p>
+<p>if(map.get(c) &gt;= 0) count--; // if still unmatched characters, then
+count--</p>
+<p>}</p>
+<p>// if found a susbtring</p>
+<p>while(count == 0 &amp;&amp; i &lt;= j){</p>
+<p>// update global min</p>
+<p>flag = true;</p>
+<p>int curLen = j + 1 - i;</p>
+<p>if(curLen &lt;= min){</p>
+<p>minLeft = i;</p>
+<p>minRight = j;</p>
+<p>min = curLen;</p>
+<p>}</p>
+<p>// shrink left pointer</p>
+<p>char leftC = s.charAt(i);</p>
+<p>if(map.containsKey(leftC)){</p>
+<p>map.put(leftC, map.get(leftC) + 1);</p>
+<p>if(map.get(leftC) &gt;= 1) count++;</p>
+<p>}</p>
+<p>i++;</p>
+<p>}</p>
+<p>j++;</p>
+<p>}</p>
+<p>return flag == true ? s.substring(minLeft, minRight + 1): &quot;&quot;;</p>
+<p>}</p>
+<p>}</p>
+<p>First part: when the right pointer is getting incremented we are
+decrementing the map count of char if it's part of 't' string. When
+we see that the map count of that char after decrementing is
+positive/zero means that the right ptr has found a useful char and hence
+we increment the 'count' variable (which is keeping track of the
+number of useful chars)</p>
+<p>Second part: when the left pointer is getting incremented we are
+essentially making the window smaller and giving back the chars to the
+map (i.e. incrementing the map count). If we find that for the
+particular char the map count has now become positive means that we
+actually gave back a useful char and hence the 'count' is to be
+decremented.</p>
+<p>At this point then we again start increasing our window and see each
+time if the count has become equal to the number of chars in 't'
+string.</p>
+<p>----</p>
+<p>Generally, there are following steps:</p>
+<ol>
+<li>
+<p>create a hashmap for each character in t and count their frequency</p>
+<blockquote>
+<p>in t as the value of hashmap.</p>
+</blockquote>
+</li>
+<li>
+<p>Find the first window in S that contains T. But how? there the</p>
+<blockquote>
+<p>author uses the count.</p>
+</blockquote>
+</li>
+<li>
+<p>Checking from the leftmost index of the window and to see if it</p>
+<blockquote>
+<p>belongs to t. The reason we do so is that we want to shrink the
+size of the window.<br>
+3-1) If the character at leftmost index does not belong to t, we
+can directly remove this leftmost value and update our window(its
+minLeft and minLen value)<br>
+3-2) If the character indeed exists in t, we still remove it, but
+in the next step, we will increase the right pointer and expect
+the removed character. If find so, repeat step 3.</p>
+</blockquote>
+</li>
+</ol>
+<p>public String minWindow(String s, String t) {</p>
+<p>HashMap&lt;Character, Integer&gt; map = new HashMap();</p>
+<p>for(char c : t.toCharArray()){</p>
+<p>if(map.containsKey(c)){</p>
+<p>map.put(c, map.get(c)+1);</p>
+<p>}</p>
+<p>else{</p>
+<p>map.put(c, 1);</p>
+<p>}</p>
+<p>}</p>
+<p>int left = 0, minLeft=0, minLen =s.length()+1, count = 0;</p>
+<p>for(int right = 0; right&lt;s.length(); right++){</p>
+<p>char r = s.charAt(right);</p>
+<p>if(map.containsKey(r)){//the goal of this part is to get the first
+window that contains whole t</p>
+<p>map.put(r, map.get(r)-1);</p>
+<p>if(map.get(r)&gt;=0) count++;//identify if the first window is found by
+counting frequency of the characters of t showing up in S</p>
+<p>}</p>
+<p>while(count == t.length()){//if the count is equal to the length of t,
+then we find such window</p>
+<p>if(right-left+1 &lt; minLen){//jsut update the minleft and minlen value</p>
+<p>minLeft = left;</p>
+<p>minLen = right-left+1;</p>
+<p>}</p>
+<p>char l = s.charAt(left);</p>
+<p>if(map.containsKey(l)){//starting from the leftmost index of the window,
+we want to check if s[left] is in t. If so, we will remove it from the
+window, and increase 1 time on its counter in hashmap which means we
+will expect the same character later by shifting right index. At the
+same time, we need to reduce the size of the window due to the removal.</p>
+<p>map.put(l, map.get(l)+1);</p>
+<p>if(map.get(l)&gt;0) count--;</p>
+<p>}</p>
+<p>left++;//if it doesn't exist in t, it is not supposed to be in the
+window, left++. If it does exist in t, the reason is stated as above.
+left++.</p>
+<p>}</p>
+<p>}</p>
+<p>return minLen==s.length()+1?&quot;&quot;:s.substring(minLeft, minLeft+minLen);</p>
+<p>------------- best solution---</p>
+<p>public static String minWindowBetter(String s, String t){</p>
+<p>if(s==null||t==null|s.length()==0||t.length()==0){</p>
+<p>return &quot;&quot;;</p>
+<p>}</p>
+<p>int left=0,right=0,count=0,min=Integer.MAX_VALUE;</p>
+<p>int pool[] = new int[256];</p>
+<p>String rtn=&quot;&quot;;</p>
+<p>for(int i =0;i&lt;t.length();i++){</p>
+<p>pool[t.charAt(i)]++;</p>
+<p>}</p>
+<p>while(right&lt;s.length()){</p>
+<p>if(pool[s.charAt(right++)]--&gt;0){//[!]</p>
+<p>// (a) if(pool[s.charAt(right++)]--&gt;=0), rather than
+if(pool[right++]--&gt;=0)</p>
+<p>// (b) this is &quot;&gt;0&quot;, but not &quot;&gt;=0&quot;</p>
+<p>count++;</p>
+<p>}</p>
+<p>while(count==t.length()){</p>
+<p>if((right-left)&lt;min){</p>
+<p>min=right-left;</p>
+<p>rtn=s.substring(left,right);</p>
+<p>}</p>
+<p>//shrink window</p>
+<p>if(++pool[s.charAt(left++)]&gt;0){</p>
+<p>count--;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return rtn;</p>
+<p>}</p>
+<p>while(right &lt; length of s){</p>
+<blockquote>
+<p>Deincrement characters frequence at right pointer in String s from
+bank</p>
+<p>Right -- (expand window)</p>
+<p>If that character was inside of t, increase count</p>
+<p>while(count equal to length of t - condition){</p>
+<p>Check if right-left less than min, if so, update min and curr string</p>
+<p>Increate characters frequences at left pointer in string, s from bank</p>
+<p>Left++ (shift window)</p>
+<p>If bank[character at left pointer]&gt;=0, then decrease count.</p>
+</blockquote>
+<p>}</p>
+<p><strong>[knapsack 0/1 背包]{.underline}</strong></p>
+<p>用子问题定义状态：即f[i][v]表示前i件物品恰放入一个容量为v的背包可以获得的最大价值。则其状态转移方程便是：</p>
+<p>f[i][v]=max{f[i-1][v],f[i-1][v-c[i]]+w[i]}</p>
+<p>这个方程非常重要，基本上所有跟背包相关的问题的方程都是由它衍生出来的。所以有必要将它详细解释一下：&ldquo;将前i件物品放入容量为v的背包中&quot;这个子问题，若只考虑第i件物品的策略（放或不放），那么就可以转化为一个只牵扯前i-1件物品的问题。如果不放第i件物品，那么问题就转化为&quot;前i-1件物品放入容量为v的背包中&rdquo;，价值为f[i-1][v]；如果放第i件物品，那么问题就转化为&quot;前i-1件物品放入剩下的容量为v-c[i]的背包中&rdquo;，此时能获得的最大价值就是f[i-1][v-c[i]]再加上通过放入第i件物品获得的价值w[i]。</p>
+<p>private static int knapsack01(int[] weights, int[] value, int quota)
+{</p>
+<p>// we are using dynamic programming bottom up</p>
+<p>// one tab to keep track of value, size is quota + 1</p>
+<p>int[][] dp = new int[value.length+1][quota+1];</p>
+<p>// as size is actual size + 1, so here is &quot;&lt;=&quot; , rather than &quot;&lt;&quot;</p>
+<p>for(int i=0;i&lt;=value.length;i++){</p>
+<p>for (int j =0;j&lt;=quota;j++){</p>
+<p>//base value</p>
+<p>if(i==0 || j==0){</p>
+<p>// initilize first line and first column to '0'</p>
+<p>dp[i][j] = 0;</p>
+<p>continue;</p>
+<p>}</p>
+<p>// non zero</p>
+<p>if(j&gt;=weights[i-1]){</p>
+<p>// current weight not bigger than current quota</p>
+<p>// so add it to our backtrack</p>
+<p>// get the max one of (1) Not include , (2) include this node</p>
+<p>dp[i][j]= Math.<em>max</em>(dp[i-1][j],
+dp[i-1][j-weights[i-1]]+value[i-1]);</p>
+<p>}else{</p>
+<p>// required weight is less than provided, so skip this</p>
+<p>dp[i][j] = dp[i-1][j]; //use value (j) of previous (i-1</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return dp[value.length][quota];</p>
+<p>}</p>
+<p><strong>[KMP 算法]{.underline}</strong></p>
+<p>KMP
+算法永不回退txt的指针i，不走回头路（不会重复扫描txt），而是借助dp数组中储存的信息把pat移到正确的位置继续匹配，时间复杂度只需
+O(N)，用空间换时间，所以我认为它是一种动态规划算法。</p>
+<p>// 暴力匹配（伪码）</p>
+<p>int search(String pat, String txt) {</p>
+<p>int M = pat.length;</p>
+<p>int N = txt.length;</p>
+<p>for (int i = 0; i &lt; N - M; i++) {</p>
+<p>int j;</p>
+<p>for (j = 0; j &lt; M; j++) {</p>
+<p>if (pat[j] != txt[i+j])</p>
+<p>break;</p>
+<p>}</p>
+<p>// pat 全都匹配了</p>
+<p>if (j == M) return i;</p>
+<p>}</p>
+<p>// txt 中不存在 pat 子串</p>
+<p>return -1;</p>
+<p>---</p>
+<p>dynamic programming</p>
+<p>public class KMP {</p>
+<p>private int[][] dp;</p>
+<p>private String pat;</p>
+<p>public KMP(String pat) {</p>
+<p>this.pat = pat;</p>
+<p>// 通过 pat 构建 dp 数组</p>
+<p>// 需要 O(M) 时间</p>
+<p>}</p>
+<p>public int search(String txt) {</p>
+<p>// 借助 dp 数组去匹配 txt</p>
+<p>// 需要 O(N) 时间</p>
+<p>}</p>
+<p>}</p>
+<p>为了描述状态转移图，我们定义一个二维 dp 数组，它的含义如下：</p>
+<p>dp[j][c] = next</p>
+<p>0 &lt;= j &lt; M，代表当前的状态</p>
+<p>0 &lt;= c &lt; 256，代表遇到的字符（ASCII 码）</p>
+<p>0 &lt;= next &lt;= M，代表下一个状态</p>
+<p>dp[4]['A'] = 3 表示：</p>
+<p>当前是状态 4，如果遇到字符 A，</p>
+<p>pat 应该转移到状态 3</p>
+<p>dp[1]['B'] = 2 表示：</p>
+<p>当前是状态 1，如果遇到字符 B，</p>
+<p>pat 应该转移到状态 2</p>
+<p>根据我们这个 dp 数组的定义和刚才状态转移的过程，我们可以先写出 KMP
+算法的 search 函数代码：</p>
+<p>public int search(String txt) {</p>
+<p>int M = pat.length();</p>
+<p>int N = txt.length();</p>
+<p>// pat 的初始态为 0</p>
+<p>int j = 0;</p>
+<p>for (int i = 0; i &lt; N; i++) {</p>
+<p>// 当前是状态 j，遇到字符 txt[i]，</p>
+<p>// pat 应该转移到哪个状态？</p>
+<p>j = dp[j][txt.charAt(i)];</p>
+<p>// 如果达到终止态，返回匹配开头的索引</p>
+<p>if (j == M) return i - M + 1;</p>
+<p>}</p>
+<p>// 没到达终止态，匹配失败</p>
+<p>return -1;</p>
+<p>}</p>
+<p>for 0 &lt;= j &lt; M: # 状态</p>
+<p>for 0 &lt;= c &lt; 256: # 字符</p>
+<p>dp[j][c] = next</p>
+<p>这个 next
+状态应该怎么求呢？显然，如果遇到的字符c和pat[j]匹配的话，状态就应该向前推进一个，也就是说next
+= j + 1，我们不妨称这种情况为状态推进：</p>
+<p>如果遇到的字符c和pat[j]不匹配的话，状态就要回退（或者原地不动），我们不妨称这种情况为状态重启：</p>
+<p>那么，如何得知在哪个状态重启呢？解答这个问题之前，我们再定义一个名字：影子状态（我编的名字），用变量X表示。所谓影子状态，就是和当前状态具有相同的前缀。比如下面这种情况：</p>
+<p>当前状态j = 4，其影子状态为X = 2，它们都有相同的前缀
+&quot;AB&quot;。因为状态X和状态j存在相同的前缀，所以当状态j准备进行状态重启的时候（遇到的字符c和pat[j]不匹配），可以通过X的状态转移图来获得最近的重启位置。</p>
+<p>比如说刚才的情况，如果状态j遇到一个字符
+&quot;A&quot;，应该转移到哪里呢？首先状态 4 只有遇到 &quot;C&quot; 才能推进状态，遇到
+&quot;A&quot;
+显然只能进行状态重启。状态j会把这个字符委托给状态X处理，也就是dp[j]['A']
+= dp[X]['A']：</p>
+<p>int X # 影子状态</p>
+<p>for 0 &lt;= j &lt; M:</p>
+<p>for 0 &lt;= c &lt; 256:</p>
+<p>if c == pat[j]:</p>
+<p># 状态推进</p>
+<p>dp[j][c] = j + 1</p>
+<p>else:</p>
+<p># 状态重启</p>
+<p># 委托 X 计算重启位置</p>
+<p>dp[j][c] = dp[X][c]</p>
+<p>---</p>
+<p>影子状态X是如何得到的呢？下面先直接看完整代码吧。</p>
+<p>public class KMP {</p>
+<p>private int[][] dp;</p>
+<p>private String pat;</p>
+<p>public KMP(String pat) {</p>
+<p>this.pat = pat;</p>
+<p>int M = pat.length();</p>
+<p>// dp[状态][字符] = 下个状态</p>
+<p>dp = new int[M][256];</p>
+<p>// base case</p>
+<p>dp[0][pat.charAt(0)] = 1;</p>
+<p>// 影子状态 X 初始为 0</p>
+<p>int X = 0;</p>
+<p>// 当前状态 j 从 1 开始</p>
+<p>for (int j = 1; j &lt; M; j++) {</p>
+<p>for (int c = 0; c &lt; 256; c++) {</p>
+<p>if (pat.charAt(j) == c)</p>
+<p>dp[j][c] = j + 1;</p>
+<p>else</p>
+<p>dp[j][c] = dp[X][c];</p>
+<p>}</p>
+<p>// 更新影子状态</p>
+<p>X = dp[X][pat.charAt(j)];</p>
+<p>}</p>
+<p>}</p>
+<p>public int search(String txt) {...}</p>
+<p>}</p>
+<p>先解释一下这一行代码：</p>
+<p>// base case</p>
+<p>dp[0][pat.charAt(0)] = 1;</p>
+<p>这行代码是 base case，只有遇到 pat[0] 这个字符才能使状态从 0 转移到
+1，遇到其它字符的话还是停留在状态 0（Java 默认初始化数组全为 0）。</p>
+<p>影子状态X是先初始化为
+0，然后随着j的前进而不断更新的。下面看看到底应该如何更新影子状态X：</p>
+<p>int X = 0;</p>
+<p>for (int j = 1; j &lt; M; j++) {</p>
+<p>...</p>
+<p>// 更新影子状态</p>
+<p>// 当前是状态 X，遇到字符 pat[j]，</p>
+<p>// pat 应该转移到哪个状态？</p>
+<p>X = dp[X][pat.charAt(j)];</p>
+<p>}</p>
+<p>更新X其实和search函数中更新状态j的过程是非常相似的：</p>
+<p>int j = 0;</p>
+<p>for (int i = 0; i &lt; N; i++) {</p>
+<p>// 当前是状态 j，遇到字符 txt[i]，</p>
+<p>// pat 应该转移到哪个状态？</p>
+<p>j = dp[j][txt.charAt(i)];</p>
+<p>...</p>
+<p>}</p>
+<p>其中的原理非常微妙，注意代码中 for
+循环的变量初始值，可以这样理解：后者是在txt中匹配pat，前者是在pat中匹配pat[1:]，状态X总是落后状态j一个状态，与j具有最长的相同前缀。所以我把X比喻为影子状态，似乎也有一点贴切。</p>
+<p>另外，构建 dp 数组是根据 base casedp[0][..]向后推演。这就是我认为
+KMP 算法就是一种动态规划算法的原因。</p>
+<p>至此，KMP 算法就已经再无奥妙可言了！看下 KMP 算法的完整代码吧：</p>
+<p>public class KMP {</p>
+<p>private int[][] dp;</p>
+<p>private String pat;</p>
+<p>public KMP(String pat) {</p>
+<p>this.pat = pat;</p>
+<p>int M = pat.length();</p>
+<p>// dp[状态][字符] = 下个状态</p>
+<p>dp = new int[M][256];</p>
+<p>// base case</p>
+<p>dp[0][pat.charAt(0)] = 1;</p>
+<p>// 影子状态 X 初始为 0</p>
+<p>int X = 0;</p>
+<p>// 构建状态转移图（稍改的更紧凑了）</p>
+<p>for (int j = 1; j &lt; M; j++) {</p>
+<p>for (int c = 0; c &lt; 256; c++) {</p>
+<p>dp[j][c] = dp[X][c];</p>
+<p>dp[j][pat.charAt(j)] = j + 1;</p>
+<p>// 更新影子状态</p>
+<p>X = dp[X][pat.charAt(j)];</p>
+<p>}</p>
+<p>}</p>
+<p>public int search(String txt) {</p>
+<p>int M = pat.length();</p>
+<p>int N = txt.length();</p>
+<p>// pat 的初始态为 0</p>
+<p>int j = 0;</p>
+<p>for (int i = 0; i &lt; N; i++) {</p>
+<p>// 计算 pat 的下一个状态</p>
+<p>j = dp[j][txt.charAt(i)];</p>
+<p>// 到达终止态，返回结果</p>
+<p>if (j == M) return i - M + 1;</p>
+<p>}</p>
+<p>// 没到达终止态，匹配失败</p>
+<p>return -1;</p>
+<p>}</p>
+<p>}</p>
+<p>经过之前的详细举例讲解，你应该可以理解这段代码的含义了，当然你也可以把
+KMP 算法写成一个函数。核心代码也就是两个函数中 for
+循环的部分，数一下有超过十行吗？</p>
+<h3 id="labuladongunderline"><strong>[labuladong]{.underline}</strong></h3>
+<p>你只要把住两点就行了：</p>
+<p>1、遍历的过程中，所需的状态必须是已经计算出来的。</p>
+<p>2、遍历的终点必须是存储结果的那个位置。</p>
+<p>PS：但凡遇到需要递归的问题，最好都画出递归树，这对你分析算法的复杂度，寻找算法低效的原因都有巨大帮助</p>
+<p>int fib(int n) {</p>
+<p>if (n == 2 || n == 1)</p>
+<p>return 1;</p>
+<p>int prev = 1, curr = 1;</p>
+<p>for (int i = 3; i &lt;= n; i++) {</p>
+<p>int sum = prev + curr;</p>
+<p>prev = curr;</p>
+<p>curr = sum;</p>
+<p>}</p>
+<p>return curr;</p>
+<p>}</p>
+<p>首先，这个问题是动态规划问题，因为它具有「最优子结构」的。要符合「最优子结构」，子问题间必须互相独立。啥叫相互独立？你肯定不想看数学证明，我用一个直观的例子来讲解。</p>
+<p>比如说，你的原问题是考出最高的总成绩，那么你的子问题就是要把语文考到最高，数学考到最高&hellip;&hellip;
+为了每门课考到最高，你要把每门课相应的选择题分数拿到最高，填空题分数拿到最高&hellip;&hellip;
+当然，最终就是你每门课都是满分，这就是最高的总成绩。</p>
+<p>得到了正确的结果：最高的总成绩就是总分。因为这个过程符合最优子结构，&ldquo;每门科目考到最高&quot;这些子问题是互相独立，互不干扰的。</p>
+<p>但是，如果加一个条件：你的语文成绩和数学成绩会互相制约，此消彼长。这样的话，显然你能考到的最高总成绩就达不到总分了，按刚才那个思路就会得到错误的结果。因为子问题并不独立，语文数学成绩无法同时最优，所以最优子结构被破坏。</p>
+<p>PS：为啥 dp 数组初始化为 amount + 1 呢，因为凑成 amount
+金额的硬币数最多只可能等于 amount（全用 1 元面值的硬币），所以初始化为
+amount + 1 就相当于初始化为正无穷，便于后续取最小值</p>
+<p>最优子结构并不是动态规划独有的一种性质，能求最值的问题大部分都具有这个性质；但反过来，最优子结构性质作为动态规划问题的必要条件，一定是让你求最值的，以后碰到那种恶心人的最值题，思路往动态规划想就对了，这就是套路。</p>
+<p>动态规划不就是从最简单的 base case
+往后推导吗，可以想象成一个链式反应，以小博大。但只有符合最优子结构的问题，才有发生这种链式反应的性质</p>
+<p>----------</p>
+<p>「状态」很明显，就是当前拥有的鸡蛋数K和需要测试的楼层数N。随着测试的进行，鸡蛋个数可能减少，楼层的搜索范围会减小，这就是状态的变化。</p>
+<p>「选择」其实就是去选择哪层楼扔鸡蛋。回顾刚才的线性扫描和二分思路，二分查找每次选择到楼层区间的中间去扔鸡蛋，而线性扫描选择一层层向上测试。不同的选择会造成状态的转移。</p>
+<p>现在明确了「状态」和「选择」，动态规划的基本思路就形成了：肯定是个二维的dp数组或者带有两个状态参数的dp函数来表示状态转移；外加一个
+for 循环来遍历所有选择，择最优的选择更新结果 ：</p>
+<p>SuperEggDrop</p>
+<p>Drop eggs is a very classical problem.</p>
+<p>Some people may come up with idea O(KN^2)</p>
+<p>where dp[K][N] = 1 + max(dp[K - 1][i - 1],dp[K][N - i]) for
+i in 1...N.</p>
+<p>However this idea is very brute force, for the reason that you check all
+possiblity.</p>
+<p>So I consider this problem in a different way:</p>
+<p>dp[M][K]means that, given K eggs and M moves,</p>
+<p>what is the maximum number of floor that we can check.</p>
+<p>The dp equation is:</p>
+<p>dp[m][k] = dp[m - 1][k - 1] + dp[m - 1][k] + 1,</p>
+<p>which means we take 1 move to a floor,</p>
+<p>if egg breaks, then we can check dp[m - 1][k - 1] floors.</p>
+<p>if egg doesn't breaks, then we can check dp[m - 1][k] floors.</p>
+<p>dp[m][k] is similar to the number of combinations and it increase
+exponentially to N</p>
+<p>public int superEggDrop(int K, int N) {</p>
+<p>int[][] floors = new int[N + 1][K + 1];</p>
+<p>int move = 0;</p>
+<p>while (floors[move][K] &lt; N) {</p>
+<p>++m;</p>
+<p>for (int egg = 1; egg &lt;= K; ++egg)</p>
+<p>floors[move][egg] = floors[move - 1][egg] + 1 + floors[move -
+1][egg - 1];</p>
+<p>}</p>
+<p>return m;</p>
+<p>}</p>
+<p>The dp equation is:</p>
+<p>dp[m][k] = dp[m - 1][k - 1] + dp[m - 1][k] + 1,</p>
+<p>assume, dp[m-1][k-1] = n0, dp[m-1][k] = n1</p>
+<p>the first floor to check is n0+1.</p>
+<p>if egg breaks, F must be in [1,n0] floors, we can use m-1 moves and
+k-1 eggs to find out F is which one.</p>
+<p>if egg doesn't breaks and F is in [n0+2, n0+n1+1] floors, we can use
+m-1 moves and k eggs to find out F is which one.</p>
+<p>So, with m moves and k eggs, we can find out F in n0+n1+1 floors,
+whichever F is.</p>
+<p>---</p>
+<p>Great, I understand this solution too.</p>
+<p>The key concept of original O(KN^2) solution is to try all the floor to
+get the min cost min(max(broke, not broke)) as the answer.</p>
+<p>This solution is somehow a reverse thinking:</p>
+<ol>
+<li>
+<p>No matter which floor you try, egg will only break or not break, if</p>
+<blockquote>
+<p>break, go to downstairs, if not break, go to upstairs.</p>
+</blockquote>
+</li>
+<li>
+<p>No matter you go up or go down, the num of all the floors is always</p>
+<blockquote>
+<p>upstairs + downstairs + the floor you try, which is dp[m][k] =
+dp[m - 1][k - 1] + dp[m - 1][k] + 1.</p>
+</blockquote>
+</li>
+</ol>
+<p>====</p>
+<p>the logic of &quot;dp[m][k] = dp[m - 1][k - 1] + dp[m - 1][k] +
+1&quot;, my confusion is, if dp[m - 1][k - 1] and dp[m - 1][k] are
+two different case break or not break; why we combine them together,
+instead of use the smaller one? would you please explain more?</p>
+<p>→</p>
+<p>This one move will separate the floors into two non-overlapping groups,
+below or above (the current level we choose to drop the egg); so no
+matter what happened to the egg, we only need to check one of those two
+group. If we need to check the level below the current level, then it
+means the egg is break, so the maximum level we are able to check is
+dp[m - 1][k - 1]. Otherwise if we need to check the level above or
+equal o the current level, it means the egg is not break, so the maximum
+level we can check is dp[m - 1][k], we should only return dp[m -
+1][k - 1] + dp[m - 1][k]; however, we count the level from 0,
+instead of 1, so we need to add the extra one level (i.e; if dp[m -
+1][k - 1] = 1 and dp[m - 1][k] = 2, means we can check (2 + 3 ==
+5) levels, so we need to return 4; which is dp[m - 1][k - 1] + dp[m</p>
+<ul>
+<li>1][k] + 1)</li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li>Find max &ldquo;1&rdquo; matrix in a square</li>
+</ul>
+<p>Instead to create a cache and initialise all element by copying when I,j
+=0.</p>
+<p>Better solution is to clone input &ldquo;matrix&rdquo; this will lead to faster and
+cleaner code</p>
+<p>If(I=0 || j=0) {// do nothing because those element remain unchanged
+in matrix copy}</p>
+<ul>
+<li>For Two sum, should raise Exception e.g. no findings rather than
+<blockquote>
+<p>return &ldquo;null&rdquo;</p>
+</blockquote>
+</li>
+</ul>
+<p>public int[] <strong>[twoSum]{.underline}</strong>(int[] nums, int target) {</p>
+<p>for (int i = 0; i &lt; nums.length; i++) {</p>
+<p>for (int j = i + 1; j &lt; nums.length; j++) { // I used int j=i, which is
+wrong as it may cause one item to be used twice</p>
+<p>if (nums[j] == target - nums[i]) {</p>
+<p>return new int[] { i, j };</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>throw new IllegalArgumentException(&quot;No two sum solution&quot;);</p>
+<p>}</p>
+<ul>
+<li>Return specific Exception, e.g.</li>
+</ul>
+<p>throw new IllegalArgumentException(&quot;No two sum solution&quot;);</p>
+<ul>
+<li>Error of two sums</li>
+</ul>
+<blockquote>
+<p>if(map1.containsKey(diff)) {</p>
+<p>return new int[]{i, map1.get(diff)};</p>
+<p>} else{</p>
+<p>// be careful put number itself (rather than supplement) to map</p>
+<p>map1.put(nums[i], i);</p>
+<p>}</p>
+</blockquote>
+<ul>
+<li>
+<p>Summary:</p>
+<ul>
+<li>
+<p>If possible, make use of HashMap to increase search performance</p>
+</li>
+<li>
+<p>If there are two loops, try to reduce to use one in-flight</p>
+<blockquote>
+<p>hashmap lookup</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>Multiply string</p>
+<ul>
+<li>Naiive solution</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>ublic</strong> String <strong>[multiply]{.underline}</strong>(String num1, String num2)
+{</p>
+<p>String n1 = <strong>new</strong> StringBuilder(num1).reverse().toString();</p>
+<p>String n2 = <strong>new</strong> StringBuilder(num2).reverse().toString();</p>
+<p><strong>int</strong>[] d = <strong>new</strong> <strong>int</strong>[num1.length()+num2.length()];</p>
+<p><em>//multiply each digit and sum at the corresponding positions</em></p>
+<p><strong>for</strong>(<strong>int</strong> i=0; i&lt;n1.length(); i++){</p>
+<p><strong>for</strong>(<strong>int</strong> j=0; j&lt;n2.length(); j++){</p>
+<p><strong>d[i+j] += (n1.charAt(i)-'0') * (n2.charAt(j)-'0');</strong></p>
+<p>}</p>
+<p>}</p>
+<p>StringBuilder sb = <strong>new</strong> StringBuilder();</p>
+<p><em>//calculate each digit</em></p>
+<p><strong>for</strong>(<strong>int</strong> i=0; i&lt;d.length; i++){</p>
+<p><strong>int</strong> mod = d[i]%10;</p>
+<p><strong>int</strong> carry = d[i]/10;</p>
+<p><strong>if</strong>(i+1&lt;d.length){</p>
+<p>d[i+1] += carry;</p>
+<p>}</p>
+<p>sb.insert(0, mod);</p>
+<p>}</p>
+<p><em>//remove front 0's</em></p>
+<p><strong>while</strong>(sb.charAt(0) == '0' &amp;&amp; sb.length()&gt; 1){</p>
+<p>sb.deleteCharAt(0);</p>
+<p>}</p>
+<p><strong>return</strong> sb.toString();</p>
+<p>}</p>
+<p>-----Best Multiply String---</p>
+<p>private static String multiply(String num1, String num2) {</p>
+<p>int nLen1 = num1.length(), nLen2=num2.length();</p>
+<p>int[] result = new int[nLen1+nLen2];</p>
+<p>for(int c1=nLen1-1;c1&gt;=0;c1--) {</p>
+<p>for(int c2=nLen2-1;c2&gt;=0;c2--){</p>
+<p>int nMulti= (num1.charAt(c1) - '0') * (num2.charAt(c2) - '0');</p>
+<p>int sum = nMulti + result[c1+c2+1];</p>
+<p>result[c1+c2] += sum / 10; //This is for &ldquo;carry&rdquo;, so must to be &ldquo;+&rdquo;
+in front of &ldquo;=&rdquo;</p>
+<p>result[c1+c2+1] = sum % 10; // This is a reminder, so this only be
+assigned without &ldquo;+&rdquo;</p>
+<p>}</p>
+<p>}</p>
+<p>StringBuffer buff = new StringBuffer();</p>
+<p>for(int p:result) {</p>
+<p>if(!(result.length==0 &amp;&amp; p==0)) {</p>
+<p>//remove prefix 0</p>
+<p>buff.append(p);</p>
+<p>}</p>
+<p>}</p>
+<p>return buff.toString();</p>
+<p>}</p>
+</blockquote>
+<ul>
+<li>greedy algorithm</li>
+</ul>
+<blockquote>
+<p>[Greedy]</p>
+<p>const int N = 5;</p>
+<p>int Count[N] = {5,2,2,3,5};//每一张纸币的数量</p>
+<p>int Value[N] = {1,5,10,50,100};</p>
+<p>int <strong>[solve]{.underline}</strong>(int money) {</p>
+<p>int num = 0;</p>
+<p>for(int i = N-1;i&gt;=0;i--) {</p>
+<p>int c = min(money/Value[i],Count[i]);//每一个所需要的张数</p>
+<p>money = money-c*Value[i];</p>
+<p>num += c;//总张数</p>
+<p>}</p>
+<p>if(money&gt;0) num=-1;</p>
+<p>return num;</p>
+<p>}</p>
+</blockquote>
+<ul>
+<li>Add One:</li>
+</ul>
+<blockquote>
+<p>private static int[] plusOneBest(int[] ary) {</p>
+<p>for (int i = ary.length - 1; i &gt;= 0; i--) {</p>
+<p>if (ary[i] != 9) {</p>
+<p>ary[i]++; //[!] Here is key step, for two cases: (1) last digit,
+add one then exit (2) Next digit with carry, add on and exit</p>
+<p>break;</p>
+<p>} else {</p>
+<p>ary[i] = 0;</p>
+<p>}</p>
+<p>}</p>
+<p>if (ary[0] == 0) {</p>
+<p>int[] aryRtn = new int[ary.length + 1];</p>
+<p>System.arraycopy(aryRtn, 1, ary, 0, ary.length);</p>
+<p>aryRtn[0] = 1;</p>
+<p>return aryRtn;</p>
+<p>} else {</p>
+<p>return ary;</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<ul>
+<li>Add two Single nodes</li>
+</ul>
+<blockquote>
+<p>/**</p>
+<p>* Definition for singly-linked list.</p>
+<p>* public class ListNode {</p>
+<p>* int val;</p>
+<p>* ListNode next;</p>
+<p>* ListNode(int x) { val = x; }</p>
+<p>* }</p>
+<p>*/</p>
+<p>class Solution {</p>
+<p>public ListNode addTwoNumbers(ListNode l1, ListNode l2) {</p>
+<p>ListNode lResult = new ListNode(0);</p>
+<p>int carry=0,sum =0;</p>
+<p>ListNode itNode = lResult; // [!] to setup an iterator</p>
+<p>while(l1!=null || l2!=null){</p>
+<p>// sum = l1.val + l2.val;</p>
+<p>sum = (l1!=null?l1.val:0) + (l2!=null?l2.val:0); // to void null in
+get reference</p>
+<p>sum += carry; // to accumulate 'carry'</p>
+<p>carry = sum /10;</p>
+<p>// lResult.val = sum % 10;</p>
+<p>itNode.next = new ListNode(sum % 10);</p>
+<p>itNode = itNode.next; // [!] this is the key step</p>
+<p>if(l1!=null) {</p>
+<p>l1 = l1.next;</p>
+<p>}</p>
+<p>if(l2!=null){</p>
+<p>l2 = l2.next;</p>
+<p>}</p>
+<p>if(carry&gt;0) itNode.next = new ListNode(carry);</p>
+<p>}</p>
+<p>return lResult.next;</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<ul>
+<li>
+<p>Longest unique characters</p>
+<ul>
+<li>Naive approach</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>class Solution {</p>
+<p>public int lengthOfLongestSubstring(String s) {</p>
+<p>// analysis:</p>
+<p>// embeded two loops to foreach every element and inner loop step from
+current element of 1st loop</p>
+<p>// check whether each sub-string is all unique</p>
+<p>// if so, get length and compare with global temp max length</p>
+<p>int maxLen=0;</p>
+<p>for(int i=0;i&lt;s.length();i++) {</p>
+<p>//for inner loop, it start from i+1 (rather than i)</p>
+<p>for(int j=i+1;i&lt;=s.length();j++){</p>
+<p>if(noDup(s, i , j)){</p>
+<p>maxLen = Math.max(maxLen, (j-i));</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return maxLen;</p>
+<p>}</p>
+<p>private boolean noDup(String sub, int start, int end){</p>
+<p>//check whether thsi sub string is unique</p>
+<p>// char[] aryOccurance=new char[127];</p>
+<p>// int[] aryOccurance=new int[127];</p>
+<p>Set&lt;Character&gt; set=new HashSet&lt;&gt;();</p>
+<p>for(int k=start;k&lt;end;k++){</p>
+<p>Character c = sub.charAt(k);</p>
+<p>if(set.contains(c)){</p>
+<p>return false;</p>
+<p>}else{</p>
+<p>set.add(c);</p>
+<p>}</p>
+<p>}</p>
+<p>return true;</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<ul>
+<li>Sliding window</li>
+</ul>
+<blockquote>
+<p><a href="https://developpaper.com/share-several-algorithmic-interview-questions-related-to-sliding-window/">[https://developpaper.com/share-several-algorithmic-interview-questions-related-to-sliding-window/]{.underline}</a></p>
+<p><em><strong>[Longest Substring Without Repeating Characters]{.underline}</strong></em></p>
+<p>public int lengthOfLongestSubstring(String s) {</p>
+<p>Map&lt;Character, Integer&gt; map= new HashMap&lt;&gt;();// map to cache
+position of each occruance</p>
+<p>int start=0, len=0;</p>
+<p>// abba</p>
+<p>for(int i=0; i&lt;s.length(); i++) {</p>
+<p>char c = s.charAt(i);</p>
+<p>if (map.containsKey(c)) {// here is the key step for &ldquo;without
+repeating chars&rdquo; in questions.</p>
+<p>if (map.get(c) &gt;= start)</p>
+<p>start = map.get(c) + 1;// found duplicate, so get started a new round,
+assign start from 1st occurance of &lsquo;duplicate char&rsquo; plus one.</p>
+<p>}</p>
+<p>len = Math.max(len, i-start+1);</p>
+<p>map.put(c, i);</p>
+<p>}</p>
+<p>return len;</p>
+<p>}</p>
+<p>My solution vs leetcode one, latter one is much more consice</p>
+<p>// better solution leveraging slide window</p>
+<p>// Runtime: 12 ms, faster than 26.95% of Java online submissions for
+Longest Substring Without Repeating Characters.</p>
+<p>public int lengthOfLongestSubstring(String s){</p>
+<p>Set&lt;Character&gt; set =new HashSet&lt;&gt;();</p>
+<p>int maxLen = 0, left=0,right =-1, n=s.length();</p>
+<p>while(left&lt;n) {</p>
+<p>if((right+1)&lt;n &amp;&amp; !set.contains(s.charAt(right+1))){</p>
+<p>// not in slide window</p>
+<p>right++;//expand slide window</p>
+<p>set.add(s.charAt(right));</p>
+<p>}else{</p>
+<p>// dup with existing slide window</p>
+<p>// shrink window</p>
+<p>set.remove(s.charAt(left));</p>
+<p>left++;</p>
+<p>}</p>
+<p>maxLen = Math.max(maxLen, right - left +1);// [!] be carefulf there
+is &quot;+1&quot; as this is for getting count</p>
+<p>}</p>
+<p>return maxLen;</p>
+<p>}</p>
+<p>-----leetcode solution-----</p>
+<p>public int lengthOfLongestSubstring(String s){</p>
+<p>int i=0,j=0,n=s.length(),rtn=0;</p>
+<p>Set&lt;Character&gt; set = new HashSet&lt;&gt;();</p>
+<p>while(i&lt;n &amp;&amp; j&lt;n) {</p>
+<p>if(!set.contains(s.charAt(j))) {</p>
+<p>set.add(s.charAt(j++));</p>
+<p>rtn = Math.max(rtn, j-i) ;</p>
+<p>}else{</p>
+<p>set.remove(s.charAt(i++));</p>
+<p>}</p>
+<p>}</p>
+<p>return rtn;</p>
+<p>}</p>
+<p>-----------</p>
+</blockquote>
+<ul>
+<li>Palindrome integer (not string)</li>
+</ul>
+<blockquote>
+<p>class Solution {</p>
+<p>public boolean isPalindrome(int x) {</p>
+<p>//first of all, boundary (or edge case)</p>
+<p>if(x&lt;0 || (x!=0 &amp;&amp; x%10==0)) {</p>
+<p>return false;</p>
+<p>}</p>
+<p>int reverse =0;</p>
+<p>while(x&gt; reverse) {</p>
+<p>reverse = reverse * 10 + x%10;</p>
+<p>x /= 10;</p>
+<p>}</p>
+<p>// When the length is an odd number, we can get rid of the middle
+digit by revertedNumber/10</p>
+<p>// For example when the input is 12321, at the end of the while loop
+we get x = 12, revertedNumber = 123,</p>
+<p>// since the middle digit doesn't matter in palindrome(it will always
+equal to itself), we can simply get rid of it.</p>
+<p>return x == reverse || x == reverse/10;</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<ul>
+<li>Find longest common sub array among two arrays</li>
+</ul>
+<p>[DP]</p>
+<blockquote>
+<p>public static int findLength_dp(int[] A, int[] B) {</p>
+<p>// for dynamic programing, normally it compare itself with its
+sibling, using max/min</p>
+<p>// try to construct a matrix to keep track of path</p>
+<p>int m=A.length,n=B.length,max=0;</p>
+<p>int[][] memo = new int[m+1][n+1]; // &quot;+1&quot; to keep extra
+space</p>
+<p>for(int i = 0;i &lt;= m;i++) {</p>
+<p>for (int j = 0; j &lt;= n; j++) {</p>
+<p>//for DP, firstly to setup begin point</p>
+<p>if(i==0 || j==0) {</p>
+<p>memo[i][j]=0;</p>
+<p>}else{</p>
+<p>if(A[i-1]==B[j-1]){ // it they are same</p>
+<p>memo[i][j] = 1+ memo[i-1][j-1]; // increase one to cache</p>
+<p>max = Math.max(max,memo[i][j]); // get global max</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return max;</p>
+<p>}</p>
+</blockquote>
+<ul>
+<li>Dynamic programing:</li>
+</ul>
+<p>重叠子问题、最优子结构、状态转移方程就是动态规划三要素。</p>
+<p>What is dynamic programming?</p>
+<p>Simply put, dynamic programming is an optimization technique that we can
+use to solve problems where the same work is being repeated over and
+over. You know how a web server may use caching? Dynamic programming is
+basically that.</p>
+<p>However, dynamic programming doesn&rsquo;t work for every problem. There are a
+lot of cases in which dynamic programming simply won&rsquo;t help us improve
+the runtime of a problem at all. If we aren&rsquo;t doing repeated work, then
+no amount of caching will make any difference.</p>
+<p><strong>A problem can be optimized using dynamic programming if it:</strong></p>
+<ol>
+<li>
+<p>has an optimal substructure.</p>
+</li>
+<li>
+<p>has overlapping subproblems</p>
+</li>
+</ol>
+<p><strong>[Optimal substructure]{.underline}</strong> simply means that you can find
+the optimal solution to a problem by considering the optimal solution to
+its subproblems.</p>
+<h3 id="overlapping-subproblems">Overlapping Subproblems</h3>
+<p><a href="https://en.wikipedia.org/wiki/Overlapping_subproblems">Overlapping
+subproblems</a> is
+the second key property that our problem must have to allow us to
+optimize using dynamic programming. Simply put, having overlapping
+subproblems means we are computing the same problem more than once.</p>
+<p>Imagine you have a server that caches images. If the same image gets
+requested over and over again, you&rsquo;ll save a ton of time. However, if no
+one ever requests the same image more than once, what was the benefit of
+caching them?</p>
+<h2 id="dynamic-programming-methodsunderline"><strong>[Dynamic Programming Methods]{.underline}</strong></h2>
+<p>DP offers two methods to solve a problem:</p>
+<p><strong>1. Top-down with Memoization</strong></p>
+<p>In this approach, we try to solve the bigger problem by recursively
+finding the solution to smaller sub-problems. Whenever we solve a
+sub-problem, we cache its result so that we don&rsquo;t end up solving it
+repeatedly if it&rsquo;s called multiple times. Instead, we can just return
+the saved result. This technique of storing the results of already
+solved subproblems is called <strong>Memoization</strong>.</p>
+<p><strong>2. Bottom-up with Tabulation</strong></p>
+<p>Tabulation is the opposite of the top-down approach and avoids
+recursion. In this approach, we solve the problem &ldquo;bottom-up&rdquo; (i.e. by
+solving all the related sub-problems first). This is typically done by
+filling up an n-dimensional table. Based on the results in the table,
+the solution to the top/original problem is then computed.</p>
+<p>Tabulation is the opposite of Memoization, as in Memoization we solve
+the problem and maintain a map of already solved sub-problems. In other
+words, in memoization, we do it top-down in the sense that we solve the
+top problem first (which typically recurses down to solve the
+sub-problems).</p>
+<p>Let&rsquo;s apply Tabulation to our example of Fibonacci numbers. Since we
+know that every Fibonacci number is the sum of the two preceding
+numbers, we can use this fact to populate our table.</p>
+<p>Here is the code for our bottom-up dynamic programming approach:</p>
+<p><strong>class</strong> Fibonacci {</p>
+<p><strong>public</strong> int CalculateFibonacci(int n) {</p>
+<p>int dp[] = <strong>new</strong> int[n+1];</p>
+<p>//base cases</p>
+<p>dp[0] = 0;</p>
+<p>dp[1] = 1;</p>
+<p><strong>for</strong>(int i=2; i&lt;=n; i++)</p>
+<p>dp[i] = dp[i-1] + dp[i-2];</p>
+<p><strong>return</strong> dp[n];</p>
+<p>}</p>
+<p><strong>public</strong> <strong>static</strong> void main(<strong>String</strong>[] args) {</p>
+<p>Fibonacci fib = <strong>new</strong> Fibonacci();</p>
+<p><strong>System</strong>.out.println(&quot;5th Fibonacci is ---&gt; &quot; +
+fib.CalculateFibonacci(5));</p>
+<p><strong>System</strong>.out.println(&quot;6th Fibonacci is ---&gt; &quot; +
+fib.CalculateFibonacci(6));</p>
+<p><strong>System</strong>.out.println(&quot;7th Fibonacci is ---&gt; &quot; +
+fib.CalculateFibonacci(7));</p>
+<p>}</p>
+<p>}</p>
+<p>Generally speaking, dynamic programming is the technique of storing
+repeated computations in memory, rather than recomputing them every time
+you need them. The ultimate goal of this process is to improve runtime.
+Dynamic programming allows you to use more space to take less time.</p>
+<p>Dynamic programming relies on overlapping subproblems, because it uses
+memory to save the values that have already been computed to avoid
+computing them again. The more overlap there is, the more computational
+time is saved.</p>
+<p><strong>Top-down and bottom-up</strong></p>
+<p>Top-down and bottom-up refer to two general approaches to dynamic
+programming. A top-down solution starts with the final result and
+recursively breaks it down into subproblems. The bottom-up method does
+the opposite. It takes an iterative approach to solve the subproblems
+first and then works up to the desired solution.</p>
+<p>both solutions are equally valid and that one solution can be determined
+from the other. In an interview situation, although bottom-up solutions
+often result in more concise code, either approach is appropriate. I
+recommend that you use whatever solution makes the most sense to you.</p>
+<p>The important point is that top-down = recursive and bottom-up =
+iterative.</p>
+<blockquote>
+<p>There are four steps in the FAST method:</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>F</strong>irst solution</p>
+</li>
+<li>
+<p><strong>A</strong>nalyze the first solution</p>
+</li>
+<li>
+<p>Identify the <strong>S</strong>ubproblems</p>
+</li>
+<li>
+<p><strong>T</strong>urn the solution around</p>
+</li>
+</ol>
+<p><strong>First solution</strong></p>
+<p>This is an important step for any interview question but is particularly
+important for dynamic programming. This step finds the first possible
+solution. This solution will be brute force and recursive. The goal is
+to solve the problem without concern for efficiency. It means that if
+you need to find the biggest/ smallest/longest/shortest something, you
+should write code that goes through every possibility and then compares
+them all to find the best one.</p>
+<p>Your solution must also meet these restrictions:</p>
+<ul>
+<li>
+<p>The recursive calls must be self-contained. That means no global</p>
+<blockquote>
+<p>variables.</p>
+</blockquote>
+</li>
+<li>
+<p>You cannot do tail recursion. Your solution must compute the results</p>
+<blockquote>
+<p>to each subproblem and then combine them afterwards.</p>
+</blockquote>
+</li>
+<li>
+<p>Do not pass in unnecessary variables. Eg. If you can count the depth</p>
+<blockquote>
+<p>of your recursion as you return, don&rsquo;t pass a count variable into
+your recursive function.</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p><strong>Analyze the first solution</strong></p>
+</blockquote>
+<p>In this step, we will analyze the first solution that you came up with.
+This involves determining the time and space complexity of your first
+solution and asking whether there is obvious room for improvement.</p>
+<p><em>// Compute the nth Fibonacci number recursively. // Optimized by
+caching subproblem results</em> public int fib(int n) {</p>
+<blockquote>
+<p>if (n &lt; 2) return n;</p>
+<p><em>// Create cache and initialize to -1</em></p>
+<p>int[] cache = new int[n+1];</p>
+<p>for (int i = 0; i &lt; cache.length; i++) {</p>
+<p>cache[i] = -1;</p>
+<p>}</p>
+<p><em>// Fill initial values in cache</em></p>
+<p>cache[0] = 0;</p>
+<p>cache[1] = 1;</p>
+<p>return fib(n, cache);</p>
+</blockquote>
+<p>}</p>
+<p><em>// Overloaded private method</em></p>
+<p>private int fib(int n, int[] cache) {</p>
+<p><em>// If value is set in cache, return</em></p>
+<blockquote>
+<p>if (cache[n] &gt;= 0) return cache[n];</p>
+<p><em>// Compute and add to cache before returning</em></p>
+<p>cache[n] = fib(n-1, cache) + fib(n-2, cache);</p>
+<p>return cache[n];</p>
+<p>}</p>
+</blockquote>
+<p><em>Fig 3. Top-down dynamic Fibonacci solution</em></p>
+<blockquote>
+<p><strong>Turn the solution around</strong></p>
+</blockquote>
+<p>Since we now have a <strong>top-down solution</strong>, it is possible to reverse the
+process and solve it from the bottom up. This <em><strong>[can be done by
+starting with the base cases and building up the solution from there by
+computing the results of each subsequent subproblem, until we reach our
+result.]{.underline}</strong></em></p>
+<p>In this problem, <em>[our base cases are fib(0) = 0 and fib(1) = 1. From
+these two values, we can compute the next largest Fibonacci number,
+fib(2) = fib(0) + fib(1). Once we have the value of fib(2), we can
+calculate fib(3) etc. As we successively compute each Fibonacci number,
+the previous values are saved and referred to as necessary, eventually
+reaching fib(n).]{.underline}</em></p>
+<p>Our code for this process is fairly straightforward (<em>fig 5</em>).</p>
+<p>This process yields a bottom-up solution. Since we iterate through all
+of the numbers from 0 to n once, our time complexity will be O(n) and
+our space will also be O(n), since we create a 1D array from 0 to n.
+This makes our current solution comparable to the top-down solution,
+although without recursion. This code is likely easier to understand.</p>
+<p><em>// Compute the nth Fibonacci number iteratively</em></p>
+<blockquote>
+<p>public int fib(int n) {</p>
+<p>if (n == 0) return 0;</p>
+<p><em>// Initialize cache</em></p>
+<p>int[] cache = new int[n+1];</p>
+<p>cache[1] = 1;</p>
+<p><em>// Fill cache iteratively</em></p>
+<p>for (int i = 2; i &lt;= n; i++) {</p>
+<p>cache[i] = cache[i-1] + cache[i-2];</p>
+<p>}</p>
+<p>return cache[n];</p>
+<p>}</p>
+<p><em>Fig 5. Bottom-up dynamic Fibonacci solution</em></p>
+<p>it is possible to improve our solution further. During the computation
+process, we only refer to the most recent two subproblems
+(cache[i-1] and cache[i-2]) to compute the value of the current
+subproblem. Therefore, cache[0] through cache[i-3] are unnecessary
+and do not need to be kept in memory.</p>
+</blockquote>
+<p>We can, therefore, improve the space complexity of our solution to O(1)
+by only caching the most recent two values.</p>
+<blockquote>
+<p><em>// Compute the nth Fibonacci number iteratively // with constant
+space. We only need to save // the two most recently computed values</em></p>
+<p>public int fib(int n) {</p>
+<p>if (n &lt; 2) return n;</p>
+<p>int n1 = 1, n2 = 0;</p>
+<p>for (int i = 2; i &lt; n; i++) {</p>
+<p>int n0 = n1 + n2;</p>
+<p>n2 = n1;</p>
+<p>n1 = n0;</p>
+<p>}</p>
+<p>return n1 + n2;</p>
+<p>}</p>
+</blockquote>
+<p>For any problem where you are asked <strong>[to find the most/least/
+largest/smallest]{.underline}</strong> etc, an excellent technique <strong>[is to
+compare every possible combination]{.underline}</strong>. Although it will be
+inefficient, efficiency is not the most important current consideration
+and a solution of that nature is easy to make dynamic.</p>
+<blockquote>
+<p>Make change</p>
+<p>// Brute force solution. Go through every</p>
+<p>// combination of coins that sum up to c to // find the minimum number</p>
+<p>public static int makeChange(int c) {</p>
+<p>int[] coins = new int[]{10, 6, 1};</p>
+<p>if (c == 0) return 0;</p>
+<p>int minCoins = Integer.<em>MAX_VALUE</em>;</p>
+<p>// Try removing each coin from the total and // see how many more
+coins are required</p>
+<p>for (int coin : coins) {</p>
+<p>// Skip a coin if it&rsquo;s value is greater</p>
+<p>// than the amount remaining</p>
+<p>if (c - coin &gt;= 0) {</p>
+<p>int currMinCoins = <em>makeChange</em>(c - coin);</p>
+<p>if (currMinCoins &lt; minCoins)</p>
+<p>minCoins = currMinCoins;</p>
+<p>} }</p>
+<p>// Add back the coin removed recursively</p>
+<p>return minCoins + 1;</p>
+<p>}</p>
+</blockquote>
+<ul>
+<li>How to convert one naive loop solution to dynamic programming
+<blockquote>
+<p>top-down approach</p>
+</blockquote>
+</li>
+</ul>
+<p>Based on this understanding, we can turn our solution into a top-down
+dynamic solution. We can cache the results as they are computed. That
+means that we will cache the minimum number of coins needed to make
+various smaller amounts of change.</p>
+<p>Like the Fibonacci problem, our code doesn&rsquo;t actually have to change
+very much. It&rsquo;s only necessary to overload our function with another
+that can initialize the cache. Then we update the original function in
+order to check the cache before doing the computation and saving the
+result to the cache afterwards</p>
+<p>// Top down dynamic solution. Cache the values as we compute them</p>
+<p>// transform naive approach to top-down need:</p>
+<p>// overload existing method with new one accept cache</p>
+<p>// while existing one do two tasks: (1) initialize cache (2) call new
+method passing in cache</p>
+<p>public int makeChange_top_down(int c) {</p>
+<p>// Initialize cache with values as -1</p>
+<p>int[] cache = new int[c + 1];</p>
+<p>for (int i = 1; i &lt; c + 1; i++)</p>
+<p>cache[i] = -1;</p>
+<p>return makeChange_top_down(c, cache);</p>
+<p>}</p>
+<p>// Overloaded recursive function</p>
+<p>private int makeChange_top_down(int c, int[] cache) {</p>
+<p>int[] coins = new int[]{10, 6, 1};</p>
+<p>// Return the value if it&rsquo;s in the cache</p>
+<p>if (cache[c] &gt;= 0) return cache[c];</p>
+<p>int minCoins = Integer.<em>MAX_VALUE</em>; //declare result oppositely, e.g.
+question is &quot;min&quot;, so init return value would be Integer.MAX_VALUE</p>
+<p>// Find the best coin</p>
+<p>for (int coin : coins) {</p>
+<p>if (c - coin &gt;= 0) {</p>
+<p>int currMinCoins =</p>
+<p>makeChange_top_down(c - coin, cache);</p>
+<p>if (currMinCoins &lt; minCoins)</p>
+<p>minCoins = currMinCoins;</p>
+<p>} }</p>
+<p>// Save the value into the cache</p>
+<p>cache[c] = minCoins + 1; // add one to the return value</p>
+<p>return cache[c];</p>
+<p>}</p>
+<p><strong>Turn the solution around</strong></p>
+<p>Once the top-down solution is completed, it&rsquo;s possible to flip it
+around. We do this by solving the same subproblems in reverse order.
+Rather than starting with our result in mind, we start with no change
+and work our way up until we reach the solution.</p>
+<p>The next step is to determine the subproblems that must be solved, in
+order to solve successive subproblems. If we want to compute
+makeChange(c), then we will have n different subproblems. If our coins
+are {10, 6, 1}, we need to have the solutions for makeChange(c - 10),
+makeChange(c - 6), and makeChange(c - 1).</p>
+<p>Once makeChange() is solved for 0 through c - 1, it will be easy to
+compute the value of makeChange(c). This is done by using the first
+value, 0 as our base case. We can then compute the remaining values from
+the previously computed values.</p>
+<p><em>// Bottom up dynamic programming solution. // Iteratively compute
+number of coins for // larger and larger amounts of change</em></p>
+<p>public int makeChange(int c) {</p>
+<p>int[] cache = new int[c + 1];</p>
+<p>for (int i = 1; i &lt;= c; i++) {</p>
+<p>int minCoins = Integer.MAX_VALUE;</p>
+<p><em>// Try removing each coin from the total</em></p>
+<p><em>// and see which requires the fewest</em></p>
+<p><em>// extra coins</em></p>
+<p>for (int coin : coins) {</p>
+<p>if (i - coin &gt;= 0) {</p>
+<p>int currCoins = cache[i-coin] + 1;</p>
+<p>if (currCoins &lt; minCoins) {</p>
+<p>minCoins = currCoins;</p>
+<p>}</p>
+<p>} }</p>
+<p>cache[i] = minCoins;</p>
+<p>}</p>
+<p>return cache[c];</p>
+<p>}</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/leetcode" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Leetcode</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/algorithm" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Algorithm</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

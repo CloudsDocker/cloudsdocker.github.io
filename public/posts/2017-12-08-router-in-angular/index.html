@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>RxJS reactive extension javascript | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="RxJS reactive extension javascript" />
+<meta property="og:description" content="Streams Traditionally, the term stream was used in programming languages as an abstract object related to I/O operations such as reading a file, reading a socket, or requesting data from an HTTP server. For instance, Node.js implements readable, writable, and duplex streams for doing just this. In the RP world, we expand the definition of a stream to mean any data source that can be consumed.
+A$ = [20]; 1 B$ = [22]; 2 C$ = A$." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-12-08-router-in-angular/" />
+
+<meta itemprop="name" content="RxJS reactive extension javascript">
+<meta itemprop="description" content="Streams Traditionally, the term stream was used in programming languages as an abstract object related to I/O operations such as reading a file, reading a socket, or requesting data from an HTTP server. For instance, Node.js implements readable, writable, and duplex streams for doing just this. In the RP world, we expand the definition of a stream to mean any data source that can be consumed.
+A$ = [20]; 1 B$ = [22]; 2 C$ = A$.">
+
+<meta itemprop="wordCount" content="2641">
+
+
+
+<meta itemprop="keywords" content="Angular,JavaScript,NodeJs," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RxJS reactive extension javascript"/>
+<meta name="twitter:description" content="Streams Traditionally, the term stream was used in programming languages as an abstract object related to I/O operations such as reading a file, reading a socket, or requesting data from an HTTP server. For instance, Node.js implements readable, writable, and duplex streams for doing just this. In the RP world, we expand the definition of a stream to mean any data source that can be consumed.
+A$ = [20]; 1 B$ = [22]; 2 C$ = A$."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-12-08-router-in-angular/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-12-08-router-in-angular/&amp;text=RxJS%20reactive%20extension%20javascript" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-12-08-router-in-angular/&amp;title=RxJS%20reactive%20extension%20javascript" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">RxJS reactive extension javascript</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="streams">Streams</h1>
+<p>Traditionally, the term stream was used in programming languages as an abstract object related to I/O operations such as reading a file, reading a socket, or requesting data from an HTTP server. For instance, Node.js implements readable, writable, and duplex streams for doing just this. In the RP world, we expand the definition of a stream to mean any data source that can be consumed.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">A$</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">20</span>];                                        <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">B$</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">22</span>];                                        <span style="color:#ae81ff">2</span>
+<span style="color:#a6e22e">C$</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">A$</span>.<span style="color:#a6e22e">concat</span>(<span style="color:#a6e22e">B$</span>).<span style="color:#a6e22e">reduce</span>(<span style="color:#a6e22e">adder</span>); <span style="color:#75715e">//-&gt; [42]       3
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">A$</span>.<span style="color:#a6e22e">push</span>(<span style="color:#ae81ff">100</span>);                                     <span style="color:#ae81ff">4</span>
+<span style="color:#a6e22e">C$</span> <span style="color:#f92672">=</span> <span style="color:#f92672">?</span>
+</code></pre></div><p>1 Creates a stream initialized with the value 20
+2 Creates a stream initialized with the value 22
+3 Concatenates both streams and applies an adder function to get a new container with 42
+4 Pushes a new value into A$
+First, we’ll explain some of the notation we use here. Streams are containers or wrappers of data very similar to arrays, so we used the array literal notation [] to symbolize this. Also, it’s common to use the $ suffix to qualify variables that point to streams. In the RxJS community, this is known as Finnish Notation, attributed to Andre Staltz, who is one of the main contributors of RxJS and Finnish.</p>
+<h1 id="array-extras">Array extras</h1>
+<p>JavaScript ES5 introduced new array methods, known as the array extras, which enable some level of native support for FP. These include map, reduce, filter, some, every, and others
+Reactive programming is oriented around data flows and propagation. In this case, you can think of C$ as an always-on variable that reacts to any change and causes actions to ripple through it when any constituent part changes. Now let’s see how RxJS implements this concept.</p>
+<p>If you were to visit the main website for the Reactive Extensions project (<a href="http://reactivex.io/),">http://reactivex.io/),</a> you’d find it defined as “an API for asynchronous programming with observable streams.”</p>
+<p>Definition</p>
+<p>A stream is nothing more than a sequence of events over time.
+Everything is a stream
+The concept of a stream can be applied to any data point that holds a value; this ranges from a single integer to bytes of data received from a remote HTTP call. RxJS provides lightweight data types to subscribe to and manage streams as a whole that can be passed around as first-class objects and combined with other streams.
+RxJS provides lightweight data types to subscribe to and manage streams as a whole that can be passed around as first-class objects and combined with other streams. Learning how to manipulate and use streams is one of the central topics of this book. At this point, we haven’t talked about any specific RxJS objects; for now, we’ll assume that an abstract data type, a container called Stream, exists. You can create one from a single value as such:</p>
+<p>Stream(42);
+At this point, this stream remains dormant and nothing has actually happened, until there’s a subscriber (or observer) that listens for it. This is very different from Promises, which execute their operations as soon as they’re created. Instead, streams are lazy data types, which means that they execute only after a subscriber is attached. In this case, the value 42, which was lifted into the stream context, navigates or propagates out to at least one subscriber. After it receives the value, the stream is completed:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">Stream</span>(<span style="color:#ae81ff">42</span>).<span style="color:#a6e22e">subscribe</span>(
+   <span style="color:#a6e22e">val</span> =&gt; {                                             <span style="color:#ae81ff">1</span>
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">val</span>); <span style="color:#75715e">//-&gt; prints 42
+</span><span style="color:#75715e"></span>   }
+);
+</code></pre></div><p>This creates two important challenges: scalability and latency.</p>
+<p>As more and more data is received, the amount of memory that your application consumes or requires will grow linearly or, in worst cases, exponentially; this is the classic problem of scalability, and trying to process it all at once will certainly cause the user interface (UI) to become unresponsive. Buttons may no longer appear to work, fancy animations will lag, and the browser may even flag the page to terminate, which is an unacceptable notion for modern web users.</p>
+<p>This problem is not new, though in recent years there has been exponential growth in the sheer scale of the number of events and data that JavaScript applications are required to process. This quantity of data is too big to be held readily available and stored in memory for use. Instead, we must create ways to fetch it from remote locations asynchronously, resulting in another big challenge of interconnected software systems: latency, which can be difficult to express in code.
+you’ll first learn about the fundamental principles of two emerging paradigms: functional programming (FP) and reactive programming (RP). This exhilarating composition is what gives rise to functional reactive programming (FRP), encoded in a library called RxJS (or rx.js), which is the best prescription to deal with asynchronous and event-based data sources effectively.
+By subscribing to a stream, your code expresses an interest in receiving the stream’s elements. During subscription, you specify the code to be invoked when the next element is emitted, and optionally the code for error processing and stream completion. Often you’ll specify a number of chained operators and then invoke the subscribe() method</p>
+<p>The subscribe() method creates the instance of Observer, which in this case passes each value from the stream generated by the searchInput to the getStockQuoteFromServer() method. In a real-world scenario, this method would issue a request to the server,
+No matter how many operators you chain together, none of them will be invoked on the stream until you invoke subscribe().
+If you prefer to generate an observable stream based on another event (such as on keyup), you can use the RxJS Observable.fromEvent() API (see the RxJS
+One of the benefits of observables over promises is that the former can be canceled.
+Observable1 → switchMap(function) → Observable2 → subscribe()</p>
+<p>You’re switching over from the first observable to the second one. If Observable1 pushes the new value but the function that creates Observable2 hasn’t finished yet, it’s killed; switchMap() unsubscribes and resubscribes to Observable1 and starts handling the new value from this stream.</p>
+<p>If the observable stream from the UI pushes the next value before getWeather() has returned its observable value, switchMap() kills the running getWeather(), gets the new value for the city from the UI, and invokes getWeather() again. While killing getWeather(), it also aborts the HTTP request that was slow and didn’t complete in time.</p>
+<p>The first argument of subscribe() contains a callback for handling data coming from the server. The code in this arrow expression is specific to the API provided by the weather service. You just extract the temperature and humidity from the returned JSON. The API offered by this particular weather service stores the error codes in the response, so you manually handle the status 404 here and not in the error-handler callback.</p>
+<p>Now let’s verify that canceling previous requests works. Typing the word London takes more than the 200 milliseconds specified in debounceTime(), which means the valueChanges event will emit the observable data more than once. To ensure that the request to the server takes more than 200 milliseconds, you need a slow internet connection.</p>
+<p>Note</p>
+<p>Listing 5.5 has lots of code in the constructor, which may look like a red flag to developers who prefer using constructors only to initialize variables and not to execute any code that takes time to complete. If you take a closer look, though, you’ll notice that it just creates a subscription to two observable streams (UI events and HTTP service). No actual processing is done until the user starts entering the name of a city, which happens after the component is already rendered.</p>
+<p>We ran the preceding example and then turned on throttling in Chrome Developer Tools, emulating a slow GPRS connection. Typing the word London resulted in four getWeather() invocations: for Lo, Lon, Lond, and London. Accordingly, four HTTP requests were sent over the slow connection, and three of them were automatically canceled by the switchMap() operator, as shown in figure 5.10.</p>
+<p>Figure 5.10. Running observable_events_http.ts</p>
+<p>With very little programming, you saved bandwidth by eliminating the need for the server to send four HTTP responses for cities you’re not interested in and that may not even exist. As we stated in chapter 1, a good framework is one that allows you to write less code.
+Angular comes with a number of predefined pipes, and each pipe has a class that implements its functionality (such as DatePipe) as well as the name you can use in the template (such as date):</p>
+<p>UpperCasePipe allows you to convert an input string into uppercase by using | uppercase in the template.
+DatePipe lets you display a date in different formats by using | date.
+CurrencyPipe transforms a number into a desired currency by using | currency.
+AsyncPipe will unwrap the data from the provided observable stream by using | async. You’ll see a code sample that uses async in chapter 8.
+Some pipes don’t require input parameters (such as uppercase), and some do (such as date:&lsquo;medium&rsquo;). You can chain as many pipes as you want. The next code snippet shows how to display the value of the birthday variable in a medium date format and in uppercase (for example, JUN 15, 2001, 9:43:11 PM):</p>
+<p>Custom pipes
+In addition to predefined pipes, Angular offers a simple way to create custom pipes, which can include code specific to your application. You need to create a @Pipe annotated class that implements the PipeTransform interface. The PipeTransform interface has the following signature:</p>
+<p>export interface PipeTransform {
+transform(value: any, &hellip;args: any[]): any;
+}
+This tells you that a custom pipe class must implement just one method with the preceding signature. The first parameter of transform takes a value to be transformed, and the second defines zero or more parameters required for your transformation algorithm. The @Pipe annotation is where you specify the name of the pipe to be used in the template. If your component uses custom pipes, they have to be explicitly listed in its @Component annotation in the pipes property.</p>
+<p>In the previous section, the weather example displayed the temperature in London in Fahrenheit. But most countries use the metric system and show temperature in Celsius. Let’s create a custom pipe that can convert the temperature from Fahrenheit to Celsius and back. The code of the custom TemperaturePipe pipe (see the following listing) can be used in a template as temperature.</p>
+<p>Listing 5.6. temperature-pipe.ts</p>
+<p>Next comes the code of the component (pipe-tester.ts) that uses the temperature pipe. Initially this program will convert the temperature from Fahrenheit to Celsius (the FtoC format). By clicking the toggle button, you can change the direction of the temperature conversion
+Event emitters
+Event emitters are popular mechanisms for asynchronous event-based architectures. The DOM, for instance, is probably one of the most widely known event emitters. On a server like Node.js, certain kinds of objects periodically produce events that cause functions to be called. In Node.js, the EventEmitter class is used to implement APIs for things like WebSocket I/O or file reading/writing so that if you’re iterating through directories and you find a file of interest, an object can emit an event referencing this file for you to execute any additional code.
+ajax(&lsquo;<!-- raw HTML omitted -->/items&rsquo;,
+items =&gt; {
+for (let item of items) {
+ajax(<code>&lt;host2&gt;/items/${item.getId()}/info</code>,
+dataInfo =&gt; {
+ajax(<code>&lt;host3&gt;/files/${dataInfo.files}</code>,
+processFiles);
+});
+}
+});
+—is known to be continuation-passing style (CPS), because none of the functions are explicitly waiting for a return value. But as we mentioned, abusing this makes code hard to reason about. What you can do is to make continuations first-class citizens and actually define a concrete interpretation of what it means to “continue.” So, we introduce the notion of then: “Do X, then do Y,” to create code that reads like this:</p>
+<p>Fetch all items, then                                          1
+For-each item fetch all files, then                         1
+Process each file
+1 The key term “then” suggests time and sequence.
+This is where Promises come in. A Promise is a data type that wraps an asynchronous or long-running operation, a future value, with the ability for you to subscribe to its result or its error. A Promise is considered to be fulfilled when its underlying operation completes, at which point subscribers will receive the computed result.</p>
+<p>Because we can’t alter the value of a Promise once it’s been executed, it’s actually an immutable type, which is a functional quality we seek in our programs.
+ajax(&lsquo;<!-- raw HTML omitted -->/items&rsquo;)
+.then(items =&gt;
+items.forEach(item =&gt;
+ajax(<code>&lt;host2&gt;/data/${item.getId()}/info</code>)
+.then(dataInfo =&gt;
+ajax(<code>&lt;host3&gt;/data/files/${dataInfo.files}</code>)
+)
+.then(processFiles);
+)
+);
+This looks similar to the previous statement! Being a more recent addition to the language with ES6 and inspired in FP design, Promises are more versatile and idiomatic than callbacks. Applying these functions declaratively—meaning your code expresses the what and not the how of what you’re trying to accomplish—into then blocks allows you to express side effects in a pure manner.</p>
+<p>let getItems = () =&gt; ajax(&lsquo;<!-- raw HTML omitted -->/items&rsquo;);
+let getInfo  = item =&gt; ajax(<code>&lt;host2&gt;/data/${item.getId()}/info</code>);
+let getFiles = dataInfo =&gt; ajax(<code>&lt;host3&gt;/data/files/${dataInfo.files}</code>);
+and then use Promises to stitch together our asynchronous flow. We use the Promise.all() function to map an array of separate Promises into a single one containing an array of results:</p>
+<p>getItems()
+.then(items =&gt; items.map(getInfo))
+.then(promises =&gt; Promise.all(promises))
+.then(infos =&gt; infos.map(getFiles))
+.then(promises =&gt; Promise.all(promises))
+.then(processFiles);
+The use of then() explicitly implies that there’s time involved among these calls, which is a really good thing. If any step fails, we can also have matching catch() blocks to handle errors and potentially continue the chain of command if necessary, a</p>
+<p>Figure 1.7. Promises create a flow of calls chained by then methods. If the Promise is fulfilled, the chain of functions continues; otherwise, the error is delegated to the Promise catch block.</p>
+<p>The drawback of using Promises is that they’re unable to handle data sources that produce more than one value, like mouse movements or sequences of bytes in a file stream. Also, they lack the ability to retry from failure—all present in RxJS.
+The most important downside, moreover, is that because Promises are immutable, they can’t be cancelled. So, for instance, if you use a Promise to wrap the value of a remote HTTP call, there’s no hook or mechanism for you to cancel that work. This is unfortunate because HTTP calls, based on the XmlHttpRequest object, can be aborted,[3] but this feature isn’t honored through the Promise interface.</p>
+<p>It’s difficult to detect when events or long-running operations go rogue and need to be cancelled. Consider the case of a remote HTTP request that’s taking too long to process. Is the script unresponsive or is the server just slow? It would be ideal to have an easy mechanism to cancel events cleanly after some predetermined amount of time. Implementing your own cancellation mechanism can be very challenging and error prone even with the help of third-party libraries.</p>
+<p>One good quality of responsive design is to always throttle a user’s interaction with any UI components, so that the system isn’t unnecessarily overloaded. In chapter 4, you’ll learn how to use throttling and debouncing to your advantage. Manual solutions for achieving this are typically very hard to get right and involve functions that access data outside their local scope, which breaks the stability of your entire program
+You learned that Promises certainly move the needle in the right direction (and RxJS integrates with Promises seamlessly if you feel the need to do so).</p>
+<p>But what you really need is a solution that abstracts out the notion of latency away from your code while allowing you to model your solutions using a linear sequence of steps through which data can flow over time</p>
+<p>THE REACTIVE EXTENSIONS FOR JAVASCRIPT
+Reactive Extensions for JavaScript (RxJS) is an elegant replacement for callback or Promise-based libraries, using a single programming model that treats any ubiquitous source of events—whether it be reading a file, making an HTTP call, clicking a button, or moving the mouse—in the exact same manner. For example, instead of handling each mouse event independently with a callback, with RxJS you handle all of them combined.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">
+</code></pre></div><h1 id="reference">Reference</h1>
+<ul>
+<li><a href="https://angular.io/guide/router">https://angular.io/guide/router</a></li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/angular" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Angular</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/javascript" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">JavaScript</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/nodejs" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">NodeJs</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2018-01-11-angular-module-declaration-import/">What is difference between declarations, providers and import in NgModule</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-12-angular/">Angulary Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2018-05-11-node-errors-db/">Node errors troubleshooting</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2018-03-18-nodejs-notes/">NodeJs Notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-11-27-typescript/">TypeScript noteworthy notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-12-01-promise-vs-observable/">promise vs observiable</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2018-05-15-rxjs-pipe-in-depth/">rxjs pipe in depth</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2018-01-08-ngrx/">ngrx</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-12-11-why-reactive-programming-is-outpermant/">reactive programing</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

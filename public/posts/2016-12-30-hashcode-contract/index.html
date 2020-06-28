@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Hash Code Misc | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Hash Code Misc" />
+<meta property="og:description" content="contract of hashCode :  Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application. If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2016-12-30-hashcode-contract/" />
+
+<meta itemprop="name" content="Hash Code Misc">
+<meta itemprop="description" content="contract of hashCode :  Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application. If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result.">
+
+<meta itemprop="wordCount" content="2550">
+
+
+
+<meta itemprop="keywords" content="java,hashcode," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hash Code Misc"/>
+<meta name="twitter:description" content="contract of hashCode :  Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application. If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2016-12-30-hashcode-contract/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2016-12-30-hashcode-contract/&amp;text=Hash%20Code%20Misc" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2016-12-30-hashcode-contract/&amp;title=Hash%20Code%20Misc" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Hash Code Misc</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="contract-of-hashcode-">contract of hashCode :</h1>
+<ul>
+<li>Whenever it is <strong>invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer</strong>, provided no information used in equals comparisons on the object is modified. This <em>integer need <strong>not</strong> remain consistent from one execution of an application to another execution of the <strong>same</strong> application</em>.</li>
+<li>If two objects <strong>are equal</strong> according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the <strong>same integer</strong> result.</li>
+<li>It is <strong>not required</strong> that <strong>if two objects are unequal</strong> according to the equals(java.lang.Object) method, then calling the hashCode method on each of the two objects <strong>must produce distinct integer results</strong>. However, the programmer should be aware that producing distinct integer results for unequal objects <em>may improve the performance of hash tables</em>.</li>
+</ul>
+<p>As much as is reasonably practical, the hashCode method defined by class Object does return distinct integers for distinct objects. (This is typically implemented by <strong>converting the internal address</strong> of the object into an integer, but this implementation technique is not required by the JavaTM programming language.)</p>
+<h1 id="hashcode-in-java-collections">Hashcode in Java Collections</h1>
+<h2 id="hashcode-vs-equals">Hashcode vs. equals</h2>
+<h3 id="equals">Equals</h3>
+<p>For usage in java collections framework, <strong>equals()</strong> used in following scenarios:</p>
+<ul>
+<li>contains or not</li>
+<li>to remove one item</li>
+</ul>
+<p>Below is one implementation of a Equals</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span><span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>Object o<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>o<span style="color:#f92672">==</span><span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(!(</span>o <span style="color:#66d9ef">instanceof</span> Employee<span style="color:#f92672">))</span> <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+
+        Employee other<span style="color:#f92672">=(</span>Employee<span style="color:#f92672">)</span>o<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">employeeID</span><span style="color:#f92672">==</span>other<span style="color:#f92672">.</span><span style="color:#a6e22e">employeeID</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="hashcode">Hashcode</h3>
+<p>When insert data into HashTable, HashMap, HashSet, the hashcode used to determine <strong>where</strong> to <strong>store/search</strong> the value in list/bucket. The hashcode only <strong>point to an area</strong> in list/bucket of data. The hashtable then iterates this area (all keys with the same hash code) and uses the key&rsquo;s equals() method to find the right key. Once the right key is found, the object stored for that key is returned.</p>
+<p>After you override the hashcode, you are still be able to get origional hashcode via calling <strong>int originalHashCode = System.identityHashCode(emp1);</strong></p>
+<h3 id="rules">Rules</h3>
+<p>In this regard there is a rule of thumb that if you are going to overide the one of the methods (equals, hashcode), you have to override both, othersise it&rsquo;s a violation of contract .</p>
+<h2 id="hashmap-tips">HashMap tips</h2>
+<ul>
+<li>Since searching inlined list is O(n) operation, in worst case hash collision reduce a map to linked list. This issue is recently addressed in Java 8 by replacing linked list to the tree to search in O(logN)</li>
+<li><strong>HashMap works on the principle of hashing</strong>.</li>
+<li>HashMap  stores both Key and Value in LinkedList node or as Map</li>
+<li>using immutable, final object with proper equals() and hashcode() implementation would act as perfect Java HashMap  keys and improve the performance of Java HashMap  by reducing collision. <strong>Immutability also allows caching their hashcode of different keys which makes overall retrieval process very fast</strong> and suggest that String and various wrapper classes e.g. Integer very good keys in Java HashMap.</li>
+<li>if the load factor is .75 it will act to re-size the map once it filled 75%. Java HashMap re-size itself by creating a new bucket array of size twice of the previous size of HashMap and then start putting every old element into that new bucket array. This process is called rehashing because it also applies the hash function to find new bucket location.</li>
+<li>there is potential race condition exists while resizing HashMap in Java, if two thread at the same time found that now HashMap needs resizing and they both try to resizing. on the process of resizing of HashMap in Java, the element in the bucket which is stored in linked list get reversed in order during their migration to new bucket because Java HashMap  doesn&rsquo;t append the new element at tail instead it append new element at the head to avoid tail traversing.</li>
+<li>If race condition happens then you will end up with an infinite loop.</li>
+</ul>
+<h2 id="why-string-integer-and-other-wrapper-classes-are-considered-good-keys">Why String, Integer and other wrapper classes are considered good keys?</h2>
+<ul>
+<li>String, Integer and other wrapper classes are natural candidates of HashMap key, and String is most frequently used key as well because String is immutable and final, and overrides equals and hashcode() method.</li>
+<li>Immutability is best as it offers other advantages as well like thread-safety, If you can  keep your hashCode same by only making certain fields final, then you go for that as well.</li>
+</ul>
+<h1 id="concurrenthashmap">ConcurrentHashMap</h1>
+<ul>
+<li>ConcurrentHashMap provides better concurrency by only locking portion of map determined by concurrency level.</li>
+<li>but Hashtable provides stronger thread-safety than ConcurrentHashMap</li>
+<li>ConcurrentHashMap performs better than earlier two because it only locks a portion of Map, instead of whole Map, which is the case with Hashtable and synchronized Map.</li>
+<li>provided all functions supported by Hashtable with an additional feature called &ldquo;concurrency level&rdquo;, which allows ConcurrentHashMap to partition Map.</li>
+<li>ConcurrentHashMap allows multiple readers to read concurrently without any blocking. This is achieved by partitioning Map into different parts based on concurrency level and locking only a portion of Map during updates.</li>
+<li><strong>Default concurrency level is 16</strong>, and accordingly Map is divided into 16 part and each part is governed with a different lock. This means, 16 thread can operate on Map simultaneously until they are operating on different part of Map.</li>
+<li>Since update operations like put(), remove(), putAll() or clear() is not synchronized, concurrent retrieval may not reflect most recent change on Map.</li>
+<li>ConcurrentHashMap also uses ReentrantLock to internally lock its segments.</li>
+<li>In hashmap and hashtable, you can check one item first and add it if not present. Though this code will work fine in HashMap and Hashtable, This won&rsquo;t work in ConcurrentHashMap; because, during put operation whole map is not locked, and while one thread is putting value, other thread&rsquo;s get() call can still return null which result in one thread overriding value inserted by other thread. Ofcourse, you can wrap whole code in synchronized block and make it thread-safe but that will only make your code single threaded. ConcurrentHashMap provides putIfAbsent(key, value) which does same thing but atomically and thus eliminates above race condition</li>
+<li>ConcurrentHashMap is best suited when you have <strong>multiple readers</strong> and <strong>few writers</strong>. If writers outnumber reader, or writer is equal to reader, than performance of ConcurrentHashMap <strong>effectively reduces to synchronized map or Hashtable</strong>. Performance of CHM drops, because you got to <strong>lock all portion of Map</strong>, and effectively each reader will wait for another writer, operating on that portion of Map. ConcurrentHashMap is a good choice for caches, which can be initialized during application start up and later accessed my many request processing threads.</li>
+<li>ConcurrentHashMap allows <strong>concurrent read</strong> and <strong>thread-safe update</strong> operation.</li>
+<li>Iterator returned by ConcurrentHashMap is weekly consistent, fail-safe and never throw ConcurrentModificationException.</li>
+<li>In Java.ConcurrentHashMap <strong>doesn&rsquo;t allow null as key or value</strong>.</li>
+</ul>
+<h1 id="how-null-work-in-hashmap">How null work in HashMap</h1>
+<p>How null key is handled in HashMap? Since equals() and hashCode() are used to store and retrieve values, how does it work in case of the null key?</p>
+<p>The null key is handled specially in HashMap, there are two separate methods for that putForNullKey(V value)
+and getForNullKey()
+. Later is offloaded version of get() to look up null keys.  Null keys always map to index 0.  This null case is split out into separate methods for the sake of performance in the two most commonly used operations (get and put), but incorporated with conditionals in others. In short, equals()
+and hashcode() method are not used in case of null keys in HashMap.</p>
+<h1 id="performance-changes-in-jdk-17-and-18">Performance changes in JDK 1.7 and 1.8</h1>
+<ul>
+<li>There is some performance improvement done on HashMap and ArrayList from JDK 1.7, which reduce memory consumption. Due to this empty Map are lazily initialized and will cost you less memory. Earlier, when you create HashMap e.g. new HashMap() it automatically creates an array of default length e.g. 16. After some research, Java team found that most of this Map are temporary and never use that many elements, and only end up wasting memory. Also, From JDK 1.8 onwards HashMap has introduced an improved strategy to deal with high collision rate. Since a poor hash function e.g. which always return location of same bucket, can turn a HashMap into linked list, i.e. converting get() method to perform <strong>in O(n) instead of O(1)</strong> and someone can take advantage of this fact, Java now internally replace linked list to a binary true once certain threshold is breached. This ensures performance or order O(log(n)) even in the worst case where a hash function is not distributing keys properly.</li>
+<li>such change is creating empty ArrayList and HashMap with size zero in JDK 1.7.0_40 update.</li>
+<li>If you are running on Java 1.6 or earlier version of Java 1.7, you can open code of java.util.ArrayList and check that, currently empty ArrayList is initialized with Object array of <strong>size 10</strong>. If you create several temporary list in your program, which remains uninitialized, due to any reason then you are not only losing memory but also losing performance by giving your garbage collector more work.</li>
+<li>Same is true for empty HashMap, which was initialized by <strong>default initial capacity of 16</strong>. This changes are result of observation made by Nathan Reynolds, and Architect at Oracle, which apparently analysed 670 Java heap dumps from different Java programs to find out memory hogs.</li>
+<li>By the way, it&rsquo;s not just memory, it’s also extra work-load for Garbage collector</li>
+</ul>
+<h1 id="hashtable">Hashtable</h1>
+<ul>
+<li>One of the major differences between HashMap and Hashtable is that HashMap is non-synchronized whereas Hashtable is synchronized</li>
+<li>Another difference is HashMap allows <strong>one</strong> null key and null values but **Hashtable doesn&rsquo;t allow null ** key or values.</li>
+<li>Another significant difference between HashMap vs Hashtable is that Iterator in the **HashMap is  a fail-fast ** iterator  while the enumerator for the <strong>Hashtable is not and throw ConcurrentModificationException</strong> if any other Thread modifies the map structurally  by adding or removing any element except Iterator&rsquo;s own remove() method</li>
+</ul>
+<h1 id="concurrenthashmap-vs-hashtable-vs-synchronized-map">ConcurrentHashMap vs Hashtable vs Synchronized Map</h1>
+<ul>
+<li>Though all three collection classes are thread-safe and can be used in multi-threaded, concurrent Java application, there is a significant difference between them, which arise from the fact that <strong>how they achieve their thread-safety</strong>.</li>
+<li>Hashtable is a legacy class from JDK 1.1 itself, which uses <strong>synchronized methods</strong> to achieve thread-safety. All methods of Hashtable are synchronized which makes them quite slow due to contention if a number of thread increases.</li>
+<li>Synchronized Map is also <strong>not very different than Hashtable</strong> and provides similar performance in concurrent Java programs. The only difference between Hashtable and Synchronized Map is that later is not a legacy and you <strong>can wrap any Map</strong> to create it&rsquo;s synchronized version by using Collections.synchronizedMap()</li>
+<li>Unlike Hashtable and Synchronized Map, it <strong>never locks whole Map</strong>, instead, it divides the map into segments and locking is done on those. Though it performs better if a number of <strong>reader threads are greater than</strong> the number of writer threads.</li>
+<li><strong>ConcurrentHashMap and CopyOnWriteArrayList</strong> implementations provide much <strong>higher concurrency while preserving thread safety</strong>, with some minor compromises in their promises to callers. ConcurrentHashMap and CopyOnWriteArrayList are not necessarily useful everywhere you might use HashMap or ArrayList, but are designed to optimize specific common situations.</li>
+<li><strong>ConcurrentHashMap does not allow null</strong> keys or null values while <strong>synchronized HashMap allows one null key</strong>.</li>
+</ul>
+<h1 id="synchronized-list">Synchronized List</h1>
+<ul>
+<li>
+<p>CopyOnWriteArrayList and CopyOnWriteArraySet
+CopyOnWriteArrayList is a concurrent alternative of synchronized List. CopyOnWriteArrayList provides better concurrency than synchronized List by allowing <strong>multiple concurrent reader</strong> and <strong>replacing the whole list on write</strong> operation. Yes, write operation is costly on CopyOnWriteArrayList but it <strong>performs better when there are multiple reader</strong> and requirement of <strong>iteration is more than writing</strong>. Since CopyOnWriteArrayList Iterator also don&rsquo;t throw ConcurrencModificationException <strong>it eliminates need to lock the collection during iteration</strong>. Remember both ConcurrentHashMap and CopyOnWriteArrayList doesn&rsquo;t provides same level of locking as Synchronized Collection and achieves thread-safety by there locking and mutability strategy. So they perform better if requirements suits there nature. Similarly, CopyOnWriteArraySet is a concurrent replacement to Synchronized Set. See What is CopyOnWriteArrayList in Java for more details</p>
+</li>
+<li>
+<p>BlockingQueue
+BlockingQueue is also one of better known collection class in Java 5. BlockingQueue makes it easy <strong>to implement producer-consumer design pattern</strong> by providing inbuilt <strong>blocking support for put() and take() method</strong>. put() method will block if Queue is full while take() method will block if Queue is empty. Java 5 API provides two concrete implementation of BlockingQueue in form of <strong>ArrayBlockingQueue and LinkedBlockingQueue</strong>, both of them implement <strong>FIFO ordering</strong> of element. ArrayBlockingQueue <strong>is backed by Array</strong> and its <strong>bounded</strong> in nature while <strong>LinkedBlockingQueue is optionally bounded</strong>. Consider <strong>using BlockingQueue to solve producer Consumer problem</strong> in Java instead of writing your won wait-notify code. Java 5 also provides <strong>PriorityBlockingQueue</strong>, another implementation of BlockingQueue which is ordered on priority and useful if you want to process elements on order other than FIFO.</p>
+</li>
+<li>
+<p>Deque interface
+is added in Java 6 and it extends Queue interface to support <strong>insertion and removal from both end of Queue</strong> referred as <strong>head and tail</strong>. Java6 also provides concurrent implementation of Deque like <strong>ArrayDeque and LinkedBlockingDeque</strong>. Deque Can be used efficiently **to increase parallelism in program by allowing set of worker thread **to help each other by taking some of work load from other thread by utilizing Deque double end consumption property. So if all Thread has there <strong>own set of task Queue and they are consuming from head</strong>; helper thread can also share some work load via <strong>consumption from tail</strong>.</p>
+</li>
+<li>
+<p>ConcurrentSkipListMap and ConcurrentSkipListSet
+Just like ConcurrentHashMap provides a concurrent alternative of synchronized HashMap. <strong>ConcurrentSkipListMap and ConcurrentSkipListSet provide concurrent alternative</strong> for synchronized version of <strong>SortedMap and SortedSet</strong>. For example instead of using TreeMap or TreeSet wrapped inside synchronized Collection, You can consider using ConcurrentSkipListMap or ConcurrentSkipListSet from java.util.concurrent package. They also implement NavigableMap and NavigableSet to add additional navigation method we have seen in our post How to use NavigableMap in Java.</p>
+</li>
+</ul>
+<h1 id="to-sort-hashmap-by-key-and-value">To sort hashmap by key and value</h1>
+<ul>
+<li>Why can&rsquo;t we use TreeMap in place of HashMap is the question appears in most Java programmer&rsquo;s mind when they asked to sort HashMap in Java. Well, TreeMap is way slower than HashMap because it runs sorting operation with each insertion, update and removal and sometimes you don&rsquo;t really need an all time sorted Map, What you need is an ability to sort any Map implementation based upon its key and value.</li>
+</ul>
+<h2 id="sort-by-key">Sort by Key</h2>
+<ul>
+<li>As I said Map or HashMap in Java can be sorted either on keys or values. Sorting Map on keys is rather easy than sorting on values because Map <strong>allows duplicate values but doesn&rsquo;t allow duplicates keys</strong>. You can sort Map, be it HashMap or Hashtable by copying keys into List than sorting List by using Collections.sort() method, here you can use either Comparator or Comparable based upon whether you want to sort on a custom order or natural order.
+-Once List of keys is sorted, we can create another Map, particularly LinkedHashMap to insert keys in sorted order. LinkedHashMap will maintain the order on which keys are inserted, the result is a sorted Map based on keys. This is shown in the following example by writing a generic parameterized method to sort Map based on keys. You can also sort Map in Java by using TreeMap and Google Collection API (Guava). The advantage of using Guava is that you get some flexibility on specifying ordering.</li>
+</ul>
+<h2 id="sorting-map-in-java---by-value">Sorting Map in Java - By Value</h2>
+<ul>
+<li>To implement Collection.sort(map, new Comparator&lt;Map.Entry&lt;K,V&raquo;(){ o1.getValue().compareTo(o2.getValue())</li>
+<li>But need to take care of null and duplication</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="http://javarevisited.blogspot.in/2011/02/how-hashmap-works-in-java.html">http://javarevisited.blogspot.in/2011/02/how-hashmap-works-in-java.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2011/04/difference-between-concurrenthashmap.html">http://javarevisited.blogspot.in/2011/04/difference-between-concurrenthashmap.html</a></li>
+<li><a href="http://javarevisited.blogspot.com/2013/02/concurrent-collections-from-jdk-56-java-example-tutorial.html#ixzz4WBYzKelD">http://javarevisited.blogspot.com/2013/02/concurrent-collections-from-jdk-56-java-example-tutorial.html#ixzz4WBYzKelD</a></li>
+<li><a href="http://javarevisited.blogspot.com/2012/12/how-to-sort-hashmap-java-by-key-and-value.html#ixzz4WBgfeGVM">http://javarevisited.blogspot.com/2012/12/how-to-sort-hashmap-java-by-key-and-value.html#ixzz4WBgfeGVM</a></li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/java" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">java</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/hashcode" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">hashcode</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-compare-in-java/">Compare-In-Java</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-20-deadlock/">Dead Lock</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-16-java-hashmap/">HashMap in JDK</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-03-intellij-tips/">IntelliJ Tips</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-06-24-jdk-sources/">JDK source</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-17-java-collections-misc/">Java Collections Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-01-concurrent-in-java-col-2/">Java Concurrent Column 2</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-02-enum-misc/">Java Enum Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-java-gc/">Java GC notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-21-java-jit/">Java JIT compiler</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-05-jvm/">Java JVM</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-02-java-new-io/">Java New IO</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-15-java-security/">Java Security Notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-java-tricky-tech-questions/">Java-Tricky-Tech-Questions.md</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-03-maven-notes/">Maven-Notes</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

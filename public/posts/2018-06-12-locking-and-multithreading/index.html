@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Locking and multithreading | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Locking and multithreading" />
+<meta property="og:description" content="Single Writer principle There is a lot of research in computer science for managing this contention that boils down to 2 basic approaches. One is to provide mutual exclusion to the contended resource while the mutation takes place; the other is to take an optimistic strategy and swap in the changes if the underlying resource has not changed while you created the new copy.
+Memory Barier Memory barriers, or fences, are a set of processor instructions used to apply ordering limitations on memory operations." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2018-06-12-locking-and-multithreading/" />
+
+<meta itemprop="name" content="Locking and multithreading">
+<meta itemprop="description" content="Single Writer principle There is a lot of research in computer science for managing this contention that boils down to 2 basic approaches. One is to provide mutual exclusion to the contended resource while the mutation takes place; the other is to take an optimistic strategy and swap in the changes if the underlying resource has not changed while you created the new copy.
+Memory Barier Memory barriers, or fences, are a set of processor instructions used to apply ordering limitations on memory operations.">
+
+<meta itemprop="wordCount" content="1885">
+
+
+
+<meta itemprop="keywords" content="CAS,Concurrent," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Locking and multithreading"/>
+<meta name="twitter:description" content="Single Writer principle There is a lot of research in computer science for managing this contention that boils down to 2 basic approaches. One is to provide mutual exclusion to the contended resource while the mutation takes place; the other is to take an optimistic strategy and swap in the changes if the underlying resource has not changed while you created the new copy.
+Memory Barier Memory barriers, or fences, are a set of processor instructions used to apply ordering limitations on memory operations."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2018-06-12-locking-and-multithreading/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2018-06-12-locking-and-multithreading/&amp;text=Locking%20and%20multithreading" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2018-06-12-locking-and-multithreading/&amp;title=Locking%20and%20multithreading" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Locking and multithreading</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="single-writer-principle">Single Writer principle</h1>
+<p>There is a lot of research in computer science for managing this contention that boils down to 2 basic approaches.  One is to provide mutual exclusion to the contended resource while the mutation takes place; the other is to take an optimistic strategy and swap in the changes if the underlying resource has not changed while you created the new copy.</p>
+<h1 id="memory-barier">Memory Barier</h1>
+<p>Memory barriers, or fences, are a set of processor instructions used to apply ordering limitations on memory operations.</p>
+<p>The keyword volatile prevents this problem because it establishes a happens before relationship between the write to the turn variable and the write to the intentFirst variable. The compiler cannot re-order these write operations and if necessary it must forbid the processor from doing so with a memory barrier.</p>
+<p>A memory barrier, also known as a <code>membar</code>, <code>memory fence</code> or fence instruction, is a type of barrier instruction that causes a central processing unit (CPU) or compiler to enforce an ordering constraint on memory operations issued before and after the barrier instruction. This typically means that operations issued prior to the barrier are guaranteed to be performed before operations issued after the barrier.</p>
+<p>Memory barriers are necessary because most modern CPUs employ performance optimizations that can result in out-of-order execution. This reordering of memory operations (loads and stores) normally goes unnoticed within a single thread of execution, but can cause unpredictable behaviour in concurrent programs and device drivers unless carefully controlled.</p>
+<h1 id="non-blocking-programing">Non blocking programing</h1>
+<p>Implementation
+With few exceptions, non-blocking algorithms use atomic <code>read-modify-write</code> primitives that the hardware must provide, the most notable of which is compare and swap (CAS).</p>
+<h2 id="compare-and-swap">Compare And Swap</h2>
+<p>It compares the contents of a memory location with a given value and, only if they are the same, modifies the contents of that memory location to a new given value. This is done as a single atomic operation. The atomicity guarantees that the new value is calculated based on up-to-date information; if the value had been updated by another thread in the meantime, the write would fail. The result of the operation must indicate whether it performed the substitution; this can be done either with a simple boolean response (this variant is often called compare-and-set), or by returning the value read from the memory location (not the value written to it).</p>
+<p>Here is the pseudo code</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">function <span style="color:#a6e22e">cas</span>(p : pointer to <span style="color:#66d9ef">int</span>, old : <span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">new</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span>) returns <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">*</span>p <span style="color:#960050;background-color:#1e0010">≠</span> old {
+        <span style="color:#66d9ef">return</span> false
+    }
+    <span style="color:#f92672">*</span>p <span style="color:#960050;background-color:#1e0010">←</span> <span style="color:#66d9ef">new</span>
+    <span style="color:#66d9ef">return</span> true
+}
+</code></pre></div><p>This operation is used to implement synchronization primitives like semaphores and mutexes, as well as more sophisticated lock-free and wait-free algorithms.</p>
+<p>Algorithms built around CAS typically read some key memory location and remember the old value. Based on that old value, they compute some new value. Then they try to swap in the new value using CAS, where the comparison checks for the location still being equal to the old value. If CAS indicates that the attempt has failed, it has to be repeated from the beginning: the location is re-read, a new value is re-computed and the CAS is tried again.</p>
+<p>A common workaround is to add extra &ldquo;tag&rdquo; or &ldquo;stamp&rdquo; bits to the quantity being considered. For example, an algorithm using compare and swap on a pointer might use the low bits of the address to indicate how many times the pointer has been successfully modified. Because of this, the next compare-and-swap will fail, even if the addresses are the same, because the tag bits will not match. This does not completely solve the problem, as the tag bits will eventually wrap around, but helps to avoid it. Some architectures provide a double-word compare and swap, which allows for a larger tag. This is sometimes called ABAʹ since the second A is made slightly different from the first. Such tagged state references are also used in transactional memory.</p>
+<h2 id="priority-inversion">Priority Inversion</h2>
+<p>Consider two tasks H and L, of high and low priority respectively, either of which can acquire exclusive use of a shared resource R. If H attempts to acquire R after L has acquired it, then H becomes blocked until L relinquishes the resource. Sharing an exclusive-use resource (R in this case) in a well-designed system typically involves L relinquishing R promptly so that H (a higher priority task) does not stay blocked for excessive periods of time. Despite good design, however, it is possible that a third task M of medium priority (p(L) &lt; p(M) &lt; p(H), where p(x) represents the priority for task (x)) becomes runnable during L&rsquo;s use of R. At this point, M being higher in priority than L, preempts L, causing L to not be able to relinquish R promptly, in turn causing H—the highest priority process—to be unable to run. This is called priority inversion where a higher priority task is preempted by a lower priority one.</p>
+<h2 id="rcu">RCU</h2>
+<p>In computer science, read-copy-update (RCU) is a synchronization mechanism based on mutual exclusion. It is used when performance of reads is crucial and is an example of space–time tradeoff, enabling fast operations at the cost of more space.</p>
+<p>Read-copy-update allows multiple threads to efficiently read from shared memory by deferring updates after pre-existing reads to a later time while simultaneously marking the data, <code>ensuring new readers will read the updated data</code>. This makes all readers proceed as if there were no synchronization involved, hence they will be fast, but also making updates more difficult.</p>
+<h1 id="package-javautilconcurrentatomic">package java/util/concurrent/atomic</h1>
+<p>A small toolkit of classes that support lock-free thread-safe programming on single variables. In essence, the classes in this package extend the notion of volatile</p>
+<p>values, fields, and array elements to those that also provide an atomic conditional update operation of the form:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">   <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">compareAndSet</span><span style="color:#f92672">(</span>expectedValue<span style="color:#f92672">,</span> updateValue<span style="color:#f92672">);</span>
+</code></pre></div><p>This method (which varies in argument types across different classes) atomically sets a variable to the updateValue if it currently holds the expectedValue, reporting true on success. The classes in this package also contain methods to get and unconditionally set values, as well as a weaker conditional atomic update operation weakCompareAndSet described below.</p>
+<p>The specifications of these methods enable implementations to employ efficient machine-level atomic instructions that are available on contemporary processors. However on some platforms, support may entail some form of internal locking. Thus the methods are not strictly guaranteed to be non-blocking &ndash; a thread may block transiently before performing the operation.</p>
+<p>Instances of classes AtomicBoolean, AtomicInteger, AtomicLong, and AtomicReference each provide access and updates to a single variable of the corresponding type. Each class also provides appropriate utility methods for that type. For example, classes AtomicLong and AtomicInteger provide atomic increment methods. One application is to generate sequence numbers, as in:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sequencer</span> <span style="color:#f92672">{</span>
+   <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> AtomicLong sequenceNumber
+     <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AtomicLong<span style="color:#f92672">(</span>0<span style="color:#f92672">);</span>
+   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">next</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+     <span style="color:#66d9ef">return</span> sequenceNumber<span style="color:#f92672">.</span><span style="color:#a6e22e">getAndIncrement</span><span style="color:#f92672">();</span>
+   <span style="color:#f92672">}</span>
+ <span style="color:#f92672">}</span>
+</code></pre></div><p>The AtomicIntegerArray, AtomicLongArray, and AtomicReferenceArray classes further extend atomic operation support to arrays of these types. These classes are also notable in providing volatile access semantics for their array elements, which is not supported for ordinary arrays.</p>
+<h1 id="volatile">Volatile</h1>
+<p>The Java volatile keyword is used to mark a Java variable as &ldquo;being stored in main memory&rdquo;. More precisely that means, that every read of a volatile variable will be read from the computer&rsquo;s main memory, and not from the CPU cache, and that every write to a volatile variable will be written to main memory, and not just to the CPU cache.</p>
+<h2 id="whats-wrong-to-volatile">What&rsquo;s wrong to volatile?</h2>
+<p>The Java <code>volatile keyword guarantees visibility of changes to variables across threads</code>. This may sound a bit abstract, so let me elaborate.</p>
+<p>In a multithreaded application where the threads operate on non-volatile variables, each thread may copy variables from main memory into a CPU cache while working on them, for performance reasons. If your computer contains more than one CPU, each thread may run on a different CPU. That means, that each thread may copy the variables into the CPU cache of different CPUs.</p>
+<p>With non-volatile variables there are no guarantees about when the Java Virtual Machine (JVM) reads data from main memory into CPU caches, or writes data from CPU caches to main memory. This can cause several problems.</p>
+<h3 id="visibility-problem">visibility problem</h3>
+<p>The problem with threads not seeing the latest value of a variable because it has not yet been written back to main memory by another thread, is called a &ldquo;visibility&rdquo; problem. The updates of one thread are not visible to other threads.</p>
+<p>The Java volatile Visibility Guarantee</p>
+<p>The Java volatile keyword is intended to address variable visibility problems. By declaring the counter variable volatile all writes to the counter variable will be written back to main memory immediately. Also, all reads of the counter variable will be read directly from main memory.</p>
+<h3 id="full-volatile-visibility-guarantee">Full volatile Visibility Guarantee</h3>
+<p>Actually, the visibility guarantee of Java volatile goes beyond the volatile variable itself. The visibility guarantee is as follows:</p>
+<pre><code>If Thread A writes to a volatile variable and Thread B subsequently reads the same volatile variable, then all variables visible to Thread A before writing the volatile variable, will also be visible to Thread B after it has read the volatile variable.
+If Thread A reads a volatile variable, then all all variables visible to Thread A when reading the volatile variable will also be re-read from main memory.
+</code></pre>
+<h3 id="the-java-volatile-happens-before-guarantee">The Java volatile Happens-Before Guarantee</h3>
+<p>To address the instruction reordering challenge, the Java volatile keyword gives a &ldquo;happens-before&rdquo; guarantee, in addition to the visibility guarantee. The happens-before guarantee guarantees that:</p>
+<ul>
+<li>Reads from and writes to other variables cannot be reordered to occur <code>after</code> a write to a volatile variable, if the reads / writes originally occurred <code>before</code> the write to the volatile variable.</li>
+</ul>
+<p>The reads / writes <code>before a write to a volatile</code> variable are guaranteed to <code>&quot;happen before&quot; the write to the volatile</code> variable. Notice that it is still possible for e.g. reads / writes of other variables located after a write to a volatile to be reordered to occur before that write to the volatile. Just not the other way around. <code>From after to before is allowed, but from before to after is not allowed</code>.</p>
+<ul>
+<li>
+<p>Reads from and writes to other variables cannot be reordered to occur <code>before a read</code> of a volatile variable, if the reads / writes originally occurred <code>after the read</code> of the volatile variable. Notice that it is possible for reads of other variables that occur before the read of a volatile variable can be reordered to occur after the read of the volatile. Just not the other way around. <code>From before to after is allowed, but from after to before is not allowed</code>.</p>
+</li>
+<li>
+<p>In short: ==before write,  after read==.</p>
+</li>
+</ul>
+<h2 id="limitations-of-volatile">Limitations of volatile</h2>
+<p>Even if the volatile keyword guarantees that all reads of a volatile variable are read directly from main memory, and all writes to a volatile variable are written directly to main memory, there are still situations where it is not enough to declare a variable volatile</p>
+<h2 id="performance-considerations-of-volatile">Performance Considerations of volatile</h2>
+<p>Reading and writing of volatile variables causes the variable to be read or written to main memory. Reading from and writing to main memory is more expensive than accessing the CPU cache. Accessing volatile variables also prevent instruction reordering which is a normal performance enhancement technique. Thus, you should only use volatile variables when you really need to enforce visibility of variables.</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/cas" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">CAS</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/concurrent" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Concurrent</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2017-04-20-concurrent-in-java/">Java Concurrent</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

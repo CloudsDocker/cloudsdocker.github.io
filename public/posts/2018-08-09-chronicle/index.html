@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Chronicle | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Chronicle" />
+<meta property="og:description" content="Overview Chronicle Software is about simplifying fast data. It is a suite of libraries to make it easier to write, monitor and tune data processing systems where performance and scalability are concerned.
+Writing to a Queue In Chronicle Queue we refer to the act of writing your data to the Chronicle queue, as storing an excerpt. This data could be made up from any data type, including text, numbers, or serialised blobs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2018-08-09-chronicle/" />
+
+<meta itemprop="name" content="Chronicle">
+<meta itemprop="description" content="Overview Chronicle Software is about simplifying fast data. It is a suite of libraries to make it easier to write, monitor and tune data processing systems where performance and scalability are concerned.
+Writing to a Queue In Chronicle Queue we refer to the act of writing your data to the Chronicle queue, as storing an excerpt. This data could be made up from any data type, including text, numbers, or serialised blobs.">
+
+<meta itemprop="wordCount" content="4468">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Chronicle"/>
+<meta name="twitter:description" content="Overview Chronicle Software is about simplifying fast data. It is a suite of libraries to make it easier to write, monitor and tune data processing systems where performance and scalability are concerned.
+Writing to a Queue In Chronicle Queue we refer to the act of writing your data to the Chronicle queue, as storing an excerpt. This data could be made up from any data type, including text, numbers, or serialised blobs."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2018-08-09-chronicle/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2018-08-09-chronicle/&amp;text=Chronicle" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2018-08-09-chronicle/&amp;title=Chronicle" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Chronicle</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="overview">Overview</h1>
+<p>Chronicle Software is about simplifying fast data.  It is a suite of libraries to make it easier to write, monitor and tune data processing systems where performance and scalability are concerned.</p>
+<h1 id="writing-to-a-queue">Writing to a Queue</h1>
+<p>In Chronicle Queue we refer to the act of writing your data to the Chronicle queue, as storing an excerpt. This data could be made up from any data type, including text, numbers, or serialised blobs. Ultimately, all your data, regardless of what it is, is stored as a series of bytes.</p>
+<p>Just before storing your excerpt, Chronicle Queue reserves an 8-byte header. Chronicle Queue writes the length of your data into this header. This way, when Chronicle Queue comes to read your excerpt, it knows how long each blob of data is. We refer to this 8-byte header, along with your excerpt, as a document. So strictly speaking Chronicle Queue can be used to read and write documents.</p>
+<blockquote>
+<p>Within this 8-byte header we also reserve a few bits for a number of internal operations, such as locking, to make Chronicle Queue thread-safe across both processors and threads. The important thing to note is that because of this, you can’t strictly convert the 8 bytes to an integer to find the length of your data blob.</p>
+</blockquote>
+<p>To write data to a Chronicle-Queue, you must first create an Appender</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">try</span> <span style="color:#f92672">(</span>ChronicleQueue queue <span style="color:#f92672">=</span> SingleChronicleQueueBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">binary</span><span style="color:#f92672">(</span>path <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/trades&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+   <span style="color:#66d9ef">final</span> ExcerptAppender appender <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span><span style="color:#a6e22e">acquireAppender</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Chronicle Queue uses the following low-level interface to write the data:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">try</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> DocumentContext dc <span style="color:#f92672">=</span> appender<span style="color:#f92672">.</span><span style="color:#a6e22e">writingDocument</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+      dc<span style="color:#f92672">.</span><span style="color:#a6e22e">wire</span><span style="color:#f92672">().</span><span style="color:#a6e22e">write</span><span style="color:#f92672">().</span><span style="color:#a6e22e">text</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">“</span>your text data<span style="color:#960050;background-color:#1e0010">“</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>So, Chronicle Queue uses an <code>Appender to write</code> to the queue and a <code>Tailer to read</code> from the queue. Unlike other java queuing solutions, messages are not lost when they are read with a Tailer.</p>
+<p>Each Chronicle Queue excerpt has a unique index.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">try</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> DocumentContext dc <span style="color:#f92672">=</span> appender<span style="color:#f92672">.</span><span style="color:#a6e22e">writingDocument</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+    dc<span style="color:#f92672">.</span><span style="color:#a6e22e">wire</span><span style="color:#f92672">().</span><span style="color:#a6e22e">write</span><span style="color:#f92672">().</span><span style="color:#a6e22e">text</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">“</span>your text data<span style="color:#960050;background-color:#1e0010">“</span><span style="color:#f92672">);</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;your data was store to index=&#34;</span><span style="color:#f92672">+</span> dc<span style="color:#f92672">.</span><span style="color:#a6e22e">index</span><span style="color:#f92672">());</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>The high-level methods below such as writeText() are convenience methods on calling appender.writingDocument(), but both approaches essentially do the same thing. The actual code of writeText(CharSequence text) looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @param text to write a message
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">writeText</span><span style="color:#f92672">(</span>CharSequence text<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">try</span> <span style="color:#f92672">(</span>DocumentContext dc <span style="color:#f92672">=</span> writingDocument<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+        dc<span style="color:#f92672">.</span><span style="color:#a6e22e">wire</span><span style="color:#f92672">().</span><span style="color:#a6e22e">bytes</span><span style="color:#f92672">().</span><span style="color:#a6e22e">append8bit</span><span style="color:#f92672">(</span>text<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div><p>This is the highest-level API which hides the fact you are writing to messaging at all. The benefit is that you can swap calls to the interface with a real component, or an interface to a different protocol.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// using the method writer interface.
+</span><span style="color:#75715e"></span>RiskMonitor riskMonitor <span style="color:#f92672">=</span> appender<span style="color:#f92672">.</span><span style="color:#a6e22e">methodWriter</span><span style="color:#f92672">(</span>RiskMonitor<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+<span style="color:#66d9ef">final</span> LocalDateTime now <span style="color:#f92672">=</span> LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">(</span>Clock<span style="color:#f92672">.</span><span style="color:#a6e22e">systemUTC</span><span style="color:#f92672">());</span>
+riskMonitor<span style="color:#f92672">.</span><span style="color:#a6e22e">trade</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> TradeDetails<span style="color:#f92672">(</span>now<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;GBPUSD&#34;</span><span style="color:#f92672">,</span> 1<span style="color:#f92672">.</span><span style="color:#a6e22e">3095</span><span style="color:#f92672">,</span> 10e6<span style="color:#f92672">,</span> Side<span style="color:#f92672">.</span><span style="color:#a6e22e">Buy</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;peter&#34;</span><span style="color:#f92672">));</span>
+</code></pre></div><p>You can write a &ldquo;self-describing message&rdquo;. Such messages can support schema changes. They are also easier to understand when debugging or diagnosing problems.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// writing a self describing message
+</span><span style="color:#75715e"></span>appender<span style="color:#f92672">.</span><span style="color:#a6e22e">writeDocument</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> w<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;trade&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">marshallable</span><span style="color:#f92672">(</span>
+        m <span style="color:#f92672">-&gt;</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;timestamp&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">dateTime</span><span style="color:#f92672">(</span>now<span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;symbol&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">text</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;EURUSD&#34;</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;price&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">float64</span><span style="color:#f92672">(</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">1101</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;quantity&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">float64</span><span style="color:#f92672">(</span>15e6<span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;side&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">object</span><span style="color:#f92672">(</span>Side<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> Side<span style="color:#f92672">.</span><span style="color:#a6e22e">Sell</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;trader&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">text</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;peter&#34;</span><span style="color:#f92672">)));</span>
+</code></pre></div><p>You can write &ldquo;raw data&rdquo; which is self-describing. The types will always be correct; position is the only indication as to the meaning of those values.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// writing just data
+</span><span style="color:#75715e"></span>appender<span style="color:#f92672">.</span><span style="color:#a6e22e">writeDocument</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> w
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">getValueOut</span><span style="color:#f92672">().</span><span style="color:#a6e22e">int32</span><span style="color:#f92672">(</span>0x123456<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">getValueOut</span><span style="color:#f92672">().</span><span style="color:#a6e22e">int64</span><span style="color:#f92672">(</span>0x999000999000L<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">getValueOut</span><span style="color:#f92672">().</span><span style="color:#a6e22e">text</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello World&#34;</span><span style="color:#f92672">));</span>
+</code></pre></div><p>You can write &ldquo;raw data&rdquo; which is not self-describing. Your reader must know what this data means, and the types that were used.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// writing raw data
+</span><span style="color:#75715e"></span>appender<span style="color:#f92672">.</span><span style="color:#a6e22e">writeBytes</span><span style="color:#f92672">(</span>b <span style="color:#f92672">-&gt;</span> b
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">writeByte</span><span style="color:#f92672">((</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">)</span> 0x12<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">writeInt</span><span style="color:#f92672">(</span>0x345678<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">writeLong</span><span style="color:#f92672">(</span>0x999000999000L<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">writeUtf8</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello World&#34;</span><span style="color:#f92672">));</span>
+</code></pre></div><p>This is the lowest level way to write data. You get an address to raw memory and you can write what you want.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// Unsafe low level
+</span><span style="color:#75715e"></span>appender<span style="color:#f92672">.</span><span style="color:#a6e22e">writeBytes</span><span style="color:#f92672">(</span>b <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">long</span> address <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span><span style="color:#a6e22e">address</span><span style="color:#f92672">(</span>b<span style="color:#f92672">.</span><span style="color:#a6e22e">writePosition</span><span style="color:#f92672">());</span>
+    Unsafe unsafe <span style="color:#f92672">=</span> UnsafeMemory<span style="color:#f92672">.</span><span style="color:#a6e22e">UNSAFE</span><span style="color:#f92672">;</span>
+    unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">putByte</span><span style="color:#f92672">(</span>address<span style="color:#f92672">,</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">)</span> 0x12<span style="color:#f92672">);</span>
+    address <span style="color:#f92672">+=</span> 1<span style="color:#f92672">;</span>
+    unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">putInt</span><span style="color:#f92672">(</span>address<span style="color:#f92672">,</span> 0x345678<span style="color:#f92672">);</span>
+    address <span style="color:#f92672">+=</span> 4<span style="color:#f92672">;</span>
+    unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">putLong</span><span style="color:#f92672">(</span>address<span style="color:#f92672">,</span> 0x999000999000L<span style="color:#f92672">);</span>
+    address <span style="color:#f92672">+=</span> 8<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">(</span>StandardCharsets<span style="color:#f92672">.</span><span style="color:#a6e22e">ISO_8859_1</span><span style="color:#f92672">);</span>
+    unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">copyMemory</span><span style="color:#f92672">(</span>bytes<span style="color:#f92672">,</span> Unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">ARRAY_BYTE_BASE_OFFSET</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> address<span style="color:#f92672">,</span> bytes<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">);</span>
+    b<span style="color:#f92672">.</span><span style="color:#a6e22e">writeSkip</span><span style="color:#f92672">(</span>1 <span style="color:#f92672">+</span> 4 <span style="color:#f92672">+</span> 8 <span style="color:#f92672">+</span> bytes<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">});</span>
+</code></pre></div><p>You can print the contents of the queue. You can see the first two, and last two messages store the same data.</p>
+<p>// dump the content of the queue
+System.out.println(queue.dump());</p>
+<h1 id="position-262568-header-0">position: 262568, header: 0</h1>
+<p>&mdash; !!data #binary
+trade: {
+timestamp: 2016-07-17T15:18:41.141,
+symbol: GBPUSD,
+price: 1.3095,
+quantity: 10000000.0,
+side: Buy,
+trader: peter
+}</p>
+<h1 id="position-262684-header-1">position: 262684, header: 1</h1>
+<p>&mdash; !!data #binary
+trade: {
+timestamp: 2016-07-17T15:18:41.141,
+symbol: EURUSD,
+price: 1.1101,
+quantity: 15000000.0,
+side: Sell,
+trader: peter
+}</p>
+<h1 id="position-262800-header-2">position: 262800, header: 2</h1>
+<p>&mdash; !!data #binary
+!int 1193046
+168843764404224
+Hello World</p>
+<h1 id="position-262830-header-3">position: 262830, header: 3</h1>
+<p>&mdash; !!data #binary
+000402b0       12 78 56 34 00 00  90 99 00 90 99 00 00 0B   ·xV4·· ········
+000402c0 48 65 6C 6C 6F 20 57 6F  72 6C 64                Hello Wo rld</p>
+<h1 id="position-262859-header-4">position: 262859, header: 4</h1>
+<p>&mdash; !!data #binary
+000402c0                                               12                 ·
+000402d0 78 56 34 00 00 90 99 00  90 99 00 00 0B 48 65 6C xV4····· ·····Hel
+000402e0 6C 6F 20 57 6F 72 6C 64</p>
+<h2 id="finding-the-index-at-the-end-of-a-chronicle-queue">Finding the index at the end of a Chronicle Queue</h2>
+<p>Chronicle Queue appenders are thread-local. In fact when you ask for:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">final</span> ExcerptAppender appender <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span><span style="color:#a6e22e">acquireAppender</span><span style="color:#f92672">();</span>
+</code></pre></div><p>the acquireAppender() uses a thread-local pool to give you an appender which will be reused to reduce object creation.</p>
+<p>As such, the method call to:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">long</span> index <span style="color:#f92672">=</span> appender<span style="color:#f92672">.</span><span style="color:#a6e22e">lastIndexAppended</span><span style="color:#f92672">();</span>
+</code></pre></div><p>will only give you the last index appended by this appender; not the last index appended by any appender.</p>
+<p>If you wish to find the index of the last record written, then you have to call:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">long</span> index <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span><span style="color:#a6e22e">createTailer</span><span style="color:#f92672">().</span><span style="color:#a6e22e">toEnd</span><span style="color:#f92672">().</span><span style="color:#a6e22e">index</span><span style="color:#f92672">();</span>
+</code></pre></div><h2 id="dumping-a-chronicle-queue-cq4-file-as-text-to-the-command-line">Dumping a Chronicle Queue, cq4 file as text to the Command Line</h2>
+<p>Chronicle Queue stores its data in binary format, with a file extension of cq4:</p>
+<p>\��@π�header∂�SCQStoreÇE���»wireType∂�WireTypeÊBINARYÕwritePositionèèèèß��������ƒroll∂�SCQSRollÇ*���∆length¶ÄÓ6�∆format
+ÎyyyyMMdd-HH≈epoch¶ÄÓ6�»indexing∂SCQSIndexingÇN��� indexCount•��ÃindexSpacing�Àindex2Indexé����ß��������…lastIndexé�
+���ß��������ﬂlastAcknowledgedIndexReplicatedé������ßˇˇˇˇˇˇˇˇ»recovery∂�TimedStoreRecoveryÇ����…timeStampèèèß����������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+This can often be a bit difficult to read, so it is better to dump the cq4 files as text. This can also help you fix your production issues, as it gives you the visibility as to what has been stored in the queue, and in what order.</p>
+<p>You have to use the chronicle-queue.jar, from any version 4.5.3 or later, and set up the dependent files in the class path.</p>
+<p>$ java -cp chronicle-queue-4.5.5.jar net.openhft.chronicle.queue.DumpQueueMain 19700101-02.cq4</p>
+<p>this will dump the 19700101-02.cq4 file out as text, as shown below:</p>
+<p>&mdash; !!meta-data #binary
+header: !SCQStore {
+wireType: !WireType BINARY,
+writePosition: 0,
+roll: !SCQSRoll {
+length: !int 3600000,
+format: yyyyMMdd-HH,
+epoch: !int 3600000
+},
+indexing: !SCQSIndexing {
+indexCount: !short 4096,
+indexSpacing: 4,
+index2Index: 0,
+lastIndex: 0
+},
+lastAcknowledgedIndexReplicated: -1,
+recovery: !TimedStoreRecovery {
+timeStamp: 0
+}
+}</p>
+<p>&hellip;
+4198044 bytes remaining</p>
+<h2 id="reading-from-a-queue-using-a-tailer">Reading from a Queue using a Tailer</h2>
+<p>Reading the queue follows the same pattern as writing, except there is a possibility there is not a message when you attempt to read it.</p>
+<p>Start Reading</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">try</span> <span style="color:#f92672">(</span>ChronicleQueue queue <span style="color:#f92672">=</span> SingleChronicleQueueBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">binary</span><span style="color:#f92672">(</span>path <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/trades&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+   <span style="color:#66d9ef">final</span> ExcerptTailer tailer <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span><span style="color:#a6e22e">createTailer</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>You can turn each message into a method call based on the content of the message.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// reading using method calls
+</span><span style="color:#75715e"></span>RiskMonitor monitor <span style="color:#f92672">=</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">;</span>
+MethodReader reader <span style="color:#f92672">=</span> tailer<span style="color:#f92672">.</span><span style="color:#a6e22e">methodReader</span><span style="color:#f92672">(</span>monitor<span style="color:#f92672">);</span>
+<span style="color:#75715e">// read one message
+</span><span style="color:#75715e"></span>assertTrue<span style="color:#f92672">(</span>reader<span style="color:#f92672">.</span><span style="color:#a6e22e">readOne</span><span style="color:#f92672">());</span>
+</code></pre></div><p>You can decode the message yourself.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">assertTrue<span style="color:#f92672">(</span>tailer<span style="color:#f92672">.</span><span style="color:#a6e22e">readDocument</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> w<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;trade&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">marshallable</span><span style="color:#f92672">(</span>
+        m <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+            LocalDateTime timestamp <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;timestamp&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">dateTime</span><span style="color:#f92672">();</span>
+            String symbol <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;symbol&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">text</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">double</span> price <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;price&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">float64</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">double</span> quantity <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;quantity&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">float64</span><span style="color:#f92672">();</span>
+            Side side <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;side&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">object</span><span style="color:#f92672">(</span>Side<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+            String trader <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;trader&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">text</span><span style="color:#f92672">();</span>
+            <span style="color:#75715e">// do something with values.
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">})));</span>
+</code></pre></div><p>You can read self-describing data values. This will check the types are correct, and convert as required.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+assertTrue<span style="color:#f92672">(</span>tailer<span style="color:#f92672">.</span><span style="color:#a6e22e">readDocument</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+    ValueIn in <span style="color:#f92672">=</span> w<span style="color:#f92672">.</span><span style="color:#a6e22e">getValueIn</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">int32</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">long</span> num2 <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">int64</span><span style="color:#f92672">();</span>
+    String text <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">text</span><span style="color:#f92672">();</span>
+    <span style="color:#75715e">// do something with values
+</span><span style="color:#75715e"></span><span style="color:#f92672">}));</span>
+</code></pre></div><p>You can read raw data as primitives and strings.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">assertTrue<span style="color:#f92672">(</span>tailer<span style="color:#f92672">.</span><span style="color:#a6e22e">readBytes</span><span style="color:#f92672">(</span>in <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">int</span> code <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">readByte</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">readInt</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">long</span> num2 <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">readLong</span><span style="color:#f92672">();</span>
+    String text <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">readUtf8</span><span style="color:#f92672">();</span>
+    assertEquals<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello World&#34;</span><span style="color:#f92672">,</span> text<span style="color:#f92672">);</span>
+    <span style="color:#75715e">// do something with values
+</span><span style="color:#75715e"></span><span style="color:#f92672">}));</span>
+</code></pre></div><p>or, you can get the underlying memory address and access the native memory.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">assertTrue<span style="color:#f92672">(</span>tailer<span style="color:#f92672">.</span><span style="color:#a6e22e">readBytes</span><span style="color:#f92672">(</span>b <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">long</span> address <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span><span style="color:#a6e22e">address</span><span style="color:#f92672">(</span>b<span style="color:#f92672">.</span><span style="color:#a6e22e">readPosition</span><span style="color:#f92672">());</span>
+    Unsafe unsafe <span style="color:#f92672">=</span> UnsafeMemory<span style="color:#f92672">.</span><span style="color:#a6e22e">UNSAFE</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> code <span style="color:#f92672">=</span> unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">getByte</span><span style="color:#f92672">(</span>address<span style="color:#f92672">);</span>
+    address<span style="color:#f92672">++;</span>
+    <span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">getInt</span><span style="color:#f92672">(</span>address<span style="color:#f92672">);</span>
+    address <span style="color:#f92672">+=</span> 4<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">long</span> num2 <span style="color:#f92672">=</span> unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">getLong</span><span style="color:#f92672">(</span>address<span style="color:#f92672">);</span>
+    address <span style="color:#f92672">+=</span> 8<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> length <span style="color:#f92672">=</span> unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">getByte</span><span style="color:#f92672">(</span>address<span style="color:#f92672">);</span>
+    address<span style="color:#f92672">++;</span>
+    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>length<span style="color:#f92672">];</span>
+    unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">copyMemory</span><span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> address<span style="color:#f92672">,</span> bytes<span style="color:#f92672">,</span> Unsafe<span style="color:#f92672">.</span><span style="color:#a6e22e">ARRAY_BYTE_BASE_OFFSET</span><span style="color:#f92672">,</span> bytes<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">);</span>
+    String text <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span>bytes<span style="color:#f92672">,</span> StandardCharsets<span style="color:#f92672">.</span><span style="color:#a6e22e">UTF_8</span><span style="color:#f92672">);</span>
+    assertEquals<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello World&#34;</span><span style="color:#f92672">,</span> text<span style="color:#f92672">);</span>
+    <span style="color:#75715e">// do something with values
+</span><span style="color:#75715e"></span><span style="color:#f92672">}));</span>
+</code></pre></div><h3 id="tailers-and-file-handlers-clean-up">Tailers and File Handlers Clean up</h3>
+<p>Chronicle queue tailers may create file handlers, the file handlers are cleaned up whenever the associated chronicle queue is close() or whenever the Jvm runs a Garbage Collection.</p>
+<h3 id="excerpttailertoend">ExcerptTailer.toEnd()</h3>
+<p>In some applications, it may be necessary to start reading from the end of the queue (e.g. in a restart scenario). For this use-case, ExcerptTailer provides the toEnd() method.</p>
+<p>If it is necessary to read backwards through the queue from the end, then the tailer can be set to read backwards:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ExcerptTailer tailer <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span><span style="color:#a6e22e">createTailer</span><span style="color:#f92672">();</span>
+tailer<span style="color:#f92672">.</span><span style="color:#a6e22e">direction</span><span style="color:#f92672">(</span>TailerDirection<span style="color:#f92672">.</span><span style="color:#a6e22e">BACKWARD</span><span style="color:#f92672">).</span><span style="color:#a6e22e">toEnd</span><span style="color:#f92672">();</span>
+</code></pre></div><p>When reading backwards, then the toEnd() method will move the tailer to the last record in the queue. If the queue is not empty, then there will be a DocumentContext available for reading:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// this will be true if there is at least one message in the queue
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">boolean</span> messageAvailable <span style="color:#f92672">=</span> tailer<span style="color:#f92672">.</span><span style="color:#a6e22e">toEnd</span><span style="color:#f92672">().</span><span style="color:#a6e22e">direction</span><span style="color:#f92672">(</span>TailerDirection<span style="color:#f92672">.</span><span style="color:#a6e22e">BACKWARD</span><span style="color:#f92672">).</span>
+        readingDocument<span style="color:#f92672">().</span><span style="color:#a6e22e">isPresent</span><span style="color:#f92672">();</span>
+</code></pre></div><h1 id="low-gc">Low GC</h1>
+<p>Ultra low GC means less than one minor collection per day.</p>
+<p>the principles of Zero-copy eliminating unnecessary garbage collection and increased speed. Runtime code generation that reduces code size for efficient CPU cache usage and increased speed. Smart ordering for optimal parsing and you guessed it increased speed. All these combine to allow Chronicle FIX to achieve excellent performance results.</p>
+<h1 id="low-garbage-rate">Low garbage rate</h1>
+<p>Minimising garbage is key to avoiding GC pauses. To use your L1 and L2 cache efficiently, you need to keep your garbage rates very low.  If you are not using these cache efficiently your application can be 2-5x slower.</p>
+<p>The garbage from Chronicle is low enough that you can process one million events without jstat detecting you have created any garbage.  jstat only displays multiples of 4 KB, and only when a new TLAB is allocated.  Chronicle does create garbage, but it is extremely low. i.e. a few objects per million events processes.</p>
+<p>Once you make the GC pauses manageable, or non-existent, you start to see other sources of delay in your system.   Take away the boulders and you start to see the rocks.  Take away the rocks and you start to see the pebbles.</p>
+<h1 id="chronicle-has-minimal-interaction-with-the-operating-system">Chronicle has minimal interaction with the Operating System.</h1>
+<p>System calls are slow, and if you can avoid call the OS, you can save significant amounts of latency.</p>
+<p>For example, if you send a message over TCP on loopback, this can add a 10 micro-seconds latency between writing and reading the data.  You can write to a chronicle, which is a plain write to memory, and read from chronicle, which is also a read from memory with a latency of 0.2 micro-seconds. (And as I mentioned before, you get persistence as well)</p>
+<h1 id="no-need-to-worry-about-running-out-of-heap">No need to worry about running out of heap.</h1>
+<p>A common problem with unbounded queues and this uses an open ended amount of heap.</p>
+<p>Chronicle solves this by not using the heap to store data, but instead using memory mapped files.  This improve memory utilisation by making the data more compact but also means a 1 GB JVM can stream 1 TB of data over a day without worrying about the heap or how much main memory you have.  In this case, an unbounded queue becomes easier to manage.</p>
+<h1 id="how-it-works">how it works</h1>
+<p>Chronicle uses a memory mapped file to continuously journal messages, chronicles file-based storage will slowly grow in size as more data is written to the queue, the size of the queue can exceed your available memory, you are only constrained by the amount of disk space you have on your server. Chronicle writes data directly into off-heap memory which is shared between java processes on the same server.</p>
+<p>Chronicle is very fast, it is able to write and read a message in just two microseconds with no garbage. Typically at the end of each day, you archive the queue and start the next day with a fresh empty queue.</p>
+<h1 id="chronicle-queue-is-a-distributed-unbounded-persisted-queue">Chronicle Queue is a distributed unbounded persisted queue.</h1>
+<p>Chronicle Queue:</p>
+<p>supports asynchronous RMI and Publish/Subscribe interfaces with microsecond latencies.</p>
+<p>passes messages between JVMs in under a microsecond (in optimised examples)</p>
+<p>passes messages between JVMs on different machines via replication in under 10 microseconds (in optimised examples)</p>
+<p>provides stable, soft, real time latencies into the millions of messages per second for a single thread to one queue; with total ordering of every event.</p>
+<h2 id="queue-introduction">Queue introduction</h2>
+<p>Chronicle Queue is a Java project focused on building a persisted low-latency messaging framework for high performance and critical applications.</p>
+<p>Chronicle diagram 005
+At first glance Chronicle Queue can be seen as simply another queue implementation. However, it has major design choices that should be emphasised.</p>
+<p>Using non-heap storage options (RandomAccessFile), Chronicle Queue provides a processing environment where applications do not suffer from Garbage Collection (GC). When implementing high-performance and memory-intensive applications (you heard the fancy term &ldquo;bigdata&rdquo;?) in Java, one of the biggest problems is garbage collection.</p>
+<p>Garbage collection may slow down your critical operations non-deterministically at any time. In order to avoid non-determinism, and escape from garbage collection delays, off-heap memory solutions are ideal. The main idea is to manage your memory manually so it does not suffer from garbage collection. Chronicle Queue behaves like a management interface over off-heap memory so you can build your own solutions over it.</p>
+<p>Chronicle Queue uses RandomAccessFiles while managing memory and this choice brings lots of possibilities. RandomAccessFiles permit non-sequential, or random, access to a file’s contents. To access a file randomly, you open the file, seek a particular location, and read from or write to that file. RandomAccessFiles can be seen as &ldquo;large&rdquo; C-type byte arrays that you can access at any random index &ldquo;directly&rdquo; using pointers. File portions can be used as ByteBuffers if the portion is mapped into memory.</p>
+<p>This memory mapped file is also used for exceptionally fast interprocess communication (IPC) without affecting your system performance. There is no garbage collection as everything is done off-heap.</p>
+<h2 id="message-type">Message type</h2>
+<ul>
+<li>TCP: Stream-oriented</li>
+<li>UDP, SCTP: message-oriented .</li>
+</ul>
+<h2 id="on-heap-vs-off-heap-memory-usage">On heap vs off heap memory usage</h2>
+<p>Overview</p>
+<p>I was recently asked about the benefits and wisdom of using off heap memory in Java.  The answers may be of interest to others facing the same choices.</p>
+<p>Off heap memory is nothing special.  The thread stacks, application code, NIO buffers are all off heap.  In fact in C and C++, you only have unmanaged memory as it does not have a managed heap by default.  The use of managed memory or &ldquo;heap&rdquo; in Java is a special feature of the language. Note: Java is not the only language to do this.
+new Object() vs Object pool vs Off Heap memory.</p>
+<p>new Object()</p>
+<p>Before Java 5.0, using object pools was very popular.  Creating objects was still very expensive.   However, from Java 5.0, object allocation and garbage cleanup was made much cheaper, and developers found they got a performance speed up and a simplification of their code by removing object pools and just creating new objects whenever needed.  Before Java 5.0, almost any object pool, even an object pool which used objects provided an improvement, from Java 5.0 pooling only expensive objects obviously made sense e.g. threads, socket and database connections.</p>
+<p>Object pools</p>
+<p>In the low latency space it was still apparent that recycling mutable objects improved performance by reduced pressure on your CPU caches.  These objects have to have simple life cycles and have a simple structure, but you could see significant improvements in performance and jitter by using them.
+Another area where it made sense to use object pools is when loading large amounts of data with many duplicate objects. With a significant reduction in memory usage and a reduction in the number of objects the GC had to manage, you saw a reduction in GC times and an increase in throughput.
+These object pools were designed to be more light weight than say using a synchronized HashMap, and so they still helped.</p>
+<p>Take this StringInterner class as an example. You pass it a recycled mutable StringBuilder of the text you want as a String and it will provide a String which matches.  Passing a String would be inefficient as you would have already created the object.  The StringBuilder can be recycled.
+Note: this structure has an interesting property that requires no additional thread safety features, like volatile or synchronized, other than is provided by the minimum Java guarantees. i.e. you can see the final fields in a String correctly and only read consistent references.</p>
+<p>public class StringInterner {
+private final String[] interner;
+private final int mask;
+public StringInterner(int capacity) {
+int n = Maths.nextPower2(capacity, 128);
+interner = new String[n];
+mask = n - 1;
+}</p>
+<pre><code>private static boolean isEqual(@Nullable CharSequence s, @NotNull CharSequence cs) {
+    if (s == null) return false;
+    if (s.length() != cs.length()) return false;
+    for (int i = 0; i &lt; cs.length(); i++)
+        if (s.charAt(i) != cs.charAt(i))
+            return false;
+    return true;
+}
+
+@NotNull
+public String intern(@NotNull CharSequence cs) {
+    long hash = 0;
+    for (int i = 0; i &lt; cs.length(); i++)
+        hash = 57 * hash + cs.charAt(i);
+    int h = (int) Maths.hash(hash) &amp; mask;
+    String s = interner[h];
+    if (isEqual(s, cs))
+        return s;
+    String s2 = cs.toString();
+    return interner[h] = s2;
+}
+</code></pre>
+<p>}
+Off heap memory usage</p>
+<p>Using off heap memory and using object pools both help reduce GC pauses, this is their only similarity.  Object pools are good for short lived mutable objects, expensive to create objects and long live immutable objects where there is a lot of duplication.  Medium lived mutable objects, or complex objects are more likely to be better left to the GC to handle.  However, medium to long lived mutable objects suffer in a number of ways which off heap memory solves.</p>
+<p>Off heap memory provides;</p>
+<p>Scalability to large memory sizes e.g. over 1 TB and larger than main memory.
+Notional impact on GC pause times.
+Sharing between processes, reducing duplication between JVMs, and making it easier to split JVMs.
+Persistence for faster restarts or replying of production data in test.
+The use of off heap memory gives you more options in terms of how you design your system.  The most important improvement is not performance, but determinism.</p>
+<p>Off heap and testing</p>
+<p>One of the biggest challenges in high performance computing is reproducing obscure bugs and being able to prove you have fixed them.  By storing all your input events and data off heap in a persisted way you can turn your critical systems into a series of complex state machines. (Or in simple cases, just one state machine) In this way you get reproducible behaviour and performance between test and production.</p>
+<p>A number of investment banks use this technique to replay a system reliably to any event in the day and work out exactly why that event was processed the way it was.  More importantly, once you have a fix you can show that you have fixed the issue which occurred in production, instead of finding an issue and hoping this was the issue.</p>
+<p>Along with deterministic behaviour comes deterministic performance.  In test environments, you can replay the events with realistic timings and show the latency distribution you expect to get in production.  Some system jitter can&rsquo;t be reproduce esp if the hardware is not the same, but you can get pretty close when you take a statistical view.  To avoid taking a day to replay a day of data you can add a threshold. e.g. if the time between events is more than 10 ms you might only wait 10 ms.  This can allow you to replay a day of events with realistic timing in under an hour and see whether your changes have improved your latency distribution or not.</p>
+<p>By going more low level don&rsquo;t you lose some of &ldquo;compile once, run anywhere&rdquo;?</p>
+<p>To some degree this is true, but it is far less than you might think.  When you are working closer the processor and so you are more dependant on how the processor, or OS behaves.  Fortunately, most systems use AMD/Intel processors and even ARM processors are becoming more compatible in terms of the low level guarantees they provide.  There is also differences in the OSes, and these techniques tend to work better on Linux than Windows.  However, if you develop on MacOSX or Windows and use Linux for production, you shouldn&rsquo;t have any issues.  This is what we do at Higher Frequency Trading.</p>
+<p>What new problems are we creating by using off heap?</p>
+<p>Nothing comes for free, and this is the case with off heap.  The biggest issue with off heap is your data structures become less natural.  You either need a simple data structure which can be mapped directly to off heap, or you have a complex data structure which serializes and deserializes to put it off heap.  Obvious using serialization has its own headaches and performance hit.  Using serialization thus much slower than on heap objects.</p>
+<p>In the financial world, most high ticking data structure are flat and simple, full of primitives which maps nicely off heap with little overhead.</p>
+<h1 id="how-does-chronicle-queue-work">How does Chronicle Queue work</h1>
+<h2 id="terminology">Terminology</h2>
+<ul>
+<li>Messages are grouped by topics. A topic can contain any number of sub-topics which are logically stored together under the queue/topic.</li>
+<li>An appender is the source of messages.</li>
+<li>A tailer is a receiver of messages.</li>
+<li>Chronicle Queue is <code>broker-less</code> by default. You can use Chronicle Engine to act as a broker for remote access.</li>
+</ul>
+<blockquote>
+<p>Note
+We deliberately avoid the term consumer as messages are not consumed/destroyed by reading.</p>
+</blockquote>
+<h2 id="at-a-high-level">At a high level:</h2>
+<ul>
+<li>
+<p>appenders write to the end of a queue. There is no way to insert, or delete excerpts.</p>
+</li>
+<li>
+<p>tailers read the next available message each time they are called.</p>
+</li>
+</ul>
+<p>By using Chronicle Engine, a Java or C# client can publish to a queue to act as a remote appender, and you subscribe to a queue to act as a remote tailer.</p>
+<h2 id="topics-and-queue-files">Topics and Queue files</h2>
+<p>Each topic is a directory of queues. There is a file for each roll cycle. If you have a topic called mytopic, the layout could look like this:</p>
+<p>mytopic/
+20160710.cq4
+20160711.cq4
+20160712.cq4
+20160713.cq4
+To copy all the data for a single day (or cycle), you can copy the file for that day on to your development machine for replay testing.</p>
+<p>Appenders and tailers are cheap as they don’t even require a TCP connection; they are just a few Java objects.</p>
+<h2 id="file-retention">File Retention</h2>
+<p>You can add a StoreFileListener to notify you when a file is added, or no longer used. This can be used to delete files after a period of time. However, by default, files are retained forever. Our largest users have over 100 TB of data stored in queues.</p>
+<h2 id="every-tailer-sees-every-message">Every Tailer sees every message.</h2>
+<p>An abstraction can be added to filter messages, or assign messages to just one message processor. However, in general you only need one main tailer for a topic, with possibly, some supporting tailers for monitoring etc.</p>
+<p>As Chronicle Queue doesn’t partition its topics, you get total ordering of all messages within that topic. Across topics, there is no guarantee of ordering; if you want to replay deterministically from a system which consumes from multiple topics, we suggest replaying from that system’s output.</p>
+<h1 id="guarantees">Guarantees</h1>
+<p>Chronicle Queue provides the following guarantees;</p>
+<p>for each appender, messages are written in the order the appender wrote them. Messages by different appenders are interleaved,</p>
+<p>for each tailer, it will see every message for a topic in the same order as every other tailer,</p>
+<p>when replicated, every replica has a copy of every message.</p>
+<h1 id="use-cases">Use Cases</h1>
+<p>Chronicle Queue is most often used for producer-centric systems where you need to retain a lot of data for days or years.</p>
+<h2 id="what-is-a-producer-centric-system">What is a producer-centric system?</h2>
+<p>Most messaging systems are consumer-centric. Flow control is implemented to avoid the consumer ever getting overloaded; even momentarily. A common example is a server supporting multiple GUI users. Those users might be on different machines (OS and hardware), different qualities of network (latency and bandwidth), doing a variety of other things at different times. For this reason it makes sense for the client consumer to tell the producer when to back off, delaying any data until the consumer is ready to take more data.</p>
+<p>Chronicle Queue is a producer-centric solution and does everything possible to never push back on the producer, or tell it to slow down. This makes it a powerful tool, providing a big buffer between your system, and an upstream producer over which you have little, or no, control.</p>
+<p>For market data in particular, real time means in a few microseconds; it doesn’t mean intra-day (during the day).</p>
+<p>Chronicle Queue is fast and efficient, and has been used to increase the speed that data is passed between threads. In addition, it also keeps a record of every message passed allowing you to significantly reduce the amount of logging that you need to do.</p>
+<h2 id="latency-sensitive-micro-services">Latency Sensitive Micro-services</h2>
+<p>Chronicle Queue supports low latency IPC (Inter Process Communication) between JVMs on the same machine in the order of magnitude of 1 microsecond; as well as between machines with a typical latency of 10 microseconds for modest throughputs of a few hundred thousands. Chronicle Queue supports throughputs of millions of events per second, with stable microsecond latencies.</p>
+<h2 id="log-replacement">Log Replacement</h2>
+<p>As Chronicle Queue can be used to build state machines. All the information about the state of those components can be reproduced externally, without direct access to the components, or to their state. This significantly reduces the need for additional logging.</p>
+<p>However, any logging you do need can be recorded in great detail. This makes enabling DEBUG logging in production practical. This is because the cost of logging is very low; less than 10 microseconds. Logs can be replicated centrally for log consolidation.</p>
+<p>Chronicle Queue is being used to store 100+ TB of data, which can be replayed from any point in time.</p>
+<h1 id="source-code">Source code</h1>
+<h2 id="mappedfile">MappedFile</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> net.openhft.chronicle.bytes<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> net.openhft.chronicle.core.Jvm<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> net.openhft.chronicle.core.OS<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> net.openhft.chronicle.core.ReferenceCounted<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> net.openhft.chronicle.core.ReferenceCounter<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> net.openhft.chronicle.core.io.IORuntimeException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> org.jetbrains.annotations.NotNull<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> org.jetbrains.annotations.Nullable<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.io.File<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.FileNotFoundException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.IOException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.RandomAccessFile<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.ref.WeakReference<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.nio.channels.FileChannel<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.nio.channels.FileChannel.MapMode<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.nio.channels.FileLock<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.nio.file.Files<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.concurrent.atomic.AtomicBoolean<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import static</span> net.openhft.chronicle.core.io.Closeable.closeQuietly<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * A memory mapped files which can be randomly accessed in chunks. It has overlapping regions to
+</span><span style="color:#75715e"> * avoid wasting bytes at the end of chunks.
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MappedFile</span> <span style="color:#66d9ef">implements</span> ReferenceCounted <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> DEFAULT_CAPACITY <span style="color:#f92672">=</span> 128L <span style="color:#f92672">&lt;&lt;</span> 40<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// A single JVM cannot lock a file more than once.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Object GLOBAL_FILE_LOCK <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">();</span>
+    <span style="color:#a6e22e">@NotNull</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> RandomAccessFile raf<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> FileChannel fileChannel<span style="color:#f92672">;</span>
+</code></pre></div><p>public interface BytesStore extends RandomDataInput, RandomDataOutput, ReferencedCount, CharSequence</p>
+<p>public interface Memory {
+default long heapUsed() {
+Runtime runtime = Runtime.getRuntime();
+return runtime.totalMemory() - runtime.freeMemory();
+}</p>
+<pre><code>@Override
+@ForceInline
+public void writeByte(long address, byte b) {
+    UNSAFE.putByte(address, b);
+}
+</code></pre>
+<p>/**</p>
+<ul>
+<li>Marker annotation for some methods and constructors in the JSR 292 implementation.</li>
+<li>
+<!-- raw HTML omitted -->
+</li>
+<li>To utilise this annotation se Chronicle Enterprise Warmup module.
+*/
+@Target({ElementType.METHOD, ElementType.CONSTRUCTOR})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ForceInline {
+}</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="https://github.com/OpenHFT/Chronicle-Queue">https://github.com/OpenHFT/Chronicle-Queue</a></li>
+<li><a href="http://vanillajava.blogspot.com/2015/08/what-does-chronicle-software-do.html">http://vanillajava.blogspot.com/2015/08/what-does-chronicle-software-do.html</a></li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

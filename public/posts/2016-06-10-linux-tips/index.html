@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Linux Tips | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Linux Tips" />
+<meta property="og:description" content="Get permission denied error when sudo su (or hyphen in sudo command) bash: /home/YOURNAME/.bashrc: Permission denied That&rsquo;s because you didn&rsquo;t add &ldquo;-&rdquo; hyphen in your sudo command.
+The difference between &ldquo;-&rdquo; and &ldquo;no hyphen&rdquo; is that the latter keeps your existing environment (variables, etc); the former creates a new environment (with the settings of the actual user, not your own).
+The hyphen has two effects:
+  switches from the current directory to the home directory of the new user (e." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2016-06-10-linux-tips/" />
+
+<meta itemprop="name" content="Linux Tips">
+<meta itemprop="description" content="Get permission denied error when sudo su (or hyphen in sudo command) bash: /home/YOURNAME/.bashrc: Permission denied That&rsquo;s because you didn&rsquo;t add &ldquo;-&rdquo; hyphen in your sudo command.
+The difference between &ldquo;-&rdquo; and &ldquo;no hyphen&rdquo; is that the latter keeps your existing environment (variables, etc); the former creates a new environment (with the settings of the actual user, not your own).
+The hyphen has two effects:
+  switches from the current directory to the home directory of the new user (e.">
+
+<meta itemprop="wordCount" content="1519">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux Tips"/>
+<meta name="twitter:description" content="Get permission denied error when sudo su (or hyphen in sudo command) bash: /home/YOURNAME/.bashrc: Permission denied That&rsquo;s because you didn&rsquo;t add &ldquo;-&rdquo; hyphen in your sudo command.
+The difference between &ldquo;-&rdquo; and &ldquo;no hyphen&rdquo; is that the latter keeps your existing environment (variables, etc); the former creates a new environment (with the settings of the actual user, not your own).
+The hyphen has two effects:
+  switches from the current directory to the home directory of the new user (e."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2016-06-10-linux-tips/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2016-06-10-linux-tips/&amp;text=Linux%20Tips" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2016-06-10-linux-tips/&amp;title=Linux%20Tips" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Linux Tips</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="get-permission-denied-error-when-sudo-su-or-hyphen-in-sudo-command">Get permission denied error when sudo su (or hyphen in sudo command)</h1>
+<p>bash: /home/YOURNAME/.bashrc: Permission denied
+That&rsquo;s because you didn&rsquo;t add &ldquo;-&rdquo; hyphen in your sudo command.</p>
+<p>The difference between &ldquo;-&rdquo; and &ldquo;no hyphen&rdquo; is that the latter keeps your existing environment (variables, etc); the former creates a new environment (with the settings of the actual user, not your own).</p>
+<p>The hyphen has two effects:</p>
+<ol>
+<li>
+<p>switches from the current directory to the home directory of the new user (e.g., to /root in the case of the root user) by logging in as that user</p>
+</li>
+<li>
+<p>changes the environmental variables to those of the new user as dictated by their ~/.bashrc. That is, if the first argument to su is a hyphen, the current directory and environment will be changed to what would be expected if the new user had actually logged on to a new session (rather than just taking over an existing session).</p>
+</li>
+</ol>
+<h1 id="to-delete-lines-in-files-contain-pattern">To delete lines in files contain pattern</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sed -i <span style="color:#e6db74">&#39;/.*167\=OPT.*/d&#39;</span> testdata.txt
+</code></pre></div><h1 id="to-select-only-only-one-element-value-of-xml-file-">to select only only one element value of XML file :</h1>
+<p>grep -oPm1 &ldquo;(?&lt;=<!-- raw HTML omitted -->)[^&lt;]+&rdquo;</p>
+<h1 id="to-check-linux-release-name">To check Linux release name</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat /etc/os-release
+</code></pre></div><h1 id="how-to-check-whether-your-linux-is-32bit-or-64-bit">How to check whether your linux is 32bit or 64 bit</h1>
+<p>To run &ldquo;arch&rdquo; command,  this is similar to &ldquo;uname -m&rdquo; , it prints to the screen whether your system is running 32-bit (“i686”) or 64-bit (“x86_64”).</p>
+<h1 id="convert-line-ending-to-unix-sometimes-git-submit-is-dos-format">convert line ending to unix (sometimes git submit is dos format)</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">dos2unix the_script_file_name
+</code></pre></div><h1 id="to-check-redhat-linux-version">To check redhat Linux version</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat  /etc/redhat-release
+</code></pre></div><h1 id="to-list-all-users-in-linux">To list all users in linux</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat /etc/passwd
+</code></pre></div><h1 id="show-ip-address-in-linux">Show IP address in Linux</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:50:56:9B:19:81
+          inet addr:133.14.16.5  Bcast:133.14.16.255  Mask:255.255.255.0
+</code></pre></div><h1 id="check-system-resource">Check system resource</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">execute <span style="color:#e6db74">`</span>cat /proc/cpuinfo<span style="color:#e6db74">`</span> and <span style="color:#e6db74">`</span>free -m<span style="color:#e6db74">`</span> to gain information about the server’s CPU and memory.
+</code></pre></div><h1 id="chmod-command">chmod command</h1>
+<p>From one to four octal digits
+Any omitted digits are assumed to be leading zeros.</p>
+<p>The first digit = selects attributes for the set user ID (4) and set group ID (2) and save text image (1)S
+The second digit = permissions for the user who owns the file: read (4), write (2), and execute (1)
+The third digit = permissions for other users in the file&rsquo;s group: read (4), write (2), and execute (1)
+The fourth digit = permissions for other users NOT in the file&rsquo;s group: read (4), write (2), and execute (1)</p>
+<p>The octal (0-7) value is calculated by adding up the values for each digit
+User (rwx) = 4+2+1 = 7
+Group(rx) = 4+1 = 5
+World (rx) = 4+1 = 5
+chmode mode = 0755</p>
+<p>Examples</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">chmod <span style="color:#ae81ff">400</span> file - Read by owner
+chmod <span style="color:#ae81ff">040</span> file - Read by group
+chmod <span style="color:#ae81ff">004</span> file - Read by world 
+
+chmod <span style="color:#ae81ff">200</span> file - Write by owner
+chmod <span style="color:#ae81ff">020</span> file - Write by group
+chmod <span style="color:#ae81ff">002</span> file - Write by world
+</code></pre></div><h1 id="top">top</h1>
+<ul>
+<li>enter u, then user id to show only user process</li>
+<li>Z: global color scheme, e.g. red or green</li>
+<li>B: global bold for all</li>
+<li>z: show color, then b to hightlight, and x highlight sort fidl, y highlight running tasks</li>
+<li>#3: show only 3 threads</li>
+<li>c: show command line</li>
+<li>F: sort, e.g. Fk sort by CPU%</li>
+<li>R: reverse order</li>
+</ul>
+<h1 id="sample-config-files">Sample config files</h1>
+<h2 id="vimrc">.vimrc</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
+set number
+set incsearch
+set hlsearch
+syntax on
+colorscheme desert
+</code></pre></div><h2 id="-screenrc--">==== screenrc  =</h2>
+<p><a href="https://gist.githubusercontent.com/ChrisWills/1337178/raw/8275b66c3ea86a562cdaa16f1cc6d9931d521e1b/.screenrc-main-example">https://gist.githubusercontent.com/ChrisWills/1337178/raw/8275b66c3ea86a562cdaa16f1cc6d9931d521e1b/.screenrc-main-example</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># GNU Screen - main configuration file</span> 
+<span style="color:#75715e"># All other .screenrc files will source this file to inherit settings.</span>
+<span style="color:#75715e"># Author: Christian Wills - cwills.sys@gmail.com</span>
+
+<span style="color:#75715e"># Allow bold colors - necessary for some reason</span>
+attrcolor b <span style="color:#e6db74">&#34;.I&#34;</span>
+
+<span style="color:#75715e"># Tell screen how to set colors. AB = background, AF=foreground</span>
+termcapinfo xterm <span style="color:#e6db74">&#39;Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm&#39;</span>
+
+<span style="color:#75715e"># Enables use of shift-PgUp and shift-PgDn</span>
+termcapinfo xterm|xterms|xs|rxvt ti@:te@
+
+<span style="color:#75715e"># Erase background with current bg color</span>
+defbce <span style="color:#e6db74">&#34;on&#34;</span>
+
+<span style="color:#75715e"># Enable 256 color term</span>
+term xterm-256color
+
+<span style="color:#75715e"># Cache 30000 lines for scroll back</span>
+defscrollback <span style="color:#ae81ff">30000</span>
+
+<span style="color:#75715e"># New mail notification</span>
+<span style="color:#75715e"># backtick 101 30 15 $HOME/bin/mailstatus.sh</span>
+
+hardstatus alwayslastline 
+<span style="color:#75715e"># Very nice tabbed colored hardstatus line</span>
+hardstatus string <span style="color:#e6db74">&#39;%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}&#39;</span>
+
+<span style="color:#75715e"># change command character from ctrl-a to ctrl-b (emacs users may want this)</span>
+<span style="color:#75715e">#escape ^Bb</span>
+
+<span style="color:#75715e"># Hide hardstatus: ctrl-a f</span> 
+bind f eval <span style="color:#e6db74">&#34;hardstatus ignore&#34;</span>
+<span style="color:#75715e"># Show hardstatus: ctrl-a F</span>
+bind F eval <span style="color:#e6db74">&#34;hardstatus alwayslastline&#34;</span>
+</code></pre></div><h2 id="bashrc-">====================.bashrc ==========</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># .bashrc</span>
+
+<span style="color:#75715e"># Source global definitions</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /etc/bashrc <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        . /etc/bashrc
+<span style="color:#66d9ef">fi</span>
+<span style="color:#75715e"># source ./prompt</span>
+export PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>
+
+export PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[\e[104mLight blue \u \A\]$ &#39;</span>
+
+export PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\[\e[32m\]\u@\h \d \t \w \[\e[m\] \\</span>$<span style="color:#e6db74">&#34;</span>
+
+<span style="color:#ae81ff">\e</span><span style="color:#f92672">[</span>104mLight blue
+
+<span style="color:#75715e"># Welcome message</span>
+echo -ne <span style="color:#e6db74">&#34;Good Morning ! It&#39;s &#34;</span>; date <span style="color:#e6db74">&#39;+%A, %B %-d %Y&#39;</span>
+echo -e <span style="color:#e6db74">&#34;And now your moment of Zen:&#34;</span>; fortune
+echo
+echo <span style="color:#e6db74">&#34;Hardware Information:&#34;</span>
+sensors  <span style="color:#75715e"># Needs: &#39;sudo apt-get install lm-sensors&#39;</span>
+uptime   <span style="color:#75715e"># Needs: &#39;sudo apt-get install lsscsi&#39;</span>
+free -m
+
+<span style="color:#75715e"># User specific aliases and functions</span>
+
+PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\[`[ $? = 0 ] &amp;&amp; X=2 || X=1; tput setaf $X`\]\h\[`tput sgr0`\]:$PWD\n\$ &#39;</span>
+
+<span style="color:#f92672">============</span>vimrc <span style="color:#f92672">=========</span>
+set number
+set incsearch
+set hlsearch
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+grep -v <span style="color:#e6db74">&#34;unwanted_word&#34;</span> file | grep XXXXXXXX
+
+// find command exclude “permission denied”
+$ find . -name <span style="color:#e6db74">&#34;java&#34;</span> 2&gt;/dev/null
+</code></pre></div><h1 id="passwordless-connection-in-putty">Passwordless connection in putty</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">1. Generate Public &amp; private key pair by keygen
+2. Log into Linux, nano .ssh/authorized_keys and paste the public key
+3. Save the private key in putty and load it in Putty session
+</code></pre></div><h1 id="find-java-files-older-than-3-days">find java files older than 3 days</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">find . -name <span style="color:#e6db74">&#34;*.java&#34;</span> -atime -3d
+</code></pre></div><h1 id="remove-capitalization">Remove capitalization</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sed -ie <span style="color:#e6db74">&#39;s/Return /return /g&#39;</span> ReverseString.java 
+</code></pre></div><h1 id="replace-string-in-files">replace string in files</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#grep -r &#34;pack.*me&#34; .</span>
+sed -ie <span style="color:#e6db74">&#39;s/package.*me.*;/package com.todzhang;/g&#39;</span> *.java
+sed -ie <span style="color:#e6db74">&#39;s/package me.todzhang;/package com.todzhang;/g&#39;</span> ~/dev/git/algo/algoWS/src/main/java/com/todzhang/*.java
+</code></pre></div><h1 id="create-directory-hierarchy-via-path">create directory hierarchy via path</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir -p ~/abc/def/egg
+</code></pre></div><p><code>-p</code> means create intermediary folders, if not exist. Those intermediary folders with permission 777</p>
+<h1 id="lsof-to-locate-whetherwho-allocated-port-8080">lsof to locate whether/who allocated port 8080</h1>
+<p><code>lsof</code> means list open files.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">lsof -n -P -i | grep <span style="color:#ae81ff">8080</span>
+</code></pre></div><h1 id="to-get-rid-of-">To get rid of '&rsquo;</h1>
+<p>Sometimes got &ldquo;403 Forbidden&rdquo; error when trying to downalod file via wget, e.g.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ wget http://www.xmind.net/xmind/downloads/xmind-7.5-update1-macosx.dmg
+--2016-09-09 23:27:29--  http://www.xmind.net/xmind/downloads/xmind-7.5-update1-macosx.dmg
+Resolving www.xmind.net... 23.23.188.223
+Connecting to www.xmind.net|23.23.188.223|:80... connected.
+HTTP request sent, awaiting response... <span style="color:#ae81ff">403</span> Forbidden
+2016-09-09 23:27:29 ERROR 403: Forbidden.
+</code></pre></div><p>To solve this problem, using following syntax, adding <code>-U xx</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">wget -U <span style="color:#e6db74">&#39;Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.6) Gecko/20070802 SeaMonkey/1.1.4&#39;</span> http://www.xmind.net/xmind/downloads/xmind-7.5-update1-macosx.dmg
+</code></pre></div><h1 id="case-insensitive-ls-command-in-bash">case insensitive ls command in bash</h1>
+<p>Update .bashrc or current active window</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">shopt -s nocaseglob
+</code></pre></div><h1 id="one-line-command-to-download-and-extract-files">one line command to download and extract files</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$cd /tmp;curl https://www.kernel.org/pub/linux/utils/util-linux/v2.24/util-linux-2.24.tar.gz	| tar -zxf-;cd	util-linux-2.24;
+</code></pre></div><h1 id="redirect-request-for-http-3xxx-code">Redirect request for HTTP 3xxx code</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+</code></pre></div><p><code>-L</code> means redirect upon HTTP code 3xxx
+<code>-Ss</code> work together to make the curl show errors if there are
+<code>-o</code> means output to a specified file, rather than stdout</p>
+<h1 id="search-files-contains-keyword">search files contains keyword</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">grep -ri <span style="color:#e6db74">&#39;architect&#39;</span> . | awk -F <span style="color:#e6db74">&#39;:&#39;</span> <span style="color:#e6db74">&#39;{print $1}&#39;</span>
+</code></pre></div><h1 id="show-linux-kernel-and-name">Show Linux kernel and name</h1>
+<h2 id="lsb_release">lsb_release</h2>
+<p><code>lsb</code> means Linux Standard Base , <code>-a</code> means print all information</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">lsb_release -a -u
+</code></pre></div><p>will output</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">phray@phray-VirtualBox ~ $ lsb_release -a -u
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 14.04 LTS
+Release:	14.04
+Codename:	trusty
+</code></pre></div><h2 id="etcos-release">/etc/os-release</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat /etc/os-release
+</code></pre></div><p>will output Following</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">phray@phray-VirtualBox ~ $ cat /etc/os-release
+NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Ubuntu&#34;</span>
+VERSION<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;14.04.2 LTS, Trusty Tahr&#34;</span>
+ID<span style="color:#f92672">=</span>ubuntu
+ID_LIKE<span style="color:#f92672">=</span>debian
+PRETTY_NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Ubuntu 14.04.2 LTS&#34;</span>
+VERSION_ID<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;14.04&#34;</span>
+HOME_URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.ubuntu.com/&#34;</span>
+SUPPORT_URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://help.ubuntu.com/&#34;</span>
+BUG_REPORT_URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://bugs.launchpad.net/ubuntu/&#34;</span>
+</code></pre></div><p>Following is the command found in docker.sh</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">lsb_dist<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>lsb_release -a -u 2&gt;&amp;<span style="color:#ae81ff">1</span> | tr <span style="color:#e6db74">&#39;[:upper:]&#39;</span> <span style="color:#e6db74">&#39;[:lower:]&#39;</span> | grep -E <span style="color:#e6db74">&#39;id&#39;</span> | cut -d <span style="color:#e6db74">&#39;:&#39;</span> -f <span style="color:#ae81ff">2</span> | tr -d <span style="color:#e6db74">&#39;[[:space:]]&#39;</span><span style="color:#66d9ef">)</span>
+</code></pre></div><p>show the 2nd column</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">lsb_release --Codename | cut -f2
+</code></pre></div><h2 id="gpsswd">gpsswd</h2>
+<p>DESCRIPTION
+gpasswd is used to administer the /etc/group file (and /etc/gshadow file if compiled with SHADOWGRP defined). Every group can have administrators, members and a password. System administrator can use -A option to define group administrator(s) and -M option to define members and has all rights of group administrators and members.</p>
+<p>Notes about group passwords
+Group passwords are an inherent security problem since more than one person is permitted to know the password. However, groups are a useful tool for permitting co-operation between different users.</p>
+<p>OPTIONS
+Group administrator can add and delete users using -a and -d options respectively. Administrators can use -r option to remove group password. When no password is set only group members can use newgrp to join the group. Option -R disables access via a password to the group through newgrp command (however members will still be able to switch to this group).</p>
+<p>gpasswd called by a group administrator with group name only prompts for the group password. If password is set the members can still newgrp(1) without a password, non-members must supply the password.</p>
+<p>FILES
+Tag	Description
+/etc/group
+Group account information.
+/etc/gshadow
+Secure group account information.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo gpasswd -a USER docker
+</code></pre></div><h1 id="compare-files-difference-in-two-folders">Compare files difference in two folders</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">diff -rq ~/dev/pa ~/dev/hexo/myblog/source/_posts
+</code></pre></div><p>This used option <code>-r</code> (recursive) and <code>-q</code> quite, means only show differences</p>
+<h1 id="to-execut-shellunix-command-within-vim">To execut shell/unix command within vim</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">:~ls -lt
+</code></pre></div><h1 id="to-open-find-result-with-sublime">To open find result with sublime</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">find . -name <span style="color:#e6db74">&#34;*Linux*.md&#34;</span> | xargs sublime 
+find . -name <span style="color:#e6db74">&#34;*Linux*.md&#34;</span> | xargs sublime ~ <span style="color:#75715e"># open in new Sublime window</span>
+</code></pre></div><h1 id="to-vimvim-edit-directly-on-file-output-by-find-command">To vim/vim edit directly on file output by find command</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">find . -name <span style="color:#e6db74">&#34;*tmux*&#34;</span> -exec vim <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span>
+</code></pre></div><p>Be advised you may experience following error message</p>
+<blockquote>
+<p>find: missing argument to `-exec&rsquo;</p>
+</blockquote>
+<p>actually you should add a slash in front of semi colon</p>
+<h1 id="quite-mode-in-apt-get">quite mode in apt-get</h1>
+<ul>
+<li>apt-get will in verbose mode</li>
+<li>apt-get <code>-q</code> will be in less verbose , a.k.a quite mode</li>
+<li>apt-get <code>-qq</code> in extreme least verbose mode</li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

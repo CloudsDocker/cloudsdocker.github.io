@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Maven-Notes | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Maven-Notes" />
+<meta property="og:description" content="Maven philosophy  “It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies and their versions.”  Concepts Life cycles Maven defines three Lifecycles ֠default, clean and site and each Lifecycle consists of predefined Phases.
+The clean argument which we pass to mvn command is phase which is in lifecycle named clean." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-02-03-maven-notes/" />
+
+<meta itemprop="name" content="Maven-Notes">
+<meta itemprop="description" content="Maven philosophy  “It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies and their versions.”  Concepts Life cycles Maven defines three Lifecycles ֠default, clean and site and each Lifecycle consists of predefined Phases.
+The clean argument which we pass to mvn command is phase which is in lifecycle named clean.">
+
+<meta itemprop="wordCount" content="5372">
+
+
+
+<meta itemprop="keywords" content="java,maven," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Maven-Notes"/>
+<meta name="twitter:description" content="Maven philosophy  “It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies and their versions.”  Concepts Life cycles Maven defines three Lifecycles ֠default, clean and site and each Lifecycle consists of predefined Phases.
+The clean argument which we pass to mvn command is phase which is in lifecycle named clean."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-02-03-maven-notes/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-02-03-maven-notes/&amp;text=Maven-Notes" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-02-03-maven-notes/&amp;title=Maven-Notes" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Maven-Notes</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="maven-philosophy">Maven philosophy</h1>
+<ul>
+<li>“It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies and their versions.”</li>
+</ul>
+<h1 id="concepts">Concepts</h1>
+<h2 id="life-cycles">Life cycles</h2>
+<p>Maven defines three Lifecycles ֠default, clean and site and each Lifecycle consists of predefined Phases.</p>
+<p>The clean argument which we pass to mvn command is phase which is in lifecycle named clean.</p>
+<p>Maven Lifecycle Phases clean lifecycle
+The clean lifecycle contains three phases pre-clean, clean and post-clean .
+When we invoke command mvn clean, Maven loads Clean Lifecycle and executes the phases pre-clean and clean.
+We can invoke any of these three phases and all preceding phases up to and including the invoked phase are executed sequentially.</p>
+<p>Lifecycle phases can&rsquo;s do anything by themselves. For example, phase clean by itself doesnӴ have ability or functionality to delete the build directory. It delegate the task to a plugin named maven-clean-plugin. So, lifecycles phases are just some predefined steps which Maven invokes sequentially one after another. As we can see, phases are similar to the steps in a job which are executed one after another.</p>
+<h1 id="concepts-summary">Concepts summary</h1>
+<p>Lifecycles, Lifecycle Phases, Plugins and Plugin Goals are the core of Maven. and we summarize the concepts learned so far:
+Maven comes with three lifecycles ֠default, clean and site.
+each lifecycle is made up of lifecycle phases and in all, there are 28 phases ֠default 21, clean 3 and site 4.
+when a lifecycle phase is invoked using mvn command, all preceding phases are executed sequentially one after another.
+lifecycle phases by themselves doesnӴ have any capabilities to accomplish some task and they rely on plugins to carryout the task.
+depending on project and packaging type, Maven binds various plugin goals to lifecycle phases and goals carryout the task entrusted to them.</p>
+<h3 id="default-lifecycle">default lifecycle</h3>
+<p>Default Lifecycle
+The most important of the three lifecycles is the Default Lifecycle . Maven uses default lifecycle to build, test and distribute the project. Default lifecycle contains 21 phases.</p>
+<p>Project may contain resources such as properties, XML configuration files etc., and phases process-resources and process-test-resources copy and process such resources files.
+The phases compile and test-compile complies the source Java files and test files respectively.
+The phases package, install, and deploy are used to distribute the project. As we have already seen, the package phase creates JAR file of resources and compiled classes for distribution. The phase install, installs the artifacts of the project i.e jar and pom.xml to the local repository at $HOME/.m2 so that other projects can use them as dependencies. The phase deploy installs the artifacts of the project to a remote repository (probably on Internet) so that a wider group of projects can use it as dependency. We will cover these phases in a later chapter.</p>
+<h2 id="goal">goal</h2>
+<p>If we see the usage description of mvn command, apart from the options it accepts only two things ֠goal or phase.
+Maven Lifecycle Phases - mvn usage description</p>
+<p>mvn [options] [&lt;goal(s)&gt;] [&lt;phase(s)&gt;]</p>
+<p>For example, we can directly compile the source with the following command.
+$ cd simple-app
+$ mvn compiler:compile
+To run a goal with mvn, use the format <!-- raw HTML omitted -->:<!-- raw HTML omitted -->. In the above example, compiler:compile, the compiler is plugin prefix of maven-compiler-plugin and compile is the goal name. We can get the prefix of all plugins from Maven Plugin Directory.</p>
+<p>&ndash;
+When we invoke a goal directly, Maven executes just that goal, whereas when we invoke a lifecycle phase all the phases up to that phase are executed. We can see this in action with following example.
+$ cd simple-app
+$ mvn clean
+$ mvn surefire:test</p>
+<hr>
+<p>In very few situations we invoke plugin goals directly and more often than not, lifecycle phases are preferred.</p>
+<p>Lifecycle Phases and Plugin Goals
+When a lifecycle phase is run, depending on project type and packaging type, Maven binds plugin goals to lifecycle phases.
+When we run mvn package in a Java Project.</p>
+<hr>
+<p>To process-resources phase, Maven binds resources goal of maven-resources-plugin and to test phase, it binds test goal of maven-surefire-plugin and so on.
+Whatӳ happens at package phase is bit interesting. In a Java Project, Maven binds jar goal of maven-jar-plugin. However, when we run the same command in a webapp project, up to test phase Maven binds same goals, but to the package phase Maven binds war goal of maven-war-plugin the war:war instead of jar:jar.</p>
+<h3 id="samples">Samples</h3>
+<p>For example, consider the command below. The clean and package arguments are build phases, while the dependency:copy-dependencies is a goal (of a plugin).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn clean dependency:copy-dependencies package
+</code></pre></div><p>If this were to be executed, the clean phase will be executed first (meaning it will run all preceding phases of the clean lifecycle, plus the clean phase itself), and then the dependency:copy-dependencies goal, before finally executing the package phase (and all its preceding build phases of the default lifecycle).</p>
+<p>Moreover, if a goal is bound to one or more build phases, that goal will be called in all those phases.</p>
+<h3 id="to-see-what-goals-bined-to-lifecycle-phase">To see what goals bined to lifecycle phase</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn help:describe -Dcmd<span style="color:#f92672">=</span>install
+</code></pre></div><p>[INFO] &lsquo;install&rsquo; is a phase corresponding to this plugin:
+org.apache.maven.plugins:maven-install-plugin:2.4:install</p>
+<p>It is a part of the lifecycle for the POM packaging &lsquo;pom&rsquo;. This lifecycle includes the following phases:</p>
+<ul>
+<li>validate: Not defined</li>
+<li>initialize: Not defined</li>
+<li>generate-sources: Not defined</li>
+<li>process-sources: Not defined</li>
+<li>generate-resources: Not defined</li>
+<li>process-resources: Not defined</li>
+<li>compile: Not defined</li>
+<li>process-classes: Not defined</li>
+<li>generate-test-sources: Not defined</li>
+<li>process-test-sources: Not defined</li>
+<li>generate-test-resources: Not defined</li>
+<li>process-test-resources: Not defined</li>
+<li>test-compile: Not defined</li>
+<li>process-test-classes: Not defined</li>
+<li>test: Not defined</li>
+<li>prepare-package: Not defined</li>
+<li>package: Not defined</li>
+<li>pre-integration-test: Not defined</li>
+<li>integration-test: Not defined</li>
+<li>post-integration-test: Not defined</li>
+<li>verify: Not defined</li>
+<li>install: org.apache.maven.plugins:maven-install-plugin:2.4:install</li>
+<li>deploy: org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy</li>
+</ul>
+<h2 id="plugin">Plugin</h2>
+<p>Maven is ֠at its heart ֠a plugin execution framework; all work is done by plugins.</p>
+<p>Plugins are broadly grouped as build plugins and reporting plugins.</p>
+<p>Plugins are artifacts that provide goals to Maven. Furthermore, a plugin may have one or more goals wherein each goal represents a capability of that plugin. For example, the Compiler plugin has two goals: compile and testCompile. The former compiles the source code of your main code, while the latter compiles the source code of your test code.</p>
+<p>Plugin Goals
+Maven plugin is a collection of one or more goals which do some task or job. It is also known as Mojo ֠Maven Plain Old Java Object.</p>
+<p>Similarly, Maven uses maven-compiler-plugin to compile the source and test files and it provides three goals ֠compiler:compile, compiler:testCompile and compiler:help.</p>
+<p>Suffice it to say for now that a plugin is a collection of goals with a general common purpose. For example the jboss-maven-plugin, whose purpose is &ldquo;deal with various jboss items&rdquo;.</p>
+<p>To configure plugins, we use project build element in pom.xml. The next listing shows the top level elements used to configure a plugin.
+pom.xml</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;project&gt;</span>
+...
+  <span style="color:#f92672">&lt;build&gt;</span>
+    ...
+    <span style="color:#f92672">&lt;plugins&gt;</span>
+      <span style="color:#f92672">&lt;plugin&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>...<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>...<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;version&gt;</span>...<span style="color:#f92672">&lt;/version&gt;</span>
+        <span style="color:#f92672">&lt;configuration&gt;</span>...<span style="color:#f92672">&lt;/configuration&gt;</span>        
+        <span style="color:#f92672">&lt;executions&gt;</span>
+           <span style="color:#f92672">&lt;execution&gt;</span>...<span style="color:#f92672">&lt;/executions&gt;</span>
+        <span style="color:#f92672">&lt;/executions&gt;</span>
+      <span style="color:#f92672">&lt;/plugin&gt;</span>
+    <span style="color:#f92672">&lt;/plugins&gt;</span>
+  <span style="color:#f92672">&lt;/build&gt;</span>
+<span style="color:#f92672">&lt;/project&gt;</span>
+</code></pre></div><p>The elements are</p>
+<ul>
+<li>build : defines the project build.</li>
+<li>plugins : parent element for one or more <!-- raw HTML omitted --> elements.</li>
+<li>plugin : the plugin to configure.</li>
+<li>groupId, artifactId, version : coordinates of the plugin to configure.</li>
+<li>configuration : holds the parameters and properties to be passed to the plugin.</li>
+<li>executions : parent element for one or more <!-- raw HTML omitted --> element.</li>
+<li>execution : configures the execution of a goal of the plugin.</li>
+</ul>
+<p>In Maven, there are the build and the reporting plugins:</p>
+<ul>
+<li>Build plugins will be executed during the build and then, they should be configured in the <!-- raw HTML omitted --> element.</li>
+<li>Reporting plugins will be executed during the site generation and they should be configured in the <!-- raw HTML omitted --> element.</li>
+</ul>
+<h3 id="position">position</h3>
+<p>Normally, the <!-- raw HTML omitted --> block is placed after the project coordinates block and before the dependencies block.</p>
+<h3 id="to-show-plugin-details-in-configuration">To show plugin details in configuration</h3>
+<p>Easiest way to know the available parameters for a goal is to run plugin help goal.
+$ mvn compiler:help -Dgoal=compile -Ddetail
+It will list the available parameters for compile goal of compiler.
+But it will not show the default value of the parameters and to know the available parameters and also, the default value for each parameter, run help:describe goal of Maven Help plugin (maven-help-plugin).
+$ mvn help:describe -Dplugin=compiler -Dmojo=compile -Ddetail
+Note that maven-help-plugins uses -Dmojo for goal, instead of -Dgoal,</p>
+<h3 id="help-goal">Help Goal</h3>
+<p>Recent Maven plugins have generally an help goal to have in the command line the description of the plugin, with their parameters and types. For instance, to understand the javadoc goal, you need to call:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn javadoc:help -Ddetail -Dgoal<span style="color:#f92672">=</span>javadoc
+</code></pre></div><h4 id="samples-1">Samples</h4>
+<ul>
+<li>
+<p>To include or exclude certain files or directories in the project Jar, configure Maven Jar Plugin with <!-- raw HTML omitted --> and <!-- raw HTML omitted --> parameters.
+simple-app/pom.xml
+&hellip;
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->org.apache.maven.plugins<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->maven-jar-plugin<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->**/service/*<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+&hellip;</p>
+</li>
+<li>
+<p>Maven Clean Plugin deletes the target directory by default and we may configure it to delete additional directories and files.
+simple-app/pom.xml
+&hellip;
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->maven-clean-plugin<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->src/main/generated<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->false<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->true<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->*.java<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->Template*<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+&hellip;
+The above configuration forces the clean plugin to delete *.java files in src/main/generated directory, but excludes the Template*.</p>
+</li>
+</ul>
+<h3 id="plugin-execution">plugin execution</h3>
+<p>Firstly demonstrate plugin execution with an example. In Apache Ant, itӳ quite easy to output echo any property or message during the build and many of us frequently use it to understand the build flow or to debug. But, Maven comes with no such feature, and only way to echo any message is to use Ant within Maven. The Apache AntRun Plugin provides the ability to run Ant tasks within Maven.
+Letӳ configure maven-antrun-plugin to output message to console.
+simple-app/pom.xml
+&hellip;
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->maven-antrun-plugin<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->run<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->compile<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->Build Dir: ${project.build.directory}<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+&hellip;
+Build the project with  mvn package and it echoes the build directory name in compile phase.</p>
+<h4 id="sample">sample</h4>
+<p>The clean and package arguments are build phases, while the dependency:copy-dependencies is a goal (of a plugin).</p>
+<p>mvn clean dependency:copy-dependencies package
+If this were to be executed, the clean phase will be executed first (meaning it will run all preceding phases of the clean lifecycle, plus the clean phase itself), and then the dependency:copy-dependencies goal, before finally executing the package phase (and all its preceding build phases of the default lifecycle).</p>
+<h4 id="concept">concept</h4>
+<p>The element <!-- raw HTML omitted -->/<!-- raw HTML omitted --> allows you to configure the execution of a plugin goal. With it, you can accomplish the following things.
+bind a plugin goal to a lifecycle phase.
+configure plugin parameters of a specific goal.
+configure plugin parameters of a specific goal such as compiler:compile, surefire:test etc., that are by default binds to a lifecycle phase</p>
+<ul>
+<li></li>
+</ul>
+<h2 id="core-concepts">core concepts</h2>
+<h2 id="phase">phase</h2>
+<p>you may notice the second is simply a single word - package. Rather than a goal, this is a phase. A phase is a step in the build lifecycle, which is an ordered sequence of phases. When a phase is given, Maven will execute every phase in the sequence up to and including the one defined. For example, if we execute the compile phase, the phases that actually get executed are:</p>
+<ul>
+<li>validate</li>
+<li>generate-sources</li>
+<li>process-sources</li>
+<li>generate-resources</li>
+<li>process-resources</li>
+<li>compile</li>
+</ul>
+<p>Maven Phases
+Although hardly a comprehensive list, these are the most common default lifecycle phases executed.</p>
+<ul>
+<li>
+<p>validate: validate the project is correct and all necessary information is available</p>
+</li>
+<li>
+<p>compile: compile the source code of the project</p>
+</li>
+<li>
+<p>test: test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed</p>
+</li>
+<li>
+<p>package: take the compiled code and package it in its distributable format, such as a JAR.</p>
+</li>
+<li>
+<p>integration-test: process and deploy the package if necessary into an environment where integration tests can be run</p>
+</li>
+<li>
+<p>verify: run any checks to verify the package is valid and meets quality criteria</p>
+</li>
+<li>
+<p>install: install the package into the local repository, for use as a dependency in other projects locally</p>
+</li>
+<li>
+<p>deploy: done in an integration or release environment, copies the final package to the remote repository for sharing with other developers and projects.
+There are two other Maven lifecycles of note beyond the default list above. They are</p>
+</li>
+<li>
+<p>clean: cleans up artifacts created by prior builds</p>
+</li>
+<li>
+<p>site: generates site documentation for this project
+Phases are actually mapped to underlying goals. The specific goals executed per phase is dependant upon the packaging type of the project. For example, package executes jar:jar if the project type is a JAR, and war:war if the project type is - you guessed it - a WAR.</p>
+</li>
+</ul>
+<p>An interesting thing to note is that phases and goals may be executed in sequence.</p>
+<p>mvn clean dependency:copy-dependencies package
+This command will clean the project, copy dependencies, and package the project (executing all phases up to package, of course).</p>
+<h2 id="lifecycle-and-phases-are-just-formal-names-for-jobs-and-steps-maven-calls-the-jobs-as-lifecycles-and-tasks-or-steps-as-phases">&ndash;
+Lifecycle and phases are just formal names for jobs and steps. Maven calls the jobs as lifecycles and tasks (or steps) as phases.</h2>
+<p>when a phase is invoked using mvn command, all preceding phases up to and including the invoked phase are executed sequentially. For example,
+mvn compile ֠will run phases process-resources and then compile.
+mvn test ֠will run phases process-resources, compile, process-test-resources, test-compile and finally test.
+mvn install ֠will run phases process-resources, compile, process-test-resources, test-compile, test and finally install.
+Like in clean lifecycle, in default lifecycle too, lifecycle phases by themselves donӴ have capabilities to accomplish some task. For example, compile phase by itself canӴ do anything but, it delegates compilation job to a plugin named maven-compiler-plugin.</p>
+<h3 id="some-phases-are-not-usually-called-from-the-command-line">Some Phases Are Not Usually Called From the Command Line</h3>
+<p>The phases named with hyphenated-words (pre-<em>, post-</em>, or process-*) are not usually directly called from the command line. These phases sequence the build, producing intermediate results that are not useful outside the build. In the case of invoking integration-test, the environment may be left in a hanging state.</p>
+<h2 id="maven-default-repository">Maven default repository</h2>
+<p><a href="http://repo.maven.apache.org/maven2/">http://repo.maven.apache.org/maven2/</a></p>
+<h1 id="maven-settings">Maven Settings</h1>
+<p>The settings element in the settings.xml file contains elements used to define values which configure Maven execution in various ways, like the pom.xml, but should not be bundled to any specific project, or distributed to an audience. These include values such as the local repository location, alternate remote repository servers, and authentication information.</p>
+<p>There are two locations where a settings.xml file may live:</p>
+<ul>
+<li>The Maven install: ${maven.home}/conf/settings.xml</li>
+<li>A user’s install: ${user.home}/.m2/settings.xml
+The former settings.xml are also called <code>global settings</code>, the latter settings.xml are referred to as user settings. If both files exists, their contents gets merged, with the user-specific settings.xml being dominant.</li>
+</ul>
+<p>Tip: If you need to create user-specific settings from scratch, it’s easiest to copy the global settings from your Maven installation to your ${user.home}/.m2 directory. Maven’s default settings.xml is a template with comments and examples so you can quickly tweak it to match your needs.</p>
+<h2 id="the-contents-of-the-settingsxml-can-be-interpolated-using-the-following-expressions">The contents of the settings.xml can be interpolated using the following expressions:</h2>
+<p>${user.home} and all other system properties (since Maven 3.0)
+${env.HOME} etc. for environment variables
+Note that properties defined in profiles within the settings.xml cannot be used for interpolation.</p>
+<h2 id="all-maven-pomxml-inherits-from-super-pom">All Maven pom.xml inherits from super POM</h2>
+<h1 id="coc-convention-over-configuration">Coc: Convention over Configuration</h1>
+<ul>
+<li>Convention over configuration is a simple concept. Systems, libraries, and frameworks should assume reasonable defaults without requiring that unnecessary configuration systems should “just work.” Popular frameworks such as Ruby on Rails and EJB3 have started to adhere to these principles in reaction to the configuration complexity of frameworks such as the initial Enterprise JavaBeans? (EJB) specifications.</li>
+<li>“Popularized by the Ruby on Rails community, CoC emphasizes sensible defaults, thereby reducing the number of decisions to be made.”</li>
+<li>“Gradle’s flexibility, like that of Ant, can be abused, which results in difficult and complex builds.
+”</li>
+</ul>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>This is the Project Object Model (POM), a declarative description of a project.</li>
+</ul>
+<h2 id="coordinate">Coordinate</h2>
+<ul>
+<li>“group, artifact, and version (<strong>GAV</strong>) coordinates”</li>
+<li>We’ve highlighted the Maven coordinates for this project: <strong>groupId, artifactId, version and packaging. These combined identifiers make up a project’s coordinates</strong>.[3] Just as in any other coordinate system, a Maven coordinate is an address for a specific point in “space”: from general to specific. Maven pinpoints a project via its coordinates when one project relates to another, either as a dependency, a plugin, or a parent project reference.</li>
+<li>Maven coordinates are often written using a colon as a delimiter in the following format: <strong>groupId:artifactId:packaging:version</strong>.</li>
+<li>Projects undergoing active development can use a special identifier that marks <strong>a version as a SNAPSHOT</strong>.</li>
+<li>The packaging format of a project is also an important component in the Maven coordinates, but it isn’t a part of a project’s unique identifiers. A project’s groupId:artifactId:version make that project unique; you can’t have a project with the same three groupId, artifactId, and version identifiers.</li>
+<li><strong>packaging: The type of project, defaulting to jar</strong>, describing the packaged output produced by a project. A project with packaging jar produces a JAR archive; a project with packaging war produces a web application.</li>
+<li>The core of Maven is pretty dumb; it doesn’t know how to do much beyond parsing a few XML documents and keeping track of a lifecycle and a few plugins. Maven has been designed to delegate most responsibility to a set of Maven plugins that can affect the Maven lifecycle and offer access to goals. Most of the action in Maven happens in plugin goals that take care of things like compiling source, packaging bytecode, publishing sites, and any other task that needs to happen in a build.</li>
+<li>You benefit from the fact that plugins are downloaded from a remote repository and maintained centrally. This is what is meant by universal reuse through Maven plugins.</li>
+<li>working developers are starting to realize that Maven not only simplifies the task of build management, it is helping to encourage a common interface between developers and software projects.</li>
+</ul>
+<h1 id="maven-vs-ant">Maven vs Ant</h1>
+<h2 id="the-differences-between-ant-and-maven-in-this-example-are">The differences between Ant and Maven in this example are:</h2>
+<h3 id="apache-ant">Apache Ant</h3>
+<p>Ant doesn’t have formal conventions such as a common project directory structure; you have to tell Ant exactly where to find the source and where to put the output. Informal conventions have emerged over time, but they haven’t been codified into the product.</p>
+<ul>
+<li>Ant is procedural; you have to tell Ant exactly what to do and when to do it. You have to tell it to compile, then copy, then compress.</li>
+<li>Ant doesn’t have a lifecycle; you have to define goals and goal dependencies. You have to attach a sequence of tasks to each goal manually.</li>
+</ul>
+<h3 id="apache-maven">Apache Maven</h3>
+<ul>
+<li>Maven has conventions: in the example, it already knew where your source code was because you followed the convention. It put the bytecode in target/classes, and it produced a JAR file in target.</li>
+<li>Maven is declarative; all you had to do was create a pom.xml file and put your source in the default directory. Maven took care of the rest.</li>
+<li>Maven has a lifecycle, which you invoked when you executed mvn install. This command told Maven to execute a series of sequence steps until it reached the lifecycle. As a side effect of this journey through the lifecycle, Maven executed a number of default plugin goals that did things such as compile and create a JAR.</li>
+<li>A Maven plugin is a collection of one or more goals (see Figure 3-1). Examples of Maven plugins can be simple core plugins such as the Jar plugin that contains goals for creating JAR files, the Compiler plugin that contains goals for compiling source code and unit tests, or the Surefire plugin that contains goals for executing unit tests and generating reports.</li>
+</ul>
+<h4 id="maven-life-cycle">Maven life cycle</h4>
+<ul>
+<li>The second command we ran in the previous section was <strong>mvn install</strong>. This command didn’t specify a plugin goal; instead, it specified a Maven lifecycle phase. A phase is a step in what Maven calls the “build lifecycle.” The build lifecycle is an ordered sequence of phases involved in building a project.</li>
+<li><strong>Plugin goals can be attached to a lifecycle phase</strong>. As Maven moves through the phases in a lifecycle, it will execute the goals attached to each particular phase. Each phase may have zero or more goals bound to it. In the previous section, when you ran mvn install, you might have noticed that more than one goal was executed. Examine the output after running mvn install and take note of the various goals that are executed.</li>
+<li>Maven steps through the phases preceding package in the Maven lifecycle; <strong>executing a phase will first execute all proceeding phases in order</strong>, ending with the phase specified on the command line. Each phase corresponds to zero or more goals, and since we haven’t performed any plugin configuration or customization, this example binds a set of standard plugin goals to the default lifecycle.</li>
+</ul>
+<h1 id="dependency">Dependency</h1>
+<ul>
+<li>“Maven provides <strong>declarative dependency management</strong>. With this approach, you declare your project’s dependencies in an external file called pom.xml. Maven will automatically download those dependencies and hand them over to your project for the purpose of building, testing, or packaging.”</li>
+<li>“The default remote repository with which Maven interacts is called Maven Central, and it is located at repo.maven.apache.org and uk.maven.org.”</li>
+<li>“The <strong>internal repository manager</strong> acts as a proxy to remote repositories. Because you have full control over the internal repository, you can regulate the types of artifacts allowed in your company. Additionally, you can also push your organization’s artifacts onto the server, thereby enabling collaboration. ”, such as Nexus</li>
+</ul>
+<h2 id="transitive-dependcies">Transitive Dependcies</h2>
+<ul>
+<li>“A key benefit of Maven is that it automatically “deals with transitive dependencies and includes them in your project.</li>
+<li>“Maven uses a technique known as <strong>dependency mediation</strong> to resolve version conflicts. Simply stated, dependency mediation allows Maven to pull the dependency that <strong>is closest to the project in the tree</strong>. In Figure 3-3, there are two versions of dependency B: 0.0.8 and 1.0.0. In this scenario, version 0.0.8 of dependency B is included in the project, because it is a direct dependency and closest to the tree. Now look at the three versions of dependency F: 0.1.3, 1.0.0, and 2.2.0. All three dependencies are at the same depth. In this scenario, Maven will use the <strong>first-found dependency</strong>, which would be 0.1.3, and not the latest 2.2.0 version.”</li>
+</ul>
+<h2 id="dependency-scope">Dependency Scope</h2>
+<ul>
+<li>“Maven uses the concept of scope, which allows you to specify <strong>when and where</strong> you need a particular dependency.” “Maven provides the following six scopes:”</li>
+<li>“<strong>compile</strong>: Dependencies with the compile scope are available in the class path in all phases on a project build, test, and run. This is the default scope.”</li>
+<li>“<strong>provided</strong>: Dependencies with the provided scope are available in the class path during the build and test phases. They don’t get bundled within the generated artifact. Examples of dependencies that use this scope include Servlet api, JSP api, and so on.”</li>
+<li>“<strong>runtime</strong>: Dependencies with the runtime scope are not available in the class path during the build phase. Instead they get bundled in the generated artifact and are available during runtime.”</li>
+<li>“<strong>test</strong>: Dependencies with the test scope are available during the test phase. JUnit and TestNG are good examples of dependencies with the test scope.”</li>
+<li>“<strong>system</strong>: Dependencies with the system scope are similar to dependencies with the provided scope, except that these dependencies are not retrieved from the repository. Instead, a hard-coded path to the file system is specified from which the dependencies are used.”</li>
+<li>“<strong>import</strong>: The import scope is applicable for .pom file dependencies only. It allows you to include dependency management information from a remote .pom file. The import scope is available only in Maven 2.0.9 or later.”</li>
+</ul>
+<h1 id="common-errors">Common errors</h1>
+<h2 id="not-authorized--reasonphraseunauthorized">Not authorized , ReasonPhrase:Unauthorized</h2>
+<p>This is likely you are behind corporate proxy, so you have to config to make Maven can connect to nexus successfully:</p>
+<ul>
+<li>Go to make sure your settings.xml is correct, normally, it&rsquo;s under your home directory, e.g. tzhang/.m2/settings.xml to make sure the username and password same as the settings in nexus</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">	<span style="color:#f92672">&lt;server&gt;</span>
+			<span style="color:#f92672">&lt;id&gt;</span>my-nexus<span style="color:#f92672">&lt;/id&gt;</span>
+<span style="color:#f92672">&lt;username&gt;</span>1jhAX6LZ<span style="color:#f92672">&lt;/username&gt;</span>
+  <span style="color:#f92672">&lt;password&gt;</span>V7MxFm3k9fiodhqNQDT/kSh8V81JT8bUWRHEel339rwq<span style="color:#f92672">&lt;/password&gt;</span>
+		<span style="color:#f92672">&lt;/server&gt;</span>	
+	<span style="color:#f92672">&lt;mirrors&gt;</span>
+        <span style="color:#f92672">&lt;mirror&gt;</span>
+            <span style="color:#f92672">&lt;id&gt;</span>my-nexus<span style="color:#f92672">&lt;/id&gt;</span>
+            <span style="color:#f92672">&lt;url&gt;</span>https://nexus.internal.abc.com/content/groups/public<span style="color:#f92672">&lt;/url&gt;</span>
+            <span style="color:#f92672">&lt;mirrorOf&gt;</span>*,!sonar,!eclipse-misc,!m2-proxy,!eclipse-releases,!eclipse-snapshots,!mfs-m2-repository,!fsg_internal_repository,!fsg_snapshot_repository<span style="color:#f92672">&lt;/mirrorOf&gt;</span>
+        <span style="color:#f92672">&lt;/mirror&gt;</span>
+	<span style="color:#f92672">&lt;/mirrors&gt;</span>
+</code></pre></div><ul>
+<li>double check your login token in nexus, log into nexus, click your login name in top right dropdown, chose &ldquo;profile&rdquo; and then trigger button &ldquo;Access User Token&rdquo;</li>
+</ul>
+<h2 id="newly-added-dependency-in-pom-not-working-class-not-found">Newly added dependency in pom not working, class not found</h2>
+<p>If you are in intellij, please go to the exact module (the child module, rather than parent pom), right click the pom.xml, chose maven -&gt; Reinstall</p>
+<h1 id="setup-proxy">Setup Proxy</h1>
+<ul>
+<li>“Maven requires an Internet connection to download plug-ins and dependencies. Some companies employ HTTP proxies to restrict access to the Internet. In those scenarios, running Maven will result in Unable to download artifact errors. To address this, edit the settings.xml file and add the proxy information specific to your company.”</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://maven.apache.org/SETTINGS/1.0.0&#34;</span>
+  <span style="color:#a6e22e">xmlns:xsi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+  <span style="color:#a6e22e">xsi:schemaLocation=</span><span style="color:#e6db74">&#34;http://maven.apache.org/SETTINGS/1.0.0
+</span><span style="color:#e6db74">                      http://maven.apache.org/xsd/settings-1.0.0.xsd&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;proxies&gt;</span>
+  <span style="color:#f92672">&lt;proxy&gt;</span>
+      <span style="color:#f92672">&lt;id&gt;</span>companyProxy<span style="color:#f92672">&lt;/id&gt;</span>
+      <span style="color:#f92672">&lt;active&gt;</span>true<span style="color:#f92672">&lt;/active&gt;</span>
+      <span style="color:#f92672">&lt;protocol&gt;</span>http<span style="color:#f92672">&lt;/protocol&gt;</span>
+      <span style="color:#f92672">&lt;host&gt;</span>proxy.company.com<span style="color:#f92672">&lt;/host&gt;</span>
+      <span style="color:#f92672">&lt;port&gt;</span>8080<span style="color:#f92672">&lt;/port&gt;</span>
+      <span style="color:#f92672">&lt;username&gt;</span>proxyusername<span style="color:#f92672">&lt;/username&gt;</span>
+      <span style="color:#f92672">&lt;password&gt;</span>proxypassword<span style="color:#f92672">&lt;/password&gt;</span>
+      <span style="color:#f92672">&lt;nonProxyHosts</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/proxy&gt;</span>
+  <span style="color:#f92672">&lt;/proxies&gt;</span>
+ <span style="color:#f92672">&lt;/settings&gt;</span>
+</code></pre></div><h1 id="multimodule-projects">Multimodule projects</h1>
+<h2 id="generate-parent">Generate parent</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mvn archetype:generate -DgroupId<span style="color:#f92672">=</span>com.apress.gswmbook -DartifactId<span style="color:#f92672">=</span>gswm-parent -Dversion<span style="color:#f92672">=</span>1.0.0-SNAPSHOT -DarchetypeGroupId<span style="color:#f92672">=</span>org.codehaus.mojo.archetypes -DarchetypeArtifactId<span style="color:#f92672">=</span>pom-root
+</code></pre></div><p>Listing 6-5. Parent pom.xml File with Modules</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">
+<span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span style="color:#f92672">&lt;project</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://maven.apache.org/POM/4.0.0&#34;</span> <span style="color:#a6e22e">xmlns:xsi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span> <span style="color:#a6e22e">xsi:schemaLocation=</span><span style="color:#e6db74">&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;modelVersion&gt;</span>4.0.0<span style="color:#f92672">&lt;/modelVersion&gt;</span>
+  <span style="color:#f92672">&lt;groupId&gt;</span>com.apress.gswmbook<span style="color:#f92672">&lt;/groupId&gt;</span>
+  <span style="color:#f92672">&lt;artifactId&gt;</span>gswm-parent<span style="color:#f92672">&lt;/artifactId&gt;</span>
+  <span style="color:#f92672">&lt;version&gt;</span>1.0.0-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+  <span style="color:#f92672">&lt;packaging&gt;</span>pom<span style="color:#f92672">&lt;/packaging&gt;</span>
+  <span style="color:#f92672">&lt;name&gt;</span>gswm-parent<span style="color:#f92672">&lt;/name&gt;</span>
+  <span style="color:#f92672">&lt;modules&gt;</span>
+    <span style="color:#f92672">&lt;module&gt;</span>gswm-web<span style="color:#f92672">&lt;/module&gt;</span>
+    <span style="color:#f92672">&lt;module&gt;</span>gswm-service<span style="color:#f92672">&lt;/module&gt;</span>
+    <span style="color:#f92672">&lt;module&gt;</span>gswm-repository<span style="color:#f92672">&lt;/module&gt;</span>
+  <span style="color:#f92672">&lt;/modules&gt;</span>
+<span style="color:#f92672">&lt;/project&gt;</span>
+</code></pre></div><h2 id="generate-web-module">Generate web module</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mvn archetype:generate -DgroupId<span style="color:#f92672">=</span>com.todzhang.mywebApp -DartifactId<span style="color:#f92672">=</span>main-web -Dversion<span style="color:#f92672">=</span>1.0.0-SNAPSHOT -Dpackage<span style="color:#f92672">=</span>war -DarchetypeArtifactId<span style="color:#f92672">=</span>maven-archetype-webapp
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#f92672">&lt;project</span> <span style="color:#a6e22e">xsi:schemaLocation=</span><span style="color:#e6db74">&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://maven.apache.org/POM/4.0.0&#34;</span>
+    <span style="color:#a6e22e">xmlns:xsi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;modelVersion&gt;</span>4.0.0<span style="color:#f92672">&lt;/modelVersion&gt;</span>
+  <span style="color:#f92672">&lt;parent&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>com.apress.gswmbook<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>gswm-parent<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;version&gt;</span>1.0.0-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+  <span style="color:#f92672">&lt;/parent&gt;</span>
+  <span style="color:#f92672">&lt;groupId&gt;</span>com.apress.gswmbook<span style="color:#f92672">&lt;/groupId&gt;</span>
+  <span style="color:#f92672">&lt;artifactId&gt;</span>gswm-web<span style="color:#f92672">&lt;/artifactId&gt;</span>
+  <span style="color:#f92672">&lt;version&gt;</span>1.0.0-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+  <span style="color:#f92672">&lt;packaging&gt;</span>war<span style="color:#f92672">&lt;/packaging&gt;</span>
+  <span style="color:#f92672">&lt;name&gt;</span>gswm-web Maven Webapp<span style="color:#f92672">&lt;/name&gt;</span>
+  <span style="color:#f92672">&lt;url&gt;</span>http://maven.apache.org<span style="color:#f92672">&lt;/url&gt;</span>
+  <span style="color:#f92672">&lt;dependencies&gt;</span>
+    <span style="color:#f92672">&lt;dependency&gt;</span>
+      <span style="color:#f92672">&lt;groupId&gt;</span>junit<span style="color:#f92672">&lt;/groupId&gt;</span>
+      <span style="color:#f92672">&lt;artifactId&gt;</span>junit<span style="color:#f92672">&lt;/artifactId&gt;</span>
+      <span style="color:#f92672">&lt;version&gt;</span>3.8.1<span style="color:#f92672">&lt;/version&gt;</span>
+      <span style="color:#f92672">&lt;scope&gt;</span>test<span style="color:#f92672">&lt;/scope&gt;</span>
+    <span style="color:#f92672">&lt;/dependency&gt;</span>
+  <span style="color:#f92672">&lt;/dependencies&gt;</span>
+  <span style="color:#f92672">&lt;build&gt;</span>
+    <span style="color:#f92672">&lt;finalName&gt;</span>gswm-web<span style="color:#f92672">&lt;/finalName&gt;</span>
+  <span style="color:#f92672">&lt;/build&gt;</span>
+<span style="color:#f92672">&lt;/project&gt;</span>
+</code></pre></div><h2 id="generate-a-service-jar-module">Generate a service jar module</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mvn archetype:generate -DgroupId<span style="color:#f92672">=</span>com.todzhang.mywebApp -DartifactId<span style="color:#f92672">=</span>back-service -Dversion<span style="color:#f92672">=</span>1.0.0-SNAPSHOT -DarchetypeArtifactId<span style="color:#f92672">=</span>maven-archetype-quickstart -DinteractiveMode<span style="color:#f92672">=</span>false
+</code></pre></div><ul>
+<li>Notice that you didn’t provide the package parameter, as the maven-archetype-quickstart produces a JAR project by default.</li>
+</ul>
+<h2 id="to-start-the-module">To start the module</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mvn packages
+</code></pre></div><h1 id="create-archetype-from-project">Create archetype from project</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mvn archetype:create-from-project
+</code></pre></div><h1 id="site-life-cycle">Site life cycle</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mvn site
+</code></pre></div><ul>
+<li>The site life cycle uses Maven’s site plug-in to generate the site for a single project. Once this command completes, a site folder gets created under the project’s target.</li>
+<li>Open the index.html file to browse the generated site. You will notice that Maven used the information provided in the pom.xml file to generate most of the documentation. It also automatically applied the default skin and generated the corresponding images and CSS files.</li>
+<li>To regenerate site</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mvn clean site
+</code></pre></div><h1 id="javadoc">JavaDoc</h1>
+<ul>
+<li>Maven provides a Javadoc plug-in, which uses the Javadoc tool for generating Javadocs. Integrating the Javadoc plug-in simply involves declaring it in the reporting element of pom.xml file, as shown in Listing 7-4. Plug-ins declared in the pom reporting element are executed during site generation.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;project&gt;</span>
+        <span style="color:#75715e">&lt;!—Content removed for brevity--&gt;</span>
+ <span style="color:#f92672">&lt;reporting&gt;</span>
+    <span style="color:#f92672">&lt;plugins&gt;</span>
+      <span style="color:#f92672">&lt;plugin&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.maven.plugins<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>maven-javadoc-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;version&gt;</span>2.10.1<span style="color:#f92672">&lt;/version&gt;</span>
+      <span style="color:#f92672">&lt;/plugin&gt;</span>
+    <span style="color:#f92672">&lt;/plugins&gt;</span>
+  <span style="color:#f92672">&lt;/reporting&gt;</span>
+<span style="color:#f92672">&lt;/project&gt;</span>
+</code></pre></div><p>Then run <strong>mvn clean site</strong> to generate javadoc,  the apidocs folder created under gswm /target/site</p>
+<h1 id="unit-test-report">Unit test report</h1>
+<ul>
+<li>Maven offers the Surefire plug-in that provides a uniform interface for running tests created by frameworks such as JUnit or TestNG. It also generates execution results in various formats such as XML and HTML. These published results enable developers to find and fix broken tests quickly.
+The Surefire plug-in is configured in the same way as the Javadoc plug-in in the reporting section of the pom file. Listing 7-5 shows the Surefire plug-in configuration.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;project&gt;</span>
+        <span style="color:#75715e">&lt;!—Content removed for brevity--&gt;</span>
+  <span style="color:#f92672">&lt;reporting&gt;</span>
+    <span style="color:#f92672">&lt;plugins&gt;</span>
+      <span style="color:#f92672">&lt;plugin&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.maven.plugins<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>maven-surefire-report-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;version&gt;</span>2.17<span style="color:#f92672">&lt;/version&gt;</span>
+      <span style="color:#f92672">&lt;/plugin&gt;</span>
+    <span style="color:#f92672">&lt;/plugins&gt;</span>
+  <span style="color:#f92672">&lt;/reporting&gt;</span>
+<span style="color:#f92672">&lt;/project&gt;</span>
+</code></pre></div><ul>
+<li>you will see a Surefire Reports folder generated under gswm\target. It contains the test execution results in XML and TXT formats. The same information will be available in HTML format in the surefire-report.html file under site folder.</li>
+</ul>
+<h1 id="code-coverate-report">Code coverate report</h1>
+<ul>
+<li>Code coverage is a measurement of how much source code is being exercised by automated tests. Essentially, it provides an indication of the quality of your tests. Emma and Cobertura are two popular open source code coverage tools for Java.
+In this section, you will use Cobertura for measuring this project’s code coverage. Configuring Cobertura is similar to other plug-ins, as shown in</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;project&gt;</span>
+        <span style="color:#75715e">&lt;!—Content removed for brevity--&gt;</span>
+  <span style="color:#f92672">&lt;reporting&gt;</span>
+    <span style="color:#f92672">&lt;plugins&gt;</span>
+      <span style="color:#f92672">&lt;plugin&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>org.codehaus.mojo<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>cobertura-maven-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;version&gt;</span>2.6<span style="color:#f92672">&lt;/version&gt;</span>
+      <span style="color:#f92672">&lt;/plugin&gt;</span>
+   <span style="color:#f92672">&lt;/plugins&gt;</span>
+  <span style="color:#f92672">&lt;/reporting&gt;</span>
+<span style="color:#f92672">&lt;/project&gt;</span>
+</code></pre></div><h1 id="find-bug-reports">Find bug reports</h1>
+<ul>
+<li>FindBugs is a tool for detecting defects in Java code. It uses static analysis to detect bug patterns, such as infinite recursive loops and null pointer dereferences. Listing 7-7 shows the FindBugs configuration.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;project&gt;</span>
+        <span style="color:#75715e">&lt;!—Content removed for brevity--&gt;</span>
+  <span style="color:#f92672">&lt;reporting&gt;</span>
+    <span style="color:#f92672">&lt;plugins&gt;</span>
+      <span style="color:#f92672">&lt;plugin&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>org.codehaus.mojo<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>findbugs-maven-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;version&gt;</span>3.0.0<span style="color:#f92672">&lt;/version&gt;</span>
+      <span style="color:#f92672">&lt;/plugin&gt;</span>
+   <span style="color:#f92672">&lt;/plugins&gt;</span>
+ <span style="color:#f92672">&lt;/reporting&gt;</span>
+<span style="color:#f92672">&lt;/project&gt;</span>
+</code></pre></div><h1 id="integration-with-nexus">Integration with Nexus</h1>
+<ul>
+<li>Repository managers act as a proxy of public repositories, facilitate artifact sharing and team collaboration, ensure build stability, and enable the governance of artifacts used in the enterprise.</li>
+<li>Nexus is a popular open source repository manager from Sonatype. It is a web application that allows you to maintain internal repositories and access external repositories. It allows repositories to be grouped and accessed via a single URL. This enables the repository administrator to add and remove new repositories behind the scenes without requiring developers to change the configuration on their computers. Additionally, it provides hosting capabilities for sites generated using Maven site and artifact search capabilities.</li>
+</ul>
+<h2 id="to-enable-nexus-in-maven">To enable nexus in Maven</h2>
+<ul>
+<li>You will start by adding a distributionManagement element in the pom.xml file, as shown in Listing 8-1. This element is used to declare the location where the project’s artifacts will be when deployed. The repository element indicates the location where released artifacts will be deployed. Similarly, the snapshotRepository element identifies the location where the SNAPSHOT versions of the project will be stored.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;project</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://maven.apache.org/POM/4.0.0&#34;</span> <span style="color:#a6e22e">xmlns:xsi=</span><span style="color:#e6db74">http://www.w3.org/2001/XMLSchema-instance”</span> <span style="color:#a6e22e">xsi:schemaLocation=</span><span style="color:#e6db74">&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&#34;</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">&lt;modelVersion&gt;</span>4.0.0<span style="color:#f92672">&lt;/modelVersion&gt;</span>
+
+        <span style="color:#75715e">&lt;!-- Content removed for brevity --&gt;</span>
+        <span style="color:#f92672">&lt;distributionManagement&gt;</span>
+           <span style="color:#f92672">&lt;repository&gt;</span>
+                <span style="color:#f92672">&lt;id&gt;</span>nexusReleases<span style="color:#f92672">&lt;/id&gt;</span>
+              <span style="color:#f92672">&lt;name&gt;</span>Releases<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;url&gt;</span>http://localhost:8081/nexus/content/repositories/releases<span style="color:#f92672">&lt;/url&gt;</span>
+           <span style="color:#f92672">&lt;/repository&gt;</span>
+           <span style="color:#f92672">&lt;snapshotRepository&gt;</span>
+              <span style="color:#f92672">&lt;id&gt;</span>nexusSnapshots<span style="color:#f92672">&lt;/id&gt;</span>
+              <span style="color:#f92672">&lt;name&gt;</span>Snapshots<span style="color:#f92672">&lt;/name&gt;</span>
+              <span style="color:#f92672">&lt;url&gt;</span>http://localhost:8081/nexus/content/repositories/snapshots<span style="color:#f92672">&lt;/url&gt;</span>
+           <span style="color:#f92672">&lt;/snapshotRepository&gt;</span>
+        <span style="color:#f92672">&lt;/distributionManagement&gt;</span>
+<span style="color:#75715e">&lt;!-- Content removed for brevity --&gt;</span>
+<span style="color:#f92672">&lt;/project&gt;</span>
+</code></pre></div><ul>
+<li>Out of the box, Nexus comes with <strong>Releases and Snapshots repositories</strong>. By default, SNAPSHOT artifacts will be stored in the Snapshots Repository, and release artifacts will be stored in the Releases repository.
+Like most repository managers, deployment to Nexus is a protected operation. You provide the credentials needed to interact with Nexus in the <strong>settings.xml</strong> file.</li>
+<li>Listing 8-2. Settings.xml File with Server Information</li>
+<li>Listing 8-2 shows the settings.xml file with the server information. The Nexus deployment user with password deployment123 is provided out of the box. Notice that the IDs declared in the server tag — nexusReleases and nexusSnapshots must match the IDs of the repository and snapshotRepository declared in the pom.xml file. Replace the contents of the settings.xml file in the C:\Users&lt;&lt;USER_NAME&raquo;.m2 folder with the code in Listing 8-2.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://maven.apache.org/SETTINGS/1.0.0&#34;</span> <span style="color:#a6e22e">xmlns:xsi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span> <span style="color:#a6e22e">xsi:schemaLocation=</span><span style="color:#e6db74">&#34;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&#34;</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;servers&gt;</span>
+   <span style="color:#f92672">&lt;server&gt;</span>
+      <span style="color:#f92672">&lt;id&gt;</span>nexusReleases<span style="color:#f92672">&lt;/id&gt;</span>
+      <span style="color:#f92672">&lt;username&gt;</span>deployment<span style="color:#f92672">&lt;/username&gt;</span>
+      <span style="color:#f92672">&lt;password&gt;</span>deployment123<span style="color:#f92672">&lt;/password&gt;</span>
+   <span style="color:#f92672">&lt;/server&gt;</span>
+   <span style="color:#f92672">&lt;server&gt;</span>
+      <span style="color:#f92672">&lt;id&gt;</span>nexusSnapshots<span style="color:#f92672">&lt;/id&gt;</span>
+      <span style="color:#f92672">&lt;username&gt;</span>deployment<span style="color:#f92672">&lt;/username&gt;</span>
+      <span style="color:#f92672">&lt;password&gt;</span>deployment123<span style="color:#f92672">&lt;/password&gt;</span>
+   <span style="color:#f92672">&lt;/server&gt;</span>
+<span style="color:#f92672">&lt;/servers&gt;</span>
+<span style="color:#f92672">&lt;/settings&gt;</span>
+</code></pre></div><ul>
+<li>This concludes the configuration steps for interacting with Nexus. At the command line, run the command mvn deploy under the directory C:\apress\gswm-book\chapter8\gswm. Upon successful execution of the command, you will see the SNAPSHOT artifact under Nexus</li>
+</ul>
+<h1 id="pom">POM</h1>
+<h2 id="effective-pom">Effective POM</h2>
+<p>At the start of every build, Maven internally merges project pomx.ml with Super POM and constructs a new POM which is known as Effective POM .</p>
+<p>Earlier in Maven Lifecycle and Plugin Goals, we learned that Maven binds plugins goals to lifecycle phases. Actually, this magic happens in effective POM and it is highly instructive to go through the effective POM to know the what goes on under the hood.</p>
+<h3 id="to-dump-effective-pom">To dump effective POM</h3>
+<p>use Maven Help Plugin to dump the effective POM to a file for investigation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mvn help:effective-pom -Doutput<span style="color:#f92672">=</span>target/effective-pom.xml
+</code></pre></div><h2 id="packaging">Packaging</h2>
+<p>The first, and most common way, is to set the packaging for your project via the equally named POM element <!-- raw HTML omitted -->. Some of the valid packaging values are jar, war, ear and pom. If no packaging value has been specified, it will default to jar.</p>
+<p>Each packaging contains a list of goals to bind to a particular phase. For example, the jar packaging will bind the following goals to build phases of the default lifecycle.</p>
+<h2 id="this-is-an-almost-standard-set-of-bindings-however-some-packagings-handle-them-differently-for-example-a-project-that-is-purely-metadata-packaging-value-is-pom-only-binds-goals-to-the-install-and-deploy-phases-for-a-complete-list-of-goal-to-build-phase-bindings-of-some-of-the-packaging-types-refer-to-the-lifecycle-reference">This is an almost standard set of bindings; however, some packagings handle them differently. For example, a project that is purely metadata (packaging value is pom) only binds goals to the install and deploy phases (for a complete list of goal-to-build-phase bindings of some of the packaging types, refer to the Lifecycle Reference).</h2>
+<h1 id="build-tools-options">build tools options</h1>
+<p>Maven and Ant are just different approaches: imperative and declarative (see Imperative vs Declarative build systems)</p>
+<p>Maven is better for managing dependencies (but Ant is ok with them too, if you use Ant+Ivy) and build artefacts. The main benefit from maven - its lifecycle. You can just add specific actions on correct phase, which seems pretty logical: just launch you integration tests on integration-test phase for example. Also, there are many existing plugins, which can could almost everything. Maven archetype is powerful feature, which allows you to quickly create project.</p>
+<p>Ant is better for controlling of build process. Before your very first build you have to write you build.xml. If your build process is very specific, you have to create complicated scripts. For long-term projects support of ant-scripts could become really painful: scripts become too complicated, people, who has written them, could leave project, etc.</p>
+<p>Both of them use xml, which could become too big in big long-term projects.</p>
+<p>Anyway, you shoud read specific documentation (not hate-articles) on both. Also, there is ant-maven-plugin, which allow to launch ant-scripts with maven.</p>
+<p>P.S. You can take a look on Gradle, which for me could provide more freedom than Maven, but is easier to use than Ant.</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/java" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">java</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/maven" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">maven</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-compare-in-java/">Compare-In-Java</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-20-deadlock/">Dead Lock</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-hashcode-contract/">Hash Code Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-16-java-hashmap/">HashMap in JDK</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-03-intellij-tips/">IntelliJ Tips</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-06-24-jdk-sources/">JDK source</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-17-java-collections-misc/">Java Collections Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-01-concurrent-in-java-col-2/">Java Concurrent Column 2</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-02-enum-misc/">Java Enum Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-java-gc/">Java GC notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-21-java-jit/">Java JIT compiler</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-05-jvm/">Java JVM</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-02-java-new-io/">Java New IO</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-15-java-security/">Java Security Notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-java-tricky-tech-questions/">Java-Tricky-Tech-Questions.md</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

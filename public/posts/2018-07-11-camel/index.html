@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Apache Camel | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Apache Camel" />
+<meta property="og:description" content="Camel’s message model In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.
+ org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message  Message Messages are the entities used by systems to communicate with each other when using messaging channels." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2018-07-11-camel/" />
+
+<meta itemprop="name" content="Apache Camel">
+<meta itemprop="description" content="Camel’s message model In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.
+ org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message  Message Messages are the entities used by systems to communicate with each other when using messaging channels.">
+
+<meta itemprop="wordCount" content="1593">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Apache Camel"/>
+<meta name="twitter:description" content="Camel’s message model In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.
+ org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message  Message Messages are the entities used by systems to communicate with each other when using messaging channels."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2018-07-11-camel/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2018-07-11-camel/&amp;text=Apache%20Camel" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2018-07-11-camel/&amp;title=Apache%20Camel" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Apache Camel</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="camels-message-model">Camel’s message model</h1>
+<p>In Camel, there are two abstractions for modeling messages, both of which we’ll cover in this section.</p>
+<ul>
+<li>org.apache.camel.Message—The fundamental entity containing the data being carried and routed in Camel</li>
+<li>org.apache.camel.Exchange—The Camel abstraction for an exchange of mes- sages. This exchange of messages has an “in” message and as a reply, an “out” message</li>
+</ul>
+<h2 id="message">Message</h2>
+<p>Messages are the entities used by systems to communicate with each other when using messaging channels. Messages flow in one direction from a sender to a receiver,  Messages have a body (a payload), headers, and optional attachments,</p>
+<p>Messages are uniquely identified with an identifier of type java.lang.String. The identifier’s uniqueness is enforced and guaranteed by the message creator, it’s protocol depen- dent, and it doesn’t have a guaranteed format.
+For protocols that don’t define a unique message identification scheme, Camel uses its own UID generator.
+HEADERS AND ATTACHMENTS
+Headers are values associated with the message, such as sender identifiers, hints about content encoding, authentication infor- mation, and so on. Headers are name-value pairs; the name is a unique, case-insensitive string, and the value is of type java. lang.Object. This means that Camel imposes no constraints on the type of the headers. Headers are stored as a map within the message. A message can also have optional attachments, which are typically used for the web service and email components.</p>
+<h2 id="exchange">Exchange</h2>
+<p>An exchange in Camel is the message’s container during routing. An exchange also provides support for the various types of interactions between systems, also known as message exchange patterns (MEPs). MEPs are used to differentiate between one-way and request-response messaging styles. The Camel exchange holds a pattern property that can be either</p>
+<ul>
+<li>InOnly—A one-way message (also known as an Event message). For example, JMS messaging is often one-way messaging.</li>
+<li>InOut—A request-response message. For example, HTTP-based transports are often request reply, where a client requests to retrieve a web page, waiting for the reply from the server.</li>
+</ul>
+<h1 id="start-camel-application">Start Camel application</h1>
+<p>Camel doesn’t start magically by itself. Often it’s the server (container) that Camel is running inside that invokes the start method on CamelContext, starting up Camel. This is also what you saw in chapter 1, where you used Camel inside a standalone Java application. A standalone Java application isn’t the only deployment choice—you can also run Camel inside a container such as Spring or OSGi.
+Regardless of which container you use, the same principle applies. The container must prepare and create an instance of CamelContext up front, before Camel can be started.</p>
+<h2 id="spring-container">Spring container</h2>
+<p>Camel provides the CamelNamespaceHandler.
+When using Camel in the Spring XML file, you would define the <!-- raw HTML omitted --> tag as follows:
+<!-- raw HTML omitted --></p>
+<p>The <a href="http://camel.apache.org/schema/spring">http://camel.apache.org/schema/spring</a> namespace is the Camel custom namespace. To let Spring know about this custom namespace, it must be identified in the META-INF/spring.handlers, where you map the namespace to the class implementation:
+http://camel.apache.org/schema/spring=
+org.apache.camel.spring.handler.CamelNamespaceHandler</p>
+<p>The CamelNamespaceHandler is then responsible for parsing the XML and dele- gating to other factories for further pro- cessing. One of these factories is the Camel- ContextFactoryBean, which is responsible for creating the CamelContext that essen- tially is your Camel application.
+When Spring is finished initializing, it signals to third-party frameworks that they can start by broadcasting the Context- RefreshedEvent event.</p>
+<h1 id="startup">Startup</h1>
+<p>At this point, CamelContext is ready to be started. What happens next is the same regardless of which container or deploy- ment option you’re using with Camel.</p>
+<p>CamelContext is started by invoking its start method. The first step is to determines whether or not autostartup is enabled for Camel. If it’s disabled, the entire startup process is skipped. By default, Camel is set to autostart, which involves the following four steps.</p>
+<p>1 Start internal services—Prepares and starts internal services used by Camel, such as the type-converter mechanism.
+2 Compute starting order—Computes the order in which the routes should be started. By default, Camel will start up all the routes in the order they are defined in the Spring XML files or the RouteBuilder classes. We’ll cover how to configure the order of routes in section 13.1.3.
+3 Prepare routes—Prepares the routes before they’re started.
+4 Start routes—Starts the routes by starting the consumers, which essentially opens
+the gates to Camel and lets the messages start to flow in.</p>
+<p>After step 4, Camel writes a message to the log indicating that it has been started and that the startup process is complete.</p>
+<h1 id="concept">Concept</h1>
+<h2 id="endpoint">ENDPOINT</h2>
+<p>An endpoint is the Camel abstraction that models the end of a channel through which a system can send or receive messages.</p>
+<p>In Camel, you configure endpoints using URIs, such as</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">file:data/inbox?delay<span style="color:#f92672">=</span><span style="color:#ae81ff">5000</span>
+</code></pre></div><p>and you also refer to endpoints this way. At runtime, Camel will look up an endpoint based on the URI notation.</p>
+<p>The scheme  denotes which Camel component handles that type of endpoint. In this case,
+the scheme of file selects the FileComponent.
+The FileComponent then works as a factory creat-
+ing the FileEndpoint based on the remaining parts of the URI.
+The context path data/ inbox tells the FileComponent that the starting folder is data/inbox.
+The option, delay=5000 indicates that files should be polled at a 5 second interval.</p>
+<p>There’s more to an endpoint than meets the eye.</p>
+<h2 id="jms">JMS</h2>
+<p>Queues are strictly point-to-point, where each message has only one consumer. Topics operate on a publish/subscribe scheme; a single message may be delivered to many consumers if they have subscribed to the topic.</p>
+<p>JMS also provides a ConnectionFactory that clients (like Camel) can use to cre- ate a connection with a JMS provider. JMS providers are usually referred to as brokers because they manage the communication between a message producer and a mes- sage consumer.</p>
+<h3 id="how-to-configure-camel-to-use-a-jms-provider">HOW TO CONFIGURE CAMEL TO USE A JMS PROVIDER</h3>
+<p>To connect Camel to a specific JMS provider, you need to configure Camel’s JMS com- ponent with an appropriate ConnectionFactory.
+Apache ActiveMQ is one of the most popular open source JMS providers, and it’s the primary JMS broker that the Camel team uses to test the JMS component.</p>
+<h3 id="jsm-destinations">JSM destinations</h3>
+<p>There are two types of JMS destinations: queues and topics. The queue is a point-to-point channel, where each message has only one recipient. A topic delivers a copy of the message to all clients who have subscribed to receive it.</p>
+<h3 id="activemq">ActiveMQ</h3>
+<p>o in the case of Apache ActiveMQ, you can create an ActiveMQConnectionFactory
+that points to the location of the running ActiveMQ broker:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ConnectionFactory connectionFactory <span style="color:#f92672">=</span>
+  <span style="color:#66d9ef">new</span> ActiveMQConnectionFactory<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;vm://localhost&#34;</span><span style="color:#f92672">);</span>
+</code></pre></div><p>The vm://localhost URI means that you should connect to an embedded broker named “localhost” running inside the current JVM. The vm transport connector in ActiveMQ creates a broker on demand if one isn’t running already, so it’s very handy for quickly testing JMS applications; for production scenarios, it’s recommended that you connect to a broker that’s already running.</p>
+<p>Next, when you create your CamelContext, you can add the JMS component as follows:
+CamelContext context = new DefaultCamelContext();
+context.addComponent(&ldquo;jms&rdquo;,
+JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
+The JMS component and the ActiveMQ-specific connection factory aren’t part of the camel-core module. In order to use these, you’ll need to add some dependencies to your Maven-based project. For the plain JMS component, all you have to add is this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependency&gt;</span>
+  <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.camel<span style="color:#f92672">&lt;/groupId&gt;</span>
+  <span style="color:#f92672">&lt;artifactId&gt;</span>camel-jms<span style="color:#f92672">&lt;/artifactId&gt;</span>
+  <span style="color:#f92672">&lt;version&gt;</span>2.5.0<span style="color:#f92672">&lt;/version&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+The connection factory comes directly from ActiveMQ, so you’ll need the following dependency:
+<span style="color:#f92672">&lt;dependency&gt;</span>
+  <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.activemq<span style="color:#f92672">&lt;/groupId&gt;</span>
+  <span style="color:#f92672">&lt;artifactId&gt;</span>activemq-core<span style="color:#f92672">&lt;/artifactId&gt;</span>
+  <span style="color:#f92672">&lt;version&gt;</span>5.3.2<span style="color:#f92672">&lt;/version&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><h3 id="using-uris-to-specify-the-destination">USING URIS TO SPECIFY THE DESTINATION</h3>
+<p>Once the JMS component is configured, you can start sending and receiving JMS mes- sages at your leisure. Because you’re using URIs, this is a real breeze to configure.
+Let’s say you want to send a JMS message to the queue named incomingOrders. The URI in this case would be</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">jms:queue<span style="color:#f92672">:</span>incomingOrders
+</code></pre></div><p>This is pretty self-explanatory. The “jms” prefix indicates that you’re using the JMS component you configured before. By specifying “queue”, the JMS component knows to send to a queue named incomingOrders. You could even have omitted the queue
+qualifier, because the default behavior is to send to a queue rather than a topic.</p>
+<p>NOTE Some endpoints can have an intimidating list of endpoint URI proper- ties. For instance, the JMS component has about 60 options, many of which are only used in specific JMS scenarios. Camel always tries to provide built-in defaults that fit most cases, and you can always find out what the default values are by browsing to the component’s page in the online Camel documentation.</p>
+<p>Using Camel’s Java DSL, you can send a message to the incomingOrders queue by using the to keyword like this:
+&hellip;to(&ldquo;jms:queue:incomingOrders&rdquo;)
+This can be read as sending to the JMS queue named incomingOrders.</p>
+<h2 id="finding-route-builders">FINDING ROUTE BUILDERS</h2>
+<p>Using the Spring CamelContext as a runtime and the Java DSL for route development is a great way of using Camel. In fact, it’s the most frequent usage of Camel.
+You saw before that you can explicitly tell the Spring CamelContext what route builders to load. You can do this by using the routerBuilder element:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;camelContext</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://camel.apache.org/schema/spring&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;routeBuilder</span> <span style="color:#a6e22e">ref=</span><span style="color:#e6db74">&#34;ftpToJmsRoute&#34;</span><span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/camelContext&gt;</span>
+</code></pre></div><p>Being this explicit results in a clean and concise definition of what is being loaded into Camel.
+Sometimes, though, you may need to be a bit more dynamic. This is where the packageScan and contextScan elements come in:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;camelContext</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://camel.apache.org/schema/spring&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;packageScan&gt;</span>
+    <span style="color:#f92672">&lt;package&gt;</span>camelinaction.routes<span style="color:#f92672">&lt;/package&gt;</span>
+  <span style="color:#f92672">&lt;/packageScan&gt;</span>
+<span style="color:#f92672">&lt;/camelContext&gt;</span>
+</code></pre></div><p>This packageScan element will load all RouteBuilder classes found in the camelinac- tion.routes package, including all subpackages.
+You can even be a bit more picky about what route builders are included:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;camelContext</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://camel.apache.org/schema/spring&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;packageScan&gt;</span>
+    <span style="color:#f92672">&lt;package&gt;</span>camelinaction.routes<span style="color:#f92672">&lt;/package&gt;</span>
+    <span style="color:#f92672">&lt;excludes&gt;</span>**.*Test*<span style="color:#f92672">&lt;/excludes&gt;</span>
+    <span style="color:#f92672">&lt;includes&gt;</span>**.*<span style="color:#f92672">&lt;/includes&gt;</span>
+  <span style="color:#f92672">&lt;/packageScan&gt;</span>
+<span style="color:#f92672">&lt;/camelContext&gt;</span>
+</code></pre></div><p>In this case, you’re loading all route builders in the camelinaction.routes package, except for ones with “Test” in the class name. The matching syntax is similar to what is used in Apache Ant’s file pattern matchers.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

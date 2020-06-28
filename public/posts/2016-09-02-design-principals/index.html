@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>漫谈开发设计中的一些‘原则’及&#39;设计哲学&#39; | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="漫谈开发设计中的一些‘原则’及&#39;设计哲学&#39;" />
+<meta property="og:description" content="在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。
+POLA The principle of least astonishment (POLA) is: &ldquo;If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature.&rdquo;
+In general engineering design contexts, the principle means that a component of a system should behave in a way that users expect it to behave; that is, users should not be astonished by its behavior.
+A textbook formulation is: &ldquo;People are part of the system." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2016-09-02-design-principals/" />
+
+<meta itemprop="name" content="漫谈开发设计中的一些‘原则’及&#39;设计哲学&#39;">
+<meta itemprop="description" content="在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。
+POLA The principle of least astonishment (POLA) is: &ldquo;If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature.&rdquo;
+In general engineering design contexts, the principle means that a component of a system should behave in a way that users expect it to behave; that is, users should not be astonished by its behavior.
+A textbook formulation is: &ldquo;People are part of the system.">
+
+<meta itemprop="wordCount" content="452">
+
+
+
+<meta itemprop="keywords" content="development,desgin,principals,MyBlog," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="漫谈开发设计中的一些‘原则’及&#39;设计哲学&#39;"/>
+<meta name="twitter:description" content="在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。
+POLA The principle of least astonishment (POLA) is: &ldquo;If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature.&rdquo;
+In general engineering design contexts, the principle means that a component of a system should behave in a way that users expect it to behave; that is, users should not be astonished by its behavior.
+A textbook formulation is: &ldquo;People are part of the system."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2016-09-02-design-principals/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2016-09-02-design-principals/&amp;text=%e6%bc%ab%e8%b0%88%e5%bc%80%e5%8f%91%e8%ae%be%e8%ae%a1%e4%b8%ad%e7%9a%84%e4%b8%80%e4%ba%9b%e2%80%98%e5%8e%9f%e5%88%99%e2%80%99%e5%8f%8a%27%e8%ae%be%e8%ae%a1%e5%93%b2%e5%ad%a6%27" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2016-09-02-design-principals/&amp;title=%e6%bc%ab%e8%b0%88%e5%bc%80%e5%8f%91%e8%ae%be%e8%ae%a1%e4%b8%ad%e7%9a%84%e4%b8%80%e4%ba%9b%e2%80%98%e5%8e%9f%e5%88%99%e2%80%99%e5%8f%8a%27%e8%ae%be%e8%ae%a1%e5%93%b2%e5%ad%a6%27" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">漫谈开发设计中的一些‘原则’及&#39;设计哲学&#39;</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。</p>
+<h1 id="pola">POLA</h1>
+<p>The principle of least astonishment (POLA) is: &ldquo;If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature.&rdquo;</p>
+<p>In general engineering design contexts, the principle means that a component of a system should behave in a way that users expect it to behave; that is, users should not be astonished by its behavior.</p>
+<p>A textbook formulation is: &ldquo;People are part of the system. The design should match the user&rsquo;s experience, expectations, and mental models.&rdquo;</p>
+<p>In more practical terms, the principle aims to leverage the pre-existing knowledge of users to minimize the learning curve, for instance by designing interfaces that borrow heavily from &ldquo;functionally similar or analogous programs with which your users are likely to be familiar&rdquo;.</p>
+<h2 id="example">Example:</h2>
+<p>A web site could declare an input that should autofocus when the page is loaded,[8] such as a search field (e.g., Google.com), or the username field of a login form.</p>
+<h1 id="dry">DRY</h1>
+<p>这里的DRY是<code>Do Not Repeat Yourself</code>的缩写。具体解释参见 ,严谨的定义是　Every piece of knowledge must have a single, unambiguous, authoritative representation within a system，意思是：任何一部分知识在系统中必须只有单一的，清晰并且权威的展示。？？？这是啥意思，没懂。简单说就是不要重复自己任何一部分的工作。比如说，有一段代码是用于清除字条串中的HTML符号，在多个程序中会用到此功能，如果每个地方都使用如下代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">html <span style="color:#f92672">=</span> html<span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;\\&lt;.*?&gt;&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">)</span> 
+html <span style="color:#f92672">=</span> html<span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&amp;nbsp;&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span>
+html <span style="color:#f92672">=</span> html<span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&amp;amp;&#34;</span><span style="color:#f92672">.</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span>
+</code></pre></div><p>如果是只有２，３个地方用到(Martin曾经提到过Rule of three,意思是一段代码如果被copy３次以上就应该重构到一个单独的子方法中)，你可能就直接复制过来用，但是想想是２，３百个地方用到呢？如果上面需要再做个修改(如下)，你是不是要去这个２，３百个地方去改代码。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">html <span style="color:#f92672">=</span> html<span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&amp;lt;&#34;</span><span style="color:#f92672">.</span><span style="color:#e6db74">&#34;&lt;&#34;</span><span style="color:#f92672">);</span>
+html <span style="color:#f92672">=</span> html<span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&amp;gt;&#34;</span><span style="color:#f92672">.</span><span style="color:#e6db74">&#34;&gt;&#34;</span><span style="color:#f92672">);</span>
+</code></pre></div><p>所以这个DRY的规则就是推荐使用 <code>子方法</code> 的方式，这样只需要修改一次即可. 与之类似的编程思想有 <code>DIE（Duplication is Evil）,SPoT(Single Point of Truth), SSOT (Singel Source of Truth)</code> 。 题外话，和DRY对应的是WET,意思是 &ldquo;write everything twice&rdquo;（任何东西都写两遍）或者&quot;we enjoy typing&rdquo; （我们就是喜欢打字编码）。　:-)。</p>
+<h1 id="kiss">KISS</h1>
+<p>KISS 是 Keep it simple, stupid （或者Keep it short and simple ）的简称。意思是在设计时保持简约，通俗。这个很像是现在推畅的“极简风”。
+使用KISS有什么好处呢？如下是其中的一些：</p>
+<ul>
+<li>你可以更快的解决更多的问题</li>
+<li>你可以使用更少的代码来解决复杂的问题</li>
+<li>你可以写出更高质量的代码</li>
+<li>你可以创建更大的系统，更好的去运维</li>
+<li>你的代码将更加灵活，当有新需求时可以更好的支持扩展，修改或者重构</li>
+<li>等等</li>
+</ul>
+<p>在软件设计领域， 有一些技术具体实现这个精髓，比如 DDD (Domain Driven Design),TDD (Test Driven Develop),这个使代码集中在真正需要的功能上，而不需要其他额外的。另外一个建议是 <code>不要试图通过注释来提高代码的可读性</code>，而应该从代码本身提高。比如如下是不太好的变量定义</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// i is for &#39;counter&#39; and j means total sum
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">,</span> j<span style="color:#f92672">;</span>
+</code></pre></div><p>而如下是好的设计</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// more intuitive one
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> counter<span style="color:#f92672">,</span>sum<span style="color:#f92672">;</span>
+</code></pre></div><p>与此相呼应的是称作 <code>奥卡姆剃刀</code> 或者 <code>简约之法则</code>：</p>
+<blockquote>
+<p>Occam&rsquo;s razor
+The simplest (explanation|solution) is usually the best one.
+往往最简单的解决方案是最好的解决方案</p>
+</blockquote>
+<p>具体到以Java为例的程序设计，如下有一些实践KISS的建议</p>
+<ul>
+<li>首先，认清自己，不要认为自己是个天才，这往往是你犯的第一个错。</li>
+<li>把你的工作打散成几个子工作，每个部分不会耗费超过4-12个小时去完成</li>
+<li>把一个问题分成几个小的子问题，每个问题可以通过1个或者只要几个类就能解决。</li>
+<li>保持每个方法只做一件事，并且不要超过30-40行的代码量</li>
+<li>保持每个类的体积不要太大。</li>
+<li>不要害怕扔掉不用的代码。就像家里用不到的东西就及时扔掉一样。</li>
+</ul>
+<h1 id="new-jersey-style-worse-is-better">New Jersey style （Worse is better）</h1>
+<p>新泽西风格，也叫做“Worse is better”。此原则指出，<code>系统的质量不会因为新功能的增多而提高</code>。 比如一个软件，只提供一些功能，但是用户很方便使用，有可能比一些提供了非常多令人眼花缭乱功能的“大杂烩”似的软件。比如像 Linux下面的 vi/vim, 浏览器中的Chrome.</p>
+<h1 id="solid">SOLID</h1>
+<p>SOLID是几个编程哲学的总称，即 SOLID (Single responsibility, Open-closed, Liskov substitution, Interface segregation and Dependency inversion) ，下面我们分别解释一下：</p>
+<h2 id="single-responsibility-srp">Single responsibility （SRP）</h2>
+<p>单一功能原则。Robert描述这个为“A class should have only one reason to change.”，即修改一个类（或者模块）有（且只能有）一个理由。简单说就是 <code>一个类或者模块只能负责一个功能</code>。举个例子，有一个模块负责生成一个报表，可以想像可能有两个理由去修改此模块，第一，报表的内容要变，第二，报表的格式要改。这两个改动是出于不同的理由，一个是内容的一个美化版面的。 而 “单一职责” 规则认为这是两个不同的职责，因此应该分成两个不同的子模块。如果把两件事情放在一起，并且不同的改动是出于不同的原因，这种设计是不好的。此规则方便系统各模块间解耦合。</p>
+<h2 id="openclosed-principle-ocp">Open/closed principle （OCP）</h2>
+<p>开闭原则。Bertrand描述为“&ldquo;software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification&rdquo;;”，也就是说对于一个实体（类，模块，方法等）允许在不修改源代码的前提下扩展它的功能行为。即，你可以把 <code>新代码放到新的类或者方法中</code>，新类通过继承来重用已有代码及功能。而 <code>已有的代码只有在修bug时才去修改</code>。 此原则主要用于降低在添加新加功能时引入新的bug的风险。</p>
+<h2 id="the-liskov-substitution-principle-lsp">The Liskov Substitution Principle （LSP）</h2>
+<p>里氏替换原则. 原文是 “Derived classes must be substitutable for their base classes.”，意思是，<code>派生类（子类）对象能够替换其基类（超类）对象被使用</code>。 比如说，如果 S 是T 的子类， 那么任何T类的具体实现对象都可以替换S的实现对象出现的地方，具体的调用者也不知道具体是父类还是子类，还不会出现任何错误。比如下图，调用者可以2来替换1的地方 。
+<img src="https://msdnshared.blob.core.windows.net/media/TNBlogsFS/BlogFileStorage/blogs_msdn/willy-peter_schaub/WindowsLiveWriter/SDLCSoftwareDevelopmentLifecycleflashbac_A707/image_4.png" alt=""></p>
+<h2 id="interface-segregation-principle-isp">Interface segregation principle （ISP）</h2>
+<p>接口隔离。原文是 many client-specific interfaces are better than one general-purpose interface. 意思是多个特定客户端接口要好于一个宽泛用途的接口。Make fine grained interfaces that are client specific. 应该定义粒度合适的一系列接口(像下图)，以便于每个客户去实现具体的功能请求。换句话说是，客户（client）不应该必须去依赖于它用不到的功能方法。此原则的目的是系统解开耦合，从而容易重构，更改和重新部署。
+<img src="http://cdn.hackerchick.com/wp-content/uploads/2010/04/200806SOLIDIISP2.gif" alt=""></p>
+<h2 id="dependency-inversion-principle-dip">Dependency inversion principle (DIP)</h2>
+<p>依赖反转原则. 原文是 One should “Depend upon Abstractions. Do not depend upon concretions.” 意思是 一个方法应该遵从“依赖于抽象而不是一个实例”。该原则规定：</p>
+<ol>
+<li>高层次的模块不应该依赖于低层次的模块，两者都应该依赖于抽象接口。</li>
+<li>抽象接口不应该依赖于具体实现。而具体实现则应该依赖于抽象接口。
+这个就像是设计模式中的Adaptor适配器模式。
+下图解释了这个原理。
+<a href="https://upload.wikimedia.org/wikipedia/commons/9/96/Dependency_inversion.png"></a>
+图1中，高层对象A依赖于底层对象B的实现；图2中，把高层对象A对底层对象的需求抽象为一个接口A，底层对象B实现了接口A，这就是依赖反转。</li>
+</ol>
+<h1 id="soc">SOC</h1>
+<p>Separation of concerns,?即关注点分离。 是处理复杂性的一个原则。由于关注点混杂在一起会导致复杂性大大增加，所以能够把不同的关注点分离开来，分别处理就是处理复杂性的一个原则，一种方法。这个与SOLID中的 SRP很类似。</p>
+<h1 id="yangi">YANGI</h1>
+<p>是&quot;You aren&rsquo;t gonna need it&quot;的缩写，直译是“你将来用不到它的”。这个是<a href="https://en.wikipedia.org/wiki/Extreme_programming">极限编程</a>的一个编程思想。意思是说,永远不要因为 <code>预计</code>你会用到某个功能就去写一段代码去实现，总是只有问题出现了，<code>真的需要这个功能时才去写</code>。</p>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Principle_of_least_astonishment">https://en.wikipedia.org/wiki/Principle_of_least_astonishment</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a></li>
+<li><a href="http://blog.csdn.net/sinat_20645961/article/details/47393737"> 六大设计原则&ndash;里氏替换原则【Liskov Substitution Principle】</a></li>
+<li><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID</a></li>
+<li><a href="http://stackoverflow.com/questions/816130/how-to-keep-my-code-simple">how to keep code simple</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Occam%27s_razor">奥卡姆剃刀</a></li>
+<li><a href="http://people.apache.org/~fhanik/kiss.html">Apache KISS</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Worse_is_better">Worse is better</a></li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/development" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">development</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/desgin" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">desgin</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/principals" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">principals</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/myblog" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">MyBlog</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2016-12-09-headsfirst-randomnumber-in-java/">Random number in java</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

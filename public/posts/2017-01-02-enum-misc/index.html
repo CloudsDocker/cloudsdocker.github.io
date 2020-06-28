@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Java Enum Misc | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Java Enum Misc" />
+<meta property="og:description" content="Enum Misc  All enums implicitely extends java.lang.Enum Enum in Java are type-safe You can specify values of enum constants at the creation time. Enum.values() returns an array of MyEnum’s values. Enum constants are implicitly static and final and can not be changed once created. Enum can be safely compare using:  Switch-Case Statement == Operator .equals() method   You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-01-02-enum-misc/" />
+
+<meta itemprop="name" content="Java Enum Misc">
+<meta itemprop="description" content="Enum Misc  All enums implicitely extends java.lang.Enum Enum in Java are type-safe You can specify values of enum constants at the creation time. Enum.values() returns an array of MyEnum’s values. Enum constants are implicitly static and final and can not be changed once created. Enum can be safely compare using:  Switch-Case Statement == Operator .equals() method   You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself.">
+
+<meta itemprop="wordCount" content="2273">
+
+
+
+<meta itemprop="keywords" content="java,enum," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Enum Misc"/>
+<meta name="twitter:description" content="Enum Misc  All enums implicitely extends java.lang.Enum Enum in Java are type-safe You can specify values of enum constants at the creation time. Enum.values() returns an array of MyEnum’s values. Enum constants are implicitly static and final and can not be changed once created. Enum can be safely compare using:  Switch-Case Statement == Operator .equals() method   You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-01-02-enum-misc/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-01-02-enum-misc/&amp;text=Java%20Enum%20Misc" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-01-02-enum-misc/&amp;title=Java%20Enum%20Misc" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Java Enum Misc</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="enum-misc">Enum Misc</h1>
+<ul>
+<li>All enums implicitely extends <strong>java.lang.Enum</strong></li>
+<li>Enum in Java are <strong>type-safe</strong></li>
+<li>You can specify values of enum constants at the <strong>creation</strong> time. <strong>Enum.values()</strong> returns an array of MyEnum’s values.</li>
+<li>Enum constants are implicitly static and final and can not be changed once created.</li>
+<li>Enum can be safely compare using:
+<ul>
+<li>Switch-Case Statement</li>
+<li>== Operator</li>
+<li>.equals() method</li>
+</ul>
+</li>
+<li>You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself.</li>
+<li>Instance of Enum in Java <strong>is created when</strong> any Enum constants are <strong>first called or referenced</strong> in code.</li>
+<li>An enum can be declared outside or inside a class, but NOT in a method.</li>
+<li>An enum declared outside a class must NOT be marked static, final , abstract, protected , or private</li>
+<li>Enums can contain constructors, methods, variables, and constant class bodies.</li>
+<li>enum constructors can have arguments, and can be overloaded.</li>
+<li>enum constructors can NEVER be invoked directly in code. They are always called automatically when an enum is initialized.</li>
+<li>The semicolon at the end of an enum declaration is optional.</li>
+</ul>
+<p>These are legal:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">enum</span> Foo <span style="color:#f92672">{</span> ONE<span style="color:#f92672">,</span> TWO<span style="color:#f92672">,</span> THREE<span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">enum</span> Foo <span style="color:#f92672">{</span> ONE<span style="color:#f92672">,</span> TWO<span style="color:#f92672">,</span> THREE<span style="color:#f92672">};</span>
+</code></pre></div><h1 id="type-safe">type safe</h1>
+<p>The advantage of this style of enumeration over the C/C++-style enum or constants is that they are <strong>type-safe</strong>, meaning that, for example, if you define a method</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setSuit</span><span style="color:#f92672">(</span>Suit suit<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#f92672">...</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>the caller cannot pass in a value that does not correspond to an enumeration value</p>
+<h1 id="language-level-features">Language level features</h1>
+<ul>
+<li>Since enumeration instances are all effectively <strong>singletons</strong>, they can be compared for equality using identity (&ldquo;==&rdquo;).</li>
+<li>In Java 5.0, the enum keyword is introduced as a special type of class that always extends <strong>java.lang.Enum</strong>.</li>
+<li>Note that the enumeration values are still <strong>static class members</strong>, though not declared as such.</li>
+<li>Enum is implemented using <strong>Arrays and common operations result in constant time</strong>. So if you are thinking of an high-performance Map, EnumMap could be a decent choice for enumeration data. We have already seen many examples of Java enum in our article 10 Examples of enum in Java  and using Enum as thread-safe Singleton. In this Java tutorial, we will see simple examples of using EnumMap in Java.</li>
+<li>All keys used in EnumMap must be  from same Enum type which is specified while creating EnumMap in Java. For example if you can not use different enum instances from two different enum.</li>
+<li>EnumMap is ordered collection and they are maintained in the natural order of their keys( natural order of keys means  the order on which enum constant are declared inside enum type ). you can verify this while Iterating over an EnumMap in Java.</li>
+<li>Iterators of EnumMap are fail-fast Iterator , much like of ConcurrentHashMap and doesn&rsquo;t throw ConcurrentModificationException and may not show effect of any modification on EnumMap during Iteration process.</li>
+<li>You can not insert null keys inside EnumMap in Java.  EnumMap doesn&rsquo;t allow null key and throw NullPointerException, at same time null values are permitted.</li>
+<li>EnumMap is not synchronized and it has to be synchronized manually before using it in a concurrent or multi-threaded environment. like synchronized Map in Java  you can also make EnumMap synchronized by using Collections.synchronizedMap() method and as per javadoc this should be done while creating EnumMap in java to avoid accidental non synchronized access.</li>
+<li>The constructor of enum in java must be private any other access modifier will result in compilation error. Now to get the value associated with each coin you can define a public getValue() method inside Java enum like any normal Java class. Also, the semicolon in the first line is optional.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> Currency <span style="color:#f92672">{</span>
+        PENNY<span style="color:#f92672">(</span>1<span style="color:#f92672">),</span> NICKLE<span style="color:#f92672">(</span>5<span style="color:#f92672">),</span> DIME<span style="color:#f92672">(</span>10<span style="color:#f92672">),</span> QUARTER<span style="color:#f92672">(</span>25<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> value<span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Currency</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> value<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> value<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+<span style="color:#f92672">};</span>  
+</code></pre></div><ul>
+<li>Since constants defined inside Enum in Java are <strong>final</strong> you can <strong>safely compare them using &ldquo;==&rdquo;</strong>, the equality operator as shown in following example of  Java Enum:</li>
+<li>Java compiler automatically generates static values() method for every enum in java. Values() method returns array of Enum constants in the same order they have listed in Enum and you can use values() to iterate over values of Enum  in Java as shown in below example. Notice <strong>the order is exactly the same as defined order</strong> in the Enum.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>Currency coin<span style="color:#f92672">:</span> Currency<span style="color:#f92672">.</span><span style="color:#a6e22e">values</span><span style="color:#f92672">()){</span>
+   System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;coin: &#34;</span> <span style="color:#f92672">+</span> coin<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>In Java, Enum can override methods also. Let’s see an example of overriding toString() method inside Enum in Java to provide a meaningful description for enums constants.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> Currency <span style="color:#f92672">{</span>
+  <span style="color:#f92672">........</span>
+      
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+       <span style="color:#66d9ef">switch</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+         <span style="color:#66d9ef">case</span> PENNY<span style="color:#f92672">:</span>
+              System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Penny: &#34;</span> <span style="color:#f92672">+</span> value<span style="color:#f92672">);</span>
+              <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+         <span style="color:#66d9ef">case</span> NICKLE<span style="color:#f92672">:</span>
+              System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Nickle: &#34;</span> <span style="color:#f92672">+</span> value<span style="color:#f92672">);</span>
+              <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+         <span style="color:#66d9ef">case</span> DIME<span style="color:#f92672">:</span>
+              System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Dime: &#34;</span> <span style="color:#f92672">+</span> value<span style="color:#f92672">);</span>
+              <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+         <span style="color:#66d9ef">case</span> QUARTER<span style="color:#f92672">:</span>
+              System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Quarter: &#34;</span> <span style="color:#f92672">+</span> value<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
+ <span style="color:#f92672">}</span>
+<span style="color:#f92672">};</span>        
+</code></pre></div><ul>
+<li>EnumSet doesn&rsquo;t have any public constructor instead it provides <strong>factory methods to create instance e.g. EnumSet.of()</strong> methods. This design allows EnumSet to internally choose between two different implementations depending upon the size of Enum constants.</li>
+</ul>
+<p>If Enum has <strong>less than 64 constants than EnumSet uses RegularEnumSet</strong> class which internally uses a long variable to store those 64 Enum constants and if Enum has more keys than 64 then it uses JumboEnumSet. See my article the difference between RegularEnumSet and JumboEnumSet for more details.</p>
+<ul>
+<li>An instance of Enum in Java is created when any Enum constants are first called or referenced in code.</li>
+<li>Enum in Java can **implement the interface and override any method **like normal class It’s also worth noting that Enum in java implicitly implements both Serializable and Comparable interface. Let&rsquo;s see and example of how to implement interface using Java Enum:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> Currency <span style="color:#66d9ef">implements</span> Runnable<span style="color:#f92672">{</span>
+  PENNY<span style="color:#f92672">(</span>1<span style="color:#f92672">),</span> NICKLE<span style="color:#f92672">(</span>5<span style="color:#f92672">),</span> DIME<span style="color:#f92672">(</span>10<span style="color:#f92672">),</span> QUARTER<span style="color:#f92672">(</span>25<span style="color:#f92672">);</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> value<span style="color:#f92672">;</span>
+  <span style="color:#f92672">............</span>
+        
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Enum in Java implement interfaces&#34;</span><span style="color:#f92672">);</span>
+                
+   <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>You can define abstract methods inside Enum in Java and can also provide a different implementation for different instances of enum in java.  Let’s see an example of using abstract method inside enum in java</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> Currency <span style="color:#f92672">{</span>
+        PENNY<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#a6e22e">@Override</span>
+            <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">color</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;copper&#34;</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">},</span>
+        NICKLE<span style="color:#f92672">(</span>5<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#a6e22e">@Override</span>
+            <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">color</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;bronze&#34;</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">},</span>
+        DIME<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#a6e22e">@Override</span>
+            <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">color</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;silver&#34;</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">},</span>
+        QUARTER<span style="color:#f92672">(</span>25<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#a6e22e">@Override</span>
+            <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">color</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;silver&#34;</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">};</span>
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> value<span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> String <span style="color:#a6e22e">color</span><span style="color:#f92672">();</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Currency</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> value<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> value<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+ 
+
+<span style="color:#f92672">}</span>     
+</code></pre></div><p>In this example since every coin will have the different color we made the color() method abstract and let each instance of Enum to define  their own color. You can get color of any coin by just calling the color() method as shown in below example of Java Enum:</p>
+<p>System.out.println(&ldquo;Color: &quot; + Currency.DIME.color());</p>
+<p>So that was the comprehensive list of properties, behavior and capabilities of Enumeration type in Java. I know, it&rsquo;s not easy to remember all those powerful features and that&rsquo;s why I have prepared this small Microsoft powerpoint slide containing all important properties of Enum in Java. You can always come back and check this slide to revise important features of Java Enum.</p>
+<h1 id="regularenumset-vs-jumboenumset">RegularEnumSet vs. JumboEnumSet</h1>
+<ul>
+<li>Since Enum always has fixed number of instances, data-structure which is used to store Enum can be optimized depending upon number of instances and that&rsquo;s why we have two different implementation of EnumSet in Java. We will take a closer look on this concept in next paragraph.</li>
+<li>How EnumSet is implemented in Java
+EnumSet is an abstract class and it provides two concrete implementations, java.util.RegularEnumSet and java.util.JumboEnumSet. Main difference between RegularEnumSet and JumboEnumSet is that former uses a long variable to store elements while later uses a long[] to store its element. Since RegularEnumSet uses long variable, which is a 64 bit data type, it can only hold that much of element. That&rsquo;s why when an empty EnumSet is created using EnumSet.noneOf() method, it choose RegularEnumSet if key universe (number of enum instances in Key Enum) is less than or equal to 64 and JumboEnumSet if key universe is more than 64. Here is the code which does that :</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>E <span style="color:#66d9ef">extends</span> Enum<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;&gt;</span> EnumSet<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">noneOf</span><span style="color:#f92672">(</span>Class<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> elementType<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>   
+        <span style="color:#f92672">..</span> <span style="color:#f92672">............</span> 
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>universe<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">&lt;=</span> 64<span style="color:#f92672">)</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> RegularEnumSet<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;(</span>elementType<span style="color:#f92672">,</span> universe<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">else</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> JumboEnumSet<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;(</span>elementType<span style="color:#f92672">,</span> universe<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><ol>
+<li>EnumSet is <strong>not thread-safe</strong>, which means if it needs to be externally synchronized, when multiple thread access it and one of them modifies the Collection.</li>
+<li>EnumSet can not be used to store any other object <strong>except Enum</strong>, at the same time you can not store instances of two different Enum.</li>
+<li>EnumSet doesn&rsquo;t allow Null elements.</li>
+<li>EnumSet Iterators are fail-safe in nature.</li>
+</ol>
+<h1 id="difference-between-enummap-vs-hashmap">Difference between EnumMap vs HashMap</h1>
+<ul>
+<li>Internally EnumMap is represented using Array and provides constant time performance for common methods e.g. get() or put(). Now let&rsquo;s see few differences between EnumMap vs HashMap :</li>
+<li>As said earlier, first and foremost difference between EnumMap and HashMap is that EnumMap is optimized for enum keys while HashMap is a general purpose Map implementation similar to Hashtable. you can not use any type other than Enum as key in EnumMap but you can use both Enum and any other Object as key in HashMap.</li>
+<li>Another difference between EnumMap and HashMap is <strong>performance</strong>. as discussed in the previous point, due to specialized optimization done for Enum keys, EnumMap is likely to perform better than HashMap when using enum as key object.</li>
+<li>One more thing which can be considered as the difference between HashMap and EnumMap is <strong>the probability of Collision</strong>. Since **Enum is internally maintained as array ** and they are <strong>stored in their natural order using ordinal()</strong>, as shown in following code which is taken from put() method of EnumMap.
+Since EnumMap doesn&rsquo;t call hashCode method on keys, there is no chance of collision.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> <span style="color:#f92672">((</span>Enum<span style="color:#f92672">)</span>key<span style="color:#f92672">).</span><span style="color:#a6e22e">ordinal</span><span style="color:#f92672">();</span>
+    Object oldValue <span style="color:#f92672">=</span> vals<span style="color:#f92672">[</span>index<span style="color:#f92672">];</span>
+    vals<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> maskNull<span style="color:#f92672">(</span>value<span style="color:#f92672">);</span>
+</code></pre></div><ul>
+<li>
+<p>you can use both == and equals() method to compare Enum, they will produce same result because equals() method of Java.lang.Enum internally uses == to compare enum in Java. Since every Enum in Java implicitly extends java.lang.Enum ,and since equals() method is declared final, there is no chance of overriding equals method in user defined enum</p>
+</li>
+<li>
+<p>But there are still some slight difference, because  ==  (equality operator) being operator and equals() being method.
+&ndash; Using == for comparing Enum can prevent NullPointerException
+&ndash;  == method provides type safety during compile time</p>
+</li>
+<li>
+<p>A <strong>fail-fast</strong> system is nothing but immediately report any failure that is likely to lead to failure. When a problem occurs, a fail-fast system fails immediately. In Java, we can find this behavior with iterators. Incase, you have called iterator on a collection object, and another thread tries to modify the collection object, then concurrent modification exception will be thrown. This is called fail-fast. - See more at:</p>
+</li>
+</ul>
+<h1 id="real-world-examples-of-enum-in-java">Real world Examples of Enum in Java</h1>
+<ol>
+<li>Enum as Thread Safe Singleton</li>
+<li>Strategy Pattern using Enum. to implement the Strategy interface and define individual strategy</li>
+<li>Enum as replacement of Enum String or int pattern. There is now no need to use String or integer constant to represent fixed set of things e.g. status of object like ON and OFF for a button or START, IN PROGRESS and DONE for a Task. Enum is much better suited for those needs as it provide compile time type safety and better debugging assistent than String or Integer.</li>
+<li>Enum as State Machine</li>
+<li>Enum Java valueOf example. “You could also include valueOf() method of enum in java which is added by compiler in any enum along with values() method. Enum valueOf() is a static method which takes a string argument and can be used to convert a String into an enum. One think though you would like to keep in mind is that valueOf(String) method of enum will throw &ldquo;Exception in thread &ldquo;main&rdquo; java.lang.IllegalArgumentException: No enum const class&rdquo; if you supply any string other than enum values.</li>
+</ol>
+<h1 id="reverse-lookup">Reverse lookup</h1>
+<p>Often in your object model it is common to have data that is naturally &ldquo;associated&rdquo; with an enumeration. Since an enum is a class, it is easy to represent this associated information as class fields. Often it is desirable to &ldquo;lookup&rdquo; the associated enumeration using the field value. This is easy to do using a static java.util.Map. Take, for example, a Status enum that has an associated status code.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> Status
+<span style="color:#f92672">{</span>
+     WAITING<span style="color:#f92672">(</span>0<span style="color:#f92672">),</span>
+     READY<span style="color:#f92672">(</span>1<span style="color:#f92672">),</span>
+     SKIPPED<span style="color:#f92672">(-</span>1<span style="color:#f92672">),</span>
+     COMPLETED<span style="color:#f92672">(</span>5<span style="color:#f92672">);</span>
+
+     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Map<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span>Status<span style="color:#f92672">&gt;</span> lookup
+          <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span>Status<span style="color:#f92672">&gt;();</span>
+
+     <span style="color:#66d9ef">static</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>Status s <span style="color:#f92672">:</span> EnumSet<span style="color:#f92672">.</span><span style="color:#a6e22e">allOf</span><span style="color:#f92672">(</span>Status<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">))</span>
+               lookup<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>s<span style="color:#f92672">.</span><span style="color:#a6e22e">getCode</span><span style="color:#f92672">(),</span> s<span style="color:#f92672">);</span>
+     <span style="color:#f92672">}</span>
+
+     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> code<span style="color:#f92672">;</span>
+
+     <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Status</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> code<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">code</span> <span style="color:#f92672">=</span> code<span style="color:#f92672">;</span>
+     <span style="color:#f92672">}</span>
+
+     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getCode</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> code<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+
+     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Status <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> code<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> lookup<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>code<span style="color:#f92672">);</span>
+     <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h1 id="sleek-enummap">Sleek EnumMap</h1>
+<p>Why would I use an EnumMap rather than a HashMap?  The primary reasons boil down to some inherent advantages of Java&rsquo;s enum as stated in the Javadoc documentation for EnumMap: &ldquo;Enum maps are represented internally as arrays. This representation is extremely compact and efficient.&rdquo; Later in the same Javadoc documentation, there is an &ldquo;Implementation Note&rdquo; that states: &ldquo;All basic operations execute in constant time. They are likely (though not guaranteed) to be faster than their HashMap counterparts.&rdquo;</p>
+<p>The Javadoc documentation states similar advantages for the EnumSet over the HashSet:</p>
+<blockquote>
+<p>Enum sets are represented internally as <strong>bit vectors</strong>. This representation is extremely <strong>compact and efficient</strong>. The space and time performance of this class should be good enough to allow its use as a high-quality, typesafe alternative to traditional int-based &lsquo;bit flags.&rsquo;  &hellip; Implementation note: All basic operations execute <strong>in constant time</strong>. They are likely (though not guaranteed) to be much faster than their HashSet counterparts. Even <strong>bulk operations execute in constant time</strong> if their argument is also an enum set.</p>
+</blockquote>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/">http://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/</a></li>
+<li><a href="http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks">http://www.ajaxonomy.com/2007/java/making-the-most-of-java-50-enum-tricks</a></li>
+<li><a href="http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html">http://www.javaworld.com/article/2073430/the-sleek-enummap-and-enumset.html</a></li>
+<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4W6bC2mUV</a></li>
+<li><a href="http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html">http://javarevisited.blogspot.in/2011/08/enum-in-java-example-tutorial.html</a></li>
+<li><a href="http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5">http://www.java67.com/2013/11/difference-between-regularenumset-and-jumboenumset-java.html#ixzz4WANO22q5</a></li>
+<li><a href="http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB">http://javarevisited.blogspot.com/2011/08/enum-in-java-example-tutorial.html#ixzz4WAP43bUB</a></li>
+<li><a href="http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC">http://javarevisited.blogspot.com/2012/09/difference-between-enummap-and-hashmap-in-java-vs.html#ixzz4WAQcrjkC</a></li>
+<li><a href="http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ">http://javarevisited.blogspot.com/2013/04/how-to-compare-two-enum-in-java-equals.html#ixzz4WARs9slQ</a></li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/java" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">java</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/enum" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">enum</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-compare-in-java/">Compare-In-Java</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-20-deadlock/">Dead Lock</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-hashcode-contract/">Hash Code Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-16-java-hashmap/">HashMap in JDK</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-03-intellij-tips/">IntelliJ Tips</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-06-24-jdk-sources/">JDK source</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-17-java-collections-misc/">Java Collections Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-01-concurrent-in-java-col-2/">Java Concurrent Column 2</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-java-gc/">Java GC notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-21-java-jit/">Java JIT compiler</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-05-jvm/">Java JVM</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-02-java-new-io/">Java New IO</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-15-java-security/">Java Security Notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-java-tricky-tech-questions/">Java-Tricky-Tech-Questions.md</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-03-maven-notes/">Maven-Notes</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

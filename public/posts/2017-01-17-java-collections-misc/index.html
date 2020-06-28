@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Java Collections Misc | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Java Collections Misc" />
+<meta property="og:description" content="Difference between equals and deepEquals of Arrays in Java  Arrays.equals() method does not compare recursively if an array contains another array on other hand Arrays.deepEquals() method compare recursively if an array contains another array. Arrays.equals() check is if element is null or not and then calls equals() method, it does not check for Array type. It&rsquo;s better to use Arrays.equals() to compare non-nested Array and Arrays.deepEquals() to compare nested Array, as former is faster than later in the case of non-nested Array." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2017-01-17-java-collections-misc/" />
+
+<meta itemprop="name" content="Java Collections Misc">
+<meta itemprop="description" content="Difference between equals and deepEquals of Arrays in Java  Arrays.equals() method does not compare recursively if an array contains another array on other hand Arrays.deepEquals() method compare recursively if an array contains another array. Arrays.equals() check is if element is null or not and then calls equals() method, it does not check for Array type. It&rsquo;s better to use Arrays.equals() to compare non-nested Array and Arrays.deepEquals() to compare nested Array, as former is faster than later in the case of non-nested Array.">
+
+<meta itemprop="wordCount" content="777">
+
+
+
+<meta itemprop="keywords" content="java,Collections," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Collections Misc"/>
+<meta name="twitter:description" content="Difference between equals and deepEquals of Arrays in Java  Arrays.equals() method does not compare recursively if an array contains another array on other hand Arrays.deepEquals() method compare recursively if an array contains another array. Arrays.equals() check is if element is null or not and then calls equals() method, it does not check for Array type. It&rsquo;s better to use Arrays.equals() to compare non-nested Array and Arrays.deepEquals() to compare nested Array, as former is faster than later in the case of non-nested Array."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2017-01-17-java-collections-misc/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2017-01-17-java-collections-misc/&amp;text=Java%20Collections%20Misc" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2017-01-17-java-collections-misc/&amp;title=Java%20Collections%20Misc" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Java Collections Misc</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="difference-between-equals-and-deepequals-of-arrays-in-java">Difference between equals and deepEquals of Arrays in Java</h1>
+<ul>
+<li>Arrays.equals() method does not compare recursively if an array contains another array</li>
+<li>on other hand Arrays.deepEquals() method compare recursively if an array contains another array.</li>
+<li>Arrays.equals() check is if element is null or not and then calls equals() method, it does not check for Array type.</li>
+<li>It&rsquo;s better to use <strong>Arrays.equals()</strong> to compare <strong>non-nested</strong> Array and Arrays.<strong>deepEquals() to compare nested Array</strong>, as former is faster than later in the case of non-nested Array.</li>
+</ul>
+<h1 id="checking-array-for-duplicate-elements-java">Checking Array for duplicate elements Java</h1>
+<ol>
+<li><strong>brute force</strong> method which compares each element of Array to all other elements and returns true if it founds duplicates. Though this is not an efficient choice it is the one which first comes to mind. complexity on order of O(n^2) not advised in production</li>
+<li>Another quick way of checking if a Java array contains duplicates or not is to <strong>convert that array into Set</strong>. Since Set doesn’t allow duplicates size of  the corresponding Set will be smaller than original Array if Array contains duplicates otherwise the size of both Array and Set will be same.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> List inputList <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span>input<span style="color:#f92672">);</span>
+ Set inputSet <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">(</span>inputList<span style="color:#f92672">);</span>
+</code></pre></div><ol>
+<li>One more way to detect duplication in java array is adding every element of the <strong>array into HashSet</strong> which is a Set implementation. Since the add(Object obj) method of Set returns false if Set already contains an element to be added, it can be used to find out if the array contains duplicates in Java or not.</li>
+</ol>
+<ul>
+<li>If you don&rsquo;t prefer converting List to Set than you can still go with copying data **from one ArrayList to other ArrayList ** and removing duplicates <strong>by checking with ArrayList.contains()</strong> method.</li>
+</ul>
+<h1 id="list-vs-set">List vs Set</h1>
+<p>In short main difference between List and Set in Java is that List is an <strong>ordered</strong> collection which <strong>allows duplicates</strong> while <strong>Set is an unordered</strong> collection which <strong>doesn&rsquo;t allow duplicates</strong>.</p>
+<h1 id="how-to-sort-list-in-reverse-order">how to sort list in reverse order</h1>
+<ul>
+<li>Collections.sort(unsortedList, Collections.reverseOrder());</li>
+<li>customized comparator</li>
+<li>Collections.sort(unsortedList, String.CASE_INSENSITIVE_ORDER); // search insensitive order</li>
+</ul>
+<h1 id="find-length-of-a-linked-list">Find length of a linked list</h1>
+<h2 id="iterative-solutions">Iterative Solutions</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">length</span><span style="color:#f92672">(){</span>
+ <span style="color:#66d9ef">int</span> count<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>
+ Node current <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">head</span><span style="color:#f92672">;</span>
+
+ <span style="color:#66d9ef">while</span><span style="color:#f92672">(</span>current <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">){</span>
+  count<span style="color:#f92672">++;</span>
+  current<span style="color:#f92672">=</span>current<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">()</span>
+ <span style="color:#f92672">}</span>
+ <span style="color:#66d9ef">return</span> count<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="recursive-solution">Recursive Solution:</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">length</span><span style="color:#f92672">(</span>Node current<span style="color:#f92672">){</span>
+ <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>current <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">){</span> <span style="color:#75715e">//base case
+</span><span style="color:#75715e"></span>   <span style="color:#66d9ef">return</span> 0<span style="color:#f92672">;</span>
+ <span style="color:#f92672">}</span>
+ <span style="color:#66d9ef">return</span> 1<span style="color:#f92672">+</span>length<span style="color:#f92672">(</span>current<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">());</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>You can see that we have used the fact that last node will point to null to terminate the recursion. This is called the <strong>base case</strong>. It&rsquo;s very important to identify a base case while coding a recursive solution, without a base case, your program will never terminate and result in StackOverFlowError.</p>
+<h1 id="iterator">Iterator</h1>
+<ul>
+<li>is nothing but a traversing object, made specifically for Collection objects like List and Set.</li>
+<li>we have already aware about different kind of traversing methods like for-loop ,while loop,do-while,for each lop etc,they all are  index based traversing but as we know Java is purely object oriented language there is always possible ways of doing things <strong>using objects so Iterator is a way to traverse as well as access the data from the collection</strong>.</li>
+</ul>
+<h1 id="listiterator">ListIterator</h1>
+<ul>
+<li>in Java is an Iterator which allows user to traverse Collection like ArrayList and HashSet in both direction by using method <strong>previous() and next ()</strong>. You can obtain ListIterator from all List implementation <strong>including ArrayList and LinkedList</strong>. ListIterator doesn’t keep current index and its current position is determined by call to next() or previous() based on direction of traversing.</li>
+<li>List collection type also supports ListIterator which has add() method to add elements** in collection while Iterating.</li>
+</ul>
+<h1 id="blocking-queue">Blocking queue</h1>
+<ul>
+<li>BlockingQueue in Java doesn&rsquo;t allow null elements, various implementation of BlockingQueue like ArrayBlockingQueue, LinkedBlockingQueue throws NullPointerException when you try to add null on queue.</li>
+</ul>
+<h2 id="blockingqueue-can-be-bounded-or-unbounded">BlockingQueue can be bounded or unbounded.</h2>
+<ul>
+<li>A <strong>bounded</strong> BlockingQueue is one which is <strong>initialized with initial capacity</strong> and call to <strong>put() will be blocked</strong> if BlockingQueue is full and size is equal to capacity. This bounding nature makes it <strong>ideal to use a shared queue between multiple threads</strong> like in most common Producer consumer solutions in Java.</li>
+<li>An <strong>unbounded Queue</strong> is one which is <strong>initialized without capacity</strong>, actually by default it initialized with Integer.MAX_VALUE. most common example of BlockingQueue uses bounded BlockingQueue as shown in below example.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">BlockingQueue<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> bQueue <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayBlockingQueue<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;(</span>2<span style="color:#f92672">);</span>
+</code></pre></div><h2 id="blockingqueue-implementations-like-arrayblockingqueue-linkedblockingqueue-and-priorityblockingqueue-are-thread-safe">BlockingQueue implementations like ArrayBlockingQueue, LinkedBlockingQueue and PriorityBlockingQueue are <strong>thread-safe</strong>.</h2>
+<ul>
+<li>All queuing method uses concurrency control and internal locks to perform operation atomically.</li>
+</ul>
+<h2 id="blockingqueue-interface-extends-collection-queue-and-iterable-interface-which-provides-it-all-collection-and-queue-related-methods-like-poll-and-peak-unlike-take-peek-method-returns-head-of-the-queue-without-removing-it-poll-also-retrieves-and-removes-elements-from-head-but-can-wait-till-specified-time-if-queue-is-empty">BlockingQueue interface extends Collection, Queue and Iterable interface which provides it all Collection and Queue related methods like <strong>poll(), and peak()</strong>, unlike take(), <strong>peek()</strong> method returns head of the queue <strong>without removing it</strong>, <strong>poll() also retrieves and removes elements from head but can wait till specified time if Queue is empty</strong>.</h2>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="http://javarevisited.blogspot.com/2012/12/how-to-compare-arrays-in-java-equals-deepequals-primitive-object.html#ixzz4WBifkyjg">http://javarevisited.blogspot.com/2012/12/how-to-compare-arrays-in-java-equals-deepequals-primitive-object.html#ixzz4WBifkyjg</a></li>
+<li><a href="http://javarevisited.blogspot.in/2012/02/how-to-check-or-detect-duplicate.html">http://javarevisited.blogspot.in/2012/02/how-to-check-or-detect-duplicate.html</a></li>
+<li><a href="http://javarevisited.blogspot.com/2012/12/how-to-remove-duplicates-elements-from-ArrayList-Java.html#ixzz4WBkudSwR">http://javarevisited.blogspot.com/2012/12/how-to-remove-duplicates-elements-from-ArrayList-Java.html#ixzz4WBkudSwR</a></li>
+<li><a href="http://javarevisited.blogspot.in/2012/04/difference-between-list-and-set-in-java.html">http://javarevisited.blogspot.in/2012/04/difference-between-list-and-set-in-java.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2012/01/how-to-sort-arraylist-in-java-example.html">http://javarevisited.blogspot.in/2012/01/how-to-sort-arraylist-in-java-example.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2016/05/how-do-you-find-length-of-singly-linked.html">http://javarevisited.blogspot.in/2016/05/how-do-you-find-length-of-singly-linked.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2011/10/java-iterator-tutorial-example-list.html">http://javarevisited.blogspot.in/2011/10/java-iterator-tutorial-example-list.html</a></li>
+<li><a href="http://javarevisited.blogspot.in/2012/12/blocking-queue-in-java-example-ArrayBlockingQueue-LinkedBlockingQueue.html">http://javarevisited.blogspot.in/2012/12/blocking-queue-in-java-example-ArrayBlockingQueue-LinkedBlockingQueue.html</a></li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/java" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">java</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/collections" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Collections</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-compare-in-java/">Compare-In-Java</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-20-deadlock/">Dead Lock</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-hashcode-contract/">Hash Code Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-16-java-hashmap/">HashMap in JDK</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-03-intellij-tips/">IntelliJ Tips</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-06-24-jdk-sources/">JDK source</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-01-concurrent-in-java-col-2/">Java Concurrent Column 2</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-02-enum-misc/">Java Enum Misc</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-12-30-java-gc/">Java GC notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-21-java-jit/">Java JIT compiler</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-05-jvm/">Java JVM</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-02-java-new-io/">Java New IO</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-15-java-security/">Java Security Notes</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-01-19-java-tricky-tech-questions/">Java-Tricky-Tech-Questions.md</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2017-02-03-maven-notes/">Maven-Notes</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

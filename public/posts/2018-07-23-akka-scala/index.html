@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>akka framework of scala | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.73.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="akka framework of scala" />
+<meta property="og:description" content="philosophy The actor model adopts the philosophy that everything is an actor. This is similar to the everything is an object philosophy used by some object-oriented programming languages.
+Decoupling the sender from communications sent was a fundamental advance of the Actor model enabling asynchronous communication and control structures as patterns of passing messages.
+Recipients of messages are identified by address, sometimes called &ldquo;mailing address&rdquo;. Thus an actor can only communicate with actors whose addresses it has." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2018-07-23-akka-scala/" />
+
+<meta itemprop="name" content="akka framework of scala">
+<meta itemprop="description" content="philosophy The actor model adopts the philosophy that everything is an actor. This is similar to the everything is an object philosophy used by some object-oriented programming languages.
+Decoupling the sender from communications sent was a fundamental advance of the Actor model enabling asynchronous communication and control structures as patterns of passing messages.
+Recipients of messages are identified by address, sometimes called &ldquo;mailing address&rdquo;. Thus an actor can only communicate with actors whose addresses it has.">
+
+<meta itemprop="wordCount" content="5427">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="akka framework of scala"/>
+<meta name="twitter:description" content="philosophy The actor model adopts the philosophy that everything is an actor. This is similar to the everything is an object philosophy used by some object-oriented programming languages.
+Decoupling the sender from communications sent was a fundamental advance of the Actor model enabling asynchronous communication and control structures as patterns of passing messages.
+Recipients of messages are identified by address, sometimes called &ldquo;mailing address&rdquo;. Thus an actor can only communicate with actors whose addresses it has."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=http://example.org/posts/2018-07-23-akka-scala/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=http://example.org/posts/2018-07-23-akka-scala/&amp;text=akka%20framework%20of%20scala" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://example.org/posts/2018-07-23-akka-scala/&amp;title=akka%20framework%20of%20scala" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">akka framework of scala</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="philosophy">philosophy</h1>
+<p>The actor model adopts the philosophy that everything is an actor. This is similar to the everything is an object philosophy used by some object-oriented programming languages.</p>
+<p>Decoupling the sender from communications sent was a fundamental advance of the Actor model enabling asynchronous communication and control structures as patterns of passing messages.</p>
+<p>Recipients of messages are identified by address, sometimes called &ldquo;mailing address&rdquo;. Thus an actor can only communicate with actors whose addresses it has.</p>
+<h1 id="route">Route</h1>
+<p>Routes effectively are simply highly specialised functions that take a RequestContext and eventually complete it, which could (and often should) happen asynchronously.</p>
+<p>Directives create Routes.</p>
+<p>The Route is the central concept of Akka HTTP&rsquo;s Routing DSL. All the structures you build with the DSL, no matter whether they consists of a single line or span several hundred lines, are type turning a RequestContext into a Future[RouteResult].</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">Route</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">RequestContext</span> <span style="color:#66d9ef">=&gt;</span> <span style="color:#a6e22e">Future</span><span style="color:#f92672">[</span><span style="color:#66d9ef">RouteResult</span><span style="color:#f92672">]</span>
+</code></pre></div><p>Generally when a route receives a request (or rather a RequestContext for it) it can do one of these things:</p>
+<ul>
+<li>Complete the request by returning the value of requestContext.complete(&hellip;)</li>
+<li>Reject the request by returning the value of requestContext.reject(&hellip;) (see Rejections)</li>
+<li>Fail the request by returning the value of requestContext.fail(&hellip;) or by just throwing an exception (see Exception Handling)</li>
+<li>Do any kind of asynchronous processing and instantly return a Future[RouteResult] to be eventually completed later</li>
+</ul>
+<h2 id="the-routing-tree">The Routing Tree</h2>
+<p>Essentially, when you combine directives and custom routes via nesting and the ~ operator, you build a routing structure that forms a tree. When a request comes in it is injected into this tree at the root and flows down through all the branches in a depth-first manner until either some node completes it or it is fully rejected.</p>
+<p>In RouteDirective.scala</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">/**
+</span><span style="color:#75715e">   * Completes the request using the given arguments.
+</span><span style="color:#75715e">   *
+</span><span style="color:#75715e">   * @group route
+</span><span style="color:#75715e">   */</span>
+  <span style="color:#66d9ef">def</span> complete<span style="color:#f92672">(</span>m<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">?</span> <span style="color:#66d9ef">ToResponseMarshallable</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">StandardRoute</span> <span style="color:#f92672">=</span>
+    <span style="color:#a6e22e">StandardRoute</span><span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>complete<span style="color:#f92672">(</span>m<span style="color:#f92672">))</span>
+
+</code></pre></div><h2 id="routeresult">RouteResult</h2>
+<p>RouteResult is a simple abstract data type (ADT) that models the possible non-error results of a Route. It is defined as such:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">trait</span> <span style="color:#a6e22e">RouteResult</span>
+
+<span style="color:#66d9ef">object</span> <span style="color:#a6e22e">RouteResult</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Complete</span><span style="color:#f92672">(</span>response<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">HttpResponse</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">RouteResult</span>
+  <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rejected</span><span style="color:#f92672">(</span>rejections<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">immutable.Seq</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Rejection</span><span style="color:#f92672">])</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">RouteResult</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="routing-dsl">Routing DSL</h2>
+<p>In addition to the Core Server API Akka HTTP provides a very flexible ,Routing DSL, for elegantly defining RESTful web services.</p>
+<p>Http().bindAndHandle(routes ~ abcRoute, host, port)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">/**
+</span><span style="color:#75715e">     * Returns a Route that chains two Routes. If the first Route rejects the request the second route is given a
+</span><span style="color:#75715e">     * chance to act upon the request.
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#f92672">~(</span>other<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Route</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Route</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span> ctx <span style="color:#f92672">?</span>
+      <span style="color:#66d9ef">import</span> ctx.executionContext
+      route<span style="color:#f92672">(</span>ctx<span style="color:#f92672">).</span>fast<span style="color:#f92672">.</span>flatMap <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">case</span> x<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">RouteResult.Complete</span> <span style="color:#66d9ef">?</span> <span style="color:#66d9ef">FastFuture.successful</span><span style="color:#f92672">(</span><span style="color:#66d9ef">x</span><span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">RouteResult.Rejected</span><span style="color:#f92672">(</span><span style="color:#66d9ef">outerRejections</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">?</span>
+          other<span style="color:#f92672">(</span>ctx<span style="color:#f92672">).</span>fast<span style="color:#f92672">.</span>map <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">case</span> x<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">RouteResult.Complete</span>               <span style="color:#66d9ef">?</span> <span style="color:#66d9ef">x</span>
+            <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">RouteResult</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Rejected</span><span style="color:#f92672">(</span>innerRejections<span style="color:#f92672">)</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">RouteResult</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Rejected</span><span style="color:#f92672">(</span>outerRejections <span style="color:#f92672">++</span> innerRejections<span style="color:#f92672">)</span>
+          <span style="color:#f92672">}</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+</code></pre></div><h3 id="path-matching">Path matching</h3>
+<blockquote>
+<p>Note
+The path matching DSL describes what paths to accept after URL decoding. This is why the path-separating slashes have special status and cannot simply be specified as part of a string! The string ¡°foo/bar¡± would match the raw URI path ¡°foo%2Fbar¡±, which is most likely not what you want!</p>
+</blockquote>
+<h1 id="sink">Sink</h1>
+<p>A Sink is a set of stream processing steps that has one open input. Can be used as a Subscriber</p>
+<h1 id="supervision">supervision</h1>
+<h2 id="what-supervision-means">What Supervision Means</h2>
+<p>As described in Actor Systems supervision describes a dependency relationship between actors: the supervisor delegates tasks to subordinates and therefore must respond to their failures. When a subordinate detects a failure (i.e. throws an exception), it suspends itself and all its subordinates and sends a message to its supervisor, signaling failure. Depending on the nature of the work to be supervised and the nature of the failure, the supervisor has a choice of the following four options:</p>
+<ul>
+<li>Resume the subordinate, keeping its accumulated internal state</li>
+<li>Restart the subordinate, clearing out its accumulated internal state</li>
+<li>Stop the subordinate permanently</li>
+<li>Escalate the failure, thereby failing itself</li>
+</ul>
+<h2 id="sealed-class">sealed class</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">object Supervision <span style="color:#f92672">{</span>
+  sealed trait Directive
+<span style="color:#f92672">}</span>
+</code></pre></div><p>A sealed class may not be directly inherited, except if the inheriting template is defined in the same source file as the inherited class. However, subclasses of a sealed class can inherited anywhere.</p>
+<h2 id="implicit">implicit</h2>
+<p>A method can have an implicit parameter list, marked by the implicit keyword at the start of the parameter list. If the parameters in that parameter list are not passed as usual, Scala will look if it can get an implicit value of the correct type, and if it can, pass it automatically.</p>
+<p>The places Scala will look for these parameters fall into two categories:</p>
+<p>Scala will first look for implicit definitions and implicit parameters that can be accessed directly (without a prefix) at the point the method with the implicit parameter block is called.
+Then it looks for members marked implicit in all the companion objects associated with the implicit candidate type.</p>
+<h2 id="killswitch">KillSwitch</h2>
+<p>A KillSwitch allows completion of Graphs from the outside by completing Graphs of FlowShape linked to the switch. Depending on whether the KillSwitch is a UniqueKillSwitch or a SharedKillSwitch one or multiple streams might be linked with the switch.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">trait</span> <span style="color:#a6e22e">KillSwitch</span> <span style="color:#f92672">{</span>
+<span style="color:#75715e">//After calling KillSwitch.shutdown() the linked Graphs of FlowShape are completed normally.
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">def</span> shutdown<span style="color:#f92672">()</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span>
+ <span style="color:#66d9ef">def</span> abort<span style="color:#f92672">(</span>ex<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Throwable</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="source">Source</h2>
+<p>A Source is a set of stream processing steps that has one open output. It can comprise any number of internal sources and transformations that are wired together, or it can be an atomic source, e.g. from a collection or a file. Materialization turns a Source into a Reactive Streams Publisher (at least conceptually).</p>
+<h3 id="connect-to-sink">connect to Sink</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">/**
+</span><span style="color:#75715e">   * Connect this [[akka.stream.scaladsl.Source]] to a [[akka.stream.scaladsl.Sink]],
+</span><span style="color:#75715e">   * concatenating the processing steps of both.
+</span><span style="color:#75715e">   */</span>
+  <span style="color:#66d9ef">def</span> to<span style="color:#f92672">[</span><span style="color:#66d9ef">Mat2</span><span style="color:#f92672">](</span>sink<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Graph</span><span style="color:#f92672">[</span><span style="color:#66d9ef">SinkShape</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Out</span><span style="color:#f92672">]</span>, <span style="color:#66d9ef">Mat2</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">RunnableGraph</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Mat</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> toMat<span style="color:#f92672">(</span>sink<span style="color:#f92672">)(</span><span style="color:#a6e22e">Keep</span><span style="color:#f92672">.</span>left<span style="color:#f92672">)</span>
+</code></pre></div><h1 id="future">Future</h1>
+<p>trait Future[+T]
+extends Awaitable[T]
+A Future represents a value which may or may not <em>currently</em> be available, but will be available at some point, or an exception if that value could not be made available. Asynchronous computations that yield futures are created with the Future.apply call and are computed using a supplied ExecutionContext, which can be backed by a Thread pool.</p>
+<p>import ExecutionContext.Implicits.global
+val s = &ldquo;Hello&rdquo;
+val f: Future[String] = Future {
+s + &quot; future!&rdquo;
+}
+f foreach {
+msg =&gt; println(msg)
+}</p>
+<h2 id="future-introduction">Future introduction</h2>
+<p>Futures provide a way to reason about performing many operations in parallel¨C in an efficient and non-blocking way. A Future is a placeholder object for a value that may not yet exist. Generally, the value of the Future is supplied concurrently and can subsequently be used. Composing concurrent tasks in this way tends to result in faster, asynchronous, non-blocking parallel code.</p>
+<p>By default, futures and promises are non-blocking, making use of callbacks instead of typical blocking operations. To simplify the use of callbacks both syntactically and conceptually, Scala provides combinators such as flatMap, foreach, and filter used to compose futures in a non-blocking way. Blocking is still possible - for cases where it is absolutely necessary, futures can be blocked on (although this is discouraged).</p>
+<h1 id="scala-scope-protection">Scala scope protection:</h1>
+<p>private[C] means that access is private &ldquo;up to&rdquo; C, where C is the corresponding package, class or singleton object.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">private</span><span style="color:#f92672">[</span><span style="color:#66d9ef">http</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">def</span> build <span style="color:#66d9ef">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><p>The modi?er can be quali?ed with an identi?er C (e.g. private[C]) that must denote a class or package enclosing the de?nition. Members labeled with such a modi?er are accessible respectively only from code inside the package C or only from code inside the class C and its companion module (¡ì5.4). Such members are also inherited only from templates inside C.</p>
+<h1 id="scala-flexible-import">Scala flexible import</h1>
+<p>you can import several classes the Scala way:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">import</span> java.io.<span style="color:#f92672">{</span><span style="color:#a6e22e">File</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">IOException</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">FileNotFoundException</span><span style="color:#f92672">}</span>
+</code></pre></div><p>Use the following syntax to import everything from the java.io package:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">import</span> java.io._
+</code></pre></div><p>The _ character in this example is similar to the * wildcard character in Java.</p>
+<p>If the _ character feels unusual at first, it helps to know that it¡¯s used consistently throughout the Scala language as a wildcard character, and that consistency is very nice.</p>
+<h2 id="directives">Directives</h2>
+<p>A ¡°Directive¡± is a small building block used for creating arbitrarily complex route structures. Akka HTTP already pre-defines a large number of directives and you can easily construct your own:</p>
+<h1 id="regular-expression">Regular Expression</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">val</span> pattern <span style="color:#66d9ef">=</span> <span style="color:#e6db74">&#34;Scala&#34;</span><span style="color:#f92672">.</span>r
+      <span style="color:#66d9ef">val</span> str <span style="color:#66d9ef">=</span> <span style="color:#e6db74">&#34;Scala is Scalable and cool&#34;</span>
+      
+      println<span style="color:#f92672">(</span>pattern findFirstIn str<span style="color:#f92672">)</span>
+
+</code></pre></div><p>We create a String and call the r( ) method on it. Scala implicitly converts the String to a RichString and invokes that method to get an instance of Regex. To find a first match of the regular expression, simply call the findFirstIn() method. If instead of finding only the first occurrence we would like to find all occurrences of the matching word, we can use the findAllIn( ) method and in case there are multiple Scala words available in the target string, this will return a collection of all matching words.</p>
+<h2 id="pathmatcher">PathMatcher</h2>
+<ul>
+<li>Segment: PathMatcher1[String]
+Matches if the unmatched path starts with a path segment (i.e. not a slash). If so the path segment is extracted as a String instance.</li>
+</ul>
+<h1 id="option">Option</h1>
+<p>In short, if you have a value of type A that may be absent, Scala uses an instance of Option[A] as its container. An Intance of Option is either an instance of case class Some when it is present or case object None when it is not. Since both Some and None are children of Option, your function signature should declare that the returned value is an Option of some type, e.g. Option[A]</p>
+<h2 id="sample">Sample</h2>
+<p>It is very easy to create an Option in Scala, i.e. you can use a present/absent value directly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">val</span> optionalInt<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Option</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
+<span style="color:#75715e">// or
+</span><span style="color:#75715e">// val optionalInt: Option[Int] = None
+</span></code></pre></div><h3 id="to-validate-user-login">To validate user login</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">def</span> auth<span style="color:#f92672">(</span>user<span style="color:#66d9ef">:</span><span style="color:#66d9ef">String</span><span style="color:#f92672">,</span> pwd<span style="color:#66d9ef">:</span><span style="color:#66d9ef">String</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">AuthResult</span> <span style="color:#f92672">=</span>
+	<span style="color:#f92672">(</span>user<span style="color:#f92672">,</span> pwd<span style="color:#f92672">)</span> <span style="color:#66d9ef">match</span> <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">case</span> <span style="color:#f92672">(</span>u<span style="color:#f92672">,</span> <span style="color:#66d9ef">_</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">Option</span><span style="color:#f92672">(</span>u<span style="color:#f92672">).</span>exists<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>trim<span style="color:#f92672">.</span>isEmpty<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span> <span style="color:#a6e22e">ErrorLogin</span>
+	<span style="color:#66d9ef">case</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span> p<span style="color:#f92672">)</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">Option</span><span style="color:#f92672">(</span>p<span style="color:#f92672">).</span>exists<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>trim<span style="color:#f92672">.</span>isEmpty<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span> <span style="color:#a6e22e">ErrorPwd</span>
+	<span style="color:#66d9ef">case</span> <span style="color:#f92672">(</span>u<span style="color:#f92672">,</span> p<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span> doAuth<span style="color:#f92672">(</span>u<span style="color:#f92672">,</span>p<span style="color:#f92672">)</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="isdefined">isDefined</h2>
+<p>you add a checker for the None value using the isDefined method and specify logic to handle each scenario accordingly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">def</span> addTwoWithDefault<span style="color:#f92672">(</span>a<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Option</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>a<span style="color:#f92672">.</span>isDefined<span style="color:#f92672">)</span> a<span style="color:#f92672">.</span>get <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">2</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="getorelse">getOrElse</h2>
+<p>In many cases, you have a fallback or default value for your absent values, e.g. zero in the above example. With Option, you can easily provide a default value via the getOrElse method.</p>
+<p>def addTwoWithDefault(a: Option[Int]): Int = a.getOrElse(0) + 2</p>
+<h2 id="flatten">flatten</h2>
+<p>Assume that we have a List of Option[Int].</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">val</span> l<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">List</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Option</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">]]</span> <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">List</span><span style="color:#f92672">(</span><span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">),</span> <span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">),</span> <span style="color:#a6e22e">None</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span><span style="color:#ae81ff">5</span><span style="color:#f92672">),</span> <span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span><span style="color:#ae81ff">8</span><span style="color:#f92672">),</span> <span style="color:#a6e22e">None</span><span style="color:#f92672">)</span>
+</code></pre></div><p>A common scenario is that we need to filter out the absent values and return a List of Int. A straightfoward approach is to combine filter with .isDefined.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala">l<span style="color:#f92672">.</span>filter<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>isDefined<span style="color:#f92672">).</span>map<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>get<span style="color:#f92672">)</span> 
+<span style="color:#75715e">// res1: List[Int] = List(3, 1, 5, 8)
+</span></code></pre></div><p>However, Scala actually provides an elegent built-in function to achieve the same goal, which is often more preferred.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala">l<span style="color:#f92672">.</span>flatten
+<span style="color:#75715e">// res1: List[Int] = List(3, 1, 5, 8)
+</span></code></pre></div><h1 id="underscore">underscore</h1>
+<p>In Scala, pattern matching is somewhat similar to java switch statement. But it is more powerful.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"> <span style="color:#66d9ef">def</span> matchTest<span style="color:#f92672">(</span>x<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">=</span> x <span style="color:#66d9ef">match</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">=&gt;</span> <span style="color:#e6db74">&#34;one&#34;</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">=&gt;</span> <span style="color:#e6db74">&#34;two&#34;</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">=&gt;</span> <span style="color:#e6db74">&#34;anything other than one and two&#34;</span>
+  <span style="color:#f92672">}</span>
+
+</code></pre></div><p>_ acts like a wildcard. It will match anything. Scala allows nested patterns, so we can nest the _ also.Lets see another example that uses _ in nested pattern.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala">expr <span style="color:#66d9ef">match</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">List</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#66d9ef">_</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span> <span style="color:#e6db74">&#34; a list with three element and the first element is 1&#34;</span>
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">List</span><span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">*)</span>  <span style="color:#66d9ef">=&gt;</span> <span style="color:#e6db74">&#34; a list with zero or more elements &#34;</span>
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">[</span><span style="color:#66d9ef">_</span>,<span style="color:#66d9ef">_</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=&gt;</span> <span style="color:#e6db74">&#34; matches a map with any key type and any value type &#34;</span>
+  <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">=&gt;</span>
+  <span style="color:#f92672">}</span>
+</code></pre></div><h2 id="anonymous-functions">Anonymous Functions</h2>
+<p>Scala represents anonymous functions with a elegant syntax. The _ acts as a placeholder for parameters in the anonymous function. The _ should be used only once, But we can use two or more underscores to refer different parameters.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#a6e22e">List</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span>print<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">))</span>
+<span style="color:#a6e22e">List</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span> a <span style="color:#66d9ef">=&gt;</span> print<span style="color:#f92672">(</span>a<span style="color:#f92672">))</span>
+<span style="color:#75715e">// Here the _ refers to the parameter. The first one is a short form of the second one. Lets look at another example which take two parameters.
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">val</span> sum <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">List</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">).</span>reduceLeft<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">val</span> sum <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">List</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">).</span>reduceLeft<span style="color:#f92672">((</span>a<span style="color:#f92672">,</span> b<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span> a <span style="color:#f92672">+</span> b<span style="color:#f92672">)</span>
+</code></pre></div><h2 id="functions">Functions</h2>
+<p>Scala is a functional language. So we can treat function as a normal variable. If you try to assign a function to a new variable, the function will be invoked and the result will be assigned to the variable. This confusion occurs due to the optional braces for method invocation. We should use _ after the function name to assign it to another variable.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#a6e22e">List</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span>print<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">))</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">def</span> fun <span style="color:#66d9ef">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// some code
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+  <span style="color:#66d9ef">val</span> funLike <span style="color:#66d9ef">=</span> fun <span style="color:#66d9ef">_</span>
+<span style="color:#f92672">}</span>
+<span style="color:#a6e22e">List</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span>print<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">))</span>
+</code></pre></div><h1 id="either-left-right">Either, Left, Right</h1>
+<p>Using Either, Left, and Right
+Prior to Scala 2.10, an approach similar to Try was available with the Either, Left, and Right classes. With these classes, Either is analogous to Try, Right is similar to Success, and Left is similar to Failure.</p>
+<p>The following method demonstrates how to implement the Either approach:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">def</span> divideXByY<span style="color:#f92672">(</span>x<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span> y<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Either</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Int</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>y <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#a6e22e">Left</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Dude, can&#39;t divide by 0&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">Right</span><span style="color:#f92672">(</span>x <span style="color:#f92672">/</span> y<span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>As shown, your method should be declared to return an Either, and the method body should return a Right on success and a Left on failure. The Right type is the type your method returns when it runs successfully (an Int in this case), and the Left type is typically a String, because that¡¯s how the error message is returned.</p>
+<p>As with Option and Try, a method returning an Either can be called in a variety of ways, including getOrElse or a match expression:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">val</span> x <span style="color:#66d9ef">=</span> divideXByY<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">).</span>right<span style="color:#f92672">.</span>getOrElse<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>   <span style="color:#75715e">// returns 1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> x <span style="color:#66d9ef">=</span> divideXByY<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">).</span>right<span style="color:#f92672">.</span>getOrElse<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>   <span style="color:#75715e">// returns 0
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// prints &#34;Answer: Dude, can&#39;t divide by 0&#34;
+</span><span style="color:#75715e"></span>divideXByY<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">match</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Left</span><span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span> println<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Answer: &#34;</span> <span style="color:#f92672">+</span> s<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Right</span><span style="color:#f92672">(</span>i<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span> println<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Answer: &#34;</span> <span style="color:#f92672">+</span> i<span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>You can also access the error message by testing the result with isLeft, and then accessing the left value, but this isn¡¯t really the Scala way:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala">scala<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">val</span> x <span style="color:#66d9ef">=</span> divideXByY<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>
+x<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Either</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Int</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">Left</span><span style="color:#f92672">(</span><span style="color:#a6e22e">Dude</span><span style="color:#f92672">,</span> can&#39;t divide by <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>
+
+scala<span style="color:#f92672">&gt;</span> x<span style="color:#f92672">.</span>isLeft
+res0<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Boolean</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+
+scala<span style="color:#f92672">&gt;</span> x<span style="color:#f92672">.</span>left
+res1<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">scala.util.Either.LeftProjection</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">Int</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span>
+      <span style="color:#a6e22e">LeftProjection</span><span style="color:#f92672">(</span><span style="color:#a6e22e">Left</span><span style="color:#f92672">(</span><span style="color:#a6e22e">Dude</span><span style="color:#f92672">,</span> can&#39;t divide by <span style="color:#ae81ff">0</span><span style="color:#f92672">))</span>
+</code></pre></div><p>Although the Either classes offered a potential solution prior to Scala 2.10, I now use the Try classes in all of my code instead of Either.</p>
+<h3 id="classof">classOf</h3>
+<p>Retrieve the runtime representation of a class type. classOf[T] is equivalent to the class literal T.class in Java.</p>
+<h2 id="operators">Operators</h2>
+<p>// Keywords
+&lt;-  // Used on for-comprehensions, to separate pattern from generator
+=&gt;  // Used for function types, function literals and import renaming</p>
+<h1 id="akka-framework">Akka framework</h1>
+<p>Akka is a toolkit and runtime for building highly concurrent, distributed, and fault-tolerant event-driven applications on the JVM.</p>
+<p>Actors are the unit of execution in Akka. The Actor model is an abstraction that makes it easier to write correct concurrent, parallel and distributed systems.</p>
+<p>This will get your feet wet, and hopefully inspire you to dive deeper into the wonderful sea of Akka!</p>
+<p>The Akka team refers to their creation as a toolkit rather than a framework. Frameworks tend to be a mechanism for providing a discrete element of a stack (e.g. the ui, or the web services layer). Akka provides a set of tools to render any part of the stack, and to provide the interconnects between them.</p>
+<p>He two ways (shared mutable state/message passing (Akka)) to solve the problem of selling tickets.</p>
+<p>Actors do not share state, can only communicate through immutable messages and do not talk to each other directly but through actor references, similar to the addresses we talked about. This approach satisfies the three things we wanted to change. So why is this simpler than the shared mutable state approach?</p>
+<ul>
+<li>We don&rsquo;t need to manage locks. We don&rsquo;t have to think about how to protect the shared data. Inside an actor we&rsquo;re safe.</li>
+<li>We are more protected from deadlocks caused by out of order access by multiple threads, that cause the system to wait forever, or other problems like race conditions and thread starvation. Use of Akka precludes most of these problems, relieving us of the burden.</li>
+<li>Performance tuning a shared mutable state solution is hard work and error prone and verification through tests is nearly impossible.</li>
+</ul>
+<h2 id="benefits-of-using-the-actor-model">Benefits of using the Actor Model</h2>
+<p>The following characteristics of Akka allow you to solve difficult concurrency and scalability challenges in an intuitive way:</p>
+<ul>
+<li>Event-driven model — Actors perform work in response to messages. Communication between Actors is asynchronous, allowing Actors to send messages and continue their own work without blocking to wait for a reply.</li>
+<li>Strong isolation principles — Unlike regular objects in Java, an Actor does not have a public API in terms of methods that you can invoke. Instead, its public API is defined through messages that the actor handles. This prevents any sharing of state between Actors; the only way to observe another actor’s state is by sending it a message asking for it.</li>
+<li>Location transparency — The system constructs Actors from a factory and returns references to the instances. Because location doesn’t matter, Actor instances can start, stop, move, and restart to scale up and down as well as recover from unexpected failures.</li>
+<li>Lightweight — Each instance consumes only a few hundred bytes, which realistically allows millions of concurrent Actors to exist in a single application.</li>
+</ul>
+<h3 id="message">Message</h3>
+<p>two special channels. The first is the Dead Letter channel, which contain message that couldn&rsquo;t be delivered. This is sometimes also called a dead message queue. This channel can help when debugging, why some messages aren&rsquo;t processed or to monitor where there are problems.</p>
+<h3 id="eventstream">EventStream</h3>
+<p>the benefit of decoupling the receivers and the sender and the dynamic nature of the publish-subscribe channel, but because the EventStream is available for all actors is also a nice solution for messages which can be send from all over the system and needs to be collected at one or more Actors. A good example is logging. Logging can be done throughout the system and needs to be collected at one point and be written to a log file. Internally the ActorLogging is using the EventStream to collect the log lines from all over the system.</p>
+<h3 id="dead-letter-message">Dead Letter Message</h3>
+<p>Akka is using the EventStream to implement the dead letter queue. This way only the actors which are interested in the failed messages are receiving them. When a message is queued in a mailbox of an actor that Terminates or is send after the Termination, the message is send to the EventStream of the ActorSystem. The message is wrapped into a DeadLetter object. This Object contains the original message, the sender of the message and the intended receiver. This way the Dead letter queue is integrated in the EventStream. To get these dead letter messages you only need to subscribe your actor to the EventStream with the DeadLetter class as the Classifier.</p>
+<p>Messages send to a Terminated Actor can&rsquo;t be processed anymore and the ActorRef of this actor should not be used anymore. When there are messages send to a terminated Actor, these message will be send to the DeadLetter queue.</p>
+<p>Another use of the DeadLetter queue is when the processing fails. This is a Actor specific decision. An actor can decide that a received message couldn&rsquo;t be processed and that it doesn&rsquo;t know what to do with it. In this situation the messages can be send to the dead letter queue.</p>
+<h2 id="design-recommendations">Design recommendations</h2>
+<p>When defining Actors and their messages, keep these recommendations in mind:</p>
+<ul>
+<li>Since messages are the Actor’s public API, it is a good practice to define messages with good names and rich semantic and domain specific meaning, even if they just wrap your data type. This will make it easier to use, understand and debug actor-based systems.</li>
+<li>Messages should be immutable, since they are shared between different threads.</li>
+<li>It is a good practice to put an actor’s associated messages as static classes in the class of the Actor. This makes it easier to understand what type of messages the actor expects and handles.</li>
+<li>It is also a common pattern to use a static props method in the class of the Actor that describes how to construct the Actor.</li>
+</ul>
+<h3 id="props">Props</h3>
+<p>The static props method creates and returns a Props instance. Props is a configuration class to specify options for the creation of actors, think of it as an immutable and thus freely shareable recipe for creating an actor that can include associated deployment information. This example simply passes the parameters that the Actor requires when being constructed. We will see the props method in action later in this tutorial.</p>
+<h2 id="configuration">configuration</h2>
+<p>When using the default, the library will try to find the configuration file. Since the library supports a number of different configuration formats, it looks for different files, in the following order:
+application.properties
+This file should contain the configuration properties in the java property file format.
+application.json
+This file should contain the configuration properties in the json style</p>
+<p>application.conf
+This file should contain the configuration properties in the HOCON format. This is a format based on json but easier to read..
+It is possible to use all the different files at the same time. For the example below, in listing 7.2 we use the last file:
+MyAppl {
+version = 10
+description = &ldquo;My application&rdquo;
+database {
+connect=&quot;jdbc:mysql://localhost/mydata&rdquo;
+user=&quot;me&rdquo;
+}
+}
+Nesting is done by simply grouping with {}s</p>
+<h3 id="substitution">substitution</h3>
+<p>hostname=&quot;localhost&rdquo;
+hostname=${?HOST_NAME}
+MyAppl {
+version = 10
+description = &ldquo;My
+application&rdquo;
+database {
+connect=&quot;jdbc:mysql://${hostname}/mydata&rdquo;
+user=&quot;me&rdquo; }
+}</p>
+<p>define the variable first, if system environment do exist, override it, otherwise use default
+? means get a variable from system envrionment</p>
+<h3 id="defaultfallback-properies">Default/fallback properies</h3>
+<p>Default properties are configured in the file reference.conf and placed in the root of the jar file; the idea is that every library contains its own defaults. The configuration library will find all the reference.conf files and integrate these settings into the configuration fall-back structure.</p>
+<h3 id="order-of-properties">Order of properties</h3>
+<p>System properties-&gt;application.conf-&gt;applicaiton.json-&gt;application.properties-&gt;reference.conf</p>
+<h2 id="the-power-of-location-transparency">The power of location transparency</h2>
+<p>In Akka you can’t create an instance of an Actor using the new keyword. Instead, you create Actor instances using a factory. The factory does not return an actor instance, but a reference, akka.actor.ActorRef, that points to the actor instance. This level of indirection adds a lot of power and flexibility in a distributed system.</p>
+<p>In Akka location doesn’t matter. Location transparency means that the ActorRef can, while retaining the same semantics, represent an instance of the running actor in-process or on a remote machine. If needed, the runtime can optimize the system by changing an Actor’s location or the entire application topology while it is running. This enables the “let it crash” model of failure management in which the system can heal itself by crashing faulty Actors and restarting healthy ones.</p>
+<h2 id="the-akka-actorsystem">The Akka ActorSystem</h2>
+<p>The akka.actor.ActorSystem factory is, to some extent, similar to Spring’s BeanFactory. It acts as a container for Actors and manages their life-cycles. The actorOf factory method creates Actors and takes two parameters, a configuration object called Props and a name.</p>
+<h3 id="asynchronous-communication">Asynchronous communication</h3>
+<p>Actors are reactive and message driven. An Actor doesn’t do anything until it receives a message. Actors communicate using asynchronous messages. This ensures that the sender does not stick around waiting for their message to be processed by the recipient. Instead, the sender puts the message in the recipient’s mailbox and is free to do other work. The Actor’s mailbox is essentially a message queue with ordering semantics. The order of multiple messages sent from the same Actor is preserved, but can be interleaved with messages sent by another Actor.</p>
+<p>You might be wondering what the Actor is doing when it is not processing messages, i.e. doing actual work? It is in a suspended state in which it does not consume any resources apart from memory. Again, showing the lightweight, efficient nature of Actors.</p>
+<h3 id="sending-messages-to-an-actor">Sending messages to an Actor</h3>
+<p>To put a message into an Actor’s mailbox, use the tell method on the ActorRef. For example, the main class of Hello World sends messages to the Greeter Actor like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">howdyGreeter<span style="color:#f92672">.</span><span style="color:#a6e22e">tell</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> WhoToGreet<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Akka&#34;</span><span style="color:#f92672">),</span> ActorRef<span style="color:#f92672">.</span><span style="color:#a6e22e">noSender</span><span style="color:#f92672">());</span>
+howdyGreeter<span style="color:#f92672">.</span><span style="color:#a6e22e">tell</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Greet<span style="color:#f92672">(),</span> ActorRef<span style="color:#f92672">.</span><span style="color:#a6e22e">noSender</span><span style="color:#f92672">());</span>
+</code></pre></div><p>The test class is using akka.test.javadsl.TestKit, which is a module for integration testing of actors and actor systems. This class only uses a fraction of the functionality provided by TestKit.</p>
+<h2 id="akka-under-the-hood">Akka under the hood</h2>
+<p>So are there no concurrency primitives like locks used at all in Akka? Well, of course there are, it&rsquo;s just that you don&rsquo;t have to deal with them directly . Everything still eventually runs on threads and low level concurrency primitives. Akka uses the java.util.concurrent library to coordinate message processing and takes great care to minimize the number of locks used to an absolute bare minimum. It uses lock free and wait free algorithms where possible, for example compare-and-swap (CAS) techniques, which are beyond the scope of this book. And because nothing can be shared between actors, the shared locks that you would normally have between objects are not present at all.</p>
+<p>There are other benefits that stem from the message passing approach that Akka uses, which we will discuss in the next sections. We have touched on them briefly already:</p>
+<ol>
+<li>Even in this first, simple example, the message passing approach is clearly more fault tolerant, averting catastrophic failure if one component (no matter how key) fails.</li>
+<li>The shared mutable state is always in one place in the example (in one JVM if it is kept entirely in memory). If you need to scale beyond this constraint, you will have to (re)distribute the data somehow. Since the message passing style uses addresses, looking ahead, you can see that if local and remote addresses were interchangeable, scaling out would be possible without code changes of any kind.</li>
+</ol>
+<p>This scenario is one example of a fault tolerance strategy that Akka provides, which is called the Restart strategy. Other strategies that can be used are Resume, Stop and Escalate.</p>
+<h2 id="scale-up-and-scale-out">Scale up and Scale out</h2>
+<p>In our Ticketing example, scaling up would mean getting more TicketingAgents running on our one server, scaling out would be bringing up TicketingAgents on a number of machines.</p>
+<h2 id="locking">Locking</h2>
+<p>locks result in contention, which will mean the number of threads doing work at any one time is often less than the total number, as some will have to wait on each other to finish. Sharing as little as possible means locking as little as possible, which is the goal of the message passing approach.</p>
+<p>Every thread has a stack to store runtime data. The size of the stack differs per operating system, for instance on the linux x64 platform it is normally 256kB. The stack size is one of the factors that limits the number of threads that run at the same time on a server. Around 4096 threads can fit in 1GB of memory on the linux x64 platform.</p>
+<h2 id="dispatcher">Dispatcher</h2>
+<p>Actors run on an abstraction which is called a dispatcher. The dispatcher takes care of which threading model is used and processes the mailboxes.</p>
+<p>Actors are lightweight because they run on top of dispatchers, the actors are not necessarily directly proportional to the number of threads. Akka Actors take a lot less space than threads, around 2.7 million actors can fit in 1GB of memory. A big difference compared to 4096 threads, which means that you can create different types of actors more freely than you would when using threads directly. There are different types of dispatchers to choose from which can be tuned to specific needs.</p>
+<p>We identified that we had to make the following changes to get to a message passing style:</p>
+<ol>
+<li>No mutable shared data structure.</li>
+<li>Immutable message passing.</li>
+<li>Asynchronous message sending.</li>
+</ol>
+<p>Akka implements actors and which components compare to the concepts we&rsquo;ve talked about so far: actors, addresses and mailboxes.</p>
+<h2 id="actor-path">Actor Path</h2>
+<p>So how do you get an actor reference to an actor in the hierarchy? This is where ActorPaths come in. You could compare the hierarchy of actors to a URL path structure. Every actor has a name. This name needs to be unique per level in the hierarchy, two sibling actors cannot have the same name (if you do not provide a name Akka generates one for you, but it is a good idea to name all your actors). All actor references can be located directly by an actor path, absolute or relative, and it has to follow the URI generic syntax. An actor path is built just like a URI, starting with a scheme followed by a scheme-specific part,</p>
+<h2 id="core-actor-operations">Core Actor Operations</h2>
+<p>Another way to look at an actor is to describe the operations that it supports. An Akka actor has four core operations :</p>
+<ol>
+<li>CREATE: An actor can create another actor. In Akka, actors are part of an actor system, which defines the root of the actor hierarchy and creates top-level actors. Every actor can create child actors. The topology of the actors is dynamic, it depends on which actors create other actors and which addresses are used to communicate with them.</li>
+<li>SEND: An actor can send a message to another actor. Messages are sent asynchronously, using an address to send to an Actor associated with a given Mailbox.</li>
+<li>BECOME: The behavior of an actor can be dynamically changed. Messages are received one at a time and an actor can designate that it wants to handle next messages in a different way, basically swapping its behavior, which we will look at in later chapters.</li>
+<li>SUPERVISE: An actor supervises and monitors its children in the actor hierarchy and manages the failures that happen. As we will see in chapter 3, this provides a clean separation between message processing and error handling.</li>
+</ol>
+<h2 id="akka-concurrency">Akka concurrency</h2>
+<p>Message passing enables an easier road to real concurrency
+With that concurrent approach, we will be able to scale up and out
+We can scale both the request and the processing elements of our application
+Messages also unlock greater fault tolerance capabilities
+Supervision provides a means of modeling for both concurrency and fault tolerance
+Akka infuses our code with these powers in a lightweight, unobtrusive manner</p>
+<h3 id="build-akka">Build Akka</h3>
+<p>using TypeSafe&rsquo;s Simple Build Tool (SBT) to create a single jar file that can be used to run the app</p>
+<p>If you have not worked with the SBT DSL before it is important to note that you need to put en empty line between lines in the file (this is the price we pay for not telling Scala where each expression ends).</p>
+<h3 id="tell-vs-ask">tell vs ask</h3>
+<p>Messages are sent to an Actor through one of the following methods.</p>
+<p>! means “fire-and-forget”, e.g. send a message asynchronously and return immediately. Also known as tell.</p>
+<p>? sends a message asynchronously and returns a Future representing a possible reply. Also known as ask.</p>
+<p>So below line is equivalent to tell</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReceiveActor</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Actor</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#66d9ef">def</span> receive <span style="color:#66d9ef">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;Hello&#34;</span> <span style="color:#66d9ef">=&gt;</span> sender <span style="color:#f92672">!</span> <span style="color:#e6db74">&#34;And Hello to you!&#34;</span> <span style="color:#75715e">// same as sender.tell(&#34;And Hello to you!&#34;)
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h4 id="sample-of-actor">Sample of actor</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">package</span> com.goticks
+<span style="color:#66d9ef">import</span> akka.actor.<span style="color:#f92672">{</span><span style="color:#a6e22e">PoisonPill</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">Actor</span><span style="color:#f92672">}</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TicketSeller</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Actor</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">import</span> TicketProtocol._
+  <span style="color:#66d9ef">var</span> tickets <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">Vector</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Ticket</span><span style="color:#f92672">]()</span>
+  <span style="color:#66d9ef">def</span> receive <span style="color:#66d9ef">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">GetEvents</span> <span style="color:#66d9ef">=&gt;</span> sender <span style="color:#f92672">!</span> tickets<span style="color:#f92672">.</span>size
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Tickets</span><span style="color:#f92672">(</span>newTickets<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span>
+      tickets <span style="color:#66d9ef">=</span> tickets <span style="color:#f92672">++</span> newTickets
+    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">BuyTicket</span> <span style="color:#66d9ef">=&gt;</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>tickets<span style="color:#f92672">.</span>isEmpty<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        sender <span style="color:#f92672">!</span> <span style="color:#a6e22e">SoldOut</span>
+        self <span style="color:#f92672">!</span> <span style="color:#a6e22e">PoisonPill</span>
+<span style="color:#f92672">}</span>
+      tickets<span style="color:#f92672">.</span>headOption<span style="color:#f92672">.</span>foreach <span style="color:#f92672">{</span> ticket <span style="color:#66d9ef">=&gt;</span>
+        tickets <span style="color:#66d9ef">=</span> tickets<span style="color:#f92672">.</span>tail
+        sender <span style="color:#f92672">!</span> ticket
+<span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Event</span><span style="color:#f92672">(</span>name<span style="color:#f92672">,</span> nrOfTickets<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span>
+  <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>context<span style="color:#f92672">.</span>child<span style="color:#f92672">(</span>name<span style="color:#f92672">).</span>isEmpty<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+<span style="color:#a6e22e">If</span> <span style="color:#a6e22e">TicketSellers</span> have not been
+   <span style="color:#66d9ef">val</span> ticketSeller <span style="color:#66d9ef">=</span> context<span style="color:#f92672">.</span>actorOf<span style="color:#f92672">(</span><span style="color:#a6e22e">Props</span><span style="color:#f92672">[</span><span style="color:#66d9ef">TicketSeller</span><span style="color:#f92672">],</span> name<span style="color:#f92672">)</span>
+  <span style="color:#66d9ef">val</span> tickets <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">Tickets</span><span style="color:#f92672">((</span><span style="color:#ae81ff">1</span> to nrOfTickets<span style="color:#f92672">).</span>map<span style="color:#f92672">{</span>
+    nr<span style="color:#66d9ef">=&gt;</span> <span style="color:#a6e22e">Ticket</span><span style="color:#f92672">(</span>name<span style="color:#f92672">,</span> nr<span style="color:#f92672">)).</span>toList
+<span style="color:#f92672">}</span>
+  ticketSeller <span style="color:#f92672">!</span> tickets
+<span style="color:#f92672">}</span>
+sender <span style="color:#f92672">!</span> <span style="color:#a6e22e">EventCreated</span>
+
+</code></pre></div><p>The BoxOffice creates TicketSellers for each event. Notice that it uses it&rsquo;s context instead of the actor system to create the actor; Actors created with the context of another Actor are its children and subject to the parent Actor&rsquo;s supervision</p>
+<h2 id="test">Test</h2>
+<p>Right now it always fails since it is not implemented yet, as is expected in Red-Green-Refactor style, where you first make sure the test fails (Red), then implement the code to make it pass (Green), after which you might refactor the code to make it nicer.</p>
+<h2 id="source-code">source code</h2>
+<h3 id="untypedactor">UntypedActor</h3>
+<p>This class is the Java cousin to the akka.actor.Actor Scala interface. Subclass this abstract class to create a MDB-style untyped actor.</p>
+<p>An actor has a well-defined (non-cyclic) life-cycle.</p>
+<pre><code>RUNNING (created and started actor) - can receive messages
+SHUTDOWN (when 'stop' or 'exit' is invoked) - can't do anything
+</code></pre>
+<p>The Actor&rsquo;s own akka.actor.ActorRef is available as getSelf(), the current message’s sender as getSender() and the akka.actor.UntypedActorContext as getContext(). The only abstract method is onReceive() which is invoked for each processed message unless dynamically overridden using getContext().become().</p>
+<p>Annotations
+@Deprecated @deprecated
+Deprecated</p>
+<pre><code>(Since version 2.5.0) Use AbstractActor instead of UntypedActor.
+</code></pre>
+<h3 id="loggingadaptor">loggingAdaptor</h3>
+<p>trait LoggingAdapter extends AnyRef</p>
+<p>Logging wrapper to make nicer and optimize: provide template versions which evaluate .toString only if the log level is actually enabled. Typically used by obtaining an implementation from the Logging object:</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://example.org/" >
+    &copy;  My New Hugo Site 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
