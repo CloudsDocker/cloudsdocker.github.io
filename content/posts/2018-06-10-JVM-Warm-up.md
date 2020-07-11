@@ -1,5 +1,7 @@
 ---
 title: JVM wram up
+weight: 500
+date: 2020-03-28
 ---
 
 # JVM wram up

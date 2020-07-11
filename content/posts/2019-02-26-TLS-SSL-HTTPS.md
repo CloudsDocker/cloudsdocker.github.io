@@ -1,5 +1,7 @@
 ---
 title: SSL certificates
+weight: 400
+date: 2020-06-26
 ---
 
 # What's TLS

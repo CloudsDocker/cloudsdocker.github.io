@@ -1,57 +1,77 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Java on My New Hugo Site</title>
-    <link>http://example.org/tags/java/</link>
-    <description>Recent content in Java on My New Hugo Site</description>
+    <title>Java on Clouds&amp;Docker</title>
+    <link>http://todzhang.com/tags/java/</link>
+    <description>Recent content in Java on Clouds&amp;Docker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sun, 15 Mar 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/tags/java/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://todzhang.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Java Concurrent Column 2</title>
+      <link>http://todzhang.com/posts/2017-02-01-concurrent-in-java-col-2/</link>
+      <pubDate>Sun, 15 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://todzhang.com/posts/2017-02-01-concurrent-in-java-col-2/</guid>
+      <description>This is the second half about Java Concurrent of my blog non-blocking synchronization  Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures.</description>
+    </item>
+    
+    <item>
+      <title>Java Concurrent</title>
+      <link>http://todzhang.com/posts/2017-04-20-concurrent-in-java/</link>
+      <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://todzhang.com/posts/2017-04-20-concurrent-in-java/</guid>
+      <description>This blog is about noteworthy pivot points about Java Concurrent Framework  Back to Java old days there were wait()/notify() which is error prone, while from Java 5.0 there was Concurrent framework being introduced, this page list some pivot points.
+ CountDownLatch  CountDownLatch in Java is a kind of synchronizer which allows one Thread to wait for one or more Threads before starts processing. You can also implement same functionality using wait and notify mechanism in Java but it requires lot of code and getting it write in first attempt is tricky, With CountDownLatch it can be done in just few lines.</description>
+    </item>
+    
+    <item>
       <title>Compare-In-Java</title>
-      <link>http://example.org/posts/2017-01-19-compare-in-java/</link>
+      <link>http://todzhang.com/posts/2017-01-19-compare-in-java/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-01-19-compare-in-java/</guid>
+      <guid>http://todzhang.com/posts/2017-01-19-compare-in-java/</guid>
       <description>Concepts  If you implement Comparable interface and override compareTo() method it must be consistent with equals() method i.e. for equal object by equals() method compareTo() must return zero. failing to so will affect contract of SortedSet e.g. TreeSet and SortedMap like TreeMap, which uses compareTo() method for checking equality Remember to use Collections.reverseOrder() comparator for sorting Object in reverse order or descending order, as shown in this example. Use Generics while implementing Comparator and Comparable interface, that prevents error of accidentally overloading compareTo() and compare() method instead of overriding it because both of these methods accept Object as a parameter.</description>
     </item>
     
     <item>
       <title>Dead Lock</title>
-      <link>http://example.org/posts/2017-01-20-deadlock/</link>
+      <link>http://todzhang.com/posts/2017-01-20-deadlock/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-01-20-deadlock/</guid>
+      <guid>http://todzhang.com/posts/2017-01-20-deadlock/</guid>
       <description>Concept  Two or more threads are waiting for each other to release lock and get stuck for infinite time. It will only happen in case of multitasking.  One screnario of dead lock If method1() and method2() both will be called by two or many threads , there is a good chance of deadlock because if thread 1 acquires lock on Sting object while executing method1() and thread 2 acquires lock on Integer object while executing method2() both will be waiting for each other to release lock on Integer and String to proceed further which will never happen.</description>
     </item>
     
     <item>
       <title>Hash Code Misc</title>
-      <link>http://example.org/posts/2016-12-30-hashcode-contract/</link>
+      <link>http://todzhang.com/posts/2016-12-30-hashcode-contract/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2016-12-30-hashcode-contract/</guid>
+      <guid>http://todzhang.com/posts/2016-12-30-hashcode-contract/</guid>
       <description>contract of hashCode :  Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application. If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result.</description>
     </item>
     
     <item>
       <title>HashMap in JDK</title>
-      <link>http://example.org/posts/2017-01-16-java-hashmap/</link>
+      <link>http://todzhang.com/posts/2017-01-16-java-hashmap/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-01-16-java-hashmap/</guid>
+      <guid>http://todzhang.com/posts/2017-01-16-java-hashmap/</guid>
       <description>Hashmap in JDK Some note worth points about hashmap  Lookup process  Step# 1: Quickly determine the bucket number in which this element may reside (using key.hashCode()). Step# 2: Go over the mini-list and return the element that matches the key (using key.equals()).   Immutability of keys In Node&amp;lt;K,V&amp;gt; node of hashMap, besides key, value, hash, there is Node next link inside. So undelrying table is a linked list.</description>
     </item>
     
     <item>
       <title>IntelliJ Tips</title>
-      <link>http://example.org/posts/2017-01-03-intellij-tips/</link>
+      <link>http://todzhang.com/posts/2017-01-03-intellij-tips/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-01-03-intellij-tips/</guid>
+      <guid>http://todzhang.com/posts/2017-01-03-intellij-tips/</guid>
       <description>Shortcuts   Ctrl+J: To show JavaDoc
   Cmd+Alt+B: To show interface implementations
   Alt+Enter: when cursor on class declare line, press Alt+Enter can quickly create a unit test against this test class
@@ -63,57 +83,38 @@
     
     <item>
       <title>Java Collections Misc</title>
-      <link>http://example.org/posts/2017-01-17-java-collections-misc/</link>
+      <link>http://todzhang.com/posts/2017-01-17-java-collections-misc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-01-17-java-collections-misc/</guid>
+      <guid>http://todzhang.com/posts/2017-01-17-java-collections-misc/</guid>
       <description>Difference between equals and deepEquals of Arrays in Java  Arrays.equals() method does not compare recursively if an array contains another array on other hand Arrays.deepEquals() method compare recursively if an array contains another array. Arrays.equals() check is if element is null or not and then calls equals() method, it does not check for Array type. It&amp;rsquo;s better to use Arrays.equals() to compare non-nested Array and Arrays.deepEquals() to compare nested Array, as former is faster than later in the case of non-nested Array.</description>
     </item>
     
     <item>
-      <title>Java Concurrent</title>
-      <link>http://example.org/posts/2017-04-20-concurrent-in-java/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://example.org/posts/2017-04-20-concurrent-in-java/</guid>
-      <description>This blog is about noteworthy pivot points about Java Concurrent Framework  Back to Java old days there were wait()/notify() which is error prone, while from Java 5.0 there was Concurrent framework being introduced, this page list some pivot points.
- CountDownLatch  CountDownLatch in Java is a kind of synchronizer which allows one Thread to wait for one or more Threads before starts processing. You can also implement same functionality using wait and notify mechanism in Java but it requires lot of code and getting it write in first attempt is tricky, With CountDownLatch it can be done in just few lines.</description>
-    </item>
-    
-    <item>
-      <title>Java Concurrent Column 2</title>
-      <link>http://example.org/posts/2017-02-01-concurrent-in-java-col-2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://example.org/posts/2017-02-01-concurrent-in-java-col-2/</guid>
-      <description>This is the second half about Java Concurrent of my blog non-blocking synchronization  Much of the recent research on concurrent algorithms has focused on nonblock- ing algorithms, which use low-level atomic machine instructions such as compare- and-swap instead of locks to ensure data integrity under concurrent access. Non- blocking algorithms are used extensively in operating systems and JVMs for thread and process scheduling, garbage collection, and to implement locks and other concurrent data structures.</description>
-    </item>
-    
-    <item>
       <title>Java Deep Notes</title>
-      <link>http://example.org/posts/2020-05-10-java-deep-notes/</link>
+      <link>http://todzhang.com/posts/2020-05-10-java-deep-notes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2020-05-10-java-deep-notes/</guid>
+      <guid>http://todzhang.com/posts/2020-05-10-java-deep-notes/</guid>
       <description>Java Deep Notes
 Is string concatenation a devil? In fact, a string concatenation is going to be just fine, as the javac compiler will optimize the string concatenation as a series of append operations on a StringBuilder anyway. Here&amp;rsquo;s a part of the disassembly of the bytecode from the for loop from the above program:</description>
     </item>
     
     <item>
       <title>Java Enum Misc</title>
-      <link>http://example.org/posts/2017-01-02-enum-misc/</link>
+      <link>http://todzhang.com/posts/2017-01-02-enum-misc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-01-02-enum-misc/</guid>
+      <guid>http://todzhang.com/posts/2017-01-02-enum-misc/</guid>
       <description>Enum Misc  All enums implicitely extends java.lang.Enum Enum in Java are type-safe You can specify values of enum constants at the creation time. Enum.values() returns an array of MyEnum’s values. Enum constants are implicitly static and final and can not be changed once created. Enum can be safely compare using:  Switch-Case Statement == Operator .equals() method   You can not create instance of enums by using new operator in Java because constructor of Enum in Java can only be private and Enums constants can only be created inside Enums itself.</description>
     </item>
     
     <item>
       <title>Java GC notes</title>
-      <link>http://example.org/posts/2016-12-30-java-gc/</link>
+      <link>http://todzhang.com/posts/2016-12-30-java-gc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2016-12-30-java-gc/</guid>
+      <guid>http://todzhang.com/posts/2016-12-30-java-gc/</guid>
       <description>verbose:gc verbose:gc prints right after each gc collection and prints details about each generation memory details. Here is blog on how to read verbose gc
 If you are trying to look for memory leak, verbose:gc may not be enough. Use some visualization tools like jhat (or) visualvm etc.,
 4416K-&amp;gt;512K(4928K), 0.0081170 secs
@@ -123,19 +124,19 @@ Before GC used memory is 4416K After GC used memory is 512K Total allocated memo
     
     <item>
       <title>Java JIT compiler</title>
-      <link>http://example.org/posts/2017-02-21-java-jit/</link>
+      <link>http://todzhang.com/posts/2017-02-21-java-jit/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-02-21-java-jit/</guid>
+      <guid>http://todzhang.com/posts/2017-02-21-java-jit/</guid>
       <description>This is talking about Java JIT (Just-In-Time) compiler   That trade-off is one reason that the compiler executes the interpreted code first—the compiler can figure out which methods are called frequently enough to warrant their compilation. The second reason is one of optimization: the more times that the JVM executes a particular method or loop, the more information it has about that code. This allows the JVM to make a number of optimizations when it compiles the code.</description>
     </item>
     
     <item>
       <title>Java JVM</title>
-      <link>http://example.org/posts/2017-02-05-jvm/</link>
+      <link>http://todzhang.com/posts/2017-02-05-jvm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-02-05-jvm/</guid>
+      <guid>http://todzhang.com/posts/2017-02-05-jvm/</guid>
       <description>Class loading subsystem Consist of three sections
 load There are three class loaders
  bootstrap class loader, e.g. rt.jar extension class loader, e.g. jre/lib/ext application class loader, e.g. -cp  Link  Verify Prepare Resolve  Initialize  While deadlock is the most widely encountered liveness hazard, there are sev- eral other liveness hazards you may encounter in concurrent programs including starvation, missed signals, and livelock.  Metaspace Since Java 8, the introduce of metaspace is kind of using memory or even virtual memory in OS, so theriotically there is no limit of metaspace.</description>
@@ -143,87 +144,87 @@ load There are three class loaders
     
     <item>
       <title>Java New IO</title>
-      <link>http://example.org/posts/2017-02-02-java-new-io/</link>
+      <link>http://todzhang.com/posts/2017-02-02-java-new-io/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-02-02-java-new-io/</guid>
+      <guid>http://todzhang.com/posts/2017-02-02-java-new-io/</guid>
       <description>Notes  JDK 1.0 introduced rudimentary I/O facilities for accessing the file system (to create a directory, remove a file, or perform another task), accessing file content randomly (as opposed to sequentially), and streaming byte-oriented data between sources and destinations in a sequential manner.  </description>
     </item>
     
     <item>
       <title>Java Pesistence API Notes</title>
-      <link>http://example.org/posts/2020-06-21-jpa-notes/</link>
+      <link>http://todzhang.com/posts/2020-06-21-jpa-notes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2020-06-21-jpa-notes/</guid>
+      <guid>http://todzhang.com/posts/2020-06-21-jpa-notes/</guid>
       <description>JPA
 As you create Session from a SessionFactory, it’s not hard to understand that you use EntityManagerFactory to create an instance of EntityManager. However, because JPA is a standard applicable to Enterprise and Standalone applications, there are a couple of modes for obtaining or creating the EntityManagerFactory itself—one that will be created in a managed environment such as Application Servers or Web containers while the other in a standalone application.</description>
     </item>
     
     <item>
       <title>Java Security Notes</title>
-      <link>http://example.org/posts/2017-02-15-java-security/</link>
+      <link>http://todzhang.com/posts/2017-02-15-java-security/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-02-15-java-security/</guid>
+      <guid>http://todzhang.com/posts/2017-02-15-java-security/</guid>
       <description>Java Security  well-behaved: programs should be prevent from consuming too much system resources  Components  JCE: Java Cryptography Extension JSSE: Java Secure Socketets Extension JAAS: Java Authentication and Authorization Service  Anatomy of a Java Application the bytecode verifier The bytecode verifier ensures that Java class files follow the rules of the Java language. As the figure implies, not all classes are subject to bytecode verification.
 the class loader One or more class loaders load all Java classes.</description>
     </item>
     
     <item>
       <title>Java-Tricky-Tech-Questions.md</title>
-      <link>http://example.org/posts/2017-01-19-java-tricky-tech-questions/</link>
+      <link>http://todzhang.com/posts/2017-01-19-java-tricky-tech-questions/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-01-19-java-tricky-tech-questions/</guid>
+      <guid>http://todzhang.com/posts/2017-01-19-java-tricky-tech-questions/</guid>
       <description>What is the difference between Serializable and Externalizable in Java?  In earlier version of Java, reflection was very slow, and so serializaing large object graphs (e.g. in client-server RMI applications) was a bit of a performance problem. To handle this situation, the java.io.Externalizable interface was provided, which is like java.io.Serializable but with custom-written mechanisms to perform the marshalling and unmarshalling functions (you need to implement readExternal and writeExternal methods on your class).</description>
     </item>
     
     <item>
       <title>Jboss tips</title>
-      <link>http://example.org/posts/2018-06-14-jboss-console/</link>
+      <link>http://todzhang.com/posts/2018-06-14-jboss-console/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2018-06-14-jboss-console/</guid>
+      <guid>http://todzhang.com/posts/2018-06-14-jboss-console/</guid>
       <description>commands: to list all deployed applications jboss\jboss-eap-6.4\bin\jboss-cli.bat &amp;ndash;connect &amp;ndash;controller=localhost:7373 &amp;ndash;command=/deployment=*:read-attribute(name=name)
 to list JNDI tree: cd /subsystem=mail ls /subsystem=mail/mail-session=java:jboss/mail/payment_mail /subsystem=naming:jndi-view() }, &amp;#34;mail&amp;#34; =&amp;gt; { &amp;#34;class-name&amp;#34; =&amp;gt; &amp;#34;javax.naming.Context&amp;#34;, &amp;#34;children&amp;#34; =&amp;gt; { &amp;#34;Default&amp;#34; =&amp;gt; { &amp;#34;class-name&amp;#34; =&amp;gt; &amp;#34;javax.mail.Session&amp;#34;, &amp;#34;value&amp;#34; =&amp;gt; &amp;#34;javax.mail.Session@22951e8f&amp;#34; }, &amp;#34;payment_mail&amp;#34; =&amp;gt; { &amp;#34;class-name&amp;#34; =&amp;gt; &amp;#34;javax.mail.Session&amp;#34;, &amp;#34;value&amp;#34; =&amp;gt; &amp;#34;javax.mail.Session@548df9e2&amp;#34; } } }, &amp;lt;management-interfaces&amp;gt; &amp;lt;native-interface security-realm=&amp;#34;ManagementRealm&amp;#34;&amp;gt; &amp;lt;socket-binding native=&amp;#34;management-native&amp;#34;/&amp;gt; &amp;lt;/native-interface&amp;gt; &amp;lt;http-interface security-realm=&amp;#34;ManagementRealm&amp;#34;&amp;gt; &amp;lt;socket-binding http=&amp;#34;management-http&amp;#34;/&amp;gt; &amp;lt;/http-interface&amp;gt; &amp;lt;/management-interfaces&amp;gt; &amp;lt;/management&amp;gt; xxx &amp;lt;socket-binding-group name=&amp;#34;standard-sockets&amp;#34; default-interface=&amp;#34;public&amp;#34; port-offset=&amp;#34;${jboss.socket.binding.port-offset:0}&amp;#34;&amp;gt; &amp;lt;socket-binding name=&amp;#34;management-native&amp;#34; interface=&amp;#34;management&amp;#34; port=&amp;#34;${jboss.</description>
     </item>
     
     <item>
       <title>JDK source</title>
-      <link>http://example.org/posts/2017-06-24-jdk-sources/</link>
+      <link>http://todzhang.com/posts/2017-06-24-jdk-sources/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-06-24-jdk-sources/</guid>
+      <guid>http://todzhang.com/posts/2017-06-24-jdk-sources/</guid>
       <description>interface RandomAccess Marker interface used by List implementations to indicate that they support fast (generally constant time) random access. The primary purpose of this interface is to allow generic algorithms to alter their behavior to provide good performance when applied to either random or sequential access lists.
 Such a List implementation should generally implement this interface. As a rule of thumb, a List implementation should implement this interface if, for typical instances of the class, this loop:</description>
     </item>
     
     <item>
       <title>Maven-Notes</title>
-      <link>http://example.org/posts/2017-02-03-maven-notes/</link>
+      <link>http://todzhang.com/posts/2017-02-03-maven-notes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-02-03-maven-notes/</guid>
+      <guid>http://todzhang.com/posts/2017-02-03-maven-notes/</guid>
       <description>Maven philosophy  “It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies and their versions.”  Concepts Life cycles Maven defines three Lifecycles ֠default, clean and site and each Lifecycle consists of predefined Phases.
 The clean argument which we pass to mvn command is phase which is in lifecycle named clean.</description>
     </item>
     
     <item>
       <title>NavigableMap Misc</title>
-      <link>http://example.org/posts/2017-01-19-java-navigablemap/</link>
+      <link>http://todzhang.com/posts/2017-01-19-java-navigablemap/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-01-19-java-navigablemap/</guid>
+      <guid>http://todzhang.com/posts/2017-01-19-java-navigablemap/</guid>
       <description>What is NavigableMap  NavigableMap in Java 6 is an extension of SortedMap like TreeMap which provides convenient navigation method like lowerKey, floorKey, ceilingKey and higherKey. NavigableMap is added on Java 1.6 and along with these popular navigation method it also provide ways to create a Sub Map from existing Map in Java e.g. headMap whose keys are less than specified key, tailMap whose keys are greater than specified key and a subMap which is strictly contains keys which falls between toKey and fromKey.</description>
     </item>
     
     <item>
       <title>Random number in java</title>
-      <link>http://example.org/posts/2016-12-09-headsfirst-randomnumber-in-java/</link>
+      <link>http://todzhang.com/posts/2016-12-09-headsfirst-randomnumber-in-java/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2016-12-09-headsfirst-randomnumber-in-java/</guid>
+      <guid>http://todzhang.com/posts/2016-12-09-headsfirst-randomnumber-in-java/</guid>
       <description>ThreadLocalRandom, SecureRandm, java.util.Random, java.math.Random
 Instances of java.util.Random are threadsafe. However, the concurrent use of the same java.util.Random instance across threads may encounter contention and consequent poor performance. Consider instead using ThreadLocalRandom in multithreaded designs.
 The Java Math library function Math.random() generates a double value in the range [0,1). Notice this range does not include the 1.
@@ -232,19 +233,19 @@ int rand = ThreadLocalRandom.current().nextInt(x,y); Reference  How to generate 
     
     <item>
       <title>SeriableVersionUID</title>
-      <link>http://example.org/posts/2017-02-14-serialversionuid/</link>
+      <link>http://todzhang.com/posts/2017-02-14-serialversionuid/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-02-14-serialversionuid/</guid>
+      <guid>http://todzhang.com/posts/2017-02-14-serialversionuid/</guid>
       <description>Noteworthy points about SeriableVersionUID in Java Preventing ClassCastExceptions with SerialVersionUID Problem  Your classes were recompiled, and you’re getting ClassCastExceptions that you shouldn’t. Solution Run serialver to generate a “serial version UUID” and paste its output into your classes before you start. Or use your IDE’s tools for this purpose. Discussion When a class is undergoing a period of evolution—particularly a class being used in a networking context such as RMI or servlets—it may be useful to provide a serialVersionUID value in this class.</description>
     </item>
     
     <item>
       <title>Spring notes</title>
-      <link>http://example.org/posts/2017-03-05-spring/</link>
+      <link>http://todzhang.com/posts/2017-03-05-spring/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/2017-03-05-spring/</guid>
+      <guid>http://todzhang.com/posts/2017-03-05-spring/</guid>
       <description>Spring Bean Life Cycle Callback Methods A bean life cycle includes the following steps.
  Within IoC container, a spring bean is created using class constructor. Now the dependency injection is performed using setter method. Once the dependency injection is completed, BeanNameAware.setBeanName() is called. It sets the name of bean in the bean factory that created this bean. Now &amp;lt; code&amp;gt;BeanClassLoaderAware.setBeanClassLoader() is called that supplies the bean class loader to a bean instance.</description>
     </item>

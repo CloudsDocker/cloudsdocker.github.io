@@ -4,6 +4,7 @@ title: Java Concurrent Column 2
 tags:
 - java
 - concurrent
+date: 2020-03-15
 ---
 
 # This is the second half about Java Concurrent of my blog
