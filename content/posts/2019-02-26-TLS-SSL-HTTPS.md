@@ -1,6 +1,6 @@
 ---
 title: SSL certificates
-weight: 400
+<!-- weight: 400 -->
 date: 2020-06-26
 ---
 
@@ -42,7 +42,7 @@ In the context of a website, when we use the term digital certificate we often r
 Anyone can issue SSL certificates, but those certificates would not be trusted automatically by web browsers. Certificates such as these are called self-signed. The CA has the responsibility to validate the entity behind an SSL certificate request and, upon successful validation, the ability to issue publicly trusted SSL certificates that will be accepted by web browsers. Essentially, the browser vendors rely on CAs to validate the entity behind a web site.
 
 # How SSL work in browser
-There are 3 essential elements at work in the process described above: a protocol for communications (SSL), credentials for establishing identity (the SSL certificate), and a third party that vouches for the credentials (the certificate authority). 
+There are 3 essential elements at work in the process described above: a protocol for communications (SSL), credentials for establishing identity (the SSL certificate), and a third party that vouches for the credentials (the certificate authority).
 
 
     Computers use protocols to allow different systems to work together. Web servers and web browsers rely on the Secure Sockets Layer (SSL) protocol to enable encrypted communications. The browser’s request that the server identify itself is a function of the SSL protocol.
@@ -111,7 +111,7 @@ https://en.wikipedia.org/wiki/Savvis
 
 Savvis - Wikipedia
 
-Savvis, formerly SVVS on Nasdaq and formerly known as Savvis Communications Corporation, and, later, Savvis Inc., is a subsidiary of CenturyLink, a company headquartered in Monroe, Louisiana.[1] The company sells managed hosting and colocation services with more than 50 data centers[2] (over 2 million square feet) in North America, Europe, and Asia, automated management and provisioning systems, and information technology consulting. Savvis has approximately 2,500 unique business and government customers.[3][4] 
+Savvis, formerly SVVS on Nasdaq and formerly known as Savvis Communications Corporation, and, later, Savvis Inc., is a subsidiary of CenturyLink, a company headquartered in Monroe, Louisiana.[1] The company sells managed hosting and colocation services with more than 50 data centers[2] (over 2 million square feet) in North America, Europe, and Asia, automated management and provisioning systems, and information technology consulting. Savvis has approximately 2,500 unique business and government customers.[3][4]
 
 
 The file extensions .CRT and .CER are interchangeable.  If your server requires that you use the .CER file extension, you can change the extension by following the steps below:
@@ -128,7 +128,7 @@ The file extensions .CRT and .CER are interchangeable.  If your server requires 
 
 But the way that Windows handles them when you double-click them is about the only difference between the two. Both extensions just represent that it contains a public certificate. You can rename a file or use one in place of the other in any system or configuration file that I've seen. And on non-Windows platforms (and even on Windows), people aren't particularly careful about which extension they use, and treat them both interchangeably, as there's no difference between them as long as the contents of the file are correct.
 
-*.pem, *.crt, *.ca-bundle, *.cer, *.p7b, *.p7s files contain one or more X.509 digital certificate files that use base64 (ASCII) encoding. 
+*.pem, *.crt, *.ca-bundle, *.cer, *.p7b, *.p7s files contain one or more X.509 digital certificate files that use base64 (ASCII) encoding.
 
 
 .DER = The DER extension is used for binary DER encoded certificates. These files may also bear the CER or the CRT extension.   Proper English usage would be “I have a DER encoded certificate” not “I have a DER certificate”.
@@ -151,26 +151,26 @@ There are two types of certificate authorities (CAs): root CAs and intermediate 
 
 
 
-Good. I see you want to access this particular page.  I need to send the page to you in a secure way. If I 
-encrypt it using my public key, you won't be able to decrypt it because you don't have my private key. And since you don't have any public key of your own that I can use to encrypt the page for you here's what I propose 
-Since you can send me encrypted messages that only me can read (you have my public key), send me an encrypted message with an encryption key in it. Just make up a random encryption key that we'll both use to encrypt and decrypt the messages between us during this session . 
+Good. I see you want to access this particular page.  I need to send the page to you in a secure way. If I
+encrypt it using my public key, you won't be able to decrypt it because you don't have my private key. And since you don't have any public key of your own that I can use to encrypt the page for you here's what I propose
+Since you can send me encrypted messages that only me can read (you have my public key), send me an encrypted message with an encryption key in it. Just make up a random encryption key that we'll both use to encrypt and decrypt the messages between us during this session .
 
 A simple symmetric key is enought. We'll use the same key to encrypt and decrypt the messages.
 
 
-- So there's no way that anybody with your public 
-key can trick others to believe that he is you ? 
-- Nope. That's the beauty of the assymetric encryption. 
+- So there's no way that anybody with your public
+key can trick others to believe that he is you ?
+- Nope. That's the beauty of the assymetric encryption.
 
 
-When you send the public key to the victim's contain your public key + a certificate that this public key belongs to you. If you are a website, then the certificate will contain the domain name of the website. Basically, a certificate says something like:  the following public key "XYZ123" belongs to example.com. 
+When you send the public key to the victim's contain your public key + a certificate that this public key belongs to you. If you are a website, then the certificate will contain the domain name of the website. Basically, a certificate says something like:  the following public key "XYZ123" belongs to example.com.
 
 
-that's why we have "Certificate Authorities" like Verisign, Digicert or even Symantec. It is believed that these companies have the necessary trustworthiness to deliver certificates to different •entities. 
-Think of a CA like a registrar for public keys. Just like registrars assert that a domain name belongs to a certain person or company, CAS assert that a public key belongs to a certain domain name (or IP address) . 
+that's why we have "Certificate Authorities" like Verisign, Digicert or even Symantec. It is believed that these companies have the necessary trustworthiness to deliver certificates to different •entities.
+Think of a CA like a registrar for public keys. Just like registrars assert that a domain name belongs to a certain person or company, CAS assert that a public key belongs to a certain domain name (or IP address) .
 
 
-The certificate will contain the CA that delivered it, but you don't even have to check with them because the certificate is signed by them. That signature alone is enough proof that the certificate comes from them. 
+The certificate will contain the CA that delivered it, but you don't even have to check with them because the certificate is signed by them. That signature alone is enough proof that the certificate comes from them.
 
 
 A signature is simply a small message that is encrypted with their private key. Since private keys are asymetric, that means that only the associated public key can decrypt it.
@@ -180,39 +180,39 @@ What the public key encrypts only the private key can decrypt, and what the priv
 
 
 
-for PKI, we're not looking for secrecy here, we only want to prove that we' re the real authors of the message. Suppose I send you the message "HELLO WORLD", encrypted with my private key. The encrypted message would be, for example, "XYZ1234". So you receive "XYZ1234" . If I give you my public key, you would be able to decrypt "XYZ1234" into "HELLO WORLD" . And by doing so, you would have proof that that message was sent by me, because the public key you used decrypts messages that were encrypted by my private key only. And since I am the only person in the universe who has that private key, that proves that I am the author of that message. 
+for PKI, we're not looking for secrecy here, we only want to prove that we' re the real authors of the message. Suppose I send you the message "HELLO WORLD", encrypted with my private key. The encrypted message would be, for example, "XYZ1234". So you receive "XYZ1234" . If I give you my public key, you would be able to decrypt "XYZ1234" into "HELLO WORLD" . And by doing so, you would have proof that that message was sent by me, because the public key you used decrypts messages that were encrypted by my private key only. And since I am the only person in the universe who has that private key, that proves that I am the author of that message.
 
 
-Really nice. So I don't have to contact the CA to check the validity of the certificate, all I have to do is use their public key to decrypt the signature that's in it. If it's the same as err, wait, what should I compare the decrypted signature to again ? 
+Really nice. So I don't have to contact the CA to check the validity of the certificate, all I have to do is use their public key to decrypt the signature that's in it. If it's the same as err, wait, what should I compare the decrypted signature to again ?
 
 
 
 
-You have to find the same hash as the one you have calculated. They are sending a small hash of the whole certificate. So what you have to do is to calculate the hash of the certificate yourself, then compare it to the hash you get when you decrypt the signature. If the two are the same that means two things 
-1. The CA's public key worked, so the signature was encrypted by the associated private key, which means the certificate was really issued by the CA. 
-2. Since the hash is the same, it also means that you are seeing the exact same certificate that the CA delivered to the website you are visiting. The information contained inside hasn't been tampered with. 
+You have to find the same hash as the one you have calculated. They are sending a small hash of the whole certificate. So what you have to do is to calculate the hash of the certificate yourself, then compare it to the hash you get when you decrypt the signature. If the two are the same that means two things
+1. The CA's public key worked, so the signature was encrypted by the associated private key, which means the certificate was really issued by the CA.
+2. Since the hash is the same, it also means that you are seeing the exact same certificate that the CA delivered to the website you are visiting. The information contained inside hasn't been tampered with.
 
-That's really good. So, let me recap one more time . 
-1. I contact you for an HTTPS page. 
-2. You send me an SSL certificate that contains your public key and a signature from the CA that delivered 
-3. I make sure the certificate is valid by using the CA's public key to decrypt the signature. In parallel, I also calculate the hash of the certificate. 
+That's really good. So, let me recap one more time .
+1. I contact you for an HTTPS page.
+2. You send me an SSL certificate that contains your public key and a signature from the CA that delivered
+3. I make sure the certificate is valid by using the CA's public key to decrypt the signature. In parallel, I also calculate the hash of the certificate.
 
-If my hash and the one I got from decrypting the signature are equal, that means that the certificate was really issued by the CA and that I can be sure that the public key you sent me is really yours. 
+If my hash and the one I got from decrypting the signature are equal, that means that the certificate was really issued by the CA and that I can be sure that the public key you sent me is really yours.
 
 Because you implicitly trust the CA.
 
-Let's continue: 
-4. I generate a random key that we'll both use as a symmetric key to encrypt and decrypt the messages we'll be sending each other. 
-5. I encrypt this symmetric key with your public key and send it to you. 
-6. You decrypt my message with your private key and find my secret key. 
-7. Every request or response between us will be encrypted with this shared secret symmetric key. 
+Let's continue:
+4. I generate a random key that we'll both use as a symmetric key to encrypt and decrypt the messages we'll be sending each other.
+5. I encrypt this symmetric key with your public key and send it to you.
+6. You decrypt my message with your private key and find my secret key.
+7. Every request or response between us will be encrypted with this shared secret symmetric key.
 
 ## CN
 The Common Name (AKA CN) represents the server name protected by the SSL certificate.
 
 The certificate is valid only if the request hostname matches the certificate common name.
 
-To check the status, such as 
+To check the status, such as
 ```bash
 sudo openssl x509 -noout -in xxx.com.cer -text
 ```

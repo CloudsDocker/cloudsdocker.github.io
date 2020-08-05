@@ -2,3 +2,5 @@
 {{ with $script.js }}
   <script src="{{ relURL (printf "%s%s" "dist/" .) }}"></script>
 {{ end }}
+
+{{ template "_internal/google_analytics_async.html" . }}

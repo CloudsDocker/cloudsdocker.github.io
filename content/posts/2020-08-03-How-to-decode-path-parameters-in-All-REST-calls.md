@@ -1,6 +1,6 @@
 ---
 title: How to decode path parameters in All REST WebServices calls
-date: 2020-08-3
+date: 2020-08-03
 tags:
  - RESTful
  - WebServices
