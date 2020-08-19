@@ -4,6 +4,9 @@ tags:
 - AWS
 - Cloud
 ---
+# Footprint
+
+As of 2019, AWS has distinct operations in 22 geographical "regions":[7] 7 in North America, 1 in South America, 6 in Europe, 1 in the Middle-East, 1 in Africa and 8 in Asia Pacific. 
 
 # Concepting
 
@@ -168,6 +171,23 @@ Need to define two terms:
 Generating S3 pre-signed URLs would bypass CloudFront, therefore we should use CloudFront signed URL. To generate that URL we must code, and Lambda is the perfect tool for running that code on the fly. 
 
 As the file is greater than 5GB in size, you must use Multi Part upload to upload that file to S3.
+
+
+### S3 ETag
+Every S3 object has an associated Entity tag or ETag which can be used for file and object comparison.
+
+> The ETag may or may not be an MD5 digest of the object data
+
+If an object is created by either the Multipart Upload or Part Copy operation, the ETag is not an MD5 digest, regardless of the method of encryption.
+
+
+
+    For multipart uploads the ETag is the MD5 hexdigest of each part’s MD5 digest concatenated together, followed by the number of parts separated by a dash.
+
+E.g. for a two part object the ETag may look something like this:
+
+    d41d8cd98f00b204e9800998ecf8427e-2
+
 
 ### S3 Glacier
 Expedited retrievals allow you to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1–5 minutes. Provisioned Capacity ensures that retrieval capacity for Expedited retrievals is available when you need it.
