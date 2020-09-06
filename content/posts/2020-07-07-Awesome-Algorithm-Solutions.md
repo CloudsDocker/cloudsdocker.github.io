@@ -269,3 +269,22 @@ class Solution {
 }
 
 ```
+
+# 递归反转整个链表
+
+```java
+ListNode reverse(ListNode head) {
+if (head.next == null) 
+    return head; 
+ListNode last = reverse(head.next); 
+head.next.next = head;
+head.next = null;
+return last;
+}
+```
+
+对于递归算法，最重要的就是明确递归函数的定义。具体来说，我们的 reverse 函数定义是这样的:
+输入一个节点 head ，将「以 head 为起点」的链表反转，并返回反转之 后的头结点。
+
+
+
