@@ -1,12 +1,12 @@
 ---
 layout: page
 title: A Facial Recognition utility in a dozen of LOC
-tag:
+tags:
 - DeepLearning
 - MachineLearning
 - FacialRecognition
 - Python
-- MyBlog
+- Face Recongnition
 date: 2020-06-28 06:40:12
 ---
 

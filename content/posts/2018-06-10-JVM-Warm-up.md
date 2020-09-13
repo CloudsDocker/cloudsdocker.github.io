@@ -1,7 +1,10 @@
 ---
-title: JVM wram up
+title: JVM warm up
 weight: 500
 date: 2020-03-28
+tags:
+- JVM warm up
+- Java
 ---
 
 # JVM wram up
