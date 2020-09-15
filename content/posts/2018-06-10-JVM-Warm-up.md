@@ -5,9 +5,10 @@ date: 2020-03-28
 tags:
 - JVM warm up
 - Java
+- Low latency
 ---
 
-# JVM wram up
+# JVM warm up
 Keeping this in mind, for low-latency applications, we need to cache all classes beforehand – so that they’re available instantly when accessed at runtime.
 
 This process of tuning the JVM is known as warming up.
