@@ -10,7 +10,7 @@ tags:
 
 # Concepts
 ## Life cycles
-Maven defines three Lifecycles ֠default, clean and site and each Lifecycle consists of predefined Phases. 
+Maven defines three Lifecycles default, clean and site and each Lifecycle consists of predefined Phases. 
 
 The clean argument which we pass to mvn command is phase which is in lifecycle named clean.
 
