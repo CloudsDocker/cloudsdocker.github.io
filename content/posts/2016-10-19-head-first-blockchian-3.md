@@ -1,8 +1,8 @@
 ---
 title: Head First Blockchina 3
-tag:
-- blockchain
-- hyperledger
+tags:
+ - blockchain
+ - hyperledger
 ---
 
 

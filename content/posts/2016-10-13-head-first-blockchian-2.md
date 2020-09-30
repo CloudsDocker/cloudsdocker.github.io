@@ -1,9 +1,9 @@
 ---
 title: 【原创】深入浅出区块链系统：第二章
-tag:
-- blockchain
-- ethereum
-- MyBlog
+tags:
+ - blockchain
+ - ethereum
+ - MyBlog
 ---
 
 

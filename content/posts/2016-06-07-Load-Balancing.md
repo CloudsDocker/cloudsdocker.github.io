@@ -1,10 +1,10 @@
 ---
 layout: page
 title: Load Balancing
-tag:
-- CTO
-- MobileInternet
-- DevOps
+tags:
+ - CTO
+ - MobileInternet
+ - DevOps
 ---
 
 # Concepts

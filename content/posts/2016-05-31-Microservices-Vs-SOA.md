@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Microservices vs. SOA
-tag: 
-- Microservices
-- SOA
+tags: 
+ - Microservices
+ - SOA
 ---
 
 # Microservice

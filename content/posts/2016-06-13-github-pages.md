@@ -1,9 +1,9 @@
 ---
 Layout: page
 title: Github page commands notes
-tag:
-- Git
-- GitPages
+tags:
+ - Git
+ - GitPages
 ---
 
 # 404 error for customized domain (such as godday)

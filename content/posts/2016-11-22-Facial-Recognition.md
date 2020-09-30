@@ -1,10 +1,10 @@
 ---
 layout: page
 title: 用10几行代码自己写个人脸识别程序
-tag:
-- DeepLearning
-- FacialRecognition
-- MyBlog
+tags:
+ - DeepLearning
+ - FacialRecognition
+ - MyBlog
 ---
 
 # 用10几行代码自己写个人脸识别程序

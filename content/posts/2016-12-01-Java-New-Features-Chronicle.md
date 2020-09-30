@@ -1,7 +1,9 @@
 ---
 layout: page
 title: Java new features 
-tag:
+tags:
+ - java history
+ - JDK
 ---
 # JDK Versions
 - JDK 1.5 in 2005
