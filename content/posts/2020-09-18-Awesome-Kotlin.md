@@ -8,6 +8,9 @@ tags:
  - JVM
 ---
 
+# Difference with Scala
+Kotlin takes the best of Java and Scala, the response times are similar as working with Java natively, which is a considerable advantage over Scala.
+
 # Programming tips
 
 ## What's differences between isNullOrBlank and isNullOrEmpty

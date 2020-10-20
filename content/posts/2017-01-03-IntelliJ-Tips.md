@@ -6,7 +6,11 @@ tags:
 - intelliJ
 ---
 # Shortcuts
+## Expand/collapse method body in code editor
+`Cmd + +/-` to expand and collapse a method body
+## Show java doc
 - Ctrl+J: To show JavaDoc
+
 - Cmd+Alt+B: To show interface implementations
 - Alt+Enter: when cursor on class declare line, press Alt+Enter can quickly create a unit test against this test class
 
