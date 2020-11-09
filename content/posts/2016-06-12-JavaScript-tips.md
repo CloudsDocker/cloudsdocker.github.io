@@ -1,9 +1,9 @@
 ---
 Layout: page
 title: JavaScript tips
-tag:
-- Coding
-- JavaScript
+tags:
+ - Coding
+ - JavaScript
 ---
 
 # includes() vs some()

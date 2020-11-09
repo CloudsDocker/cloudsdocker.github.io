@@ -2,8 +2,8 @@
 layout: page
 title: IT-Architect
 tags:
-- Architect
-- Questions
+ - Architect 
+ - Questions
 ---
 
 # SOA
@@ -17,5 +17,12 @@ tags:
 - WATCH IT!
 **Double-checked locking doesn’t work in Java 1.4 or earlier**!
 Unfortunately, in Java version 1.4 and earlier, many JVMs contain implementations of the **volatile keyword that allow improper synchronization for double-checked locking**. If you must use a JVM earlier than Java 5, consider other methods of implementing your Singleton.
+
+
+# RAS
+Reliability, availability and serviceability (RAS), also known as reliability, availability, and maintainability (RAM), is a computer hardware engineering term involving reliability engineering, high availability, and serviceability design.
+
+## Difference between reliability and availability
+The distinction between reliability and availability: `reliability measures the ability of a system to function correctly, including avoiding data corruption`, whereas `availability measures how often the system is available for use, even though it may not be functioning correctly`. For example, a server may run forever and so have ideal availability, but may be unreliable, with frequent data corruption
 
 # Reference 

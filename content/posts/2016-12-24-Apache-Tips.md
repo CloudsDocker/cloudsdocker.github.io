@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Apache Tips
-tag:
-- Apache
-- DevOps
+tags:
+ - Apache
+ - DevOps
 ---
 
 # Apache

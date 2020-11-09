@@ -1,9 +1,9 @@
 ---
 title: JetBrains/IntelliJ tips
-tag:
-- Coding
-- JetBrains
-- Java
+tags:
+ - Coding 
+ - JetBrains
+ - Java
 ---
 
 # Shortcuts

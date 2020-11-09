@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Java Class Loader
-tag:
-- Java
-- class loader`
+tags:
+ - Java
+ - class loader`
 ---
 
 # Codecache

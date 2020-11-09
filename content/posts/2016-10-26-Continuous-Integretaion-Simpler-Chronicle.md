@@ -1,6 +1,6 @@
 ---
 title: Simpler chronicle of CI(Continuous Integration) “乱弹系列”之持续集成工具
-tag:
+tags:
 - CI
 - DevOps
 - MyBlog

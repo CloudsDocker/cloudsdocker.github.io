@@ -1,8 +1,8 @@
 ---
 title: Data Structure
-tag:
-- programming
-- data strucutre
+tags:
+ - programming
+ - data strucutre
 ---
 
 # Binary Tree

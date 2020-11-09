@@ -1,9 +1,9 @@
 ---
 layout: page
 title: tips in as400 IBM Emulator
-tag:
-- AS400
-- IBM Personal Communications
+tags:
+ - AS400
+ - IBM Personal Communications
 ---
 
 # Toggle crosshair

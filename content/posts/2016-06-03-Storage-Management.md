@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Storage Management
-tag:
-- CTO
-- MobileInternet
+tags:
+ - CTO
+ - MobileInternet
 ---
 # RAID
 `RAID` is Reductant Array Independent Disk, 
