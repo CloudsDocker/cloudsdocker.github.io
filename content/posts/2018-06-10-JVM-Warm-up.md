@@ -20,6 +20,11 @@ There are multiple tools & approach to implement warm up, while I'm going to dig
 
 ## Escape Analysis
 
+ Java objects are created and stored in the heap. The programming language does not offer the possibility to let the programmer decide if an object should be generated in the stack. But in certain cases it would be desirable to allocate an object on the stack, as the memory allocation on the stack is cheaper than the memory allocation in the heap, deallocation on the stack is free and the stack is efficiently managed by the runtime.
+
+The JVM uses therefore internally escape analysis to check if an object is used only with a thread or method. If the JVM identify this it may decide to create the object on the stack, increasing performance of the Java program.
+
+
 Escape analysis is a technique by which the Java Hotspot Server Compiler can analyze the scope of a new object's uses and decide whether to allocate it on the Java heap.
 
 ### Why EA help to boost application performance in JVM?
