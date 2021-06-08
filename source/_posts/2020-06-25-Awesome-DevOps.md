@@ -1,3 +1,9 @@
+---
+title: DevOps In a nutshell
+tags:
+- DevOps
+---
+
 *Confuse of Dev or Ops? Simple rule: if you are praise for Web site success, you
 are Dev; if you are blame when Web site down, you are Ops.*
 
