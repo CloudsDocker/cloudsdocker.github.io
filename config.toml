@@ -1,14 +1,28 @@
 baseURL = "http://todzhang.com/"
 languageCode = "en-us"
 title = "Clouds&Docker"
-theme = "ananke"
+#theme = "ananke"
+#theme = "ananke"
+#theme = "academia-hugo"
+theme = "beautifulhugo"
+#theme = "hugo-tranquilpeak-theme"
+#theme = "dot-hugo-documentation-theme"
+#theme = "ramium"
 #theme = "m10c"
+pygmentsStyle = "trac"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
 googleAnalytics = "UA-96218029-2"
 enableEmoji = true
 email = "phray.zhang@gmail.com"
 featured_image = "/images/DonotJump.jpeg"
+defaultContentLanguage = "en-us"
 
 [params]
+  logo = "/images/DonotJump.jpeg" # Expecting square dimensions
+  favicon = "img/favicon.ico"
+  dateFormat = "2006-01-02"
   background_color_class = "bg-black"
   description = "by Todd"
   featured_image = "/images/DonotJump.jpeg"
@@ -16,6 +30,13 @@ featured_image = "/images/DonotJump.jpeg"
   github = "https://github.com/CloudsDocker"
   enableEmoji = true
   email = "phray.zhang@gmail.com"
+  comments = true
+  readingTime = true
+  wordCount = true
+  useHLJS = true
+  socialShare = true
+  delayDisqus = true
+  showRelatedPosts = true
 
 [deployment]
 [[deployment.targets]]
@@ -28,3 +49,47 @@ URL = "s3://todzhang.com?region=ap-southeast-2"
 # If you are using a CloudFront CDN, deploy will invalidate the cache as needed.
 
 cloudFrontDistributionID = "E2M5SPPZZJOVL8"
+
+
+[Author]
+  name = "Todd Zhang"
+  website = "todzhang.com"
+  email = "phray.zhang@gmail.com"
+  github = "cloudsdocker"
+  linkedin = "todd-zhang-lei"
+
+[[menu.main]]
+    name = "Blog"
+    url = ""
+    weight = 1
+
+[[menu.main]]
+    identifier = "tops"
+    name = "top rated"
+    weight = 2
+
+[[menu.main]]
+    parent = "tops"
+    name = "Face Recongnition"
+    url = "posts/2017-04-28-facial-recognition_en/"
+    weight = 1
+
+[[menu.main]]
+    parent = "tops"
+    name = "JVM warm up"
+    url = "posts/2018-06-10-jvm-warm-up/"
+    weight = 2
+
+[[menu.main]]
+    parent = "tops"
+    name = "Awesome SSL"
+    url = "posts/2019-02-26-tls-ssl-https/"
+    weight = 3
+
+[[menu.main]]
+    name = "Tags"
+    url = "tags"
+    weight = 3
+
+
+

@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Eclipse notes
-tag: 
-- Eclipse
-- Java
+tags: 
+ - Eclipse
+ - Java
 ---
 
 # How do I remove a plug-in?

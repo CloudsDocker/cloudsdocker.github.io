@@ -1,9 +1,9 @@
 ---
 layout: page
 title: git raise error filename too long when checkout
-tag:
-- Git
-- DevOps
+tags:
+ - Git
+ - DevOps
 ---
 
 # Symptoms:

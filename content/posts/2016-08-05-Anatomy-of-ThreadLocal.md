@@ -1,8 +1,8 @@
 ---
 title: Anatomy of ThreadLocal
-tag:
-- java
-- source code
+tags:
+ - java
+ - source code
 ---
 
 ## Design philosophies

@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Linux Tips
-tag:
-- Linux
-- DevOps
+tags:
+ - Linux
+ - DevOps
 ---
 # Get permission denied error when sudo su (or hyphen in sudo command)
 bash: /home/YOURNAME/.bashrc: Permission denied

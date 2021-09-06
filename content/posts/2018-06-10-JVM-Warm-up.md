@@ -1,30 +1,57 @@
 ---
-title: JVM wram up
+title: JVM warm up by Escape Analysis
 weight: 500
 date: 2020-03-28
+tags:
+- JVM warm up
+- Java
+- Low latency
 ---
 
-# JVM wram up
-Keeping this in mind, for low-latency applications, we need to cache all classes beforehand – so that they’re available instantly when accessed at runtime.
+# Why JVM need warm up
+I don't know how and why you get to this blog. But I know the key words in your mind are "warm" for JVM. As the name "warm up" suggested, and like what you normally do before work out. Warm up means **get your body/system ready and tune it to perfect state**
+As for systems running under JVM, if they are time critical and latency sensitive. The best approach to make it run in good state is good preparation. 
+
+One feasible strategy for low-latency applications, we need to cache all classes beforehand – so that they’re available instantly when accessed at runtime.
 
 This process of tuning the JVM is known as warming up.
 
+There are multiple tools & approach to implement warm up, while I'm going to dig into one of most important **strategy to warm up your application in JVM. That's EA: Escape Analysis**.
 
-# Escape Analysis
+## Escape Analysis
+
+ Java objects are created and stored in the heap. The programming language does not offer the possibility to let the programmer decide if an object should be generated in the stack. But in certain cases it would be desirable to allocate an object on the stack, as the memory allocation on the stack is cheaper than the memory allocation in the heap, deallocation on the stack is free and the stack is efficiently managed by the runtime.
+
+The JVM uses therefore internally escape analysis to check if an object is used only with a thread or method. If the JVM identify this it may decide to create the object on the stack, increasing performance of the Java program.
+
 
 Escape analysis is a technique by which the Java Hotspot Server Compiler can analyze the scope of a new object's uses and decide whether to allocate it on the Java heap.
 
-Based on escape analysis, an object's escape state might be one of the following:
+### Why EA help to boost application performance in JVM?
+
+As you know, JVM will allocate memory space in different sections. They performs significanlty different, normally heap is slower than stack, which is even slower than CPU registers.
+So to improve system performance, we'd put our data step away from _heap_. 
+When your java source code being compiled, JIT will leverage Escape Analysis to allocate space on the method stack or even in CPU registers instead of Java heap space. This is a very important performance optimization because stack allocation and de-allocation are much faster than heap space allocation.
+
+### How escape analysis work
+
+Based on escape analysis during JIT, an object's escape state might be one of the following:
 
 * GlobalEscape – An object escapes the method and thread. For example, an object stored in a static field, or, stored in a field of an escaped object, or, returned as the result of the current method.
 * ArgEscape – An object passed as an argument or referenced by an argument but does not globally escape during a call. This state is determined by analyzing the bytecode of called method.
 * NoEscape – A scalar replaceable object, meaning its allocation could be removed from generated code.
 
 
-After escape analysis, the server compiler eliminates scalar replaceable object allocations and associated locks from generated code. The server compiler also eliminates locks for all non-globally escaping objects. It does not replace a heap allocation with a stack allocation for non-globally escaping objects.
+After escape analysis, the server compiler eliminates scalar replaceable object allocations and associated locks from generated code. The server compiler also eliminates locks for all non-globally escaping objects. 
 
+Please beadvised it does not replace a heap allocation with a stack allocation for non-globally escaping objects.
 
-The JIT aggressively inlines methods, removing the overhead of method calls. Methods that can be inlined include static, private or final methods but also public methods if it can be determined that they are not overridden. Because of this, subsequent class loading can invalidate the previously generated code. Because inlining every method everywhere would take time and would generate an unreasonably big binary, the JIT compiler inlines the hot methods first until it reaches a threshold. To determine which methods are hot, the JVM keeps counters to see how many times a method is called and how many loop iterations it has executed. This means that inlining happens only after a steady state has been reached, so you need to repeat the operations a certain number of times before there is enough profiling information available for the JIT compiler to do its job.
+## JIT inline optimisation
+
+The JIT aggressively inlines methods, removing the overhead of method calls. Methods that can be inlined include static, private or final methods but also public methods if it can be determined that they are not overridden. 
+
+Because of this, subsequent class loading can invalidate the previously generated code. Because inlining every method everywhere would take time and would generate an unreasonably big binary, the JIT compiler inlines the hot methods first until it reaches a threshold. 
+To determine which methods are hot, the JVM keeps counters to see how many times a method is called and how many loop iterations it has executed. This means that inlining happens only after a steady state has been reached, so you need to repeat the operations a certain number of times before there is enough profiling information available for the JIT compiler to do its job.
 
 Rather than trying to guess what the JIT is doing, you can take a peek at what’s happening by turning on java command line flags: -XX:+PrintCompilation -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining
 
@@ -36,8 +63,10 @@ Here is what they do:
 
 
 
+### Improve performance by removing locking 
+As you konw, **Lock** would significantely slow down or even freeze your application running in JVM.
 
-GlobalEscape and ArgEscape objects must be allocated on the heap, but for ArgEscape objects it is possible to remove some locking and memory synchronization overhead because these objects are only visible from the calling thread.
+During Escape analysis. GlobalEscape and ArgEscape objects must be allocated on the heap, but for ArgEscape objects it is possible to remove some locking and memory synchronization overhead because these objects are only visible from the calling thread.
 
 The NoEscape objects may be allocated freely, for example on the stack instead of on the heap. In fact, under some circumstances, it is not even necessary to construct an object at all, but instead only the object's scalar values, such as an int for the object Integer. Synchronization may be removed too, because we know that only this thread will use the objects. For example, if we were to use the somewhat ancient StringBuffer (which as opposed to StringBuilder has synchronized methods), then these synchronizations could safely be removed.
 

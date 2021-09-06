@@ -1,7 +1,9 @@
 ---
-title: SSL certificates
-<!-- weight: 400 -->
+title: Awesome SSL certificates and HTTPS
 date: 2020-06-26
+tags:
+- SSL
+- HTTPS
 ---
 
 # What's TLS

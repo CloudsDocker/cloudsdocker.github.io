@@ -1,9 +1,9 @@
 ---
 title: Head First Blockchina 1
-tag:
-- blockchain
-- hyperledger
-- MyBlog
+tags:
+ - blockchain
+ - hyperledger
+ - MyBlog
 ---
 
 # 深入浅出区块链系统：第一章.

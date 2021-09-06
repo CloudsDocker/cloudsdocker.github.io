@@ -2,15 +2,16 @@
 layout: page
 title: Maven-Notes
 tags:
-- java
-- maven
+ - java
+ - maven
+ - mvn
 ---
 # Maven philosophy
 - “It is important to note that in the pom.xml file you specify the what and not the how. The pom.xml file can also serve as a documentation tool, conveying your project dependencies and their versions.”
 
 # Concepts
 ## Life cycles
-Maven defines three Lifecycles ֠default, clean and site and each Lifecycle consists of predefined Phases. 
+Maven defines three Lifecycles default, clean and site and each Lifecycle consists of predefined Phases. 
 
 The clean argument which we pass to mvn command is phase which is in lifecycle named clean.
 
@@ -407,6 +408,12 @@ Ant doesn’t have formal conventions such as a common project directory structu
 - “**test**: Dependencies with the test scope are available during the test phase. JUnit and TestNG are good examples of dependencies with the test scope.”
 - “**system**: Dependencies with the system scope are similar to dependencies with the provided scope, except that these dependencies are not retrieved from the repository. Instead, a hard-coded path to the file system is specified from which the dependencies are used.”
 - “**import**: The import scope is applicable for .pom file dependencies only. It allows you to include dependency management information from a remote .pom file. The import scope is available only in Maven 2.0.9 or later.”
+
+# Tips
+## runtime arguments
+### batch mode -B
+ -B,--batch-mode                        Run in non-interactive (batch)
+                                        mode (disables output color)
 
 # Common errors
 ## Not authorized , ReasonPhrase:Unauthorized

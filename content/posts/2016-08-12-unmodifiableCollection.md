@@ -1,7 +1,7 @@
 ---
 title: unmodifiableList, unmodifiableSet,unmodifiableMap
-tag:
-- java
+tags:
+ - java
 ---
 
 ## What's it

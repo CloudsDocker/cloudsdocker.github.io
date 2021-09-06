@@ -1,11 +1,11 @@
 ---
 title: Spark-vs-Storm
-tag:
-- Spark
-- Storm
-- Apache
-- Haddop
-- BigData
+tags:
+ - Spark
+ - Storm
+ - Apache
+ - Haddop
+ - BigData
 ---
 The stark difference among Spark and Storm. Although both are claimed to process the streaming data in real time. But Spark processes it as micro-batches; whereas Storm processes per message - meaning if you intend to process things like social data, log data, etc.. you can actually apply CEP (Complex Event Processing) per tuples (i.e each social message in your example).  Spark, on other hand is good at processing small blocks of data, for instance if you are streaming a whole blobs of data (say some huge files of medical record, for example).
 
