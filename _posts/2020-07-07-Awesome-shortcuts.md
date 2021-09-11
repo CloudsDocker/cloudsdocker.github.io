@@ -1,7 +1,7 @@
 ---
 title: Awesome Shortcuts
 date: 2020-07-07
-layout: post
+layout: posts
 ---
 
 # Shortcuts & tips

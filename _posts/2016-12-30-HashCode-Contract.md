@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: Hash Code Misc
 tags:
 - java

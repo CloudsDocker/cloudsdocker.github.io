@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: Google maps no photos reviews
 date: 2021-01-19
 tags:

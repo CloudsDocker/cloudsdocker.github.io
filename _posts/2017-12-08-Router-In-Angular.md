@@ -4,7 +4,7 @@ tags:
 - Angular
 - JavaScript
 - NodeJs
-layout: post
+layout: posts
 ---
 
 # Streams

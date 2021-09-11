@@ -3,7 +3,7 @@ title: Jboss tips
 tags:
 - Jboss
 - Java
-layout: post
+layout: posts
 ---
 
 # commands:

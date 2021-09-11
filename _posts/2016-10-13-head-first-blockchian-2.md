@@ -4,7 +4,7 @@ tags:
  - blockchain
  - ethereum
  - MyBlog
-layout: post
+layout: posts
 ---
 
 

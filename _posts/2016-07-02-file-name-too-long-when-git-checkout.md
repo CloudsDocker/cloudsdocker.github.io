@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: git raise error filename too long when checkout
 tags:
  - Git

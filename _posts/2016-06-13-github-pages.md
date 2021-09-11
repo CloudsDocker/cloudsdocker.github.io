@@ -4,7 +4,7 @@ title: Github page commands notes
 tags:
  - Git
  - GitPages
-layout: post
+layout: posts
 ---
 
 # 404 error for customized domain (such as godday)

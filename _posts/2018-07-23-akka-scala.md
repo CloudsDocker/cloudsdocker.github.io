@@ -1,6 +1,6 @@
 ---
 title: akka framework of scala
-layout: post
+layout: posts
 ---
 
 # philosophy

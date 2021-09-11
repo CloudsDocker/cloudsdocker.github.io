@@ -3,7 +3,7 @@ title: Algorithm notes from Leecode -- 1
 tags:
 - Leetcode
 - Algorithm
-layout: post
+layout: posts
 ---
 Algorithm Leetcode
 

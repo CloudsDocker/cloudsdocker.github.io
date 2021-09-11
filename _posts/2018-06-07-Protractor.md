@@ -1,6 +1,6 @@
 ---
 title: Portactor
-layout: post
+layout: posts
 ---
 
  

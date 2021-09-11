@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: Setup WebSphere profiles and application in command line
 tags:
 - WAS

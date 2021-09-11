@@ -1,6 +1,6 @@
 ---
 title: Guice
-layout: post
+layout: posts
 ---
 
 # A new type of Juice

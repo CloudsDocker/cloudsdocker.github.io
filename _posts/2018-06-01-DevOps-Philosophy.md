@@ -2,7 +2,7 @@
 title: DevOps-Philosophy
 date: 2018-06-02 01:21:13
 tags:
-layout: post
+layout: posts
 ---
 ## :100:DevOps Model Defined
 

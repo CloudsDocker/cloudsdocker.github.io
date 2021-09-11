@@ -5,7 +5,7 @@ tags:
  - Swift
  - iOS
  - Mac
-layout: post
+layout: posts
 ---
 
 ## Frame in Swift

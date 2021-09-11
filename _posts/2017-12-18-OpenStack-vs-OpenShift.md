@@ -4,7 +4,7 @@ tags:
     - cloud
     - OpenStack
     - OpenShift
-layout: post
+layout: posts
 ---
 
 # openshift vs openstack

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: Linux Tips
 tags:
  - Linux
@@ -219,6 +219,11 @@ sed -ie 's/Return /return /g' ReverseString.java
 sed -ie 's/package.*me.*;/package com.todzhang;/g' *.java
 sed -ie 's/package me.todzhang;/package com.todzhang;/g' ~/dev/git/algo/algoWS/src/main/java/com/todzhang/*.java
 ```
+# to update layout from post to posts for jekyll in batch
+sed -ie 's/layout: posts/layout: posts/g' _posts/2016-06-03*.md 
+
+
+layout: posts
 
 # create directory hierarchy via path
 ```sh

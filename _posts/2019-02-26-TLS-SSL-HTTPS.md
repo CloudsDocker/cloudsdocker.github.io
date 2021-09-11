@@ -4,7 +4,7 @@ date: 2020-06-26
 tags:
 - SSL
 - HTTPS
-layout: post
+layout: posts
 ---
 
 # What's TLS

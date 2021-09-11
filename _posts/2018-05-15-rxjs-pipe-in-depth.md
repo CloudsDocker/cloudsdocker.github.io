@@ -4,7 +4,7 @@ tags:
 - RxJS
 - NodeJs
 - Angular
-layout: post
+layout: posts
 ---
 https://stormforger.com/blog/2016/07/08/types-of-performance-testing/
 

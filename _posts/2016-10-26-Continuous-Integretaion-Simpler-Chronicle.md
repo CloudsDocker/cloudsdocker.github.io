@@ -4,7 +4,7 @@ tags:
 - CI
 - DevOps
 - MyBlog
-layout: post
+layout: posts
 ---
 
 # 引言

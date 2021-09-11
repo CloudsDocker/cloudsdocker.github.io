@@ -4,7 +4,7 @@ date: 2020-09-03
 tags:
  - Gradle
  - Java
-layout: post
+layout: posts
 ---
 
 # Gradle build stuck, keep on running but never ending

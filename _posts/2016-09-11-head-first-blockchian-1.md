@@ -4,7 +4,7 @@ tags:
  - blockchain
  - hyperledger
  - MyBlog
-layout: post
+layout: posts
 ---
 
 # 深入浅出区块链系统：第一章.

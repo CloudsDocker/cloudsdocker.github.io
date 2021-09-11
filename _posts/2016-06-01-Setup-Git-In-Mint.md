@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: Setup Git in Mint Linux 
 tags: 
  - Git

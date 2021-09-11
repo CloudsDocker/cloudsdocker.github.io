@@ -1,6 +1,6 @@
 ---
 title: Zoo-keeper
-layout: post
+layout: posts
 ---
 
 # ZK Motto

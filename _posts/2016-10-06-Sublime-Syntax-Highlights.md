@@ -3,7 +3,7 @@ title: How to customize Sublime syntax highlights
 tags:
  - tag
  - efficiency
-layout: post
+layout: posts
 ---
 
 # Reference 

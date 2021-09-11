@@ -1,6 +1,6 @@
 ---
 title: Chronicle
-layout: post
+layout: posts
 ---
 
 # Overview

@@ -6,7 +6,7 @@ tags:
  - S3
  - NIO
 
-layout: post
+layout: posts
 ---
 
 # S3 download URL

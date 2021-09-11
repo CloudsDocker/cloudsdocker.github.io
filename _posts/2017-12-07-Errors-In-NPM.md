@@ -4,7 +4,7 @@ tags:
 - nodejs
 - javascript
 - anugar
-layout: post
+layout: posts
 ---
 
 ## code E503

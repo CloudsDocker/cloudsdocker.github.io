@@ -1,6 +1,6 @@
 ---
 title: Foreign Exchange
-layout: post
+layout: posts
 ---
 # currency pairs
 - Direct ccy: means USD is part of currency pair

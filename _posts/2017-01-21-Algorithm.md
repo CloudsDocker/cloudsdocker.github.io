@@ -3,7 +3,7 @@ title: Algorithm
 tags:
 - Dev
 - algorithm
-layout: post
+layout: posts
 ---
 # This page is about key points about Algorithm
 

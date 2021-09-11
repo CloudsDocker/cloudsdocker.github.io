@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: Arbitrage vs Heading
 ---
 # What is the difference between arbitrage and hedging?

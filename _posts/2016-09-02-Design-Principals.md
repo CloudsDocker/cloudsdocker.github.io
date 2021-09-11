@@ -5,7 +5,7 @@ tags:
 - desgin
 - principals
 - MyBlog
-layout: post
+layout: posts
 ---
 
 在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。

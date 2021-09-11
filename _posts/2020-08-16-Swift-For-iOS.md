@@ -5,7 +5,7 @@ tags:
  - Swift
  - Mac
  - iOS
-layout: post
+layout: posts
 ---
 # 
 

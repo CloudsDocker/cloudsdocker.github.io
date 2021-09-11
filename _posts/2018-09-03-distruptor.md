@@ -1,6 +1,6 @@
 ---
 title: Mockito
-layout: post
+layout: posts
 ---
 
 # Feature

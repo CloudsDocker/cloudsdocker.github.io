@@ -1,6 +1,6 @@
 ---
 title: google analysis
-layout: post
+layout: posts
 ---
 
 # How Page Value is calculated

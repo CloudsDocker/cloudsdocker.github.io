@@ -4,7 +4,7 @@ tags:
 - Angular
 - JavaScript
 - NodeJs
-layout: post
+layout: posts
 ---
 
 # What is difference between declarations, providers and import in NgModule 

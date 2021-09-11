@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: tips in as400 IBM Emulator
 tags:
  - AS400

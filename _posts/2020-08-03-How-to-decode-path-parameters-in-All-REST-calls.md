@@ -4,7 +4,7 @@ date: 2020-08-03
 tags:
  - RESTful
  - WebServices
-layout: post
+layout: posts
 ---
 # How to decode path parameters in All REST WebServices calls
 

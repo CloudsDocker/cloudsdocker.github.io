@@ -4,7 +4,7 @@ date: 2021-01-19
 tags:
  - Google
  - Maps
-layout: post
+layout: posts
 ---
 
 # 简介

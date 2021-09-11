@@ -4,7 +4,7 @@ date: 2020-08-13
 tags:
  - Kotlin
  - Mock
-layout: post
+layout: posts
 ---
 
 # Argument Matching & Answers

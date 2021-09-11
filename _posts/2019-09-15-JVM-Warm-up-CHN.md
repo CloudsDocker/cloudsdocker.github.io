@@ -6,7 +6,7 @@ tags:
 - JVM预热
 - Java
 - 低延迟
-layout: post
+layout: posts
 ---
 > 此文是作者英文原文的翻译文章，英文原文在：http://todzhang.com/posts/2018-06-10-jvm-warm-up/
 

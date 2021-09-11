@@ -3,7 +3,7 @@ title: Strategy-Of-Openshift-Releases
 tags:
 - clud
 - Openshift
-layout: post
+layout: posts
 ---
 
 # Release & Testing Strategy

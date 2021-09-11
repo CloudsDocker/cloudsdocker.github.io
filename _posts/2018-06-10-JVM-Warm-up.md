@@ -6,7 +6,7 @@ tags:
 - JVM warm up
 - Java
 - Low latency
-layout: post
+layout: posts
 ---
 
 # Why JVM need warm up

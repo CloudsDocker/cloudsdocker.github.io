@@ -2,7 +2,7 @@
 title: Container
 tags:
 - DevOps
-layout: post
+layout: posts
 ---
 
 The Docker project was responsible for popularizing container development in Linux systems. The original project defined a command and service (both named docker) and a format in which containers are structured. This chapter provides a hands-on approach to using the docker command and service to begin working with containers in Red Hat Enterprise Linux 7 and RHEL Atomic Host by getting and using container images and working with running containers. 

@@ -1,7 +1,7 @@
 ---
 title: Tips about algorithm resolving from Leetcode
 date: 2020-07-04
-layout: post
+layout: posts
 ---
 Here are some tips and notes about how to resolve algorithm issues listed in LeetCode
 # Rotation problem

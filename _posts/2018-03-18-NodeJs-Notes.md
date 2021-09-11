@@ -3,7 +3,7 @@ title: NodeJs Notes
 tags:
 - NodeJs
 - Angular
-layout: post
+layout: posts
 ---
 
 ## commands to read files

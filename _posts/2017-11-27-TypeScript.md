@@ -3,7 +3,7 @@ title: TypeScript noteworthy notes
 tags:
 - Angular
 - JavaScript
-layout: post
+layout: posts
 ---
 # Async Await keywords
 Async Await Support in TypeScript

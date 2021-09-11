@@ -3,7 +3,7 @@ title: Head First Blockchina 3
 tags:
  - blockchain
  - hyperledger
-layout: post
+layout: posts
 ---
 
 

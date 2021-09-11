@@ -1,7 +1,7 @@
 ---
 title: Concurrency in Java
 date: 2020-06-29
-layout: post
+layout: posts
 ---
 
 # :books:Concepts

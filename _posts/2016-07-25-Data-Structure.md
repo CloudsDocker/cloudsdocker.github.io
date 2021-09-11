@@ -3,7 +3,7 @@ title: Data Structure
 tags:
  - programming
  - data strucutre
-layout: post
+layout: posts
 ---
 
 # Binary Tree

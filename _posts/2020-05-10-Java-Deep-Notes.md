@@ -2,7 +2,7 @@
 title: Java Deep Notes
 tags:
 - Java
-layout: post
+layout: posts
 ---
 Java Deep Notes
 

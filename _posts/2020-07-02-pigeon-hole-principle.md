@@ -1,7 +1,7 @@
 ---
 title: Pigeons in holes principle
 date: 2020-07-02
-layout: post
+layout: posts
 ---
 
  # Pigeonhole principle

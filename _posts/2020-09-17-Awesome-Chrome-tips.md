@@ -3,7 +3,7 @@ title: Awesome tips for Chrome
 date: 2020-09-17
 tags:
 - Chrome
-layout: post
+layout: posts
 ---
 
 # Shortcuts & tips

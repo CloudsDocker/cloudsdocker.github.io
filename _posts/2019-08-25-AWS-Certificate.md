@@ -3,7 +3,7 @@ title: AWS certification
 tags:
 - AWS
 - Cloud
-layout: post
+layout: posts
 ---
 # Footprint
 

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: A Facial Recognition utility in a dozen of LOC
 tags:
 - DeepLearning

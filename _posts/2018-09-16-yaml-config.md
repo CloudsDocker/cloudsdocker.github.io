@@ -1,6 +1,6 @@
 ---
 title: YAML
-layout: post
+layout: posts
 ---
 
 # Key points

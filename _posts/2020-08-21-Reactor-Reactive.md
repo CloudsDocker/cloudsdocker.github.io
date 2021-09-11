@@ -5,7 +5,7 @@ tags:
  - Reactive
  - Java
  - Microservice
-layout: post
+layout: posts
 ---
 
 ## Key points of Reactive Programming

@@ -3,7 +3,7 @@ title: Node errors troubleshooting
 tags:
 - NodeJs
 - Angular
-layout: post
+layout: posts
 ---
 
 

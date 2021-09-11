@@ -4,7 +4,7 @@ tags:
  - Coding 
  - JetBrains
  - Java
-layout: post
+layout: posts
 ---
 
 # Shortcuts

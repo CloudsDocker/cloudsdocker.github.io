@@ -3,7 +3,7 @@ title: Anatomy of ThreadLocal
 tags:
  - java
  - source code
-layout: post
+layout: posts
 ---
 
 ## Design philosophies

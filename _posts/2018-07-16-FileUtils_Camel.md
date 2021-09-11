@@ -1,6 +1,6 @@
 ---
 title: File Util in Apache Camel
-layout: post
+layout: posts
 ---
 # FileUtil.class
 

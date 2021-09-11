@@ -4,7 +4,7 @@ tags:
 - nodejs
 - angular
 - javascript
-layout: post
+layout: posts
 ---
 
 # Error of 'ECONNRESET'

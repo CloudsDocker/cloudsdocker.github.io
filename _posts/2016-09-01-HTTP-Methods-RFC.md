@@ -3,7 +3,7 @@ title: http methods
 tags:
 - http
 - rfc
-layout: post
+layout: posts
 ---
 
 RFC origion http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.1.2)

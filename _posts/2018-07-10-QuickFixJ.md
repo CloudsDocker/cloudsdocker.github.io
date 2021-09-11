@@ -1,6 +1,6 @@
 ---
 title: QuickFixJ 
-layout: post
+layout: posts
 ---
 
 # Settings

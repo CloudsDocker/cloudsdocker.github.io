@@ -3,7 +3,7 @@ title: Terraform
 tags:
 - aws
 - clouds
-layout: post
+layout: posts
 ---
 
 

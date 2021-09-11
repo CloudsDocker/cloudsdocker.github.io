@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: Java-Tricky-Tech-Questions.md
 tags:
 - java

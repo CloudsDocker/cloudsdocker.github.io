@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: heavy load web application
 tags:
  - heavy load

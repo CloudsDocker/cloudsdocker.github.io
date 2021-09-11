@@ -1,6 +1,6 @@
 ---
 title: Useful bookmarks
-layout: post
+layout: posts
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 title:  Kafka In Spring
-layout: post
+layout: posts
 ---
 
 Enable Kafka listener annotated endpoints that are created under the covers by a AbstractListenerContainerFactory. To be used on Configuration classes as follows:

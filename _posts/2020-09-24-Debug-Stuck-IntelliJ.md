@@ -5,7 +5,7 @@ tags:
  - IntelliJ
  - Java
 
-layout: post
+layout: posts
 ---
 
 # What?

@@ -3,7 +3,7 @@ title: Locking and multithreading
 tags:
 - CAS
 - Concurrent
-layout: post
+layout: posts
 ---
 
 # Single Writer principle

@@ -1,6 +1,6 @@
 ---
 title: Agile and SCRUM
-layout: post
+layout: posts
 ---
 
  

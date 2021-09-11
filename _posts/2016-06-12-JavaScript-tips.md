@@ -4,7 +4,7 @@ title: JavaScript tips
 tags:
  - Coding
  - JavaScript
-layout: post
+layout: posts
 ---
 
 # includes() vs some()

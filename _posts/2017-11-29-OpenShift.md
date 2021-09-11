@@ -3,7 +3,7 @@ title: Openshift tips
 tags:
 - cloud
 - DevOps
-layout: post
+layout: posts
 ---
 
 # Commands bible

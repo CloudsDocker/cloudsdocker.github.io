@@ -3,7 +3,7 @@ title: GIT useful scripts or error solutions
 tags:
 - DevOps
 date: 2007-04-28 06:40:12
-layout: post
+layout: posts
 ---
 
 # Script bible

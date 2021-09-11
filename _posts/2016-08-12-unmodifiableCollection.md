@@ -2,7 +2,7 @@
 title: unmodifiableList, unmodifiableSet,unmodifiableMap
 tags:
  - java
-layout: post
+layout: posts
 ---
 
 ## What's it
