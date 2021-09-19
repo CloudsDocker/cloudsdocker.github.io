@@ -4,7 +4,9 @@ date: 2021-09-13
 tags:
  - Financial
  - Debts
-layout: single
+toc: true
+header:
+    image: /assets/images/hd_header.jpg
 ---
 
 # Summary

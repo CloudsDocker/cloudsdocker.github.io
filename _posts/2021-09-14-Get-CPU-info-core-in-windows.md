@@ -1,4 +1,6 @@
 ---
+header:
+    image: /assets/images/hd_header.jpg
 title: How to get CPU name, core, 64bit and speed in command line
 date: 2021-09-14
 tags:
