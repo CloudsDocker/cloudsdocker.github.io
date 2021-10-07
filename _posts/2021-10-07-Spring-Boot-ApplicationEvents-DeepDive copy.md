@@ -5,6 +5,7 @@ tags:
  - SpringBoot
  - ApplicationEvent
 layout: single
+category: tech
 ---
 
 # Summary
