@@ -8,7 +8,7 @@ tags:
  - Java
  
 permalink: /blogs/tech/en/sqlserver_driver_not_configured_integrated_authenciation
-layout: posts
+layout: single
 ---
 
 # Symptoms
