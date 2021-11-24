@@ -4,6 +4,25 @@ date: 2020-06-29
 layout: posts
 ---
 
+# How to make thread-safe
+
+## You can create a new object for each method call
+
+Sample code as SpelExpressionParser in Spring
+```java
+
+public class SpelExpressionParser extends TemplateAwareExpressionParser {
+	//....
+	// Be noticed it will new a object each time, so it's thread safe
+	@Override
+	protected SpelExpression doParseExpression(String expressionString, @Nullable ParserContext context) throws ParseException {
+		return new InternalSpelExpressionParser(this.configuration).doParseExpression(expressionString, context);
+	}
+
+}
+```
+
+
 # :books:Concepts
 Threads are sometimes called lightweight processes, and most modern operating systems treat threads, not processes, as the basic units of scheduling.
 
