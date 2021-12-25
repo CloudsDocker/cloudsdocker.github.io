@@ -19,7 +19,7 @@ Following diagram demonstrated the process to bootstrap and use Logback for logg
 <iframe
     width="640"
     height="480"
-    src="https://youtu.be/Q6GY8rLnyBc"
+    src="https://www.youtube.com/watch?v=Q6GY8rLnyBc"
     frameborder="0"
     allow="autoplay; encrypted-media"
     allowfullscreen
