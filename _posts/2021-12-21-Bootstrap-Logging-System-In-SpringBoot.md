@@ -19,7 +19,7 @@ Following diagram demonstrated the process to bootstrap and use Logback for logg
 <iframe
     width="640"
     height="480"
-    src="https://www.youtube.com/watch?v=Q6GY8rLnyBc"
+    src="https://www.youtube.com/embed/Q6GY8rLnyBc"
     frameborder="0"
     allow="autoplay; encrypted-media"
     allowfullscreen
@@ -27,7 +27,7 @@ Following diagram demonstrated the process to bootstrap and use Logback for logg
 </iframe>
 
 2221
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=Q6GY8rLnyBc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q6GY8rLnyBc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 3331
 
