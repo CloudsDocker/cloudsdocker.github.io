@@ -31,7 +31,7 @@ Fastern your belt and let me walk you such setup through setup illustrations ste
 
 
 # Video version of this explanation
-If you'd perfer a more intuitive and vision version, check it out below.
+If you'd perfer a more intuitive approach to read through this tutorial, you can go with vision version, please check it out below.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Q6GY8rLnyBc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
