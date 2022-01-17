@@ -15,6 +15,12 @@ layout: single
 # Summary
 Following diagram demonstrated the process to bootstrap and use Logback for loggings in Spring Boot applciation.
 
+# Video version of this explanation
+If you'd perfer a more intuitive and vision version, check it out below.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q6GY8rLnyBc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
 
 # Workflow diagram
 
