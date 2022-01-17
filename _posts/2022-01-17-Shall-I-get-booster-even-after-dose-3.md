@@ -7,6 +7,7 @@ tags:
  - Vaccine
  - Does 3
  - Booster
+ - Pfizer
  
 permalink: /blogs/tech/en/booster_vs_does3
 layout: single
