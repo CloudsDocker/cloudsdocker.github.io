@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_booster_does3.png
-title: Shall I get booster even after I got dose 3?
+title: Shall I still need booster even after I got dose 3?
 date: 2021-01-17
 tags:
  - Vaccine
