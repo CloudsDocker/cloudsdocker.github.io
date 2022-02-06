@@ -12,10 +12,7 @@ layout: single
 category: tech
 ---
 
-> Coding is everything!
-
-
-
+> Coding is everything! Code Now!
 
 
 
