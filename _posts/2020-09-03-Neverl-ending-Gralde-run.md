@@ -1,10 +1,12 @@
 ---
+header:
+    image: /assets/images/hd_never_ending_gradle.png
 title: Gradle build stuck
-date: 2020-09-03
+date: 2022-01-10
 tags:
  - Gradle
  - Java
-layout: posts
+layout: single
 ---
 
 # Gradle build stuck, keep on running but never ending

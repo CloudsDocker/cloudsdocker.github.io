@@ -1,11 +1,20 @@
 ---
 layout: posts
-title: IntelliJ Tips
+header:
+    image: /assets/images/hd_intellij_tips.png
+title: Awesome IntelliJ Tips
+date: 2022-02-10
 tags:
 - java
 - intelliJ
+
+category: tech
 ---
 # Shortcuts
+
+`Alt+F10`: To show line and file where current breakpoint is located.
+
+
 ## Expand/collapse method body in code editor
 `Cmd + +/-` to expand and collapse a method body
 ## Show java doc
