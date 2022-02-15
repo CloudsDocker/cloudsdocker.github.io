@@ -1,5 +1,5 @@
 ---
-title: AWS certification
+layout: single
 header:
     image: /assets/images/hd_aws_certificat.png
 title: How to ace AWS certification just like play a game
@@ -7,7 +7,7 @@ date: 2022-02-10
 tags:
 - AWS
 - Cloud
-layout: single
+category: tech
 ---
 > Life isn't about finding yourself. Life is about creating yourself.
 
