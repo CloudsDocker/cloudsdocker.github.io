@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/hd_java_misakes.png
+    image: /assets/images/hd_java_mistakes.png
 title:  Some mistakes you'd avoid in java
 date: 2022-02-23
 tags:
