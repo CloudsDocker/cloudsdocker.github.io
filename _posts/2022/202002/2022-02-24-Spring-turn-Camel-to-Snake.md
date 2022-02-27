@@ -1,59 +1,102 @@
 ---
 header:
-    image: /assets/images/hd_jpa_springdata.png
-title:  What's inside magic in Spring Data JPA
-date: 2022-02-25
+    image: /assets/images/hd_jpa_col.png
+title:  Why Spring turn a column name from camelNaming to snake_Naming
+date: 2022-02-24
 tags:
  - SpringBoot
  - Java
  - SpringData
+ - JPA
  
-permalink: /blogs/tech/en/secrets_in_springdata_jpa
+permalink: /blogs/tech/en/camel_to_snake_in_jpa
 layout: single
 category: tech
 ---
 
-> A good day starts with a good mindset!
+> Don't spend another year doing the same shit.
 
 
-# How does Spring-Data JPA work to bootstrap Hibernate ?
-
-## Highlevel diagram
-
-Here is the diagram for high level overview of JPA strucutre.
-![](\../../../assets/images/jpa_spring_data.png)
+# Why Spring turn a column name from camelNaming to snake_Naming?
 
 
-## Details explained
+## Symptoms:
 
-Generally if you included spring-boot-starter-data-jpa   in your maven file, several default configuration will be loaded by conventions. LIsted as below:
 
- 1. One bean named **entityManagerFactory**  will be loaded. By default, spring ORM framework provided one default implementation : `org.springframework.orm.jpa.AbstractEntityManagerFactoryBean`
- 1. Similar to most SpringBoot functionalities (such as JDBC, AppServer etc.), it will scan current class path to find one suitable **provider** via `SPI (Service Provider Interface)` . Each provider (if you want to implement your own provider), should implement interface *PersistenceProvider*. Essentially the implementation should implementation method `createEntityManagerFactory` to create new **EntityManagerFactory**.
- 1. SpringBoot provided the default implementation: `SpringHibernateJpaPersistenceProvider` ( at *\org\springframework\orm\jpa\vendor\SpringHibernateJpaPersistenceProvider.java*)
- 1. This would build a new `EntityManagerFactoryBuilderImpl` instance, which is one Hibernate class (under  *org\hibernate\jpa\boot\internal\EntityManagerFactoryBuilderImpl.java*) , it build a new EntityManagerFactory.
- 1. Internally it will invoke `SessionFactoryBuilder.build`,  which will create a new instance of `SessionFactory`. Usually an application has a single SessionFactory instance and threads servicing client requests obtain Session instances from this factory.
- 1. Then developers can chose to call `SessionFactory.openSession` to get a new Session object. This is the main runtime interface between a Java application and Hibernate. This is the central API class abstracting the notion of a persistence service.  The lifecycle of a Session is bounded by the beginning and end of a logical transaction. (Long transactions might span several database transactions.)  The main function of the Session is to offer create, read and delete operations for instances of mapped entity classes. 
- 1. A typical transaction should use the following idiom:  
+There is one 'column name xx is not valid' in SQLServerException, below is one sample console output
 
+```bash
+by: com.microsoft.sqlserver.jdbc.SQLServerException: The column name v_book is not valid.
+at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDriverError(SQLServerException.java:234)
+at com.microsoft.sqlserver.jdbc.SQLServerResultSet.findColumn(SQLServerResultSet.java:699)
+at com.microsoft.sqlserver.jdbc.SQLServerResultSet.getString(SQLServerResultSet.java:2525)
+at com.zaxxer.hikari.pool.HikariProxyResultSet.getString(HikariProxyResultSet.java)
+at org.hibernate.type.descriptor.sql.VarcharTypeDescriptor$2.doExtract(VarcharTypeDescriptor.java:62)
+at org.hibernate.type.descriptor.sql.BasicExtractor.extract(BasicExtractor.java:47)
+at org.hibernate.type.AbstractStandardBasicType.nullSafeGet(AbstractStandardBasicType.java:257)
+at org.hibernate.type.AbstractStandardBasicType.nullSafeGet(AbstractStandardBasicType.java:253)
+at org.hibernate.type.AbstractStandardBasicType.nullSafeGet(AbstractStandardBasicType.java:243)
+at org.hibernate.type.AbstractStandardBasicType.hydrate(AbstractStandardBasicType.java:329)
+```
+
+
+
+## SpringData explained & Troubleshooting:
+
+
+In short answer, this is caused by default `NamingStrategy` implementation , which is SpringPhysicalNamingStrategy assigned by SpringBoot Data . Which is trying to smartly guess and set it up as default naming strategy provider.
+
+
+Under the hood, it's implementation (listed as below)
 
 ```java
-Session sess = sessionFactory.openSession();
- Transaction tx;
- try {
-     tx = sess.beginTransaction();
-     //do some work
-     ...
-     tx.commit();
+@Override
+  public Identifier toPhysicalColumnName(Identifier name, JdbcEnvironment jdbcEnvironment) {
+        return apply(name, jdbcEnvironment);
  }
- catch (Exception e) {
-     if (tx!=null) tx.rollback();
-     throw e;
- }
- finally {
-     sess.close();
- }
- ```
+....
+private boolean isUnderscoreRequired(char before, char current, char after) {
+        return Character.isLowerCase(before) && Character.isUpperCase(current) && Character.isLowerCase(after);
+    }
+```
+
+It will change `camelNaming` to `snake_naming`, for example, `myColumn`  will be translated to `my_Column`  , which is align with Spring's naming convention.
+
+
+
+As below sample column transformation: vCriteria will be changed to `v_Criteria`
+
+![](\../../../assets/images/jpa_camel_snake.png)
+
+
+
+Here's the code logic FYI.
+
+![](\../../../assets/images/camel_snake_logic.png)
+
+
+
+## Solution
+
+There are few solutions for the fix
+
+### Disable NamingStrategy 
+ Firstly and quickest one: remove annotation of @Column, this is actually the marker annotation to trigger Spring's naming strategy logic. 
+
+
+### Chose another NamingStrategy 
+If you still need annotation @Column (e.g. for calculation or columnDefinition), you can explicitly change its naming strategy, such as below sample:
+
+```yaml
+spring:
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+```
+
+> This PhysicalNamingStrategyStandardImpl  is one of two implementations of Hibernate's PhysicalNamingStrategy interface. It's logic is straightforward, purely return whatever the name it get from database.
+
 --END--
 
 
