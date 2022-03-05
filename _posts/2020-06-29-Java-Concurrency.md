@@ -1,8 +1,11 @@
 ---
+header:
+    image: /assets/images/hd_java_concurrency.jpg
+date: 2022-03-04
 title: Concurrency in Java
-date: 2020-06-29
 layout: posts
 ---
+> `Little` things make `big` things happens.
 
 # How to make thread-safe
 
@@ -39,7 +42,7 @@ Whether an object needs to be thread-safe depends on whether it will be accessed
 
 Whenever more than one thread accesses a given state variable, and one of them might write to it, they all must coordinate their access to it using synchronization. The primary mechanism for synchronization in Java is the synchronized keyword, which provides exclusive locking, but the term "synchronization" also includes the use of volatile variables, explicit locks, and atomic variables.
 
-## How to fix borken multithreading
+## How to fix broken multithreading
 
 If multiple threads access the same mutable state variable without appropriate synchronization, your program is broken. There are three ways to fix it:
 - Don't share the state variable across threads;
