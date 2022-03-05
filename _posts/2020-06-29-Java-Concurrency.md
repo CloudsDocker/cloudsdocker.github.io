@@ -4,6 +4,7 @@ header:
 date: 2022-03-04
 title: Concurrency in Java
 layout: posts
+category: tech
 ---
 > `Little` things make `big` things happens.
 
