@@ -9,7 +9,9 @@ tags:
 - JavaScript
 layout: posts
 category: tech
+permalink: /blogs/tech/en/typescript_faq
 ---
+>  The moment you start focusing on yourself, things start falling into place.
 
 # TypeScript Errors
 
