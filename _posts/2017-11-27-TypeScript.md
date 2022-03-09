@@ -22,6 +22,7 @@ When import a module, getting
 import generateMsg from '@ovotech/avro-mock-generator'
 ```
 
+```
 (node:33073) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
 (Use `node --trace-warnings ...` to show where the warning was created)
 /Users/todzhang/dev/workspace/avro-mock-generator/todd.js:1
@@ -37,19 +38,22 @@ SyntaxError: Cannot use import statement outside a module
     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)
     at node:internal/main/run_main_module:17:47
+```
 
 ### Solutions
 To solve this issue, in your package.json file, add `"type": "module"` in the upper level as show below:
-
+```JavaScript
 {
   "name": "my-app",
   "version": "0.0.0",
   "type": "module",
   "scripts": { ...
   },
-
+```
 
 ## Error: Cannot find package
+
+```
 node:internal/errors:465
     ErrorCaptureStackTrace(err);
     ^
@@ -65,8 +69,8 @@ Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@ovotech/avro-mock-generator'
     at link (node:internal/modules/esm/module_job:78:36) {
   code: 'ERR_MODULE_NOT_FOUND'
 }
+```
 
-Node.js v17.6.0
 
 ### Solutions
 To install the library 
@@ -78,6 +82,8 @@ npm i --save-dev @ovotech/avro-mock-generator
 ## Error:    xx is not a function
 
 TypeError: generate is not a function
+
+
 
 
 # Async Await keywords

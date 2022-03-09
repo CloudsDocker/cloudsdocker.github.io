@@ -21,7 +21,7 @@ category: tech
 
 As you know, you can skip tests during maven run, which maybe because you want to get an urgent task down or test will result in some noisy.
 
-You alreay know, you can run following command to skip test
+You already know, you can run following command to skip test
 
 ```java
 mvn install -DskipTests
