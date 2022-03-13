@@ -12,13 +12,13 @@ permalink: /blogs/tech/en/ruby_gem_installation_error_on_macbook_M1_chips_CPU
 layout: single
 category: tech
 ---
-
 > Burn your ego before it burns you.
 
 # Summary
 If you trying to install `gem` (ruby gem) on MacBook shipped with M1 CPU. For example following sample command, 
 
 ```ruby
+
 gem update --system
 ```
 You may encounter following errors:
