@@ -142,7 +142,97 @@ states.put('capital','Unknown')
 
 println(states.get('capital')+", flower is:"+states.get('flower'))
 ```
+# Range
 
+## It's similar to List or Java's stream
+
+
+```java
+def rng1=1..10
+def rng2='a'..'z'
+println(rng1.getFrom())
+println(rng2.getTo())
+```
+Additionally, Range can be used in `switch-case` as a case branch.
+
+
+# Implicit `it` in closure
+Different to Java Stream, it's no need to explicitly declare variable in the loop.
+You can use `it` as loop variable implicitly.
+
+```java
+static void main(String... args){
+
+    def sum=sumAll(1,2,3)
+    println("total sum is:"+sum)
+}
+
+static def sumAll(int... nums){
+    def sum=0
+    nums.each{sum+=it}
+    return sum
+}
+```
+
+
+# Closure
+
+In groovy, closure can be declared in `curly brace` and implicit variable **call** can be used to represent *this method*
+
+```java
+def closureFactorial = {num-> (num<=1?1:num*call(num-1))}
+        
+println("Get Factorial 4: "+closureFactorial(4))
+```
+
+It will output `24`.
+
+## Single vs Double quote
+If you need to access variable in a String, the "double quote" are necessary
+
+```java
+def teams=['tom','jerry','david']
+teams.each{println(it)}
+
+def country = [
+    'country':'Aus',
+    'capital':'Sydney'
+]
+country.each{println("$it.key => $it.value")}
+```
+
+## Filter to get even number 
+One line of `closure` can be used to quickly filter and print even numbers 
+
+```java
+def rand=1..6
+def evenNumber=rand.each {num-> if(num%2==0)
+    println(num)
+}
+
+```
+
+## To double each item in the list
+
+```java 
+println("double:"+rand.collect{it*2})
+```
+
+## To pass in a closure as parameter
+
+One closure can be pass into another method as parameter
+
+```java
+
+def getEven = {num -> return (num%2==0)}
+    def evenNumbers=listNumber(rand, getEven);
+    println("All even numbesr: $evenNumbers")
+}
+
+def static listNumber(nums, closure){
+    return nums.findAll(closure)
+
+```
 
 --End--
 
