@@ -8,7 +8,6 @@ tags:
  - Rails
  - Programming
  - MacBook errors
- 
 permalink: /blogs/tech/en/ruby_gem_installation_error_on_macbook_M1_chips_CPU
 layout: single
 category: tech
