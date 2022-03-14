@@ -91,6 +91,15 @@ All details can be found at https://github.com/homebrew/install
 
 ### Then uninstall and reinstall `rbenv` from Brew
 
+### Lastly install dependency
+Here are commands
+
+```bash
+brew install libyaml
+brew install ruby
+echo 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"' >> /Users/todzhang/.bash_profile
+source /Users/todzhang/.bash_profile
+```
 
 # Conclusion
 If aforesaid steps running smoothly, you'll get both `brew`,`rbenv`, and `ruby`, `rails` installed correctly.
