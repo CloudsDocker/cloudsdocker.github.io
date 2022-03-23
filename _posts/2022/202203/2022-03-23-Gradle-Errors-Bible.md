@@ -40,6 +40,25 @@ systemProp.https.proxyPassword=password
 systemProp.https.nonProxyHosts=*.nonproxyrepos.com|localhost
 ```
 
+# Could not find method compile() for arguments
+
+There error is *Could not find method compile() for arguments [org.springframework.boot:spring-boot-starter] on object of type org.gradle.api.internal.artifacts.dsl.dependencies.DefaultDependencyHandler.*
+
+* Try:
+Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+
+## troubleshooting
+Note that the compile, runtime, testCompile, and testRuntime configurations introduced by the Java plugin have been deprecated since Gradle 4.10 (Aug 27, 2018), and were finally removed in Gradle 7.0 (Apr 9, 2021).
+
+## Soltution
+You either **downgrade** your Gralde runtime to older version prior to v7.0.
+Or update `build.gralde` to 
+ . Repalce `compile` with `implementation`
+ . Repalce `runtime` with `runtimeOnly`
+ . Repalce `testCompile` with `testImplementation`
+ . Repalce `testRuntime` with `testRuntimeOnly`
+
+ 
 --End--
 
 
