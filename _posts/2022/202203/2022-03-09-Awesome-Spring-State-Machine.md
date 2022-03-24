@@ -28,6 +28,17 @@ State machines are powerful because behaviour is always guaranteed to be consist
 
  You can interact with the state machine by sending an event, listening for changes or simply request a current state.
 
+# Persist StateMachine
+One key point is you have to persist `StateMachineContext` rather than `StateMachine`
+
+## StateMachinePersister vs StateMachinePersist
+
+For `StateMachinePersist`, it handling serialization logic of a StateMachineContext. You need to implement at least two methods, `read` and `write`
+
+While for `StateMachinePersister`, persisting and restoring a StateMachine from a persistent storage.
+
+One of it's implementation, `DefaultStateMachinePersister` which just a default wrapper of `AbstractStateMachinePersister`,. It's Constructor accept one instance of `StateMachinePersist`, and for the method `persiste` and `restore`, they are actually invoke `read` and `write` from underlying StateMachinePersist.
+
 --End--
 
 

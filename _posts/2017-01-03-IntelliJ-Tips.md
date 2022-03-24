@@ -1,19 +1,21 @@
 ---
-layout: posts
+layout: single
 header:
     image: /assets/images/hd_intellij_tips.png
-title: Awesome IntelliJ Tips
-date: 2022-02-10
+title: IntelliJ Tips to boost your productivities 10 times
+date: 2022-03-11
 tags:
 - java
 - intelliJ
-
+permalink: /blogs/tech/en/expert_intelliJ
 category: tech
 ---
+> 
 # Shortcuts
-
+`Win+F10`: Put IntelliJ *Menu* in focust, so you can navigate menu items by keyboard
+`Win+F9`: Open run/debug configuration window 
 `Alt+F10`: To show line and file where current breakpoint is located.
-
+`Ctrl+Alt+Insert`: Insert a new file in current directy, e.g. to insert a new class in current folder.
 
 ## Expand/collapse method body in code editor
 `Cmd + +/-` to expand and collapse a method body
