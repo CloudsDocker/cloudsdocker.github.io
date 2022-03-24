@@ -6,6 +6,24 @@ layout: posts
 
 # Shortcuts & tips
 
+# Microsoft TEAMS
+
+> Replace `Cmd` with `Ctrl` for **Windows** platform
+Cmd +Shift+M: mute
+Cmd +Shift+H: leave meeting
+Cmd + . : to show list of all shortcuts
+Cmd + / : to focus in search bar
+Cmd + G: go to find a person to start talk 
+Cmd + F: Open filter
+Cmd + +: to zoom in to show bigger font
+Cmd + -: to zoom out to show smaller font
+Cmd + 0: to zoom in to show original font
+
+Cmd + 2: Go to Chat
+Cmd + 3: Go to Teams group
+
+Options + Up/Down: move to previous/next item in left pane, e.g. Cmd+2, then Alt+Down to move to next conversation in left conversation pane.
+
 # Intellij Notes
 
 - CMD+3: Open actions (Eclipse)
@@ -25,12 +43,11 @@ Cmd+\: show left bar
 Cmd+P: global search
 
 # Mac tips
-
-- [ ]  Cmd + ← or → : move cursor to begin or end of line
-- [ ]  Shift + Cmd + →: select whole line (move cursor to line front first)
-- [ ]  Option + Shift + → / ←: select whole word
-- [ ]  ^ + Down: to show notiifcation center
-- [ ]  Ctrl+F2: to access menu bar
+ * Cmd + ← or → : move cursor to begin or end of line
+ * Shift + Cmd + →: select whole line (move cursor to line front first)
+ * Option + Shift + → / ←: select whole word
+ * ^ + Down: to show various `instance window` of current application, e.g. show different window of Chrome windows, you can use `Ctrl+\`` to switch in different instance window. 
+ * Ctrl+F2: to access menu bar
 
 # Linux comands
 

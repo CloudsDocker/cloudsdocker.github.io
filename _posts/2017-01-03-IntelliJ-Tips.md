@@ -38,7 +38,7 @@ put carpet on a name, Ctrl+B will show the definition
 Ctrl+Shift+Alt+F: copy current file name
 -- go to matching braceCtrl+} will move to the close bracket.Ctrl+{ will move to the open bracket
 -- split editorgo to menu "window" -> "editor tabs" -> split
-Firslty open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-acecss-ui, it will load module.Use F2/Shift+F2 keys to jump between highlighted syntax errors.Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.Use Ctrl+J to complete any valid Live Template abbreviation if you don't remember it. For example, type it and press Ctrl+J to see what happens.
+Firstly open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-access-ui, it will load module.Use F2/Shift+F2 keys to jump between highlighted syntax errors.Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.Use Ctrl+J to complete any valid Live Template abbreviation if you don't remember it. For example, type it and press Ctrl+J to see what happens.
 
 - Navigating to the declaration of a symbol
 Place the caret at the desired symbol in the editor.Do one of the following:On the main menu, choose Navigate | Declaration.Press Ctrl+B.Click the middle mouse button.Keeping Ctrl pressed, point to the symbol, and click, when it turns to a hyperlink. You can also see declaration at the tooltip while keeping Ctrl pressed.
