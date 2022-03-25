@@ -13,7 +13,7 @@ layout: single
 category: tech
 ---
 
-> People are smarter than you think. Give them a chance to rpove themeselves.
+> People are smarter than you think. Give them a chance to prove themselves.
 
 # Unknown host 'repo.maven.apache.org'. You may need to adjust the proxy settings in Gradle.
 This error normally happen if your project is within company's firewall. 
@@ -50,13 +50,13 @@ Run with --info or --debug option to get more log output. Run with --scan to get
 ## troubleshooting
 Note that the compile, runtime, testCompile, and testRuntime configurations introduced by the Java plugin have been deprecated since Gradle 4.10 (Aug 27, 2018), and were finally removed in Gradle 7.0 (Apr 9, 2021).
 
-## Soltution
-You either **downgrade** your Gralde runtime to older version prior to v7.0.
-Or update `build.gralde` to 
- . Repalce `compile` with `implementation`
- . Repalce `runtime` with `runtimeOnly`
- . Repalce `testCompile` with `testImplementation`
- . Repalce `testRuntime` with `testRuntimeOnly`
+## Solution
+You either **downgrade** your Gradle runtime to older version prior to v7.0.
+Or update `build.gradle` to 
+ - Replace `compile` with `implementation`
+ - Replace `runtime` with `runtimeOnly`
+ - Replace `testCompile` with `testImplementation`
+ - Replace `testRuntime` with `testRuntimeOnly`
 
  
 --End--
