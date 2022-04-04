@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/yarn_npm_install.jpg
-title:  Bible blog for most commonly found Gradle errors
+title:  Tell me difference of yarn install and npm install in short answer
 date: 2022-03-25
 tags:
  - Yarn
