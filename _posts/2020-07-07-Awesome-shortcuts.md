@@ -5,6 +5,10 @@ layout: posts
 ---
 
 # Shortcuts & tips
+# zoom
+ - Cmd+Shift+A: mute
+ - CMd+W: leave meeting.
+ - Fn+F: toggle full screen
 
 # Microsoft TEAMS
 

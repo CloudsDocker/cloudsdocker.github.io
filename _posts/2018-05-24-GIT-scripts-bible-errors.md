@@ -6,6 +6,20 @@ date: 2007-04-28 06:40:12
 layout: posts
 ---
 
+# Git errors
+
+## remote: Repository not found.
+```bash
+git pull
+remote: Repository not found.
+fatal: repository 'https://github.com/xxxxx.git/' not found
+```
+### Solution
+This is indicate you have no network access to it. It most likely you are running the command behind of corporation firewall. So to check and set two environment variable `HTTP_PROXY` and `HTTPS_PROXY`.
+
+
+
+
 # Script bible
 
 ## to list merge conflicts files in command line
