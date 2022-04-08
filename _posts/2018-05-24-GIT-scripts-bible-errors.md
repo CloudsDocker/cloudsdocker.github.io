@@ -1,9 +1,13 @@
 ---
+header:
+    image: /assets/images/git_bible.png
 title: GIT useful scripts or error solutions
 tags:
 - DevOps
-date: 2007-04-28 06:40:12
-layout: posts
+date: 2022-04-08 06:40:12
+permalink: /blogs/tech/en/most_frequent_git_comands
+layout: single
+category: tech
 ---
 
 # Git errors
@@ -22,6 +26,10 @@ This is indicate you have no network access to it. It most likely you are runnin
 
 # Script bible
 
+## Checkout remote branch and keep track 
+```bash
+git checkout --track origin/bugfix/fix-branch
+```
 ## to list merge conflicts files in command line
 You can use either one of below three commands
 ```bash
