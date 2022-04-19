@@ -22,6 +22,38 @@ This is indicate you have no network access to it. It most likely you are runnin
 
 # Script bible
 
+## Mac Shells
+To show what shell you are using. 
+```bash
+echo $0
+chsh -s /bin/bash
+chsh -s /bin/zsh
+```
+
+## ZSH
+To list current shell
+```
+ps -p $$
+```
+
+## brew command not found issues
+You are pretty sure homebrew is installed but can't find this command when you run `brew` somewhere.
+
+### troubleshooting
+This is generally lated to different shell installed, such as `zsh` or `oh-my-zsh` in M1 chipset MacBook. 
+
+### Solution
+Firstly change your shell to zsh 
+
+```bash
+chsh -s /bin/zsh
+```
+
+Secondly, open the file ~/.zshrc and add following line at end of the file 
+```
+eval $(/opt/homebrew/bin/brew shellenv)
+```
+
 ## to list merge conflicts files in command line
 You can use either one of below three commands
 ```bash
