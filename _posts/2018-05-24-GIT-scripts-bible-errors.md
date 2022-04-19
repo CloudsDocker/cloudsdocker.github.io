@@ -1,9 +1,13 @@
 ---
+header:
+    image: /assets/images/git_bible.png
 title: GIT useful scripts or error solutions
 tags:
 - DevOps
-date: 2007-04-28 06:40:12
-layout: posts
+date: 2022-04-08 06:40:12
+permalink: /blogs/tech/en/most_frequent_git_comands
+layout: single
+category: tech
 ---
 
 # Git errors
@@ -17,7 +21,10 @@ fatal: repository 'https://github.com/xxxxx.git/' not found
 ### Solution
 This is indicate you have no network access to it. It most likely you are running the command behind of corporation firewall. So to check and set two environment variable `HTTP_PROXY` and `HTTPS_PROXY`.
 
-
+## Checkout remote branch and keep track 
+```bash
+git checkout --track origin/bugfix/fix-branch
+```
 
 
 # Script bible

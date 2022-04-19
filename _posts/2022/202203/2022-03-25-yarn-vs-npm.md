@@ -15,9 +15,32 @@ category: tech
 
 > Don't find fault. Find a remedy.
 
+
+
 # yarn install vs npm install
 
-When we run npm install , the dependencies are installed sequentially, one after another. The output logs in the terminal are informative but a bit hard to read. To install the packages with Yarn, we run the yarn command. Yarn installs packages in parallel, which is one of the reasons it's quicker than npm.
+When we run npm install , the dependencies are installed sequentially, one after another. The output logs in the terminal are informative but a bit hard to read. To install the packages with Yarn, we run the yarn command. Yarn installs packages `in parallel`, which is one of the reasons it's quicker than npm.
+
+# why yarn
+Yarn — a fast, reliable, and secure alternative npm client.
+
+## Security:
+For continuous integration environments, which need to be sandboxed and cut off from the internet for security and reliability reasons. While `npm` has to connect to npm server to download, but `yarn` can use local ones.
+
+## Why not npm?
+The npm client installs dependencies into the node_modules directory non-deterministically. This means that based on the order dependencies are installed, the structure of a node_modules directory could be different from one person to another. These differences can cause “works on my machine” bugs that take a long time to hunt down.
+
+# How yarn work 
+The install process is broken down into three steps:
+
+### Resolution: 
+Yarn starts resolving dependencies by making requests to the registry and recursively looking up each dependency.
+### Fetching: 
+Next, Yarn looks in a global cache directory to see if the package needed has already been downloaded. If it hasn't, Yarn fetches the tarball for the package and places it in the global cache so it can work offline and won't need to download dependencies more than once. Dependencies can also be placed in source control as tarballs for full offline installs.
+### Linking: 
+Finally, Yarn links everything together by copying all the files needed from the global cache into the local node_modules directory.
+
+Yarn resolves these issues around versioning and non-determinism by using lockfiles and an install algorithm that is deterministic and reliable. These lockfiles lock the installed dependencies to a specific version, and ensure that every install results in the exact same file structure in node_modules across all machines. The written lockfile uses a concise format with ordered keys to ensure that changes are minimal and review is simple.
 
 # yarn why 
 To show a Library loaded as dependencies

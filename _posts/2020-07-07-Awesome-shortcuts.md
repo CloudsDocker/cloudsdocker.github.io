@@ -1,7 +1,11 @@
 ---
-title: Awesome Shortcuts
-date: 2020-07-07
-layout: posts
+header:
+    image: /assets/images/hd_shortcuts.png
+date: 2022-04-16
+title: Awesome Shortcuts to boost productivities
+permalink: /blogs/tech/en/core_java_for_interview
+layout: single
+category: tech
 ---
 
 # Shortcuts & tips
@@ -30,8 +34,11 @@ Options + Up/Down: move to previous/next item in left pane, e.g. Cmd+2, then Alt
 
 # Intellij Notes
 
-- CMD+3: Open actions (Eclipse)
-- CMD+F12 (Mac) or Option+F12: Show terminal
+## Windows
+
+ - `Ctrl+Alft+F12` : Open current file in `Explorer`, you can chose which level to show, e.g. this file, it's parent, grand parent etc.
+ - CMD+3: Open actions (Eclipse)
+ - CMD+F12 (Mac) or Option+F12: Show terminal
 - Shift+ESC: close auxiliary windows, such as project explorer, terminal window, etc.
 - Cmd+O: File structure, list all methods
 - Shift+Cmd+F: reformat code
