@@ -2,7 +2,7 @@
 header:
     image: /assets/images/password_not_null_gemfire.png
 title:  Password must not null in gemfire and geode, but I've assigned password in yaml properties file
-date: 2022-04-27
+date: 2022-04-26
 tags:
  - springboot
  - java
