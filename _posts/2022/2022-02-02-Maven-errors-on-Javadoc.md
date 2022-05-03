@@ -15,11 +15,52 @@ category: tech
 
 > Leave nothing for tomorrow which can be done today. -Abraham Lincoln.
 
-https://confluence.fx.srv.westpac.com.au/display/FMP/MavenReportException%3A+Error+while+generating+Javadoc
+# Golden rule for Maven issues & fix
+
+The first and most important trick for Maven troubleshooting & fix is : 
+(1) right click "pom.xml"
+(2) Chose "reload project"
+Rather than run mvn clean install 
+
+
+# How to find the effective or settins in use
+
+```bash
+mvn help:effective-settings
+```
+
+# errors
+
+## Formatting violation found. Failed to execute goal spring.javaformat:sprint-javaformat-maven-plugin
+
+Error as below screenshot
+
+![](/assets/images/maven_errors_javadocs.png)
+
+### Solution
+To fix those format error, run following one
+```bash
+mvn spring-javaformat:apply
+```
+
+## Failed to install-node-and-yarn
+
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.github.eirslett:frontend-maven-plugin:1.10.0:install-node-and-yarn (install node and yarn) on project start-client: Could not download Node.js: Could not download https://nodejs.org/dist/v12.13.0/node-v12.13.0-linux-x64.tar.gz: nodejs.org:443 failed to respond -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
 
 
 
-Symptoms
+
+
+#  Could not download Yarn: Could not download https://github.com/yarnpkg/yarn/releases/download/v1.22.4/yarn-v1.22.4.tar.gz: Connection reset -
+
+[ERROR] Failed to execute goal com.github.eirslett:frontend-maven-plugin:1.10.0:install-node-and-yarn (install node and yarn) on project start-client: Could not download Yarn: Could not download https://github.com/yarnpkg/yarn/releases/download/v1.22.4/yarn-v1.22.4.tar.gz: Connection reset -> [Help 1]
+org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal com.github.eirslett:frontend-maven-plugin:1.10.0:install-node-and-yarn (install node and yarn) on project start-client: Could not download Yarn: Could not download https://github.com/yarnpkg/yarn/releases/download/v1.22.4/yarn-v1.22.4.tar.gz
+
+
+# Symptoms
 When running project install, one error "Failed to execute goal org.apache.maven.plugins:maven-javadoc-plugin:3.3.1:jar (attach-javadocs) on project" raised. The Error summary is
 
 Failed to execute goal org.apache.maven.plugins:maven-javadoc-plugin:3.3.1:jar (attach-javadocs) 
@@ -30,20 +71,20 @@ Error stack trace as below
 [INFO] [INFO] Reactor Summary for pretrade-partymodel-server 1.0.0:
 [INFO] [INFO]
 [INFO] [INFO] pretrade-partymodel-server ......................... SUCCESS [ 3.791 s]
-[INFO] [INFO] ptt-client-partymodel-service-dto .................. FAILURE [ 4.718 s]
-[INFO] [INFO] ptt-client-partymodel-service ...................... SKIPPED
+[INFO] [INFO] org-test-client-service-dto .................. FAILURE [ 4.718 s]
+[INFO] [INFO] org-test-client-service ...................... SKIPPED
 [INFO] [INFO] ------------------------------------------------------------------------
 [INFO] [INFO] BUILD FAILURE
 [INFO] [INFO] ------------------------------------------------------------------------
 [INFO] [INFO] Total time: 8.750 s
 [INFO] [INFO] Finished at: 2021-11-10T12:38:50+11:00
 [INFO] [INFO] ------------------------------------------------------------------------
-[INFO] [ERROR] Failed to execute goal org.apache.maven.plugins:maven-javadoc-plugin:3.3.1:jar (attach-javadocs) on project ptt-client-partymodel-service-dto: MavenReportException: Error while generating Javadoc:
+[INFO] [ERROR] Failed to execute goal org.apache.maven.plugins:maven-javadoc-plugin:3.3.1:jar (attach-javadocs) on project org-test-client-service-dto: MavenReportException: Error while generating Javadoc:
 [INFO] [ERROR] Exit code: 1 - javadoc: error - The code being documented uses modules but the packages defined in https://docs.oracle.com/javase/8/docs/api/ are in the unnamed module.
 [INFO] [ERROR]
-[INFO] [ERROR] Command line was: /usr/lib/jvm/java-11-openjdk-amd64/bin/javadoc -J-Dhttps.proxyHost=localhost -J-Dhttps.proxyPort=3128 -J-Dhttp.proxyHost=localhost -J-Dhttp.proxyPort=3128 "-J-Dhttp.nonProxyHosts=\"localhost^|10.^|.westpac.com.au^|.btfin.com^|.thewestpacgroup.com.au^|snow.thewestpacgroup.com.au^|127.0.0.1^|nexus.fx.srv.westpac.com.au\"" @options @packages
+[INFO] [ERROR] Command line was: /usr/lib/jvm/java-11-openjdk-amd64/bin/javadoc -J-Dhttps.proxyHost=localhost -J-Dhttps.proxyPort=3128 -J-Dhttp.proxyHost=localhost -J-Dhttp.proxyPort=3128 "-J-Dhttp.nonProxyHosts=\"localhost^|10.^|.abcde.com.au^|.btfin.com^|.theabcdegroup.com.au^|snow.theabcdegroup.com.au^|127.0.0.1^|nexus.fx.srv.abcde.com.au\"" @options @packages
 [INFO] [ERROR]
-[INFO] [ERROR] Refer to the generated Javadoc files in '/mnt/c/local/git/ptc/pretrade-partymodel-server/target/checkout/ptt-client-partymodel-service-dto/target/apidocs' dir.
+[INFO] [ERROR] Refer to the generated Javadoc files in '/mnt/c/local/git/org/pretrade-partymodel-server/target/checkout/org-test-client-service-dto/target/apidocs' dir.
 [INFO] [ERROR] -> [Help 1]
 
 
