@@ -1,5 +1,5 @@
 ---
-title: Failed to talk to github.com from corporation network
+title: How to watch specific kubenetes deployment by labels
 date: 2021-11-01
 tags:
  - Kubenetes
