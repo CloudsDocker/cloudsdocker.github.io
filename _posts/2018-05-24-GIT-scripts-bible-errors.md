@@ -5,13 +5,23 @@ title: GIT useful scripts or error solutions
 tags:
 - DevOps
 date: 2022-04-08 06:40:12
-permalink: /blogs/tech/en/most_frequent_git_comands
+permalink: /blogs/tech/en/most_frequent_git_commands
 layout: single
 category: tech
 ---
 > Don’t wish for it, work for it.
 
 # Git errors
+
+## auto completion when you press tab key try to complete branch name
+
+This is when you type `tab` key after enter some keyword , e.g. TK-12, which you expect the full branch name e.g. `TK-1234-fix` to be filled in command line automatically.
+
+### Solution
+This is because your don't install or something wrong to the `bash-completion`, just run 
+```bash
+brew install bash-completion
+```
 
 ## remote: Repository not found.
 ```bash
@@ -76,7 +86,7 @@ git ls-files -u
 git status --short | awk '{split($0, a);print a[2]}' | xargs git add && git commit -m 'commit changes' && git push origin BRANCH_NAME
 ```
 
-## to show files commited but not pushed
+## to show files committed but not pushed
 ```bash
 git diff --stat --cached origin/feature/BRANCH_NAME
 ```
