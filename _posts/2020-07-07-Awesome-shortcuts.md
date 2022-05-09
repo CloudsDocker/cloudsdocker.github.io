@@ -9,12 +9,12 @@ category: tech
 ---
 
 # Shortcuts & tips
-# zoom
+## zoom
  - Cmd+Shift+A: mute
  - CMd+W: leave meeting.
  - Fn+F: toggle full screen
 
-# Microsoft TEAMS
+## Microsoft TEAMS
 
 > Replace `Cmd` with `Ctrl` for **Windows** platform
 Cmd +Shift+M: mute
@@ -32,9 +32,19 @@ Cmd + 3: Go to Teams group
 
 Options + Up/Down: move to previous/next item in left pane, e.g. Cmd+2, then Alt+Down to move to next conversation in left conversation pane.
 
-# Intellij Notes
 
-## Windows
+## Microsoft VS Code:
+- Ctrl+0 : go to first pane, e.g. if file explorer opened, this will put focus on files explorer
+- Ctrl+Shift+E: toggle focus onto files explorer, first press "Ctrl+Shift+E" will focus files explorer, second press "Ctrl+Shift+E" will focus file editor pane
+- Ctrl+e: open recently files
+- F1: to show command platte, same as "Ctrl+Shift+P"
+
+### VSCode plugins
+- All Autocomplete: for english typing auto complete
+
+## Intellij Notes
+
+### Windows
 
  - `Ctrl+Alft+F12` : Open current file in `Explorer`, you can chose which level to show, e.g. this file, it's parent, grand parent etc.
  - CMD+3: Open actions (Eclipse)
@@ -43,11 +53,11 @@ Options + Up/Down: move to previous/next item in left pane, e.g. Cmd+2, then Alt
 - Cmd+O: File structure, list all methods
 - Shift+Cmd+F: reformat code
 
-# Sublime
+## Sublime
 
 - [ ]  Ctrl+-:  Go to last edit:
 
-# Notion Notes
+## Notion Notes
 
 Cmd+\: show left bar
 

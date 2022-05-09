@@ -11,6 +11,7 @@ category: tech
 ---
 > Don’t wish for it, work for it.
 
+
 # Git errors
 
 ## auto completion when you press tab key try to complete branch name
@@ -40,6 +41,11 @@ git checkout --track origin/bugfix/fix-branch
 
 
 # Script bible
+
+## To show changed file in git log
+```bash
+ git log --raw 
+```
 
 ## Mac Shells
 To show what shell you are using. 
