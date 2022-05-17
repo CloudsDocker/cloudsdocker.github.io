@@ -30,6 +30,14 @@ git pull
 remote: Repository not found.
 fatal: repository 'https://github.com/xxxxx.git/' not found
 ```
+> TL;NR; You can try to change your repository form `git` to `https` via
+```bash
+git remote -v
+git remote remove origin
+git remote add origin https://xxx
+```
+
+
 ### Solution
  - (1) This is indicate you have no network access to it. It most likely you are running the command behind of corporation firewall. So to check and set two environment variable `HTTP_PROXY` and `HTTPS_PROXY`.
  - (2) Another reason would be your password or authentication expired, trying to create new token and add to your github account: take a look at : https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
