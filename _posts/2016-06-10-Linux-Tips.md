@@ -1,10 +1,24 @@
 ---
+header:
+    image: /assets/images/hd_linux_tips.jpg
+date: 2022-03-03
 layout: posts
 title: Linux Tips
 tags:
  - Linux
  - DevOps
+category: tech
 ---
+> Remember, some things have to end for better things to begin.
+
+# To kill processes with a port number
+
+If you try to kill processes running in port 1888
+```bash
+kill -9 $(lsof -ti:1888)
+```
+
+
 # Get permission denied error when sudo su (or hyphen in sudo command)
 bash: /home/YOURNAME/.bashrc: Permission denied
 That's because you didn't add "-" hyphen in your sudo command.

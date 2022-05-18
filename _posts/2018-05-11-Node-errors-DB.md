@@ -1,11 +1,50 @@
 ---
-title: Node errors troubleshooting
+header:
+    image: /assets/images/hd_nodejs_faq.png
+date: 2022-03-09
+title: Solution center for Node errors 
 tags:
+- troubleshooting
 - NodeJs
 - Angular
-layout: posts
+layout: single
+category: tech
+permalink: /blogs/tech/en/nodejs_faq_solutions
 ---
+> Fina a way. If there's none, make one!
 
+# Errors list
+## Error : Cannot find module 'semver'
+
+### Sympthoms
+```bash
+node:internal/modules/cjs/loader:933
+  const err = new Error(message);
+              ^
+
+Error: Cannot find module 'semver'
+Require stack:
+- C:\soft\nodejs\node_modules\npm\lib\utils\unsupported.js
+- C:\soft\nodejs\node_modules\npm\lib\cli.js
+- C:\soft\nodejs\node_modules\npm\bin\npm-cli.js
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:933:15)
+    at Function.Module._load (node:internal/modules/cjs/loader:778:27)
+    at Module.require (node:internal/modules/cjs/loader:1005:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at Object.<anonymous> (C:\soft\nodejs\node_modules\npm\lib\utils\unsupported.js:2:16)
+    at Module._compile (node:internal/modules/cjs/loader:1103:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1155:10)
+    at Module.load (node:internal/modules/cjs/loader:981:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Module.require (node:internal/modules/cjs/loader:1005:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\soft\\nodejs\\node_modules\\npm\\lib\\utils\\unsupported.js',
+    'C:\\soft\\nodejs\\node_modules\\npm\\lib\\cli.js',
+    'C:\\soft\\nodejs\\node_modules\\npm\\bin\\npm-cli.js'
+  ]
+}
+```
 
 Here is the typical erros log:
 
@@ -25,7 +64,8 @@ If no luck, try following in command line, it should resolve this issue.
 ```bash
 $ tsc index.ts --lib "es6"
 ```
-
+### solutions
+This is indicate your nodejs runtime issues, so you can either re-install nodejs or try same command in different nodejs runtime envrionment. For exmaple, run it in WSL (Windows Subsystem for Linux )
 
 
 ## certificate error

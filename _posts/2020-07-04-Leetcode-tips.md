@@ -1,8 +1,26 @@
 ---
+header:
+    image: /assets/images/hd_leetcode_tips.jpg
 title: Tips about algorithm resolving from Leetcode
-date: 2020-07-04
-layout: posts
+date: 2022-03-09
+tags:
+ - Leetcode
+ - algorithm
+ - coding
+layout: single
+category: tech
+permalink: /blogs/tech/en/leetcode_for_interview
 ---
+> Stay focused, believe that you can achieve at the highest level, surround yourself with others who believe in you and do not stray from your goals.
+
+# Methodology
+
+## Dynamic Programming
+ - Discover `sub` problems
+ - Memorized internal state
+ - Iterate 
+
+
 Here are some tips and notes about how to resolve algorithm issues listed in LeetCode
 # Rotation problem
 
@@ -20,17 +38,15 @@ Could you do it in-place with O(1) extra space?
  
 
 Example 1:
-
+```
 Input: nums = [1,2,3,4,5,6,7], k = 3
 Output: [5,6,7,1,2,3,4]
 Explanation:
 rotate 1 steps to the right: [7,1,2,3,4,5,6]
 rotate 2 steps to the right: [6,7,1,2,3,4,5]
 rotate 3 steps to the right: [5,6,7,1,2,3,4]
-```
-e.g. if k is bigger then array's length
-```
 
+e.g. if k is bigger then array's length
 ```
 ### Tip 1: To find out the smallest rotate count
 

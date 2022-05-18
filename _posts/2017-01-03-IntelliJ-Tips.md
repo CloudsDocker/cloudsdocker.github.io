@@ -1,11 +1,22 @@
 ---
-layout: posts
-title: IntelliJ Tips
+layout: single
+header:
+    image: /assets/images/hd_intellij_tips.png
+title: IntelliJ Tips to boost your productivities 10 times
+date: 2022-03-11
 tags:
 - java
 - intelliJ
+permalink: /blogs/tech/en/expert_intelliJ
+category: tech
 ---
+> 
 # Shortcuts
+`Win+F10`: Put IntelliJ *Menu* in focust, so you can navigate menu items by keyboard
+`Win+F9`: Open run/debug configuration window 
+`Alt+F10`: To show line and file where current breakpoint is located.
+`Ctrl+Alt+Insert`: Insert a new file in current directy, e.g. to insert a new class in current folder.
+
 ## Expand/collapse method body in code editor
 `Cmd + +/-` to expand and collapse a method body
 ## Show java doc
@@ -29,7 +40,7 @@ put carpet on a name, Ctrl+B will show the definition
 Ctrl+Shift+Alt+F: copy current file name
 -- go to matching braceCtrl+} will move to the close bracket.Ctrl+{ will move to the open bracket
 -- split editorgo to menu "window" -> "editor tabs" -> split
-Firslty open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-acecss-ui, it will load module.Use F2/Shift+F2 keys to jump between highlighted syntax errors.Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.Use Ctrl+J to complete any valid Live Template abbreviation if you don't remember it. For example, type it and press Ctrl+J to see what happens.
+Firstly open wealth-access-ui project, which only contains files at root, then right click in left pane, and chose import wealth-access-ui, it will load module.Use F2/Shift+F2 keys to jump between highlighted syntax errors.Use Ctrl+Alt+Up/Ctrl+Alt+Down shortcuts to jump between compiler error messages or search operation results.Use Ctrl+J to complete any valid Live Template abbreviation if you don't remember it. For example, type it and press Ctrl+J to see what happens.
 
 - Navigating to the declaration of a symbol
 Place the caret at the desired symbol in the editor.Do one of the following:On the main menu, choose Navigate | Declaration.Press Ctrl+B.Click the middle mouse button.Keeping Ctrl pressed, point to the symbol, and click, when it turns to a hyperlink. You can also see declaration at the tooltip while keeping Ctrl pressed.

@@ -1,11 +1,12 @@
 ---
 header:
     image: /assets/images/hd_sql_auth.png
-title: SQLServer Error: This driver is not configured for integrated authentication
+title: SQLServer Error about This driver is not configured for integrated authentication
 date: 2021-11-24
 tags:
  - SQL Server
  - Java
+ - Errors&Solutions
  
 permalink: /blogs/tech/en/sqlserver_driver_not_configured_integrated_authenciation
 layout: single
@@ -64,3 +65,4 @@ https://docs.microsoft.com/en-us/sql/connect/jdbc/release-notes-for-the-jdbc-dri
 
 
 --End--
+

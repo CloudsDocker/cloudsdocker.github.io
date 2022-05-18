@@ -8,6 +8,7 @@ layout: single
 category: tech
 ---
 
+# How to watch specific kubenetes deployment by labels
 
 # Background
 You can use Kubenetes Java client library to *watch* any changes in Kubenets, so that you can wire up your hook logic to call business logic upon any changes in K8s. But normally it's waste of resource and time to wathc **all** changes, so youc an apply a filter on specific resouce change by fitlering on Kube *labels*. Here is a mini blog to show how to do so.
