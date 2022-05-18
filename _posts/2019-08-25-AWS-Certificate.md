@@ -1,10 +1,16 @@
 ---
-title: AWS certification
+layout: single
+header:
+    image: /assets/images/hd_aws_certificat.png
+title: How to ace AWS certification just like play a game
+date: 2022-02-10
 tags:
 - AWS
 - Cloud
-layout: posts
+category: tech
 ---
+> Life isn't about finding yourself. Life is about creating yourself.
+
 # Footprint
 
 As of 2019, AWS has distinct operations in 22 geographical "regions":[7] 7 in North America, 1 in South America, 6 in Europe, 1 in the Middle-East, 1 in Africa and 8 in Asia Pacific. 
