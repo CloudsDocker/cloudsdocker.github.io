@@ -8,8 +8,7 @@ tags:
  - dev
  - windows
  - zsh
- - omz
- 
+ - omz 
 permalink: /blogs/tech/en/command-not-found-sdk-in-omz-zsh-wsl-windows
 layout: single
 category: tech
