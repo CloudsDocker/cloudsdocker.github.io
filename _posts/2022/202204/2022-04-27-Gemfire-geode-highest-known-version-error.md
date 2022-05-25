@@ -9,12 +9,12 @@ tags:
  - Geode
  - Gemfire
  
-permalink: /blogs/tech/en/peer_client_version_orinal_not_supported_in_geode_gemfire
+permalink: /blogs/tech/en/Gemfire-geode-highest-known-version-error
 layout: single
 category: tech
 ---
 
-> Worries less, smile more!
+> Take the risk or lose the chance!
 
 # Summary
 When you try to start a service using Gemfire/Geode, you may get following error:
