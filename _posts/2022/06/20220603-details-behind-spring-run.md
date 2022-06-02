@@ -1,4 +1,9 @@
+---
+title: Magic after maven target spring-boot-run
+---
+```
 mvn spring-boot:run
+```
 
 The Spring Boot Maven plugin includes a run goal which can be used to quickly compile and run your application. Applications run in an exploded form just like in your IDE.
 
@@ -13,7 +18,7 @@ The Spring Boot Maven plugin includes a run goal which can be used to quickly co
 
 
 run goal
-
+```
 
 <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -39,7 +44,7 @@ run goal
                     </execution>
                 </executions>
             </plugin>
-
+```
 
 to debug maven plugin, replace mvn  with mvnDebug , then check following lines:
 
