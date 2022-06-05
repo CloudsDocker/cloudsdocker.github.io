@@ -11,6 +11,7 @@ permalink: /blogs/tech/en/spring-boot-run-behind-the-scene
 layout: single
 category: tech
 ---
+> Turn your wounds into wisdom
 
 # Summary
 It's obviously almost everyone of us started to use *spring-boot* few years ago. To kick start a SpringBootApplication, you can either start it from run button in IDE or using following maven command
