@@ -5,8 +5,7 @@ permalink: /about/
 ---
 
 <div class="container">
-  <h1>This is about HighlyDistinguish Pty. ltd.</h1>
-  <h2>Focus on providing IT solutions & consulations.</h2>
-  <h2>Additioanly helping kids to improve their academic level.</h2>
+  <h1>If you would like to contact me, please send email : <a href="mailto: phray.zhang@gmail.com">phray.zhang@gmail.com</a></h1>
+  <h2>I'm more than happy to answer your questions or chat with your further more.</h2>
 </div>
 
