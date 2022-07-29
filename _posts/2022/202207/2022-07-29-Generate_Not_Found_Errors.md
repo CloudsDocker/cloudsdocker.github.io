@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_cannot_find_symbol_generated.jpg
-title:  Cannot find symbol clas Generated
+title:  Cannot find symbol class Generated or var
 date: 2022-07-29
 tags:
  - Java
@@ -18,7 +18,8 @@ category: tech
 
 # What's the error
 
-If you are using some libraries to generate source code, such as `MasStruct`, `QueryDSL`,some annotation wil be processed and those java classed java sources will be saved under `target` folder.
+## Error 1: Cannot find symbol class Generated
+If you are using some libraries to generate source code, such as `MapStruct`, `QueryDSL`,some annotation wil be processed and those java classed java sources will be saved under `target` folder.
 
 However, if you getting errors in thsoe generated class, such as `cannot find symbol calss Generated`, this is acatualy one class in javax.annotation.processing package.
 
@@ -49,6 +50,28 @@ So go to check your pom.xml (maven) to make sure no JDK 8 but at lease 9, such a
 
 
 ![](/assets/images/generated_error_pom_jdk.jpg)
+
+
+# Error 2: cannot find symbol class var
+
+If you are using new Java keyword `var` and combiled good, however get following error in runtime;
+
+> java: as of release 10, 'var' is a restricted local variable type and cannot be used for type declarations or as the element type of an array
+
+The error may look like below:
+![](/assets/images/error_var_java_10.jpg)
+
+You may think this is an easy fix and try to update JDK version in maven pom.xml, unfortuantely it may not work. 
+
+## Solution
+
+If you spot in more details you may realized this is *compile* good but failed in *run*. As you know, Java will compile to *byte code* and JVM will use the *byte code* to spin up a new Java process. So the error should fall in the byte code.
+
+This can be fixed by updating following config in your IDE:
+
+### go to Build->Compiler->Java Compiler-> Target bytecode version
+
+![](/assets/images/java_byte_code_fix_intelliJ.jpg)
 
 
 
