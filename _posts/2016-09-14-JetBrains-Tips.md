@@ -7,7 +7,6 @@ tags:
  - JetBrains
 - Java
 layout: posts
-permalink: /blogs/tech/en/tips_for_intelliJ_jetbrain
 category: tech
 ---
 > Be a good person in *real life*, not in *social media*
