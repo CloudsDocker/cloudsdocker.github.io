@@ -2,15 +2,15 @@
 title: JetBrains/IntelliJ tips
 header:
     image: /assets/images/hd_intellij_tips.png
+date: 2021-09-14
 tags:
  - Coding 
  - JetBrains
-- Java
-layout: posts
-category: tech
+ - Java
+layout: single
 ---
 > Be a good person in *real life*, not in *social media*
-> 
+
 # Shortcuts
 - `Cmd+T`: Pull , rebase/merge current branch
 - `Shift+Control+comma`: Zoom out in every panel
