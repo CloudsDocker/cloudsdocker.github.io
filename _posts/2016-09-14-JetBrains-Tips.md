@@ -14,7 +14,7 @@ category: tech
 # Shortcuts
 - `Cmd+T`: Pull , rebase/merge current branch
 - `Shift+Control+comma`: Zoom out in every panel
-- `Shift+Control+period`: Zoom in in every panel
+- `Shift+Control+period`: Zoom in every panel
 - `Cmd+1`: to toggle Project explorer window, so to show or hide it
 - `Cmd+2`: to show or hide *bookmark* window
 - `Cmd+3`: to show or hide *Find* window
