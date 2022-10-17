@@ -1,5 +1,7 @@
 ---
 title: 谷歌地图里面照片的评论显示不出来
+header:
+    image: /assets/images/GoogleMap_missing.jpg
 date: 2021-01-19
 tags:
  - Google
