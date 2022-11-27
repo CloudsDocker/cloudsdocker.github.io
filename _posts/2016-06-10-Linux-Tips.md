@@ -11,6 +11,18 @@ category: tech
 ---
 > Remember, some things have to end for better things to begin.
 
+# To list process running on port number 8080
+lsof -iTCP:8080
+
+## Explanation
+-i [i]
+selects the listing of files any of whose Internet address matches the address specified in i.  If no address is specified, this option
+selects the listing of all Internet and x.25 (HP-UX) network files.
+
+-n   inhibits the conversion of network numbers to host names for network files.  Inhibiting conversion may make lsof run faster.  It is also
+useful when host name lookup is not working properly.
+
+
 # Is my Mac M1 or Intel CPU?
 You can use *uname -a* to see whether there is ARM (M1)
 ```

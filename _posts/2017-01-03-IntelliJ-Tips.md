@@ -17,17 +17,22 @@ category: tech
 - `Cmd+1`: to toggle Project explorer window, so to show or hide it
 - `Cmd+2`: to show or hide *bookmark* window
 - `Cmd+3`: to show or hide *Find* window
-`Win+F10`: Put IntelliJ *Menu* in focus, so you can navigate menu items by keyboard
-`Win+F9`: Open run/debug configuration window 
-`Alt+F10`: To show line and file where current breakpoint is located.
-`Ctrl+Alt+Insert`: Insert a new file in current direct, e.g. to insert a new class in current folder.
+- `Win+F10`: Put IntelliJ *Menu* in focus, so you can navigate menu items by keyboard
+- `Change Font Size in anywhere`: To increase the font size, press `⌃⇧Period`. To decrease it, press `⌃⇧Comma`
+- `Win+F9`: Open run/debug configuration window 
+- `Alt+F10`: To show line and file where current breakpoint is located.
+- `Ctrl+Alt+Insert`: Insert a new file in current direct, e.g. to insert a new class in current folder.
 
 ## Expand/collapse method body in code editor
 `Cmd + +/-` to expand and collapse a method body
 ## Show java doc
 - Ctrl+J: To show JavaDoc
+
 - Cmd+Alt+B: To show interface implementations
 - Alt+Enter: when cursor on class declare line, press Alt+Enter can quickly create a unit test against this test class
+
+
+
 - Ctrl+Shift+A: Action window, just like sublime, search IDE actions
 - F11: add bookmark,
 - Shift+F11: show bookmarks
