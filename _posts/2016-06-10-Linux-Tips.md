@@ -11,6 +11,15 @@ category: tech
 ---
 > Remember, some things have to end for better things to begin.
 
+# Is my Mac M1 or Intel CPU?
+You can use *uname -a* to see whether there is ARM (M1)
+```
+$ uname
+Darwin
+$ uname -a
+Darwin MBP-16--HD.modem 22.1.0 Darwin Kernel Version 22.1.0: Sun Oct  9 20:15:09 PDT 2022; root:xnu-8792.41.9~2/RELEASE_ARM64_T6000 arm64
+```
+
 # To kill processes with a port number
 
 If you try to kill processes running in port 1888
