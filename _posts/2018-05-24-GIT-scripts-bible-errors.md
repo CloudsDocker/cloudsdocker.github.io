@@ -14,6 +14,45 @@ category: tech
 
 # Git errors
 
+## fatal: unable to access during git push
+```bash
+remote: Permission to CloudsDocker/cloudsdocker.github.io.git denied to toddzhangUAC.
+fatal: unable to access 'https://github.com/CloudsDocker/cloudsdocker.github.io.git/': The requested URL returned error: 403
+```
+
+### Solution
+- Open a terminal, navigate to `.git/` under your project
+- Open the config file with either editor such as VSCode `code .git/config`
+- Find the section `[remote "origin"]` then replace `https://xx` with `url = ssh://git@`
+
+### fatal: Could not read from remote repository in git push
+```shell
+git push
+ERROR: Permission to CloudsDocker/cloudsdocker.github.io.git denied to toddzhangUAC.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+### Troubleshooting & Solution
+Firstly, to list *private key* accessible to the agent
+```shell
+ssh-add -l
+```
+Then edit following file to remove those unexpected token files
+```shell
+code ~/.ssh/config
+```
+Lastly, try to delete files and then push files
+```shell
+ssh-add -l
+ssh-agent -k
+eval `ssh-agent`
+ssh-add ~/.ssh/id_rsa
+ssh-add -l
+git push
+```
+
 ## auto completion when you press tab key try to complete branch name
 
 This is when you type `tab` key after enter some keyword , e.g. TK-12, which you expect the full branch name e.g. `TK-1234-fix` to be filled in command line automatically.
