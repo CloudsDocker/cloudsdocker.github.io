@@ -5,7 +5,7 @@ title:  Magic-in-Micronaut-JPA
 date: 2022-12-30
 tags:
  - Java
- - Micronut
+ - Micronaut
  
 permalink: /blogs/tech/en/Magic_in_Micronaut_JPA
 layout: single
