@@ -2,7 +2,7 @@
 header:
     image: /assets/images/hd_shortcuts.png
 date: 2022-04-16
-title: Awesome Shortcuts to boost productivities
+title: Awesome Shortcuts to boost productivity
 permalink: /blogs/tech/en/core_java_for_interview
 layout: single
 category: tech
@@ -15,7 +15,12 @@ category: tech
  - Fn+F: toggle full screen
 
 ## Microsoft TEAMS
+### Windows
+ - `Alt+Shift+C`: move focus to "enter box" for messaging
+ - `Ctrl+E`: Search box
+ - `Ctrl+.(dot)`: open shortcut help
 
+### MacBook
 > Replace `Cmd` with `Ctrl` for **Windows** platform
 Cmd +Shift+M: mute
 Cmd +Shift+H: leave meeting
