@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hexo-rejection-error-no-such-file-or-directory.jpg
-title:  Guide to code productively, get more time back for you
+title:  Fix rejection error in Hexo
 date: 2023-02-14
 tags:
  - Git
