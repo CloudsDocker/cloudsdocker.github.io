@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/what-is-shape-function-in-python-pandas.jpg
+    image: /assets/images/what-is-shape-function-in-python-pandas-2.jpg
 title:  What is shape function in python pandas
 date: 2023-02-19
 tags:
