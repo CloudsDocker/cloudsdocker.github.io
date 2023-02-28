@@ -13,7 +13,7 @@ category: tech
 
 > Keep an eye on the fruits of your labor.
 
-# what is shape function in python pandas
+# What is default logic in python try except else
 in python, In the try-except-else block, when will the else part be executed?
 
 In Python, the try-except-else block is used to handle exceptions that might occur in the try block of code. The basic syntax of the try-except-else block is as follows:
