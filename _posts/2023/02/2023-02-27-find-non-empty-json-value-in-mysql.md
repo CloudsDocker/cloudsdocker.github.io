@@ -1,12 +1,11 @@
 ---
 header:
     image: /assets/images/find-non-empty-json-value-in-mysql.jpg
-title:  find-non-empty-json-value-in-mysql
+title:  How to find non-empty json value in mysql
 date: 2023-02-23
 tags:
- - Java
- - AI
- - automate task
+ - DB
+ - MySql
  
 permalink: /blogs/tech/en/find-non-empty-json-value-in-mysql
 layout: single
@@ -15,7 +14,7 @@ category: tech
 
 > You are not a drop in the ocean, you are the entire ocean in a drop.
 
-# find-non-empty-json-value-in-mysql
+# How to find non-empty json value in mysql
 
 To search for a non-empty JSON array in a column in MySQL, you can use the JSON_LENGTH() and JSON_EXTRACT() functions.
 
