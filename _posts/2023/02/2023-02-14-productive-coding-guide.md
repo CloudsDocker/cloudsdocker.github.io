@@ -14,13 +14,18 @@ category: tech
 
 > The heart can see what is invisible to the eye.
 
+# Github web
+
+## To quickly go to file search page
+ - `t` to search file
+
+
 # Stash (Atlassian)
 
 ## To quickly switch to code diff or summary
 
- - `1` number one in keyboard will navigate page to "overview page", so you can check popovers, comments, etc.
- - `2` number two in keyboard will navigate `diff` page to view each detailed differences 
-
+- `1` number one in keyboard will navigate page to "overview page", so you can check popovers, comments, etc.
+- `2` number two in keyboard will navigate `diff` page to view each detailed differences
 
 
 
