@@ -15,7 +15,7 @@ J'ai remarqué un problème étrange avec l'application "Google Maps" de mon té
 
 ## Dépannage et solutions
 Pour résoudre ce problème, j'ai cherché des solutions possibles sur Google et trouvé le résultat le plus approprié:
-https://support.google.com/googleplay/answer/7431675?hl=zh_CN
+https://support.google.com/googleplay/answer/7431675?hl=fr
 
 En résumé, vous devriez changer le "pays/région" dans Google Play car certains pays/regions ont des restrictions de contenu. Par conséquent, vous pouvez le changer pour certains pays/regions avec des restrictions minimales, comme je l'ai fait en changeant pour "l'Australie".
 
