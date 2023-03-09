@@ -1,10 +1,10 @@
 ---
 header:
     image: /assets/images/how_to_save_expect_script_run_output_to_file_locally.jpg
-title:  Is Keberose one SSL/TLS?
+title:  Is Kerberos one SSL/TLS?
 date: 2023-03-07
 tags:
- - Enryption
+ - Encryption
  - TLS
  - Kerberos
  
@@ -15,7 +15,7 @@ category: tech
 
 > Nothing is as easy as it looks.
 
-# Is Keberose one SSL/TLS?
+# Is Kerberos one SSL/TLS?
 
 No, Kerberos is not SSL/TLS. Kerberos is a network authentication protocol designed to provide secure authentication between clients and servers in a network environment. It uses a trusted third-party authentication server, called the Key Distribution Center (KDC), to authenticate users and servers and generate session keys for secure communication.
 
