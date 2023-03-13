@@ -8,7 +8,9 @@ tags:
  - Efficiency
  - Productivity
 
-layout: posts
+permalink: /blogs/tech/en/how_to_keep_multiple_copy_paste_value_in_macbook
+layout: single
+category: tech
 ---
 > "Winning is nice if you don't lose your integrity in the process." — Arnold Horshak
 
@@ -30,4 +32,5 @@ To paste an item from the clipboard history, select it with the arrow keys and p
 If you want to clear the clipboard history, you can click the Clear All button at the bottom of the clipboard history window.
 
 You can also customize the settings for the clipboard history by going to System Preferences > Keyboard > Shortcuts > Clipboard. Here, you can enable or disable the clipboard history, adjust the maximum number of items to keep, and more.
+
 --End--
