@@ -1,6 +1,5 @@
 Sample me build a micro service payment system with spring cloud
-
-Sure! Here's an example of building a microservice payment system using Spring Cloud:
+ Here's an example of building a microservice payment system using Spring Cloud:
 
 Create a new Spring Boot project for the payment service using your preferred IDE or the Spring Initializr.
 Add the Eureka client and Ribbon dependencies to your project's build file. You can do this by adding the following lines to your pom.xml file if you are using Maven:
