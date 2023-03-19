@@ -37,3 +37,46 @@ Flexibility: Spring Cloud Gateway provides a flexible routing model that can be 
 Service discovery: Spring Cloud Gateway integrates with service discovery mechanisms such as Eureka and Consul to enable dynamic routing of requests to the appropriate microservice instance.
 Extensibility: Spring Cloud Gateway provides a plugin architecture that allows developers to extend the functionality of the API Gateway by writing custom filters.
 Overall, Spring Cloud Gateway is a powerful and flexible API Gateway solution that is well-suited for Spring Boot-based microservices architecture
+
+---
+# sample 
+
+Here's a sample configuration for a Spring Cloud Gateway application:
+
+Add the Spring Cloud Gateway dependency to your project:
+xml
+Copy code
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-gateway</artifactId>
+</dependency>
+Configure the routes for your API Gateway in a routes bean:
+java
+Copy code
+@Bean
+public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+    return builder.routes()
+        .route("example", r -> r.path("/example")
+            .uri("http://example.com"))
+        .route("example2", r -> r.path("/example2")
+            .filters(f -> f.addRequestHeader("HeaderName", "HeaderValue"))
+            .uri("http://example.com"))
+        .build();
+}
+In this example, two routes are defined:
+
+The first route maps requests with path /example to the URL http://example.com.
+The second route maps requests with path /example2 to the URL http://example.com, but also adds a custom request header to the request using the addRequestHeader filter.
+Configure your application properties to enable the API Gateway and specify the port:
+javascript
+Copy code
+spring.cloud.gateway.enabled=true
+server.port=8080
+Run your application and send requests to the API Gateway:
+bash
+Copy code
+http://localhost:8080/example
+http://localhost:8080/example2
+These requests will be routed to the appropriate backend URL specified in the routes configuration. The addRequestHeader filter will also add the custom header to requests to the /example2 path.
+
+
