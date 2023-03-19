@@ -1,7 +1,7 @@
 ---
 title: spring_cloud_master_piece_2
 header:
-image: /assets/images/yarn_npm_install.jpg
+  image: /assets/images/spring_cloud_master.jpg
 date: 2023-03-19
 tags:
 - JFR
