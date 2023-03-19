@@ -30,5 +30,20 @@ Test and deploy: After the microservices have been separated, you need to test t
 Monitor and maintain: Once the microservices are deployed, you need to monitor and maintain them to ensure they continue to function correctly. This may involve using tools for monitoring and logging, and implementing strategies for scaling and managing the services.
 It's important to note that the above steps are just a general guideline and the specific steps may vary depending on the complexity and size of the monolithic application. Additionally, this process can take time, so it's important to have a plan and work incrementally to avoid disrupting the existing application's functionality.
 
+---
 
+# What’s best practice to implement java micro service 
+
+Implementing Java microservices requires following best practices to ensure the success of the project. Here are some best practices to keep in mind:
+
+Use lightweight frameworks: Choose lightweight frameworks, such as Spring Boot or Micronaut, to develop microservices. These frameworks offer the necessary features to build microservices and reduce the complexity of the application.
+Follow microservices architecture principles: Ensure that your microservices follow the principles of microservices architecture, such as having a single responsibility, being loosely coupled, and being independently deployable.
+Containerize microservices: Containerize the microservices using Docker or Kubernetes to make them easily deployable and scalable.
+Use API gateway: Implement an API gateway to manage and route requests to the appropriate microservices. This will also help in managing the security and authentication of the microservices.
+Use service discovery: Implement service discovery, such as Netflix Eureka or HashiCorp Consul, to manage the dynamic registration and discovery of microservices.
+Use circuit breaker: Implement circuit breakers, such as Netflix Hystrix, to handle failures and improve the overall resilience of the microservices.
+Implement monitoring and logging: Implement monitoring and logging to track the performance and behavior of the microservices. Use tools such as Prometheus, Grafana, and ELK stack to monitor the microservices.
+Use DevOps practices: Implement DevOps practices, such as continuous integration and continuous deployment (CI/CD), to automate the deployment and testing of the microservices.
+Maintain a clean codebase: Maintain a clean and modular codebase to ensure that the microservices can be easily maintained and modified.
+By following these best practices, you can ensure that your Java microservices implementation is reliable, scalable, and maintainable
 
