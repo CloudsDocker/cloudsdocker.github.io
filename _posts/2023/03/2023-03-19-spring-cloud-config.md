@@ -254,7 +254,52 @@ public class MyAppApplication {
 Start your client application and verify that it's able to retrieve the configuration properties from the Spring Cloud Config server. You can do this by calling the /my-sensitive-property endpoint of your client application and verifying that it returns the decrypted value of the sensitive property.
 That's it! You've now successfully set up a Spring Cloud Config server and client application, and you've learned how to use Spring Cloud Config to manage your application's configuration properties in a centralized and secure way.
 
+# client application to use spring configuration 
+Here's a sample configuration for a Spring Cloud Config Client:
 
+Add the following dependency to your project's pom.xml file:
+xml
+Copy code
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-config</artifactId>
+</dependency>
+Add the following properties to your project's bootstrap.yml file:
+yaml
+Copy code
+spring:
+  application:
+    name: your-application-name
+  cloud:
+    config:
+      uri: http://localhost:8888
+      username: your-username
+      password: your-password
+      fail-fast: true
+Replace your-application-name, your-username, and your-password with your own values. The fail-fast property is optional and can be used to force the client to fail immediately if it cannot connect to the Spring Cloud Config server.
+
+Create a configuration file for your application in the Git repository that's being used by the Spring Cloud Config Server. The file should be named {your-application-name}.yml and should contain your application's configuration properties.
+For example, if your application name is my-application, create a file named my-application.yml in the Git repository and add your configuration properties to it.
+
+Inject your configuration properties into your application using Spring's @Value annotation. For example:
+java
+Copy code
+@RestController
+public class MyController {
+
+    @Value("${my.property}")
+    private String myProperty;
+
+    @GetMapping("/my-property")
+    public String getMyProperty() {
+        return myProperty;
+    }
+
+}
+In this example, the value of the my.property configuration property is injected into the myProperty field using the @Value annotation.
+
+Start your application and verify that it's able to retrieve its configuration properties from the Spring Cloud Config Server. You can do this by calling the /my-property endpoint of your application and verifying that it returns the value of the my.property configuration property.
+That's it! You've now successfully configured a Spring Cloud Config Client to retrieve its configuration properties from a Spring Cloud Config Server.
 
 
 
