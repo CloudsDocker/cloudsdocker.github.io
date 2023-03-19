@@ -24,3 +24,16 @@ AWS API Gateway: AWS API Gateway is a fully managed API Gateway service provided
 Apigee: Apigee is a commercial API Gateway platform that provides features such as security, analytics, and developer portal.
 Tyk: Tyk is an open-source API Gateway that provides features such as rate limiting, authentication, and service discovery.
 These API Gateway solutions can be used to implement an API Gateway in a microservices-based application, and provide a wide range of features and capabilities to improve the performance, security, and reliability of the application.
+
+---
+# Spring Cloud Gateway
+This is one of the most popular API Gateway solutions for Spring Boot-based microservices architecture. It is an open-source API Gateway built on top of Spring Boot and provides features such as routing, filtering, load balancing, and service discovery.
+
+Spring Cloud Gateway has several advantages for Spring Boot-based microservices architecture, such as:
+
+Easy integration with Spring Boot: Spring Cloud Gateway is built on top of Spring Boot, making it easy to integrate with existing Spring Boot applications.
+High performance: Spring Cloud Gateway is built on top of the Reactor project, which provides a non-blocking, event-driven programming model that allows for high-performance handling of client requests.
+Flexibility: Spring Cloud Gateway provides a flexible routing model that can be customized using filters to handle cross-cutting concerns such as authentication, rate limiting, and caching.
+Service discovery: Spring Cloud Gateway integrates with service discovery mechanisms such as Eureka and Consul to enable dynamic routing of requests to the appropriate microservice instance.
+Extensibility: Spring Cloud Gateway provides a plugin architecture that allows developers to extend the functionality of the API Gateway by writing custom filters.
+Overall, Spring Cloud Gateway is a powerful and flexible API Gateway solution that is well-suited for Spring Boot-based microservices architecture
