@@ -1,4 +1,17 @@
+---
+title: spring_cloud_master_piece_1
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
 
+permalink: /blogs/tech/en/spring_cloud_master_piece_1
+layout: single
+category: tech
+---
 
 # what's API gateway
 An API Gateway is a key component in microservices architecture that acts as a single entry point for client requests to a microservices-based application. The API Gateway sits between the clients and the microservices, routing requests from clients to the appropriate microservice, and handling cross-cutting concerns such as authentication, rate limiting, and caching.

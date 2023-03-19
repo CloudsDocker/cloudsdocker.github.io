@@ -1,4 +1,19 @@
-Sample me build a micro service payment system with spring cloud
+---
+title: spring_cloud_master_piece_6
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
+
+permalink: /blogs/tech/en/spring_cloud_master_piece_6
+layout: single
+category: tech
+---
+
+# Sample me build a micro service payment system with spring cloud
  Here's an example of building a microservice payment system using Spring Cloud:
 
 Create a new Spring Boot project for the payment service using your preferred IDE or the Spring Initializr.

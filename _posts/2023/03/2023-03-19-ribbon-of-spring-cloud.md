@@ -1,3 +1,19 @@
+---
+title: spring_cloud_master_piece_61
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
+
+permalink: /blogs/tech/en/spring_cloud_master_piece_61
+layout: single
+category: tech
+---
+
+
 The main difference between using Ribbon and a Load Balancer is the location of the load balancing logic.
 
 Ribbon is a client-side load balancing library, which means that the load balancing logic is embedded in the client application, and it is responsible for selecting the appropriate service instance to handle each request. When a client application using Ribbon needs to make a request to a service, it contacts a service registry (such as Eureka) to obtain the list of available service instances, and then uses a load balancing algorithm (such as round-robin or weighted random selection) to choose which instance to send the request to.

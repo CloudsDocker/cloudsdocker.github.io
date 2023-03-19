@@ -1,3 +1,19 @@
+---
+title: spring_cloud_master_piece_2
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
+
+permalink: /blogs/tech/en/spring_cloud_master_piece_2
+layout: single
+category: tech
+---
+
+
 # what's usage of bootstrap yml
 In a Spring Boot application, the bootstrap.yml (or bootstrap.properties) file is used for configuring the application's environment and setting up the context in which the application will run.
 

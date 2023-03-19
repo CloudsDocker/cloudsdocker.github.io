@@ -1,4 +1,20 @@
-How to use service discovery in spring book
+---
+title: spring_cloud_master_piece_4
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
+
+permalink: /blogs/tech/en/spring_cloud_master_piece_4
+layout: single
+category: tech
+---
+
+
+# How to use service discovery in spring book
 
 In Spring Boot, you can use service discovery through the Spring Cloud Netflix Eureka project, which provides a client-side service discovery framework that integrates seamlessly with Spring Boot applications. Here are the general steps to use service discovery in Spring Boot:
 

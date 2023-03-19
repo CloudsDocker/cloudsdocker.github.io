@@ -1,6 +1,22 @@
-Sample me how to build a eureka service discovery
+---
+title: spring_cloud_master_piece_3
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
 
-Sure! Here's a sample project that demonstrates how to build a Eureka service discovery server using Spring Boot:
+permalink: /blogs/tech/en/spring_cloud_master_piece_3
+layout: single
+category: tech
+---
+
+
+# Sample me how to build a eureka service discovery
+
+Here's a sample project that demonstrates how to build a Eureka service discovery server using Spring Boot:
 
 Create a new Spring Boot project using your preferred IDE or the Spring Initializr.
 Add the Eureka server dependency to your project's build file. You can do this by adding the following line to your pom.xml file if you are using Maven:
