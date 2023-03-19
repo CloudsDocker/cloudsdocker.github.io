@@ -47,3 +47,18 @@ Use DevOps practices: Implement DevOps practices, such as continuous integration
 Maintain a clean codebase: Maintain a clean and modular codebase to ensure that the microservices can be easily maintained and modified.
 By following these best practices, you can ensure that your Java microservices implementation is reliable, scalable, and maintainable
 
+---
+# What’s microservices architecture principles: 
+
+Microservices architecture is a way of designing software applications as a collection of small, independent services that work together to provide a larger, cohesive application. The key principles of microservices architecture are as follows:
+
+Single responsibility: Each microservice should have a single responsibility, meaning it should do one thing and do it well. This makes it easier to understand, test, and maintain the microservice.
+Loosely coupled: Microservices should be loosely coupled, meaning that they should be independent of each other and should not have tight dependencies. This makes it easier to modify and update individual microservices without affecting other parts of the system.
+Independent deployment: Each microservice should be independently deployable, meaning that it can be deployed and scaled independently of the other services. This allows for greater flexibility and agility in the development and deployment process.
+Service discovery: Microservices should be discoverable, meaning that they can be automatically discovered by other services or clients. This allows for greater flexibility in the configuration and deployment of microservices.
+Resilience: Microservices should be designed to be resilient, meaning that they can continue to function in the event of failures or errors. This can be achieved through the use of fault tolerance mechanisms, such as circuit breakers and retries.
+Automation: The development and deployment of microservices should be automated as much as possible to reduce the risk of errors and ensure consistency.
+API-driven: Microservices should be designed with APIs in mind, meaning that they should be easy to consume by other services or clients. This can be achieved through the use of standard protocols, such as REST or GraphQL.
+By following these principles, microservices can be developed and deployed in a way that is more flexible, scalable, and resilient than traditional monolithic applications.
+
+
