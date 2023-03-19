@@ -151,3 +151,12 @@ In this example, the FallbackHeadersGatewayFilterFactory creates a global fallba
 With this global fallback handler in place, any request that fails to be forwarded to a downstream service will return a 500 Internal Server Error response, along with the custom Fallback-Reason header.
 
 By using short-circuiting in combination with a global fallback handler, you can improve the resilience and availability of your API Gateway, and provide a better experience to your users in case of service failures.
+
+---
+# summary
+
+It's worth noting that while short-circuiting can be a useful mechanism for handling service failures, it should not be overused. Short-circuiting can potentially hide issues that may arise in your downstream services, and should not be used as a long-term solution for handling service failures.
+
+Instead, you should focus on designing your microservices architecture in a way that ensures high availability and resilience of your services. This can include implementing load balancing, service discovery, and circuit breaking mechanisms, as well as using monitoring and logging tools to detect and diagnose issues in your services.
+
+In summary, short-circuiting is a useful feature of Spring Cloud Gateway that allows you to handle service failures by returning a response directly from the API Gateway, without forwarding the request to the downstream service. By configuring short-circuiting with a fallback handler, you can improve the resilience and availability of your microservices architecture, and provide a better experience to your users in case of service failures.
