@@ -1,3 +1,19 @@
+---
+title: spring_cloud_master_piece_5
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
+
+permalink: /blogs/tech/en/spring_cloud_master_piece_5
+layout: single
+category: tech
+---
+
+
 How to add security among micro service  in spring boot
 
 In a Spring Boot microservice architecture, you can add security using Spring Security and JSON Web Tokens (JWT) to secure communication between microservices. Here's how you can do it:

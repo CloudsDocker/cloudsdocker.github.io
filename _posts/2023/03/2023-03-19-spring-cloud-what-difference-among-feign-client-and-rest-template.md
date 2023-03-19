@@ -1,3 +1,18 @@
+---
+title: spring_cloud_master_piece_10
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
+
+permalink: /blogs/tech/en/spring_cloud_master_piece_10
+layout: single
+category: tech
+---
+
 In spring cloud what’s when to use feign client and when to sue resttemplate
 
 Both Feign and RestTemplate are client-side HTTP clients provided by Spring Cloud for making HTTP requests to other services. However, there are some differences between the two, and the choice of which one to use depends on the specific requirements of your application.

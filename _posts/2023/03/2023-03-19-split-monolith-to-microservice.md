@@ -1,3 +1,17 @@
+---
+title: spring_cloud_master_piece_7
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
+
+permalink: /blogs/tech/en/spring_cloud_master_piece_7
+layout: single
+category: tech
+---
 
 Splitting a monolithic application into microservices can be a complex process that requires careful planning and implementation. Here is a high-level approach to splitting a monolithic application into Spring Boot microservices:
 

@@ -1,3 +1,17 @@
+---
+title: spring_cloud_master_piece_9
+header:
+image: /assets/images/yarn_npm_install.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
+
+permalink: /blogs/tech/en/spring_cloud_master_piece_9
+layout: single
+category: tech
+---
 
 
 # What’s spring cloud config
