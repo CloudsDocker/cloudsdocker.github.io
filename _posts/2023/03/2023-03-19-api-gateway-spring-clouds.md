@@ -125,3 +125,29 @@ This annotation enables the use of Hystrix in your application and enables the s
 
 With short-circuiting configured, you can now test it by shutting down the downstream service or making it unavailable. When a request is sent to the API Gateway that maps to a route with a fallback handler, and the downstream service is unavailable, the fallback response will be returned directly from the API Gateway. This can help improve the availability and resilience of your microservices architecture.
 
+# global config
+Additionally, you can also configure a global fallback handler that will be applied to all routes. To do this, you can define a @Bean of type FallbackHeadersGatewayFilterFactory:
+
+java
+Copy code
+@Bean
+public FallbackHeadersGatewayFilterFactory fallbackHeadersGatewayFilterFactory() {
+    return new FallbackHeadersGatewayFilterFactory() {
+        @Override
+        public GatewayFilter apply(FallbackHeaders fallbackHeaders) {
+            return (exchange, chain) -> chain
+                .filter(exchange)
+                .onErrorResume(throwable -> {
+                    ServerHttpResponse response = exchange.getResponse();
+                    response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+                    response.getHeaders().add("Fallback-Reason", throwable.getMessage());
+                    return response.setComplete();
+                });
+        }
+    };
+}
+In this example, the FallbackHeadersGatewayFilterFactory creates a global fallback handler that adds a custom response header (Fallback-Reason) to the response returned by the API Gateway. The header contains the error message from the exception that caused the short-circuiting.
+
+With this global fallback handler in place, any request that fails to be forwarded to a downstream service will return a 500 Internal Server Error response, along with the custom Fallback-Reason header.
+
+By using short-circuiting in combination with a global fallback handler, you can improve the resilience and availability of your API Gateway, and provide a better experience to your users in case of service failures.
