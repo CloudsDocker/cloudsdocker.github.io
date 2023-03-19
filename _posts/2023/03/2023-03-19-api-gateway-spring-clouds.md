@@ -13,3 +13,14 @@ Load balancing: The API Gateway can distribute client requests across multiple i
 Caching: The API Gateway can cache responses from microservices to improve the performance of the application.
 Monitoring and logging: The API Gateway can monitor and log client requests and responses to provide insights into the usage and behavior of the microservices.
 By implementing an API Gateway in a microservices-based application, you can simplify the client interaction with the application, improve security, and enforce consistency and quality across the microservices.
+
+---
+# sample of gateway
+There are several open-source and commercial API Gateway solutions available that can be used in microservices-based applications. Here are some examples:
+
+Netflix Zuul: Zuul is an open-source API Gateway developed by Netflix. It is built on top of the Spring Boot framework and provides features such as routing, filtering, load balancing, and service discovery.
+Kong: Kong is a popular open-source API Gateway built on top of the Nginx web server. It provides features such as authentication, rate limiting, and service discovery.
+AWS API Gateway: AWS API Gateway is a fully managed API Gateway service provided by Amazon Web Services. It provides features such as request and response transformations, caching, and throttling.
+Apigee: Apigee is a commercial API Gateway platform that provides features such as security, analytics, and developer portal.
+Tyk: Tyk is an open-source API Gateway that provides features such as rate limiting, authentication, and service discovery.
+These API Gateway solutions can be used to implement an API Gateway in a microservices-based application, and provide a wide range of features and capabilities to improve the performance, security, and reliability of the application.
