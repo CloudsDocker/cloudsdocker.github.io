@@ -15,114 +15,93 @@ category: tech
 > "The only way to do great work is to love what you do." - Steve Jobs
 
 
+In Spring Boot, the @ConfigurationProperties annotation is used to bind external configuration properties to a Java class. The prefix in @ConfigurationProperties is used to define a specific namespace for the properties that will be bound to the class.
+
+The naming convention for the prefix follows kebab-case (lowercase words separated by hyphens), which is commonly used for property names in Spring Boot applications. For example:
+
+java
+Copy code
+@ConfigurationProperties(prefix = "app.config")
+public class AppConfigProperties {
+    private String name;
+    private int timeout;
+    // getters and setters
+}
+In this example, the prefix "app.config" is defined, and properties with this prefix in the external configuration (such as application.properties or application.yml) will be bound to the corresponding fields in the AppConfigProperties class:
+
+arduino
+Copy code
+app.config.name=my-application
+app.config.timeout=3000
+When creating a prefix, it is a good practice to follow these guidelines:
+
+Use a meaningful name that represents the functionality or module related to the properties.
+Keep it short and easy to remember.
+Follow the kebab-case naming convention.
+Avoid using reserved words or conflicting with other commonly used prefixes in your application.
 
 
 
+todd zhang
+More
+
+Here's more information on using @ConfigurationProperties in Spring Boot applications:
+
+Nested properties: You can use nested properties to group related configurations together. This is particularly useful for larger applications with complex configurations. To do this, create nested classes within the class annotated with @ConfigurationProperties. The nested properties follow the same kebab-case naming convention. For example:
+java
+Copy code
+@ConfigurationProperties(prefix = "app.config")
+public class AppConfigProperties {
+    private String name;
+    private int timeout;
+    private Database database;
+
+    // getters and setters
+
+    public static class Database {
+        private String url;
+        private String username;
+        private String password;
+        // getters and setters
+    }
+}
+In this case, the external configuration properties would look like:
+
+arduino
+Copy code
+app.config.name=my-application
+app.config.timeout=3000
+app.config.database.url=jdbc:mysql://localhost:3306/mydb
+app.config.database.username=user
+app.config.database.password=secret
+Validating properties: Spring Boot allows you to validate the configuration properties by using JSR-303 annotations like @NotNull, @Min, @Max, etc. To enable validation, add the @Validated annotation to the class with @ConfigurationProperties, and include the necessary validation annotations on the fields. For example:
+java
+Copy code
+@ConfigurationProperties(prefix = "app.config")
+@Validated
+public class AppConfigProperties {
+    @NotNull
+    private String name;
+
+    @Min(1000)
+    @Max(10000)
+    private int timeout;
+
+    // getters and setters
+}
+Registering ConfigurationProperties classes: To make a @ConfigurationProperties class available for use, you need to either:
+Annotate it with @Component and let component scanning pick it up. This is useful if you want to use the properties class in multiple places.
+Declare a bean for the class in a configuration class using @EnableConfigurationProperties or @Bean. This is useful if you want to control the scope or lifecycle of the bean or use constructor injection to set its dependencies.
+For example, using @EnableConfigurationProperties in a configuration class:
+
+java
+Copy code
+@Configuration
+@EnableConfigurationProperties(AppConfigProperties.class)
+public class ApplicationConfiguration {
+    // ...
+}
+By following these guidelines and practices, you can effectively manage and organize configuration properties in your Spring Boot applications.
 
 
-# A Brief Introduction to Lookbehind and Lookahead in Regular 
 
-## Introduction:
-
-Regular expressions are a powerful tool for searching, matching, and manipulating text. Two advanced features that can make your regex patterns even more efficient and flexible are lookbehind and lookahead. These are zero-width assertions that don't consume any characters in the input string but help to match patterns based on the context around the current position. In this blog post, we'll provide a brief overview of lookbehind and lookahead, their syntax, and some examples to demonstrate their usage.
-
-### Lookbehind:
-
-Lookbehind allows you to check if the text before the current position matches a certain pattern without including the matched text in the result. In regular expressions, lookbehind is denoted by (?<=...), where the ... represents the pattern you want to look for before the current position.
-
-#### Example:
-
-Suppose you want to match a monetary value without the currency symbol (e.g., "123.45" in "$123.45"). You can use lookbehind as follows:
-
-```shell
-(?<=\$)\d+(\.\d{2})?
-```
-
-The lookbehind (?<=\$) checks if the current position is preceded by a dollar sign $, but it doesn't include the dollar sign in the match.
-
-### Lookahead:
-
-Lookahead allows you to check if the text after the current position matches a certain pattern without including the matched text in the result. In regular expressions, lookahead is denoted by (?=...), where the ... represents the pattern you want to look for after the current position.
-
-#### Example:
-
-Suppose you want to match a number that is immediately followed by the string "px" (e.g., "16" in "16px"). You can use lookahead as follows:
-
-```shell
-\d+(?=px)
-```
-
-The lookahead (?=px) checks if the current position is followed by the string "px", but it doesn't include the "px" in the match.
-
-### Conclusion:
-
-Lookbehind and lookahead are powerful features in regular expressions that allow you to match patterns based on their surrounding context without including that context in the match itself. By understanding and utilizing these assertions, you can create more flexible and efficient regex patterns to match and manipulate text in your applications.
-
-
-# Deep Dive for lookbehind and lookahead
-
-## what is lookbehind
-Lookbehind is a feature in regular expressions that allows you to check if the text before the current position matches a certain pattern, without actually including the matched text in the result. It's a kind of assertion that doesn't consume any characters in the input string, but only checks if a subpattern matches at the current position.
-
-In regular expressions, lookbehind is denoted by (?<=...), where the ... represents the pattern you want to look for before the current position.
-
-For example, consider the following regular expression pattern:
-
-```python
-
-(?<=\$)\d+(\.\d{2})?
-```
-
-This pattern matches a monetary value without the currency symbol (e.g., "123.45" in "$123.45"). The lookbehind (?<=\$) checks if the current position is preceded by a dollar sign $, but it doesn't include the dollar sign in the match.
-
-Here's a Python example demonstrating the use of lookbehind:
-
-```python
-
-import re
-
-text = "The price is $123.45 for the product."
-pattern = r'(?<=\$)\d+(\.\d{2})?'
-
-match = re.search(pattern, text)
-
-if match:
-    print(match.group())
-else:
-    print("No match found")
-```
-
-This code snippet will output "123.45" as it matches the monetary value without the dollar sign, thanks to the lookbehind assertion.
-
-
-## what's is lookahead
-Lookahead is a feature in regular expressions that allows you to check if the text after the current position matches a certain pattern, without actually including the matched text in the result. It's a kind of assertion that doesn't consume any characters in the input string but only checks if a subpattern matches at the current position.
-
-In regular expressions, lookahead is denoted by (?=...), where the ... represents the pattern you want to look for after the current position.
-
-For example, consider the following regular expression pattern:
-
-```python
-\d+(?=px)
-```
-This pattern matches a number that is immediately followed by the string "px" (e.g., "16" in "16px"). The lookahead (?=px) checks if the current position is followed by the string "px", but it doesn't include the "px" in the match.
-
-Here's a Python example demonstrating the use of lookahead:
-
-```python
-import re
-
-text = "The font size is 16px."
-pattern = r'\d+(?=px)'
-
-match = re.search(pattern, text)
-
-if match:
-    print(match.group())
-else:
-    print("No match found")
-```
-
-This code snippet will output "16" as it matches the number immediately followed by the "px" string, thanks to the lookahead assertion.
-
---End--
