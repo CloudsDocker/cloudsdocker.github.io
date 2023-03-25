@@ -1,3 +1,120 @@
+# summary
+Feature flag library in spring boot
+
+In Spring Boot applications, you can use feature flags to enable or disable certain features of your application during runtime. This helps with testing, gradual rollouts, and quickly disabling problematic features without requiring a full deployment.
+
+There are several feature flag libraries available that can be integrated with Spring Boot applications. Some popular ones include:
+
+Unleash: Unleash is a widely-used feature toggle system that supports Spring Boot. It provides an Unleash server, an admin UI to manage feature flags, and a client SDK to integrate with your application. The official Java Unleash client can be found at https://github.com/Unleash/unleash-client-java.
+Togglz: Togglz is another feature toggle library for Java applications. It offers a flexible and extensible framework for managing feature flags, and it integrates well with Spring Boot. The official website with more information and documentation is https://www.togglz.org/.
+FF4J: FF4J, short for Feature Flipping for Java, is a powerful feature flag management library that provides a web console, REST API, and Spring Boot integration. It allows you to manage feature flags, properties, and even authorization rules. You can learn more about FF4J at https://ff4j.org/.
+LaunchDarkly: LaunchDarkly is a feature management platform that offers a feature flag service for various languages and frameworks, including Spring Boot. It provides a comprehensive dashboard for managing feature flags, real-time updates, and advanced targeting capabilities. The official Java SDK can be found at https://docs.launchdarkly.com/sdk/server-side/java.
+To integrate one of these libraries into your Spring Boot application, you will need to add the corresponding dependencies to your project, configure the library, and follow the specific library's documentation to set up and manage your feature flags. Each library has its own way of defining, managing, and evaluating feature flags, so it's essential to familiarize yourself with their respective documentation.
+
+
+
+todd zhang
+Which one is best for starters
+
+For beginners or those new to feature flag management, Unleash is a great choice to start with. It has a simple setup process and a clean, easy-to-use interface for managing feature flags. Unleash also provides good documentation and examples, which can be helpful for those who are just starting out.
+
+Here are the basic steps to integrate Unleash with a Spring Boot application:
+
+Add the Unleash dependency to your pom.xml (Maven) or build.gradle (Gradle) file.
+Maven:
+
+xml
+Copy code
+<dependency>
+    <groupId>com.github.unleash</groupId>
+    <artifactId>unleash-client-java</artifactId>
+    <version>4.2.0</version>
+</dependency>
+Gradle:
+
+groovy
+Copy code
+implementation 'com.github.unleash:unleash-client-java:4.2.0'
+Configure Unleash in your application.properties or application.yml file:
+properties
+Copy code
+unleash.api.url=http://localhost:4242/api
+unleash.app.name=my-spring-boot-app
+Create a bean for the Unleash instance in one of your configuration classes:
+java
+Copy code
+@Configuration
+public class UnleashConfig {
+
+    @Bean
+    public Unleash unleash() {
+        UnleashConfig config = UnleashConfig.builder()
+                .appName("my-spring-boot-app")
+                .instanceId(UUID.randomUUID().toString())
+                .unleashAPI("http://localhost:4242/api")
+                .build();
+
+        return new DefaultUnleash(config);
+    }
+}
+Use the Unleash instance in your application code to check if a feature flag is enabled:
+java
+Copy code
+@Autowired
+private Unleash unleash;
+
+public void someMethod() {
+    if (unleash.isEnabled("my-feature-flag")) {
+        // Feature flag is enabled, perform the new feature's behavior
+    } else {
+        // Feature flag is disabled, perform the old behavior
+    }
+}
+After setting up Unleash, you can start creating and managing your feature flags using the Unleash server and its user interface. For more information, refer to the Unleash documentation: https://docs.getunleash.io/.
+
+Keep in mind that the best choice ultimately depends on your specific requirements and preferences. It's worth exploring different libraries to find the one that best suits your needs.
+
+
+
+## How to add new unleash feature flag , sample me
+
+To add a new feature flag (called a "toggle") in Unleash, you'll first need to set up the Unleash server and UI if you haven't already. The server is responsible for managing feature flags and serving them to your client applications.
+
+To set up the Unleash server, you can use the official Docker image. Follow these steps:
+
+Install Docker if you don't have it installed already.
+Run the following command to start the Unleash server:
+bash
+Copy code
+docker run -p 4242:4242 unleashorg/unleash-server
+This will start the Unleash server on port 4242.
+
+Now that your Unleash server is up and running, you can access the Unleash UI by opening your web browser and navigating to http://localhost:4242.
+
+To create a new feature flag in the Unleash UI, follow these steps:
+
+Log in to the Unleash UI with the default credentials (username: admin, password: unleash4all).
+Once logged in, click on the "Create toggle" button in the top-right corner of the page.
+Fill in the required fields for your new feature flag:
+Name: The unique name of the feature flag (e.g., my-new-feature).
+Description: A brief description of the feature flag's purpose.
+Enabled: Whether the feature flag is enabled or disabled by default.
+Click the "Create" button to create your new feature flag.
+You can now use this feature flag in your Spring Boot application by checking its status with the Unleash instance, as shown in the previous example:
+
+java
+Copy code
+if (unleash.isEnabled("my-new-feature")) {
+    // Feature flag is enabled, perform the new feature's behavior
+} else {
+    // Feature flag is disabled, perform the old behavior
+}
+Remember to replace "my-new-feature" with the actual name of the feature flag you created in the Unleash UI. The Unleash client in your Spring Boot application will fetch the feature flags from the Unleash server and cache them for efficient access.
+
+
+
+
+
 ## Sample to use Togglz in spring
 
 To get started with Togglz in a Spring Boot application, follow these steps:
