@@ -1,5 +1,5 @@
 ---
-title: spring-hibernate-transaction-errors-deep-dive
+title: Spring Hibernate Transaction Errors Deep Dive
 header:
     image: /assets/images/spring-hibernate-transaction-errors-deep-dive.jpg
 date: 2023-03-26
