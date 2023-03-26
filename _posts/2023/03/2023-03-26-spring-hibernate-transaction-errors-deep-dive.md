@@ -32,4 +32,13 @@ org.springframework.transaction.UnexpectedRollbackException: Transaction silentl
 	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573) ~[quartz-2.3.2.jar:na]
 ```
 
+# Triggered by `SchedulerAccessor`
+Within org/springframework/spring-context-support/5.3.22/spring-context-support-5.3.22-sources.jar!/org/springframework/scheduling/quartz/SchedulerAccessor.java
+
+```java
+		if (transactionStatus != null) {
+			this.transactionManager.commit(transactionStatus);
+		}
+```
+
 --HTH--
