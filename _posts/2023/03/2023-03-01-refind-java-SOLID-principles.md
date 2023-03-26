@@ -2,7 +2,7 @@
 header:
     image: /assets/images/refind-java-SOLID-principles.jpg
 title:  refind-java-SOLID-principles
-date: 2023-02-23
+date: 2023-03-01
 tags:
  - DB
  - MySql

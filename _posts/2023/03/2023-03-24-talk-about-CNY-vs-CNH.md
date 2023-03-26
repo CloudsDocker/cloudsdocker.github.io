@@ -1,6 +1,18 @@
+---
+title: what's difference of CNY and CNH
+header:
+    image: /assets/images/talk-about-CNY-vs-CNH.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
 
-# talk-about-CNY-vs-CNH
-what's difference of CNY and CNH
+permalink: /blogs/tech/en/talk-about-CNY-vs-CNH
+layout: single
+category: tech
+---
+# what's difference of CNY and CNH
 CNY and CNH are both currencies used in China, but they are different in a few important ways:
 
 CNY stands for "Chinese Yuan Renminbi" and is the official currency of China, while CNH stands for "Chinese Yuan Offshore" and is a version of the Chinese Yuan that is traded outside of China.

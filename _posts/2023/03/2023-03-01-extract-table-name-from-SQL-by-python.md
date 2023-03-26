@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/yarn_npm_install.jpg
-title:  ow to extract table name from SQL by python
+title:  How to extract table name from SQL by python
 date: 2023-03-01
 tags:
  - Python

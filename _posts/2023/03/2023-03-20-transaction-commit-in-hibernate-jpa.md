@@ -1,3 +1,17 @@
+---
+title: transaction-commit-in-hibernate-jpa
+header:
+    image: /assets/images/transaction-commit-in-hibernate-jpa.jpg
+date: 2023-03-20
+tags:
+- Hibernate
+- Java
+- Transaction
+
+permalink: /blogs/tech/en/transaction-commit-in-hibernate-jpa
+layout: single
+category: tech
+---
 
 Give me sample to test concurrent JPA modifications 
 
