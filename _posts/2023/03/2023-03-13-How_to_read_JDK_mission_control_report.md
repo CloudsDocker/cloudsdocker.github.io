@@ -1,5 +1,5 @@
 ---
-title: How to read JDK mission control report
+title: How To Read Jdk Mission Control Report
 header:
     image: /assets/images/How_to_read_JDK_mission_control_report.jpg
 date: 2023-03-13

@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/how_to_save_expect_script_run_output_to_file_locally.jpg
-title:  Is Kerberos one SSL/TLS?
+title: Is Kerberos One Ssl/tls?
 date: 2023-03-07
 tags:
  - Encryption

@@ -1,5 +1,5 @@
 ---
-title: how-to-detach-in-JPA
+title: How To Detach In Jpa
 header:
     image: /assets/images/how-to-detach-in-JPA.jpg
 date: 2023-03-19

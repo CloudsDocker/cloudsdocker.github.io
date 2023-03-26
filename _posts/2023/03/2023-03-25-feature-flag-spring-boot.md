@@ -1,5 +1,5 @@
 ---
-title: feature-flag-spring-boot
+title: Feature Flag Spring Boot
 header:
     image: /assets/images/feature-flag-spring-boot.jpg
 date: 2023-03-19

@@ -1,5 +1,5 @@
 ---
-title: Master microfrontends
+title: Master Microfrontends
 header:
     image: /assets/images/master_microfrontends.jpg
 date: 2023-03-15

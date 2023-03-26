@@ -1,5 +1,5 @@
 ---
-title: How to convert one monolith java system to microservices
+title: How To Convert One Monolith Java System To Microservices
 header:
     image: /assets/images/how_to_transform_monolith_to_microservice.jpg
 date: 2023-03-14

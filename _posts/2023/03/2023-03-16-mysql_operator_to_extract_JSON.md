@@ -1,5 +1,5 @@
 ---
-title: Mysql operator to extract JSON
+title: Mysql Operator To Extract Json
 header:
     image: /assets/images/mysql_operator_to_extract_JSON.jpg
 date: 2023-03-16

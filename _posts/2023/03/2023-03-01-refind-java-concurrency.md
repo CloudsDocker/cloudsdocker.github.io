@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/refind-java-concurrency.jpg
-title:  refind-java-concurrency
+title: Refind Java Concurrency
 date: 2023-03-01
 tags:
  - DB

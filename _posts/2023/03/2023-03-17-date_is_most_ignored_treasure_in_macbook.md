@@ -1,5 +1,5 @@
 ---
-title: Date is the most ignored treasure in macbook
+title: Date Is The Most Ignored Treasure In Macbook
 header:
     image: /assets/images/date_is_most_ignored_treasure_in_macbook.jpg
 date: 2023-03-17

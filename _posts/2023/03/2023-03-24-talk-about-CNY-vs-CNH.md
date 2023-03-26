@@ -1,5 +1,5 @@
 ---
-title: what's difference of CNY and CNH
+title: What's Difference Of Cny And Cnh
 header:
     image: /assets/images/talk-about-CNY-vs-CNH.jpg
 date: 2023-03-19

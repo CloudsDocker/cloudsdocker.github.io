@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/refind-java-SOLID-principles.jpg
-title:  refind-java-SOLID-principles
+title: Refind Java Solid Principles
 date: 2023-03-01
 tags:
  - DB

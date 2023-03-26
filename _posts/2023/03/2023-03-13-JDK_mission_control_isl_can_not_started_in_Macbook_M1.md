@@ -1,5 +1,5 @@
 ---
-title: JDK mission control can not started in Macbook M1
+title: Jdk Mission Control Can Not Start In Macbook M1
 header:
     image: /assets/images/JDK_mission_control_isl_can_not_started_in_Macbook_M1.jpg
 date: 2023-03-13

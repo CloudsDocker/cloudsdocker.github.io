@@ -1,5 +1,5 @@
 ---
-title: spring_cloud_master_piece_2
+title: Spring Cloud Master Piece 2
 header:
   image: /assets/images/spring_cloud_master.jpg
 date: 2023-03-19

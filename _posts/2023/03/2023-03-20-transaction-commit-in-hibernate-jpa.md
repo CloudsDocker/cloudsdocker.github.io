@@ -1,5 +1,5 @@
 ---
-title: transaction-commit-in-hibernate-jpa
+title: Transaction Commit In Hibernate Jpa
 header:
     image: /assets/images/transaction-commit-in-hibernate-jpa.jpg
 date: 2023-03-20
