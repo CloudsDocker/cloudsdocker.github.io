@@ -1,5 +1,5 @@
 ---
-title: Difference between using Ribbon and a Load Balancer
+title: Difference Between Using Ribbon And A Load Balancer
 header:
 image: /assets/images/difference_between_using_ribbon_and_a_load_balancer.jpg
 date: 2023-03-19

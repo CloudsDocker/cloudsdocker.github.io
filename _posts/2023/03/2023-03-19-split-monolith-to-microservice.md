@@ -1,5 +1,5 @@
 ---
-title: Splitting a monolithic application into microservices
+title: Splitting A Monolithic Application Into Microservices
 header:
 image: /assets/images/splitting_a_monolithic_application_into_microservices.jpg
 date: 2023-03-19
