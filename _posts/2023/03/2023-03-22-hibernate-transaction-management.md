@@ -1,4 +1,19 @@
-To use optimistic locking with Spring and Hibernate, you can simply add the @Version annotation to your entity class, as described in my previous answer. Spring will automatically detect the @Version annotation and use optimistic locking for the corresponding entity.
+Automatic flush: Hibernate will automatically flush any pending changes to the database before executing a query that requires up-to-date data. This can result in entities being saved implicitly. For example:
+scss
+Copy code
+Order order = new Order();
+order.setItems(items);
+entityManager.persist(order);
+
+// the following query requires up-to-date data, so Hibernate will flush the pending changes
+List<Order> orders = entityManager.createQuery("SELECT o FROM Order o WHERE o.status = 'OPEN'", Order.class).getResultList();
+In this example, the Order entity is persisted implicitly when Hibernate flushes the pending changes before executing the query.
+
+Note that while implicit saving can be convenient in some cases, it can also lead to unexpected behavior and performance issues, especially when dealing with large object graphs. It's generally a good practice to be explicit about what you save and when, and to avoid relying on implicit behavior whenever possible.
+
+
+
+# To use optimistic locking with Spring and Hibernate, you can simply add the @Version annotation to your entity class, as described in my previous answer. Spring will automatically detect the @Version annotation and use optimistic locking for the corresponding entity.
 
 Here's an example of using optimistic locking with Spring and Hibernate:
 
