@@ -1,5 +1,5 @@
 ---
-title: how-to-run-testing-multiple-threading
+title: How To Run Testing Multiple Threading
 header:
     image: /assets/images/how-to-run-testing-multiple-threading.jpg
 date: 2023-03-26

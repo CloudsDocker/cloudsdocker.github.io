@@ -1,5 +1,5 @@
 ---
-title: hibernate-transaction-management
+title: Hibernate Transaction Management
 header:
     image: /assets/images/hibernate-transaction-management.jpg
 date: 2023-03-19

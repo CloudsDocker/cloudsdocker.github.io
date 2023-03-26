@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/how_to_save_expect_script_run_output_to_file_locally.jpg
-title:  How to save expect script run output to file locally
+title: How To Save Expect Script Run Output To File Locally
 date: 2023-03-02
 tags:
  - Expect

@@ -1,5 +1,5 @@
 ---
-title: How to config JFR Java Flight Control
+title: How To Config JFR Java Flight Control
 header:
     image: /assets/images/How_to_config_JFR.jpg
 date: 2023-03-14

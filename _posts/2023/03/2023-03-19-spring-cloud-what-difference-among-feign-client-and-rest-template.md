@@ -1,5 +1,5 @@
 ---
-title: spring_cloud_master_piece_10
+title: Spring Cloud Master Piece 10
 header:
 image: /assets/images/yarn_npm_install.jpg
 date: 2023-03-19

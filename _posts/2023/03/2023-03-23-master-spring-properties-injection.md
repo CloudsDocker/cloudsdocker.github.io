@@ -1,5 +1,5 @@
 ---
-title: A Brief Introduction to Lookbehind and Lookahead in Regular Expressions
+title: A Brief Introduction To Lookbehind And Lookahead In Regular Expressions
 header:
     image: /assets/images/why-regexp-look-ahead-look-behind.jpg
 date: 2023-03-20

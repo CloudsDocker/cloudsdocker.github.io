@@ -1,5 +1,5 @@
 ---
-title: stress-test-concurrency-JPA-entity-random-update
+title: Stress Test Concurrency Jpa Entity Random Update
 header:
     image: /assets/images/stress-test-concurrency-JPA-entity-random-update.jpg
 date: 2023-03-23

@@ -1,5 +1,5 @@
 ---
-title: spring-boot-test-in-a-nutshell
+title: Spring Boot Test In A Nutshell
 header:
     image: /assets/images/spring-boot-test-in-a-nutshell.jpg
 date: 2023-03-19

@@ -1,5 +1,5 @@
 ---
-title: How to keep multiple copy paste value in macbook
+title: How To Keep Multiple Copy Paste Value In Macbook
 header:
     image: /assets/images/how_to_keep_multiple_copy_paste_value_in_macbook.jpg
 date: 2023-03-12
