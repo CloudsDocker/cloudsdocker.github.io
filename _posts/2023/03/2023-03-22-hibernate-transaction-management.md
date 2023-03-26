@@ -1,9 +1,26 @@
+---
+title: hibernate-transaction-management
+header:
+    image: /assets/images/hibernate-transaction-management.jpg
+date: 2023-03-19
+tags:
+- JFR
+- Java
+- PerformanceTuning
+
+permalink: /blogs/tech/en/hibernate-transaction-management
+layout: single
+category: tech
+---
+# Details of how hibernate transaction management works
+
 Automatic flush: Hibernate will automatically flush any pending changes to the database before executing a query that requires up-to-date data. This can result in entities being saved implicitly. For example:
-scss
-Copy code
+
+```java 
 Order order = new Order();
 order.setItems(items);
 entityManager.persist(order);
+```
 
 // the following query requires up-to-date data, so Hibernate will flush the pending changes
 List<Order> orders = entityManager.createQuery("SELECT o FROM Order o WHERE o.status = 'OPEN'", Order.class).getResultList();
@@ -18,8 +35,8 @@ Note that while implicit saving can be convenient in some cases, it can also lea
 Here's an example of using optimistic locking with Spring and Hibernate:
 
 Add the @Version annotation to your entity class:
-kotlin
-Copy code
+
+```java
 @Entity
 public class MyEntity {
     @Id
@@ -29,16 +46,16 @@ public class MyEntity {
     private int version;
 
     // other fields and methods
-}
+}```
 Create a Spring repository interface for your entity, as you would normally do. For example:
-csharp
-Copy code
+
+```java
 public interface MyEntityRepository extends JpaRepository<MyEntity, Long> {
     // repository methods
-}
+}```
 In your service or controller class, use the repository to retrieve and update the entity, as you would normally do:
-typescript
-Copy code
+
+```java
 @Service
 public class MyService {
     @Autowired
@@ -50,10 +67,10 @@ public class MyService {
         entity.setSomeField(someValue);
         repository.save(entity);
     }
-}
+}```
 If another thread/process has updated the entity since it was last read, Hibernate will throw an OptimisticLockException when you try to save the entity. You can catch this exception and handle it appropriately. For example:
-typescript
-Copy code
+
+```java
 @Service
 public class MyService {
     @Autowired
@@ -69,5 +86,5 @@ public class MyService {
             // handle the exception, e.g. by retrying the operation
         }
     }
-}
+}```
 That's it! Spring and Hibernate will take care of the rest, ensuring that your updates are properly versioned and protected against concurrent modifications.
