@@ -1,7 +1,7 @@
 ---
 title: Hibernate Transaction Management
 header:
-    image: /assets/images/hibernate-transaction-management.jpg
+    image: /assets/images/GoogleMap_missing_JPN.jpg
 date: 2023-03-19
 tags:
 - JFR

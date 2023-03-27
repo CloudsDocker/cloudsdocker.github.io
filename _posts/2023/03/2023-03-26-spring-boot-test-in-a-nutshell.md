@@ -1,7 +1,7 @@
 ---
 title: Spring Boot Test In A Nutshell
 header:
-    image: /assets/images/spring-boot-test-in-a-nutshell.jpg
+    image: /assets/images/GoogleMap_missing_JPN.jpg
 date: 2023-03-19
 tags:
 - JFR

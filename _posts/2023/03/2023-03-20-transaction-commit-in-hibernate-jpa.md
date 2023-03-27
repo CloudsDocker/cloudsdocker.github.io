@@ -1,7 +1,7 @@
 ---
 title: Transaction Commit In Hibernate Jpa
 header:
-    image: /assets/images/transaction-commit-in-hibernate-jpa.jpg
+    image: /assets/images/GoogleMap_missing_JPN.jpg
 date: 2023-03-20
 tags:
 - Hibernate
