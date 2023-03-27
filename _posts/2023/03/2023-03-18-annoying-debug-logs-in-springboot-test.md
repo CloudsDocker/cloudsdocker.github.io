@@ -42,7 +42,34 @@ Adn add below in your test class
 @ActiveProfiles("integration")
 class MyClassTest {
 ```
- 
+
+## ConcurrentModificationException in threas join
+
+```kotlin
+   // wait for all threads to finish
+        threads.forEach { it.join() }
+```
+
+Error message
+
+```shell
+Exception in thread "Thread-8" javax.persistence.RollbackException: Error while committing the transaction
+	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:81)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:104)
+	at com.thinkchina.unifyxp2.controller.ShopperOrderCheckControllerConcurrentTest$testConcurrentLoadWithRandomUpdates$1.invoke(ShopperOrderCheckControllerConcurrentTest.kt:80)
+	at com.thinkchina.unifyxp2.controller.ShopperOrderCheckControllerConcurrentTest$testConcurrentLoadWithRandomUpdates$1.invoke(ShopperOrderCheckControllerConcurrentTest.kt:75)
+	at kotlin.concurrent.ThreadsKt$thread$thread$1.run(Thread.kt:30)
+Caused by: java.util.ConcurrentModificationException
+	at java.base/java.util.HashMap.forEach(HashMap.java:1340)
+	at org.hibernate.resource.jdbc.internal.ResourceRegistryStandardImpl.releaseResources(ResourceRegistryStandardImpl.java:323)
+	at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.afterTransaction(AbstractLogicalConnectionImplementor.java:60)
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.afterTransaction(LogicalConnectionManagedImpl.java:167)
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.afterCompletion(LogicalConnectionManagedImpl.java:290)
+	at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.commit(AbstractLogicalConnectionImplementor.java:95)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:282)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:101)
+	... 3 more
+```
     
 
 --HTH--
