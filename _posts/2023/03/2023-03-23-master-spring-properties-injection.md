@@ -1,14 +1,14 @@
 ---
-title: A Brief Introduction To Lookbehind And Lookahead In Regular Expressions
+title: master-spring-properties-injection
 header:
-    image: /assets/images/why-regexp-look-ahead-look-behind.jpg
+    image: /assets/images/GoogleMap_missing_JPN.jpg
 date: 2023-03-20
 tags:
  - RegularExpression
  - Regexp
  - Python
 
-permalink: /blogs/tech/en/why-regexp-look-ahead-look-behind
+permalink: /blogs/tech/en/master-spring-properties-injection
 layout: single
 category: tech
 ---

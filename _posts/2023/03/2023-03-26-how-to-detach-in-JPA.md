@@ -1,7 +1,7 @@
 ---
 title: How To Detach In Jpa
 header:
-    image: /assets/images/how-to-detach-in-JPA.jpg
+    image: /assets/images/GoogleMap_missing_JPN.jpg
 date: 2023-03-19
 tags:
 - JFR

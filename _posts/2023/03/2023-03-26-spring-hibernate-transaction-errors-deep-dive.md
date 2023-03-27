@@ -1,7 +1,7 @@
 ---
 title: Spring Hibernate Transaction Errors Deep Dive
 header:
-    image: /assets/images/spring-hibernate-transaction-errors-deep-dive.jpg
+    image: /assets/images/GoogleMap_missing_JPN.jpg
 date: 2023-03-26
 tags:
 - JFR

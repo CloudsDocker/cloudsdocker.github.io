@@ -1,7 +1,7 @@
 ---
 title: How To Run Testing Multiple Threading
 header:
-    image: /assets/images/how-to-run-testing-multiple-threading.jpg
+    image: /assets/images/GoogleMap_missing_JPN.jpg
 date: 2023-03-26
 tags:
 - testing multiple threading

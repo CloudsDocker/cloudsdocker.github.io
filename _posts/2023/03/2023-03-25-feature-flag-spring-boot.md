@@ -1,7 +1,7 @@
 ---
 title: Feature Flag Spring Boot
 header:
-    image: /assets/images/feature-flag-spring-boot.jpg
+    image: /assets/images/GoogleMap_missing_JPN.jpg
 date: 2023-03-19
 tags:
 - JFR
