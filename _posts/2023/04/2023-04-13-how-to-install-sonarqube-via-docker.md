@@ -1,119 +1,68 @@
 ---
-title: How To Install Sonarqube Via Docker
+title: how-to-auto-login-for-citrix-receiver-vpn-client
 header:
     image: /assets/images/how-to-install-sonarqube-via-docker.jpg
-date: 2023-04-06
+date: 2023-04-14
 tags:
-- ssh
-- devops
-- automation
+- vpn
+- citrix
+- AI automation
 
-permalink: /blogs/tech/en/how-to-install-sonarqube-via-docker
+permalink: /blogs/tech/en/how-to-auto-login-for-citrix-receiver-vpn-client
 layout: single
 category: tech
 ---
 
 > "Hang Out with People Who are Better than You." — Warren Buffett
 
-# SonarQube Community Edition in Docker guidance
-SonarQube is an open-source tool for continuous code quality inspection. It provides a comprehensive platform for static code analysis, code coverage, and other quality metrics. In this guide, we will walk you through the process of installing SonarQube Community Version.
+# Automate Citrix Secure Access Login with PowerShell
 
-## Prerequisites:
+Open Notepad or any other text editor.
 
-A machine running Windows, Linux or MacOS
-Java JDK 11 or above installed on the machine
-Sufficient privileges to install software on the machine
-
-here's a step-by-step guide to installing and setting up SonarQube Community Version in Docker on MacOS:
-
-Install Docker Desktop for Mac: You can download the Docker Desktop installer from the Docker website and follow the installation instructions.
-
-Pull the SonarQube Community Edition image: Open a terminal window and enter the following command to download the SonarQube image from the Docker Hub:
+Type the following command:
 
 ```shell
-docker pull sonarqube:community
+$wshell = New-Object -ComObject wscript.shell
+$wshell.AppActivate('Citrix Secure Access Login')
+Sleep 1
+$wshell.SendKeys('username')
+Sleep 1
+$wshell.SendKeys('{TAB}')
+Sleep 1
+$wshell.SendKeys('password')
+Sleep 1
+$wshell.SendKeys('{TAB}')
+Sleep 1
+$wshell.SendKeys('{ENTER}')
 ```
 
-Create a Docker network: Run the following command to create a network for the SonarQube container to communicate with other Docker containers:
+Replace 'username' and 'password' with your actual Citrix Secure Access login credentials.
 
+Save the file with a .ps1 extension. For example, CitrixLogin.ps1.
 
-```shell
-docker network create sonarnet
-```
-Start the SonarQube container: Run the following command to start the SonarQube container with the required environment variables:
+Open Task Scheduler by typing "Task Scheduler" in the Windows search bar and selecting the app.
 
+Click on "Create Task" in the "Actions" menu on the right-hand side.
 
-```shell
-docker run -d --name sonarqube \
--p 9000:9000 \
---network sonarnet \
--e sonar.jdbc.url=jdbc:postgresql://db:5432/sonar \
--e sonar.jdbc.username=sonar \
--e sonar.jdbc.password=sonar \
-sonarqube:community
-```
-This command starts the SonarQube container in detached mode, binds the container port 9000 to the host port 9000, and sets the database configuration parameters.
+Name your task and select the appropriate user account.
 
-Start a PostgreSQL container: SonarQube requires a PostgreSQL database to store its data. Run the following command to start a PostgreSQL container:
-here's a step-by-step guide to installing and setting up SonarQube Community Version in Docker on MacOS:
+Under the "Triggers" tab, click on "New" to create a new trigger.
 
-Install Docker Desktop for Mac: You can download the Docker Desktop installer from the Docker website and follow the installation instructions.
+Select the appropriate trigger option for your needs. For example, you may want the task to run each time you log in.
 
-Pull the SonarQube Community Edition image: Open a terminal window and enter the following command to download the SonarQube image from the Docker Hub:
+Under the "Actions" tab, click on "New" to create a new action.
 
-```shell
-docker pull sonarqube:community
-```
-Create a Docker network: Run the following command to create a network for the SonarQube container to communicate with other Docker containers:
+Select "Start a program" as the action type.
 
+In the "Program/script" field, enter "powershell.exe".
 
-```shell
-docker network create sonarnet
-```
-Start the SonarQube container: Run the following command to start the SonarQube container with the required environment variables:
+In the "Add arguments" field, enter the location of your script file. For example, "C:\Users\YourUsername\Desktop\CitrixLogin.ps1".
 
+Click on "OK" to save your action and then "OK" again to save your task.
 
-```shell
-docker run -d --name sonarqube \
--p 9000:9000 \
---network sonarnet \
--e sonar.jdbc.url=jdbc:postgresql://db:5432/sonar \
--e sonar.jdbc.username=sonar \
--e sonar.jdbc.password=sonar \
-sonarqube:community
-```
-This command starts the SonarQube container in detached mode, binds the container port 9000 to the host port 9000, and sets the database configuration parameters.
+Test your task by logging out and then logging back in to Windows 10. The task should automatically enter your Citrix Secure Access login credentials.
 
-Start a PostgreSQL container: SonarQube requires a PostgreSQL database to store its data. Run the following command to start a PostgreSQL container:
-
-```shell
-docker run -d --name db \
---network sonarnet \
--e POSTGRES_USER=sonar \
--e POSTGRES_PASSWORD=sonar \
--e POSTGRES_DB=sonar \
-postgres:13
-```
-This command starts a PostgreSQL container with the required environment variables and adds it to the sonarnet network.
-
-Verify the installation: Wait a few minutes for the containers to start up, and then open a web browser and navigate to http://localhost:9000. You should see the SonarQube login page.
-That's it! You have now installed and set up SonarQube Community Version in Docker on MacOS. You can use the SonarQube web interface to analyze your code and detect issues.
-
-```shell
-docker run -d --name db \
---network sonarnet \
--e POSTGRES_USER=sonar \
--e POSTGRES_PASSWORD=sonar \
--e POSTGRES_DB=sonar \
-postgres:13
-```
-This command starts a PostgreSQL container with the required environment variables and adds it to the sonarnet network.
-
-Verify the installation: Wait a few minutes for the containers to start up, and then open a web browser and navigate to http://localhost:9000. You should see the SonarQube login page.
-That's it! You have now installed and set up SonarQube Community Version in Docker on MacOS. You can use the SonarQube web interface to analyze your code and detect issues.
-
-
-
+Please note that automating the entry of your Citrix Secure Access login credentials can pose a security risk, so use this method with caution and only if necessary.
 
 
 --HTH--
