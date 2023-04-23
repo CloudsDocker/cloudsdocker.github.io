@@ -1,6 +1,18 @@
 ---
-title: 2023-04-21-which-port-my-service-is-running.md
+title: which-port-my-service-is-running
+header:
+image: /assets/images/which-port-my-service-is-running.jpg
+date: 2023-04-06
+tags:
+- ssh
+- devops
+- automation
+
+permalink: /blogs/tech/en/how-to-install-sonarqube-via-docker
+layout: single
+category: tech
 ---
+
 # Summary
 As a Java developer, it's important to know how to find out which port number your Spring service is running on. This information is useful when you need to connect to the service from another application or when troubleshooting connection issues. In this blog, we'll discuss different ways to determine the port number of your Java Spring service.
 
