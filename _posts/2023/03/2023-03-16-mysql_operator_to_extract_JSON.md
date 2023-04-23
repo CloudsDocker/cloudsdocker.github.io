@@ -13,6 +13,12 @@ category: tech
 ---
 > "Believe you can and you're halfway there." - Theodore Roosevelt
 
+# How to search mysql for last month's data
+
+```sql
+select * from test where createdDate>=NOW()- INTERVAL 1 MONTH
+```
+
 # Mysql operator to extract JSON
 
 In MySQL, the "->>" operator is used to extract a specific value from a JSON object. It is also known as the JSON extract operator.
