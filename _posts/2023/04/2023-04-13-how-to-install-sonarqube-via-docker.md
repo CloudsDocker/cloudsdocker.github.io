@@ -2,7 +2,7 @@
 title: how-to-auto-login-for-citrix-receiver-vpn-client
 header:
     image: /assets/images/how-to-install-sonarqube-via-docker.jpg
-date: 2023-04-14
+date: 2023-04-13
 tags:
 - vpn
 - citrix

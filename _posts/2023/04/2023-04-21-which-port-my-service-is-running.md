@@ -2,7 +2,7 @@
 title: which-port-my-service-is-running
 header:
 image: /assets/images/which-port-my-service-is-running.jpg
-date: 2023-04-06
+date: 2023-04-21
 tags:
 - ssh
 - devops
