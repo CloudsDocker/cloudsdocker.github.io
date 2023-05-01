@@ -10,6 +10,8 @@ tags:
 ---
 
 # Summary 
+
+> If you'd like to view solution in YouTube, check out at https://youtu.be/ICiwuqJ-yU8
 I found a weird problem of the app `Google Maps` of my Oppo Android phone. That's when you search a place in Google map, say "Central Park", ideally this app should show you list of photos and reviews for this park. For example, someone may post photo of the lawn or rivers of this park, and add some reviews such as good location and easy to park etc. However, there is nothing in my Google Apps. 
 
 # Troubleshooting & Solutions
