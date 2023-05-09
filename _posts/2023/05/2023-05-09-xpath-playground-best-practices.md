@@ -41,6 +41,10 @@ If the XPath is correct, the console should return an array containing the eleme
 
 To test the XPath further, you can use it in a script or program that interacts with the webpage. For example, if you are using Selenium to automate browser actions, you can use the XPath to locate the element and interact with it.
 
+The code as 
+```shell
+$x("//input[@value = 'ClickCollect']")[0].click()
+```
 ![img.png](/assets/images/xpath-chrome.png)
 
 
