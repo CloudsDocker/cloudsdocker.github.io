@@ -1,14 +1,14 @@
 ---
-title: UUID deep dive
+title: xpath-playground-best-practices
 header:
-    image: /assets/images/let-AI-to-manage-stripe-payment.jpg
+    image: /assets/images/xpath-playground-best-practices.jpg
 date: 2023-05-08
 tags:
 - AI
 - stripe
 - automation
 
-permalink: /blogs/tech/en/uuid-deep-div
+permalink: /blogs/tech/en/xpath-playground-best-practices
 layout: single
 category: tech
 ---
