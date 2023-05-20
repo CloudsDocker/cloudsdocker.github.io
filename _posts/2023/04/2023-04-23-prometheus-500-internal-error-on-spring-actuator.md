@@ -2,7 +2,7 @@
 title: Compile Error Java Kotlin Coexist Project In Intellij
 header:
 image: /assets/images/compile-error-java-kotlin-coexist-project-in-intellij.jpg
-date: 2023-05-07
+date: 2023-04-23
 tags:
 - Java
 - Intellij
