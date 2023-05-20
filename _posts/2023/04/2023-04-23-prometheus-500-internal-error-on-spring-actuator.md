@@ -1,3 +1,18 @@
+---
+title: Compile Error Java Kotlin Coexist Project In Intellij
+header:
+image: /assets/images/compile-error-java-kotlin-coexist-project-in-intellij.jpg
+date: 2023-05-07
+tags:
+- Java
+- Intellij
+- Coding
+
+permalink: /blogs/tech/en/compile-error-java-kotlin-coexist-project-in-intellij
+layout: single
+category: tech
+---
+
 The root cause is your customized HttpMessageConverter stopped processing of WebSecurity
 
 ```java

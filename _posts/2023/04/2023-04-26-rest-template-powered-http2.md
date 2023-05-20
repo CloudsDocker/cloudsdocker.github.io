@@ -1,3 +1,18 @@
+---
+title: RestTemplate Powered Http2
+header:
+image: /assets/images/rest-template-powered-http2.jpg
+date: 2023-04-26
+tags:
+- Java
+- Intellij
+- Coding
+
+permalink: /blogs/tech/en/rest-template-powered-http2
+layout: single
+category: tech
+---
+
 # Why HTTP/2 is Better
 
 HTTP/2 is a newer version of the HTTP protocol that offers several improvements over its predecessor, HTTP/1.1. Here are some reasons why HTTP/2 is generally considered to be better than HTTP/1.1:
