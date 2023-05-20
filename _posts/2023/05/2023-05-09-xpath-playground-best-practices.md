@@ -2,7 +2,7 @@
 title: Xpath Playground Best Practices
 header:
     image: /assets/images/xpath-playground-best-practices.jpg
-date: 2023-05-08
+date: 2023-05-09
 tags:
 - AI
 - stripe

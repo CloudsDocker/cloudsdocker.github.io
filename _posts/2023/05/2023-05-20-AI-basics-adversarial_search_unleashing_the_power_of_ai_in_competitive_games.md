@@ -14,7 +14,6 @@ category: tech
 > "What you seek is seeking you." — Rumi
 
 
-
 # Adversarial Search: Unleashing the Power of AI in Competitive Games
 
 Have you ever wondered how artificial intelligence (AI) agents excel in competitive games like chess, Go, or poker? The secret lies in the sophisticated problem-solving technique called **adversarial search**. In this article, we'll explore the concept of adversarial search, its significance in AI, and how it enables AI agents to strategize and compete effectively against human players or other AI opponents.
