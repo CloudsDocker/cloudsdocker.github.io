@@ -2,7 +2,7 @@
 title: io_mockk_MockKException__no_answer_found_for
 header:
     image: /assets/images/io-mockk-MockKException--no-answer-found-for.jpg
-date: 2023-04-06
+date: 2023-04-22
 tags:
 - ssh
 - devops
