@@ -1,7 +1,7 @@
 ---
 title: Compile Error Java Kotlin Coexist Project In Intellij
 header:
-    image: /assets/images/let-AI-to-manage-stripe-payment.jpg
+    image: /assets/images/compile-error-java-kotlin-coexist-project-in-intellij.jpg
 date: 2023-05-07
 tags:
 - Java

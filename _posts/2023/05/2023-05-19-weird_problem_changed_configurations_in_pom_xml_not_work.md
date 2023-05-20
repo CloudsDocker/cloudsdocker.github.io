@@ -1,5 +1,5 @@
 ---
-title: weird_problem_changed_configurations_in_pom_xml_not_work
+title: Weird Problem Changed Configurations In Pom Xml Not Work
 header:
     image: /assets/images/weird_problem_changed_configurations_in_pom_xml_not_work.jpg
 date: 2023-05-19

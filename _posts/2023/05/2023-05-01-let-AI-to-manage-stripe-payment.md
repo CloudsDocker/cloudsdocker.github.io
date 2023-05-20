@@ -1,5 +1,5 @@
 ---
-title: let-AI-to-manage-stripe-payment
+title: Let AI To Manage Stripe Payment
 header:
     image: /assets/images/let-AI-to-manage-stripe-payment.jpg
 date: 2023-05-01
