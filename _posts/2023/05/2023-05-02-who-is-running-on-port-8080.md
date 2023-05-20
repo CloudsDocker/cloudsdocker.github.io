@@ -1,14 +1,13 @@
 ---
-title: who-is-running-on-port-8080
+title: Who Is Running On Port 8080
 header:
-    image: /assets/images/let-AI-to-manage-stripe-payment.jpg
+    image: /assets/images/who_is_running_on_port_8080 .jpg
 date: 2023-05-02
 tags:
 - AI
-- stripe
-- automation
+- Productivity
 
-permalink: /blogs/tech/en/let-AI-to-manage-stripe-payment
+permalink: /blogs/tech/en/who_is_running_on_port_8080
 layout: single
 category: tech
 ---

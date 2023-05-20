@@ -1,7 +1,7 @@
 ---
 title: UUID deep dive
 header:
-    image: /assets/images/let-AI-to-manage-stripe-payment.jpg
+    image: /assets/images/uuid-deep-div.jpg
 date: 2023-05-08
 tags:
 - AI

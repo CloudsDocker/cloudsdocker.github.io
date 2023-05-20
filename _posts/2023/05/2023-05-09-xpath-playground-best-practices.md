@@ -1,5 +1,5 @@
 ---
-title: xpath-playground-best-practices
+title: Xpath Playground Best Practices
 header:
     image: /assets/images/xpath-playground-best-practices.jpg
 date: 2023-05-08
