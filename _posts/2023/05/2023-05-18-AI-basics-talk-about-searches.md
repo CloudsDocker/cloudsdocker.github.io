@@ -1,5 +1,5 @@
 ---
-title: AI Basics: Talk About Searches
+title: AI Basics, Talk About Searches
 header:
     image: /assets/images/AI-basics-talk-about-searches.jpg
 date: 2023-05-18
