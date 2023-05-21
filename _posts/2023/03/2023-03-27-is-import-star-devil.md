@@ -1,8 +1,8 @@
 ---
-title: Is-import-star-devil.md
+title: Is Import Star Devil
 header:
     image: /assets/images/GoogleMap_missing_JPN.jpg
-date: 2023-03-26
+date: 2023-03-27
 tags:
 - JFR
 - Java
