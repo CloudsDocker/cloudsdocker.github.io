@@ -39,4 +39,25 @@ By understanding d-separation, we get to the core of how graphical models, espec
 
 
 
+# Examples of d-Separation
+
+Let's delve into some practical examples to understand d-separation better.
+
+## Example 1: Chain Structure
+
+Consider three random variables A, B, and C that form a chain (A -> B -> C). Here, B is a mediator between A and C.
+
+1. **Without observing B:** A and C are dependent. The reason is, the only path between them is not blocked, implying that knowledge of A can influence C through B.
+2. **Observing B:** A and C become conditionally independent (i.e., they are d-separated). This is because we are given the status of their only connection, B. Therefore, knowing A doesn't add any new information about C.
+
+## Example 2: V-Structure
+
+In another scenario, consider A, B, and C forming a v-structure (A -> B <- C).
+
+1. **Without observing B:** A and C are conditionally independent (d-separated) because there is no active trail from A to C. Thus, the knowledge of A doesn't provide any information about C and vice versa.
+2. **Observing B or any of B's descendants:** A and C are dependent. The information can flow from A to C or vice versa through B. In this case, A and C are not d-separated.
+
+By analyzing these examples, we gain an intuitive understanding of d-separation and how it helps determine dependencies in graphical models.
+
+
 --HTH--
