@@ -9,6 +9,8 @@ tags:
 layout: posts
 ---
 
+> If you'd like to view solution in YouTube, check out at https://youtu.be/ICiwuqJ-yU8
+
 # 简介
 
 我发现我的Oppo 安卓手机的应用“ Google Maps”出现了一个奇怪的问题。那就是当您在Google地图中搜索某个地点（例如“中央公园”）时，理想情况下，此应用应该向您显示该公园的照片和评论列表。例如，某人可能发布了该公园的草坪或河流的照片，并添加了一些评论，例如位置便利，易于停车等。但是，我的Google Apps中没有任何内容。

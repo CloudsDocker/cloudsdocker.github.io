@@ -14,7 +14,7 @@ category: tech
 
 # Summary
 You should always bear in mind keyboard shortcut will make your daily coding job a little faster, 
-while such tiny productivity increase could accumulated to a huge output increase for days, months or years.
+while such tiny productivity increase could accumulate to a huge output increase for days, months or years.
 
 *Never underestimate few seconds time saving by using keyboard shortcut*
 
@@ -38,7 +38,10 @@ while such tiny productivity increase could accumulated to a huge output increas
 - Shift + Escape: close bottom source panel or left side barGo to settings, Editor->General->Mouse-> change font size (Zoom)
 - Alt + F: Git refresh : Assign it in Intellij key map
 - Ctrl + T: switch different editorsAlt + F1: Show in , then preses '1' to show file in project viewer, like "scroll from source"use Ctrl+Q to show quick documentation for the element at caret. to show javadocAlt + F12: to open terminal window, then 'mvn package'
-- maximize edit pane: Ctrl + Shift + F12 (Default keymap).
+- `Cmd+.` : to collapse indent, e.g. to hide all children elements
+- maximize edit pane: 
+  - `Cmd+Shift+F12`: For `MacOs` keymap
+  - Ctrl + Shift + F12 (Default keymap).
 - Ctrl+R: replace- F6: move file, Shift+F6: rename file- Ctrl+Alt+ <-: go back to previous position
 - F11 toggle for anonymous bookmark
 - Shift+F11: show all bookmarks. 
