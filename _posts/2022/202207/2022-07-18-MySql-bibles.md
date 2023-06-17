@@ -23,7 +23,7 @@ category: tech
 show create table table_name;
 ```
 
-## To show all records vertically (and more human readable)
+## To show all records vertically (and more human-readable)
 To add a postfix `\G` in each query, e.g. 
 
 ``` 
