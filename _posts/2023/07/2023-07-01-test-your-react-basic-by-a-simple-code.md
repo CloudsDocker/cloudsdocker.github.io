@@ -1,4 +1,20 @@
-# Understanding the RepoUrlPickerHost Component
+---
+title: Understanding React export a Component
+header:
+    image: /assets/images/understanding_d-separation_in_graphical_models.jpg
+date: 2023-07-06
+tags:
+- JavaScript
+- React
+- Coding
+
+permalink: /blogs/tech/en/understanding_d-separation_in_graphical_models
+layout: single
+category: tech
+---
+> A young idler, an old beggar. - William Shakespeare
+> 
+# Understanding React export a Component
 In this blog post, we will dive into the code of the RepoUrlPickerHost component and explore its different parts. The RepoUrlPickerHost component is a functional component written in React. Let's break down the code and understand its implementation.
 
 ```
