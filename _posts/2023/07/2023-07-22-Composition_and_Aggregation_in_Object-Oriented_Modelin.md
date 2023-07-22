@@ -12,7 +12,7 @@ permalink: /blogs/tech/en/Composition_and_aggregation_In_object-oriented_modelin
 layout: single
 category: tech
 ---
-> "The best way to predict the future is to invent it." - Alan Kay
+> "The pas does not equal the future unless you live there." - Tony Robbins
 
 
 # Understanding Composition and Aggregation in Object-Oriented Modeling
