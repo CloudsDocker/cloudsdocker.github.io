@@ -49,7 +49,7 @@ If the "whole" class is destroyed, the "part" class may continue to exist.
 
 #### Aggregation UML Diagram
 Let's see below image
-![Aggregation UML Diagram](/assets/images/uMLAggregation.png)
+![Aggregation UML Diagram](/assets/images/umlAggregation.png)
 
 To better understand Aggregation, let's consider another real-world scenario. 
 Imagine we have a class called Department, and this class has an Aggregation relationship with the class Employee. 
