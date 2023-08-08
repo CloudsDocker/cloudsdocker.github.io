@@ -13,7 +13,7 @@ permalink: /blogs/tech/en/Cheap_and_flexible_computing
 layout: single
 category: tech
 ---
-> A younger 
+> whether it seems possible or not - go for it
 > 
 # Cheaper X 2 to EC2, to use Fargate Spot
 With Fargate Spot you can run interruption tolerant Amazon ECS tasks at a discounted rate compared to
