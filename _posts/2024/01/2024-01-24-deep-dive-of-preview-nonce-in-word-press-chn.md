@@ -1,5 +1,5 @@
 ---
-title: Deep dive for word press preview nonce
+title: 你不了解的word press 的 preview nonce
 header:
     image: /assets/images/Deep_dive_for_word_press_preview_nonce.jpg
 date: 2024-01-24
