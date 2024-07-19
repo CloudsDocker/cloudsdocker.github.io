@@ -3,12 +3,32 @@ header:
     image: /assets/images/hd_shortcuts.png
 date: 2022-04-16
 title: Awesome Shortcuts to boost productivity
-permalink: /blogs/tech/en/core_java_for_interview
+permalink: /blogs/tech/en/awesome_shortcuts_to_boost_productivity
 layout: single
 category: tech
 ---
 
+> One must learn by doing the thing; for though you think you know it, you have no certainty, until you try.  —Sophocles
+
 # Shortcuts & tips
+## Postman
+### Json nodes expand/collapse
+To collapse all nodes:
+
+Windows: Alt + 0
+macOS: Command + Option + 0
+
+To expand all nodes:
+
+Windows: Alt + Shift + 0
+macOS: Command + Option + Shift + 0
+
+Use the keyboard shortcut: Press the following shortcut keys:
+
+Windows: Alt + . (Alt key + period key)
+macOS: Command + Option + . (Command key + Option key + period key)
+
+
 ## zoom
  - Cmd+Shift+A: mute
  - CMd+W: leave meeting.
@@ -22,20 +42,20 @@ category: tech
 
 ### MacBook
 > Replace `Cmd` with `Ctrl` for **Windows** platform
-Cmd +Shift+M: mute
-Cmd +Shift+H: leave meeting
-Cmd + . : to show list of all shortcuts
-Cmd + / : to focus in search bar
-Cmd + G: go to find a person to start talk 
-Cmd + F: Open filter
-Cmd + +: to zoom in to show bigger font
-Cmd + -: to zoom out to show smaller font
-Cmd + 0: to zoom in to show original font
-
-Cmd + 2: Go to Chat
-Cmd + 3: Go to Teams group
-
-Options + Up/Down: move to previous/next item in left pane, e.g. Cmd+2, then Alt+Down to move to next conversation in left conversation pane.
+ - Cmd +Shift+M: mute
+ - Cmd +Shift+H: leave meeting
+ - Cmd + . : to show list of all shortcuts
+ - Cmd + / : to focus in search bar
+ - Cmd + G: go to find a person to start talk 
+ - Cmd + F: Open filter
+ - Cmd + +: to zoom in to show bigger font
+ - Cmd + -: to zoom out to show smaller font
+ - Cmd + 0: to zoom in to show original font
+ - Cmd + Up : go to top of page
+ - Cmd + 2: Go to Chat
+ - Cmd + 3: Go to Teams group
+ - 
+ - Options + Up/Down: move to previous/next item in left pane, e.g. Cmd+2,  - then Alt+Down to move to next conversation in left conversation pane.
 
 
 ## Microsoft VS Code:
