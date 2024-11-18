@@ -1,15 +1,14 @@
 ---
+title: "Could not write JSON: Value out of range. Value: \"xxxxx\" Radix:10"
 header:
-    image: /assets/images/hd_json_mapping_error.png
-title:  Could not write JSON: Value out of range. Value: "xxxxx" Radix:10
+  image: /assets/images/hd_json_mapping_error.png
 date: 2022-05-08
 tags:
- - Jackson
- - Json
- - Gson
- - SpringBoot
- - SpringMVN
- 
+  - Jackson
+  - Json
+  - Gson
+  - SpringBoot
+  - SpringMVN
 permalink: /blogs/tech/en/could_not_write_json_radix_10_error_in_spring_mvc
 layout: single
 category: tech

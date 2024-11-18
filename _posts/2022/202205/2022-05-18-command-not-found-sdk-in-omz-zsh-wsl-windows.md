@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_sdkman_omz.png
-title:  Error in WSL in windows, command not found: sdk 
+title:  "Error in WSL in windows, command not found: sdk "
 date: 2022-05-18
 tags:
  - wsl
