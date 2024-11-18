@@ -1,5 +1,5 @@
 ---
-title: Unlocking SQL Superpowers-> How CTEs Will Transform Your Database Queries
+title: "Unlocking SQL Superpowers-> How CTEs Will Transform Your Database Queries"
 header:
     image: /assets/images/2024/04/04/header.jpg
 date: 2024-05-01
@@ -7,7 +7,7 @@ tags:
 - SQL
 - Programming
 
-permalink: /blogs/tech/en/unlocking_sql_superpowers:_how_ctes_will_transform_your_database_queries
+permalink: /blogs/tech/en/unlocking_sql_superpowers_how_ctes_will_transform_your_database_queries
 layout: single
 category: tech
 ---
