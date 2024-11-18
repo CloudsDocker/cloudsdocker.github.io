@@ -1,5 +1,5 @@
 ---
-title: Mastering Date Formatting in Bash: A Developer's Guide
+title: "Mastering Date Formatting in Bash: A Developer's Guide"
 header:
     image: /assets/images/refind-java-SOLID-principles.jpg
 date: 2024-09-28

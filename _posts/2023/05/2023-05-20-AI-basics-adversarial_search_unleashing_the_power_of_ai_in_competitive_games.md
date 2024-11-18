@@ -1,5 +1,5 @@
 ---
-title: Adversarial Search: Unleashing The Power Of AI In Competitive Games
+title: "Adversarial Search: Unleashing The Power Of AI In Competitive Games"
 header:
     image: /assets/images/AI-basics-adversarial_search_unleashing_the_power_of_ai_in_competitive_games.jpg
 date: 2023-05-20
