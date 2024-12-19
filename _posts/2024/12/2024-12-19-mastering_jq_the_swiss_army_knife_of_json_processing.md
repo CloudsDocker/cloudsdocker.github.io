@@ -1,3 +1,20 @@
+---
+header:
+    image: /assets/images/what-is-shape-function-in-python-pandas-2.jpg
+title:   Mastering JQ: The Swiss Army Knife of JSON Processing
+date: 2024-12-19
+tags:
+ - Bash
+ - Shell
+ - JQ
+ 
+permalink: /blogs/tech/en/mastering_jq_the_swiss_army_knife_of_json_processing
+layout: single
+category: tech
+---
+
+> Imagination is the key ingredient to a happy life.
+
 # Mastering JQ: The Swiss Army Knife of JSON Processing
 
 > "Simplicity is the ultimate sophistication." — Leonardo da Vinci
