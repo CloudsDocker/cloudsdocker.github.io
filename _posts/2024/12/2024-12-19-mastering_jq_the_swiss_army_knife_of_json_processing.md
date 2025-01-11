@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/what-is-shape-function-in-python-pandas-2.jpg
-title:   Mastering JQ: The Swiss Army Knife of JSON Processing
+title:   Mastering JQ- The Swiss Army Knife of JSON Processing
 date: 2024-12-19
 tags:
  - Bash
