@@ -1,6 +1,6 @@
 ---
 header:
-    image: 2025-01-11-bushifire.jpeg
+    image: /assets/images/2025-01-11-bushifire.jpeg
 title:  When Paradise Burns - The Paradox of Fires in Our Modern Age
 date: 2025-01-11
 tags:
@@ -13,7 +13,7 @@ category: tech
 ---
 
 > "The flame that burns twice as bright burns half as long." - Lao Tzu
-![alt text](2025-01-11-bushifire.jpeg)
+![alt text](/assets/images/2025-01-11-bushifire.jpeg)
 # When Paradise Burns: The Paradox of Fires in Our Modern Age
 
 The orange glow on the horizon isn't another famous LA sunset. As flames tear through neighborhoods that have stood for generations, families watch their memories turn to ash, carrying only what they could grab in moments of panic. In Los Angeles, one of the world's most technologically advanced cities, we find ourselves facing an ancient enemy with surprisingly modern complications.
