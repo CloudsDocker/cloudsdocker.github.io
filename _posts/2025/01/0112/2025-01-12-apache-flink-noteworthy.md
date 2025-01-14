@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/2025-01-11-bushifire.jpeg
-title:  Aewsome Apache Flink Architecture
+title: Aewsome Apache Flink Architecture
 date: 2025-01-12
 tags:
  - news
@@ -14,7 +14,11 @@ category: tech
 
 > "The flame that burns twice as bright burns half as long." - Lao Tzu
 
-TaskManagers, containers, and slots in Apache Flink's architecture explained
+# Apache Flink Architecture
+
+![alt text](image.png)
+
+## TaskManagers, containers, and slots in Apache Flink's architecture explained
 
 A container typically contains one TaskManager - this is the standard deployment pattern. Here's the typical topology from top to bottom:
 
