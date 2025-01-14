@@ -1,7 +1,7 @@
 ---
+title: Understanding Spark Shuffle Performance - A Deep Dive into Memory Management
 header:
     image: /assets/images/swan.jpg
-title: Understanding Spark Shuffle Performance - A Deep Dive into Memory Management
 date: 2025-01-14
 tags:
  - news

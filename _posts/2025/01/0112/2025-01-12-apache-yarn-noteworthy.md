@@ -1,7 +1,7 @@
 ---
+title: Aewsome Apache yarn Architecture
 header:
     image: /assets/images/swan.jpg
-title: Aewsome Apache yarn Architecture
 date: 2025-01-12
 tags:
  - news

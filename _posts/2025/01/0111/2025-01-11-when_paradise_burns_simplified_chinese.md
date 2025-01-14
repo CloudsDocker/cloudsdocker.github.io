@@ -1,13 +1,11 @@
-
 ---
+title: 当天堂燃烧时——现代火灾的悖论
 header:
     image: 2025-01-11-bushifire.jpeg
-title: 当天堂燃烧时——现代火灾的悖论
 date: 2025-01-11
 tags:
  - 新闻
  - 火灾
- 
 permalink: /blogs/tech/zh/bushfire-in-los-angeles
 layout: single
 category: 技术
