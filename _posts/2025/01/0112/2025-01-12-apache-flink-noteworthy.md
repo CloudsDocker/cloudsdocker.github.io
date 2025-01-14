@@ -1,7 +1,7 @@
 ---
+title: Aewsome Apache Flink Architecture
 header:
     image: /assets/images/2025-01-11-bushifire.jpeg
-title: Aewsome Apache Flink Architecture
 date: 2025-01-12
 tags:
  - news

@@ -1,7 +1,7 @@
 ---
+title:  When Paradise Burns - The Paradox of Fires in Our Modern Age
 header:
     image: /assets/images/2025-01-11-bushifire.jpeg
-title:  When Paradise Burns - The Paradox of Fires in Our Modern Age
 date: 2025-01-11
 tags:
  - news
