@@ -5,8 +5,7 @@ header:
 date: 2025-01-12
 tags:
  - news
-- fires
- 
+ - fires
 permalink: /blogs/tech/en/awesome-apache-flink-architecture
 layout: single
 category: tech
