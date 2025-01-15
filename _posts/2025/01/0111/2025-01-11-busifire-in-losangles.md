@@ -5,8 +5,7 @@ header:
 date: 2025-01-11
 tags:
  - news
-- fires
- 
+ - fires
 permalink: /blogs/tech/en/bushfire-in-los-angeles
 layout: single
 category: tech
