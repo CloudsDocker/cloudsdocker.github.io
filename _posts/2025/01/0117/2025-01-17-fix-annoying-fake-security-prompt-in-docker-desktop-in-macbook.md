@@ -18,9 +18,9 @@ As a macOS user and Docker enthusiast, I recently encountered a frustrating secu
 The problem stems from macOS's built-in security features mistakenly flagging Docker Desktop's components as potential malware. This is particularly common after fresh installations or updates of Docker Desktop. The security system specifically targets two critical Docker components:
 
 1. com.docker.vmnetd - Docker's virtual machine network daemon
-![alt text](image-1.png)
+![alt text](/assets/images/2025-01-17-image-1.png)
 2. com.docker.socket - Docker's communication socket
-![alt text](image.png)
+![alt text](/assets/images/2025-01-17-image.png)
 
 ## The Solution
 
