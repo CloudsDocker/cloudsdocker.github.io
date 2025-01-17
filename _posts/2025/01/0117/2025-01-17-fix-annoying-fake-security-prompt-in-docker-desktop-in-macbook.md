@@ -5,7 +5,6 @@ title:  fix annoying fake security prompt in docker desktop in macbook
 date: 2025-01-17
 tags:
  - Java
- 
 permalink: /blogs/tech/en/fix-annoying-fake-security-prompt-in-docker-desktop-in-macbook
 layout: single
 category: tech
