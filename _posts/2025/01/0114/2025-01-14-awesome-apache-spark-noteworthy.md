@@ -5,8 +5,7 @@ header:
 date: 2025-01-14
 tags:
  - news
-- fires
- 
+ - fires
 permalink: /blogs/tech/en/awesome-apache-spark-architecture
 layout: single
 category: tech
