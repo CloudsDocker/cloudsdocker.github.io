@@ -1,4 +1,3 @@
-
 ---
 header:
     image: /assets/images/hd_mvn_skip_tests.png
@@ -10,6 +9,7 @@ permalink: /blogs/tech/en/network-firewall
 layout: single
 category: tech
 ---
+
 > Don't judge each day by the harvest you reap but by the seeds that you plant. - Robert Louis Stevenson
 
 # The Art of Bit Manipulation: A Network Engineer's Tale
