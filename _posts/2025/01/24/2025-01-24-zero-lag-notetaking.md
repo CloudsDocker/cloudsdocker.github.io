@@ -25,6 +25,25 @@ category: tech
 | ✓? | test | Checkmark with question mark |
 | → | send | Simple directional arrow |
 | ✓+ | understand | Checkmark with plus indicating comprehension |
+| ✓- | forget | Checkmark with minus indicating forgetfulness |
+| ✓ | remember | Checkmark symbol |
+| => | because | Double arrow |
+| .. | repeat | Double dot |
+| . . | see below | |
+|  .  | because | Double dot pust one dot new line |
+|... | continue | Triple dot |
+| ↺ | repeat, each time | Circular arrow |
+| ◯→ | continue learning | Circle with arrow |
+| Δ Δ  | meet | Double delta |
+| ∑ | All | Sum |
+| ∑◯ | servers, machines |(Aggregated information within a bounded system)|
+| ◎ | start | Circle with a dot |
+| ⊕ | people, whole team | Plus sign with circle |
+|∂ | partial, parts| Partial differential symbol |
+|~ | some, similar | Tilde symbol |
+| 🔎 | investigate | magnifying glass | 
+| Primary Symbol: ∞+ | many, a lot| ∞ (Infinity Symbol): Represents vast, immeasurable quantity,(Plus Sign): Emphasizes abundance, additional volum|
+
 
 ### Document and Information
 | Symbol | Meaning | Description |
