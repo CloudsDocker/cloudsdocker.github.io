@@ -1,7 +1,6 @@
-
 ---
 header:
-    image: /assets/images/hd_mvn_skip_tests.png
+    image: /assets/images/hd_test_spring_state_machine.png
 title:  user_regexp_in_azure_waf_firewall_custom_rules
 date: 2025-03-04
 tags:
