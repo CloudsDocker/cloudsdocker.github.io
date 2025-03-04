@@ -5,7 +5,7 @@ title:  Custom Dev Reminder System My Sanity
 date: 2025-03-03
 tags:
     - tech
-permalink: /blogs/tech/en/Custom Dev Reminder System-My Sanity
+permalink: /blogs/tech/en/Custom-Dev-Reminder-System-My-Sanity
 layout: single
 category: tech
 ---

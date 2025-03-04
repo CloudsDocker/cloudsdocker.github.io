@@ -6,7 +6,7 @@ title:  user_regexp_in_azure_waf_firewall_custom_rules
 date: 2025-03-04
 tags:
     - tech
-permalink: /blogs/tech/en/user_regexp_in_azure_waf_firewall_custom_rules
+permalink: /blogs/tech/en/use_regexp_in_azure_waf_firewall_custom_rules
 layout: single
 category: tech
 ---
