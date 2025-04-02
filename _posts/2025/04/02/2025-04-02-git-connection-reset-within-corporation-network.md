@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_mvn_skip_tests.png
-title:  Git Behind the Firewall: - Fix Connection Reset by Port 22 Errors in Corporate Networks"
+title:  Git Behind the Firewall: - Fix Connection Reset by Port 22 Errors in Corporate Networks
 date: 2025-04-02
 tags:
     - tech
@@ -13,6 +13,7 @@ permalink: /blogs/tech/en/git-connection-reset-within-corporation-network
 layout: single
 category: tech
 ---
+
 > Happiness is not something ready made. It comes from your own actions. - Dalai Lama
 
 # Fixing "Connection Reset by Port 22" Errors in Corporate Git Environments
