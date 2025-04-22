@@ -1,4 +1,18 @@
-
+---
+header:
+    image: /assets/images/hd_mvn_skip_tests.png
+title:  Configuring List Variables in HCP Terraform Cloud
+date: 2025-04-22
+tags:
+    - tech
+    - DevOps
+    - Enterprise Security
+    - GitHub
+    - SAML SSO 
+permalink: /blogs/tech/en/use-list-variable-in-hcp-terraform
+layout: single
+category: tech
+---
 # Configuring List Variables in HCP Terraform Cloud
 
 ## Issue
