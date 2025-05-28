@@ -1,3 +1,19 @@
+---
+header:
+    image: /assets/images/hd_geode_ordinal.png
+title:  How to Pass the Real Azure VM Name to Your Linux App—Even When $HOSTNAME Fails
+date: 2025-05-27
+tags:
+ - terraform
+ - azure
+ - linux
+permalink: /blogs/tech/en/inject_real_vm_name_in_azure_via_terraform
+layout: single
+category: tech
+---
+
+> Take the risk or lose the chance!
+
 ## How to Pass the Real Azure VM Name to Your Linux App—Even When `$HOSTNAME` Fails
 
 When deploying Linux VMs in the cloud, it’s common to need the actual VM name inside your application’s configuration. You might think, “Easy! Just use the `$HOSTNAME` environment variable.” But if you’ve ever tried to reference `$HOSTNAME` in a shell script that’s run by `systemctl` as a service, you’ve probably discovered it doesn’t always work as expected. Why? Because systemd services don’t always inherit the environment you expect, and sometimes `$HOSTNAME` is not set or is set incorrectly.
