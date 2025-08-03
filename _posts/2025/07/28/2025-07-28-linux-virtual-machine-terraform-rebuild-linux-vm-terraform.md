@@ -1,4 +1,3 @@
-
 ---
 header:
     image: /assets/images/hd_mvn_skip_tests.png
