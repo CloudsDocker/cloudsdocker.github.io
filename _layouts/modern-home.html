@@ -48,11 +48,11 @@ layout: default
     </div>
     <div class="hero-actions">
       <a href="#latest-posts" class="btn btn-ai-primary">
-        <span>探索AI文章</span>
+        <span>Explore AI Articles</span>
         <div class="btn-glow"></div>
       </a>
       <a href="/about" class="btn btn-ai-secondary">
-        <span>关于我</span>
+        <span>About Me</span>
         <div class="btn-particles"></div>
       </a>
     </div>
@@ -82,7 +82,7 @@ layout: default
 
 <section id="latest-posts" class="latest-posts">
   <div class="container">
-    <h2 class="section-title">最新文章</h2>
+    <h2 class="section-title">Latest Articles</h2>
     <div class="posts-grid">
       {% for post in site.posts limit:6 %}
       <article class="post-card" onclick="window.location.href='{{ post.url | relative_url }}'">
@@ -92,23 +92,23 @@ layout: default
           {% else %}
             <div class="post-placeholder">
               {% if post.tags contains 'AI' or post.tags contains 'Machine Learning' or post.tags contains 'Deep Learning' %}
-                🧠 AI & 机器学习
+                🧠 AI & Machine Learning
               {% elsif post.tags contains 'GPU' or post.tags contains 'CUDA' or post.tags contains 'PyTorch' %}
-                ⚡ GPU编程
+                ⚡ GPU Programming
               {% elsif post.tags contains 'NLP' or post.tags contains 'Transformer' or post.tags contains 'BERT' %}
-                🔬 自然语言处理
+                🔬 Natural Language Processing
               {% elsif post.tags contains 'Computer Vision' or post.tags contains 'CNN' or post.tags contains 'OpenCV' %}
-                👁️ 计算机视觉
+                👁️ Computer Vision
               {% elsif post.tags contains 'Python' or post.tags contains 'TensorFlow' or post.tags contains 'Keras' %}
-                🐍 Python & 框架
+                🐍 Python & Frameworks
               {% elsif post.tags contains 'Data Science' or post.tags contains 'Analytics' %}
-                📊 数据科学
+                📊 Data Science
               {% elsif post.tags contains 'Docker' or post.tags contains 'Kubernetes' %}
-                🐳 容器技术
+                🐳 Container Technology
               {% elsif post.tags contains 'AWS' or post.tags contains 'Cloud' %}
-                ☁️ 云计算
+                ☁️ Cloud Computing
               {% else %}
-                🤖 技术文章
+                🤖 Technical Articles
               {% endif %}
             </div>
           {% endif %}
@@ -116,7 +116,7 @@ layout: default
         <div class="post-content">
           <div class="post-meta">
             <span class="post-date">📅 {{ post.date | date: "%Y-%m-%d" }}</span>
-            <span class="post-read-time">⏱️ {{ post.content | number_of_words | divided_by: 200 | plus: 1 }}分钟阅读</span>
+            <span class="post-read-time">⏱️ {{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
           </div>
           <h3 class="post-title">{{ post.title }}</h3>
           <p class="post-excerpt">
@@ -137,19 +137,19 @@ layout: default
     </div>
     
     <div class="view-all-posts">
-      <a href="/posts/" class="cta-button">查看所有文章 →</a>
+      <a href="/posts/" class="cta-button">View All Articles →</a>
     </div>
   </div>
 </section>
 
 <section class="ai-features">
   <div class="container">
-    <h2 class="section-title">AI技术专长</h2>
+    <h2 class="section-title">AI Technical Expertise</h2>
     <div class="features-grid">
       <div class="feature-card ai-card">
         <div class="feature-icon">🧠</div>
-        <h3>深度学习</h3>
-        <p>专注于神经网络架构设计、模型优化和大规模训练，涵盖CNN、RNN、Transformer等前沿技术</p>
+        <h3>Deep Learning</h3>
+        <p>Focus on neural network architecture design, model optimization, and large-scale training, covering cutting-edge technologies such as CNN, RNN, and Transformer.</p>
         <div class="tech-tags">
           <span class="tech-tag">PyTorch</span>
           <span class="tech-tag">TensorFlow</span>
@@ -158,8 +158,8 @@ layout: default
       </div>
       <div class="feature-card gpu-card">
         <div class="feature-icon">⚡</div>
-        <h3>GPU编程</h3>
-        <p>精通CUDA编程、GPU加速计算和分布式训练，优化深度学习模型的训练和推理性能</p>
+        <h3>GPU Programming</h3>
+        <p>Proficient in CUDA programming, GPU-accelerated computing, and distributed training, optimizing the training and inference performance of deep learning models.</p>
         <div class="tech-tags">
           <span class="tech-tag">CUDA</span>
           <span class="tech-tag">cuDNN</span>
@@ -168,8 +168,8 @@ layout: default
       </div>
       <div class="feature-card nlp-card">
         <div class="feature-icon">🔬</div>
-        <h3>自然语言处理</h3>
-        <p>专业的NLP研究和应用开发，包括文本分析、语言模型、机器翻译和对话系统</p>
+        <h3>Natural Language Processing</h3>
+        <p>Specialized in NLP research and application development, including text analysis, language models, machine translation, and conversational systems.</p>
         <div class="tech-tags">
           <span class="tech-tag">BERT</span>
           <span class="tech-tag">GPT</span>
@@ -178,8 +178,8 @@ layout: default
       </div>
       <div class="feature-card ml-card">
         <div class="feature-icon">🤖</div>
-        <h3>机器学习工程</h3>
-        <p>端到端的ML系统设计，从数据预处理到模型部署，构建可扩展的AI解决方案</p>
+        <h3>Machine Learning Engineering</h3>
+        <p>End-to-end ML system design, from data preprocessing to model deployment, building scalable AI solutions.</p>
         <div class="tech-tags">
           <span class="tech-tag">MLOps</span>
           <span class="tech-tag">Docker</span>
@@ -1011,7 +1011,7 @@ layout: default
 </style>
 
 <script>
-// 粒子系统
+// Particle System
 class ParticleSystem {
   constructor(canvas) {
     this.canvas = canvas;
@@ -1054,7 +1054,7 @@ class ParticleSystem {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
-    // 绘制粒子
+    // Draw particles
     this.particles.forEach(particle => {
       this.ctx.beginPath();
       this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
@@ -1062,7 +1062,7 @@ class ParticleSystem {
       this.ctx.fill();
     });
     
-    // 绘制连接线
+    // Draw connecting lines
     this.particles.forEach((particle, i) => {
       this.particles.slice(i + 1).forEach(otherParticle => {
         const dx = particle.x - otherParticle.x;
@@ -1087,7 +1087,7 @@ class ParticleSystem {
   }
 }
 
-// 打字效果
+// Typing Effect
 class TypeWriter {
   constructor(element, texts, speed = 100) {
     this.element = element;
@@ -1133,7 +1133,7 @@ class TypeWriter {
   }
 }
 
-// 初始化
+// Initialization
 document.addEventListener('DOMContentLoaded', function() {
   // 初始化粒子系统
   const canvas = document.getElementById('particles-canvas');
@@ -1146,11 +1146,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const typedElement = document.querySelector('.typed-text');
   if (typedElement) {
     const texts = [
-      'AI研究者与实践者',
-      'GPU编程专家',
-      '深度学习工程师',
-      'NLP技术专家',
-      '机器学习架构师'
+      'AI Researchers and Practitioners',
+      'GPU Programming Expert',
+      'Expert in Deep learning',
+      'NLP technical expert',
+      'Machine Learning Architect'
     ];
     new TypeWriter(typedElement, texts, 150);
   }
