@@ -12,7 +12,7 @@ layout: default
       {% endif %}
       
       <div class="article-meta">
-        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y年%m月%d日" }}</time>
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
         {% if page.read_time %}
           <span class="read-time">{{ page.content | reading_time }}</span>
         {% endif %}
@@ -78,7 +78,7 @@ layout: default
     <div class="container">
       {% if page.share %}
         <div class="share-buttons">
-          <h4>分享这篇文章</h4>
+          <h4>Share This Article</h4>
           <div class="share-links">
             <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url | url_encode }}" target="_blank" class="share-btn twitter">Twitter</a>
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | url_encode }}" target="_blank" class="share-btn facebook">Facebook</a>
@@ -89,7 +89,7 @@ layout: default
       
       {% if page.related %}
         <div class="related-posts">
-          <h4>相关文章</h4>
+          <h4>Related Articles</h4>
           <div class="related-grid">
             {% assign related_posts = site.related_posts | limit: 3 %}
             {% for post in related_posts %}
@@ -474,7 +474,7 @@ layout: default
   color: #6b7280;
 }
 
-/* 响应式设计 */
+/* Responsive Design */
 @media (max-width: 768px) {
   .article-header {
     padding: 2rem 0 1rem;
