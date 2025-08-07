@@ -1,5 +1,113 @@
 <!-- start custom head snippets -->
 
+<!-- 现代化meta标签 -->
+<meta name="theme-color" content="#6366f1">
+<meta name="msapplication-TileColor" content="#6366f1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<!-- 现代化字体预加载 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- 现代化图标 -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+
+<!-- 现代化CSS变量和主题切换 -->
+<style>
+  /* 主题切换按钮 */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* 深色模式 */
+  [data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+  }
+  
+  [data-theme="dark"] .page {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  }
+  
+  [data-theme="dark"] .masthead {
+    background: rgba(15, 23, 42, 0.95);
+  }
+  
+  [data-theme="dark"] .archive__item {
+    background: rgba(30, 41, 59, 0.9);
+    color: #f1f5f9;
+  }
+  
+  [data-theme="dark"] .archive__item-title a {
+    color: #f1f5f9;
+  }
+  
+  [data-theme="dark"] .sidebar {
+    background: rgba(30, 41, 59, 0.9);
+    color: #f1f5f9;
+  }
+  
+  /* 平滑过渡 */
+  * {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* 现代化加载动画 */
+  .loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(99, 102, 241, 0.3);
+    border-top: 3px solid #6366f1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  
+  /* 现代化滚动指示器 */
+  .scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    z-index: 1002;
+    transition: width 0.3s ease;
+  }
+</style>
+
 <!-- insert favicons. use https://realfavicongenerator.net/ -->
 
 <!-- end custom head snippets -->
