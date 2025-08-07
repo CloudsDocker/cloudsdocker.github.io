@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所有文章 - Highly Distinguish</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .posts-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .page__title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .posts-stats {
+            color: #666;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            font-weight: 500;
+        }
+
+        .year-navigation {
+            background: rgba(255,255,255,0.9);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .year-navigation h3 {
+            color: #2c5aa0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .year-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .year-link {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #1976d2;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(25, 118, 210, 0.2);
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.1);
+        }
+
+        .year-link:hover {
+            background: linear-gradient(135deg, #bbdefb 0%, #90caf9 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.3);
+        }
+
+        .year-section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .year-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2c5aa0;
+            border-bottom: 4px solid #e3f2fd;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .post-count {
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .post-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .post-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .post-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-color: rgba(33, 150, 243, 0.4);
+        }
+
+        .post-card:hover:after {
+            opacity: 1;
+        }
+
+        .post-card:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .post-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        .post-title a {
+            color: #1976d2;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .post-title a:hover {
+            color: #0d47a1;
+        }
+
+        .post-excerpt {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #888;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .post-meta i {
+            margin-right: 0.5rem;
+            color: #2196f3;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .post-tag {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #1565c0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(21, 101, 192, 0.2);
+        }
+
+        .back-to-top {
+            display: block;
+            text-align: center;
+            margin: 3rem auto;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.3);
+            max-width: 200px;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(33, 150, 243, 0.4);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .page__title {
+                font-size: 2.2rem;
+            }
+            
+            .posts-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .year-section {
+                padding: 1.5rem;
+            }
+            
+            .year-links {
+                gap: 0.5rem;
+            }
+            
+            .year-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="posts-header">
+            <h1 class="page__title">📚 技术文章集合</h1>
+            <p style="color: #666; font-size: 1.2rem; margin: 0;">
+                探索我的技术博客，涵盖云计算、容器化、编程语言等多个领域
+            </p>
+            <div class="posts-stats">
+                📊 总计 50+ 篇文章 | 🏷️ 12 个标签 | 📅 持续更新中
+            </div>
+        </div>
+
+        <div class="year-navigation">
+            <h3>📅 按年份浏览</h3>
+            <div class="year-links">
+                <a href="#year-2024" class="year-link">2024 年 (15篇)</a>
+                <a href="#year-2023" class="year-link">2023 年 (20篇)</a>
+                <a href="#year-2022" class="year-link">2022 年 (12篇)</a>
+                <a href="#year-2021" class="year-link">2021 年 (8篇)</a>
+                <a href="#year-2020" class="year-link">2020 年 (5篇)</a>
+            </div>
+        </div>
+
+        <div class="year-section" id="year-2024">
+            <div class="year-title">
+                📅 2024 年
+                <span class="post-count">15 篇文章</span>
+            </div>
+            
+            <div class="posts-grid">
+                <div class="post-card" onclick="window.open('#', '_blank')">
+                    <div class="post-title">
+                        <a href="#">Mastering JQ: The Swiss Army Knife of JSON Processing</a>
+                    </div>
+                    <div class="post-excerpt">
+                        深入探讨 jq 命令行工具的强大功能，从基础语法到高级用法，让你成为 JSON 数据处理的专家。
+                    </div>
+                    <div class="post-tags">
+                        <span class="post-tag">JSON</span>
+                        <span class="post-tag">命令行工具</span>
+                        <span class="post-tag">数据处理</span>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fas fa-calendar"></i>2024-12-19</span>
+                        <span><i class="fas fa-clock"></i>8 分钟阅读</span>
+                        <span><i class="fas fa-eye"></i>1.2k 阅读</span>
+                    </div>
+                </div>
+
+                <div class="post-card" onclick="window.open('#', '_blank')">
+                    <div class="post-title">
+                        <a href="#">Awesome AWK Tools: Simplicity is the Ultimate Sophistication</a>
+                    </div>
+                    <div class="post-excerpt">
+                        AWK 是一个强大的文本处理工具，本文将带你领略 AWK 的简洁之美和强大功能。
+                    </div>
+                    <div class="post-tags">
+                        <span class="post-tag">AWK</span>
+                        <span class="post-tag">文本处理</span>
+                        <span class="post-tag">Shell</span>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fas fa-calendar"></i>2024-12-17</span>
+                        <span><i class="fas fa-clock"></i>6 分钟阅读</span>
+                        <span><i class="fas fa-eye"></i>980 阅读</span>
+                    </div>
+                </div>
+
+                <div class="post-card" onclick="window.open('#', '_blank')">
+                    <div class="post-title">
+                        <a href="#">When Your Retry Mechanism Doesn't Retry: A Tale of String Matching Gone Wrong</a>
+                    </div>
+                    <div class="post-excerpt">
+                        一个关于重试机制失效的真实案例，揭示了字符串匹配中的常见陷阱和解决方案。
+                    </div>
+                    <div class="post-tags">
+                        <span class="post-tag">Java</span>
+                        <span class="post-tag">调试</span>
+                        <span class="post-tag">最佳实践</span>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fas fa-calendar"></i>2024-12-16</span>
+                        <span><i class="fas fa-clock"></i>10 分钟阅读</span>
+                        <span><i class="fas fa-eye"></i>1.5k 阅读</span>
+                    </div>
+                </div>
+
+                <div class="post-card" onclick="window.open('#', '_blank')">
+                    <div class="post-title">
+                        <a href="#">Docker 容器化最佳实践指南</a>
+                    </div>
+                    <div class="post-excerpt">
+                        从基础概念到高级技巧，全面掌握 Docker 容器化技术，提升应用部署效率。
+                    </div>
+                    <div class="post-tags">
+                        <span class="post-tag">Docker</span>
+                        <span class="post-tag">容器化</span>
+                        <span class="post-tag">DevOps</span>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fas fa-calendar"></i>2024-11-28</span>
+                        <span><i class="fas fa-clock"></i>12 分钟阅读</span>
+                        <span><i class="fas fa-eye"></i>2.1k 阅读</span>
+                    </div>
+                </div>
+
+                <div class="post-card" onclick="window.open('#', '_blank')">
+                    <div class="post-title">
+                        <a href="#">Kubernetes 集群管理实战</a>
+                    </div>
+                    <div class="post-excerpt">
+                        深入 Kubernetes 集群管理，从部署到监控，打造高可用的容器编排平台。
+                    </div>
+                    <div class="post-tags">
+                        <span class="post-tag">Kubernetes</span>
+                        <span class="post-tag">云原生</span>
+                        <span class="post-tag">集群管理</span>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fas fa-calendar"></i>2024-11-15</span>
+                        <span><i class="fas fa-clock"></i>15 分钟阅读</span>
+                        <span><i class="fas fa-eye"></i>1.8k 阅读</span>
+                    </div>
+                </div>
+
+                <div class="post-card" onclick="window.open('#', '_blank')">
+                    <div class="post-title">
+                        <a href="#">Spring Boot 微服务架构设计</a>
+                    </div>
+                    <div class="post-excerpt">
+                        构建可扩展的微服务架构，使用 Spring Boot 实现高性能的分布式系统。
+                    </div>
+                    <div class="post-tags">
+                        <span class="post-tag">Spring Boot</span>
+                        <span class="post-tag">微服务</span>
+                        <span class="post-tag">Java</span>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fas fa-calendar"></i>2024-10-22</span>
+                        <span><i class="fas fa-clock"></i>18 分钟阅读</span>
+                        <span><i class="fas fa-eye"></i>2.5k 阅读</span>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#top" class="back-to-top">
+                <i class="fas fa-arrow-up"></i> 返回顶部
+            </a>
+        </div>
+
+        <div class="year-section" id="year-2023">
+            <div class="year-title">
+                📅 2023 年
+                <span class="post-count">20 篇文章</span>
+            </div>
+            
+            <div class="posts-grid">
+                <div class="post-card" onclick="window.open('#', '_blank')">
+                    <div class="post-title">
+                        <a href="#">AWS 云服务实战指南</a>
+                    </div>
+                    <div class="post-excerpt">
+                        全面掌握 AWS 核心服务，从 EC2 到 Lambda，构建可扩展的云端应用。
+                    </div>
+                    <div class="post-tags">
+                        <span class="post-tag">AWS</span>
+                        <span class="post-tag">云计算</span>
+                        <span class="post-tag">架构设计</span>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fas fa-calendar"></i>2023-12-10</span>
+                        <span><i class="fas fa-clock"></i>20 分钟阅读</span>
+                        <span><i class="fas fa-eye"></i>3.2k 阅读</span>
+                    </div>
+                </div>
+
+                <div class="post-card" onclick="window.open('#', '_blank')">
+                    <div class="post-title">
+                        <a href="#">Python 自动化脚本开发</a>
+                    </div>
+                    <div class="post-excerpt">
+                        使用 Python 构建强大的自动化工具，提升工作效率和系统可靠性。
+                    </div>
+                    <div class="post-tags">
+                        <span class="post-tag">Python</span>
+                        <span class="post-tag">自动化</span>
+                        <span class="post-tag">脚本开发</span>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fas fa-calendar"></i>2023-11-25</span>
+                        <span><i class="fas fa-clock"></i>14 分钟阅读</span>
+                        <span><i class="fas fa-eye"></i>1.9k 阅读</span>
+                    </div>
+                </div>
+
+                <div class="post-card" onclick="window.open('#', '_blank')">
+                    <div class="post-title">
+                        <a href="#">Linux 系统管理进阶</a>
+                    </div>
+                    <div class="post-excerpt">
+                        深入 Linux 系统内核，掌握高级系统管理技巧和性能优化方法。
+                    </div>
+                    <div class="post-tags">
+                        <span class="post-tag">Linux</span>
+                        <span class="post-tag">系统管理</span>
+                        <span class="post-tag">性能优化</span>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fas fa-calendar"></i>2023-10-18</span>
+                        <span><i class="fas fa-clock"></i>16 分钟阅读</span>
+                        <span><i class="fas fa-eye"></i>2.3k 阅读</span>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#top" class="back-to-top">
+                <i class="fas fa-arrow-up"></i> 返回顶部
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.post-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // 返回首页功能
+        function goHome() {
+            window.location.href = 'preview.html';
+        }
+    </script>
+</body>
+</html>

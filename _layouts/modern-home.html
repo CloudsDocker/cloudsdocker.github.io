@@ -1,0 +1,1158 @@
+---
+layout: default
+---
+
+<div class="ai-hero">
+  <div class="particles-container">
+    <canvas id="particles-canvas"></canvas>
+  </div>
+  <div class="neural-network">
+    <div class="node node-1"></div>
+    <div class="node node-2"></div>
+    <div class="node node-3"></div>
+    <div class="node node-4"></div>
+    <div class="node node-5"></div>
+    <div class="connection connection-1"></div>
+    <div class="connection connection-2"></div>
+    <div class="connection connection-3"></div>
+    <div class="connection connection-4"></div>
+  </div>
+  <div class="hero-content">
+    <div class="typing-container">
+      <h1 class="hero-title">
+        <span class="ai-gradient-text">{{ site.title }}</span>
+      </h1>
+      <div class="typing-text">
+        <span class="typed-text"></span>
+        <span class="cursor">|</span>
+      </div>
+    </div>
+    <p class="hero-description">{{ site.description }}</p>
+    <div class="tech-stack">
+      <div class="tech-item">
+        <div class="tech-icon">🧠</div>
+        <span>Deep Learning</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">⚡</div>
+        <span>GPU Computing</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🔬</div>
+        <span>NLP Research</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🤖</div>
+        <span>Machine Learning</span>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="#latest-posts" class="btn btn-ai-primary">
+        <span>探索AI文章</span>
+        <div class="btn-glow"></div>
+      </a>
+      <a href="/about" class="btn btn-ai-secondary">
+        <span>关于我</span>
+        <div class="btn-particles"></div>
+      </a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="ai-brain">
+      <div class="brain-layer layer-1"></div>
+      <div class="brain-layer layer-2"></div>
+      <div class="brain-layer layer-3"></div>
+      <div class="pulse-ring ring-1"></div>
+      <div class="pulse-ring ring-2"></div>
+      <div class="pulse-ring ring-3"></div>
+    </div>
+    <div class="floating-code">
+      <div class="code-snippet snippet-1">
+        <span class="code-keyword">import</span> <span class="code-module">torch</span>
+      </div>
+      <div class="code-snippet snippet-2">
+        <span class="code-keyword">model</span>.<span class="code-method">cuda()</span>
+      </div>
+      <div class="code-snippet snippet-3">
+        <span class="code-keyword">transformer</span>.<span class="code-method">forward()</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="latest-posts" class="latest-posts">
+  <div class="container">
+    <h2 class="section-title">最新文章</h2>
+    <div class="posts-grid">
+      {% for post in site.posts limit:6 %}
+      <article class="post-card" onclick="window.location.href='{{ post.url | relative_url }}'">
+        <div class="post-image">
+          {% if post.header.image %}
+            <img src="{{ post.header.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          {% else %}
+            <div class="post-placeholder">
+              {% if post.tags contains 'AI' or post.tags contains 'Machine Learning' or post.tags contains 'Deep Learning' %}
+                🧠 AI & 机器学习
+              {% elsif post.tags contains 'GPU' or post.tags contains 'CUDA' or post.tags contains 'PyTorch' %}
+                ⚡ GPU编程
+              {% elsif post.tags contains 'NLP' or post.tags contains 'Transformer' or post.tags contains 'BERT' %}
+                🔬 自然语言处理
+              {% elsif post.tags contains 'Computer Vision' or post.tags contains 'CNN' or post.tags contains 'OpenCV' %}
+                👁️ 计算机视觉
+              {% elsif post.tags contains 'Python' or post.tags contains 'TensorFlow' or post.tags contains 'Keras' %}
+                🐍 Python & 框架
+              {% elsif post.tags contains 'Data Science' or post.tags contains 'Analytics' %}
+                📊 数据科学
+              {% elsif post.tags contains 'Docker' or post.tags contains 'Kubernetes' %}
+                🐳 容器技术
+              {% elsif post.tags contains 'AWS' or post.tags contains 'Cloud' %}
+                ☁️ 云计算
+              {% else %}
+                🤖 技术文章
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="post-content">
+          <div class="post-meta">
+            <span class="post-date">📅 {{ post.date | date: "%Y-%m-%d" }}</span>
+            <span class="post-read-time">⏱️ {{ post.content | number_of_words | divided_by: 200 | plus: 1 }}分钟阅读</span>
+          </div>
+          <h3 class="post-title">{{ post.title }}</h3>
+          <p class="post-excerpt">
+            {% if post.excerpt %}
+              {{ post.excerpt | strip_html | truncate: 120 }}
+            {% else %}
+              {{ post.content | strip_html | truncate: 120 }}
+            {% endif %}
+          </p>
+          <div class="post-tags">
+            {% for tag in post.tags limit:3 %}
+              <span class="tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    
+    <div class="view-all-posts">
+      <a href="/posts/" class="cta-button">查看所有文章 →</a>
+    </div>
+  </div>
+</section>
+
+<section class="ai-features">
+  <div class="container">
+    <h2 class="section-title">AI技术专长</h2>
+    <div class="features-grid">
+      <div class="feature-card ai-card">
+        <div class="feature-icon">🧠</div>
+        <h3>深度学习</h3>
+        <p>专注于神经网络架构设计、模型优化和大规模训练，涵盖CNN、RNN、Transformer等前沿技术</p>
+        <div class="tech-tags">
+          <span class="tech-tag">PyTorch</span>
+          <span class="tech-tag">TensorFlow</span>
+          <span class="tech-tag">Transformers</span>
+        </div>
+      </div>
+      <div class="feature-card gpu-card">
+        <div class="feature-icon">⚡</div>
+        <h3>GPU编程</h3>
+        <p>精通CUDA编程、GPU加速计算和分布式训练，优化深度学习模型的训练和推理性能</p>
+        <div class="tech-tags">
+          <span class="tech-tag">CUDA</span>
+          <span class="tech-tag">cuDNN</span>
+          <span class="tech-tag">Multi-GPU</span>
+        </div>
+      </div>
+      <div class="feature-card nlp-card">
+        <div class="feature-icon">🔬</div>
+        <h3>自然语言处理</h3>
+        <p>专业的NLP研究和应用开发，包括文本分析、语言模型、机器翻译和对话系统</p>
+        <div class="tech-tags">
+          <span class="tech-tag">BERT</span>
+          <span class="tech-tag">GPT</span>
+          <span class="tech-tag">LangChain</span>
+        </div>
+      </div>
+      <div class="feature-card ml-card">
+        <div class="feature-icon">🤖</div>
+        <h3>机器学习工程</h3>
+        <p>端到端的ML系统设计，从数据预处理到模型部署，构建可扩展的AI解决方案</p>
+        <div class="tech-tags">
+          <span class="tech-tag">MLOps</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Kubernetes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* AI主题首页样式 */
+.ai-hero {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* 粒子背景 */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#particles-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* 神经网络背景 */
+.neural-network {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.node {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #00f5ff, #ff00f5);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.node-1 { top: 20%; left: 10%; animation-delay: 0s; }
+.node-2 { top: 40%; left: 25%; animation-delay: 0.4s; }
+.node-3 { top: 60%; left: 15%; animation-delay: 0.8s; }
+.node-4 { top: 30%; right: 20%; animation-delay: 1.2s; }
+.node-5 { top: 70%; right: 10%; animation-delay: 1.6s; }
+
+.connection {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.5), transparent);
+  animation: dataFlow 3s linear infinite;
+}
+
+.connection-1 {
+  top: 25%;
+  left: 12%;
+  width: 150px;
+  transform: rotate(25deg);
+}
+
+.connection-2 {
+  top: 45%;
+  left: 27%;
+  width: 200px;
+  transform: rotate(-15deg);
+  animation-delay: 0.5s;
+}
+
+.connection-3 {
+  top: 35%;
+  right: 22%;
+  width: 120px;
+  transform: rotate(45deg);
+  animation-delay: 1s;
+}
+
+.connection-4 {
+  top: 65%;
+  left: 17%;
+  width: 180px;
+  transform: rotate(-30deg);
+  animation-delay: 1.5s;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+  }
+  50% { 
+    transform: scale(1.5);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.8);
+  }
+}
+
+@keyframes dataFlow {
+  0% { opacity: 0; transform: translateX(-100%); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(100%); }
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 650px;
+  z-index: 3;
+  position: relative;
+}
+
+/* 打字效果 */
+.typing-container {
+  margin-bottom: 2rem;
+}
+
+.typing-text {
+  font-size: 1.8rem;
+  color: #00f5ff;
+  margin-top: 1rem;
+  min-height: 2.5rem;
+}
+
+.typed-text {
+  border-right: 2px solid #00f5ff;
+  animation: typing 4s steps(40) infinite;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+  color: #ff00f5;
+}
+
+@keyframes typing {
+  0% { width: 0; }
+  50% { width: 100%; }
+  100% { width: 0; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.ai-gradient-text {
+  background: linear-gradient(45deg, #00f5ff, #ff00f5, #00ff88, #ff8800);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientAnimation 4s ease-in-out infinite;
+}
+
+@keyframes gradientAnimation {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  line-height: 1.7;
+  color: #e0e0e0;
+}
+
+/* 技术栈展示 */
+.tech-stack {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.tech-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.8rem 1.2rem;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.tech-item:hover {
+  background: rgba(0, 245, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 245, 255, 0.3);
+}
+
+.tech-icon {
+  font-size: 1.5rem;
+}
+
+.tech-item span {
+  font-weight: 600;
+  color: #fff;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  position: relative;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-ai-primary {
+  background: linear-gradient(45deg, #00f5ff, #ff00f5);
+  color: white;
+  position: relative;
+}
+
+.btn-ai-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 245, 255, 0.4);
+}
+
+.btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.btn-ai-primary:hover .btn-glow {
+  left: 100%;
+}
+
+.btn-ai-secondary {
+  background: transparent;
+  color: #00f5ff;
+  border: 2px solid #00f5ff;
+  position: relative;
+}
+
+.btn-ai-secondary:hover {
+  background: rgba(0, 245, 255, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 245, 255, 0.2);
+}
+
+.hero-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* AI大脑 */
+.ai-brain {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 2rem;
+}
+
+.brain-layer {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid;
+  animation: brainPulse 4s ease-in-out infinite;
+}
+
+.layer-1 {
+  width: 100%;
+  height: 100%;
+  border-color: rgba(0, 245, 255, 0.8);
+  animation-delay: 0s;
+}
+
+.layer-2 {
+  width: 70%;
+  height: 70%;
+  top: 15%;
+  left: 15%;
+  border-color: rgba(255, 0, 245, 0.6);
+  animation-delay: 1s;
+}
+
+.layer-3 {
+  width: 40%;
+  height: 40%;
+  top: 30%;
+  left: 30%;
+  border-color: rgba(0, 255, 136, 0.4);
+  animation-delay: 2s;
+}
+
+.pulse-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+  animation: ringPulse 3s ease-out infinite;
+}
+
+.ring-1 {
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -10%;
+  border-color: rgba(0, 245, 255, 0.3);
+  animation-delay: 0s;
+}
+
+.ring-2 {
+  width: 140%;
+  height: 140%;
+  top: -20%;
+  left: -20%;
+  border-color: rgba(255, 0, 245, 0.2);
+  animation-delay: 1s;
+}
+
+.ring-3 {
+  width: 160%;
+  height: 160%;
+  top: -30%;
+  left: -30%;
+  border-color: rgba(0, 255, 136, 0.1);
+  animation-delay: 2s;
+}
+
+@keyframes brainPulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* 浮动代码 */
+.floating-code {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.code-snippet {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  animation: codeFloat 8s ease-in-out infinite;
+  backdrop-filter: blur(10px);
+}
+
+.snippet-1 {
+  top: 10%;
+  right: -20%;
+  animation-delay: 0s;
+}
+
+.snippet-2 {
+  bottom: 30%;
+  left: -30%;
+  animation-delay: 2s;
+}
+
+.snippet-3 {
+  top: 60%;
+  right: -10%;
+  animation-delay: 4s;
+}
+
+.code-keyword {
+  color: #ff00f5;
+  font-weight: bold;
+}
+
+.code-module {
+  color: #00f5ff;
+}
+
+.code-method {
+  color: #00ff88;
+}
+
+@keyframes codeFloat {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.7;
+  }
+  25% { 
+    transform: translateY(-20px) translateX(10px);
+    opacity: 1;
+  }
+  50% { 
+    transform: translateY(-10px) translateX(-5px);
+    opacity: 0.8;
+  }
+  75% { 
+    transform: translateY(-30px) translateX(15px);
+    opacity: 1;
+  }
+}
+
+.latest-posts {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.post-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  position: relative;
+}
+
+.post-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+}
+
+.post-card:active {
+  transform: translateY(-4px);
+}
+
+.post-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.post-card:hover::before {
+  opacity: 1;
+}
+
+.post-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.post-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.view-all-posts {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+  color: white;
+}
+
+.post-card:hover .post-image img {
+  transform: scale(1.05);
+}
+
+.post-content {
+  padding: 1.5rem;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.post-category {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.post-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.post-title a {
+  color: #1e293b;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.post-title a:hover {
+  color: #6366f1;
+}
+
+.post-excerpt {
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.read-more {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.read-more:hover {
+  color: #4f46e5;
+}
+
+.view-all {
+  text-align: center;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #6366f1;
+  border: 2px solid #6366f1;
+}
+
+.btn-outline:hover {
+  background: #6366f1;
+  color: white;
+}
+
+.ai-features {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #0f0f23 100%);
+  position: relative;
+}
+
+.ai-features::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(255, 0, 245, 0.1) 0%, transparent 50%);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.feature-card {
+  text-align: center;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 245, 255, 0.3);
+}
+
+.ai-card:hover {
+  box-shadow: 0 25px 50px rgba(0, 245, 255, 0.2);
+}
+
+.gpu-card:hover {
+  box-shadow: 0 25px 50px rgba(255, 0, 245, 0.2);
+}
+
+.nlp-card:hover {
+  box-shadow: 0 25px 50px rgba(0, 255, 136, 0.2);
+}
+
+.ml-card:hover {
+  box-shadow: 0 25px 50px rgba(255, 136, 0, 0.2);
+}
+
+.feature-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.5));
+}
+
+.feature-card h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  background: linear-gradient(45deg, #00f5ff, #ff00f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.feature-card p {
+  color: #e0e0e0;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.tech-tags {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.tech-tag {
+  background: linear-gradient(45deg, rgba(0, 245, 255, 0.2), rgba(255, 0, 245, 0.2));
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+  background: linear-gradient(45deg, rgba(0, 245, 255, 0.4), rgba(255, 0, 245, 0.4));
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .ai-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+    min-height: 90vh;
+  }
+  
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  
+  .hero-visual {
+    margin-top: 2rem;
+  }
+  
+  .ai-brain {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .tech-stack {
+    justify-content: center;
+  }
+  
+  .tech-item {
+    font-size: 0.9rem;
+  }
+  
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .floating-code {
+    display: none;
+  }
+}
+</style>
+
+<script>
+// 粒子系统
+class ParticleSystem {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.particles = [];
+    this.resize();
+    this.init();
+    
+    window.addEventListener('resize', () => this.resize());
+  }
+  
+  resize() {
+    this.canvas.width = this.canvas.offsetWidth;
+    this.canvas.height = this.canvas.offsetHeight;
+  }
+  
+  init() {
+    for (let i = 0; i < 50; i++) {
+      this.particles.push({
+        x: Math.random() * this.canvas.width,
+        y: Math.random() * this.canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 2 + 1,
+        opacity: Math.random() * 0.5 + 0.2
+      });
+    }
+  }
+  
+  update() {
+    this.particles.forEach(particle => {
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      
+      if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+      if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+    });
+  }
+  
+  draw() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    // 绘制粒子
+    this.particles.forEach(particle => {
+      this.ctx.beginPath();
+      this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      this.ctx.fillStyle = `rgba(0, 245, 255, ${particle.opacity})`;
+      this.ctx.fill();
+    });
+    
+    // 绘制连接线
+    this.particles.forEach((particle, i) => {
+      this.particles.slice(i + 1).forEach(otherParticle => {
+        const dx = particle.x - otherParticle.x;
+        const dy = particle.y - otherParticle.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 100) {
+          this.ctx.beginPath();
+          this.ctx.moveTo(particle.x, particle.y);
+          this.ctx.lineTo(otherParticle.x, otherParticle.y);
+          this.ctx.strokeStyle = `rgba(0, 245, 255, ${0.2 * (1 - distance / 100)})`;
+          this.ctx.stroke();
+        }
+      });
+    });
+  }
+  
+  animate() {
+    this.update();
+    this.draw();
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
+// 打字效果
+class TypeWriter {
+  constructor(element, texts, speed = 100) {
+    this.element = element;
+    this.texts = texts;
+    this.speed = speed;
+    this.textIndex = 0;
+    this.charIndex = 0;
+    this.isDeleting = false;
+    this.start();
+  }
+  
+  start() {
+    this.type();
+  }
+  
+  type() {
+    const currentText = this.texts[this.textIndex];
+    
+    if (this.isDeleting) {
+      this.element.textContent = currentText.substring(0, this.charIndex - 1);
+      this.charIndex--;
+    } else {
+      this.element.textContent = currentText.substring(0, this.charIndex + 1);
+      this.charIndex++;
+    }
+    
+    let typeSpeed = this.speed;
+    
+    if (this.isDeleting) {
+      typeSpeed /= 2;
+    }
+    
+    if (!this.isDeleting && this.charIndex === currentText.length) {
+      typeSpeed = 2000;
+      this.isDeleting = true;
+    } else if (this.isDeleting && this.charIndex === 0) {
+      this.isDeleting = false;
+      this.textIndex = (this.textIndex + 1) % this.texts.length;
+      typeSpeed = 500;
+    }
+    
+    setTimeout(() => this.type(), typeSpeed);
+  }
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  // 初始化粒子系统
+  const canvas = document.getElementById('particles-canvas');
+  if (canvas) {
+    const particleSystem = new ParticleSystem(canvas);
+    particleSystem.animate();
+  }
+  
+  // 初始化打字效果
+  const typedElement = document.querySelector('.typed-text');
+  if (typedElement) {
+    const texts = [
+      'AI研究者与实践者',
+      'GPU编程专家',
+      '深度学习工程师',
+      'NLP技术专家',
+      '机器学习架构师'
+    ];
+    new TypeWriter(typedElement, texts, 150);
+  }
+});
+</script>
