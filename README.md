@@ -1,3 +1,11 @@
+# setup env
+
+```bash
+export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/bin:$PATH" && bundle install 
+export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/bin:$PATH" && bundle update jekyll 
+export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/bin:$PATH" && bundle exec jekyll serve --host 0.0.0.0 --livereload 
+```
+
 # To setup for a new blog
 
 To run below command setup folder and files

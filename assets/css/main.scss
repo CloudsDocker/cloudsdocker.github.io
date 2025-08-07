@@ -6,3 +6,242 @@
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+// Modern enhancements
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap');
+
+// Custom variables
+$gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+$shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.1);
+$shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+$border-radius: 12px;
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Typography improvements
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.7;
+}
+
+code, pre {
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-feature-settings: "liga" 1, "calt" 1;
+}
+
+// Header enhancements
+.masthead {
+  background: $gradient-primary;
+  box-shadow: $shadow-soft;
+  backdrop-filter: blur(10px);
+  
+  .site-title {
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .greedy-nav {
+    a {
+      color: rgba(255, 255, 255, 0.9);
+      transition: $transition;
+      
+      &:hover {
+        color: white;
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+// Card-style posts
+.archive__item {
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: $shadow-soft;
+  transition: $transition;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-hover;
+  }
+  
+  .archive__item-teaser {
+    border-radius: $border-radius $border-radius 0 0;
+  }
+  
+  .archive__item-body {
+    padding: 1.5rem;
+  }
+}
+
+// Modern buttons
+.btn {
+  border-radius: $border-radius;
+  font-weight: 500;
+  transition: $transition;
+  border: none;
+  
+  &--primary {
+    background: $gradient-primary;
+    color: white;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-hover;
+    }
+  }
+}
+
+// Enhanced code blocks
+.highlight {
+  border-radius: $border-radius;
+  box-shadow: $shadow-soft;
+  overflow: hidden;
+  
+  pre {
+    margin: 0;
+    padding: 1.5rem;
+  }
+}
+
+// Sidebar improvements
+.sidebar {
+  .author__avatar {
+    img {
+      border-radius: 50%;
+      box-shadow: $shadow-soft;
+      transition: $transition;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+  
+  .author__content {
+    .author__name {
+      font-weight: 600;
+    }
+  }
+}
+
+// Page content enhancements
+.page__content {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  
+  h1 {
+    background: $gradient-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  blockquote {
+    border-left: 4px solid #667eea;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 0 $border-radius $border-radius 0;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Table of contents
+.toc {
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: $shadow-soft;
+  padding: 1.5rem;
+  
+  .toc__title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  a {
+    transition: $transition;
+    
+    &:hover {
+      color: #667eea;
+    }
+  }
+}
+
+// Footer
+.page__footer {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: white;
+  
+  a {
+    color: rgba(255, 255, 255, 0.8);
+    
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+// Responsive improvements
+@media (max-width: 768px) {
+  .archive__item {
+    margin-bottom: 1rem;
+    
+    .archive__item-body {
+      padding: 1rem;
+    }
+  }
+  
+  .page__content {
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+// Dark mode enhancements
+@media (prefers-color-scheme: dark) {
+  .archive__item {
+    background: #2a2a2a;
+    color: #e0e0e0;
+  }
+  
+  .toc {
+    background: #2a2a2a;
+    color: #e0e0e0;
+  }
+}
+
+// Animation keyframes
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page__content {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
