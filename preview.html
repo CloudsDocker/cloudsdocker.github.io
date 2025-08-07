@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highly DistinguishIT solution & education - AI主题博客预览</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #8b5cf6;
+            --secondary-color: #f59e0b;
+            --accent-color: #10b981;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-color: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        [data-theme="dark"] {
+            --text-color: #f9fafb;
+            --text-light: #d1d5db;
+            --bg-color: #111827;
+            --bg-secondary: #1f2937;
+            --border-color: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-primary);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .ai-hero {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #particles-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Neural Network Background */
+        .neural-network {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(45deg, #00d4ff, #7b68ee);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .node-1 { top: 20%; left: 10%; animation-delay: 0s; }
+        .node-2 { top: 30%; left: 80%; animation-delay: 0.5s; }
+        .node-3 { top: 60%; left: 15%; animation-delay: 1s; }
+        .node-4 { top: 70%; left: 85%; animation-delay: 1.5s; }
+        .node-5 { top: 45%; left: 50%; animation-delay: 0.8s; }
+
+        .connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: dataFlow 3s infinite;
+        }
+
+        .connection-1 {
+            top: 25%;
+            left: 10%;
+            width: 70%;
+            transform: rotate(5deg);
+        }
+
+        .connection-2 {
+            top: 50%;
+            left: 15%;
+            width: 35%;
+            transform: rotate(-10deg);
+        }
+
+        .connection-3 {
+            top: 65%;
+            left: 50%;
+            width: 35%;
+            transform: rotate(15deg);
+        }
+
+        .connection-4 {
+            top: 40%;
+            left: 20%;
+            width: 60%;
+            transform: rotate(-5deg);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes dataFlow {
+            0% { opacity: 0; transform: translateX(-100%); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(100%); }
+        }
+
+        /* AI Gradient Text */
+        .ai-gradient-text {
+            background: linear-gradient(135deg, #00d4ff, #7b68ee, #ff6b9d);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Typing Effect */
+        .typing-container {
+            margin-bottom: 2rem;
+        }
+
+        .typing-text {
+            font-size: 1.2rem;
+            color: #00d4ff;
+            margin-top: 1rem;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .tech-icon {
+            font-size: 2rem;
+        }
+
+        /* AI Buttons */
+        .btn-ai-primary {
+            background: linear-gradient(135deg, #00d4ff, #7b68ee);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ai-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-glow {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-ai-primary:hover .btn-glow {
+            left: 100%;
+        }
+
+        .btn-ai-secondary {
+            background: transparent;
+            color: #00d4ff;
+            border: 2px solid #00d4ff;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ai-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+        }
+
+        /* AI Brain */
+        .ai-brain {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .brain-layer {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid;
+        }
+
+        .layer-1 {
+            width: 200px;
+            height: 200px;
+            border-color: rgba(0, 212, 255, 0.3);
+            animation: brainPulse 3s infinite;
+        }
+
+        .layer-2 {
+            width: 150px;
+            height: 150px;
+            top: 25px;
+            left: 25px;
+            border-color: rgba(123, 104, 238, 0.5);
+            animation: brainPulse 3s infinite 0.5s;
+        }
+
+        .layer-3 {
+            width: 100px;
+            height: 100px;
+            top: 50px;
+            left: 50px;
+            border-color: rgba(255, 107, 157, 0.7);
+            animation: brainPulse 3s infinite 1s;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            animation: ringPulse 2s infinite;
+        }
+
+        .ring-1 {
+            width: 220px;
+            height: 220px;
+            top: -10px;
+            left: -10px;
+            animation-delay: 0s;
+        }
+
+        .ring-2 {
+            width: 250px;
+            height: 250px;
+            top: -25px;
+            left: -25px;
+            animation-delay: 0.7s;
+        }
+
+        .ring-3 {
+            width: 280px;
+            height: 280px;
+            top: -40px;
+            left: -40px;
+            animation-delay: 1.4s;
+        }
+
+        @keyframes brainPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        @keyframes ringPulse {
+            0% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.2); }
+        }
+
+        /* Floating Code */
+        .floating-code {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .code-snippet {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        .snippet-1 {
+            top: 10%;
+            left: -20%;
+            animation-delay: 0s;
+        }
+
+        .snippet-2 {
+            top: 60%;
+            right: -30%;
+            animation-delay: 1.5s;
+        }
+
+        .snippet-3 {
+            bottom: 20%;
+            left: -10%;
+            animation-delay: 3s;
+        }
+
+        .code-keyword {
+            color: #ff6b9d;
+        }
+
+        .code-module {
+            color: #00d4ff;
+        }
+
+        .code-method {
+            color: #7b68ee;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            25% { transform: translateY(-10px) rotate(1deg); opacity: 1; }
+            50% { transform: translateY(-5px) rotate(-1deg); opacity: 0.8; }
+            75% { transform: translateY(-15px) rotate(0.5deg); opacity: 1; }
+        }
+
+        /* AI Categories */
+        .ai-category {
+            background: linear-gradient(135deg, #00d4ff, #7b68ee);
+        }
+
+        .gpu-category {
+            background: linear-gradient(135deg, #ff6b9d, #ffa500);
+        }
+
+        .ml-category {
+            background: linear-gradient(135deg, #7b68ee, #9370db);
+        }
+
+        /* AI Tags */
+        .ai-tag {
+            background: linear-gradient(135deg, #00d4ff, #7b68ee);
+            color: white;
+        }
+
+        .gpu-tag {
+            background: linear-gradient(135deg, #ff6b9d, #ffa500);
+            color: white;
+        }
+
+        .ml-tag {
+            background: linear-gradient(135deg, #7b68ee, #9370db);
+            color: white;
+        }
+
+        /* Tech Tags */
+        .tech-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(123, 104, 238, 0.2));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00d4ff;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(123, 104, 238, 0.3));
+            transform: translateY(-2px);
+        }
+
+        /* AI Features Section */
+        .ai-features {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(123, 104, 238, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(255, 107, 157, 0.05) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .ai-features .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .ai-features .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .ai-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .gpu-card:hover {
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.2);
+            border-color: rgba(255, 107, 157, 0.5);
+        }
+
+        .nlp-card:hover {
+            box-shadow: 0 20px 40px rgba(123, 104, 238, 0.2);
+            border-color: rgba(123, 104, 238, 0.5);
+        }
+
+        .ml-card:hover {
+            box-shadow: 0 20px 40px rgba(147, 112, 219, 0.2);
+            border-color: rgba(147, 112, 219, 0.5);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-cta:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .post-card {
+            background: var(--bg-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .post-card:active {
+            transform: translateY(-5px);
+        }
+
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .post-card:hover::before {
+            opacity: 1;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .post-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .feature-description {
+            color: var(--text-light);
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator"></div>
+    
+    <button class="theme-toggle" onclick="toggleTheme()">
+        🌙
+    </button>
+
+    <section class="ai-hero">
+        <div class="particles-container">
+            <canvas id="particles-canvas"></canvas>
+        </div>
+        <div class="neural-network">
+            <div class="node node-1"></div>
+            <div class="node node-2"></div>
+            <div class="node node-3"></div>
+            <div class="node node-4"></div>
+            <div class="node node-5"></div>
+            <div class="connection connection-1"></div>
+            <div class="connection connection-2"></div>
+            <div class="connection connection-3"></div>
+            <div class="connection connection-4"></div>
+        </div>
+        <div class="hero-content">
+            <div class="typing-container">
+                <h1 class="hero-title">
+                    <span class="ai-gradient-text">Highly DistinguishIT solution & education</span>
+                </h1>
+                <div class="typing-text">
+                    <span class="typed-text"></span>
+                    <span class="cursor">|</span>
+                </div>
+            </div>
+            <p class="hero-description">专注于AI、机器学习、GPU编程和深度学习技术的前沿探索与实践</p>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <div class="tech-icon">🧠</div>
+                    <span>Deep Learning</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">⚡</div>
+                    <span>GPU Computing</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔬</div>
+                    <span>NLP Research</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🤖</div>
+                    <span>Machine Learning</span>
+                </div>
+            </div>
+            <div class="hero-actions">
+                <a href="#posts" class="btn btn-ai-primary">
+                    <span>探索AI文章</span>
+                    <div class="btn-glow"></div>
+                </a>
+                <a href="#about" class="btn btn-ai-secondary">
+                    <span>关于我</span>
+                    <div class="btn-particles"></div>
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="ai-brain">
+                <div class="brain-layer layer-1"></div>
+                <div class="brain-layer layer-2"></div>
+                <div class="brain-layer layer-3"></div>
+                <div class="pulse-ring ring-1"></div>
+                <div class="pulse-ring ring-2"></div>
+                <div class="pulse-ring ring-3"></div>
+            </div>
+            <div class="floating-code">
+                <div class="code-snippet snippet-1">
+                    <span class="code-keyword">import</span> <span class="code-module">torch</span>
+                </div>
+                <div class="code-snippet snippet-2">
+                    <span class="code-keyword">model</span>.<span class="code-method">cuda()</span>
+                </div>
+                <div class="code-snippet snippet-3">
+                    <span class="code-keyword">transformer</span>.<span class="code-method">forward()</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="posts" class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="ai-gradient-text">最新AI技术文章</span>
+            </h2>
+            <div class="posts-grid">
+                <article class="post-card" onclick="window.open('/blogs/tech/en/mastering_jq_the_swiss_army_knife_of_json_processing', '_blank')">
+                    <div class="post-image">
+                        <div class="post-category ai-category">深度学习</div>
+                        JSON Processing
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>📅 2024-12-19</span>
+                            <span>⏱️ 8分钟阅读</span>
+                        </div>
+                        <h3 class="post-title">Transformer架构深度解析</h3>
+                        <p class="post-excerpt">深入探讨Transformer模型的核心机制，包括自注意力机制、位置编码和多头注意力的实现原理...</p>
+                        <div class="post-tags">
+                            <span class="tag ai-tag">Transformer</span>
+                            <span class="tag ai-tag">NLP</span>
+                            <span class="tag ai-tag">PyTorch</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card" onclick="window.open('/blogs/tech/en/awesome-awk-tools', '_blank')">
+                    <div class="post-image">
+                        <div class="post-category gpu-category">GPU编程</div>
+                        Text Processing
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>📅 2024-12-17</span>
+                            <span>⏱️ 6分钟阅读</span>
+                        </div>
+                        <h3 class="post-title">CUDA并行计算优化技巧</h3>
+                        <p class="post-excerpt">全面介绍CUDA编程的性能优化策略，包括内存管理、线程块配置和计算资源利用...</p>
+                        <div class="post-tags">
+                            <span class="tag gpu-tag">CUDA</span>
+                            <span class="tag gpu-tag">并行计算</span>
+                            <span class="tag gpu-tag">性能优化</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card" onclick="window.open('/blogs/tech/en/When_Your_Retry_Mechanism_Doesnt_Retry_A_Tale_of_String_Matching_Gone_Wrong', '_blank')">
+                    <div class="post-image">
+                        <div class="post-category ml-category">机器学习</div>
+                        Error Handling
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>📅 2024-12-16</span>
+                            <span>⏱️ 7分钟阅读</span>
+                        </div>
+                        <h3 class="post-title">MLOps实践指南</h3>
+                        <p class="post-excerpt">探索机器学习模型的生产化部署流程，包括模型版本管理、自动化训练和监控系统...</p>
+                        <div class="post-tags">
+                            <span class="tag ml-tag">MLOps</span>
+                            <span class="tag ml-tag">模型部署</span>
+                            <span class="tag ml-tag">自动化</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="view-all-posts">
+                <a href="posts-preview.html" class="btn btn-ai-primary">
+                    <span>查看所有AI文章</span>
+                    <div class="btn-glow"></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="ai-features" style="background: var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="ai-gradient-text">AI技术专长</span>
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card ai-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">
+                        <span class="ai-gradient-text">深度学习</span>
+                    </h3>
+                    <p class="feature-description">PyTorch、TensorFlow框架下的神经网络设计与训练优化</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">Neural Networks</span>
+                    </div>
+                </div>
+                <div class="feature-card gpu-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">
+                        <span class="ai-gradient-text">GPU编程</span>
+                    </h3>
+                    <p class="feature-description">CUDA并行计算、GPU加速算法设计与性能优化</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">CUDA</span>
+                        <span class="tech-tag">OpenCL</span>
+                        <span class="tech-tag">Parallel Computing</span>
+                    </div>
+                </div>
+                <div class="feature-card nlp-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3 class="feature-title">
+                        <span class="ai-gradient-text">自然语言处理</span>
+                    </h3>
+                    <p class="feature-description">Transformer架构、BERT、GPT等大语言模型的研究与应用</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">BERT</span>
+                        <span class="tech-tag">GPT</span>
+                        <span class="tech-tag">Transformers</span>
+                    </div>
+                </div>
+                <div class="feature-card ml-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title">
+                        <span class="ai-gradient-text">机器学习工程</span>
+                    </h3>
+                    <p class="feature-description">MLOps流程设计、模型部署、监控与自动化训练系统</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">MLOps</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Kubernetes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <button class="scroll-to-top" onclick="scrollToTop()">
+        ↑
+    </button>
+
+    <script>
+        // 主题切换
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // 加载保存的主题
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            document.querySelector('.theme-toggle').textContent = '☀️';
+        }
+
+        // 滚动指示器
+        function updateScrollIndicator() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.scroll-indicator').style.width = scrollPercent + '%';
+        }
+
+        // 回到顶部按钮
+        function updateScrollToTop() {
+            const scrollToTopBtn = document.querySelector('.scroll-to-top');
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 滚动事件监听
+        window.addEventListener('scroll', () => {
+            updateScrollIndicator();
+            updateScrollToTop();
+        });
+
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 卡片悬停效果增强
+        document.querySelectorAll('.post-card, .feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Particle System
+        class ParticleSystem {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                this.init();
+                this.animate();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+            
+            resize() {
+                this.canvas.width = this.canvas.offsetWidth;
+                this.canvas.height = this.canvas.offsetHeight;
+            }
+            
+            init() {
+                for (let i = 0; i < 50; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        size: Math.random() * 2 + 1,
+                        opacity: Math.random() * 0.5 + 0.2
+                    });
+                }
+            }
+            
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.particles.forEach(particle => {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    
+                    if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+                    if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+                    
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(0, 212, 255, ${particle.opacity})`;
+                    this.ctx.fill();
+                });
+                
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Typing Effect
+        class TypeWriter {
+            constructor(element, texts, speed = 100) {
+                this.element = element;
+                this.texts = texts;
+                this.speed = speed;
+                this.textIndex = 0;
+                this.charIndex = 0;
+                this.isDeleting = false;
+                this.type();
+            }
+            
+            type() {
+                const currentText = this.texts[this.textIndex];
+                
+                if (this.isDeleting) {
+                    this.element.textContent = currentText.substring(0, this.charIndex - 1);
+                    this.charIndex--;
+                } else {
+                    this.element.textContent = currentText.substring(0, this.charIndex + 1);
+                    this.charIndex++;
+                }
+                
+                let typeSpeed = this.speed;
+                
+                if (this.isDeleting) {
+                    typeSpeed /= 2;
+                }
+                
+                if (!this.isDeleting && this.charIndex === currentText.length) {
+                    typeSpeed = 2000;
+                    this.isDeleting = true;
+                } else if (this.isDeleting && this.charIndex === 0) {
+                    this.isDeleting = false;
+                    this.textIndex = (this.textIndex + 1) % this.texts.length;
+                    typeSpeed = 500;
+                }
+                
+                setTimeout(() => this.type(), typeSpeed);
+            }
+        }
+
+        // Initialize AI effects
+        const particlesCanvas = document.getElementById('particles-canvas');
+        if (particlesCanvas) {
+            new ParticleSystem(particlesCanvas);
+        }
+
+        const typedTextElement = document.querySelector('.typed-text');
+        if (typedTextElement) {
+            const texts = [
+                'AI研究者与实践者',
+                'GPU并行计算专家',
+                '深度学习工程师',
+                'NLP技术探索者'
+            ];
+            new TypeWriter(typedTextElement, texts, 150);
+        }
+
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
