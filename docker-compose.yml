@@ -1,0 +1,15 @@
+services:
+  jekyll:
+    image: jekyll/jekyll:latest
+    # platform: linux/arm64/v8
+    command: jekyll serve --host 0.0.0.0 --livereload --force_polling
+    ports:
+      - "4000:4000"
+      - "35729:35729"  # LiveReload port
+    volumes:
+      - .:/srv/jekyll
+      - ./vendor/bundle:/usr/local/bundle
+    environment:
+      - JEKYLL_ENV=development
+      - BUNDLE_PATH=/usr/local/bundle
+    working_dir: /srv/jekyll

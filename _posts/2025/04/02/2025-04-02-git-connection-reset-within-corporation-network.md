@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_mvn_skip_tests.png
-title:  Git Behind the Firewall: - Fix Connection Reset by Port 22 Errors in Corporate Networks
+title:  Git Behind the Firewall - Fix Connection Reset by Port 22 Errors in Corporate Networks
 date: 2025-04-02
 tags:
     - tech

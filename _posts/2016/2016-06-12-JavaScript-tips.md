@@ -1,5 +1,5 @@
 ---
-Layout: page
+layout: single
 title: JavaScript tips
 tags:
  - Coding
