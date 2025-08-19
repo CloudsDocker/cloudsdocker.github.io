@@ -1,8 +1,7 @@
 ---
 header:
     image: /assets/images/hd_geode_ordinal.png
-    alt: "Git Reset vs Git Restore"
-title: Git Reset vs Git Restore: A Developer's Mastery Guide
+title: Git Reset vs Git Restore A Developer's Mastery Guide
 date: 2025-08-11
 tags:
     - tech
@@ -11,6 +10,7 @@ permalink: /blogs/tech/en/git-reset-vs-git-restore-developer-mastery
 layout: single
 category: tech
 ---
+
 > "Believe you can and you're halfway there." - Theodore Roosevelt
 
 # Git Reset vs Git Restore: Mastering Git Commands with Confidence
