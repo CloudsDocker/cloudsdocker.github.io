@@ -11,7 +11,7 @@ category: tech
 ---
 > Great minds discuss ideas; average minds discuss events; small minds discuss people. - Eleanor Roosevelt
 
-# tech blog Kubernetes YAML All Wrong What You are Missing
+#  Kubernetes YAML All Wrong What You are Missing
 
 
 > 富贵必从勤苦得，男儿须读五车书。——杜甫
