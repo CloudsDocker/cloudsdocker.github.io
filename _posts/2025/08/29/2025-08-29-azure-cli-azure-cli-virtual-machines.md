@@ -1,6 +1,6 @@
 ---
 header:
-    image: hd_linux_tips.jpg
+    image: /assets/images/hd_linux_tips.jpg
 title:  az vm list：你深信不疑的命令，正在暴露你的业余水平
 date: 2025-08-29
 tags:

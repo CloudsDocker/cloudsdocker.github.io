@@ -1,6 +1,6 @@
 ---
 header:
-    image: hd_sting_ray.jpg
+    image: /assets/images/hd_sting_ray.jpg
 title:  在AI成为社交货币的时代，如何让你的见解显得更聪明一点？
 date: 2025-08-24
 tags:

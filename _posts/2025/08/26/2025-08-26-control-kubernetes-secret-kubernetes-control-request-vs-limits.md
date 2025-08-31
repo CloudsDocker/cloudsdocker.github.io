@@ -1,6 +1,6 @@
 ---
 header:
-    image: hd_geode_ordinal.png
+    image: /assets/images/hd_geode_ordinal.png
 title:  Kubernetes资源管理的坑，我用一次P0故障换来了这万字血泪总结
 date: 2025-08-26
 tags:

@@ -1,6 +1,6 @@
 ---
 header:
-    image: hd_typescript.jpg
+    image: /assets/images/hd_typescript.jpg
 title:  SpaceX的火箭炸了4次才成功，你的系统炸一次就崩盘？
 date: 2025-08-27
 tags:

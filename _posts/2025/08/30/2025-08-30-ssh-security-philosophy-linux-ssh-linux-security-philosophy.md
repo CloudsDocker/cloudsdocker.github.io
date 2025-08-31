@@ -1,6 +1,6 @@
 ---
 header:
-    image: hd_kubenetes_bamboo_deployment.png
+    image: /assets/images/hd_kubenetes_bamboo_deployment.png
 title:  一次SSH登录失败，让我重新理解Linux权限设计哲学
 date: 2025-08-30
 tags:
