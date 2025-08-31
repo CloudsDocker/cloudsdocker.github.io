@@ -1,6 +1,6 @@
 ---
 header:
-    image: hd_intteliJ_tips.png
+    image: /assets/images/hd_intteliJ_tips.png
 title:  Kubernetes (k8s) 部署 YAML 详细解析：150 行代码，99% 开发者忽略的 10 个致命细节
 date: 2025-08-26
 tags:

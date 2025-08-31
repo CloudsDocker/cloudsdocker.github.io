@@ -1,6 +1,6 @@
 ---
 header:
-    image: hd_kerberos.png
+    image: /assets/images/hd_kerberos.png
 title:  服务类型 => 这份看似简单的Kubernetes Service配置，暴露了你与资深工程师的差距
 date: 2025-08-22
 tags:
