@@ -35,7 +35,7 @@ category: tech
 
 ### **主体分析 (Body Analysis) - 深度扩充版**
 
-让我们把镜头对准我的同事，一位非常优秀的开发工程师——让我们叫他“小A”。在一次紧急故障排查中，小A需要快速获取我们`metaspatial_app_rg`资源组下所有虚拟机的内网IP地址。
+让我们把镜头对准我的同事，一位非常优秀的开发工程师——让我们叫他“小A”。在一次紧急故障排查中，小A需要快速获取我们`demo_app_rg`资源组下所有虚拟机的内网IP地址。
 
 *   **场景**：生产环境一个关键服务出现异常，怀疑是网络连通性问题。需要立刻拿到所有VM的IP进行排查。
 *   **挑战**：时间紧迫，需要在几分钟内给出答案。环境庞大而复杂，任何误操作都可能引发连锁反应。
@@ -45,7 +45,7 @@ category: tech
 小A对Azure CLI很熟悉。他知道要列出VM，第一个蹦进他脑海的命令就是 `az vm list`。他熟练地加上了查询参数，试图直接提取`privateIps`。
 
 ```bash
-az vm list --resource-group "metaspatial_app_rg" --query "[].{Name:name, PrivateIP:privateIps[0]}" --output table
+az vm list --resource-group "demo_app_rg" --query "[].{Name:name, PrivateIP:privateIps[0]}" --output table
 ```
 
 命令运行了。结果呢？`PrivateIP` 那一列是**空的**！
@@ -97,7 +97,7 @@ az vm list --resource-group "metaspatial_app_rg" --query "[].{Name:name, Private
 >        ```bash
 >        # 这是一个Bash示例，但原理适用于任何语言(Python, PowerShell等)
 >        # 1. 获取VM与NIC的映射关系，输出为TSV便于处理
->        mapfile -t vm_nic_list < <(az vm list -g metaspatial_app_rg --query "[].{vmName:name, nicId:networkProfile.networkInterfaces[0].id}" -o tsv)
+>        mapfile -t vm_nic_list < <(az vm list -g demo_app_rg --query "[].{vmName:name, nicId:networkProfile.networkInterfaces[0].id}" -o tsv)
 >        
 >        # 2. 遍历这个列表，精确打击每一个NIC资源
 >        for line in "${vm_nic_list[@]}"; do
