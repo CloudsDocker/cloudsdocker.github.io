@@ -12,7 +12,6 @@ category: tech
 > Try to be a rainbow in someone's cloud. - Maya Angelou
 
 # The Great Node.js Version War Node.js version war survival guide Terminally confused
-# The Great Node.js Version War: A Survival Guide for the Terminally Confused 🎭
 
 *Or: How I Learned to Stop Worrying and Love nvm*
 
