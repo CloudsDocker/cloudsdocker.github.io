@@ -39,8 +39,8 @@ category: tech
 
 ```
 Commit: 18829eb - "重命名ADO路径"
-├── Metaspatial/IAC/VM_Rebuild_Analysis.md      ← 糟糕！
-├── Metaspatial/IAC/VM_Rebuild_Quick_Doc.md     ← 更糟糕！
+├── SampleProj/IAC/VM_Rebuild_Analysis.md      ← 糟糕！
+├── SampleProj/IAC/VM_Rebuild_Quick_Doc.md     ← 更糟糕！
 ├── terraform-service-principal-role.json       ✓ 正确
 └── docker-image-sync-job.yml                   ✓ 正确
 ```
@@ -51,8 +51,8 @@ Commit: 18829eb - "重命名ADO路径"
 # 慌乱中的操作
 git reset --hard HEAD~1  # 等等，这会删除所有更改！
 git reset --soft HEAD~1  # 撤销提交，保持暂存
-git reset HEAD Metaspatial/IAC/VM_Rebuild_Analysis.md  # 取消暂存
-git reset HEAD Metaspatial/IAC/VM_Rebuild_Quick_Doc.md # 再次取消暂存
+git reset HEAD SampleProj/IAC/VM_Rebuild_Analysis.md  # 取消暂存
+git reset HEAD SampleProj/IAC/VM_Rebuild_Quick_Doc.md # 再次取消暂存
 git commit -m "重命名ADO路径"  # 重新提交
 ```
 
@@ -63,8 +63,8 @@ git commit -m "重命名ADO路径"  # 重新提交
 ```bash
 # 清晰、意图明确的操作
 git reset --soft HEAD~1  # 撤销提交，保持暂存状态
-git restore --staged Metaspatial/IAC/VM_Rebuild_Analysis.md    # 明确：取消暂存
-git restore --staged Metaspatial/IAC/VM_Rebuild_Quick_Doc.md   # 明确：取消暂存
+git restore --staged SampleProj/IAC/VM_Rebuild_Analysis.md    # 明确：取消暂存
+git restore --staged SampleProj/IAC/VM_Rebuild_Quick_Doc.md   # 明确：取消暂存
 git commit -m "重命名ADO路径"  # 重新提交
 ```
 
