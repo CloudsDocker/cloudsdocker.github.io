@@ -1,11 +1,11 @@
 ---
 header:
     image: /assets/images/hd_cpu_system_info_aws.jpg
-title:  Maximum Subarray Problem A Deep Dive Evolution of Maximum Subarray Problem Thinking
+title:  从算法错误到技术洞察 深度剖析最大子数组问题的思维进化之路
 date: 2025-09-22
 tags:
     - tech
-permalink: /blogs/tech/en/maximum-subarray-problem-a-deep-dive-evolution-of-maximum-subarray-problem-thinking
+permalink: /blogs/tech/cn/maximum-subarray-problem-a-deep-dive-evolution-of-maximum-subarray-problem-thinking
 layout: single
 category: tech
 ---

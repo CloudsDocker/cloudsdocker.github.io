@@ -1,11 +1,11 @@
 ---
 header:
     image: /assets/images/hd_jpa_col.png
-title:  x y power of x y is not such simple
+title:  算法优化的艺术 深入理解 Pow(x, n) 及其背后的思考
 date: 2025-09-21
 tags:
     - tech
-permalink: /blogs/tech/en/x-y-power-of-x-y-is-not-such-simple
+permalink: /blogs/tech/cn/x-y-power-of-x-y-is-not-such-simple
 layout: single
 category: tech
 ---

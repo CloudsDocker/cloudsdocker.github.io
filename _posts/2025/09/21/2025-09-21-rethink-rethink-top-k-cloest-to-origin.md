@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_sdkman_omz.png
-title:  rethink rethink top k cloest to origin
+title:  破解Big Company面试题——K个最近点问题的深度思考与通用解法
 date: 2025-09-21
 tags:
     - tech

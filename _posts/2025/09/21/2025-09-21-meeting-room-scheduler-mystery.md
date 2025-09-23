@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_state_machine.png
-title: 从LIS到Principal思维：算法不是背答案，而是修炼思考方式的武功秘籍
+title: 从LIS到Principal思维 - 算法不是背答案，而是修炼思考方式的武功秘籍
 date: 2025-09-14
 tags:
     - tech
