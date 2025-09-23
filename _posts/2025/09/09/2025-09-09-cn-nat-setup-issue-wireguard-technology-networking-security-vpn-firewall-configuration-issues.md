@@ -1,4 +1,4 @@
-
+---
 header:
 image: /assets/images/hd_kerberos.png
 title:  Troubleshooting Network Connectivity When iPhone Fails to Access Internal Network via WireGuard
@@ -11,7 +11,7 @@ NAT configuration
 permalink: /blogs/tech/en/nat-setup-issue-wireguard-technology-networking-security-WireGuard-firewall-configuration-issues
 layout: single
 category: tech
-
+---
 The question isn't who is going to let me; it's who is going to stop me. - Ayn Rand
 iPhone 连 WireGuard 无法访问内网？6 小时踩坑后，真凶竟是 Windows NAT 配置！
 昨晚 10 点，我顺利在 Windows 11 系统上部署完成 WireGuard 服务端。iPhone 连接后界面亮起绿灯，一切看似准备就绪。

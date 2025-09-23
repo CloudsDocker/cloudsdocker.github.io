@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_state_machine.png
-title: 从LIS到Principal思维 - 算法不是背答案，而是修炼思考方式的武功秘籍
+title: 从LIS到Principal思维 算法不是背答案，而是修炼思考方式的武功秘籍
 date: 2025-09-14
 tags:
     - tech
@@ -12,7 +12,6 @@ permalink: /blogs/tech/cn/from-lis-to-principal-thinking-algorithm-mastery-journ
 layout: single
 category: tech
 lang: zh
-"
 ---
 
 > 真正的大师不是拥有最多学生的人，而是创造出最多大师的人。 - 老子
