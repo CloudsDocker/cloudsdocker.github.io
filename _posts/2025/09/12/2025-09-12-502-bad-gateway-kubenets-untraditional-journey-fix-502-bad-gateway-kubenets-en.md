@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_jupiter.png
-title:  502 Is Not 520: Debugging 502 Bad Gateway on Kubernetes — A Mindset Walkthrough
+title:  502 Is Not 520 - Debugging 502 Bad Gateway on Kubernetes — A Mindset Walkthrough
 date: 2025-09-12
 tags:
   - tech
