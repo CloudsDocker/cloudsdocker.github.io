@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/hd_cpu_system_info_aws.jpg
+    image: /assets/images/hd_forge.jpg
 title:  从算法错误到技术洞察 深度剖析最大子数组问题的思维进化之路
 date: 2025-09-22
 tags:

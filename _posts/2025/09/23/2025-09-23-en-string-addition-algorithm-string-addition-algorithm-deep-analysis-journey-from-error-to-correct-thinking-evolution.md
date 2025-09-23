@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/hd_nodejs_faq.png
+    image: /assets/images/hd_rxjs.png
 title:  String Addition Algorithm String Addition Algorithm Deep Analysis Journey from Error to Correct Thinking Evolution
 date: 2025-09-23
 tags:
