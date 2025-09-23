@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/hd_jpa_col.png
+    image: /assets/images/hd_kerberos.png
 title:  算法优化的艺术 深入理解 Pow(x, n) 及其背后的思考
 date: 2025-09-21
 tags:
