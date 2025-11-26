@@ -21,7 +21,7 @@ Is Probe installed correctly?
 Manually check probe
 Test it in postman via following URL pattern:
 
-https://dev.fod.wsdc.fm.srv.westpac.com.au:3799/pretrade/ptt-notification-service/actuator/health
+https://sample.com:3799/pretrade/ptt-notification-service/actuator/health
 
 
 
