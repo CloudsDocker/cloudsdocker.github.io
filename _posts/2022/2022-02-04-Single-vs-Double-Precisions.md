@@ -22,7 +22,7 @@ category: tech
 
 
 
-https://confluence.fx.srv.westpac.com.au/display/FMP/MavenReportException%3A+Error+while+generating+Javadoc
+https://sample.com/display/FMP/MavenReportException%3A+Error+while+generating+Javadoc
 
 
 
@@ -51,7 +51,7 @@ Error stack trace as below
 [INFO] [ERROR] Failed to execute goal org.apache.maven.plugins:maven-javadoc-plugin:3.3.1:jar (attach-javadocs) on project ptt-client-partymodel-service-dto: MavenReportException: Error while generating Javadoc:
 [INFO] [ERROR] Exit code: 1 - javadoc: error - The code being documented uses modules but the packages defined in https://docs.oracle.com/javase/8/docs/api/ are in the unnamed module.
 [INFO] [ERROR]
-[INFO] [ERROR] Command line was: /usr/lib/jvm/java-11-openjdk-amd64/bin/javadoc -J-Dhttps.proxyHost=localhost -J-Dhttps.proxyPort=3128 -J-Dhttp.proxyHost=localhost -J-Dhttp.proxyPort=3128 "-J-Dhttp.nonProxyHosts=\"localhost^|10.^|.westpac.com.au^|.btfin.com^|.thewestpacgroup.com.au^|snow.thewestpacgroup.com.au^|127.0.0.1^|nexus.fx.srv.westpac.com.au\"" @options @packages
+[INFO] [ERROR] Command line was: /usr/lib/jvm/java-11-openjdk-amd64/bin/javadoc -J-Dhttps.proxyHost=localhost -J-Dhttps.proxyPort=3128 -J-Dhttp.proxyHost=localhost -J-Dhttp.proxyPort=3128 "-J-Dhttp.nonProxyHosts=\"localhost^|10.^|.sample.com^|.btfin.com^|.thewestpacgroup.com.au^|snow.thewestpacgroup.com.au^|127.0.0.1^|nexus.fx.srv.westpac.com.au\"" @options @packages
 [INFO] [ERROR]
 [INFO] [ERROR] Refer to the generated Javadoc files in '/mnt/c/local/git/ptc/pretrade-partymodel-server/target/checkout/ptt-client-partymodel-service-dto/target/apidocs' dir.
 [INFO] [ERROR] -> [Help 1]
