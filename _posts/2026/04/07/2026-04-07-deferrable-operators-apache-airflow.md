@@ -285,6 +285,78 @@ After 3 retries the last exception is re-raised and the Airflow task is marked a
 
 ---
 
+## Why This Issue Occurred in the Airflow v3 Upgrade but Not v2
+
+This is a subtle but important distinction that explains why migrating from v2 to v3 can surface new data-integrity bugs in operators that were perfectly safe before.
+
+### Airflow v2 — SIGTERM kills the process immediately
+
+When zombie detection fires in v2, the scheduler sends `SIGTERM` directly to the OS worker process:
+
+```
+Scheduler detects zombie
+  └─ sends SIGTERM to worker OS process
+        └─ Airflow's signal handler raises AirflowTaskTimeout (or SystemExit)
+              └─ Python unwinds the call stack immediately
+                    └─ execute() never reaches delete_objects() or log_load_complete()
+```
+
+The process is hard-killed at the OS level. The exception propagates **synchronously** through the same thread running `execute()`. There is no window for post-ECS mutations to run — the stack unwinds before reaching them.
+
+### Airflow v3 — API heartbeat delivers the signal asynchronously
+
+In v3, the task runner is a separate SDK process (`airflow/sdk/execution_time/task_runner.py`) that communicates with the API server over HTTP. There is no `SIGTERM`. Instead:
+
+```
+Scheduler marks TI as failed in DB
+  └─ Heartbeat thread (background) polls API server every N seconds
+        └─ API server returns: {"reason": "not_running", "current_state": "failed"}
+              └─ Heartbeat thread logs: "Server indicated task shouldn't be running"
+              └─ Heartbeat thread sets a stop flag / schedules process exit
+
+Main thread (running execute())
+  └─ CONTINUES RUNNING until the stop signal propagates across thread boundary
+        └─ deletes S3 file   ← happens here in the window
+        └─ logs to CTLFW     ← happens here in the window
+        └─ tries to update TI state → 409 API rejection
+```
+
+The critical difference is the **cross-thread delivery gap**. The kill signal arrives in the heartbeat background thread, but the main thread executing `execute()` keeps running until the signal crosses the thread boundary — which can take seconds. That's the window where side-effecting operations happen.
+
+### Why the gap is so large in the observed incident
+
+The zombie threshold is 300 seconds in both v2 and v3 by default. But the log showed a ~24 hour gap between Try 1 (April 1) and Try 2 (April 2). The timeline was:
+
+```
+Apr 1, 14:26  — Try 1 starts, ECS job submitted
+Apr 1 + 5min  — Scheduler zombie-detects Try 1, marks TI as failed
+              — v2: SIGTERM kills worker → clean
+              — v3: API heartbeat notifies worker... but worker process may have
+                    already been replaced by the retry runner, creating state confusion
+
+Apr 2, 10:25  — Try 2 starts (Airflow retry)
+              — API server still has residual "failed" state from Try 1 zombie
+              — Try 2's heartbeat immediately gets "not_running" back
+              — Main thread finishes ECS, deletes file, logs 0 rows
+              — 409 on state update
+```
+
+In v2, the `SIGTERM` from Try 1's zombie detection would have cleanly stopped the process with no retry confusion. In v3, the state is managed by the API server and a failed TI from a zombie can bleed into the retry's heartbeat responses.
+
+### Summary: v2 vs v3 kill mechanism
+
+| | Airflow v2 | Airflow v3 |
+|---|---|---|
+| **Kill mechanism** | OS `SIGTERM` → Python exception in main thread | API heartbeat → flag/exit in background thread |
+| **Delivery** | Synchronous — same thread as `execute()` | Asynchronous — crosses thread boundary |
+| **Window for mutations** | None — stack unwinds immediately | Seconds to minutes — main thread keeps running |
+| **Data integrity risk** | None | S3 delete / CTLFW can run against a dead TI |
+| **Fix needed** | No | Yes — `_assert_still_running()` guard |
+
+The root cause is architectural: v3 replaced OS-level process signals with an HTTP-based heartbeat protocol to support the new SDK task runner model. This is a better design for distributed execution, but it introduces a class of **TOCTOU (time-of-check-to-time-of-use) bugs** in any operator that performs side effects after the main ECS call returns. The fix is to check the task's current state via the API before executing any side-effecting cleanup code.
+
+---
+
 ## Further Reading
 
 - [AIP-40: Deferrable Operators](https://cwiki.apache.org/confluence/display/AIRFLOW/AIP-40+Deferrable+Operators) — original design proposal
