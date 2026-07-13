@@ -1,0 +1,185 @@
+---
+layout: null
+permalink: /LessChoice/privacy.html
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SelectLess — Privacy Policy</title>
+<meta name="description" content="What SelectLess collects, why, and what it never does.">
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --surface: #ffffff;
+    --text: #1a2233;
+    --text-muted: #57647a;
+    --accent: #4a55c7;
+    --accent-soft: #e7e9fb;
+    --border: #e1e5ee;
+    --rule: #d7dce7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12151f; --surface: #191d29; --text: #eceff5; --text-muted: #9aa3ba;
+      --accent: #8b93f0; --accent-soft: #262b45; --border: #2a3044; --rule: #2a3044;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12151f; --surface: #191d29; --text: #eceff5; --text-muted: #9aa3ba;
+    --accent: #8b93f0; --accent-soft: #262b45; --border: #2a3044; --rule: #2a3044;
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f6f9; --surface: #ffffff; --text: #1a2233; --text-muted: #57647a;
+    --accent: #4a55c7; --accent-soft: #e7e9fb; --border: #e1e5ee; --rule: #d7dce7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.65; -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 720px; margin: 0 auto; padding: 4.5rem 1.5rem 6rem; }
+  .eyebrow {
+    display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+    font-weight: 600; margin-bottom: 1.1rem;
+  }
+  .eyebrow::before {
+    content: ""; width: 0.55rem; height: 0.55rem; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+  }
+  h1 {
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    font-size: clamp(2.1rem, 5vw, 2.75rem); font-weight: 600; line-height: 1.12;
+    letter-spacing: -0.01em; margin: 0 0 0.6rem; text-wrap: balance;
+  }
+  .subtitle { color: var(--text-muted); font-size: 1.05rem; margin: 0 0 0.35rem; }
+  .updated {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.82rem;
+    color: var(--text-muted); margin: 0 0 3rem;
+  }
+  .lede {
+    font-size: 1.15rem; line-height: 1.6; color: var(--text);
+    border-left: 3px solid var(--accent); padding-left: 1.15rem; margin: 0 0 3.25rem;
+  }
+  section { padding: 2.35rem 0; border-top: 1px solid var(--rule); }
+  section:first-of-type { border-top: none; padding-top: 0; }
+  h2 {
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    font-size: 1.4rem; font-weight: 600; margin: 0 0 1rem; letter-spacing: -0.005em;
+  }
+  h3 { font-size: 1rem; font-weight: 700; margin: 1.4rem 0 0.5rem; color: var(--text); }
+  p { margin: 0 0 1rem; max-width: 62ch; color: var(--text); }
+  p.muted, li.muted { color: var(--text-muted); }
+  ul { margin: 0 0 1rem; padding-left: 1.2rem; }
+  li { margin-bottom: 0.55rem; max-width: 60ch; }
+  .data-table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.92rem; }
+  .data-table th {
+    text-align: left; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-muted); font-weight: 600; padding: 0 0.9rem 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td { padding: 0.75rem 0.9rem 0.75rem 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .tag {
+    display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 0.18rem 0.55rem;
+    border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap;
+  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem 1.6rem; margin-top: 1rem; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--text-muted); font-size: 0.88rem; }
+  footer p { max-width: none; }
+  @media (max-width: 480px) { .page { padding: 3rem 1.25rem 4rem; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="eyebrow">SelectLess</div>
+  <h1>Privacy Policy</h1>
+  <p class="subtitle">What SelectLess collects, why, and what it never does.</p>
+  <p class="updated">Last updated: 13 July 2026</p>
+
+  <p class="lede">
+    SelectLess doesn't ask you to sign in, doesn't know who you are, and doesn't
+    track you across other apps or websites. This page explains exactly what
+    little data does pass through the app, and why.
+  </p>
+
+  <section>
+    <h2>The short version</h2>
+    <table class="data-table">
+      <tr><th>Question</th><th>Answer</th></tr>
+      <tr><td>Do you need an account?</td><td><span class="tag">No</span></td></tr>
+      <tr><td>Do you collect my location?</td><td><span class="tag">No</span></td></tr>
+      <tr><td>Do you use analytics or advertising trackers?</td><td><span class="tag">No</span></td></tr>
+      <tr><td>Do you sell or share data with advertisers?</td><td><span class="tag">No</span></td></tr>
+      <tr><td>Is anything I type linked to my identity?</td><td><span class="tag">No</span></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>What SelectLess sends, and where</h2>
+    <p>
+      When you describe what you're deciding — a trip, an outing, anything with
+      too many options — that text is sent to our server so it can ask Google's
+      Gemini API to generate suggestions. When a suggestion needs a photo, the
+      place name is sent to Google's Places API to look one up.
+    </p>
+    <div class="card">
+      <h3>Text you type (prompts &amp; constraints)</h3>
+      <p class="muted">Sent to our backend, then to Google Gemini, to generate suggestions. Not stored with any identifier that could tie it back to you — our server doesn't know your name, email, or device identity.</p>
+      <h3>Place names</h3>
+      <p class="muted">Sent to our backend, then to Google Places, to fetch a representative photo. Cached briefly on our server (see below) so repeat lookups for popular places don't repeat the request.</p>
+      <h3>Device attestation</h3>
+      <p class="muted">SelectLess uses Apple's App Attest to confirm requests come from a genuine copy of the app running on real Apple hardware, not a script. This is a cryptographic check performed by your device and Apple — it doesn't identify you personally, only that the app instance is legitimate.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What we store, and for how long</h2>
+    <ul>
+      <li>Suggestion results and place photos are cached on our server for a limited time (typically hours to a few days) purely to keep the app fast and reduce repeat calls to Google's APIs — this cache is keyed by the place or search terms, never by you.</li>
+      <li>Standard server access logs (timestamps, request paths, IP address) are kept briefly for security and abuse prevention, consistent with normal web server operation, and are not used to build a profile of you.</li>
+      <li>Your shortlist (kept and maybe places) lives only on your device for the current session, unless you explicitly save an image or share a PDF yourself.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Third parties involved</h2>
+    <table class="data-table">
+      <tr><th>Who</th><th>What they see</th><th>Why</th></tr>
+      <tr><td>Google (Gemini API)</td><td>The text you type describing your decision</td><td>Generates the place suggestions</td></tr>
+      <tr><td>Google (Places API)</td><td>Place names</td><td>Fetches representative photos</td></tr>
+      <tr><td>Google Cloud</td><td>Server infrastructure and caches described above</td><td>Runs the SelectLess backend</td></tr>
+      <tr><td>Apple (App Attest)</td><td>A cryptographic device attestation, not personal data</td><td>Confirms requests come from a genuine app instance</td></tr>
+    </table>
+    <p class="muted">None of these parties receive your name, email, precise location, or any other identifier — because SelectLess never collects one in the first place.</p>
+  </section>
+
+  <section>
+    <h2>Children's privacy</h2>
+    <p>
+      SelectLess is not directed at children under 13, and we don't knowingly
+      collect data from children. Since the app collects no personal
+      identifiers from anyone, this applies equally to all users.
+    </p>
+  </section>
+
+  <section>
+    <h2>Changes to this policy</h2>
+    <p>
+      If what SelectLess collects ever changes, this page will be updated and
+      the "Last updated" date above will reflect it. Meaningful changes will
+      also be noted in the App Store release notes.
+    </p>
+  </section>
+
+  <footer>
+    <p>Questions about this policy? Contact <a href="mailto:phray.zhang@gmail.com">phray.zhang@gmail.com</a>. Also see the <a href="/LessChoice/support.html">Support page</a>.</p>
+  </footer>
+</div>
+</body>
+</html>
