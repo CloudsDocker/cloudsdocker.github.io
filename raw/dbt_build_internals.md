@@ -1,9 +1,94 @@
 # dbt build 底层原理深度解析
+>
 > 系列：数据工程师的硬核手册 · 第一篇  
 > 适用版本：dbt-core >= 1.9  
 > 源码根据：[dbt-labs/dbt-core @ GitHub](https://github.com/dbt-labs/dbt-core)
 
 ---
+Raw materials to be added into blog:
+**Almost — but not only `stage`.**
+
+`dbt run` / `dbt build` **runs every model** in the project (input, stage, output, quarantine), in **dependency order** — not “stage only”.
+
+---
+
+## What actually happens
+
+When you run:
+
+```bash
+dbt run
+# or
+dbt build   # run + test
+```
+
+dbt:
+
+1. **Reads all `.sql` files** under `models/`
+2. **Builds a graph** from `ref()` / `source()` (who depends on whom)
+3. **Runs them in order** — upstream first, downstream after
+
+For your project, roughly:
+
+```text
+source (ODS tables, not built by dbt)
+    ↓
+input/*.sql        → creates VIEWs (light pull from ODS)
+    ↓
+stage/*.sql        → creates VIEWs (joins, mapping, business rules)
+    ↓
+output/*.sql       → creates TABLEs (Salesforce-ready columns)
+    ↓
+quarantine/*.sql   → creates TABLEs (bad rows, optional branch)
+```
+
+So **transformation is spread across layers**:
+
+| Layer | Role |
+|-------|------|
+| **input** | “Get data in” — select from `source()`, rename/limit columns |
+| **stage** | “Do the work” — joins, filters, map to SF field names |
+| **output** | “Package for delivery” — often mostly `SELECT` from stage |
+| **quarantine** | “Side channel” — rows that fail validation |
+
+**Stage is the busiest layer**, but input and output are part of the same pipeline.
+
+---
+
+## `run` vs `build`
+
+| Command | Does |
+|---------|------|
+| **`dbt run`** | Execute models → create/replace views & tables in Snowflake |
+| **`dbt build`** | **`run` + `test`** — same models, then run tests from `stage.yml` etc. |
+
+Airflow uses **`dbt build`** in the DAG (run everything + tests).
+
+---
+
+## Important nuance: order is **dependencies**, not folder names
+
+dbt doesn’t literally go “input folder → stage folder → output folder” because of folder names.
+
+It goes:
+
+> **`input__employee` before `stage__staff_person_account`** because stage has `ref('input__employee')`.
+
+If model A `ref()`s model B, B runs first — always.
+
+---
+
+## One-line summary
+
+> **`dbt run`/`build` kicks off the whole DAG of SQL models — input → stage → output (and quarantine) — and materializes them as views/tables in Snowflake. Stage is where most transformation lives, but it’s not the only layer that runs.**
+
+If you only want part of that:
+
+```bash
+./run_dbt_local.sh run --select stage__staff_person_account+
+```
+
+That runs **that stage model + its downstream output**, not the entire project (unless you add `+` upstream too).
 
 ## 0. 为什么要写这篇文章
 
@@ -40,6 +125,7 @@ dbt_run = KubernetesPodOperator(
 ```
 
 **关键认知**：
+
 - dbt 不安装在 Airflow 服务器上，只在 Docker 镜像里
 - Pod 是一次性的，跑完即毁，彻底云原生
 - 所有 Snowflake 凭据通过环境变量注入 Pod
@@ -49,6 +135,7 @@ dbt_run = KubernetesPodOperator(
 ## 2. `dbt build` 是什么，它不是什么
 
 ### 它是什么
+
 `dbt build` 是 dbt 的"一键全跑"命令，等价于：
 
 ```
@@ -58,6 +145,7 @@ dbt seed + dbt run + dbt test + dbt snapshot
 但**不是简单的串行执行**，而是把所有资源节点放进同一个有向无环图（DAG）里，按依赖关系并行调度。
 
 ### 它不是什么
+
 - 不是顺序固定的"先 seed 再 model 再 test"——顺序由依赖图决定
 - 不是黑魔法——每一步都有明确的 Python 类对应
 - 不是隐式定义的——源码完全开放，100% 可读
@@ -75,6 +163,7 @@ dbt-core/core/dbt/
 ```
 
 类继承关系：
+
 ```
 GraphRunnableTask  (runnable.py)
     └── RunTask    (run.py)
