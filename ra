@@ -1,0 +1,380 @@
+---
+title: "文件系统的信任游戏:mtime、glob 与 fnmatch 底层解析"
+date: 2026-08-01
+categories: [engineering, python, filesystems]
+tags: [python, pathlib, glob, fnmatch, mtime, syscalls, code-review]
+---
+
+一段小小的辅助函数代码审查,牵出了一条三层递进的技术兔子洞:为什么 mtime 不是可靠的信任来源、glob 到底是怎么找到文件的、以及 fnmatch 在背后偷偷做了什么。三个问题,一条共同的教训——大多数"显而易见"的文件系统 API,抽象层都比看上去薄得多。
+
+## 第一部分:审查 list_raw_files —— 为什么 mtime 没有看上去那么可信
+
+起点是这段函数:
+
+```python
+def list_raw_files(n: int = 20) -> list[str]:
+    """The n most recently touched drafts in raw/, newest first. Ordered by mtime rather than
+    by name: only some drafts carry a date prefix, so the filenames do not sort chronologically."""
+    drafts = sorted(BLOG_RAW_DIR.glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
+    return [p.name for p in drafts[:n]]
+```
+
+这段代码干的事很简单:扫描 `raw/` 目录下所有 `.md` 文件,按"最后修改时间"倒序排列,返回最新的 N 个文件名。核心洞察在注释里已经点出来了——**文件名不可信,mtime 才是唯一可信的时间戳**。这是一个"信任来源(source of truth)"的经典工程决策:命名约定是人定的,会漏、会错;而 mtime 是文件系统在每次 write 时无条件更新的元数据,骗不了人(至少大部分时候骗不了)。
+
+### ⚙️ 底层机制
+
+`BLOG_RAW_DIR.glob("*.md")` 内部调用的是 `os.scandir()`(Python 3.6+ pathlib 已经切到这个更快的实现,而不是老的 `os.listdir()` + 逐个 stat)。但注意:**glob 本身只返回文件名匹配的 `Path` 对象,不带 stat 信息**。
+
+真正的关键在 `p.stat()`:这一步是一次显式的 `stat(2)` 系统调用,读取 inode 里的 `struct stat`,其中 `st_mtime` 存的是"modify time"——最后一次内容被写入的时间,精度取决于文件系统(ext4 是纳秒级,但很多老系统只有秒级)。
+
+复杂度拆解:
+- `glob` 遍历目录:O(k),k 是目录项数
+- 对每个文件调用 `stat()`:再 O(k) 次系统调用,每次都是一次用户态→内核态切换
+- `sorted()`:O(k log k)
+- 切片取前 n:O(n)
+
+所以整体是 O(k log k) 时间,**但真正的成本瓶颈不是排序,是 k 次独立的 syscall**。如果 `raw/` 里有几万个文件,这里就是几万次上下文切换。
+
+**这里有个可以优化的点**:`os.scandir()` 返回的 `DirEntry` 对象在大多数平台(尤其是 Windows,以及 Linux 上部分场景)会在遍历目录时顺带拿到 stat 信息并缓存,调用 `.stat()` 不用重新发起 syscall。但 `pathlib.Path.glob()` 把这层优化抽象掉了,你拿到的是纯 `Path`,每次 `.stat()` 都是新的系统调用。想榨干性能可以直接用 `os.scandir()`。
+
+### 🔬 面试官追问链
+
+**Q1: 如果 `raw/` 目录下有 10 万个文件,这个函数会有什么问题?**
+A: 两个问题。一是 10 万次 `stat()` 系统调用,哪怕每次 1μs,也是 100ms+ 的纯 syscall 开销,而且大部分是浪费的——你只要最新的 20 个,却把全部文件都 stat 了一遍。二是 `sorted()` 会构造一个 10 万元素的列表全量排序,而你只需要 top-N。应该用 `heapq.nlargest(n, drafts, key=...)`,把排序复杂度从 O(k log k) 降到 O(k log n)。
+
+**Q2: mtime 靠谱吗?有什么坑?**
+A: 至少三个坑:
+1. **精度问题**:老文件系统(比如某些 NFS 挂载、FAT32)mtime 只精确到秒,同一秒内改的多个文件顺序不确定。
+2. **git checkout / rsync 会重写 mtime**:如果 `raw/` 目录被 git clone 或从备份恢复过,所有文件的 mtime 会变成检出时间,历史顺序全毁。
+3. **编辑器"原子保存"套路**:多数编辑器保存时是"写临时文件 + rename 覆盖",通常没问题,但"复制属性"模式可能保留旧 mtime。
+
+**Q3: 这里有并发/TOCTOU 风险吗?**
+A: 有,虽然后果不严重。`glob()` 拿到文件列表和 `stat()` 读取 mtime 之间,文件可能被删除——`p.stat()` 会抛 `FileNotFoundError`,整个函数直接崩掉。生产代码应该 `try/except FileNotFoundError: continue`。
+
+**Q4: n 远小于文件总数时有没有更聪明的做法?**
+A: 用 `heapq.nlargest`。文件数百万级时更狠的做法是维护一个索引(比如 SQLite 记录 path+mtime),避免每次调用都全目录扫描——这是从"文件系统即数据库"过渡到"真正建索引"的分水岭。
+
+**Q5: 目录不存在或权限被拒怎么办?**
+A: `Path.glob()` 对不存在的目录安静返回空迭代器,容易误判"目录是空的"。权限问题(`PermissionError`)则在遍历时直接抛出。这个函数目前对两者都没有区分处理,是"沉默失败"的隐患。
+
+### 🏗️ 大厂怎么用这套逻辑
+
+这个模式的本质是"目录当轻量级数据库",真正的大规模系统里几乎不会这么裸用,但思想到处都是:
+
+- **日志滚动**:Nginx 等服务的日志清理策略常靠 mtime 判断该归档、该删。但成熟系统(Kubernetes 日志组件)转向按文件名编码时间戳 + 索引服务,因为容器化环境里文件系统可能是短命的 overlay fs,mtime 语义不稳定。
+- **S3/HDFS 元数据**:对象存储从设计第一天就不靠底层文件系统 mtime 做业务逻辑,而是维护独立的元数据服务,因为分布式副本间不保证文件系统级元数据一致。
+- **CI/CD 缓存判定(Make、Bazel)**:大量构建系统靠 mtime 判断要不要重编译,出了名地脆弱(经典的"时钟偏移导致增量构建错误跳过"问题),所以 Bazel 转向**内容哈希**作为更可靠的信任来源。
+
+### 💸 高风险场景(金融/低延迟系统)
+
+在审计/合规场景里,这个模式原样搬进生产大概率会被打回:
+
+- **mtime 可被篡改,不具备审计价值**:任何有写权限的人都能用 `os.utime()` 伪造时间。金融监管系统(SOX、SEC 17a-4)要求不可篡改的时间戳,通常靠 WORM 存储、外部时间戳服务(RFC 3161)或哈希链。
+- **精度要求**:撮合引擎需要纳秒级、单调递增的时钟,而 `st_mtime` 基于系统时钟,受 NTP 校准跳变影响——等价于用错了时钟源(wall clock vs monotonic clock)。
+- 关键系统里"最新文件"的判定通常来自独立的集中式元数据服务,而不是直接信任文件系统。
+
+### 🚀 2026 年最新做法
+
+- `os.scandir()` / `DirEntry.stat()` 缓存优化依然是标准做法,但高频调用路径上更多团队转向 `inotify`/`fanotify` 事件驱动,而非轮询。
+- `uv` 生态带火了 Rust 写的文件系统工具链(`fd`、`ripgrep` 背后的并行遍历思路),通过 PyO3 渗透进 Python 生态。
+- 博客/CMS 场景当前更主流的做法是在 front matter 里显式声明 `date:` 字段,彻底绕开 mtime 的不可靠性。`YYYY-MM-DD-slug.md` 命名约定本质上是在手动修复这个问题,更该做的是强制读 front matter 的 `date` 字段,没有才 fallback 到 mtime。
+
+### 🌉 跨学科视角
+
+这就是地质学里的**地层学相对定年法**。地质学家判断岩层年代,优先相信"沉积顺序"(下面的层更老),而不是岩石上偶然刻的符号(等价于文件名前缀)。但地层学也有同样的坑:地震、火山喷发会把地层搅乱(等价于 git checkout 重写 mtime),这时地质学家会转向**放射性同位素测年**——一个不依赖相对顺序、绝对可信的独立信号源。在高风险系统里从 mtime 转向外部时间戳服务,本质上就是从"看地层顺序"升级到"测同位素衰变"。
+
+### 🥋 一句话总结
+
+> mtime 是"看起来免费"的时间戳,但它的可信度和文件名一样,只是换了个撒谎的地方——真正的生产级方案永远是"排序用它,审计别信它"。
+
+---
+
+## 第二部分:glob —— 通配符不是文件系统功能,是伪装成语法糖的正则
+
+### 它是什么
+
+`glob`(global 的缩写,来自 1970s Unix shell)是基于通配符的文件路径匹配语法,不是正则表达式,但最终会被翻译成正则在底层执行。Python 有两套入口:
+
+```python
+import glob                 # 老牌函数式接口,返回 str 列表
+from pathlib import Path    # 面向对象接口,返回 Path 对象生成器
+```
+
+### 通配符语法表
+
+| 符号 | 含义 | 例子 | 匹配 |
+|---|---|---|---|
+| `*` | 任意数量字符(不含 `/`) | `*.md` | `foo.md`,不匹配 `sub/foo.md` |
+| `?` | 恰好一个字符 | `202?.md` | `2024.md`,不匹配 `20245.md` |
+| `[seq]` | 字符集合中的一个 | `[0-9]*.md` | `2024-01-01-x.md` |
+| `[!seq]` | 不在集合中的一个 | `[!_]*.py` | 不以下划线开头的 py 文件 |
+| `**` | 递归匹配任意层目录 | `**/*.md` | 所有子目录下的 md |
+
+```python
+import glob
+
+glob.glob("raw/*.md")
+# ['raw/2024-01-01-hello.md', 'raw/notes.md']
+
+# 递归:必须显式传 recursive=True,否则 ** 退化成普通 *
+glob.glob("raw/**/*.md", recursive=True)
+# ['raw/2024-01-01-hello.md', 'raw/drafts/wip.md', 'raw/drafts/2026/x.md']
+
+glob.glob("raw/202[3-5]-*.md")
+# 只匹配 2023、2024、2025 开头的文件,2026 的排除在外
+```
+
+### glob.glob() vs Path.glob() —— 这俩不是一回事
+
+```python
+import glob
+from pathlib import Path
+
+files: list[str] = glob.glob("raw/*.md")
+files: list[Path] = list(Path("raw").glob("*.md"))
+```
+
+关键区别不只是返回类型,而是递归语义:
+
+```python
+Path("raw").glob("**/*.md")                    # 天然递归,无需额外声明
+
+glob.glob("raw/**/*.md", recursive=True)         # 必须显式开启
+```
+
+这是个经典的面试坑:**如果在 `glob.glob()` 里写了 `**` 但忘了 `recursive=True`,不会报错,只会安静地把 `**` 当成两个 `*` 处理**,实际效果退化成非递归匹配,debug 起来很难发现,因为代码"看起来是对的"。
+
+### ⚙️ 底层机制:glob 不是文件系统原语
+
+这是最容易被忽视的一点——**操作系统内核根本不认识 `*` 这种东西**。`glob()` 完全是应用层实现,分两步:
+
+**第一步:模式翻译成正则**
+
+```python
+import fnmatch
+print(fnmatch.translate("*.md"))
+# '(?s:.*\\.md)\\Z'
+```
+
+**第二步:遍历目录 + 正则过滤**
+
+```python
+import os, re
+
+pattern = re.compile(fnmatch.translate("*.md"))
+matches = [entry.name for entry in os.scandir("raw")
+           if pattern.match(entry.name)]
+```
+
+所以 `glob("raw/*.md")` 的真实成本是:**一次目录遍历(readdir 系统调用族)+ 对每个条目做一次正则匹配**,不是什么"文件系统级别的高效检索"。目录里文件越多,glob 越慢,这是线性扫描,没有索引可言。
+
+**递归版本 `**` 更贵**:等价于对每一层子目录都递归 `os.walk()`,是多次 `opendir/readdir/closedir` 的组合,深层嵌套目录结构会产生大量系统调用。
+
+### 🕳️ 常见坑
+
+**坑 1:不匹配隐藏文件(以 `.` 开头)**
+
+```python
+glob.glob("raw/*")
+# 默认不会匹配 .gitkeep、.DS_Store 这类文件
+glob.glob("raw/.*")     # 想匹配必须显式
+```
+这是从 Unix shell 继承下来的"祖传行为",防止 `rm *` 之类命令误删隐藏配置文件。
+
+**坑 2:排序不保证,顺序取决于文件系统**
+
+```python
+glob.glob("raw/*.md")
+# 在 ext4 上通常是 inode 创建顺序或哈希桶顺序,不是字母序,也不是时间序
+```
+这也是为什么 `list_raw_files` 要手动 `sorted(..., key=lambda p: p.stat().st_mtime)`——永远不要依赖 glob 返回顺序,它是未定义行为。
+
+**坑 3:特殊字符需要转义**
+
+```python
+filename = "report[final].md"
+glob.glob(filename)                     # 会被当成字符集合语法,匹配不到!
+glob.glob(glob.escape(filename))         # 正确做法
+```
+
+**坑 4:符号链接的递归陷阱**
+
+```python
+# raw/ 目录里如果有软链接循环引用自己,某些边界情况可能陷入无限递归
+Path("raw").glob("**/*.md")
+# Python 3.13 起增加了 follow_symlinks 参数来控制这个行为
+```
+
+**坑 5:大小写敏感性因平台而异**
+
+```python
+# Linux/macOS(区分大小写): *.MD 不匹配 file.md
+# Windows: *.MD 会匹配 file.md
+# 跨平台工具必须显式 normalize,不能依赖 glob 的大小写行为
+```
+
+### 🏗️ 回到 list_raw_files:更好的写法对比
+
+```python
+# 原版:非递归,只扫一层
+drafts = sorted(BLOG_RAW_DIR.glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
+
+# 如果 raw/ 下有子目录(比如按年份归档),需要 **
+drafts = sorted(BLOG_RAW_DIR.glob("**/*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
+
+# 排除子目录、只要顶层:用普通 * 反而是对的
+# 这里能看出:选 * 还是 ** 不是"哪个更强大",而是"哪个语义匹配你的目录结构预期"
+```
+
+### 🥋 一句话总结
+
+> glob 不是文件系统的能力,是应用层"正则表达式套壳"出来的语法糖——它的速度、顺序、大小写行为全都由底层 `readdir` 系统调用和文件系统实现决定,你以为在用一个统一标准,实际上每个平台都在悄悄给你不同答案。
+
+---
+
+## 第三部分:fnmatch —— glob 背后真正干活的引擎
+
+### 它是什么
+
+`fnmatch`(File Name Match)是 Python 标准库里最底层的通配符匹配模块——`glob` 其实就是"目录遍历 + fnmatch 过滤"的组合。理解了 fnmatch,才算真正理解了 glob 的引擎室。
+
+```python
+import fnmatch
+
+fnmatch.fnmatch("report.md", "*.md")       # True
+fnmatch.fnmatch("REPORT.MD", "*.md")       # True(!)—— 大小写不敏感
+```
+
+**关键区别一上来就要澄清**:`fnmatch.fnmatch()` 和 `glob` 不是同一套大小写规则。
+
+### 四个核心函数,各管各的事
+
+```python
+fnmatch.fnmatch(name, pattern)      # 单个匹配,大小写按操作系统规则(normcase)
+fnmatch.fnmatchcase(name, pattern)  # 单个匹配,强制大小写敏感,跨平台一致
+fnmatch.filter(names, pattern)      # 批量过滤,list -> list
+fnmatch.translate(pattern)          # 把 glob 模式编译成正则表达式字符串
+```
+
+```python
+files = ["report.md", "REPORT.MD", "draft.MD", "notes.txt"]
+
+fnmatch.filter(files, "*.md")
+# 在 Linux 上:['report.md', 'REPORT.MD', 'draft.MD']  —— 三个都匹配!
+```
+
+### ⚙️ 底层机制:normcase 才是真正的大小写开关
+
+这是 fnmatch 最反直觉的地方。`fnmatch.fnmatch()` 内部会先对 `name` 和 `pattern` 都跑一遍 `os.path.normcase()`:
+
+```python
+# fnmatch.fnmatch 的真实实现逻辑(简化版)
+def fnmatch(name, pattern):
+    name = os.path.normcase(name)
+    pattern = os.path.normcase(pattern)
+    return fnmatchcase(name, pattern)
+```
+
+而 `os.path.normcase()` 的行为是平台相关的:
+
+```python
+# Linux / macOS(区分大小写文件系统)
+os.path.normcase("REPORT.MD")   # 'REPORT.MD'  原样返回
+
+# Windows(不区分大小写文件系统)
+os.path.normcase("REPORT.MD")   # 'report.md'  自动转小写
+```
+
+**所以真相是**:在 Linux 上 `fnmatch.fnmatch("REPORT.MD", "*.md")` 返回 `True`,**不是因为 fnmatch 本身不区分大小写,而是因为 Linux 的 normcase 是恒等函数(no-op),而正则匹配本身默认是大小写敏感的**——这里"看起来不敏感"其实是巧合,真正的判断逻辑在 `translate()` 生成的正则里根本没加 `re.IGNORECASE`,是 normcase 这层预处理在起作用。
+
+验证一下:
+
+```python
+fnmatch.fnmatchcase("REPORT.MD", "*.md")  # False,在任何平台上都是 False
+# fnmatchcase 跳过 normcase,直接走原始大小写敏感匹配
+```
+
+**这是一个非常经典的"跨平台代码在本地测试通过、上线到不同环境后行为诡异"的坑**——如果发布脚本在 macOS 上开发(区分大小写),部署到区分大小写的 CI 容器没问题,但如果哪天迁移到 Windows 开发机,`*.md` 和 `*.MD` 的匹配范围会突然变得不一样。
+
+### translate():通配符到正则的翻译规则表
+
+这是 fnmatch 真正的核心——所有匹配最终都归结到这一个函数:
+
+```python
+fnmatch.translate("*.md")
+# '(?s:.*\\.md)\\Z'
+
+fnmatch.translate("draft?.md")
+# '(?s:draft.\\.md)\\Z'
+
+fnmatch.translate("[0-9]*.md")
+# '(?s:[0-9].*\\.md)\\Z'
+
+fnmatch.translate("report[!_]*.md")
+# '(?s:report[^_].*\\.md)\\Z'  —— [!...] 翻译成正则的 [^...]
+```
+
+翻译规则表:
+
+| glob 语法 | 正则等价 | 说明 |
+|---|---|---|
+| `*` | `.*` | 贪婪匹配任意字符(不跨目录分隔符,因为 fnmatch 本身不感知路径) |
+| `?` | `.` | 恰好一个任意字符 |
+| `[abc]` | `[abc]` | 字符集合,语法几乎照搬正则 |
+| `[!abc]` | `[^abc]` | 取反集合,`!` 换成 `^` |
+| 普通字符 | `re.escape()` 后原样 | `.`、`+` 这类正则特殊字符会被转义 |
+
+注意最后一条很重要:`translate("report.md")` 里的 `.` 会被转义成 `\.`,不会被当成正则里"匹配任意字符"的 `.`。这也是为什么 glob 语法比裸正则安全——用户写 `*.md` 不会因为 `.` 的正则语义而意外匹配 `reportXmd`。
+
+**这个 `(?s:...)` 前缀是什么?**——`re.DOTALL` 内联标志,让 `.` 也能匹配换行符。这对文件名匹配没什么实际意义,但保证了行为一致性。
+
+### 🔬 面试官追问链
+
+**Q1: fnmatch 和 re 直接手写正则,该选哪个?**
+A: 如果匹配的是"用户友好的通配符模式"(比如让用户输入 `*.log`),用 fnmatch;如果需要精确控制(分组捕获、零宽断言、量词范围),直接上 `re`。fnmatch 的表达能力是 `re` 的严格子集,牺牲灵活性换取语法简单。
+
+**Q2: fnmatch.filter 对大列表性能如何?能不能预编译提速?**
+A: `fnmatch.filter()` 内部每次调用都会重新走一遍 `translate() + re.compile()`,如果在循环里反复调用 `fnmatch.fnmatch()` 匹配同一个 pattern,是重复编译正则的浪费:
+
+```python
+# 差:每次循环都重新 translate + compile
+for name in huge_list:
+    if fnmatch.fnmatch(name, "*.md"):
+        ...
+
+# 好:只编译一次
+pattern = re.compile(fnmatch.translate("*.md"))
+for name in huge_list:
+    if pattern.match(name):
+        ...
+```
+实际上 CPython 内部对 `translate()` 的结果有一层 `functools.lru_cache`(`_compile_pattern`),所以重复调用同一 pattern 不会真的重新编译,但函数调用本身的开销(参数校验、cache 查找)依然存在,热路径上手动缓存 `re.compile` 对象总是更快。
+
+**Q3: fnmatch 能防止路径穿越攻击吗?比如用户传入 `../../etc/passwd` 当 pattern。**
+A: 不能,而且这是个真实的安全坑。`fnmatch` 只是字符串模式匹配,不做路径语义校验。`*` 不会跨越 `/`,但 pattern 里的字面 `..` 或 `/` 会被 `re.escape()` 原样保留在正则里,并不会被过滤掉或报错——真正的风险出在下游:如果把匹配到的路径直接传给 `open()` 而不做 `Path.resolve()` + 边界检查,那才是漏洞。fnmatch 本身没有,也不该有权限语义,这是调用者的责任。
+
+**Q4: Windows 路径分隔符 `\` 在 fnmatch 里会被特殊处理吗?**
+A: 不会。`fnmatch` 不识别任何路径分隔符,它把整个字符串当成一个不透明的 token 处理。`*` 会贪婪匹配包括 `/` 和 `\` 在内的所有字符——这和 shell glob(真正的 bash 里 `*` 不跨 `/`)行为不同,是 Python fnmatch 的特有语义,容易和 shell 经验产生混淆。真正阻止 `*` 跨目录匹配的边界,是 `glob` 模块在目录遍历这一层手动逐层调用 fnmatch,而不是 fnmatch 自己有这个概念。
+
+**Q5: 有没有 ReDoS(正则拒绝服务)风险?**
+A: 理论上极低。`translate()` 生成的正则结构非常简单(线性拼接,没有嵌套量词、没有回溯爆炸的典型结构如 `(a+)+`),不会产生指数级回溯。但如果 pattern 极长,`re.compile` 本身的编译开销会线性增长,属于 DoS 而非 ReDoS,防护手段是对输入 pattern 长度做上限校验。
+
+### 🏗️ 实际应用:从 fnmatch 到 gitignore 语法
+
+`.gitignore`、`.dockerignore`、`pyproject.toml` 里的 include/exclude 规则,本质上都是 fnmatch 语法的扩展方言。理解这一层之后你会发现:
+
+```python
+import fnmatch
+
+def should_ignore(path: str, patterns: list[str]) -> bool:
+    return any(fnmatch.fnmatch(path, p) for p in patterns)
+
+should_ignore("raw/draft.md", ["*.pyc", "raw/draft.*", "__pycache__/*"])
+# True
+```
+
+大厂里像 Bazel 的 `BUILD` 文件 glob 规则、Kubernetes 的 `.helmignore`,底层实现思路都是这套"pattern → 正则 → 逐条匹配"的翻译管线,只是各自加了更多方言语法(比如 gitignore 的 `**` 递归、`!` 取反规则、锚定 `/` 开头表示相对根目录)。
+
+### 🥋 一句话总结
+
+> fnmatch 不是"更简单的正则",而是"正则的一层受限翻译器"——它把用户友好的 `*`/`?` 语法编译成正则表达式执行,而它那个著名的"大小写不敏感"传闻,本质上是 `os.path.normcase` 的平台副作用,不是匹配逻辑本身的设计。
