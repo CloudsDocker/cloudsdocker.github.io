@@ -1,0 +1,3 @@
+- thin harness, fat skills
+- explain it , otherwise dont ship it
+- evetyone use skills, no one test them
