@@ -1,5 +1,5 @@
 ---
-title: "你的 Git 身份和你的推送凭证，从来不是同一套系统"
+title: "离职三个月后，我的私人仓库还挂着前公司的邮箱"
 header:
     image: /assets/images/hd_git.png
 date: 2026-08-12
