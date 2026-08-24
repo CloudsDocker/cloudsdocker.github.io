@@ -1,5 +1,5 @@
 ---
-title: "Your Git Identity and Your Push Credential Were Never the Same System"
+title: "Three Months After I Left, My Personal Repos Still Carried My Old Work Email"
 header:
     image: /assets/images/hd_git.png
 date: 2026-08-12
