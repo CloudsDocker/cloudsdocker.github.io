@@ -1,5 +1,5 @@
 ---
-title:三行代码背后的宇宙：当美军封锁霍尔木兹海峡，你的系统能扛住吗？
+title: "三行代码背后的宇宙：当美军封锁霍尔木兹海峡，你的系统能扛住吗？"
 header:
     image: /assets/images/swan.jpg
 date: 2026-04-14
@@ -7,7 +7,7 @@ tags:
  - security
  - backend
  - system-design
-permalink: /blogs/tech/en/why-url-shortener-is-a-ticking-time-bomb
+permalink: /blogs/tech/zh/why-url-shortener-is-a-ticking-time-bomb
 layout: single
 category: tech
 ---
@@ -735,18 +735,4 @@ def bf_exists(short_code: str) -> bool:
 王阳明说："知行合一。"
 
 知道这些，不等于会用这些。**下一次你写代码时，停一秒，想一想：如果这段代码要承受一条突发全球大事件新闻链接的流量洪峰，它会在哪里断掉？**
-
----
-
-## 延伸阅读与下期预告
-
-本文涉及的核心知识点清单：
-
-- ✅ Python字符串不可变性与O(N²)内存分配
-- ✅ Base62 vs Base16 vs Base64的信息密度对比
-- ✅ 分布式发号器：号段池架构（Token Range Server）
-- ✅ Feistel密码网络与双射安全混淆
-- ✅ 布隆过滤器（Bloom Filter）原理与分布式同步
-- ✅ 热点Key防御：本地缓存 + Singleflight + RedisBloom
-- ✅ RedisBloom集群分片：Client-side Pre-sharding
 
