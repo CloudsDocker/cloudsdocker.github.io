@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cursor Origin — GitHub is still SoT</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2f;
+      --ink: #e8edf7;
+      --muted: #93a0bb;
+      --line: #24304d;
+      --accent: #7dd3fc;
+      --good: #86efac;
+      --warn: #fbbf24;
+      --bad: #fca5a5;
+      --chip: #1c2744;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: "IBM Plex Sans", "Segoe UI", sans-serif; }
+    body { display: flex; flex-direction: column; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 22px; border-bottom: 1px solid var(--line); background: #0e1528;
+    }
+    header strong { letter-spacing: .04em; font-size: 13px; }
+    header span { color: var(--muted); font-size: 13px; }
+    .progress { height: 3px; background: #1a2340; }
+    .progress > i { display: block; height: 100%; width: 0; background: var(--accent); }
+    main { flex: 1; display: grid; place-items: center; padding: 28px 20px 86px; }
+    .slide {
+      display: none; width: min(1080px, 100%);
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 18px; padding: 38px 46px; min-height: 580px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.28);
+    }
+    .slide.active { display: block; }
+    .kicker { color: var(--accent); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+    h2 { font-size: 32px; line-height: 1.2; margin: 0 0 16px; }
+    p, li { font-size: 19px; line-height: 1.5; color: #d5dced; }
+    .muted { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .card { background: #0e162b; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+    .card h3 { margin: 0 0 8px; font-size: 17px; }
+    .card p, .card li { font-size: 15px; margin: 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+    .chip { background: var(--chip); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 13px; color: #c9d4ea; }
+    pre {
+      background: #080d1c; border: 1px solid var(--line); border-radius: 12px;
+      padding: 14px 16px; overflow: auto; font-size: 14px; line-height: 1.55;
+      color: #d7e6ff; font-family: "IBM Plex Mono", ui-monospace, monospace;
+    }
+    table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+    th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--line); font-size: 15px; vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; }
+    footer.nav {
+      position: fixed; left: 0; right: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 22px; background: #0e1528; border-top: 1px solid var(--line);
+    }
+    button {
+      background: #1a2744; color: var(--ink); border: 1px solid var(--line);
+      border-radius: 10px; padding: 8px 14px; font-size: 14px; cursor: pointer;
+    }
+    button:hover { border-color: var(--accent); }
+    .warn { color: var(--warn); }
+    .good { color: var(--good); }
+    .bad { color: var(--bad); }
+    .notes {
+      display: none; margin-top: 18px; padding-top: 12px; border-top: 1px dashed var(--line);
+      color: var(--muted); font-size: 14px; line-height: 1.5;
+    }
+    .notes.show { display: block; }
+    ul { padding-left: 20px; }
+    .big-list li { margin: 7px 0; }
+    .title-meta { font-size: 18px; color: var(--muted); }
+    .hero {
+      margin: 8px 0 22px; padding: 18px 20px;
+      border: 1px solid #2a5a3a; background: #102418; border-radius: 12px;
+    }
+    .hero b { color: var(--good); font-size: 26px; display: block; margin-bottom: 6px; }
+    img {
+      display: block; width: 100%; max-height: 400px; object-fit: contain;
+      border: 1px solid var(--line); border-radius: 12px; background: #fff;
+    }
+    .browser {
+      border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #0a1020;
+    }
+    .browser-bar {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+      background: #161f36; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #3a4666; }
+    .url { flex: 1; background: #0b1224; border-radius: 6px; padding: 4px 10px; color: #c9d4ea; font-family: ui-monospace, monospace; }
+    .codebase { padding: 14px 16px; }
+    .codebase h3 { margin: 0 0 10px; font-size: 20px; }
+    .tabs { display: flex; gap: 16px; color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+    .tabs b { color: var(--ink); border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+    .file { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #1c2744; font-size: 14px; font-family: ui-monospace, monospace; }
+    .file span { color: var(--muted); }
+    a { color: #7dd3fc; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>CURSOR ORIGIN</strong>
+    <span>Team demo · GitHub remains source of truth</span>
+  </header>
+  <div class="progress"><i id="bar"></i></div>
+  <main id="deck"></main>
+  <footer class="nav">
+    <div>
+      <button id="prev">← Prev</button>
+      <button id="next">Next →</button>
+      <button id="notesBtn">Notes (N)</button>
+    </div>
+    <span id="pos"></span>
+  </footer>
+
+  <script>
+    const slides = [
+      {
+        kicker: "The only sentence that matters",
+        title: "Origin is not a GitHub replacement",
+        html: `
+          <div class="hero">
+            <b>GitHub is still the source of truth.</b>
+            <span>Synced repos stay live, browsable, searchable, and pullable. Push still lands on GitHub. Origin grows beside it.</span>
+          </div>
+          <p class="title-meta">A 15-minute walkthrough for engineers. If the room remembers one thing, it is the green box.</p>
+          <div class="chips">
+            <span class="chip">Not a migration</span>
+            <span class="chip">Mirror first</span>
+            <span class="chip">Truth can only be one</span>
+            <span class="chip">CLI’s real user is the agent</span>
+          </div>
+        `,
+        notes: "Say the green box twice. Then pause. Do not start with CLI install."
+      },
+      {
+        kicker: "The counterintuitive design",
+        title: "A new forge usually says “migrate.” Origin said “mirror.”",
+        html: `
+          <ul class="big-list">
+            <li>Truth can only live in one place. Origin <b>chose not to compete</b> for that seat.</li>
+            <li>That self-downgrade is the product. Not a missing feature.</li>
+            <li>If Origin does not take SoT, the team does not need a decision.</li>
+            <li>No decision → no evaluation committee, no migration budget, no CTO signature.</li>
+            <li>A procurement event gets downgraded to <b>one click: Sync from GitHub</b>.</li>
+          </ul>
+          <p class="muted">GitHub was designed as a process system for humans. Origin is attaching itself to that process, not ripping it out.</p>
+        `,
+        notes: "This is the strategy slide. If someone says 'so we are moving off GitHub', stop and reread the green box."
+      },
+      {
+        kicker: "Why a second forge exists",
+        title: "The bottleneck flipped: write got cheap, review did not",
+        html: `
+          <div class="grid">
+            <div class="card">
+              <h3>GitHub’s assumption</h3>
+              <p>Writing code is the bottleneck. Review is the accessory around a human commit stream.</p>
+            </div>
+            <div class="card">
+              <h3>Origin’s assumption</h3>
+              <p>Writing is no longer the bottleneck. Review and merge throughput is. Too many PRs. Each one too big. Humans cannot keep up.</p>
+            </div>
+          </div>
+          <ul class="big-list">
+            <li>This is not “GitHub’s UI is ugly.” It is a rate change: agent commit volume can jump an order of magnitude.</li>
+            <li>Cursor sees that curve earlier than GitHub because Cursor is the tool producing the commits.</li>
+            <li>A git <b>forge</b> is the layer around git: storage, permissions, checks, merge. Origin is competing at that layer, not at <code>git</code> itself.</li>
+          </ul>
+        `,
+        notes: "If a senior asks for evidence, say: look at PR size and PR count on any agent-heavy week. Do not invent a 10x number for MQ unless you have it."
+      },
+      {
+        kicker: "What we already have",
+        title: "Live on our namespace: macquarie-university",
+        html: `
+          <img src="codebase-sync-from-github.png" alt="cursor.com/codebase showing macquarie-university with todd_awesome_repo, +New and Sync from GitHub" />
+          <p style="margin-top:12px">Two buttons, two completely different products: <b>+ New</b> = Origin-hosted repo. <b>Sync from GitHub</b> = mirror, GitHub stays SoT.</p>
+          <p class="muted"><code>todd_awesome_repo</code> came from <b>+ New</b>. It is a disposable spike, not a mirror.</p>
+        `,
+        notes: "Point at the two buttons and say the difference out loud. Everything people assume about 'GitHub is still SoT' only applies to the right-hand button."
+      },
+      {
+        kicker: "The question everyone asks",
+        title: "Adding a remote is NOT how you mirror",
+        html: `
+          <pre># this does NOT create a mirror
+git remote add origin 'https://origin.cursor.com/macquarie-university/todd_awesome_repo'</pre>
+          <table>
+            <tr><th></th><th>Add an Origin remote</th><th>Sync from GitHub</th></tr>
+            <tr><td>What it is</td><td>Local → Origin-hosted repo</td><td>GitHub copied + kept in sync</td></tr>
+            <tr><td>GitHub is SoT?</td><td class="bad">No</td><td class="good">Yes — Origin = mirror, GitHub = source</td></tr>
+            <tr><td>Auto sync?</td><td>Never</td><td>History, branches, tags, PRs both ways</td></tr>
+            <tr><td><code>git push</code> to Origin</td><td>Stops at Origin</td><td>Passes through to GitHub</td></tr>
+          </table>
+          <p class="warn">Two remotes is not a mirror. It is two sources of truth and a future incident.</p>
+        `,
+        notes: "This is the single most common misunderstanding. If a dev goes home and runs git remote add, they get a fork, not a mirror."
+      },
+      {
+        kicker: "How to actually mirror",
+        title: "Prereqs, then one button (or one command)",
+        html: `
+          <div class="grid">
+            <div class="card">
+              <h3>Prerequisites</h3>
+              <p>Paid plan with Origin · codebase name claimed (<code>macquarie-university</code>) · Cursor GitHub App on the org · <b>GitHub admin on that repo</b>.</p>
+            </div>
+            <div class="card">
+              <h3>UI path</h3>
+              <p>cursor.com/codebase → <b>Sync from GitHub</b> → pick org + repo → confirm. Verify in <b>Settings → General</b>: Origin = mirror, GitHub = source.</p>
+            </div>
+          </div>
+          <pre># CLI equivalent — argument is the GitHub org/repo, not an origin.cursor.com URL
+origin repo create-mirrored macquarie-university/some-real-service
+origin repo create-mirrored acme/checkout --namespace macquarie-university</pre>
+          <p class="muted">Then clone from the green <b>Code</b> button. Push to that remote passes through to GitHub.</p>
+        `,
+        notes: "No GitHub admin means no mirror. That is the most common blocker. Do not mirror a production service for a demo — pick a sandbox repo."
+      },
+      {
+        kicker: "Usage — two tastes, same git",
+        title: "origin clone and git clone do the same job",
+        html: `
+          <pre># taste 1 — Origin CLI (documented: origin repo clone)
+origin clone macquarie-university/todd_awesome_repo
+origin repo clone macquarie-university/todd_awesome_repo
+
+# taste 2 — ordinary git
+git clone https://origin.cursor.com/macquarie-university/todd_awesome_repo.git</pre>
+          <p>Same repo. Same HTTPS. Two front doors. Daily work after auth is still <code>git push</code> / <code>git pull</code>.</p>
+          <p class="muted">Push a local project that is not on GitHub yet:</p>
+          <pre>git init -b 'main'
+git remote add origin 'https://origin.cursor.com/macquarie-university/todd_awesome_repo'
+git add .
+git commit -m "Initial commit"
+git push -u origin 'main'</pre>
+        `,
+        notes: "If someone already has GitHub as origin, do not run this as-is. Native spike only. For a GitHub repo, Sync from GitHub — do not add a second SoT."
+      },
+      {
+        kicker: "CLI",
+        title: "The CLI’s real user is the agent, not you",
+        html: `
+          <ul class="big-list">
+            <li>Clone / push / pull travel on <b>standard git</b>. The CLI is for terminal workflows around the forge.</li>
+            <li>Forge-layer work: credential helper, create repo, open and merge PRs, finish the loop with no GUI.</li>
+            <li>Docs say agents can create Origin repos. That sentence is the point of the binary.</li>
+            <li>You already have <code>git</code>. The agent does not have a browser. The CLI exists so the agent can walk auth → create → push → PR in a headless environment.</li>
+          </ul>
+          <pre>origin auth login
+origin repo create my-spike
+origin repo list
+origin update</pre>
+        `,
+        notes: "Do not demo as 'a nicer git'. Demo as 'this is how an agent talks to the forge when there is no UI'."
+      },
+      {
+        kicker: "Two systems people will mix up",
+        title: "Reviewing a GitHub PR in Cursor ≠ merging on Origin",
+        html: `
+          <div class="grid">
+            <div class="card">
+              <h3>System A — Cursor as GitHub client</h3>
+              <p>A review assigned on GitHub can be reviewed and merged inside Cursor. The natural implementation: Cursor calls GitHub’s merge API. Bytes never left GitHub. SoT did not move.</p>
+            </div>
+            <div class="card">
+              <h3>System B — Origin PR on a mirror</h3>
+              <p>A PR that lives on Origin and syncs back is a different path. Native Origin PRs never go to GitHub at all.</p>
+            </div>
+          </div>
+          <p>“You can merge in Cursor” does <b>not</b> tell you which side executed merge. Ask that question out loud before anyone celebrates.</p>
+        `,
+        notes: "This is the trap for the GitHub-native workflow people already use. Affirm System A does not change SoT."
+      },
+      {
+        kicker: "Why there are no Actions",
+        title: "Vercel, Depot, Buildkite are a hole, not a platform",
+        html: `
+          <ul class="big-list">
+            <li>Origin does not have GitHub Actions. That is GitHub’s deepest lock-in. Cursor will not rebuild it this quarter.</li>
+            <li><b>Vercel</b> — PR preview deploys.</li>
+            <li><b>Depot</b> and <b>Buildkite</b> — CI on Origin-hosted repos. They already substitute for Actions elsewhere.</li>
+            <li>The trio is not “most popular.” Their existence is the argument: <b>GitHub CI can be replaced without becoming GitHub</b>.</li>
+            <li>Mirrored repos keep Actions and secrets on GitHub. That is the correct default for us.</li>
+          </ul>
+        `,
+        notes: "If someone asks 'when do we move CI?' the answer is: we don't, while GitHub is SoT."
+      },
+      {
+        kicker: "Where the review bottleneck goes next",
+        title: "Stacked diffs, merge queues, intent-aware conflicts",
+        html: `
+          <div class="grid3">
+            <div class="card">
+              <h3>Stacked diffs</h3>
+              <p>Each PR is too big. Split a giant change into a sequence a human can finish. Graphite’s core trick. Cursor bought Graphite in Dec 2025. Not documented on Origin yet.</p>
+            </div>
+            <div class="card">
+              <h3>Merge queue</h3>
+              <p>Ten agents open PRs off stale main. Serialize test-then-merge or the last mile is rebase conflict. Treats merge contention, not review taste.</p>
+            </div>
+            <div class="card">
+              <h3>Intent-aware conflicts</h3>
+              <p>Judge conflicts by change intent, not text lines. Automate the mediation humans currently do by hand.</p>
+            </div>
+          </div>
+          <p class="muted">These are the product’s implied answers to “review is the new bottleneck.” Do not demo them as shipped.</p>
+        `,
+        notes: "Roadmap honesty. Graphite acquisition is the organizational evidence that they mean the review thesis."
+      },
+      {
+        kicker: "Enterprise / aviation",
+        title: "Three reasons “just click Sync” is not zero-risk",
+        html: `
+          <ol class="big-list">
+            <li><b>GitHub’s terms govern GitHub’s copy only.</b> Once bytes are copied into Origin, the physical holder is Cursor. Published data-retention, subprocessor, and training-use terms for Origin-hosted copies are not there. Parent company is now SpaceX. Privacy Mode follows the <em>namespace owner</em>, not the GitHub repo, not GitHub’s ToS.</li>
+            <li><b>“We can disconnect anytime” is fake reversibility.</b> Detach stops the stream. It does not un-copy, un-cache, or un-index. The codebase name, once claimed, cannot be renamed. Any team member can claim it.</li>
+            <li><b>The enablement precondition can be org-wide.</b> Legacy privacy mode teams must switch to Privacy Mode first. That is not a pilot. That is an enterprise privacy-setting change sold as a trial.</li>
+          </ol>
+        `,
+        notes: "Use this if legal/security is in the room. The punch line: 'GitHub’s terms continue to govern the GitHub copy. They say nothing about the copy in Cursor’s hands.'"
+      },
+      {
+        kicker: "Live path",
+        title: "What to click. Then stop.",
+        html: `
+          <ol class="big-list">
+            <li>Open <a href="https://cursor.com/codebase">cursor.com/codebase</a>. Point at <b>+ New</b> vs <b>Sync from GitHub</b>.</li>
+            <li>Open <a href="https://cursor.com/codebase/macquarie-university/todd_awesome_repo/tree/main">todd_awesome_repo</a>. Show Code / PRs / Settings. Say: this one came from + New, so it is Origin-hosted.</li>
+            <li>Say the line: browse and search here; <b>GitHub remains SoT</b> on anything we sync.</li>
+            <li>In a terminal, show both clone tastes, then the local-push snippet for a spike only.</li>
+            <li>If asked how to mirror: open <b>Sync from GitHub</b> and stop at the picker, or show <code>origin repo create-mirrored</code>. Do not sync a real service live.</li>
+            <li>Do not detach. Do not rewrite a production <code>origin</code> remote. Do not demo <code>repo delete</code>.</li>
+          </ol>
+        `,
+        notes: "Four minutes. If someone wants to sync a real service, park it. Sandbox only."
+      },
+      {
+        kicker: "Close",
+        title: "What this team should remember",
+        html: `
+          <ul class="big-list">
+            <li><b>GitHub is still source of truth.</b> Origin attaches; it does not replace.</li>
+            <li>That is why there is no migration decision to make — and also why a click still copies bytes.</li>
+            <li>A forge is storage + ACL + checks + merge. The CLI is how an <b>agent</b> drives that forge.</li>
+            <li>GitHub is a human process system. Origin is a bet that review/merge is the new bottleneck.</li>
+            <li>Evaluate on a throwaway or a sandbox mirror. Kill criteria live in the Q&A doc.</li>
+          </ul>
+          <p class="muted">Hard questions: <code>drill-down-questions.md</code>. If only three get asked: SoT, why they gave it up, and what GitHub’s terms do not cover.</p>
+        `,
+        notes: "Hand the room to the skeptics. Do not add a feature tour after this."
+      }
+    ];
+
+    let i = 0;
+    let notesOn = false;
+    const deck = document.getElementById("deck");
+
+    function render() {
+      const s = slides[i];
+      deck.innerHTML = `
+        <section class="slide active">
+          <div class="kicker">${s.kicker}</div>
+          <h2>${s.title}</h2>
+          ${s.html}
+          <div class="notes ${notesOn ? "show" : ""}"><b>Speaker:</b> ${s.notes}</div>
+        </section>`;
+      document.getElementById("pos").textContent = `${i + 1} / ${slides.length}`;
+      document.getElementById("bar").style.width = `${((i + 1) / slides.length) * 100}%`;
+    }
+    function go(n) { i = Math.max(0, Math.min(slides.length - 1, n)); render(); }
+    document.getElementById("prev").onclick = () => go(i - 1);
+    document.getElementById("next").onclick = () => go(i + 1);
+    document.getElementById("notesBtn").onclick = () => { notesOn = !notesOn; render(); };
+    document.addEventListener("keydown", (e) => {
+      if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(e.key)) { e.preventDefault(); go(i + 1); }
+      if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); go(i - 1); }
+      if (e.key === "n" || e.key === "N") { notesOn = !notesOn; render(); }
+      if (e.key === "Home") go(0);
+      if (e.key === "End") go(slides.length - 1);
+    });
+    render();
+  </script>
+</body>
+</html>
