@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_java_deep_notes.png
-title:  SSL证书消失案一个`subject`参数引发的血案
+title: "SSL证书消失案一个`subject`参数引发的血案"
 date: 2025-09-03
 tags:
     - tech

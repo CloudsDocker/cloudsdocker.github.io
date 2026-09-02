@@ -86,9 +86,21 @@ entries_layout: grid
 
 .entries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-top: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .entries-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .entries-grid {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  }
 }
 
 .archive__item {
@@ -174,6 +186,13 @@ entries_layout: grid
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
   color: white;
+}
+
+/* Remove sidebar width reservation since author_profile is false */
+#main .archive {
+  width: 100% !important;
+  padding-right: 0 !important;
+  float: none !important;
 }
 
 /* 搜索和筛选功能 */

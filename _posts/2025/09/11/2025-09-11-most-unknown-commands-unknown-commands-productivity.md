@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_sdkman_omz.png
-title:  5个被忽视的 Bash 命令行技巧：<()> 进程替换、tee、xargs -P、/dev/tcp、参数扩展（效率翻倍实战）
+title: "5个被忽视的 Bash 命令行技巧：<()> 进程替换、tee、xargs -P、/dev/tcp、参数扩展（效率翻倍实战）"
 date: 2025-09-11
 tags:
     - tech

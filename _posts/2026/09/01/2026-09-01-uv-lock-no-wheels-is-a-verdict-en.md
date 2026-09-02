@@ -1,5 +1,5 @@
 ---
-title: Missing a Rust compiler? Don't rustup. Read uv.lock
+title: "Missing a Rust compiler? Don't rustup. Read uv.lock"
 header:
     image: /assets/images/hd_linux_tips.jpg
 date: 2026-09-01
