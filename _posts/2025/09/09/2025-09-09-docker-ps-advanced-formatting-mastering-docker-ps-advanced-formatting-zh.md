@@ -1,11 +1,11 @@
 ---
 header:
     image: /assets/images/hd_forge.jpg
-title:  docker ps advanced formatting mastering-docker-ps-advanced-formatting
+title: "Docker偷偷藏了个宝藏：Go模板引擎。这玩意儿比你想象的强大多了"
 date: 2025-09-09
 tags:
     - tech
-permalink: /blogs/tech/en/docker-ps-advanced-formatting-mastering-docker-ps-advanced-formatting
+permalink: /blogs/tech/zh/docker-ps-advanced-formatting-mastering-docker-ps-advanced-formatting
 layout: single
 category: tech
 ---
