@@ -1,7 +1,7 @@
 ---
 header:
     image: /assets/images/hd_intteliJ_tips.png
-title:  关于`host.docker.internal`，99%的开发者只知其一，不知其二的深层真相
+title: "关于`host.docker.internal`，99%的开发者只知其一，不知其二的深层真相"
 date: 2025-08-24
 tags:
     - tech

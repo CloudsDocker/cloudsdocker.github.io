@@ -85,10 +85,35 @@ entries_layout: grid
 }
 
 .entries-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
   gap: 1.5rem;
   margin-top: 1.5rem;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .entries-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .entries-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .entries-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .entries-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important;
+  }
 }
 
 .archive__item {
@@ -174,6 +199,27 @@ entries_layout: grid
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
   color: white;
+}
+
+/* Remove sidebar width reservation since author_profile is false */
+#main .archive {
+  width: 100% !important;
+  padding-right: 0 !important;
+  float: none !important;
+  max-width: 100%;
+}
+
+.taxonomy__section {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.entries-grid .grid__item {
+  float: none !important;
+  width: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* 搜索和筛选功能 */
