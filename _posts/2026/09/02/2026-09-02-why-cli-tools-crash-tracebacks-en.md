@@ -1,5 +1,5 @@
 ---
-title: From Hacky to Heroic: The Product Mindset for Great CLIs
+title: "From Hacky to Heroic: The Product Mindset for Great CLIs"
 header:
     image: /assets/images/useful_shortcut_tips_for_macbook_office_workers.jpg
 date: 2026-09-02
