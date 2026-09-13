@@ -1,19 +1,19 @@
 ---
 header:
     image: /assets/images/hd_booster_does3.png
-title:  Maven error and solution on No such host is known 
-date: 2022-01-27
+title:  Service restarting Kubernetes
+date: 2022-01-31
 tags:
- - Maven
- - Java
- - Errors
+ - Kubernetes
+ - DevOps
+ - Troubleshooting
  
-permalink: /blogs/tech/en/mvn_failed_to_execute_goal_no_such_host_is_known
+permalink: /blogs/tech/en/service-restarting-kubernetes
 layout: single
 category: tech
 ---
 
-> Don't promis when you are hapy. Don't reply when you're angry and don't decide when you're sad
+> Don't promis when you are happy. Don't reply when you're angry and don't decide when you're sad
 Service keep on restarting
 If you spot service is restarting repeatedly. This is very likely caused by health probe detected unhealthy of service. Here are two practicable self-test .
 
@@ -29,21 +29,10 @@ Then check the response, ideally it should show as UP  and liveness , readiness 
 
 
 
-
-
 Alternatively, the probe status can be tested and checked in application logs.
 
 Check probe in logs
 Firstly check logs in LENS or ELK, to maker sure you can see keyword /actuator  output in log, as below highlight in screenshot
-
-
-
-
-
-
-
-
-
 
 
 The probe is installed as a specific Spring Actuator dependency in your project pom.xml
@@ -118,19 +107,6 @@ For application loaded with Web libraries, it will set it as SERVLET  (rather th
 
 
 Sets the type of Spring ApplicationContext that will be created. If not specified defaults to DEFAULT_SERVLET_WEB_CONTEXT_CLASS for web based applications or AnnotationConfigApplicationContext for non web based applications.
-
-
-
--===============
-
-
-
-
-
-
-
-
-
 
 
 

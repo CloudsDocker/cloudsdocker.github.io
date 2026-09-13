@@ -1,12 +1,12 @@
 ---
 header:
     image: /assets/images/hd_jpa_springdata.png
-title:  What's inside magic in Spring Data JPA
-date: 2022-02-25
+title:  How to build your own annotation in spring
+date: 2022-02-28
 tags:
  - SpringBoot
  - Java
- - SpringData
+ - Annotation
  
 permalink: /blogs/tech/en/build_own_spring_annotation
 layout: single

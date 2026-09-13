@@ -1,12 +1,13 @@
 ---
 header:
     image: /assets/images/2023-02-20-how-to-auto-test-via-headless-browser-in-python.jpg
-title:  What is shape function in python pandas
+title:  How to auto test via headless browser in python
 date: 2023-02-20
 tags:
  - Python
- - AI
- - automate task
+ - Testing
+ - Selenium
+ - Automation
  
 permalink: /blogs/tech/en/how-to-auto-test-via-headless-browser-in-python
 layout: single

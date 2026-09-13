@@ -1,5 +1,5 @@
 ---
-title: Foreign Exchange
+title: "Foreign Exchange: Currency Pairs"
 layout: posts
 ---
 # currency pairs

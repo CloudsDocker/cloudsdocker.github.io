@@ -1,10 +1,13 @@
 ---
 header:
     image: /assets/images/hd_vscode_shortcuts.png
-title:  String String process effectively
+title:  "Demystifying Cloud Native: SAML Federation, Container Security, and Firecracker MicroVMs"
 date: 2026-02-27
 tags:
-    - tech
+    - Cloud
+    - Security
+    - AWS
+    - Azure
 permalink: /blogs/tech/en/saml-authentication-among-azure-ad-entra-and-aws-iam-sts
 layout: single
 category: tech

@@ -1,11 +1,14 @@
 ---
 header:
     image: /assets/images/hd_mvn_skip_tests.png
-title:  Secure Remote Desktop Access Windows via WSL and SSH Tunnel macOS
+title:  "When Azure CLI Met RHEL EUS: A Tale of Two Repositories"
 date: 2025-08-03
 tags:
-    - tech
-permalink: /blogs/tech/en/secure-remote-desktop-access-windows-via-wsl-and-ssh-tunnel-macos
+    - Azure
+    - Linux
+    - RHEL
+    - DevOps
+permalink: /blogs/tech/en/when-azure-cli-met-rhel-eus-a-tale-of-two-repositories
 layout: single
 category: tech
 ---

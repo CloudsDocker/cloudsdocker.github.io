@@ -1,5 +1,5 @@
 ---
-title: cloud computering
+title: OpenStack vs OpenShift
 tags:
     - cloud
     - OpenStack

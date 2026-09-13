@@ -1,14 +1,14 @@
 ---
-title: Compile Error Java Kotlin Coexist Project In Intellij
+title: Prometheus 500 Internal Error on Spring Actuator
 header:
 image: /assets/images/compile-error-java-kotlin-coexist-project-in-intellij.jpg
 date: 2023-04-23
 tags:
-- Java
-- Intellij
-- Coding
+- SpringBoot
+- Prometheus
+- Actuator
 
-permalink: /blogs/tech/en/compile-error-java-kotlin-coexist-project-in-intellij
+permalink: /blogs/tech/en/prometheus-500-internal-error-on-spring-actuator
 layout: single
 category: tech
 ---

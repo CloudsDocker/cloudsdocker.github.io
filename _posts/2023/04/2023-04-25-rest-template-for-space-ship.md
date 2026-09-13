@@ -1,12 +1,12 @@
 ---
-title: Compile Error Java Kotlin Coexist Project In Intellij
+title: How to Fine Tune RestTemplate
 header:
 image: /assets/images/rest-template-for-space-ship.jpg
 date: 2023-04-25
 tags:
 - Java
-- Intellij
-- Coding
+- RestTemplate
+- SpringBoot
 
 permalink: /blogs/tech/en/rest-template-for-space-ship
 layout: single

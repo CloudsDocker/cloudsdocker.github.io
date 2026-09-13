@@ -1,5 +1,5 @@
 ---
-title: Introduction to Generator Expressions in Python
+title: Filter a list of empty dictionaries in Python
 header:
     image: /assets/images/Python-expert-write-code-like-this.jpg
 date: 2023-06-28

@@ -8,7 +8,7 @@ tags:
  - Java
  - SpringData
  
-permalink: /blogs/tech/en/build_own_spring_annotation
+permalink: /blogs/tech/en/a-taste-of-graphql
 layout: single
 category: tech
 ---
