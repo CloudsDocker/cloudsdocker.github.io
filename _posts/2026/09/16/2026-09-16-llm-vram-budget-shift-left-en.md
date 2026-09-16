@@ -38,11 +38,11 @@ I was already drafting the runbook entry in my head.
 Then I did the thing I almost skipped: **I tried to falsify it.**
 
 ```bash
-ollama stop huihui_ai/mistral-small-abliterated:24b
+ollama stop huihui_ai/mistral-small:24b
 sleep 8
 nvidia-smi --query-gpu=memory.used --format=csv,noheader
 # 3304 MiB — confirmed clean
-ollama run huihui_ai/mistral-small-abliterated:24b --verbose "..."
+ollama run huihui_ai/mistral-small:24b --verbose "..."
 ```
 
 ```
@@ -157,8 +157,8 @@ Now the numbers. All from my own machine, same evening, same RTX 5080 16GB, same
 
 | Model | Architecture | Weights | CPU share | prompt eval | **eval rate** |
 |---|---|---|---|---|---|
-| qwen2.5-14b-heretic | Dense 14B | 9.0 GB | **0%** | **1705.85 tok/s** | **86.97 tok/s** |
-| mistral-small-abliterated | Dense 24B | 14.3 GB | 18% | 487.34 tok/s | **2.35 tok/s** |
+| qwen2.5-14b | Dense 14B | 9.0 GB | **0%** | **1705.85 tok/s** | **86.97 tok/s** |
+| mistral-small | Dense 24B | 14.3 GB | 18% | 487.34 tok/s | **2.35 tok/s** |
 | qwen3:30b | MoE 30.5B | 19 GB | 35% | 7.40 tok/s | **1.38 tok/s** |
 | dolphin-mixtral | MoE 46.7B | 26 GB | 58% | — | single digits |
 

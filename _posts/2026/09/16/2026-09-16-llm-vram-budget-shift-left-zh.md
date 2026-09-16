@@ -38,11 +38,11 @@ level=INFO source=sched.go:450 msg="gpu memory" available="11.9 GiB" free="12.4 
 然后我做了一件差点没做的事：**我去证伪它。**
 
 ```bash
-ollama stop huihui_ai/mistral-small-abliterated:24b
+ollama stop huihui_ai/mistral-small:24b
 sleep 8
 nvidia-smi --query-gpu=memory.used --format=csv,noheader
 # 3304 MiB —— 确认显存干净了
-ollama run huihui_ai/mistral-small-abliterated:24b --verbose "..."
+ollama run huihui_ai/mistral-small:24b --verbose "..."
 ```
 
 ```
@@ -159,8 +159,8 @@ NumThreads:24
 
 | 模型 | 架构 | 权重 | CPU 占比 | prompt eval | **eval rate** |
 |---|---|---|---|---|---|
-| qwen2.5-14b-heretic | Dense 14B | 9.0 GB | **0%** | **1705.85 tok/s** | **86.97 tok/s** |
-| mistral-small-abliterated | Dense 24B | 14.3 GB | 18% | 487.34 tok/s | **2.35 tok/s** |
+| qwen2.5-14b | Dense 14B | 9.0 GB | **0%** | **1705.85 tok/s** | **86.97 tok/s** |
+| mistral-small | Dense 24B | 14.3 GB | 18% | 487.34 tok/s | **2.35 tok/s** |
 | qwen3:30b | MoE 30.5B | 19 GB | 35% | 7.40 tok/s | **1.38 tok/s** |
 | dolphin-mixtral | MoE 46.7B | 26 GB | 58% | — | 个位数 |
 
