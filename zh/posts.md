@@ -1,10 +1,10 @@
 ---
 layout: posts
-title: "All Articles"
-permalink: /posts/
+title: "所有文章"
+permalink: /zh/posts/
 author_profile: false
 entries_layout: grid
-lang: en
+lang: zh
 ---
 
 {% include posts-index.html %}

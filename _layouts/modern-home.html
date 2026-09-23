@@ -1,8 +1,11 @@
 ---
 layout: default
 ---
+{%- assign lang = page.lang | default: "en" -%}
+{%- assign t = site.data.i18n[lang] -%}
 
 <div class="ai-hero">
+  <div class="hero-lang-switch">{% include lang-switch.html kind="home" theme="dark" %}</div>
   <div class="particles-container">
     <canvas id="particles-canvas"></canvas>
   </div>
@@ -29,30 +32,20 @@ layout: default
     </div>
     <p class="hero-description">{{ site.description }}</p>
     <div class="tech-stack">
+      {%- for item in t.tech_stack %}
       <div class="tech-item">
-        <div class="tech-icon">🧠</div>
-        <span>Deep Learning</span>
+        <div class="tech-icon">{{ item.icon }}</div>
+        <span>{{ item.label }}</span>
       </div>
-      <div class="tech-item">
-        <div class="tech-icon">⚡</div>
-        <span>GPU Computing</span>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">🔬</div>
-        <span>NLP Research</span>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">🤖</div>
-        <span>Machine Learning</span>
-      </div>
+      {%- endfor %}
     </div>
     <div class="hero-actions">
       <a href="#latest-posts" class="btn btn-ai-primary">
-        <span>Explore AI Articles</span>
+        <span>{{ t.explore_btn }}</span>
         <div class="btn-glow"></div>
       </a>
       <a href="/about" class="btn btn-ai-secondary">
-        <span>About Me</span>
+        <span>{{ t.about_btn }}</span>
         <div class="btn-particles"></div>
       </a>
     </div>
@@ -82,9 +75,11 @@ layout: default
 
 <section id="latest-posts" class="latest-posts">
   <div class="container">
-    <h2 class="section-title">Latest Articles</h2>
+    <h2 class="section-title">{{ t.latest_articles }}</h2>
+    <div class="section-lang-switch">{% include lang-switch.html kind="home" %}</div>
+    {%- assign lang_posts = site.posts | where: "lang", lang %}
     <div class="posts-grid">
-      {% for post in site.posts limit:6 %}
+      {% for post in lang_posts limit:6 %}
       <article class="post-card" onclick="window.location.href='{{ post.url | relative_url }}'">
         <div class="post-image">
           {% if post.header.image %}
@@ -92,23 +87,23 @@ layout: default
           {% else %}
             <div class="post-placeholder">
               {% if post.tags contains 'AI' or post.tags contains 'Machine Learning' or post.tags contains 'Deep Learning' %}
-                🧠 AI & Machine Learning
+                {{ t.placeholder.ai }}
               {% elsif post.tags contains 'GPU' or post.tags contains 'CUDA' or post.tags contains 'PyTorch' %}
-                ⚡ GPU Programming
+                {{ t.placeholder.gpu }}
               {% elsif post.tags contains 'NLP' or post.tags contains 'Transformer' or post.tags contains 'BERT' %}
-                🔬 Natural Language Processing
+                {{ t.placeholder.nlp }}
               {% elsif post.tags contains 'Computer Vision' or post.tags contains 'CNN' or post.tags contains 'OpenCV' %}
-                👁️ Computer Vision
+                {{ t.placeholder.cv }}
               {% elsif post.tags contains 'Python' or post.tags contains 'TensorFlow' or post.tags contains 'Keras' %}
-                🐍 Python & Frameworks
+                {{ t.placeholder.python }}
               {% elsif post.tags contains 'Data Science' or post.tags contains 'Analytics' %}
-                📊 Data Science
+                {{ t.placeholder.data }}
               {% elsif post.tags contains 'Docker' or post.tags contains 'Kubernetes' %}
-                🐳 Container Technology
+                {{ t.placeholder.container }}
               {% elsif post.tags contains 'AWS' or post.tags contains 'Cloud' %}
-                ☁️ Cloud Computing
+                {{ t.placeholder.cloud }}
               {% else %}
-                🤖 Technical Articles
+                {{ t.placeholder.other }}
               {% endif %}
             </div>
           {% endif %}
@@ -116,7 +111,7 @@ layout: default
         <div class="post-content">
           <div class="post-meta">
             <span class="post-date">📅 {{ post.date | date: "%Y-%m-%d" }}</span>
-            <span class="post-read-time">⏱️ {{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+            <span class="post-read-time">⏱️ {{ post.content | number_of_words | divided_by: 200 | plus: 1 }} {{ t.min_read }}</span>
           </div>
           <h3 class="post-title">{{ post.title }}</h3>
           <p class="post-excerpt">
@@ -137,55 +132,27 @@ layout: default
     </div>
     
     <div class="view-all-posts">
-      <a href="/posts/" class="cta-button">View All Articles →</a>
+      <a href="{{ t.posts_url | relative_url }}" class="cta-button">{{ t.view_all }}</a>
     </div>
   </div>
 </section>
 
 <section class="ai-features">
   <div class="container">
-    <h2 class="section-title">AI Technical Expertise</h2>
+    <h2 class="section-title">{{ t.expertise_title }}</h2>
     <div class="features-grid">
-      <div class="feature-card ai-card">
-        <div class="feature-icon">🧠</div>
-        <h3>Deep Learning</h3>
-        <p>Focus on neural network architecture design, model optimization, and large-scale training, covering cutting-edge technologies such as CNN, RNN, and Transformer.</p>
+      {%- for f in t.features %}
+      <div class="feature-card {{ f.class }}">
+        <div class="feature-icon">{{ f.icon }}</div>
+        <h3>{{ f.title }}</h3>
+        <p>{{ f.desc }}</p>
         <div class="tech-tags">
-          <span class="tech-tag">PyTorch</span>
-          <span class="tech-tag">TensorFlow</span>
-          <span class="tech-tag">Transformers</span>
+          {%- for tag in f.tags %}
+          <span class="tech-tag">{{ tag }}</span>
+          {%- endfor %}
         </div>
       </div>
-      <div class="feature-card gpu-card">
-        <div class="feature-icon">⚡</div>
-        <h3>GPU Programming</h3>
-        <p>Proficient in CUDA programming, GPU-accelerated computing, and distributed training, optimizing the training and inference performance of deep learning models.</p>
-        <div class="tech-tags">
-          <span class="tech-tag">CUDA</span>
-          <span class="tech-tag">cuDNN</span>
-          <span class="tech-tag">Multi-GPU</span>
-        </div>
-      </div>
-      <div class="feature-card nlp-card">
-        <div class="feature-icon">🔬</div>
-        <h3>Natural Language Processing</h3>
-        <p>Specialized in NLP research and application development, including text analysis, language models, machine translation, and conversational systems.</p>
-        <div class="tech-tags">
-          <span class="tech-tag">BERT</span>
-          <span class="tech-tag">GPT</span>
-          <span class="tech-tag">LangChain</span>
-        </div>
-      </div>
-      <div class="feature-card ml-card">
-        <div class="feature-icon">🤖</div>
-        <h3>Machine Learning Engineering</h3>
-        <p>End-to-end ML system design, from data preprocessing to model deployment, building scalable AI solutions.</p>
-        <div class="tech-tags">
-          <span class="tech-tag">MLOps</span>
-          <span class="tech-tag">Docker</span>
-          <span class="tech-tag">Kubernetes</span>
-        </div>
-      </div>
+      {%- endfor %}
     </div>
   </div>
 </section>
@@ -652,6 +619,18 @@ layout: default
     transform: translateY(-30px) translateX(15px);
     opacity: 1;
   }
+}
+
+.hero-lang-switch {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 3;
+}
+
+.section-lang-switch {
+  text-align: center;
+  margin: -2rem 0 2.5rem;
 }
 
 .latest-posts {
@@ -1145,13 +1124,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 初始化打字效果
   const typedElement = document.querySelector('.typed-text');
   if (typedElement) {
-    const texts = [
-      'AI Researchers and Practitioners',
-      'GPU Programming Expert',
-      'Expert in Deep learning',
-      'NLP technical expert',
-      'Machine Learning Architect'
-    ];
+    const texts = {{ t.typed_texts | jsonify }};
     new TypeWriter(typedElement, texts, 150);
   }
 });

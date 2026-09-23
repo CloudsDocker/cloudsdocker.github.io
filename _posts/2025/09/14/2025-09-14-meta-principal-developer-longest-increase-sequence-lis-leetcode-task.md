@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/meta-principal-developer-longest-increase-sequence-lis-leetcode-task
 layout: single
 category: tech
+lang: zh
 ---
 > The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt
 

@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/azure-cli-azure-cli-virtual-machines
 layout: single
 category: tech
+lang: zh
 ---
 > Leadership is not about being the best. Leadership is about making everyone else better. - Unknown
 

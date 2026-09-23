@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/kubenets-advanced-tech-service-type
 layout: single
 category: tech
+lang: zh
 ---
 > 使唐僧成为唐僧的，不是经书，是那条取经的路。——詹青云
 

@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/tech-blog-kubernetes-yaml-all-wrong-what-you-are-missing
 layout: single
 category: tech
+lang: zh
 ---
 > Great minds discuss ideas; average minds discuss events; small minds discuss people. - Eleanor Roosevelt
 

@@ -6,6 +6,7 @@ tags:
 - principals
 - MyBlog
 layout: posts
+lang: zh
 ---
 
 在开发设计中有一些常用原则或者潜规则，根据笔者的经验，这里稍微总结一下最最常用的，以飨读者。

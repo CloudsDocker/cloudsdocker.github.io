@@ -5,6 +5,7 @@ tags:
 - shortcut
 - DevOps
 layout: posts
+lang: zh
 ---
 Kubernetes 和Docker Swarm 可能是使用最广泛的工具，用于在集群环境中部署容器。但是这两个工具还是有很大的差别。
 

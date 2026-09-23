@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/ssh-security-philosophy-linux-ssh-linux-security-philosophy
 layout: single
 category: tech
+lang: zh
 ---
 > The power of imagination makes us infinite. - John Muir
 

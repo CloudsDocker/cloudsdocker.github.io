@@ -9,6 +9,7 @@ tags:
 permalink: /blogs/tech/zh/bushfire-in-los-angeles
 layout: single
 category: 技术
+lang: zh
 ---
 
 > “光焰愈盛，其衰愈速。”——老子

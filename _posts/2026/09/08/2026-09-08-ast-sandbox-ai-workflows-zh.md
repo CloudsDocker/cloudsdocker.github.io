@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/ast-sandbox-ai-workflows
 layout: single
 category: tech
+lang: zh
 ---
 > “我们知道我们是什么，但不知道我们可能成为什么。” — 威廉·莎士比亚
 

@@ -5,6 +5,7 @@ tags:
  - hyperledger
  - MyBlog
 layout: posts
+lang: zh
 ---
 
 # 深入浅出区块链系统：第一章.

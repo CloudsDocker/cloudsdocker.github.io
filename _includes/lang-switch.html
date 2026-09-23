@@ -1,0 +1,64 @@
+{%- comment -%}
+  EN / 中文 toggle for the bilingual home and posts pages.
+  Usage: {% include lang-switch.html kind="home" %}  (kind: home | posts)
+         add theme="dark" when it sits on a dark background.
+  The choice is remembered in localStorage; visiting the English page with a
+  saved Chinese preference redirects to the Chinese page.
+{%- endcomment -%}
+{%- assign ls_lang = page.lang | default: "en" -%}
+{%- assign ls_key = include.kind | default: "home" | append: "_url" -%}
+{%- assign ls_en = site.data.i18n.en[ls_key] -%}
+{%- assign ls_zh = site.data.i18n.zh[ls_key] -%}
+<nav class="lang-switch{% if include.theme == 'dark' %} lang-switch--dark{% endif %}" aria-label="{{ site.data.i18n[ls_lang].switch_label }}">
+  <a href="{{ ls_en | relative_url }}" hreflang="en" lang="en" data-lang="en"{% if ls_lang == "en" %} class="active" aria-current="page"{% endif %}>EN</a>
+  <a href="{{ ls_zh | relative_url }}" hreflang="zh" lang="zh" data-lang="zh"{% if ls_lang == "zh" %} class="active" aria-current="page"{% endif %}>中文</a>
+</nav>
+
+{%- unless lang_switch_loaded %}
+{%- assign lang_switch_loaded = true %}
+<style>
+.lang-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+.lang-switch a {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.lang-switch a:hover { background: rgba(99, 102, 241, 0.15); }
+.lang-switch a.active { background: #6366f1; color: #fff; }
+.lang-switch--dark {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.lang-switch--dark a { color: rgba(255, 255, 255, 0.85); }
+.lang-switch--dark a:hover { background: rgba(255, 255, 255, 0.15); }
+</style>
+<script>
+(function () {
+  var KEY = 'todzhang.lang';
+  var current = '{{ ls_lang }}';
+  var pref = null;
+  try { pref = localStorage.getItem(KEY); } catch (e) {}
+  if (pref === 'zh' && current === 'en') {
+    window.location.replace('{{ ls_zh | relative_url }}' + window.location.hash);
+    return;
+  }
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('.lang-switch a[data-lang]');
+    if (!link) return;
+    try { localStorage.setItem(KEY, link.getAttribute('data-lang')); } catch (err) {}
+  });
+})();
+</script>
+{%- endunless %}

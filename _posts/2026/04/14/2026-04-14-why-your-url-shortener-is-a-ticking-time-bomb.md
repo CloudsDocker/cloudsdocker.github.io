@@ -10,6 +10,7 @@ tags:
 permalink: /blogs/tech/zh/why-url-shortener-is-a-ticking-time-bomb
 layout: single
 category: tech
+lang: zh
 ---
 
 > "The chain is only as strong as its weakest link." - Thomas Reid

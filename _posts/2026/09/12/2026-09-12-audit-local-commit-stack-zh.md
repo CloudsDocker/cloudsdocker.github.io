@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/audit-local-commit-stack
 layout: single
 category: tech
+lang: zh
 ---
 > "Transform `screen-time` to `family-time`." — Unknown
 

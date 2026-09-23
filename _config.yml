@@ -73,3 +73,11 @@ defaults:
       related: true
       toc: true
       toc_sticky: true
+      lang: en
+  # Chinese posts: anything named *-zh.md is tagged automatically,
+  # other Chinese posts set `lang: zh` in their own front matter
+  - scope:
+      path: "_posts/**/*-zh.md"
+      type: posts
+    values:
+      lang: zh

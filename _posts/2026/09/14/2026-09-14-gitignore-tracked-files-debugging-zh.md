@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/gitignore-tracked-files-debugging
 layout: single
 category: tech
+lang: zh
 ---
 > “Git 已跟踪的文件不受影响。”—— Git 官方文档 `gitignore(5)`
 

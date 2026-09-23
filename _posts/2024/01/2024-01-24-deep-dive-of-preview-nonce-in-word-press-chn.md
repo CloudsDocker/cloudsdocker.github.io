@@ -9,6 +9,7 @@ tags:
 permalink: /blogs/tech/en/Deep_dive_for_word_press_preview_nonce_chn
 layout: single
 category: tech
+lang: zh
 ---
 > One must learn by doing the thing; for though you think you know it, you have no certainty, until you try. —Sophocles
 

@@ -9,6 +9,7 @@ tags:
 permalink: /blogs/tech/cn/pik-vpn-security-network-pik-vpn
 layout: single
 category: tech
+lang: zh
 ---
 > Nothing is impossible, the word itself says 'I'm possible'! - Audrey Hepburn
 > 我不斷往上爬，不是為了被世界看見，而是想看見整個世界啊

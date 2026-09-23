@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/tech/zh/schema-that-broke-compliance
 layout: single
 category: tech
+lang: zh
 ---
 >
 > "The best way to predict the future is to create it." — Alan Kay

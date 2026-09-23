@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/tech/zh/every-sleep-is-a-lie
 layout: single
 category: tech
+lang: zh
 ---
 
 > "知而不行，只是未知。" —— 王阳明

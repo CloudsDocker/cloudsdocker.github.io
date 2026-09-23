@@ -9,6 +9,7 @@ tags:
 permalink: /blogs/tech/cn/your-model-deployment-model-deployment-time-bomb-defuse-it
 layout: single
 category: tech
+lang: zh
 ---
 > Those who cannot change their minds cannot change anything. - George Bernard Shaw
 > 爱情，和袜子中的一只，总有一天会消失.

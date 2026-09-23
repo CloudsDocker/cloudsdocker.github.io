@@ -7,6 +7,7 @@ tags:
  - Google
  - Maps
 layout: posts
+lang: zh
 ---
 
 > If you'd like to view solution in YouTube, check out at https://youtu.be/ICiwuqJ-yU8

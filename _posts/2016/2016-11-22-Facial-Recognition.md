@@ -5,6 +5,7 @@ tags:
  - DeepLearning
  - FacialRecognition
  - MyBlog
+lang: zh
 ---
 
 # 用10几行代码自己写个人脸识别程序

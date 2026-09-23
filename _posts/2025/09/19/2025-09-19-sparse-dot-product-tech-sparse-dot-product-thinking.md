@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/sparse-dot-product-tech-sparse-dot-product-thinking
 layout: single
 category: tech
+lang: zh
 ---
 > The best way to predict the future is to create it. - Peter Drucker
 

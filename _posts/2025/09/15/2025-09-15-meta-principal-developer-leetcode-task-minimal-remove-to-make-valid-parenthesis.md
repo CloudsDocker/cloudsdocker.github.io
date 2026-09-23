@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/meta-principal-developer-leetcode-task-minimal-remove-to-make-valid-parenthesis
 layout: single
 category: tech
+lang: zh
 ---
 > Everything has beauty, but not everyone sees it. - Confucius
 # 技术面试的"照妖镜"：一道删除括号题，瞬间暴露普通程序员与资深开发者的思维差距

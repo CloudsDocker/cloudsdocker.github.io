@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/zh/docker-ps-advanced-formatting-mastering-docker-ps-advanced-formatting
 layout: single
 category: tech
+lang: zh
 ---
 > 所谓的良知，是被动一方的说辞。掌握主动权的一方，通常是不以良知而行动的。  ——摘自当年威尼斯外交官的报告”
 

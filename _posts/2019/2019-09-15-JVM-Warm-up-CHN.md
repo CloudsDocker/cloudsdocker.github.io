@@ -7,6 +7,7 @@ tags:
 - Java
 - 低延迟
 layout: posts
+lang: zh
 ---
 > 此文是作者英文原文的翻译文章，英文原文在：http://todzhang.com/posts/2018-06-10-jvm-warm-up/
 

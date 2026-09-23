@@ -10,6 +10,7 @@ tags:
 layout: single
 category: tech
 permalink: /blogs/tech/en/leetcode_for_interview
+lang: zh
 ---
 > Stay focused, believe that you can achieve at the highest level, surround yourself with others who believe in you and do not stray from your goals.
 

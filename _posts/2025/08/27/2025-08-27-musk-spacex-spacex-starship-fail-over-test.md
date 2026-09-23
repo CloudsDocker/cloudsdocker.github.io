@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/musk-spacex-spacex-starship-fail-over-test
 layout: single
 category: tech
+lang: zh
 ---
 > Change your thoughts and you change your world. - Norman Vincent Peale
 

@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/rethink-rethink-top-k-cloest-to-origin
 layout: single
 category: tech
+lang: zh
 ---
 > It is never too late to be what you might have been. - George Eliot
 

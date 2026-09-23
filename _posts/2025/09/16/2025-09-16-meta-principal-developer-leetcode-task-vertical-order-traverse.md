@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/大厂-principal-developer-leetcode-task-vertical-order-traverse
 layout: single
 category: tech
+lang: zh
 ---
 > Strive not to be a success, but rather to be of value. - Albert Einstein
 

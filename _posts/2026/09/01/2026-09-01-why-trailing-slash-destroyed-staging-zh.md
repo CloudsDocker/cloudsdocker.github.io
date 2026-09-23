@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/why-trailing-slash-destroyed-staging
 layout: single
 category: tech
+lang: zh
 ---
 > "Unix 从未被设计成阻止用户做蠢事，因为那也会阻止他们做聪明事。" — Doug McIlroy
 

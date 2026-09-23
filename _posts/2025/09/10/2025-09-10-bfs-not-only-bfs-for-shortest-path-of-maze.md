@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/bfs-not-only-bfs-for-shortest-path-of-maze
 layout: single
 category: tech
+lang: zh
 ---
 > Everything you want is on the other side of fear. - Jack Canfield
 

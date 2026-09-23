@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/string-addition-algorithm-string-addition-algorithm-deep-analysis-journey-from-error-to-correct-thinking-evolution
 layout: single
 category: tech
+lang: zh
 ---
 > You are never too old to set another goal or to dream a new dream. - C.S. Lewis
 > 学习的最好方法是教授，理解的最好方法是解释。

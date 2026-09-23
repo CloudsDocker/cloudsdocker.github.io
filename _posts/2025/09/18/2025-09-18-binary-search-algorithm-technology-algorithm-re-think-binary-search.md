@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/binary-search-algorithm-technology-algorithm-re-think-binary-search
 layout: single
 category: tech
+lang: zh
 ---
 > "最深刻的洞察，往往来自最痛苦的打脸时刻。" - 某位被算法折磨过的工程师
 

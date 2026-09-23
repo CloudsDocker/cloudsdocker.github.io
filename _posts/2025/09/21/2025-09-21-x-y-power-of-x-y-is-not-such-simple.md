@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/x-y-power-of-x-y-is-not-such-simple
 layout: single
 category: tech
+lang: zh
 ---
 > Change your thoughts and you change your world. - Norman Vincent Peale
 > *"预测未来的最好方法就是实现它。"* - 改编自 Alan Kay

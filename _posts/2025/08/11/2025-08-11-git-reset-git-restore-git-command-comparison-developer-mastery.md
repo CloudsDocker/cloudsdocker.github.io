@@ -9,6 +9,7 @@ tags:
 permalink: /blogs/tech/cn/git-reset-vs-git-restore-developer-mastery
 layout: single
 category: tech
+lang: zh
 ---
 
 > "知之者不如好之者，好之者不如乐之者。" - 孔子

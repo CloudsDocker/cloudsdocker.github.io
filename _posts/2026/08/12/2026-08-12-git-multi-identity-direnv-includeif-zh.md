@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/git-multi-identity-direnv-includeif
 layout: single
 category: tech
+lang: zh
 ---
 
 > 名不正，则言不顺；言不顺，则事不成。——《论语·子路》

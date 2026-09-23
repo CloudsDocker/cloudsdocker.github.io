@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/the-secret-of-double-slashes-path-conversion-magic-git-bash-docker-interaction
 layout: single
 category: tech
+lang: zh
 ---
 > The only true wisdom is in knowing you know nothing. - Socrates
 

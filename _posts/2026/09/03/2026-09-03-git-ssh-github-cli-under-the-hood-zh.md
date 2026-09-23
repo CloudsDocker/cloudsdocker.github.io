@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/tech/zh/git-ssh-github-cli-under-the-hood
 layout: single
 category: tech
+lang: zh
 ---
 > "Be the Sun of your solar system." — Unknown
 

@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/sli-slo-and-sla-understand-sli-slo-and-sla-in-kubernetes
 layout: single
 category: tech
+lang: zh
 ---
 > Life shrinks or expands in proportion to one's courage. - Anais Nin
 > 收拾东西最好的方式，就是扔。东西是，人也是。

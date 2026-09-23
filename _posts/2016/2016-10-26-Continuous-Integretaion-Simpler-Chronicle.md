@@ -5,6 +5,7 @@ tags:
 - DevOps
 - MyBlog
 layout: posts
+lang: zh
 ---
 
 # 引言

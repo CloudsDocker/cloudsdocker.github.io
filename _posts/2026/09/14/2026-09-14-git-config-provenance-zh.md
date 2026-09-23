@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/git-config-provenance
 layout: single
 category: tech
+lang: zh
 ---
 > "Git 是一个愚蠢的内容跟踪器。" — Linus Torvalds
 

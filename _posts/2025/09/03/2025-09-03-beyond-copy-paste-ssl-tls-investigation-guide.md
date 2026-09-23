@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/beyond-copy-paste-ssl-tls-investigation-guide
 layout: single
 category: tech
+lang: zh
 ---
 > You must be the change you wish to see in the world. - Mahatma Gandhi
 

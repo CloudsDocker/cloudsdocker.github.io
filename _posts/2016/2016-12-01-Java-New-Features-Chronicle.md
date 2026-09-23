@@ -4,6 +4,7 @@ title: Java new features
 tags:
  - java history
  - JDK
+lang: zh
 ---
 # JDK Versions
 - JDK 1.5 in 2005

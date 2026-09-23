@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/control-kubernetes-secret-kubernetes-control-request-vs-limits
 layout: single
 category: tech
+lang: zh
 ---
 > The difference between ordinary and extraordinary is that little extra. - Jimmy Johnson
 > “生活不是等待暴风雨过去，而是学会在雨中翩翩起舞。” —— 维多利亚·施特劳斯  

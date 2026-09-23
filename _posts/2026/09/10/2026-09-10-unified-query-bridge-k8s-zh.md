@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/unified-query-bridge-k8s
 layout: single
 category: tech
+lang: zh
 ---
 > "试着成为别人乌云里的一道彩虹。" — 玛雅·安吉罗 (Maya Angelou)
 

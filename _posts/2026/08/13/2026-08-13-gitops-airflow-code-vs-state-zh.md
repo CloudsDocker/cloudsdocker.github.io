@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/tech/zh/gitops-airflow-code-vs-state
 layout: single
 category: tech
+lang: zh
 ---
 > "计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决。" — David Wheeler
 

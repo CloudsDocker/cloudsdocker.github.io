@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/tech/en/Resolving_Disconnected_Database_Connections_in_Spring_Boot_with_c3p0_Connection_Pool
 layout: single
 category: tech
+lang: zh
 ---
 > 一旦你知道答案，一切都会变得简单。” —— 戴夫·梅吉（Dave Magee）
 

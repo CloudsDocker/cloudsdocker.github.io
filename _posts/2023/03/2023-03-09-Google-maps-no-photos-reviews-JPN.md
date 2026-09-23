@@ -8,6 +8,7 @@ tags:
  - Maps
 
 layout: posts
+lang: zh
 ---
 
 # 紹介

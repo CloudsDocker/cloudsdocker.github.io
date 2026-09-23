@@ -8,6 +8,7 @@ tags:
  - Maps
  - Huawei
 layout: posts
+lang: zh
 ---
 > 枝上柳棉吹又少, 天涯何处无芳草. --苏轼
 

@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/k8s-yaml-fatal-details-kubernetes-(k8s)-developer-overlook
 layout: single
 category: tech
+lang: zh
 ---
 > 人生的意义不在于最终获得什么,而在于曾经努力所求过什么. 
 

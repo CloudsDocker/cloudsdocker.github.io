@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/atomic-file-write-deep-dive
 layout: single
 category: tech
+lang: zh
 ---
 
 > "错误永远不应该悄无声息地过去，除非它被明确地消音。" —— Tim Peters，《Python 之禅》

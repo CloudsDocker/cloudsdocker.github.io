@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/ai-anxiety-value-automation
 layout: single
 category: tech
+lang: zh
 ---
 > “君子不器。” — 孔子
 

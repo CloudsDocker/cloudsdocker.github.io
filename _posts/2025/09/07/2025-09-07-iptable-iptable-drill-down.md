@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/iptable-iptable-drill-down
 layout: single
 category: tech
+lang: zh
 ---
 > When one door of happiness closes, another opens. - Helen Keller
 > 当一扇幸福之门关闭时，另一扇就会打开。但我们往往长时间地凝视着那扇关闭的门，而忽略了为我们打开的那扇门。 - 海伦·凯勒

@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/life/zh/tianren-wushuai-philosophy
 layout: single
 category: life
+lang: zh
 ---
 
 > "此心光明，亦复何言。" —— 王阳明，临终遗言

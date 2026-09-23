@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/tech/zh/why-your-cli-tool-crashes-on-others
 layout: single
 category: tech
+lang: zh
 ---
 > "彼节者有间，而刀刃者无厚；以无厚入有间，恢恢乎其于游刃必有余地矣。" — 庄子
 

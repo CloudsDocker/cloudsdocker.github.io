@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/tech/zh/schema-validation-cost-of-missing-visibility-layer
 layout: single
 category: tech
+lang: zh
 ---
 >
 > "Whatever is worth doing is worth doing well."

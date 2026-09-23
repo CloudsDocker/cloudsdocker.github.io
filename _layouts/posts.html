@@ -4,8 +4,11 @@ layout: archive
 
 {{ content }}
 
+{%- assign posts_lang = page.lang | default: "en" %}
+{%- assign visible_posts = site.posts | where: "lang", posts_lang | where_exp: "item", "item.hidden != true" %}
+
 <ul class="taxonomy__index">
-  {% assign postsInYear = site.posts | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
+  {% assign postsInYear = visible_posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
   {% for year in postsInYear %}
     <li>
       <a href="#{{ year.name }}">
@@ -16,7 +19,7 @@ layout: archive
 </ul>
 
 {% assign entries_layout = page.entries_layout | default: 'list' %}
-{% assign postsByYear = site.posts | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
+{% assign postsByYear = visible_posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
 {% for year in postsByYear %}
   <section id="{{ year.name }}" class="taxonomy__section">
     <h2 class="archive__subtitle">{{ year.name }}</h2>
@@ -25,6 +28,6 @@ layout: archive
         {% include archive-single.html type=entries_layout %}
       {% endfor %}
     </div>
-    <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
+    <a href="#page-title" class="back-to-top">{{ site.data.i18n[posts_lang].back_to_top | default: 'Back to Top' }} &uarr;</a>
   </section>
 {% endfor %}

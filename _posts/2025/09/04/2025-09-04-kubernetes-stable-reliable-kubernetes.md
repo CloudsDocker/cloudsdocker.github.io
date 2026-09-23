@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/kubernetes-stable-reliable-kubernetes
 layout: single
 category: tech
+lang: zh
 ---
 > Your time is limited, don't waste it living someone else's life. - Steve Jobs
 

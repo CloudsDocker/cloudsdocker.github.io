@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/docker-internal-network-gap-senior-dev-docker-internal-network
 layout: single
 category: tech
+lang: zh
 ---
 > The only way to do great work is to love what you do. - Steve Jobs
 

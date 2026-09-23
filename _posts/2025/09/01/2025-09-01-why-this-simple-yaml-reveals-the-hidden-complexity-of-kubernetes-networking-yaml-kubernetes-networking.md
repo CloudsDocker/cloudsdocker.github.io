@@ -9,6 +9,7 @@ tags:
 permalink: /blogs/tech/cn/why-this-simple-yaml-reveals-the-hidden-complexity-of-kubernetes-networking-yaml-kubernetes-networking
 layout: single
 category: tech
+lang: zh
 ---
 > The best revenge is massive success. - Frank Sinatra
 ---

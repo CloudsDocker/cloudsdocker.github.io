@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/tech/zh/nat-setup-issue-wireguard-technology-networking-security-WireGuard-firewall-configuration-issues
 layout: single
 category: tech
+lang: zh
 ---
 
 > The question isn't who is going to let me; it's who is going to stop me. - Ayn Rand

@@ -9,6 +9,7 @@ tags:
 permalink: /blogs/tech/en/how-to-travel-in-cairns
 layout: single
 category: tech
+lang: zh
 ---
 
 # 大堡礁的一些知识

@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/maximum-subarray-problem-a-deep-dive-evolution-of-maximum-subarray-problem-thinking
 layout: single
 category: tech
+lang: zh
 ---
 > A person who never made a mistake never tried anything new. - Albert Einstein
 > 苏格拉底的名言："未经审视的生活不值得过"

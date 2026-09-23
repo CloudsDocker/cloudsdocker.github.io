@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/cn/ai-chat-about-ai-smartly-and-profoundly
 layout: single
 category: tech
+lang: zh
 ---
 > Everything you've ever wanted is on the other side of fear. - George Addair
 

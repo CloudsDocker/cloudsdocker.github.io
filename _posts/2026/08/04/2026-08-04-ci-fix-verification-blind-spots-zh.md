@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/ci-fix-verification-blind-spots
 layout: single
 category: tech
+lang: zh
 ---
 
 > 鸟儿在天空飞过时，是不会在乎地面上的栅栏的

@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/divide-operator-deep-dive-python-divide-operator
 layout: single
 category: tech
+lang: zh
 ---
 > Great minds discuss ideas; average minds discuss events; small minds discuss people. - Eleanor Roosevelt
 

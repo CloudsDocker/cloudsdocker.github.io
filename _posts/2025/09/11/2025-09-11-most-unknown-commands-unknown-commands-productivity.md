@@ -17,7 +17,7 @@ tags:
 permalink: /blogs/tech/cn/bash-command-line-tips-process-substitution-tee-xargs-dev-tcp-parameter-expansion
 layout: single
 category: tech
-lang: zh-CN
+lang: zh
 excerpt: 本文系统讲解 5 个被忽视但极其高效的 Bash/Shell 命令行技巧：进程替换 <()>、tee、xargs -P 并行、/dev/tcp、参数扩展，含实战用法、兼容性与性能边界。
 description: 5个被忽视的 Bash 命令行技巧全解析：<()> 进程替换、tee、xargs -P 并行、/dev/tcp、Shell 参数扩展。附实战场景、脚本示例、兼容性与性能权衡，助你显著提升命令行效率。
 ---

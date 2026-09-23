@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/uv-lock-no-wheels-is-a-verdict
 layout: single
 category: tech
+lang: zh
 ---
 
 > 图难于其易，为大于其细。——《老子》

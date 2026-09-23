@@ -5,6 +5,7 @@ tags:
  - ethereum
  - MyBlog
 layout: posts
+lang: zh
 ---
 
 

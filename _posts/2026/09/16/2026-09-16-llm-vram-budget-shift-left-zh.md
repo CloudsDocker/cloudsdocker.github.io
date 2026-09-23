@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/llm-vram-budget-shift-left
 layout: single
 category: tech
+lang: zh
 ---
 
 > "The first principle is that you must not fool yourself — and you are the easiest person to fool."

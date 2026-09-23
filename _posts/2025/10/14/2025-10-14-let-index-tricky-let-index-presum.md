@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/let-index-tricky-let-index-presum
 layout: single
 category: tech
+lang: zh
 ---
 > Life is what happens while you're busy making other plans. - John Lennon
 

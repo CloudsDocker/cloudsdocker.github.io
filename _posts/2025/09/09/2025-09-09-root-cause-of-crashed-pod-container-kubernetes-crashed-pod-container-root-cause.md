@@ -8,6 +8,7 @@ tags:
 permalink: /blogs/tech/en/root-cause-of-crashed-pod-container-kubernetes-crashed-pod-container-root-cause
 layout: single
 category: tech
+lang: zh
 ---
 > Don't count the days, make the days count. - Muhammad Ali
 

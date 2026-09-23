@@ -12,6 +12,7 @@ tags:
 permalink: /blogs/tech/zh/gradio-ai-interface-contract
 layout: single
 category: tech
+lang: zh
 ---
 > “知人者智，自知者明。” — 老子《道德经》
 
