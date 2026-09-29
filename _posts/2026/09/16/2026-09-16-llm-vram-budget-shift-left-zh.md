@@ -39,19 +39,11 @@ level=INFO source=sched.go:450 msg="gpu memory" available="11.9 GiB" free="12.4 
 然后我做了一件差点没做的事：**我去证伪它。**
 
 ```bash
-<<<<<<< HEAD
 ollama stop huihui_ai/mistral-small:24b
 sleep 8
 nvidia-smi --query-gpu=memory.used --format=csv,noheader
 # 3304 MiB —— 确认显存干净了
 ollama run huihui_ai/mistral-small:24b --verbose "..."
-=======
-ollama stop "$MODEL"
-sleep 8
-nvidia-smi --query-gpu=memory.used --format=csv,noheader
-# 3304 MiB —— 确认显存干净了
-ollama run "$MODEL" --verbose "..."
->>>>>>> 2d880e55 (commit by todd)
 ```
 
 ```

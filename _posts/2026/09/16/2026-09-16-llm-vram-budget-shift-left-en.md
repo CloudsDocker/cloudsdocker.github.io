@@ -38,19 +38,11 @@ I was already drafting the runbook entry in my head.
 Then I did the thing I almost skipped: **I tried to falsify it.**
 
 ```bash
-<<<<<<< HEAD
 ollama stop huihui_ai/mistral-small:24b
 sleep 8
 nvidia-smi --query-gpu=memory.used --format=csv,noheader
 # 3304 MiB — confirmed clean
 ollama run huihui_ai/mistral-small:24b --verbose "..."
-=======
-ollama stop "$MODEL"
-sleep 8
-nvidia-smi --query-gpu=memory.used --format=csv,noheader
-# 3304 MiB — confirmed clean
-ollama run "$MODEL" --verbose "..."
->>>>>>> 2d880e55 (commit by todd)
 ```
 
 ```
