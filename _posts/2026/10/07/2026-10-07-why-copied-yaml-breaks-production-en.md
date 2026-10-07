@@ -1,7 +1,7 @@
 ---
 title: Why Does Copying the AI Gateway's YAML Always Break in Production?
 header:
-    image: /assets/images/bg_raw/BingWallpaper (12).jpg
+    image: /assets/images/expect-script-is-your-secret-to-productivity.jpg
 date: 2026-10-07
 tags:
  - architecture
@@ -9,26 +9,26 @@ tags:
  - llm
  - security
  - infrastructure
+ - AI
 permalink: /blogs/tech/en/why-copied-yaml-breaks-production
 lang: en
 layout: single
 category: tech
 ---
-# Why Does Copying the AI Gateway's YAML Always Break in Production?
 
 *It is easy to clone the infrastructure-as-code for an internal AI gateway. It is much harder to survive the first week of production if you do not understand the state machine that generated it.*
 
-If the platform team handed you the infrastructure-as-code for a flagship enterprise AI gateway today, and asked you to stand up a clone, what is the first thing you would change? 
+Let's think about one real world scenario. If the platform team handed you the infrastructure-as-code for a flagship enterprise AI gateway today, and asked you to stand up a clone, what is the first thing you would change? 
 
 If your answer is the resource prefixes and the region tags, you are about to build a compliance incident.
 
-The hand wants to clone resource names. That is the expensive way to copy an architecture. A reference implementation exists in a specific world: an existing OpenAI VNet, customer conversations that might become compliance records, and business units that want cloud spend billed by team. If your world differs in one place—perhaps data must stay in the EU, or models must be Azure-only—a copied Bicep or Terraform file can look green in a pull request and red in week-one on-call. To survive that first week, you must build a deployment plan based on the original architecture's hard constraints, not its resource names.
+The way to clone resource names is the expensive way to copy an architecture. A reference implementation exists in a specific world: an existing OpenAI VNet, customer conversations that might become compliance records, and business units that want cloud spend billed by team. If your world differs in one place—perhaps data must stay in the EU, or models must be Azure-only—a copied Bicep or Terraform file can look green in a pull request and red in week-one on-call. To survive that first week, you must build a deployment plan based on the original architecture's hard constraints, not its resource names.
 
 ## The release state machine outranks the YAML
 
-The `CONTRIBUTING.md` of a mature infrastructure repo usually contains a sentence people skip: a pull request does **not** change the sandbox, dev, or prod environments. 
+The `CONTRIBUTING.md` of a mature infrastructure repo usually contains a sentence that most people skip: a pull request does **not** change the sandbox, dev, or prod environments.  So what's that means? Let me explain:
 
-The deployment workflow for a gateway like LiteLLM is that sentence compiled into code. It enforces a strict state machine: PRs only run a what-if (a diff). Merging to the main branch rolls the sandbox environment, then dev. Production requires a GitHub Environment approval.
+The deployment workflow for a gateway like LiteLLM is that sentence compiled into code. It enforces a strict state machine: PRs only run a what-if (a diff). Merging to the main branch rolls the sandbox environment, then dev. Production requires a GitHub Environment approval. Here is one sample:
 
 ```yaml
 # .github/workflows/litellm.yaml (structural outline)
