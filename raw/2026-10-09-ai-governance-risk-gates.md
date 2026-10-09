@@ -6,6 +6,9 @@ tags: ["AI", "Enterprise", "Governance", "Architecture", "QualityGate"]
 
 *Power without boundaries is a flood; power within boundaries is an engine. The true art of AI engineering lies not in unleashing the model, but in architecting its constraints.*
 
+> **【案例背景与代称说明 / Enterprise Context Note】**
+> 本文探讨的生产级架构与工程实践中，**Aegis**（源自古典神话中的庇护之盾，寓意稳健承保与严密风控）为作者在深度技术特稿中使用的虚构企业代称，指代某世界顶级跨国金融与保险巨擘（Global Tier-1 Carrier / Fortune Global 100）。此举旨在恪守商业隐私与合规边界，同时为读者完整呈现高并发、严监管生产环境下的顶级 AI Native 系统工程实战。
+
 ---
 
 # Agent Governance
@@ -107,7 +110,7 @@ Command Line
 
 ## 四、推荐的企业级架构：集中定义策略，分散执行控制
 
-对于 a leading global company 这样的保险企业，我会优先考虑 Centralised Policy, Distributed Enforcement，即集中管理治理策略，在各个 Agent 和工具的实际执行路径中强制执行。
+对于 Aegis 这样的保险企业，我会优先考虑 Centralised Policy, Distributed Enforcement，即集中管理治理策略，在各个 Agent 和工具的实际执行路径中强制执行。
 
 User / Business Application
 
@@ -232,7 +235,7 @@ My core principle is that the model may recommend an action, but the system must
 
 这个概念非常值得你深入掌握，因为 “risk-based quality gate” 是把 AI Evaluation 从“测模型”提升到“生产治理”的关键一步。
 
-对于 a leading global company 这样的保险公司，我会把它理解成一句话：
+对于 Aegis 这样的保险公司，我会把它理解成一句话：
 
 不是要求所有 AI 请求达到同一个质量标准，而是根据 AI 决策的业务风险，定义不同的质量、安全、人工审核和发布门槛。
 
@@ -319,7 +322,7 @@ FAIL → don't deploy
 
 问题来了。
 
-假设 a leading global company 有两个 AI：
+假设在 Aegis 内部有两个核心 AI Agent：
 
 AI A
 
@@ -366,9 +369,9 @@ Risk-Based Quality Gate
 
 ⸻
 
-3. 一个非常清楚的 a leading global company 例子
+3. 一个非常清楚的 Aegis 例子
 
-假设 a leading global company 有一个 AI Agent：
+假设 Aegis 有一个 AI Agent：
 
 Claims Assistant
 
@@ -460,7 +463,7 @@ human review for ambiguous cases
 
 例如：
 
-“Should a leading global company approve this claim for $50,000?”
+“Should Aegis approve this claim for $50,000?”
 
 这就完全不同。
 
@@ -1071,7 +1074,7 @@ The gate is a business decision expressed through engineering metrics.
 
 ⸻
 
-21. 你在 a leading global company 最应该说的完整答案
+21. 你在 Aegis 最应该说的完整答案
 
 在日常工作中你的老板或者team lead直接提问：
 
@@ -1137,7 +1140,7 @@ Risk-based quality gate ≠ “高风险要求模型准确率 99%”。
 
 这已经从 AI model engineering 上升到了 AI system engineering + risk engineering + production governance。
 
-对于 a leading global company 这种保险公司，这个层次尤其重要。
+对于 Aegis 这种保险公司，这个层次尤其重要。
 
 ```flowchart
 作为 Lead AI Engineer，在日常工作中如果能把 risk → evaluation → controls → human oversight → deployment gate → production feedback 这条链完整讲出来，向团队和管理层展现的就不是一个“会 RAG 的 AI Developer”，而是一个真正可以负责 AI production platform 的 Lead Engineer。
@@ -1147,7 +1150,7 @@ Risk-based quality gate ≠ “高风险要求模型准确率 99%”。
 
 这个概念非常值得你深入掌握，因为 **“risk-based quality gate” 是把 AI Evaluation 从“测模型”提升到“生产治理”的关键一步**。
 
-对于 a leading global company 这样的保险公司，我会把它理解成一句话：
+对于 Aegis 这样的保险公司，我会把它理解成一句话：
 
 > **不是要求所有 AI 请求达到同一个质量标准，而是根据 AI 决策的业务风险，定义不同的质量、安全、人工审核和发布门槛。**
 
@@ -1244,7 +1247,7 @@ FAIL → don't deploy
 
 问题来了。
 
-假设 a leading global company 有两个 AI：
+假设在 Aegis 内部有两个核心 AI Agent：
 
 ### AI A
 
@@ -1291,9 +1294,9 @@ FAIL → don't deploy
 
 ---
 
-# 3. 一个非常清楚的 a leading global company 例子
+# 3. 一个非常清楚的 Aegis 例子
 
-假设 a leading global company 有一个 AI Agent：
+假设 Aegis 有一个 AI Agent：
 
 > **Claims Assistant**
 
@@ -1390,7 +1393,7 @@ Escalate
 
 例如：
 
-> “Should a leading global company approve this claim for $50,000?”
+> “Should Aegis approve this claim for $50,000?”
 
 这就完全不同。
 
@@ -2050,7 +2053,7 @@ Lead 的回答应该是：
 
 ---
 
-# 21. 你在 a leading global company 最应该说的完整答案
+# 21. 你在 Aegis 最应该说的完整答案
 
 在日常工作中你的老板或者team lead直接提问：
 
@@ -2116,7 +2119,7 @@ So the principle is:
 
 这已经从 **AI model engineering** 上升到了 **AI system engineering + risk engineering + production governance**。
 
-对于 a leading global company 这种保险公司，这个层次尤其重要。
+对于 Aegis 这种保险公司，这个层次尤其重要。
 
 ```flowchart
 **作为 Lead AI Engineer，在日常工作中如果能把 `risk → evaluation → controls → human oversight → deployment gate → production feedback` 这条链完整讲出来，向团队和管理层展现的就不是一个“会 RAG 的 AI Developer”，而是一个真正可以负责 AI production platform 的 Lead Engineer。**

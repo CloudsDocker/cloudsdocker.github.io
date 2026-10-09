@@ -6,6 +6,9 @@ tags: ["AI", "RAG", "Engineering", "Search", "Evaluation"]
 
 *A library without an index is just a pile of paper. To retrieve knowledge accurately is to navigate the delicate space between exactness and meaning, a journey where every word holds weight.*
 
+> **【案例背景与代称说明 / Enterprise Context Note】**
+> 本文探讨的生产级架构与工程实践中，**Aegis**（源自古典神话中的庇护之盾，寓意稳健承保与严密风控）为作者在深度技术特稿中使用的虚构企业代称，指代某世界顶级跨国金融与保险巨擘（Global Tier-1 Carrier / Fortune Global 100）。此举旨在恪守商业隐私与合规边界，同时为读者完整呈现高并发、严监管生产环境下的顶级 AI Native 系统工程实战。
+
 ---
 
 
@@ -1350,7 +1353,7 @@ high-risk cases   65%
 
 ---
 
-# 二十四、如果我是你，在 a leading global company 日常工程实践中会把这句话作为“核心金句”
+# 二十四、如果我是你，在 Aegis 日常工程实践中会把这句话作为“核心金句”
 
 > **“I don't want a single AI quality score. I want a decomposable evaluation system that tells me where the system failed, why it failed, whether the failure is business-critical, and whether the fix actually improves production outcomes.”**
 
@@ -1729,7 +1732,7 @@ PR 模板里加一条勾选框:
 
 **先定好立场**(避免被当成不懂):
 
-> "我在那个项目里论证了不要 OTel,因为单进程同步调用、因果链已经完整落盘。但我写了触发条件——**因果一旦跨出进程**,也就是多 agent 并行调用的时候,tracing 的 ROI 就转正了。a leading global company 要建的正是那种系统,所以我会从第一天埋。"
+> "我在那个项目里论证了不要 OTel,因为单进程同步调用、因果链已经完整落盘。但我写了触发条件——**因果一旦跨出进程**,也就是多 agent 并行调用的时候,tracing 的 ROI 就转正了。Aegis 要建的正是那种系统,所以我会从第一天埋。"
 
 **然后要能具体说出埋什么:**
 
@@ -1856,7 +1859,7 @@ PR 模板里加一条勾选框:
 
 这是 RAG 最基础、但非常容易做错的一层。
 
-假设 a leading global company 有一份 80 页保险合同：
+假设 Aegis 有一份 80 页保险合同：
 
 ```text
 Policy
@@ -2382,7 +2385,7 @@ Bad Answer
 
 这是 enterprise RAG 非常重要的一层。
 
-假设 a leading global company 的知识库有：
+假设 Aegis 的知识库有：
 
 ```text
 Document
@@ -2788,7 +2791,7 @@ User Query ──→ Query Rewriting
 
 # 20. 这 7 个技术点，日常工程实践优先级
 
-针对 **a leading global company Lead AI Engineer**，我会这样排：
+针对 **Aegis Lead AI Engineer**，我会这样排：
 
 | 技术                   |   优先级 | 你要达到的程度               |
 | -------------------- | ----: | --------------------- |
@@ -2902,7 +2905,7 @@ Production feedback
 
 ---
 
-# 22. 最后给你一个 a leading global company 日常工程实践级回答
+# 22. 最后给你一个 Aegis 日常工程实践级回答
 
 在日常工作中如果老板或team lead提出：
 
@@ -2943,14 +2946,14 @@ That failure attribution is critical for operating RAG reliably in production.
 ```
 
 # S2
-对，这 7 个就是你这次 **a leading global company Lead AI Engineer 的 RAG 核心知识树**。
+对，这 7 个就是你这次 **Aegis Lead AI Engineer 的 RAG 核心知识树**。
 作为 Lead AI Engineer，日常工作中不能仅仅停留在说“我用过 embeddings、vector DB、reranker”。真正的 Lead-level 回答应该能够解释：
 
 ```flowchart
 > **为什么需要它 → 它解决什么 failure mode → 有什么 trade-off → 怎么验证它真的改善了系统。**
 ```
 
-我用一个贯穿全程的 **a leading global company Insurance Claims RAG** 来讲。
+我用一个贯穿全程的 **Aegis Insurance Claims RAG** 来讲。
 
 ---
 
@@ -3992,7 +3995,7 @@ Wrong answer
 
 ---
 
-# 35. a leading global company / Insurance 场景下，我会这样设计
+# 35. Aegis / Insurance 场景下，我会这样设计
 
 如果业务团队需要设计一个 **Insurance Policy RAG**：
 

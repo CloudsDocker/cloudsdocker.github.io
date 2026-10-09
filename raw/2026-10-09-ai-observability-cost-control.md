@@ -6,6 +6,9 @@ tags: ["AI", "Enterprise", "Engineering", "Observability", "OpenTelemetry"]
 
 *We measure what we value, and we value what we measure. In the silent expanse of artificial intelligence, an unobserved failure is not merely a technical glitch—it is a quiet erosion of truth.*
 
+> **【案例背景与代称说明 / Enterprise Context Note】**
+> 本文探讨的生产级架构与工程实践中，**Aegis**（源自古典神话中的庇护之盾，寓意稳健承保与严密风控）为作者在深度技术特稿中使用的虚构企业代称，指代某世界顶级跨国金融与保险巨擘（Global Tier-1 Carrier / Fortune Global 100）。此举旨在恪守商业隐私与合规边界，同时为读者完整呈现高并发、严监管生产环境下的顶级 AI Native 系统工程实战。
+
 ---
 
 先摆框架,再给手段——老板和团队真正看重的是你把成本当工程约束管,不是事后省钱。
@@ -122,7 +125,7 @@ Return    Router
 
 2. 真实业界例子：the cloud provider Bedrock Intelligent Prompt Routing
 
-对 a leading global company 这种 the cloud provider 企业环境，最值得了解的是 Amazon Bedrock 的 Intelligent Prompt Routing。
+对 Aegis 这种 the cloud provider 企业环境，最值得了解的是 Amazon Bedrock 的 Intelligent Prompt Routing。
 
 the cloud provider 提供托管式路由器，可以在受支持的同系列模型之间，根据请求预测的响应质量进行动态路由，以平衡质量和成本。官方文档列出了支持的模型和区域；实际部署前应确认目标区域及模型组合。
 
@@ -158,7 +161,7 @@ Bedrock Prompt Router
 
 3. 先看一份具体路由配置
 
-假设你在开发 a leading global company 保险助手。路由策略可以先写成配置，而不是把模型名称和阈值散落在代码里。
+假设你在开发 Aegis 保险助手。路由策略可以先写成配置，而不是把模型名称和阈值散落在代码里。
 
 models:
   classifier: ${CLASSIFIER_MODEL}
@@ -460,7 +463,7 @@ I would evaluate the routing policy against a representative dataset, measuring 
 
 The objective is not simply to maximise the percentage of requests handled by a small model. It is to minimise total cost while meeting explicit quality, latency and safety requirements.
 
-最后，如果你要在 a leading global company 的 the cloud provider 环境中真正落地，我建议先深入两个方向：
+最后，如果你要在 Aegis 的 the cloud provider 环境中真正落地，我建议先深入两个方向：
 
 * Amazon Bedrock Intelligent Prompt Routing：了解托管式模型路由、fallback 和配置限制。官方文档：Intelligent Prompt Routing⁠。
 * 自建 Python Router：掌握分类器、路由策略、模型调用、质量门禁、可观测性与成本核算。这样你才能解释什么时候应该用托管服务，什么时候值得自建。
@@ -637,7 +640,7 @@ token_counter.add(u.input_tokens, {
 
 **我会给的答案是双层:**
 
-> "底层统一打 OTel,因为我不想把 agent 的 trace 和保险核心系统的 trace 割成两套——事故排查时需要同一条 trace 串起来。上层再接一个 LLM 原生的平台做 eval、标注和 prompt 版本管理。关键是**仪表化层保持厂商中立**,这样换上层平台不需要改业务代码。在 a leading global company 这种环境,数据驻留和自托管会是选型的硬约束,所以 Langfuse 自托管或 Bedrock 原生这两条更可能胜出。"
+> "底层统一打 OTel,因为我不想把 agent 的 trace 和保险核心系统的 trace 割成两套——事故排查时需要同一条 trace 串起来。上层再接一个 LLM 原生的平台做 eval、标注和 prompt 版本管理。关键是**仪表化层保持厂商中立**,这样换上层平台不需要改业务代码。在 Aegis 这种环境,数据驻留和自托管会是选型的硬约束,所以 Langfuse 自托管或 Bedrock 原生这两条更可能胜出。"
 
 顺带一个能显出你读过细节的点:OpenLLMetry/Traceloop 本身是基于 OTel 的,GenAI conventions 有一部分就来自它的捐赠,但它现在仍在发一些已废弃的属性(`gen_ai.prompt` / `gen_ai.completion`),迁移还在进行中。知道这种事会让人觉得你是真用过。
 
@@ -673,7 +676,7 @@ def on_span_end(span):
 
 **Q: 你在 ConvFinQA 里明确说不要 OTel,现在又说要?**
 ```flowchart
-→ "那个决定在那个架构里是对的:单进程同步调用,因果链已经完整落盘在内容寻址缓存和 append-only JSONL 里。我当时写了明确的触发条件——**因果一旦跨出进程**就该上。a leading global company 要建的就是那种系统,所以我会从第一天埋。我拒绝的是在不需要的地方加运维面,不是拒绝可观测性。"
+→ "那个决定在那个架构里是对的:单进程同步调用,因果链已经完整落盘在内容寻址缓存和 append-only JSONL 里。我当时写了明确的触发条件——**因果一旦跨出进程**就该上。Aegis 要建的就是那种系统,所以我会从第一天埋。我拒绝的是在不需要的地方加运维面,不是拒绝可观测性。"
 ```
 
 **Q: spec 不稳定,现在埋了以后不是白埋?**
@@ -792,7 +795,7 @@ with tracer.start_as_current_span("execute_tool lookup_policy") as span:
 
 这也正是你报告里那个判断的技术内核。在日常工作中与团队研讨时可以这样表述：
 
-> "我自己手写过一版 span——每个 turn 一条记录,带时长、token、成本,输入可重放。OTel 在那之上加的是**跨进程的因果关联**和**标准化的属性名**。前者在单进程里没有需求,后者在多团队、多工具链的环境里才值钱。a leading global company 两个条件都满足,所以在那边我会直接用 OTel。"
+> "我自己手写过一版 span——每个 turn 一条记录,带时长、token、成本,输入可重放。OTel 在那之上加的是**跨进程的因果关联**和**标准化的属性名**。前者在单进程里没有需求,后者在多团队、多工具链的环境里才值钱。Aegis 两个条件都满足,所以在那边我会直接用 OTel。"
 
 # Span concepts
 **不是 OTel 发明的。** "Span" 这个词定型于 2010 年 Google 的 Dapper 论文,OTel 只是把它标准化并推成了行业通用语。这段历史值得知道,因为它解释了为什么这个概念长成现在这样。
