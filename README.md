@@ -3,12 +3,12 @@
 To run below command setup folder and files
 
 ```shell
-mkdir -p ~/dev/ws/todd/cloudsdocker.github.io/_posts/2025/"$(date +%m)"/"$(date +%m%d)"
+mkdir -p ~/dev/ws/todd/cloudsdocker.github.io/_posts/2025/"10"/"1011"
 ```
 
 Then use your keyword to create a file 
 ```shell
-touch ~/dev/ws/todd/cloudsdocker.github.io/_posts/2025/"$(date +%m)"/"$(date +%m%d)"/"$(date +%Y-%m-%d)-fix-annoying-fake-security-prompt-in-docker-desktop-in-macbook.md"
+touch ~/dev/ws/todd/cloudsdocker.github.io/_posts/2025/"10"/"1011"/"2026-10-11-fix-annoying-fake-security-prompt-in-docker-desktop-in-macbook.md"
 ```
 
 Then download the blog source to clipboard
@@ -18,23 +18,22 @@ cat ~/Downloads/docker-desktop-security-fix.md | pbcopy
 
 # AI-assisted workflow (raw idea → post → book)
 
-This repo also uses `raw/` as a scratchpad for half-formed ideas and
-`.claude/skills/` for Claude Code skills that turn that raw material into
-publish-ready output in this blog's own voice, without flattening it into
-generic AI writing:
+This repo uses `raw/` as a scratchpad for technical ideas, and Antigravity / Claude Code skills to turn raw material into publication-ready output in this blog's authoritative voice without generic AI filler:
 
-- **`raw-capture`** — quickly saves a new idea into `raw/` (low friction, no
-  polishing yet).
-- **`raw-to-post`** — distills a `raw/*.md` file (or a fresh idea) into a
-  bilingual (zh/en) blog post matching this blog's established structure,
-  tables, and recurring frameworks. Reads `raw-to-post/references/voice-profile.md`
-  and `humanity-checklist.md` to keep the output sounding like a specific
-  person, not an AI template — it will ask for real anecdotes/opinions
-  rather than inventing them.
-- **`ebook-forge`** — compiles a themed cluster of published posts (plus,
-  optionally, unpublished `raw/` material) into an ebook manuscript under
-  `ebooks/`, with real connective tissue between chapters instead of a
-  straight concatenation.
+- **`chat-to-blog`** — captures the active AI conversation (or specific solutions) directly into a markdown draft under `raw/`.
+- **`raw-capture`** — quickly saves a new idea into `raw/` (low friction, unpolished notes).
+- **`raw-to-post`** — distills a rough idea into an initial bilingual draft in `raw/` for review.
+- **`raw-to-blog`** — **promotes & rewrites a `raw/*.md` note into publication-grade bilingual (`zh` + `en`) posts under `_posts/YYYY/MM/DD/`**:
+  - **Zero material loss**: Output length is strictly $\ge$ input note; preserves 100% of technical details, formulas, tables, and code.
+  - **Authoritative stance**: Transforms interview/exam framing into a Lead AI Engineer perspective in enterprise production (Aegis / tier-1 carrier).
+  - **Language-specific opening quotes**: Enforces authentic Chinese quotes (`> “...”`) on Line 1 of Chinese articles (never English quotes), and matching English quotes for English articles.
+  - **Zero banned phrases**: Deterministically eliminates AI cliches and kill-list words (especially `闭环`).
+  - **Deterministic validation**: Auto-validates output via `editorial_policy.validate_post` and backs up the original note to `raw/archive/`.
+- **`ebook-forge`** — compiles a themed cluster of published posts into an ebook manuscript under `ebooks/`.
 
-Point Claude Code at a file in `raw/` and ask it to write the post — the
-skills trigger automatically.
+### How to trigger `raw-to-blog`:
+Simply say to the AI assistant (Antigravity or Claude):
+> *"raw to blog"*
+> *"publish raw blog from raw/2026-10-09-ai-observability-cost-control.md"*
+
+The assistant acts as the LLM engine directly without external API calls, writing the final bilingual posts to `_posts/` and running automated validation.

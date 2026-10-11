@@ -15,7 +15,7 @@ lang: zh
 layout: single
 category: tech
 ---
-> "We measure what we value, and we value what we measure. In the silent expanse of artificial intelligence, an unobserved failure is not merely a technical glitch—it is a quiet erosion of truth."
+> “我们衡量我们所珍视的，也珍视我们所衡量的。在人工智能的无声广袤中，一次未被观测的失败不仅是一场技术故障，更是对真实性的悄然侵蚀。”
 
 # AI 系统的隐性成本之战：企业级可观测性、多模型路由与 OTel 生产遥测全景实战
 
