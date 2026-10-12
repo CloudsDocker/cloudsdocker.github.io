@@ -37,3 +37,4 @@ Simply say to the AI assistant (Antigravity or Claude):
 > *"publish raw blog from raw/2026-10-09-ai-observability-cost-control.md"*
 
 The assistant acts as the LLM engine directly without external API calls, writing the final bilingual posts to `_posts/` and running automated validation.
+use skil raw-to-post skill
