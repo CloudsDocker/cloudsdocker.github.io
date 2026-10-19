@@ -1,7 +1,7 @@
 ---
 title: "AI 系统的隐性成本之战：企业级可观测性、多模型路由与 OTel 生产遥测全景实战"
 header:
-    image: /assets/images/Cheap_and_flexible_computing.jpg
+    image: /assets/images/hd_vscode_shortcuts.jpg
 date: 2026-10-09
 tags:
  - ai
