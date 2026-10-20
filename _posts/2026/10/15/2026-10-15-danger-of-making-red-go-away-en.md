@@ -15,8 +15,6 @@ category: tech
 ---
 > "The map is not the territory." — Alfred Korzybski
 
-# Why "Make the Red Go Away" Is a Dangerous Objective Function
-
 *From "just get the commit through" to "figure out why it won't go through" — and the live OAuth key sitting in the gap between them.*
 
 ```

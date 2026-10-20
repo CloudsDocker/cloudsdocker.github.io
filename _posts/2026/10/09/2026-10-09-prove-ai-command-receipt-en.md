@@ -14,8 +14,6 @@ lang: en
 layout: single
 category: tech
 ---
-# Can You Prove the Command Your AI Told You to Run?
-
 *For any assistant that proposes a shell command: require evidence that the exact line succeeded in the stated context.*
 
 Open your repository and run the exact command your AI last called “the command I used.” Now compare it with the command it actually executed, if it showed one.

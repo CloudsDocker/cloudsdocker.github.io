@@ -20,7 +20,7 @@ tags: [fzf, fd, zoxide, eza, zsh, terminal, cli]
 它会自动列出当前目录下所有子目录，输入关键字模糊过滤，回车直接 `cd` 进去。零配置，零学习成本，但知道的人少得可怜——大部分人装了 fzf 只用来搜命令历史（`Ctrl+R`），完全没发现这个隐藏福利。
 
 ```
-Alt+C → 输入 "logs" → 高亮候选 → Enter → 你已经在 mq-airflow/dags/logs 里了
+Alt+C → 输入 "logs" → 高亮候选 → Enter → 你已经在 repo-alpha/dags/logs 里了
 ```
 
 验证有没有生效：
@@ -138,9 +138,9 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :100 {}' --pr
 │ > logs                         │ logs                            │
 │                                │ ├── scheduler                   │
 │   3/128 ───────────────────    │ │   ├── 2026-07-29              │
-│ ▶ mq-airflow/dags/logs         │ │   └── 2026-07-30              │
-│   mq-airflow/logs              │ ├── dag_processor_manager       │
-│   v3/dags/prd/logs             │ └── dag_id=sync_uac_to_sfec     │
+│ ▶ repo-alpha/dags/logs         │ │   └── 2026-07-30              │
+│   repo-alpha/logs              │ ├── dag_processor_manager       │
+│   v3/dags/prd/logs             │ └── dag_id=sync_job_to_sfec     │
 │                                │                                 │
 └────────────────────────────────┴─────────────────────────────────┘
    ↑ 输入即过滤                      ↑ 光标移动就刷新,不用进去看
@@ -173,7 +173,7 @@ zoxide query -l  # 列出数据库里所有记录(调试用)
 
 ### 最佳分工
 
-日常高频目录(比如 `mq-airflow` 项目根目录)用 `z air` 秒达,不用每次模糊搜索;真正陌生、没去过的新目录,才用 `Alt+C`(配置了 fd+preview 那个)做一次性探索。两者不冲突,可以同时装,互相补位。
+日常高频目录(比如 `repo-alpha` 项目根目录)用 `z air` 秒达,不用每次模糊搜索;真正陌生、没去过的新目录,才用 `Alt+C`(配置了 fd+preview 那个)做一次性探索。两者不冲突,可以同时装,互相补位。
 
 ```mermaid
 graph TD

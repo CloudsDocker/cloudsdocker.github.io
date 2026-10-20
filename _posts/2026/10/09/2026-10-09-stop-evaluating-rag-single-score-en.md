@@ -16,8 +16,6 @@ category: tech
 ---
 > "Perfection is finally attained not when there is no longer anything to add but when there is no longer anything to take away." — Antoine de Saint-Exupéry
 
-# Stop Evaluating Your RAG Pipeline as a Single Black Box
-
 *A high retrieval recall score means nothing if you cannot trace exactly which layer of your pipeline actually failed.*
 
 I keep a note from a team building AI factories: *don't treat AI as a wishing well; treat it as a workbench.* If the output is wrong, you don't yell at the model to fix a single result. You adjust the production pipeline, the rules, and the flow.

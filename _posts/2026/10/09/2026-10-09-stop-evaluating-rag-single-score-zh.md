@@ -16,8 +16,6 @@ category: tech
 ---
 > "Perfection is finally attained not when there is no longer anything to add but when there is no longer anything to take away." — Antoine de Saint-Exupéry
 
-# 95% 召回率的虚假繁荣
-
 *生产级 AI 的评估标准，是一套能精准定位故障节点的管线。*
 
 某家研发 AI 生产线的公司摸索出过一条铁律：对 AI 的出品不满意时，要调的是生产管线，而不是对单一成品做修改。如果 AI 总是把“八十年代”读成“八零年代”，你不能指望在对话框里靠吼来纠正它，你得从生产环节里查原因。不要把 AI 当成许愿机，要把它当成工作台。

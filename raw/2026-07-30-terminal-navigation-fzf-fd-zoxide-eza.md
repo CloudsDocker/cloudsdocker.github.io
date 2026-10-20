@@ -20,7 +20,7 @@ No shame — I did this for years too. Then I put together `fzf` + `fd` + `zoxid
 It lists every subdirectory under your current path, lets you fuzzy-filter by typing, and drops you right in on Enter. Zero config, zero learning curve — yet most people install fzf purely for command history (`Ctrl+R`) and never notice this sitting right there.
 
 ```
-Alt+C → type "logs" → highlighted candidate → Enter → you're in mq-airflow/dags/logs
+Alt+C → type "logs" → highlighted candidate → Enter → you're in repo-alpha/dags/logs
 ```
 
 Verify it's actually wired up:
@@ -138,9 +138,9 @@ Here's what that actually looks like — fuzzy search on the left, live preview 
 │ > logs                         │ logs                            │
 │                                │ ├── scheduler                   │
 │   3/128 ───────────────────    │ │   ├── 2026-07-29              │
-│ ▶ mq-airflow/dags/logs         │ │   └── 2026-07-30              │
-│   mq-airflow/logs              │ ├── dag_processor_manager       │
-│   v3/dags/prd/logs             │ └── dag_id=sync_uac_to_sfec     │
+│ ▶ repo-alpha/dags/logs         │ │   └── 2026-07-30              │
+│   repo-alpha/logs              │ ├── dag_processor_manager       │
+│   v3/dags/prd/logs             │ └── dag_id=sync_job_to_sfec     │
 │                                │                                 │
 └────────────────────────────────┴─────────────────────────────────┘
    ↑ type to filter                  ↑ refreshes as the cursor moves
@@ -173,7 +173,7 @@ zoxide query -l    # list everything in the database (for debugging)
 
 ### The ideal division of labor
 
-For directories you visit constantly (your `mq-airflow` project root, say), `z air` gets you there instantly — no fuzzy searching needed every time. For genuinely new, unexplored territory, fall back to `Alt+C` (the fd+preview version from Part 3) for one-off exploration. The two don't conflict — install both, let them cover different jobs.
+For directories you visit constantly (your `repo-alpha` project root, say), `z air` gets you there instantly — no fuzzy searching needed every time. For genuinely new, unexplored territory, fall back to `Alt+C` (the fd+preview version from Part 3) for one-off exploration. The two don't conflict — install both, let them cover different jobs.
 
 ```mermaid
 graph TD
