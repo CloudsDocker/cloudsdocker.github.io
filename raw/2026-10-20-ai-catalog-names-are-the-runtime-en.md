@@ -20,6 +20,10 @@ category: tech
 
 *From "a list of AI repos" to "a constitution the installer and the agent both obey."*
 
+A blind man sat on a building's steps beside a cardboard sign: "I am blind, please help me." Few passers-by responded. A girl turned back, flipped the cardboard, wrote a new line, and left. Then people stopped and coins landed in front of the man. Later he felt her shoes and asked what she had written. "The same words," she said, "just a different language." She had written: "This is a beautiful day, and I cannot see it." (From 《故事课》)
+
+Same man, same cardboard, same facts — only the sentence changed, and that was the whole difference between a statement nobody acted on and one everybody acted on.
+
 I cloned the team's AI catalog expecting a generator, an indexer, at least a `metadata.yaml`. `git ls-files` printed one line:
 
 ```text
@@ -42,7 +46,7 @@ Useful order, not discovery order.
 
 ```mermaid
 flowchart TD
-  A["dit-ai-catalog<br/>README + naming constitution"] --> B["dit-type-domain<br/>GitHub repo name = identity"]
+  A["alpha-ai-catalog<br/>README + naming constitution"] --> B["alpha-type-domain<br/>GitHub repo name = identity"]
   B --> C["skill folder / SKILL.md<br/>references + scripts + tests"]
   C --> D["install.sh copies a snapshot<br/>~/.cursor/skills or ~/.claude/skills"]
   D --> E["agent reads description only<br/>loads on Use when"]
@@ -50,9 +54,9 @@ flowchart TD
 
 | Layer | Example | Consumer | Blast radius if you rename it |
 |---|---|---|---|
-| Catalog | `dit-ai-catalog` | humans, review, new joiners | people cannot find the repo; the standard drifts |
-| Repo name | `dit-skills-airflow` | clone URL, GitHub topic | every clone, CI pin, and bookmark breaks |
-| Skill name | `dit-skills-airflow-develop` | install path, `name:`, manifest | copies already on laptops keep triggering under the old name |
+| Catalog | `alpha-ai-catalog` | humans, review, new joiners | people cannot find the repo; the standard drifts |
+| Repo name | `alpha-skills-airflow` | clone URL, GitHub topic | every clone, CI pin, and bookmark breaks |
+| Skill name | `alpha-skills-airflow-develop` | install path, `name:`, manifest | copies already on laptops keep triggering under the old name |
 | Trigger | `Use when creating a new DAG` | agent routing | the right skill stays cold; the wrong one dumps its templates into context |
 
 This is information directionality: each boundary rewrites the same characters under its own assumptions. In a human head the meaning is "the Airflow skill pack." In git the syntax is a repo name. In the agent the syntax is a description. You cannot use a repo name as a slash command, and you cannot use a skill folder as a GitHub search term.
@@ -64,7 +68,7 @@ This is information directionality: each boundary rewrites the same characters u
 One formula:
 
 ```text
-dit-<type>-<domain>[-<qualifier>]
+alpha-<type>-<domain>[-<qualifier>]
 ```
 
 Hard rules: lowercase only; hyphens only, never underscores or camelCase; at most four segments; ideally under 30 characters; `type` from a closed vocabulary; `domain` is the canonical system name, not the framework.
@@ -84,28 +88,32 @@ The empty rows exist so the next debate does not reopen the vocabulary. If someo
 
 Occam's razor is strict here: the name answers "who is this." Nothing else is the name's job.
 
+That is the trick the girl played with the cardboard. A repo name is not a description of what it contains; it is the string the reader's tooling can route on. `deprecated` and `v2` give the reader nothing to route on — they tell a story about the repo, which belongs in topics and org properties.
+
 The add-a-repo checklist in the README is: name it by the formula → add the matching topic → append a catalog entry → bump the header counts. Step 3 still says "copy an existing `<tr>` row." The page is now `### [repo]` heading blocks. The process is right. The prose is stale. That is the failure mode of a hand-maintained catalog, not an accident.
 
 > The moment a name starts carrying lifecycle, the naming scheme is already dead.
 
 ## 3. Archaeology: why eight repos were renamed in a day
 
-On 2026-08-31 the catalog landed with standard names on the left and the still-live old names on the right. By 09-01 all eight had moved. Commit `a645e90` closed the programme and rejected `dit-skills-ditapi`: it stutters, and it names the framework instead of the domain. The live name is `dit-skills-api`.
+On 2026-08-31 the catalog landed with standard names on the left and the still-live old names on the right. By 09-01 all eight had moved. Commit `a645e90` closed the programme and rejected `alpha-skills-alphapi`: it stutters, and it names the framework instead of the domain. The live name is `alpha-skills-api`.
 
 | Old GitHub name | Standard name | Disease that got cut |
 |---|---|---|
-| `dit-airflow-skill` | `dit-skills-airflow` | type not in segment two |
-| `dit-claude-skills` | `dit-skills-claude` | same |
-| `dit-dbt-sqlfluff-skills` | `dit-skills-dbt` | five segments; implementation detail in the identity |
-| `ditapi-skills` | `dit-skills-api` | prefix is not `dit-<type>` |
-| `dit-onehelp-skills` | `dit-skills-onehelp` | type last |
-| `dit-snowflake-skills` | `dit-skills-snowflake` | type last |
-| `dit-jira-mcp` | `dit-mcp-jira` | type last |
-| `servicenow_mcp` | `dit-mcp-servicenow` | underscore; not even `dit-` |
+| `alpha-airflow-skill` | `alpha-skills-airflow` | type not in segment two |
+| `alpha-claude-skills` | `alpha-skills-claude` | same |
+| `alpha-dbt-sqlfluff-skills` | `alpha-skills-dbt` | five segments; implementation detail in the identity |
+| `alphapi-skills` | `alpha-skills-api` | prefix is not `alpha-<type>` |
+| `alpha-onehelp-skills` | `alpha-skills-onehelp` | type last |
+| `alpha-snowflake-skills` | `alpha-skills-snowflake` | type last |
+| `alpha-jira-mcp` | `alpha-mcp-jira` | type last |
+| `servicenow_mcp` | `alpha-mcp-servicenow` | underscore; not even `alpha-` |
 
-Added after that programme, not among the eight: `dit-agents-devops` on 09-10, `dit-mcp-airflow` on 09-21. Once every repo answered to its standard name, they tore out the `proposed` / `live` / `Clone as` scaffolding.
+Added after that programme, not among the eight: `alpha-agents-devops` on 09-10, `alpha-mcp-airflow` on 09-21. Once every repo answered to its standard name, they tore out the `proposed` / `live` / `Clone as` scaffolding.
 
-They also left an asymmetry on purpose: GitHub repo names moved; skill install names did not, not yet. `~/.cursor/skills/<old-name>` is a contract on someone else's laptop. Renaming a GitHub repo is cheaper. Later, `dit-skills-airflow` grew `develop` / `decommission` / `image-deps` on its own clock, and the old `dit-airflow-skill` became a legacy entry in `install.sh` that reminds you to uninstall it. That is not a contradiction. Two contracts changed at two speeds.
+They also left an asymmetry on purpose: GitHub repo names moved; skill install names did not, not yet. `~/.cursor/skills/<old-name>` is a contract on someone else's laptop. Renaming a GitHub repo is cheaper. Later, `alpha-skills-airflow` grew `develop` / `decommission` / `image-deps` on its own clock, and the old `alpha-airflow-skill` became a legacy entry in `install.sh` that reminds you to uninstall it. That is not a contradiction. Two contracts changed at two speeds.
+
+Nobody flipped a cardboard here. The rename programme rewrote eight repo names in a day because those names had readers — CI, clone URLs, topic search — each one a tool that routed on the name. The names that had no reader are the ones still drifting.
 
 > A repo rename breaks clone URLs. A skill rename breaks triggers already installed on other machines.
 
@@ -135,7 +143,7 @@ The trigger chain should be speakable:
 
 1. Someone asks for a sync DAG from a warehouse into an archive system.
 2. The agent reads skill descriptions only.
-3. `dit-skills-airflow-develop` hits on `Use when creating or scaffolding a new DAG`.
+3. `alpha-skills-airflow-develop` hits on `Use when creating or scaffolding a new DAG`.
 4. It reads the short `SKILL.md` router, then the matching `references/` file.
 5. It asks type / source / target / schedule, proposes names, waits, then generates files.
 
@@ -145,7 +153,7 @@ On-demand loading is the design. Develop ships nine templates. Decommission must
 
 ## 5. The lines inside a skill that are actually expensive
 
-Take `dit-skills-airflow-develop`. Frontmatter `name:` must equal the folder name. The description says what the skill does, when to use it, and — this is the valuable bit — when not to: deleting a DAG belongs to decommission. Negative routing beats another three hundred words of positive prose.
+Take `alpha-skills-airflow-develop`. Frontmatter `name:` must equal the folder name. The description says what the skill does, when to use it, and — this is the valuable bit — when not to: deleting a DAG belongs to decommission. Negative routing beats another three hundred words of positive prose.
 
 Once loaded, the red lines outrank the templates:
 
@@ -159,9 +167,9 @@ Once loaded, the red lines outrank the templates:
 
 The five DAG families are downstream of the same constitution: `ingestion_*`, `sync_*_to_*`, `move_*_to_*`, `analytics_*`, `admin_*`. The repo name says "this is an Airflow skill pack." The `dag_id` says "this is which kind of pipeline." Two vocabularies. Do not mix them.
 
-The api pack applies the same contract to a different chain: `dit-skills-api-develop` scaffolds `ditapi-*` services, `deploy` walks the gateway and sealed secrets, `postman-smoke` discovers endpoints from OpenAPI and fails the run if a credential is committed in `smoke.json`. `mq-repo-setup` is not vendored; install pulls it from the configs repo — a remote skill, so the local tree does not hold a stale copy.
+The api pack applies the same contract to a different chain: `alpha-skills-api-develop` scaffolds `alphapi-*` services, `deploy` walks the gateway and sealed secrets, `postman-smoke` discovers endpoints from OpenAPI and fails the run if a credential is committed in `smoke.json`. `configs-repo-setup` is not vendored; install pulls it from the configs repo — a remote skill, so the local tree does not hold a stale copy.
 
-The dbt line is where repo name, skill name, and the folder on disk come apart. The catalog lists `dit-skills-dbt` with two skills, sqlfluff and Data Vault. A laptop that still has `dit-dbt-sqlfluff-skills` still installs as `dbt-sqlfluff-skills`. You will talk standard names in review and edit the legacy path on disk. The promise did not change: build a column-ownership map from Snowflake `DESCRIBE`, never guess an alias; prove the row set with COUNT + EXCEPT before dag-test. dag-test proves lint and compile. It does not prove equivalence.
+The dbt line is where repo name, skill name, and the folder on disk come apart. The catalog lists `alpha-skills-dbt` with two skills, sqlfluff and Data Vault. A laptop that still has `alpha-dbt-sqlfluff-skills` still installs as `dbt-sqlfluff-skills`. You will talk standard names in review and edit the legacy path on disk. The promise did not change: build a column-ownership map from Snowflake `DESCRIBE`, never guess an alias; prove the row set with COUNT + EXCEPT before dag-test. dag-test proves lint and compile. It does not prove equivalence.
 
 > Templates are examples. Red lines are the contract. When an example ages, obey the contract.
 
@@ -193,11 +201,11 @@ MCP and skill are not the same kind of thing. A skill is a program installed int
 
 | Question | Wrong answer | Contract answer |
 |---|---|---|
-| What is this repo? | "an AI toolkit" | `dit-<type>-<domain>`, type from the closed vocabulary |
+| What is this repo? | "an AI toolkit" | `alpha-<type>-<domain>`, type from the closed vocabulary |
 | Where is the logic? | "in the catalog" | in the indexed repos; the catalog only legislates |
 | Why can repo name and skill name differ? | "legacy, should fix" | two contracts, two blast radii |
 | How does the agent pick a skill? | "by folder name" | by `Use when` in the description |
-| May we call it `dit-mcp-jira-deprecated`? | "that's clear" | no. Lifecycle is not identity |
+| May we call it `alpha-mcp-jira-deprecated`? | "that's clear" | no. Lifecycle is not identity |
 | Why no generator? | "not finished" | ten repos keep a README; review absorbs stale; do not build a portal for it |
 
 ## Do this today
@@ -207,5 +215,7 @@ MCP and skill are not the same kind of thing. A skill is a program installed int
 3. Before renaming a GitHub repo, search `~/.cursor/skills` and `~/.claude/skills` for the install name. Changing the repo and leaving the skill is legal. Changing both at once is a migration.
 4. When you write a new skill, write a description under 200 words first — it must contain `Use when` and one negative route — then write `references/`. Manual first, router second, and the agent will treat the whole manual as the home page.
 5. If a legacy clone name is still on disk, label it legacy. Do not use it as the current standard in review.
+
+The cardboard did not change; the sentence on it did. Your catalog's README is the cardboard: everyone can read it, and everyone writes on it. What the reader needs to act on — a name they can clone, a `Use when` clause the agent can match — has to live where a machine can route on it.
 
 *A list tells you what exists. A constitution tells you what is allowed to exist.*

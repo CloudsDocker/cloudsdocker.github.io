@@ -20,6 +20,10 @@ category: tech
 
 *从「这是工具清单」到「这是命名宪法」—— skill 会不会被加载，在仓名定下来的那一刻就开始了。*
 
+一个失明的老人坐在一栋大厦的台阶边乞讨，旁边的纸板写着：「我是个盲人，请帮帮我。」路过的人很少回应。一个女孩子回身把纸板翻过来，写下一行字，然后离开。人们停下了，硬币落进老人跟前。长日将尽，老人摸到熟悉的鞋子，问她写了什么。女孩答：「同样的话，只是用了不同的语言。」她写的是：「这真是美好的一天，而我却看不见。」（摘自《故事课》）
+
+同一个人，同一块纸板，同一个事实——变的只是上面那句话，而这就是「没人回应」和「人人掏钱」的全部差别。
+
 我把团队的 AI 目录仓 clone 下来，以为会看到生成器、索引脚本、至少一份 `metadata.yaml`。`git ls-files` 打出来只有一行：
 
 ```text
@@ -42,7 +46,7 @@ Header 徽章写着 10 个仓、6 个 skills、3 个 MCP、1 个 agents、standa
 
 ```mermaid
 flowchart TD
-  A["dit-ai-catalog<br/>README + 命名宪法"] --> B["dit-type-domain<br/>GitHub 仓名 = 身份"]
+  A["alpha-ai-catalog<br/>README + 命名宪法"] --> B["alpha-type-domain<br/>GitHub 仓名 = 身份"]
   B --> C["skill 文件夹 / SKILL.md<br/>references + scripts + tests"]
   C --> D["install.sh 拷贝快照<br/>~/.cursor/skills 或 ~/.claude/skills"]
   D --> E["agent 只读 description<br/>命中 Use when 才加载"]
@@ -50,9 +54,9 @@ flowchart TD
 
 | 层 | 例子 | 谁在用 | 改错了会怎样 |
 |---|---|---|---|
-| 目录 | `dit-ai-catalog` | 人、评审、新同事 | 找不到仓，标准漂移 |
-| 仓名 | `dit-skills-airflow` | clone URL、GitHub topic | 所有 clone / CI / bookmark 断 |
-| skill 名 | `dit-skills-airflow-develop` | 安装目录、`name:`、manifest | 本机已装副本继续用旧名触发 |
+| 目录 | `alpha-ai-catalog` | 人、评审、新同事 | 找不到仓，标准漂移 |
+| 仓名 | `alpha-skills-airflow` | clone URL、GitHub topic | 所有 clone / CI / bookmark 断 |
+| skill 名 | `alpha-skills-airflow-develop` | 安装目录、`name:`、manifest | 本机已装副本继续用旧名触发 |
 | 触发词 | `Use when creating a new DAG` | agent 路由 | 该加载的不加载，不该加载的全读进上下文 |
 
 这是信息单向性：每一层都按自己的假设改写同一串字符。语义在人脑子里是「Airflow 技能」；语法在 git 里是仓名，在 agent 里是 description。你不能拿仓名去当 slash command，也不能拿 skill 文件夹名去当 GitHub 检索词。
@@ -64,7 +68,7 @@ flowchart TD
 公式只有这一条：
 
 ```text
-dit-<type>-<domain>[-<qualifier>]
+alpha-<type>-<domain>[-<qualifier>]
 ```
 
 硬约束：全小写；只用连字符，禁止下划线和 camelCase；最多四段；最好短于 30 个字符；`type` 必须来自封闭词表；`domain` 是系统的规范名，不是框架名。
@@ -84,28 +88,32 @@ dit-<type>-<domain>[-<qualifier>]
 
 奥卡姆剃刀在这里很硬：名字只回答「这是谁」。其余都不是名字的职责。
 
+这和女孩改纸板是同一个手法。仓名不是对它装了什么的描述，是读者工具能拿去路由的那串字符。`deprecated`、`v2` 不给读者任何可以路由的东西——它们讲的是这个仓的履历，而履历属于 topic 和组织属性。
+
 加仓流程写在 README 里：按公式起名 → 打匹配 topic → 在 catalog 加一条 → 改 header 计数。第 3 步还写着复制 `<tr>`，页面本身已经改成 `### [repo]` 标题块。流程对，文案旧了——手维护目录的失败模式，不是意外。
 
 > 名字一旦开始扛生命周期，命名方案就已经死了。
 
 ## 3. 考古：八个仓为什么在一天里改完名
 
-2026-08-31 目录仓落地时，左边是标准名，右边是当时还活着的旧名。到 09-01，八个仓全部切到标准名。commit `a645e90` 把这件事收尾，并且否决了 `dit-skills-ditapi`：口吃，且把框架当成了 domain。最终叫 `dit-skills-api`。
+2026-08-31 目录仓落地时，左边是标准名，右边是当时还活着的旧名。到 09-01，八个仓全部切到标准名。commit `a645e90` 把这件事收尾，并且否决了 `alpha-skills-alphapi`：口吃，且把框架当成了 domain。最终叫 `alpha-skills-api`。
 
 | 旧 GitHub 名 | 现标准名 | 被修掉的病 |
 |---|---|---|
-| `dit-airflow-skill` | `dit-skills-airflow` | type 不在第二段 |
-| `dit-claude-skills` | `dit-skills-claude` | 同上 |
-| `dit-dbt-sqlfluff-skills` | `dit-skills-dbt` | 五段，且把实现细节写进仓名 |
-| `ditapi-skills` | `dit-skills-api` | 前缀不是 `dit-<type>` |
-| `dit-onehelp-skills` | `dit-skills-onehelp` | type 置后 |
-| `dit-snowflake-skills` | `dit-skills-snowflake` | type 置后 |
-| `dit-jira-mcp` | `dit-mcp-jira` | type 置后 |
-| `servicenow_mcp` | `dit-mcp-servicenow` | 下划线，连 `dit-` 都没有 |
+| `alpha-airflow-skill` | `alpha-skills-airflow` | type 不在第二段 |
+| `alpha-claude-skills` | `alpha-skills-claude` | 同上 |
+| `alpha-dbt-sqlfluff-skills` | `alpha-skills-dbt` | 五段，且把实现细节写进仓名 |
+| `alphapi-skills` | `alpha-skills-api` | 前缀不是 `alpha-<type>` |
+| `alpha-onehelp-skills` | `alpha-skills-onehelp` | type 置后 |
+| `alpha-snowflake-skills` | `alpha-skills-snowflake` | type 置后 |
+| `alpha-jira-mcp` | `alpha-mcp-jira` | type 置后 |
+| `servicenow_mcp` | `alpha-mcp-servicenow` | 下划线，连 `alpha-` 都没有 |
 
-之后才新增、不在那八个里的：09-10 的 `dit-agents-devops`，09-21 的 `dit-mcp-airflow`。迁完，他们拆掉了 `proposed` / `live` / `Clone as` 脚手架——每个仓都已经能用标准名 clone。
+之后才新增、不在那八个里的：09-10 的 `alpha-agents-devops`，09-21 的 `alpha-mcp-airflow`。迁完，他们拆掉了 `proposed` / `live` / `Clone as` 脚手架——每个仓都已经能用标准名 clone。
 
-当时有一条故意留下的不对称：GitHub 仓名改了，skill 安装名先不动。`~/.cursor/skills/<old-name>` 是用户机器上的契约；改仓名的爆炸半径小得多。后来 `dit-skills-airflow` 自己演进到 `develop` / `decommission` / `image-deps`，旧的 `dit-airflow-skill` 变成 `install.sh` 里的遗留项，提醒你卸掉。这不是前后矛盾，是两份契约按各自的节奏改。
+当时有一条故意留下的不对称：GitHub 仓名改了，skill 安装名先不动。`~/.cursor/skills/<old-name>` 是用户机器上的契约；改仓名的爆炸半径小得多。后来 `alpha-skills-airflow` 自己演进到 `develop` / `decommission` / `image-deps`，旧的 `alpha-airflow-skill` 变成 `install.sh` 里的遗留项，提醒你卸掉。这不是前后矛盾，是两份契约按各自的节奏改。
+
+这一次没有人翻纸板。改名程序一天改掉八个仓名，因为那些名字有读者——CI、clone URL、topic 检索，每一个都是一台能对它路由的机器。那些没有读者的名字，才是至今还在漂的那些。
 
 > 仓名改的是克隆地址。Skill 名改的是已经装到别人电脑上的触发器。
 
@@ -135,7 +143,7 @@ printf '%s' "$DESC" | grep -qi 'use when' \
 
 1. 用户说「建一个从仓库到档案系统的 sync DAG」。
 2. Agent 只看各 skill 的 `description`。
-3. `dit-skills-airflow-develop` 的 `Use when creating or scaffolding a new DAG` 命中。
+3. `alpha-skills-airflow-develop` 的 `Use when creating or scaffolding a new DAG` 命中。
 4. 读短路由 `SKILL.md`，再按表去读对应 `references/`。
 5. 问 type / source / target / schedule，提议命名，等人确认，再生成文件。
 
@@ -145,7 +153,7 @@ printf '%s' "$DESC" | grep -qi 'use when' \
 
 ## 5. 一个 skill 里真正值钱的红线
 
-以 `dit-skills-airflow-develop` 为例。Frontmatter 的 `name:` 必须等于文件夹名。description 先写做什么，再写何时用，最后把「删除 DAG 请走 decommission」写进去——这是负向路由，比再写三百字正向说明更值钱。
+以 `alpha-skills-airflow-develop` 为例。Frontmatter 的 `name:` 必须等于文件夹名。description 先写做什么，再写何时用，最后把「删除 DAG 请走 decommission」写进去——这是负向路由，比再写三百字正向说明更值钱。
 
 打开之后，红线比模板重要：
 
@@ -159,9 +167,9 @@ printf '%s' "$DESC" | grep -qi 'use when' \
 
 五类 DAG 的命名本身也是宪法的下游：`ingestion_*`、`sync_*_to_*`、`move_*_to_*`、`analytics_*`、`admin_*`。仓名管「这是 Airflow 技能包」；`dag_id` 管「这是哪一种管道」。两套词表，不要混用。
 
-旁边的 api 包把同一套合同用在另一条链上：`dit-skills-api-develop` 脚手架 `ditapi-*` 服务，`deploy` 走网关和密封密钥，`postman-smoke` 从 OpenAPI 发现端点、禁止把凭证写进 `smoke.json`。`mq-repo-setup` 不在这个仓里 vendoring，安装时从配置仓拉取——远程 skill，本地不存一份会过期的副本。
+旁边的 api 包把同一套合同用在另一条链上：`alpha-skills-api-develop` 脚手架 `alphapi-*` 服务，`deploy` 走网关和密封密钥，`postman-smoke` 从 OpenAPI 发现端点、禁止把凭证写进 `smoke.json`。`configs-repo-setup` 不在这个仓里 vendoring，安装时从配置仓拉取——远程 skill，本地不存一份会过期的副本。
 
-dbt 这条最能暴露「仓名 / skill 名 / 本机目录」三张皮。Catalog 写的是 `dit-skills-dbt`，里面两个 skill：sqlfluff 和 Data Vault。本机若还留着旧目录 `dit-dbt-sqlfluff-skills`，安装名仍是 `dbt-sqlfluff-skills`，你对外讲标准名、对内改旧路径，两套现实会打架。核心承诺没变：用 Snowflake `DESCRIBE` 建列归属图，不猜 alias；改完用 COUNT + EXCEPT 证明行集没变，再跑 dag-test。dag-test 只证明能 lint / compile，不证明结果等价。
+dbt 这条最能暴露「仓名 / skill 名 / 本机目录」三张皮。Catalog 写的是 `alpha-skills-dbt`，里面两个 skill：sqlfluff 和 Data Vault。本机若还留着旧目录 `alpha-dbt-sqlfluff-skills`，安装名仍是 `dbt-sqlfluff-skills`，你对外讲标准名、对内改旧路径，两套现实会打架。核心承诺没变：用 Snowflake `DESCRIBE` 建列归属图，不猜 alias；改完用 COUNT + EXCEPT 证明行集没变，再跑 dag-test。dag-test 只证明能 lint / compile，不证明结果等价。
 
 > 模板是例子。红线是合同。例子过期时，听合同。
 
@@ -193,11 +201,11 @@ MCP 和 skill 不是一种东西。Skill 是装进编辑器的程序；MCP 是�
 
 | 问题 | 错误答案 | 合同上的答案 |
 |---|---|---|
-| 这是什么仓？ | 「一个 AI 工具集」 | `dit-<type>-<domain>`，type 来自封闭词表 |
+| 这是什么仓？ | 「一个 AI 工具集」 | `alpha-<type>-<domain>`，type 来自封闭词表 |
 | 逻辑在哪？ | 「在 catalog 里」 | 在被索引的仓；catalog 只立法 |
 | 为什么仓名和 skill 名可以不同？ | 「历史包袱，该修」 | 两份契约，爆炸半径不同 |
 | Agent 怎么选 skill？ | 「看文件夹名」 | 只看 description 的 `Use when` |
-| 新仓叫 `dit-mcp-jira-deprecated` 行吗？ | 「挺清楚的」 | 不行。生命周期不是身份 |
+| 新仓叫 `alpha-mcp-jira-deprecated` 行吗？ | 「挺清楚的」 | 不行。生命周期不是身份 |
 | 为什么不用生成器？ | 「还没做完」 | 十个仓选手维护；stale 用评审补，不用再造平台 |
 
 ## 立刻可以做的事
@@ -207,5 +215,7 @@ MCP 和 skill 不是一种东西。Skill 是装进编辑器的程序；MCP 是�
 3. 改 GitHub 仓名前，先搜本机 `~/.cursor/skills` 和 `~/.claude/skills` 里的安装名。只改仓、不改 skill，是合法的；两头一起改，要当一次迁移做。
 4. 写新 skill 时，先写 200 字以内的 `description`（必须含 `Use when` 和一句负向路由），再写 `references/`。先写手册再补路由，agent 会把整本手册当首页。
 5. 若本机还有旧目录名，把它标成 legacy，不要在评审里用旧名当现行标准。
+
+纸板没有变，变的只是上面那句话。你们那份 catalog 的 README 就是那块纸板：人人都读得懂，人人都往上写字。而读者要拿去做事的东西——一个能 clone 的名字、一条 agent 能匹配的 `Use when`——必须待在机器能路由到的地方。
 
 *清单告诉你有什么。宪法告诉你什么可以存在。*
