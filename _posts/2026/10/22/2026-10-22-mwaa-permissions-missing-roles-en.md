@@ -284,14 +284,14 @@ The third check is decisive. The numbers **133, 70 and 49** exactly match th
 
 ## Three doors, one table
 
-| | IAM (front door) | FAB roles (badge) | `access_control` (booking sheet)
+| | IAM (front door) | FAB roles (badge) | `access_control` (booking sheet) |
 |---|---|---|---|
-| **Question it answers** | Who are you, which badge do you wear? | Which doors that badge opens? | Which team owns this room?
-| **Where it lives** | AWS IAM | Metadata DB | Code → metadata DB
-| **After an env rename** | Untouched | **Wiped** | Code survives, ledger wiped
+| **Question it answers** | Who are you, which badge do you wear? | Which doors that badge opens? | Which team owns this room? |
+| **Where it lives** | AWS IAM | Metadata DB | Code → metadata DB |
+| **After an env rename** | Untouched | **Wiped** | Code survives, ledger wiped |
 | **Typical failure** | `???` wildcard too narrow | Everything beyond the defaults is gone | References a role that doesn't exist |
-| **Typical misread** | "MWAA is broken" | "People log in with these" | "Fewer errors means nearly fixed"
-|
+| **Typical misread** | "MWAA is broken" | "People log in with these" | "Fewer errors means nearly fixed" |
+
 > *“You must be careful not to delete what you don’t understand.”* — Unknown
 
 My position: **on MWAA with IAM‑mapped login, `access_control` has largely stopped doing its job of keeping people out, but you still shouldn't delete these roles or leave them missing.** The reason isn't access control itself; it's the ledger. If the code names a role, the database must have that entry. When you strip the ledger—say after an environment rename—you end up editing 200‑plus DAG files just to avoid creating nine empty roles. That’s a bad trade. A cleaner move is to *create the roles, force a sync, reconcile the counts* on the checklist for every environment cutover.
