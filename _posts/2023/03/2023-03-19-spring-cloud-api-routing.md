@@ -1,7 +1,7 @@
 ---
 title: Spring API Gateway Best Practices
 header:
-image: /assets/images/spring_api_gateway_best_practices.jpg
+image: /assets/images/spring_cloud_master.jpg
 date: 2023-03-19
 tags:
 - JFR

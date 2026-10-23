@@ -1,7 +1,7 @@
 ---
 title: "The Silent Cost of AI: Observability, Multi-Model Routing, and Production Telemetry in Enterprise Systems"
 header:
-    image: /assets/images/hd_vscode_shortcuts.jpg
+    image: /assets/images/hd_vscode_shortcuts.png
 date: 2026-10-09
 tags:
  - ai

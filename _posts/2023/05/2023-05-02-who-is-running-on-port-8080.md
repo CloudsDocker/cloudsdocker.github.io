@@ -1,7 +1,7 @@
 ---
 title: Who Is Running On Port 8080
 header:
-    image: /assets/images/who_is_running_on_port_8080 .jpg
+    image: /assets/images/hd_linux_tips.jpg
 date: 2023-05-02
 tags:
 - AI

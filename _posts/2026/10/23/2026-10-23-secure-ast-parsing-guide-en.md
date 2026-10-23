@@ -1,7 +1,7 @@
 ---
 title: 'Stop Patching, Start Parsing: Why Regex Is Not Enough for Security'
 header:
-    image: hd_google_map_no_reviews_huawai_2.jpg
+    image: /assets/images/Python-expert-write-code-like-this.jpg
 date: 2026-10-23
 tags:
  - llm

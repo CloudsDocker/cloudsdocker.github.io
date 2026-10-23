@@ -1,7 +1,7 @@
 ---
 title: "眼见为真有时候会杀掉你一天的时间"
 header:
-    image: /assets/images/2023-02-20-how-to-auto-test-via-headless-browser-in-python.jpg
+    image: /assets/images/hd_git.png
 date: 2026-10-15
 tags:
  - devops

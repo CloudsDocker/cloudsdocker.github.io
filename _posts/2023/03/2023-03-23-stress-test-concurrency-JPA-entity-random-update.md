@@ -1,7 +1,7 @@
 ---
 title: Stress Test Concurrency Jpa Entity Random Update
 header:
-    image: /assets/images/stress-test-concurrency-JPA-entity-random-update.jpg
+    image: /assets/images/hd_java_concurrency.jpg
 date: 2023-03-23
 tags:
 - Springframework

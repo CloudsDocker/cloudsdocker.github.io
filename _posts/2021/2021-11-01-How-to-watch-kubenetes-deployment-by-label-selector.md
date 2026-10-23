@@ -18,7 +18,7 @@ You can use Kubenetes Java client library to *watch* any changes in Kubenets, so
 
 Here is screnshot from Kubenetes LENS, I'll use label *run=dummy-service* as sample. As highlight in below screenshot.
 
-![](/assets\images\kube_labels.png)
+![](/assets/images/kube_labels.png)
 
 # Sample Java logic
 

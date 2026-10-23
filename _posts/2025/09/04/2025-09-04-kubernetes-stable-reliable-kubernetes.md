@@ -1,6 +1,6 @@
 ---
 header:
-    image: hd_kerberos.png
+    image: /assets/images/hd_kubenetes_bamboo_deployment.png
 title:  从恐慌到掌控：一个K8s高可用架构的演进之路
 date: 2025-09-04
 tags:

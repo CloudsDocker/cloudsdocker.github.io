@@ -21,7 +21,7 @@ category: tech
 ## Highlevel diagram
 
 Here is the diagram for high level overview of JPA strucutre.
-![](\../../../assets/images/jpa_spring_data.png)
+![](/assets/images/jpa_spring_data.png)
 
 
 ## Details explained

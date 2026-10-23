@@ -1,7 +1,7 @@
 ---
 title: Understanding Backpropagation in Neural Networks
 header:
-    image: /assets/images/Understanding_Backpropagation_in_Neural_Networks.jpg
+    image: /assets/images/AI-basics-adversarial_search_unleashing_the_power_of_ai_in_competitive_games.jpg
 date: 2023-06-17
 tags:
 - AI

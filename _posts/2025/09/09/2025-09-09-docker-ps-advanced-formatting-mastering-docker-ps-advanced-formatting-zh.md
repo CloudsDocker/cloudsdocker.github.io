@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/hd_forge.jpg
+    image: /assets/images/docker-commands-bible.jpg
 title: "Docker偷偷藏了个宝藏：Go模板引擎。这玩意儿比你想象的强大多了"
 date: 2025-09-09
 tags:

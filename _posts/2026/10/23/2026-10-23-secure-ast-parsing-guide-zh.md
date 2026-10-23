@@ -1,7 +1,7 @@
 ---
 title: 别再用正则过滤代码了！带你彻底搞懂 AST 沙箱的必要性
 header:
-    image: hd_google_map_no_reviews_huawai_2.jpg
+    image: /assets/images/Python-expert-write-code-like-this.jpg
 date: 2026-10-23
 tags:
  - llm

@@ -1,6 +1,6 @@
 ---
 header:
-    image: hd_google_map_no_reviews_huawai_2.jpg
+    image: /assets/images/hd_google_map_no_reviews_huawai_2.jpg
 title: IPtable：听过 IP，听过 table，可合在一起你就蒙了
 date: 2025-09-07
 tags:

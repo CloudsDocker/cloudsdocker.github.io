@@ -1,7 +1,7 @@
 ---
 title: which-port-my-service-is-running
 header:
-image: /assets/images/which-port-my-service-is-running.jpg
+image: /assets/images/hd_linux_tips.jpg
 date: 2023-04-21
 tags:
 - ssh

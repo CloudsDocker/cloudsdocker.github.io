@@ -1,7 +1,7 @@
 ---
 title: How to Fine Tune RestTemplate
 header:
-image: /assets/images/rest-template-for-space-ship.jpg
+image: /assets/images/rest-template-powered-http2.jpg
 date: 2023-04-25
 tags:
 - Java

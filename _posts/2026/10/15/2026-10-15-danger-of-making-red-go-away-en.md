@@ -1,7 +1,7 @@
 ---
 title: Why "Make the Red Go Away" Is a Dangerous Objective Function
 header:
-    image: /assets/images/2023-02-20-how-to-auto-test-via-headless-browser-in-python.jpg
+    image: /assets/images/hd_git.png
 date: 2026-10-15
 tags:
  - devops

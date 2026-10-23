@@ -1,7 +1,7 @@
 ---
 title: Avoiding Data Loss - S3 Lifecycle Rules During Terraform Version Migrations
 header:
-    image: /assets/images/Understanding_Backpropagation_in_Neural_Networks.jpg
+    image: /assets/images/hd_cpu_system_info_aws.jpg
 date: 2024-12-03
 tags:
 - AWS

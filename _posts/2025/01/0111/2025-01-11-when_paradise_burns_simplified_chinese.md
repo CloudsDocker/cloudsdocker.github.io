@@ -1,7 +1,7 @@
 ---
 title: 当天堂燃烧时——现代火灾的悖论
 header:
-    image: 2025-01-11-bushifire.jpeg
+    image: /assets/images/2025-01-11-bushifire.jpeg
 date: 2025-01-11
 tags:
  - 新闻
@@ -13,7 +13,7 @@ lang: zh
 ---
 
 > “光焰愈盛，其衰愈速。”——老子
-![alt text](2025-01-11-bushifire.jpeg)
+![alt text](/assets/images/2025-01-11-bushifire.jpeg)
 # 当天堂燃烧：现代火灾的悖论
 当2025年人们刚刚从庆祝2024年美国大选胜利的日子里和期待新的一年会更好时，洛杉矶突然发生了一场火灾。
 

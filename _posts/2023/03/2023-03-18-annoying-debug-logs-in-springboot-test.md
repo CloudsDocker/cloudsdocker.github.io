@@ -1,7 +1,7 @@
 ---
 title: annoying-debug-logs-in-springboot-test
 header:
-    image: /assets/images/annoying-debug-logs-in-springboot-test.jpg
+    image: /assets/images/hd_bootstrap_logging_springboot.png
 date: 2023-03-18
 tags:
 - JFR

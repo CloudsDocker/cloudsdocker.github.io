@@ -1,7 +1,7 @@
 ---
 title: What's Difference Of Cny And Cnh
 header:
-    image: /assets/images/talk-about-CNY-vs-CNH.jpg
+    image: /assets/images/treasure_bowl_sql.jpg
 date: 2023-03-19
 tags:
 - JFR

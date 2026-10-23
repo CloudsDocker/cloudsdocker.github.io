@@ -66,13 +66,13 @@ It will change `camelNaming` to `snake_naming`, for example, `myColumn`  will be
 
 As below sample column transformation: vCriteria will be changed to `v_Criteria`
 
-![](\../../../assets/images/jpa_camel_snake.png)
+![](/assets/images/jpa_camel_snake.png)
 
 
 
 Here's the code logic FYI.
 
-![](\../../../assets/images/camel_snake_logic.png)
+![](/assets/images/camel_snake_logic.png)
 
 
 

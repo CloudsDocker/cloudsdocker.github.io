@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/hd_azure_defender_excel.jpg
+    image: /assets/images/hd_aws_certificat.png
 title: Extracting Azure Defender for Cloud Findings to Excel - A Developer's Detective Story
 date: 2025-06-22
 tags:

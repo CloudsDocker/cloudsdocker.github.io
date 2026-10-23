@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/hd_forge.jpg
+    image: /assets/images/docker-commands-bible.jpg
 title:  docker ps advanced formatting mastering-docker-ps-advanced-formatting
 date: 2025-09-09
 tags:

@@ -2,7 +2,7 @@
 title: 'A Look Inside How Top Teams Balance AI Observability and Cost: Lessons from Silicon
   Valley'
 header:
-    image: /assets/images/stress-test-concurrency-JPA-entity-random-update.jpg
+    image: /assets/images/hd_cpu_system_info_aws.jpg
 date: 2026-10-18
 tags:
  - ai

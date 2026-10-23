@@ -1,7 +1,7 @@
 ---
 title: Splitting A Monolithic Application Into Microservices
 header:
-image: /assets/images/splitting_a_monolithic_application_into_microservices.jpg
+image: /assets/images/how_to_transform_monolith_to_microservice.jpg
 date: 2023-03-19
 tags:
 - JFR

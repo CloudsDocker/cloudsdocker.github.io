@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/2023-02-20-how-to-auto-test-via-headless-browser-in-python.jpg
+    image: /assets/images/Python-expert-write-code-like-this.jpg
 title:  How to auto test via headless browser in python
 date: 2023-02-20
 tags:
