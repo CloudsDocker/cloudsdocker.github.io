@@ -5,6 +5,7 @@ title:  在AI成为社交货币的时代，如何让你的见解显得更聪明�
 date: 2025-08-24
 tags:
     - tech
+    - ai
 permalink: /blogs/tech/cn/ai-chat-about-ai-smartly-and-profoundly
 layout: single
 category: tech

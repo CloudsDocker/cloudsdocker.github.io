@@ -71,6 +71,7 @@ To make the draft insightful, story-leading, and grounded in the author's real t
   - **Quotes**: Look at `assets/quotes/zh.yml`, `assets/quotes/quotes_zh.yml`, or call MCP `output-learn-agent` tool `get_blog_flourishes` (returns a curated quote + balanced header image from `assets/images/`).
   - **Stories & Openings**: Inspect `assets/stories/zh.yml` and `assets/openings/zh.yml` for narrative hooks and tested openers.
 - **Second Brain Notes & Vector Database (`gdocs_extract`)**:
+  - **Authentic Note Stories**: Use MCP `gdocs_extract` tool `get_note_stories` (powered by `storage.py` and Qdrant) to query real personal stories, historical anecdotes, and cognitive experiments directly from the author's life notes.
   - **Semantic Vector Search**: Use MCP `gdocs_extract` tool `search_life_notes` to query the Qdrant vector database (`qdrant_storage/`, collection `life_notes`) with keywords or conceptual themes from the post's spine to retrieve personal anecdotes, reflections, or philosophical parallels.
   - **RAG Second Brain Query**: Use MCP `gdocs_extract` tool `ask_life_os` to explore deeper thematic connections across the notes.
   - **Raw Notes & Quote Files**: When needed, inspect raw documents directly under `/home/phray/ws/todd/effectiveCodingBase/ai/mcp/servers/gdocs_extract/raw_docs/` (e.g. `-q-_quotes_...`, `-a-_quotes_...`).
