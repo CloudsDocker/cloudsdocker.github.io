@@ -226,6 +226,11 @@ pre code {
   background: transparent;
   color: var(--panel-text);
   padding: 0;
+  /* The inline `code` rule below adds a border for code pills. Inside a <pre>
+     the <code> wraps across many lines, so that border is drawn under every
+     line. Reset it here. */
+  border: none;
+  border-radius: 0;
 }
 
 code {
@@ -377,4 +382,232 @@ hr {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* ==========================================================================
+   Personal brand — `brand: personal` in _config.yml
+   Re-skins the paper theme by redefining its tokens; the company look
+   (`brand: company`) never matches these selectors.
+   ========================================================================== */
+
+html[data-brand="personal"] {
+  --paper: #ffffff;
+  --paper-2: #f6f7f9;
+  --paper-3: #eceef2;
+
+  --ink: #111827;
+  --ink-2: #374151;
+  --ink-3: #6b7280;
+
+  --line: #e5e7eb;
+  --line-2: #d1d5db;
+
+  --clay: #1d4ed8;
+  --clay-bright: #2563eb;
+  --clay-deep: #1e3a8a;
+  --clay-tint: #eff6ff;
+
+  --panel: #0f172a;
+  --panel-text: #e2e8f0;
+
+  --radius: 8px;
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.05);
+  --shadow-md: 0 4px 14px rgba(17, 24, 39, 0.07);
+  --shadow-lg: 0 16px 36px rgba(29, 78, 216, 0.12), 0 4px 10px rgba(17, 24, 39, 0.05);
+
+  /* Accent decoration for the personal home hero */
+  --accent-glow-1: rgba(37, 99, 235, 0.14);
+  --accent-glow-2: rgba(194, 96, 47, 0.10);
+  --accent-wash: #f4f7fe;
+  --grid-line: rgba(37, 99, 235, 0.06);
+
+  h1, h2, h3, h4, h5, h6,
+  .page__title,
+  .archive__item-title,
+  .site-title {
+    font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    letter-spacing: -0.015em;
+  }
+
+  .archive__item {
+    animation: none;
+  }
+
+  /* Post page header (_layouts/modern-single.html) */
+  .modern-article {
+    background: var(--paper);
+  }
+
+  .article-header {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 3.5rem 0 1.5rem;
+    border-bottom: 1px solid var(--line);
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .article-meta {
+    color: var(--ink-3);
+    opacity: 1;
+  }
+
+  .category,
+  .article-header .tag {
+    background: var(--clay-tint);
+    color: var(--clay-deep);
+    border: 1px solid transparent;
+    backdrop-filter: none;
+  }
+
+  .article-title {
+    font-size: 2.5rem;
+    background: none;
+    -webkit-text-fill-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .article-excerpt {
+    color: var(--ink-2);
+    opacity: 1;
+  }
+
+  .main-content {
+    color: var(--ink-2);
+
+    a {
+      color: var(--clay);
+    }
+
+    blockquote {
+      border-left-color: var(--clay);
+      background: var(--paper-2);
+      font-style: normal;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    code {
+      color: var(--clay-deep);
+      background: var(--paper-2);
+    }
+
+    pre code {
+      color: inherit;
+      background: transparent;
+    }
+  }
+
+  .article-footer {
+    background: var(--paper-2);
+    border-top-color: var(--line);
+  }
+
+  .search__toggle {
+    color: var(--ink-2);
+  }
+
+  /* Thin accent bar across the very top of every page */
+  .masthead {
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(90deg, var(--clay-bright), var(--clay-deep)) 1;
+  }
+
+  /* Skin colour leftovers: mobile menu icon and post table of contents */
+  .greedy-nav__toggle .navicon,
+  .greedy-nav__toggle .navicon::before,
+  .greedy-nav__toggle .navicon::after {
+    background: var(--ink-2);
+  }
+
+  .toc .nav__title {
+    background: var(--ink);
+  }
+
+  .toc__menu a {
+    color: var(--ink-2);
+
+    &:hover {
+      color: var(--clay);
+    }
+  }
+
+  /* /posts/ already gets its title from the archive layout */
+  .posts-header .page__title {
+    display: none;
+  }
+
+  /* EN / 中文 toggle (_includes/lang-switch.html) */
+  .lang-switch {
+    background: var(--paper-2);
+    border-color: var(--line);
+  }
+
+  .lang-switch a {
+    color: var(--ink-2);
+
+    &:hover {
+      background: var(--paper-3);
+    }
+
+    &.active {
+      background: var(--ink);
+      color: #fff;
+    }
+  }
+
+  /* Leftovers from _includes/footer/custom.html (inline styles need !important) */
+  .scroll-to-top {
+    background: var(--ink) !important;
+  }
+
+  .scroll-indicator {
+    background: var(--clay);
+  }
+
+  .loading-spinner {
+    display: none;
+  }
+
+  .theme-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  html[data-brand="personal"] .article-title {
+    font-size: 1.9rem;
+  }
+}
+
+/* ==========================================================================
+   Mermaid diagrams — rendered by _includes/scripts.html.
+   Override the dark `pre` code styling; show as a centered light figure.
+   ========================================================================== */
+
+pre.mermaid,
+.main-content pre.mermaid {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1rem 0 !important;
+  margin: 2rem 0;
+  text-align: center;
+  overflow-x: auto;
+  line-height: normal;
+}
+
+pre.mermaid:not([data-processed="true"]) {
+  /* hide the raw source text until Mermaid has drawn the SVG */
+  color: transparent;
+  font-size: 0;
+}
+
+pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
 }

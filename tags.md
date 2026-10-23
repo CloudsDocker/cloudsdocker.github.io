@@ -1,6 +1,6 @@
 ---
 layout: tags
-title: "标签分类"
+title: "Tags"
 permalink: /tags/
 author_profile: false
 ---

@@ -11,6 +11,7 @@ tags:
 permalink: /blogs/tech/en/schema-reasoning-production-ai
 layout: single
 category: tech
+pinned: true
 ---
 > "Imagination is the key ingredient to a happy life." — Unknown
 

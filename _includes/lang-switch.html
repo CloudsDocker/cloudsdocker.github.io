@@ -2,8 +2,9 @@
   EN / 中文 toggle for the bilingual home and posts pages.
   Usage: {% include lang-switch.html kind="home" %}  (kind: home | posts)
          add theme="dark" when it sits on a dark background.
-  The choice is remembered in localStorage; visiting the English page with a
-  saved Chinese preference redirects to the Chinese page.
+  The choice is remembered in localStorage; with `brand: company`, visiting the
+  English page with a saved Chinese preference redirects to the Chinese page.
+  With `brand: personal` the English page is always served first.
 {%- endcomment -%}
 {%- assign ls_lang = page.lang | default: "en" -%}
 {%- assign ls_key = include.kind | default: "home" | append: "_url" -%}
@@ -50,7 +51,7 @@
   var current = '{{ ls_lang }}';
   var pref = null;
   try { pref = localStorage.getItem(KEY); } catch (e) {}
-  if (pref === 'zh' && current === 'en') {
+  if ({{ site.brand | default: 'company' | jsonify }} === 'company' && pref === 'zh' && current === 'en') {
     window.location.replace('{{ ls_zh | relative_url }}' + window.location.hash);
     return;
   }

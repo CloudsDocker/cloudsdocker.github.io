@@ -101,7 +101,7 @@ layout: default
                 {% endif %}
                 <div class="related-content">
                   <h5><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h5>
-                  <time>{{ post.date | date: "%Y年%m月%d日" }}</time>
+                  <time>{% if page.lang == "zh" %}{{ post.date | date: "%Y年%m月%d日" }}{% else %}{{ post.date | date: "%b %-d, %Y" }}{% endif %}</time>
                 </div>
               </article>
             {% endfor %}

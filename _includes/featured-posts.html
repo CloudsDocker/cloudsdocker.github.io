@@ -1,0 +1,30 @@
+{%- comment -%}
+  Picks the posts readers should see first and stores their urls in
+  `featured_urls` as "|url1|url2|": `pinned: true` posts first, then posts
+  tagged with any of site.featured.ai_tags (case-insensitive), newest first,
+  capped at include.limit.
+  Usage: {% include featured-posts.html posts=lang_posts limit=6 %}
+  Check membership with: featured_urls contains (post.url wrapped in "|")
+{%- endcomment -%}
+{%- assign featured_urls = "|" -%}
+{%- assign featured_count = 0 -%}
+{%- assign fp_limit = include.limit | default: 6 -%}
+{%- for fp_post in include.posts -%}
+  {%- if featured_count >= fp_limit -%}{%- break -%}{%- endif -%}
+  {%- if fp_post.pinned -%}
+    {%- assign featured_urls = featured_urls | append: fp_post.url | append: "|" -%}
+    {%- assign featured_count = featured_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- for fp_post in include.posts -%}
+  {%- if featured_count >= fp_limit -%}{%- break -%}{%- endif -%}
+  {%- if fp_post.pinned -%}{%- continue -%}{%- endif -%}
+  {%- for fp_tag in fp_post.tags -%}
+    {%- assign fp_slug = fp_tag | slugify -%}
+    {%- if site.featured.ai_tags contains fp_slug -%}
+      {%- assign featured_urls = featured_urls | append: fp_post.url | append: "|" -%}
+      {%- assign featured_count = featured_count | plus: 1 -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}

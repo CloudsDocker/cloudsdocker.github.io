@@ -2,7 +2,7 @@
 
 <!-- 现代化交互元素 -->
 <div class="scroll-indicator"></div>
-<button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+<button class="theme-toggle" id="themeToggle" aria-label="{% if page.lang == "zh" %}切换主题{% else %}Toggle theme{% endif %}">
   <span id="themeIcon">🌙</span>
 </button>
 
@@ -137,10 +137,13 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // 代码块复制功能
+  const copyLabel = {% if page.lang == "zh" %}'复制'{% else %}'Copy'{% endif %};
+  const copiedLabel = {% if page.lang == "zh" %}'已复制!'{% else %}'Copied!'{% endif %};
   const codeBlocks = document.querySelectorAll('pre code');
   codeBlocks.forEach(block => {
+    if (block.closest('.language-mermaid') || block.closest('pre.mermaid')) return;
     const button = document.createElement('button');
-    button.textContent = '复制';
+    button.textContent = copyLabel;
     button.style.cssText = `
       position: absolute;
       top: 10px;
@@ -161,9 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     button.addEventListener('click', function() {
       navigator.clipboard.writeText(block.textContent).then(() => {
-        button.textContent = '已复制!';
+        button.textContent = copiedLabel;
         setTimeout(() => {
-          button.textContent = '复制';
+          button.textContent = copyLabel;
         }, 2000);
       });
     });

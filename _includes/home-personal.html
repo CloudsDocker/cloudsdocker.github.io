@@ -1,0 +1,249 @@
+{%- comment -%}
+  Home page body for `brand: personal` (rendered by _layouts/modern-home.html).
+  Featured = pinned posts, then AI-tagged posts (see _includes/featured-posts.html).
+{%- endcomment -%}
+{%- assign lang = page.lang | default: "en" -%}
+{%- assign t = site.data.i18n[lang] -%}
+{%- assign lang_posts = site.posts | where: "lang", lang | where_exp: "item", "item.hidden != true" -%}
+{%- include featured-posts.html posts=lang_posts limit=6 -%}
+{%- assign featured_list = featured_urls | split: "|" -%}
+
+<div class="pro-home">
+  <section class="pro-intro">
+    <div class="pro-wrap">
+      <div class="pro-intro__lang">{% include lang-switch.html kind="home" %}</div>
+      <p class="pro-eyebrow">{{ t.pro.eyebrow }}</p>
+      <h1 class="pro-intro__name">{{ site.masthead_title | default: site.title }}</h1>
+      <p class="pro-intro__lede">{{ t.pro.lede }}</p>
+      <ul class="pro-intro__links">
+        <li><a class="pro-btn" href="{{ t.posts_url | relative_url }}">{{ t.pro.articles_link }} &rarr;</a></li>
+        <li><a href="{{ '/about/' | relative_url }}">{{ t.pro.about_link }}</a></li>
+        {%- if site.github_username %}
+        <li><a href="https://github.com/{{ site.github_username }}" rel="noopener">GitHub</a></li>
+        {%- endif %}
+        <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pro-section" id="latest-posts">
+    <div class="pro-wrap">
+      <header class="pro-section__head">
+        <h2>{{ t.featured_title }}</h2>
+        <p>{{ t.featured_subtitle }}</p>
+      </header>
+      <div class="pro-featured">
+        {%- for fu in featured_list %}
+          {%- if fu == "" %}{% continue %}{% endif %}
+          {%- assign post = lang_posts | where: "url", fu | first %}
+        <article class="pro-card">
+          <div class="pro-card__meta">
+            <span class="pro-chip{% if post.pinned %} pro-chip--pinned{% endif %}">{% if post.pinned %}{{ t.pinned_label }}{% else %}{{ t.ai_label }}{% endif %}</span>
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+          </div>
+          <h3 class="pro-card__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          {%- comment %} Post bodies open with an epigraph or a repeated title, so only a hand-written description is shown {% endcomment %}
+          {%- if post.description %}
+          <p class="pro-card__excerpt">{{ post.description | strip_html | truncate: 170 }}</p>
+          {%- endif %}
+          <ul class="pro-card__tags">
+            {%- for tag in post.tags limit: 4 %}
+            <li>{{ tag | downcase }}</li>
+            {%- endfor %}
+          </ul>
+        </article>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="pro-section pro-section--alt">
+    <div class="pro-wrap pro-split">
+      <div class="pro-recent">
+        <header class="pro-section__head">
+          <h2>{{ t.pro.recent_title }}</h2>
+        </header>
+        <ol class="pro-list">
+          {%- assign recent_count = 0 %}
+          {%- for post in lang_posts %}
+            {%- if recent_count >= 8 %}{% break %}{% endif %}
+            {%- assign wrapped_url = "|" | append: post.url | append: "|" %}
+            {%- if featured_urls contains wrapped_url %}{% continue %}{% endif %}
+            {%- assign recent_count = recent_count | plus: 1 %}
+          <li>
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </li>
+          {%- endfor %}
+        </ol>
+        <a class="pro-more" href="{{ t.posts_url | relative_url }}">{{ t.view_all }}</a>
+      </div>
+      <aside class="pro-focus">
+        <h2>{{ t.pro.focus_title }}</h2>
+        {%- for area in t.pro.focus_areas %}
+        <div class="pro-focus__item">
+          <h3>{{ area.title }}</h3>
+          <p>{{ area.desc }}</p>
+        </div>
+        {%- endfor %}
+      </aside>
+    </div>
+  </section>
+</div>
+
+<style>
+.pro-home { background: var(--paper); color: var(--ink); }
+.pro-wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; position: relative; }
+
+.pro-intro {
+  padding: 5rem 0 4rem;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60rem 30rem at 15% -10%, var(--accent-glow-1), transparent 60%),
+    radial-gradient(45rem 28rem at 95% 10%, var(--accent-glow-2), transparent 55%),
+    linear-gradient(180deg, var(--accent-wash) 0%, var(--paper) 85%);
+}
+.pro-intro::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 0%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(70% 60% at 50% 0%, #000 0%, transparent 75%);
+  pointer-events: none;
+}
+.pro-intro > .pro-wrap { position: relative; z-index: 1; }
+.pro-intro__lang { position: absolute; top: 1.25rem; right: 1.5rem; z-index: 2; }
+.pro-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clay-deep);
+  background: var(--clay-tint);
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+}
+.pro-eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--clay);
+  box-shadow: 0 0 0 3px var(--accent-glow-1);
+}
+.pro-intro__name { margin: 0 0 1rem; font-size: 3rem; font-weight: 700; line-height: 1.1; color: var(--ink); }
+.pro-intro__lede { max-width: 44rem; margin: 0 0 2rem; font-size: 1.15rem; line-height: 1.7; color: var(--ink-2); }
+.pro-intro__links { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; margin: 0; padding: 0; list-style: none; }
+.pro-intro__links li { margin: 0; }
+.pro-intro__links a { color: var(--ink-2); font-weight: 500; text-decoration: none; }
+.pro-intro__links a:hover { color: var(--clay); }
+.pro-intro__links a.pro-btn {
+  display: inline-block;
+  padding: 0.6rem 1.15rem;
+  border-radius: 6px;
+  background: var(--clay);
+  color: #fff;
+}
+.pro-intro__links a.pro-btn:hover { background: var(--clay-deep); color: #fff; }
+
+.pro-section { padding: 3.5rem 0; }
+.pro-section--alt { background: var(--paper-2); border-top: 1px solid var(--line); }
+.pro-section__head { margin-bottom: 1.75rem; }
+.pro-section__head h2, .pro-focus h2 {
+  margin: 0 0 0.35rem;
+  padding-left: 0.9rem;
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: 650;
+  color: var(--ink);
+}
+.pro-section__head h2::before, .pro-focus h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  bottom: 0.15em;
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--clay-bright), var(--clay-deep));
+}
+.pro-section__head p { margin: 0 0 0 0.9rem; color: var(--ink-3); }
+
+.pro-featured { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+.pro-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.pro-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--clay-bright), var(--clay-deep));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.pro-card:hover { border-color: var(--line-2); box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.pro-card:hover::before { opacity: 1; }
+.pro-card__meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.8rem; font-size: 0.8rem; color: var(--ink-3); }
+.pro-chip {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: var(--clay-tint);
+  color: var(--clay-deep);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+.pro-chip--pinned { background: var(--ink); color: #fff; }
+.pro-card__title { margin: 0 0 0.6rem; font-size: 1.12rem; line-height: 1.4; font-weight: 600; }
+.pro-card__title a { color: var(--ink); text-decoration: none; }
+.pro-card__title a:hover { color: var(--clay); }
+.pro-card__excerpt { margin: 0 0 1rem; font-size: 0.92rem; line-height: 1.6; color: var(--ink-2); }
+.pro-card__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: auto 0 0; padding: 0; list-style: none; }
+.pro-card__tags li { margin: 0; padding: 0.1rem 0.5rem; border: 1px solid var(--line); border-radius: 4px; font-size: 0.75rem; color: var(--ink-3); }
+
+.pro-split { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 3rem; }
+.pro-list { margin: 0 0 1.5rem; padding: 0; list-style: none; }
+.pro-list li { display: flex; gap: 1.25rem; padding: 0.85rem 0; margin: 0; border-bottom: 1px solid var(--line); }
+.pro-list time { flex: 0 0 6.5rem; color: var(--ink-3); font-size: 0.85rem; font-variant-numeric: tabular-nums; padding-top: 0.15rem; }
+.pro-list a { color: var(--ink); font-weight: 500; text-decoration: none; line-height: 1.5; }
+.pro-list a:hover { color: var(--clay); }
+.pro-more { color: var(--clay); font-weight: 600; text-decoration: none; }
+.pro-more:hover { text-decoration: underline; }
+
+.pro-focus h2 { margin-bottom: 1.25rem; }
+.pro-focus__item { padding: 1rem 0; border-top: 1px solid var(--line); }
+.pro-focus__item h3 { margin: 0 0 0.35rem; font-size: 1rem; font-weight: 600; color: var(--ink); }
+.pro-focus__item p { margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--ink-2); }
+
+@media (max-width: 800px) {
+  .pro-intro { padding: 3.5rem 0 2.5rem; }
+  .pro-intro__lang { position: static; margin-bottom: 1.5rem; }
+  .pro-intro__name { font-size: 2.25rem; }
+  .pro-split { grid-template-columns: 1fr; gap: 2rem; }
+  .pro-list li { flex-direction: column; gap: 0.2rem; }
+  .pro-list time { flex-basis: auto; }
+}
+</style>

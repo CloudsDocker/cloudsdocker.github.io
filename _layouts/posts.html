@@ -6,6 +6,24 @@ layout: archive
 
 {%- assign posts_lang = page.lang | default: "en" %}
 {%- assign visible_posts = site.posts | where: "lang", posts_lang | where_exp: "item", "item.hidden != true" %}
+{%- assign entries_layout = page.entries_layout | default: 'list' %}
+
+{%- include featured-posts.html posts=visible_posts limit=9 %}
+{%- assign featured_list = featured_urls | split: "|" %}
+{%- if featured_list.size > 0 %}
+<section id="featured" class="taxonomy__section">
+  <h2 class="archive__subtitle archive__subtitle--featured">{{ site.data.i18n[posts_lang].featured_title }}</h2>
+  <p class="archive__featured-note">{{ site.data.i18n[posts_lang].featured_subtitle }}</p>
+  <div class="entries-{{ entries_layout }}">
+    {%- for fu in featured_list %}
+      {%- if fu == "" %}{% continue %}{% endif %}
+      {%- assign post = visible_posts | where: "url", fu | first %}
+      {% include archive-single.html type=entries_layout %}
+    {%- endfor %}
+  </div>
+</section>
+<h2 class="archive__all-title">{{ site.data.i18n[posts_lang].archive_title }}</h2>
+{%- endif %}
 
 <ul class="taxonomy__index">
   {% assign postsInYear = visible_posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
@@ -18,7 +36,6 @@ layout: archive
   {% endfor %}
 </ul>
 
-{% assign entries_layout = page.entries_layout | default: 'list' %}
 {% assign postsByYear = visible_posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
 {% for year in postsByYear %}
   <section id="{{ year.name }}" class="taxonomy__section">

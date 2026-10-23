@@ -1,6 +1,9 @@
 ---
 layout: default
 ---
+{%- if site.brand != "company" -%}
+{% include home-personal.html %}
+{%- else -%}
 {%- assign lang = page.lang | default: "en" -%}
 {%- assign t = site.data.i18n[lang] -%}
 
@@ -1129,3 +1132,4 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+{%- endif -%}
