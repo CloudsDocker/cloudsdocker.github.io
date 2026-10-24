@@ -325,7 +325,7 @@ graph LR
 ```
 
 - **Faithfulness**:
-  $$	ext{Faithfulness} = rac{|	ext{Claims verified against context}|}{|	ext{Total claims made in answer}|}$$
+  $$\text{Faithfulness} = \frac{|\text{Claims verified against context}|}{|\text{Total claims made in answer}|}$$
   This is the primary metric for tracking hallucination. In enterprise production, any deployment scoring below 0.98 represents unacceptable risk.
 - **Context Precision**: Measures whether ground-truth evidence appears at the top of the retrieval rank list, mitigating "lost in the middle" attention degradation.
 - **Answer Relevance**: Evaluates whether the model directly addressed the user's inquiry rather than dodging the question through excessive abstention.

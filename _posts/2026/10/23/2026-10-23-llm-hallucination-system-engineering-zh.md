@@ -335,7 +335,7 @@ graph LR
 ```
 
 - **Faithfulness（忠实度/真实度）**：
-  $$	ext{Faithfulness} = rac{|	ext{被检索上下文严格支持的断言数}|}{|	ext{生成回答中的全部断言总数}|}$$
+  $$\text{Faithfulness} = \frac{|\text{被检索上下文严格支持的断言数}|}{|\text{生成回答中的全部断言总数}|}$$
   该指标直接锁定幻觉率。任何低于 0.95 的输出，在工业生产线上都是不可接受的缺陷。
 - **Context Precision（检索精准度）**：衡量检索阶段返回的 Top-K 结果中，真正有用的证据是否排在最前列，防止“迷失在中间（Lost in the Middle）”。
 - **Answer Relevance（答案相关度）**：通过让评测模型根据生成的答案反向生成问题，计算反向问题与原始提问的语义 Embedding 相似度，防止模型在规避幻觉时“答非所问”。

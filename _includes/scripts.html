@@ -64,3 +64,63 @@
     .catch(function (e) { console.error('Mermaid failed to load', e); });
 })();
 </script>
+
+{%- comment %}
+  Render LaTeX math formulas ($...$ inline, $$...$$ or \[...\] display).
+  Uses KaTeX with auto-render extension. Also converts any Kramdown
+  <script type="math/tex"> tags into KaTeX elements.
+{%- endcomment %}
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script>
+(function () {
+  function renderMath() {
+    if (typeof renderMathInElement !== 'function') return;
+
+    // 1. Convert any Kramdown-generated <script type="math/tex"> elements
+    var texScripts = document.querySelectorAll('script[type^="math/tex"]');
+    for (var i = 0; i < texScripts.length; i++) {
+      var el = texScripts[i];
+      var isDisplay = (el.getAttribute('type') || '').indexOf('mode=display') !== -1;
+      var wrapper = document.createElement(isDisplay ? 'div' : 'span');
+      if (isDisplay) wrapper.className = 'katex-display';
+      try {
+        katex.render(el.textContent, wrapper, { displayMode: isDisplay, throwOnError: false });
+        el.replaceWith(wrapper);
+      } catch (err) {
+        console.error('KaTeX script render error:', err);
+      }
+    }
+
+    // 2. Scan text nodes for LaTeX delimiters (\[...\], $$...$$, $...$, \(...\))
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false,
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option', 'svg']
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof renderMathInElement === 'function') {
+        renderMath();
+      } else {
+        var script = document.querySelector('script[src*="auto-render.min.js"]');
+        if (script) script.addEventListener('load', renderMath);
+      }
+    });
+  } else {
+    if (typeof renderMathInElement === 'function') {
+      renderMath();
+    } else {
+      var script = document.querySelector('script[src*="auto-render.min.js"]');
+      if (script) script.addEventListener('load', renderMath);
+    }
+  }
+})();
+</script>
