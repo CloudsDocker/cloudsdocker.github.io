@@ -10,6 +10,7 @@ tags:
  - pip
  - devops
 permalink: /blogs/tech/zh/pip-debian-pep668-survival-guide
+alt_url: /blogs/tech/en/pip-debian-upgrade-wars-pep668
 lang: zh
 layout: single
 category: tech

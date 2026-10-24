@@ -611,3 +611,164 @@ pre.mermaid svg {
   max-width: 100%;
   height: auto;
 }
+
+/* ==========================================================================
+   Article Language Toggle & Layout Width Improvements
+   ========================================================================== */
+
+/* Article metadata wrapper (for _layouts/single.html) */
+.page__meta-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+
+  .page__meta {
+    margin: 0;
+  }
+}
+
+.page__meta-wrapper--hero {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+/* Article metadata row (for _layouts/modern-single.html) */
+.article-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Post Language Switcher component */
+.post-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.post-lang-switch__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.post-lang-switch .post-lang-btn {
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.post-lang-switch .post-lang-btn.is-active {
+  background: var(--ink);
+  color: #ffffff;
+  cursor: default;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.post-lang-switch .post-lang-btn.is-link {
+  color: var(--clay);
+  cursor: pointer;
+}
+
+.post-lang-switch .post-lang-btn.is-link:hover {
+  background: var(--paper-3);
+  color: var(--clay-deep);
+  transform: translateY(-1px);
+}
+
+.post-lang-switch .post-lang-btn.is-disabled {
+  color: var(--ink-3);
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Personal brand overrides for post-lang-switch */
+html[data-brand="personal"] {
+  .post-lang-switch__pill {
+    background: var(--paper-2);
+    border-color: var(--line);
+  }
+
+  .post-lang-switch .post-lang-btn.is-active {
+    background: var(--clay);
+    color: #ffffff;
+  }
+
+  .post-lang-switch .post-lang-btn.is-link {
+    color: var(--ink-2);
+  }
+
+  .post-lang-switch .post-lang-btn.is-link:hover {
+    background: var(--clay-tint);
+    color: var(--clay);
+  }
+
+  .post-lang-switch .post-lang-btn.is-disabled {
+    color: var(--ink-3);
+  }
+}
+
+/* ==========================================================================
+   Page Width Optimizations (Responsive 1140px measure & comfortable reading)
+   ========================================================================== */
+
+/* Modern Single layout width enhancement */
+.modern-article .container {
+  max-width: 1140px;
+  width: 100%;
+}
+
+.modern-article .main-content {
+  min-width: 0; /* Prevents overflow with wide pre / tables in grid */
+}
+
+/* Minimal Mistakes single layout width enhancement */
+.layout--single {
+  #main {
+    max-width: 1200px;
+  }
+
+  .page {
+    /* When no TOC/right-sidebar is present, reclaim the unused 300px gutter */
+    &:not(:has(.sidebar__right)) {
+      width: 100%;
+      padding-right: 0;
+    }
+  }
+
+  .page__inner-wrap {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .page__meta-wrapper,
+  .article-meta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+

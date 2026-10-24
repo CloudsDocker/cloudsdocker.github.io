@@ -9,6 +9,7 @@ tags:
  - python
  - debugging
 permalink: /blogs/tech/zh/pipenv-resolution-impossible-two-stage-lock
+alt_url: /blogs/tech/en/debug-pipenv-two-phase-locks-idna
 lang: zh
 layout: single
 category: tech

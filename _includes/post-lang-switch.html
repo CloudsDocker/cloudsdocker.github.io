@@ -1,0 +1,106 @@
+{%- comment -%}
+  Article-level language toggle: switches between English and Chinese versions.
+  Supports:
+  1. Explicit frontmatter: `alt_url` (or `en_url` / `zh_url`)
+  2. Automatic URL matching: replaces `/en/` <-> `/zh/` in permalinks
+  3. Automatic slug matching: matches *-en <-> *-zh
+  4. Graceful handling if no translation is available (disabled state with tooltip)
+{%- endcomment -%}
+
+{%- assign current_lang = page.lang | default: "en" -%}
+{%- if page.url contains "/zh/" or page.path contains "-zh.md" or page.path contains "-cn.md" or page.path contains "-chn.md" -%}
+  {%- assign current_lang = "zh" -%}
+{%- elsif page.url contains "/en/" or page.path contains "-en.md" -%}
+  {%- assign current_lang = "en" -%}
+{%- endif -%}
+
+{%- assign target_url = nil -%}
+
+{%- comment -%} 1. Explicit frontmatter {%- endcomment -%}
+{%- if current_lang == "zh" -%}
+  {%- if page.en_url -%}
+    {%- assign target_url = page.en_url -%}
+  {%- elsif page.alt_url and page.alt_url contains "/en/" -%}
+    {%- assign target_url = page.alt_url -%}
+  {%- elsif page.alt_url and page.alt_url contains "/zh/" == false -%}
+    {%- assign target_url = page.alt_url -%}
+  {%- endif -%}
+{%- else -%}
+  {%- if page.zh_url -%}
+    {%- assign target_url = page.zh_url -%}
+  {%- elsif page.alt_url and page.alt_url contains "/zh/" -%}
+    {%- assign target_url = page.alt_url -%}
+  {%- elsif page.alt_url and page.alt_url contains "/en/" == false -%}
+    {%- assign target_url = page.alt_url -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} 2. Permalinks with /en/ <-> /zh/ {%- endcomment -%}
+{%- if target_url == nil -%}
+  {%- if current_lang == "en" and page.url contains "/en/" -%}
+    {%- assign cand_url = page.url | replace_first: "/en/", "/zh/" -%}
+  {%- elsif current_lang == "zh" and page.url contains "/zh/" -%}
+    {%- assign cand_url = page.url | replace_first: "/zh/", "/en/" -%}
+  {%- endif -%}
+
+  {%- if cand_url -%}
+    {%- for p in site.posts -%}
+      {%- if p.url == cand_url -%}
+        {%- assign target_url = p.url -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if target_url == nil -%}
+      {%- assign cand_url_slash = cand_url | append: "/" -%}
+      {%- for p in site.posts -%}
+        {%- if p.url == cand_url_slash -%}
+          {%- assign target_url = p.url -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} 3. Slug-based matching {%- endcomment -%}
+{%- if target_url == nil -%}
+  {%- if current_lang == "en" and page.slug contains "-en" -%}
+    {%- assign cand_slug = page.slug | replace: "-en", "-zh" -%}
+  {%- elsif current_lang == "zh" and page.slug contains "-zh" -%}
+    {%- assign cand_slug = page.slug | replace: "-zh", "-en" -%}
+  {%- endif -%}
+
+  {%- if cand_slug -%}
+    {%- for p in site.posts -%}
+      {%- if p.slug == cand_slug -%}
+        {%- assign target_url = p.url -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} 4. Same-folder date/pair fallback if alt_url given generically {%- endcomment -%}
+{%- if target_url == nil and page.alt_url -%}
+  {%- assign target_url = page.alt_url -%}
+{%- endif -%}
+
+<nav class="post-lang-switch" aria-label="Article Language">
+  <div class="post-lang-switch__pill">
+    {% if current_lang == "en" %}
+      <span class="post-lang-btn is-active" aria-current="page">EN</span>
+      {% if target_url %}
+        <a href="{{ target_url | relative_url }}" class="post-lang-btn is-link" hreflang="zh" lang="zh" title="阅读中文版本">中文</a>
+      {% else %}
+        <span class="post-lang-btn is-disabled" title="暂无中文版本 / Translation coming soon" aria-disabled="true">中文</span>
+      {% endif %}
+    {% else %}
+      {% if target_url %}
+        <a href="{{ target_url | relative_url }}" class="post-lang-btn is-link" hreflang="en" lang="en" title="Read English version">EN</a>
+      {% else %}
+        <span class="post-lang-btn is-disabled" title="English translation not available" aria-disabled="true">EN</span>
+      {% endif %}
+      <span class="post-lang-btn is-active" aria-current="page">中文</span>
+    {% endif %}
+  </div>
+</nav>

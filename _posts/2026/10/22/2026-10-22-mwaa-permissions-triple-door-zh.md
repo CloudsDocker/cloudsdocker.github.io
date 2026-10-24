@@ -11,6 +11,7 @@ tags:
  - terraform
  - debugging
 permalink: /blogs/tech/zh/mwaa-permissions-triple-door
+alt_url: /blogs/tech/en/mwaa-permissions-missing-roles
 lang: zh
 layout: single
 category: tech

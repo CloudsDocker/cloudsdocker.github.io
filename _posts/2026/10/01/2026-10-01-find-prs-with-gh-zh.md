@@ -10,6 +10,7 @@ tags:
  - shell
  - developer-productivity
 permalink: /blogs/tech/zh/find-prs-with-gh
+alt_url: /blogs/tech/en/find-blocked-review-ready-prs
 lang: zh
 layout: single
 category: tech

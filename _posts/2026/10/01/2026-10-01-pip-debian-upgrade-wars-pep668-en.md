@@ -10,6 +10,7 @@ tags:
  - pip
  - ubuntu
 permalink: /blogs/tech/en/pip-debian-upgrade-wars-pep668
+alt_url: /blogs/tech/zh/pip-debian-pep668-survival-guide
 lang: en
 layout: single
 category: tech

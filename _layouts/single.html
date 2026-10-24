@@ -29,7 +29,19 @@ layout: default
           {% if page.title %}<h1 id="page-title" class="page__title p-name" itemprop="headline">
             <a href="{{ page.url | absolute_url }}" class="u-url" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
           </h1>{% endif %}
+          <div class="page__meta-wrapper">
+            {% include page__meta.html %}
+            <div class="page__lang-switch">
+              {% include post-lang-switch.html %}
+            </div>
+          </div>
+        </header>
+      {% else %}
+        <header class="page__meta-wrapper page__meta-wrapper--hero">
           {% include page__meta.html %}
+          <div class="page__lang-switch">
+            {% include post-lang-switch.html %}
+          </div>
         </header>
       {% endunless %}
 

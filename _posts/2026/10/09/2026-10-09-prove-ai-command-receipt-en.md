@@ -10,6 +10,7 @@ tags:
  - pytest
  - developer-tools
 permalink: /blogs/tech/en/prove-ai-command-receipt
+alt_url: /blogs/tech/zh/rerun-ai-commands-exactly
 lang: en
 layout: single
 category: tech

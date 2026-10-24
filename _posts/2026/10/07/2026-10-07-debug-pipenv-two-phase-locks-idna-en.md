@@ -9,6 +9,7 @@ tags:
  - debugging
  - dependency-resolution
 permalink: /blogs/tech/en/debug-pipenv-two-phase-locks-idna
+alt_url: /blogs/tech/zh/pipenv-resolution-impossible-two-stage-lock
 lang: en
 layout: single
 category: tech

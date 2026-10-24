@@ -10,6 +10,7 @@ tags:
  - python
  - agent
 permalink: /blogs/tech/zh/rerun-ai-commands-exactly
+alt_url: /blogs/tech/en/prove-ai-command-receipt
 lang: zh
 layout: single
 category: tech

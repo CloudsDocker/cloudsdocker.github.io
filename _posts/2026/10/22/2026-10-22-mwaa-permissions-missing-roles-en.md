@@ -10,6 +10,7 @@ tags:
  - permissions
  - terraform
 permalink: /blogs/tech/en/mwaa-permissions-missing-roles
+alt_url: /blogs/tech/zh/mwaa-permissions-triple-door
 lang: en
 layout: single
 category: tech
