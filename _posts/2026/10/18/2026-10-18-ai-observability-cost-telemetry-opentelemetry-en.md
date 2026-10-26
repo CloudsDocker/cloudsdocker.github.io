@@ -62,7 +62,7 @@ Cost optimization is not a negotiation with model vendors. It is an engineering 
 
 ---
 
-## 第一步:成本必须可归因 (Step 1: Cost Must Be Attributable)
+## Step 1: Cost Must Be Attributable
 
 Optimizing a system without granular cost attribution is not engineering; it is superstition. If your billing alert fires and all you have is a consolidated month-to-date cloud invoice, you have no levers to pull. To make cost an actionable engineering constraint, you must enforce four foundational principles across your platform.
 
@@ -103,7 +103,7 @@ If you improve latency and drop cost by 50%, but your grounding rate slips from 
 
 ---
 
-## 按杠杆大小排序的手段 (Optimization Levers Ranked by Impact)
+## Optimization Levers Ranked by Impact
 
 When teams decide to reduce AI infrastructure costs, they almost invariably start at the bottom of the leverage hierarchy: tweaking temperature, micro-editing system prompts, or scouring dictionaries for shorter synonyms. This is bikeshedding. True architectural cost reduction follows a strict leverage hierarchy where upstream structural decisions deliver order-of-magnitude returns.
 
@@ -132,7 +132,7 @@ graph TD
 
 Let us dissect each layer in order of actual financial impact.
 
-### 1. 架构层 (Architecture Layer: Up to 10x Savings)
+### 1. Architecture Layer (Up to 10x Savings)
 This is where you make the largest structural gains. The golden rule of AI cost reduction is: **the cheapest LLM call is the one you never make.**
 
 - **Front-Door Deterministic Routing:** Over 60% of requests routed to general-purpose enterprise assistants do not require dynamic multi-step autonomous planning. A user asking "What is our excess for domestic baggage delay?" does not need an agentic planner to evaluate thirty permutations. A deterministic intent classifier or semantic cache can route this directly to an indexed FAQ lookup or a deterministic code path. The agent should be an escalation tier for the complex long tail, never the default front door.
@@ -142,14 +142,14 @@ This is where you make the largest structural gains. The golden rule of AI cost 
   - *Vector Search Retrieval Cache:* Cache frequent query embeddings and their retrieved context chunks.
   - *Semantic Request Cache:* For high-frequency query distributions, match query embeddings with a high cosine similarity threshold (e.g., $\ge 0.96$) to return pre-computed, pre-validated answers.
 
-### 2. 模型层 (Model Layer: 3x to 5x Savings)
+### 2. Model Layer (3x to 5x Savings)
 Once your architecture isolates the complex workloads, optimize the model tier allocated to each specific step.
 
 - **Tiered Model Cascading (Small Model First):** Utilize lightweight models ($0.15/M) for classification, sentiment extraction, translation, and structured data extraction. Reserve frontier models ($15.00/M) exclusively for synthetic reasoning, complex multi-document reconciliation, and customer-facing synthesis.
 - **Evaluation-Driven Down-Ranking:** Never down-rank a model based on intuition or vendor benchmarks. Construct an offline golden evaluation dataset matching your enterprise distribution. Prove statistically that the lightweight model satisfies your task constraints before flipping the routing flag in production.
 - **Strict Structured Outputs and Output Token Budgets:** Output tokens are typically 3x to 5x more expensive than input tokens across all major model providers, and they dominate latency because generation is auto-regressive (token by token). By enforcing strict JSON schemas (via constrained decoding or instructor patterns) and setting hard `max_tokens` boundaries, you eliminate discursive conversational filler ("Sure, I would be happy to help you with that insurance query...") and save thousands of expensive generation tokens per minute.
 
-### 3. Token 层 (Token Layer: 30% to 60% Savings)
+### 3. Token Layer (30% to 60% Savings)
 At the prompt engineering level, systematic byte-level discipline yields dramatic savings across high-volume pipelines.
 
 - **Prompt Caching Discipline:** Modern model APIs offer substantial discounts (often 50% to 90% off input pricing) for cached prompt prefixes that match across requests. However, prompt caching requires byte-exact prefix matching. The most common enterprise anti-pattern is injecting dynamic data—such as a current ISO timestamp, a request ID, or a user name—at the very beginning of the system prompt. Doing so invalidates the cache on every single call! Keep your system prompts, tool schemas, and invariant reference policies at the root of the context window, strictly isolated from dynamic session state.
@@ -157,7 +157,7 @@ At the prompt engineering level, systematic byte-level discipline yields dramati
 - **Context Compaction and Sub-Agent Isolation:** Long multi-turn conversations should not accumulate unbounded history. Implement sliding context windows with periodic deterministic summarization. Even better: execute isolated sub-tasks inside ephemeral sub-agents, returning only the terminal structured conclusion back to the primary orchestration thread.
 - **High-Precision Reranking over High-Volume Retrieval:** Flooding a context window with 50 raw retrieved chunks hoping the model finds the needle is both expensive and error-prone (inducing "lost in the middle" hallucinations). Retrieve top-50 via hybrid search (BM25 + dense vectors), pass them through a lightweight cross-encoder reranker, and inject only the top-5 verified chunks into the generation prompt.
 
-### 4. 运行层 (Runtime Layer: Operational Discipline)
+### 4. Runtime Layer (Operational Discipline)
 Operational controls prevent transient spikes from becoming fiscal emergencies.
 
 - **Batch APIs for Asynchronous Workloads:** Asynchronous workloads—such as overnight claim document extraction, batch compliance auditing, or synthetic evaluation generation—should run through provider Batch APIs, which offer an immediate 50% discount against standard on-demand pricing.
@@ -166,7 +166,7 @@ Operational controls prevent transient spikes from becoming fiscal emergencies.
 
 ---
 
-## 防失控的护栏(保险公司会特别在意) (Guardrails Against Runaway Costs)
+## Guardrails Against Runaway Costs
 
 In tier-one financial institutions and global insurance carriers, an unconstrained autonomous loop is treated as a severe security and operational risk. In an unmonitored environment, an autonomous agent caught in an infinite loop due to ambiguous tool responses can rack up tens of thousands of dollars in API charges while bombarding downstream production APIs with bogus mutations.
 
@@ -190,7 +190,7 @@ If any single constraint is violated, the orchestration runtime must immediately
 
 ---
 
-## 一句收尾 (A Single Closing Principle)
+## A Single Closing Principle
 
 Before diving into the code and telemetry topology, fix this foundational mental model firmly in your mind:
 
@@ -200,7 +200,7 @@ Without an automated evaluation harness running continuously against production 
 
 ---
 
-## 架构实战: 小模型优先，大模型后置 (Architectural Patterns: Cascading and Routing)
+## Architectural Patterns: Cascading and Routing
 
 Let us move from theory to implementation. How do top engineering teams practically structure dynamic routing? There are four primary architectural patterns deployed in production.
 
@@ -463,7 +463,7 @@ Even after paying the classifier toll and accommodating escalations, the intelli
 
 ---
 
-## 一、先讲现状(这本身就是加分项) (Current Reality of OpenTelemetry GenAI)
+## 1. Current Reality of OpenTelemetry GenAI
 
 Now we arrive at telemetry. If you want to build durable observability, the industry consensus is OpenTelemetry (OTel). But here is the insider reality that separates staff engineers from junior practitioners:
 
@@ -484,7 +484,7 @@ You must insulate your systems using an **in-house OpenTelemetry Adapter Layer**
 
 ---
 
-## 二、Span 树长什么样 (Anatomy of a Trace Tree)
+## 2. Anatomy of a Trace Tree
 
 What does a production trace look like during a real insurance claim triage workflow? Consider an autonomous assistant evaluating travel insurance coverage for a lost laptop:
 
@@ -515,7 +515,7 @@ By recording human escalation as a structured, queryable attribute on the termin
 
 ---
 
-## 三、属性怎么埋(代码样例) (Attribute Instrumentation and Code Samples)
+## 3. Attribute Instrumentation and Code Samples
 
 Let us look at how clean instrumentation is structured in Python using an adapter pattern. We avoid raw string literals, capture detailed token economics (including prompt caching and reasoning tokens), and compute operational costs directly at span closure.
 
@@ -613,7 +613,7 @@ def record_llm_usage(span: trace.Span, response_obj):
 
 Take note of `app.prompt_version`. In production systems, **prompt modifications without corresponding application code changes are the single most frequent cause of untraceable quality degradation.** If your prompt engineering team updates a system prompt in a CMS or config bucket, and latency doubles or hallucinations spike, you cannot correlate the degradation unless `app.prompt_version` is stamped on every trace.
 
-### 工具调用的 span (Tool Execution Spans)
+### Tool Execution Spans
 Tools are where agents interface with reality—and where operations most frequently fail. Tool spans require specific instrumentation:
 
 ```python
@@ -660,7 +660,7 @@ Notice the `app.irreversible_action` boolean. In audit-heavy production environm
 
 ---
 
-## 四、PII 脱敏——在 SDK 层,不是后端 (PII Redaction at the SDK Layer)
+## 4. PII Redaction at the SDK Layer
 
 In generative AI telemetry, capturing raw prompt content is both a debugging dream and a compliance nightmare. The OpenTelemetry GenAI specification designates content-capturing attributes as **Opt-In**:
 - `gen_ai.input.messages`
@@ -670,7 +670,7 @@ In generative AI telemetry, capturing raw prompt content is both a debugging dre
 
 **Opt-In means that by default, compliant SDKs do not capture raw textual prompts or completions.** This default is exactly what security officers and risk committees demand. But when you are diagnosing subtle reasoning failures in staging or dedicated canary cohorts, engineers need to inspect message payloads.
 
-🩸 **血泪提醒 (Warning):** Never rely on downstream collectors or backend APM storage filters to redact PII. Once sensitive data (passports, tax IDs, health records) hits the network wire or collector memory buffers, your compliance perimeter is breached. PII redaction must occur inside the application SDK memory space before spans serialize.
+🩸 **Critical Warning:** Never rely on downstream collectors or backend APM storage filters to redact PII. Once sensitive data (passports, tax IDs, health records) hits the network wire or collector memory buffers, your compliance perimeter is breached. PII redaction must occur inside the application SDK memory space before spans serialize.
 
 ```python
 # pii_redactor.py
@@ -731,7 +731,7 @@ Three ironclad rules govern production PII management in AI telemetry:
 
 ---
 
-## 五、成本归因:维度设计才是难点 (Cost Attribution: Dimensionality Design)
+## 5. Cost Attribution: Dimensionality Design
 
 While spans capture individual execution journeys, metrics give leadership and platform teams aggregated visibility. The standard OpenTelemetry metric instrument for token tracking is `gen_ai.client.token.usage`.
 
@@ -774,7 +774,7 @@ If your waste ratio exceeds 12%, halt feature development and fix your agent rel
 
 ---
 
-## 六、工具路线取舍 (Tooling and Architectural Trade-Offs)
+## 6. Tooling and Architectural Trade-Offs
 
 Selecting the right observability and evaluation stack is a long-term architectural commitment. The following comparative decision matrix reflects current production trade-offs across tier-one environments:
 
@@ -804,7 +804,7 @@ By keeping the instrumentation layer strictly vendor-neutral (OTel), you retain 
 
 ---
 
-## 七、让 trace 变成闭环(满分收尾) (Closing the Telemetry Loop)
+## 7. Closing the Telemetry Loop
 
 Telemetry that terminates on a monitoring dashboard is an operational dead end. You build dashboards, glance at them during outages, and congratulate yourself on visibility. Real engineering maturity occurs when **runtime production traces feed directly back into automated evaluation suites.**
 
@@ -856,7 +856,7 @@ Recall our workbench analogy: when an assembly line produces a defective compone
 
 ---
 
-## 八、挑战问答 (Production Review Q&A)
+## 8. Production Review Q&A
 
 When pitching this architecture to principal engineers, security architects, and financial controllers, expect aggressive pushback. Here are the precise engineering arguments for the five most common cross-examinations.
 
@@ -884,7 +884,7 @@ We prove value by running scheduled **chaos evaluations**: deliberately degradin
 
 ---
 
-## 最小心智模型 (The Minimal Mental Model)
+## The Minimal Mental Model
 
 To build intuition for engineers new to distributed tracing: what fundamentally is a span? Strip away the vendors, the marketing collateral, and the jargon:
 
@@ -908,7 +908,7 @@ trace (Single complete user session)
 
 ---
 
-## 一个 span 实际装着什么 (What a Span Actually Contains)
+## What a Span Actually Contains
 
 Here is the raw JSON schema of an instrumented tool execution span emitted to an OTel Collector:
 
@@ -938,7 +938,7 @@ Notice the attributes. A span duration tells you that a step was slow; **attribu
 
 ---
 
-## 和 log / metric 的区别 (Distinction from Logs and Metrics)
+## Distinction from Logs and Metrics
 
 ```mermaid
 graph LR
@@ -959,7 +959,7 @@ To make your architectural reviews crystal clear, understand how the three obser
 
 ---
 
-## 为什么 agent 特别需要它 (Why Autonomous Agents Demand Spans)
+## Why Autonomous Agents Demand Spans
 
 Traditional web requests are predictable: an HTTP request hits a load balancer, executes an authentication middleware, hits a database query, renders a JSON response, and terminates in 4 hops. You can debug simple web services with structured logs if pushed.
 
@@ -971,7 +971,7 @@ Autonomous agents demolish this simplicity:
 
 ---
 
-## 代码里长什么样 (What It Looks Like in Code)
+## What It Looks Like in Code
 
 At the programming interface, creating a span is an idiomatic context manager pattern. Entering the block starts the clock, while exiting stops the clock and dispatches the recorded duration:
 
@@ -988,7 +988,7 @@ The keyword `start_as_current_span` is load-bearing: any subsequent spans initia
 
 ---
 
-## 怎么决定"什么该是一个 span" (Deciding What Deserves a Span)
+## Deciding What Deserves a Span
 
 Do not instrument every private helper function. That creates telemetric noise and imposes CPU serialization penalties. Use this pragmatic engineering criterion: **If this operational step fails, times out, or charges money, do you need to isolate it on an executive incident call?**
 
@@ -1000,7 +1000,7 @@ Do not instrument every private helper function. That creates telemetric noise a
 
 ---
 
-## 落到你的项目上 (Applying This to Real Projects)
+## Applying This to Real Projects
 
 If you have previously implemented single-process agent pipelines using local JSONL logging or content-addressable caching, understand that you were already handcrafting primitive spans:
 - Each line in your append-only log recorded an execution turn.
@@ -1014,7 +1014,7 @@ In a standalone single-process CLI, OpenTelemetry adds infrastructure overhead w
 
 ---
 
-## 一、词源与谱系 (Etymology and Genealogy of Distributed Tracing)
+## 1. Etymology and Genealogy of Distributed Tracing
 
 To articulate technical decisions with authority, an engineer must grasp the historical genealogy of distributed tracing. OpenTelemetry did not invent the span. 
 
@@ -1052,7 +1052,7 @@ In May 2019, OpenTracing and OpenCensus merged to create **OpenTelemetry (OTel)*
 
 ---
 
-## 二、所以 span 到底被谁定义 (Who Actually Defines the Span Specification)
+## 2. Who Actually Defines the Span Specification
 
 When you talk about distributed tracing, be precise about which standard defines which component:
 
@@ -1076,7 +1076,7 @@ OpenTelemetry's fundamental contribution was not the invention of the span conce
 
 ---
 
-## 三、现在的行业状态(2026) (Industry Adoption and Status in 2026)
+## 3. Industry Adoption and Status in 2026
 
 OpenTelemetry is no longer an emerging experiment. On **May 21, 2026, OpenTelemetry officially graduated from the Cloud Native Computing Foundation (CNCF)**, solidifying its role as the industry's default observability standard. The project encompasses contributions from over 1,200 organizations and more than 10,000 contributors.
 
@@ -1096,7 +1096,7 @@ This signal maturity distinction is the centerpiece of a mature architectural po
 
 ---
 
-## 四、日常工作中如何落地应用与向上沟通 (Operational Execution and Executive Communication)
+## 4. Operational Execution and Executive Communication
 
 When presenting this strategy to executives or technical review boards, avoid reciting specifications. Frame your engineering judgment around **risk management, cost attribution, and architectural durability**:
 
@@ -1108,9 +1108,9 @@ When presenting this strategy to executives or technical review boards, avoid re
 
 ---
 
-## 提炼通用法则 (Engineering Elevation: Transferable Principles)
+## Engineering Elevation: Transferable Principles
 
-### 原则: 代价必须显式写在运行时接口上 (Principle: Costs Must Be Made Explicit at the Interface Boundary)
+### Principle: Costs Must Be Made Explicit at the Interface Boundary
 
 - **Mechanism:** In classical microservices, execution cost is largely a fixed infrastructure overhead: CPU and RAM allocations do not spike by an order of magnitude based on the semantic nuance of an HTTP query body. In generative AI systems, execution cost is variable, unbounded, and tied directly to semantic runtime decisions. When an interface hides the cost of downstream execution behind an innocent synchronous method call, calling developers and orchestrating agents will treat the resource as infinite, leading directly to platform budget exhaustion.
 - **Limit:** This principle applies specifically to non-deterministic, usage-billed components (LLM inference, heavy GPU pipelines, paid external API lookups). It should not be applied to deterministic, low-cost local computing utilities, where tracking micro-costs adds memory allocations and serialization drag without providing operational leverage.
