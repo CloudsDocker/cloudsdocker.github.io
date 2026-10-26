@@ -1667,6 +1667,200 @@ html[data-brand="personal"] {
   }
 }
 
+/* ==========================================================================
+   8. World-Class Technical Tables
+   Modern card presentation, crisp contrast, dark-mode alignment
+   ========================================================================== */
+
+.modern-table-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 2rem 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--paper, #ffffff);
+  border: 1px solid var(--line, #e2e8f0);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+
+  /* Sleek custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2, #cbd5e1) transparent;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--line-2, #cbd5e1);
+    border-radius: 3px;
+  }
+
+  table {
+    margin: 0 !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    width: 100% !important;
+    display: table !important;
+  }
+}
+
+/* Also ensure tables not yet wrapped still look stellar */
+table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100%;
+  margin: 1.85rem 0;
+  font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* Table Header (Eliminating the ugly yellow/brown box in dark mode) */
+thead {
+  background-color: var(--paper-2, #f6f8fa) !important;
+  border-bottom: 2px solid var(--line, #e2e8f0) !important;
+
+  tr {
+    background: transparent !important;
+  }
+
+  th {
+    padding: 0.75rem 1rem !important;
+    font-family: "Geist Mono", "SFMono-Regular", Consolas, monospace !important;
+    font-size: 0.76rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    color: var(--ink-2, #374151) !important;
+    border: none !important;
+    border-bottom: 1.5px solid var(--line, #e2e8f0) !important;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    &:first-child {
+      border-top-left-radius: 9px;
+    }
+    &:last-child {
+      border-top-right-radius: 9px;
+    }
+  }
+}
+
+/* Table Body */
+tbody {
+  tr {
+    background: transparent;
+    transition: background-color 0.15s ease;
+
+    &:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.015);
+    }
+
+    &:hover {
+      background-color: rgba(37, 99, 235, 0.04) !important;
+    }
+
+    &:last-child td {
+      border-bottom: none !important;
+
+      &:first-child {
+        border-bottom-left-radius: 9px;
+      }
+      &:last-child {
+        border-bottom-right-radius: 9px;
+      }
+    }
+  }
+
+  td {
+    padding: 0.75rem 1rem !important;
+    color: var(--ink, #1c1813) !important;
+    border: none !important;
+    border-bottom: 1px solid var(--line, #e2e8f0) !important;
+    vertical-align: middle;
+
+    /* Inline code pills inside tables */
+    code {
+      font-family: "Geist Mono", monospace !important;
+      font-size: 0.82em !important;
+      background: var(--paper-2, #f1f5f9) !important;
+      color: var(--clay, #2563eb) !important;
+      border: 1px solid var(--line, #e2e8f0) !important;
+      padding: 0.15rem 0.45rem !important;
+      border-radius: 4px !important;
+      white-space: nowrap;
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--ink, #1c1813);
+    }
+  }
+}
+
+/* ==========================================================================
+   Dark Mode Tables — Clean Slate Alignment (Zero Yellow/Brown Tint)
+   ========================================================================== */
+
+[data-theme="dark"] {
+  .modern-table-wrapper {
+    background: #0f172a;
+    border-color: #334155;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    scrollbar-color: #334155 transparent;
+
+    &::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+  }
+
+  thead {
+    background-color: #1e293b !important;
+    border-bottom-color: #334155 !important;
+
+    th {
+      color: #f1f5f9 !important;
+      border-bottom-color: #334155 !important;
+      background: transparent !important;
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.02);
+      }
+
+      &:hover {
+        background-color: rgba(56, 189, 248, 0.06) !important;
+      }
+
+      &:last-child td {
+        border-bottom: none !important;
+      }
+    }
+
+    td {
+      color: #cbd5e1 !important;
+      border-bottom-color: #1e293b !important;
+
+      code {
+        background: #1e293b !important;
+        color: #38bdf8 !important;
+        border-color: #334155 !important;
+      }
+
+      strong {
+        color: #f8fafc !important;
+      }
+    }
+  }
+}
+
+
 
 
 

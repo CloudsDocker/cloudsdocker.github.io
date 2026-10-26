@@ -704,12 +704,28 @@
     });
   }
 
+  /* --------------------------------------------------------------------------
+     6. World-Class Tables (Card Wrapper & Responsive Scroll)
+     -------------------------------------------------------------------------- */
+  function initModernTables() {
+    var tables = document.querySelectorAll('.page__content table, .main-content table, article table');
+    tables.forEach(function (table) {
+      if (table.closest('.modern-table-wrapper') || table.closest('.highlight')) return;
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'modern-table-wrapper';
+      table.parentNode.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    });
+  }
+
   function runAll() {
     initModernMermaid();
     initModernCodeCards();
     initModernCallouts();
     initReadingEnhancements();
     initModernToc();
+    initModernTables();
   }
 
   if (document.readyState === 'loading') {
