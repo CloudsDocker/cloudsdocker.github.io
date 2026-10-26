@@ -428,7 +428,7 @@ def handle_request(question: str) -> dict:
     }
 
 if __name__ == "__main__":
-    sample_query = "My laptop was stolen from a locked hotel room in Zurich. Can I claim under my standard baggage rider?"
+    sample_query = "My laptop was stolen from a locked hotel room in Frankfurt. Can I claim under my standard baggage rider?"
     print(json.dumps(handle_request(sample_query), indent=2))
 ```
 
@@ -492,7 +492,7 @@ What does a production trace look like during a real insurance claim triage work
 trace: conversation_id=conv_7f3a9b21 trace_id=4bf92f3577b34da684c1
 └── invoke_agent  claims_triage_assistant             [4.21s]  $0.0341
     ├── execute_tool  lookup_policy                   [120ms]
-    │     app.tool.args_hash=e3b0c442 app.tenant=zurich_ch
+    │     app.tool.args_hash=e3b0c442 app.tenant=aegis_ch
     ├── execute_tool  search_policy_documents         [340ms]
     │     retrieval.top_score=0.88  retrieval.k=5  retrieval.hits=5
     ├── chat  claude-3-5-sonnet-20241022              [2.10s]
@@ -511,7 +511,7 @@ trace: conversation_id=conv_7f3a9b21 trace_id=4bf92f3577b34da684c1
 
 Study that final span carefully. Look at the last line: `app.routed_to_human=true`. 
 
-By recording human escalation as a structured, queryable attribute on the terminal span, you transform what used to be a silent application fallback into a measurable, alertable business event. You can immediately build an alert in your APM: *"Alert if human escalation rate for tenant Zurich exceeds 8% over a 15-minute window."*
+By recording human escalation as a structured, queryable attribute on the terminal span, you transform what used to be a silent application fallback into a measurable, alertable business event. You can immediately build an alert in your APM: *"Alert if human escalation rate for tenant Aegis exceeds 8% over a 15-minute window."*
 
 ---
 
@@ -926,7 +926,7 @@ Here is the raw JSON schema of an instrumented tool execution span emitted to an
   "attributes": {
     "gen_ai.operation.name": "execute_tool",
     "gen_ai.tool.name": "lookup_policy",
-    "app.tenant": "zurich_ch",
+    "app.tenant": "aegis_ch",
     "app.feature": "claims_triage",
     "app.tool.args_hash": "c79a1f28b4d9",
     "app.rows_returned": 3

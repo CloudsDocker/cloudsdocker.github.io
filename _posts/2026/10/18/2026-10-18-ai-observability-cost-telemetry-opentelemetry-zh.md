@@ -407,7 +407,7 @@ trace                                  ← 一次完整的请求/会话
   "status": "OK",
   "attributes": {
     "gen_ai.tool.name": "lookup_policy",
-    "app.tenant": "zurich_au",
+    "app.tenant": "aegis_au",
     "app.feature": "claims_triage"
   }
 }

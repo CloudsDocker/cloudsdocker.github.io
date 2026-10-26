@@ -4472,5 +4472,5 @@ Search with `python ask.py`, two or three keywords.
 
 **COST** — Three habits that read as junior: naming tools before naming requirements; quoting an industry-standard threshold instead of deriving one; and claiming an agent for something that is a fixed workflow. Every answer should move requirement, then design, then metric, then trade-off.
 
-**SOURCE** — [rag_interview_notes.md:2252](rag_interview_notes.md#L2252) the seven sentences · [rag_interview_notes.md:2336](rag_interview_notes.md#L2336) full worked example · [words_must_say_during_interview.md:2](words_must_say_during_interview.md#L2) three levels · [zurich_ai_lead_20261007.md:100](zurich_ai_lead_20261007.md#L100) what the JD tests · [zurich_ai_lead_20261007.md:117](zurich_ai_lead_20261007.md#L117) instant-reject answers
+**SOURCE** — [rag_interview_notes.md:2252](rag_interview_notes.md#L2252) the seven sentences · [rag_interview_notes.md:2336](rag_interview_notes.md#L2336) full worked example · [words_must_say_during_interview.md:2](words_must_say_during_interview.md#L2) three levels · [insurer_ai_lead_20261007.md:100](insurer_ai_lead_20261007.md#L100) what the JD tests · [insurer_ai_lead_20261007.md:117](insurer_ai_lead_20261007.md#L117) instant-reject answers
 

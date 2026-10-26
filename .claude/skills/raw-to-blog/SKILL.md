@@ -48,6 +48,9 @@ Instead of calling external LLMs, **the agent (Antigravity / Claude) executes th
   - "面试回答建议" → "架构方案设计与生产实施路径"
 - **Enterprise Anonymization**:
   - Zurich / named insurer → **Aegis** (a global Tier-1 insurance & financial carrier / Fortune Global 100)
+  - Qantas / named airline → **a major national airline / high-volume loyalty platform**
+  - TfNSW / Transport for NSW → **a public transport agency / transit authority**
+  - Macquarie University / Macquarie → **a large Australian university**
   - AWS → **the cloud provider** (or Amazon Bedrock when discussing public APIs)
   - APRA → **local regulators**
 

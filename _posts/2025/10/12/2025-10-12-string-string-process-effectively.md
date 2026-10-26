@@ -141,7 +141,7 @@ az network application-gateway rewrite-rule set show \
 **终版（生产级）**：
 ```bash
 #!/bin/bash
-# 完整脚本见：src/jobs/tfnsw/azure/http_headers_rewrite/check_tfnsw_http_header.sh
+# 完整脚本见：src/jobs/transit/azure/http_headers_rewrite/check_gateway_http_header.sh
 
 # 参数化设计，适应不同环境
 while getopts ":g:a:r:h" opt; do
