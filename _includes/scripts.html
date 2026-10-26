@@ -631,11 +631,85 @@
     });
   }
 
+  /* --------------------------------------------------------------------------
+     5. World-Class Table of Contents Navigation (Scrollspy, Progress, Auto-Scroll)
+     -------------------------------------------------------------------------- */
+  function initModernToc() {
+    var toc = document.querySelector('nav.toc');
+    if (!toc) return;
+
+    var header = toc.querySelector('.nav__title');
+    var menu = toc.querySelector('.toc__menu');
+    var links = toc.querySelectorAll('.toc__menu a');
+    if (!links.length) return;
+
+    // 1. Add sleek progress badge to TOC title
+    if (header && !header.querySelector('.toc-progress-pill')) {
+      var progressPill = document.createElement('span');
+      progressPill.className = 'toc-progress-pill';
+      progressPill.textContent = '0%';
+      header.appendChild(progressPill);
+
+      var contentArea = document.querySelector('.page__content, .main-content');
+      window.addEventListener('scroll', function () {
+        if (!contentArea) return;
+        var rect = contentArea.getBoundingClientRect();
+        var totalHeight = contentArea.offsetHeight;
+        var scrolled = window.innerHeight - rect.top;
+        var progress = Math.min(100, Math.max(0, Math.round((scrolled / totalHeight) * 100)));
+        progressPill.textContent = progress + '%';
+      }, { passive: true });
+    }
+
+    // 2. Add quick footer action ("Back to top" link inside TOC)
+    if (!toc.querySelector('.toc-quick-footer')) {
+      var footer = document.createElement('div');
+      footer.className = 'toc-quick-footer';
+      footer.innerHTML =
+        '<a href="#page-title" class="toc-back-to-top" title="Scroll to top">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>' +
+          '<span>Back to top</span>' +
+        '</a>';
+      toc.appendChild(footer);
+
+      var bttLink = footer.querySelector('.toc-back-to-top');
+      bttLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // 3. Smooth Auto-Scroll for Active TOC item (keeps active link visible in viewport)
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          var target = mutation.target;
+          if (target.classList && target.classList.contains('active')) {
+            var activeLink = target.querySelector('a') || target;
+            if (activeLink && menu) {
+              var linkRect = activeLink.getBoundingClientRect();
+              var menuRect = menu.getBoundingClientRect();
+              if (linkRect.top < menuRect.top || linkRect.bottom > menuRect.bottom) {
+                activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            }
+          }
+        }
+      });
+    });
+
+    var items = toc.querySelectorAll('li, a');
+    items.forEach(function (item) {
+      observer.observe(item, { attributes: true });
+    });
+  }
+
   function runAll() {
     initModernMermaid();
     initModernCodeCards();
     initModernCallouts();
     initReadingEnhancements();
+    initModernToc();
   }
 
   if (document.readyState === 'loading') {

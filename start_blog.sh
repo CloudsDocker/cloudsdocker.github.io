@@ -62,7 +62,7 @@ start_background() {
         -v "${GEM_VOLUME}":/usr/local/bundle \
         -w /srv/jekyll \
         "${IMAGE_NAME}" \
-        bundle exec jekyll serve --livereload --host 0.0.0.0 --port "${PORT}" --force_polling
+        bundle exec jekyll serve --livereload --incremental --host 0.0.0.0 --port "${PORT}" --force_polling
 
     echo "[INFO] Container '${CONTAINER_NAME}' launched."
     echo "[INFO] Web URL: http://localhost:${PORT}"
@@ -93,7 +93,7 @@ start_foreground() {
         -v "${GEM_VOLUME}":/usr/local/bundle \
         -w /srv/jekyll \
         "${IMAGE_NAME}" \
-        bundle exec jekyll serve --livereload --host 0.0.0.0 --port "${PORT}" --force_polling
+        bundle exec jekyll serve --livereload --incremental --host 0.0.0.0 --port "${PORT}" --force_polling
 }
 
 build_site() {
