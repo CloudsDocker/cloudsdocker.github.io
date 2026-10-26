@@ -28,40 +28,621 @@
 {% endif %}
 
 {%- comment %}
-  Render ```mermaid fenced code blocks as diagrams. Jekyll/Rouge emits them as
-  <div class="language-mermaid">…<code>source</code></div>; we swap each for a
-  <pre class="mermaid"> holding the raw source, then let Mermaid draw it.
-  Mermaid is fetched only when a diagram is present on the page.
+  ==========================================================================
+  Modern Interactive Features for Engineering Blog:
+  1. Mermaid Architecture Diagrams (Card UI, Zoom, Pan, Fullscreen Modal, Copy)
+  2. Modern Code Cards (Mac Terminal Chrome, Language Badges, Wrap, Copy)
+  3. GitHub & Emoji Alert Callouts
+  4. Reading Progress Bar, Image Lightbox, and Back-to-Top Floating Button
+  ==========================================================================
 {%- endcomment %}
 <script>
 (function () {
-  if (!document.querySelector('.language-mermaid')) return;
-  import('https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs')
-    .then(function (mod) {
-      var mermaid = mod.default;
-      // Rouge emits either <div class="language-mermaid">…<code> or
-      // <pre><code class="language-mermaid">. Take only the outermost match
-      // of each block, and replace the whole enclosing <pre>/<div> so no dark
-      // code wrapper is left around the diagram.
-      var nodes = Array.prototype.filter.call(
-        document.querySelectorAll('.language-mermaid'),
-        function (el) { return !(el.parentElement && el.parentElement.closest('.language-mermaid')); }
-      );
-      nodes.forEach(function (el) {
-        var codeEl = el.querySelector('code') || el;
-        var src = codeEl.textContent.replace(/\n$/, '');
-        var target = (el.tagName === 'CODE' || el.tagName === 'PRE')
-          ? (el.closest('pre') || el)
-          : el;
-        var pre = document.createElement('pre');
-        pre.className = 'mermaid';
-        pre.textContent = src;
-        target.replaceWith(pre);
+  /* --------------------------------------------------------------------------
+     1. Modern Mermaid Diagrams (Card, Zoom, Pan, Fullscreen Modal)
+     -------------------------------------------------------------------------- */
+  function initModernMermaid() {
+    var mermaidSelectors = '.language-mermaid, pre.mermaid, code.language-mermaid';
+    if (!document.querySelector(mermaidSelectors)) return;
+
+    import('https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs')
+      .then(function (mod) {
+        var mermaid = mod.default;
+
+        // Find outermost wrapper of each diagram
+        var rawNodes = document.querySelectorAll(mermaidSelectors);
+        var diagramBlocks = [];
+
+        rawNodes.forEach(function (el) {
+          var wrapper = el.closest('.highlighter-rouge') || el.closest('figure.highlight') || el.closest('pre') || el;
+          if (diagramBlocks.indexOf(wrapper) === -1) {
+            diagramBlocks.push(wrapper);
+          }
+        });
+
+        var diagramIndex = 0;
+        diagramBlocks.forEach(function (wrapper) {
+          diagramIndex++;
+          var codeEl = wrapper.querySelector('code') || wrapper;
+          var rawSource = (codeEl.textContent || '').trim();
+
+          // Detect diagram type
+          var diagramType = 'Architecture Flowchart';
+          var firstLine = rawSource.split('\n')[0].trim().toLowerCase();
+          if (firstLine.indexOf('sequence') !== -1) diagramType = 'Sequence Diagram';
+          else if (firstLine.indexOf('statediagram') !== -1) diagramType = 'State Diagram';
+          else if (firstLine.indexOf('classdiagram') !== -1) diagramType = 'Class Diagram';
+          else if (firstLine.indexOf('erdiagram') !== -1) diagramType = 'Entity Relationship';
+          else if (firstLine.indexOf('gitgraph') !== -1) diagramType = 'Git Graph';
+          else if (firstLine.indexOf('mindmap') !== -1) diagramType = 'Mindmap';
+
+          // Create modern diagram card
+          var card = document.createElement('div');
+          card.className = 'modern-diagram-card';
+          card.setAttribute('data-diagram-id', 'diagram-' + diagramIndex);
+
+          card.innerHTML =
+            '<div class="modern-diagram-header">' +
+              '<div class="modern-diagram-title">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                  '<rect x="3" y="3" width="6" height="6" rx="1.5"></rect>' +
+                  '<rect x="15" y="15" width="6" height="6" rx="1.5"></rect>' +
+                  '<path d="M6 9v3a3 3 0 0 0 3 3h6"></path>' +
+                '</svg>' +
+                '<span>' + diagramType + '</span>' +
+              '</div>' +
+              '<div class="modern-diagram-actions">' +
+                '<button type="button" class="diagram-btn diagram-zoom-in" title="Zoom in" aria-label="Zoom in">' +
+                  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>' +
+                '</button>' +
+                '<button type="button" class="diagram-btn diagram-zoom-out" title="Zoom out" aria-label="Zoom out">' +
+                  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>' +
+                '</button>' +
+                '<button type="button" class="diagram-btn diagram-reset" title="Reset view" aria-label="Reset view">' +
+                  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>' +
+                '</button>' +
+                '<button type="button" class="diagram-btn diagram-fullscreen" title="Fullscreen view" aria-label="Fullscreen view">' +
+                  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>' +
+                  '<span>Expand</span>' +
+                '</button>' +
+                '<button type="button" class="diagram-btn diagram-copy" title="Copy Mermaid source" aria-label="Copy Mermaid source">' +
+                  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>' +
+                  '<span>Copy</span>' +
+                '</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="modern-diagram-viewport">' +
+              '<div class="modern-diagram-svg-wrap mermaid">' +
+                rawSource +
+              '</div>' +
+            '</div>';
+
+          card._rawSource = rawSource;
+          wrapper.replaceWith(card);
+        });
+
+        // Initialize Mermaid with clean modern tech theme
+        var isDark = document.body.getAttribute('data-theme') === 'dark';
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme: 'base',
+          themeVariables: {
+            fontFamily: '"Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+            fontSize: '13px',
+            darkMode: isDark,
+            primaryColor: isDark ? '#1e293b' : '#ffffff',
+            primaryTextColor: isDark ? '#f8fafc' : '#0f172a',
+            primaryBorderColor: isDark ? '#475569' : '#cbd5e1',
+            lineColor: isDark ? '#94a3b8' : '#64748b',
+            secondaryColor: isDark ? '#0f172a' : '#f8fafc',
+            tertiaryColor: isDark ? '#334155' : '#f1f5f9',
+            edgeLabelBackground: isDark ? '#1e293b' : '#ffffff',
+            clusterBkg: isDark ? 'rgba(30, 41, 59, 0.6)' : 'rgba(248, 250, 252, 0.7)',
+            clusterBorder: isDark ? '#334155' : '#e2e8f0',
+            titleColor: isDark ? '#f8fafc' : '#0f172a',
+            mainBkg: isDark ? '#1e293b' : '#ffffff',
+            nodeBorder: isDark ? '#38bdf8' : '#2563eb'
+          },
+          flowchart: {
+            curve: 'basis',
+            padding: 16,
+            htmlLabels: true
+          }
+        });
+
+        mermaid.run({ querySelector: '.modern-diagram-svg-wrap.mermaid' })
+          .then(function () {
+            document.querySelectorAll('.modern-diagram-card').forEach(attachDiagramControls);
+          })
+          .catch(function (err) {
+            console.error('Mermaid render error:', err);
+          });
+      })
+      .catch(function (e) { console.error('Mermaid failed to load', e); });
+
+    function attachDiagramControls(card) {
+      var viewport = card.querySelector('.modern-diagram-viewport');
+      var svg = viewport ? viewport.querySelector('svg') : null;
+      if (!svg) return;
+
+      var scale = 1;
+      var panX = 0, panY = 0;
+      var isDragging = false;
+      var startX, startY;
+
+      function updateTransform() {
+        svg.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
+      }
+
+      var zoomInBtn = card.querySelector('.diagram-zoom-in');
+      if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', function () {
+          scale = Math.min(scale * 1.25, 3.5);
+          updateTransform();
+        });
+      }
+
+      var zoomOutBtn = card.querySelector('.diagram-zoom-out');
+      if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', function () {
+          scale = Math.max(scale / 1.25, 0.5);
+          if (scale <= 1) { panX = 0; panY = 0; }
+          updateTransform();
+        });
+      }
+
+      var resetBtn = card.querySelector('.diagram-reset');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+          scale = 1; panX = 0; panY = 0;
+          updateTransform();
+        });
+      }
+
+      viewport.addEventListener('mousedown', function (e) {
+        if (scale <= 1) return;
+        isDragging = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+        viewport.classList.add('is-dragging');
       });
-      mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'strict' });
-      mermaid.run({ querySelector: 'pre.mermaid' });
-    })
-    .catch(function (e) { console.error('Mermaid failed to load', e); });
+
+      window.addEventListener('mousemove', function (e) {
+        if (!isDragging) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        updateTransform();
+      });
+
+      window.addEventListener('mouseup', function () {
+        if (isDragging) {
+          isDragging = false;
+          viewport.classList.remove('is-dragging');
+        }
+      });
+
+      var copyBtn = card.querySelector('.diagram-copy');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () {
+          var text = card._rawSource || '';
+          navigator.clipboard.writeText(text).then(function () {
+            var span = copyBtn.querySelector('span');
+            if (span) span.textContent = 'Copied!';
+            copyBtn.classList.add('is-copied');
+            setTimeout(function () {
+              if (span) span.textContent = 'Copy';
+              copyBtn.classList.remove('is-copied');
+            }, 2000);
+          });
+        });
+      }
+
+      var fsBtn = card.querySelector('.diagram-fullscreen');
+      if (fsBtn) {
+        fsBtn.addEventListener('click', function () {
+          openDiagramModal(card);
+        });
+      }
+    }
+
+    function openDiagramModal(card) {
+      var title = card.querySelector('.modern-diagram-title span').textContent;
+      var svg = card.querySelector('.modern-diagram-viewport svg');
+      if (!svg) return;
+
+      var modal = document.getElementById('modern-diagram-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modern-diagram-modal';
+        modal.className = 'modern-diagram-modal';
+        modal.innerHTML =
+          '<div class="modern-diagram-modal-bar">' +
+            '<div class="modern-diagram-title">' +
+              '<span id="modal-diagram-title"></span>' +
+            '</div>' +
+            '<div class="modern-diagram-actions">' +
+              '<button type="button" class="diagram-btn modal-zoom-in" title="Zoom in">Zoom +</button>' +
+              '<button type="button" class="diagram-btn modal-zoom-out" title="Zoom out">Zoom −</button>' +
+              '<button type="button" class="diagram-btn modal-reset" title="Reset">Reset</button>' +
+              '<button type="button" class="diagram-btn modal-close" title="Close (Esc)">✕ Close</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="modern-diagram-modal-body" id="modal-diagram-body"></div>';
+        document.body.appendChild(modal);
+      }
+
+      var titleEl = modal.querySelector('#modal-diagram-title');
+      var bodyEl = modal.querySelector('#modal-diagram-body');
+      titleEl.textContent = title;
+
+      bodyEl.innerHTML = '';
+      var clone = svg.cloneNode(true);
+      clone.style.transform = '';
+      bodyEl.appendChild(clone);
+
+      var mScale = 1.1;
+      var mPanX = 0, mPanY = 0;
+      var mDragging = false, mStartX, mStartY;
+
+      function updateModalTransform() {
+        clone.style.transform = 'translate(' + mPanX + 'px, ' + mPanY + 'px) scale(' + mScale + ')';
+      }
+      updateModalTransform();
+
+      modal.querySelector('.modal-zoom-in').onclick = function () {
+        mScale = Math.min(mScale * 1.3, 5);
+        updateModalTransform();
+      };
+      modal.querySelector('.modal-zoom-out').onclick = function () {
+        mScale = Math.max(mScale / 1.3, 0.4);
+        updateModalTransform();
+      };
+      modal.querySelector('.modal-reset').onclick = function () {
+        mScale = 1.1; mPanX = 0; mPanY = 0;
+        updateModalTransform();
+      };
+
+      function closeModal() {
+        modal.classList.remove('is-active');
+        document.removeEventListener('keydown', handleEsc);
+      }
+      function handleEsc(e) {
+        if (e.key === 'Escape') closeModal();
+      }
+
+      modal.querySelector('.modal-close').onclick = closeModal;
+      modal.onclick = function (e) {
+        if (e.target === modal || e.target === bodyEl) closeModal();
+      };
+
+      bodyEl.onwheel = function (e) {
+        e.preventDefault();
+        var delta = e.deltaY < 0 ? 1.15 : 0.85;
+        mScale = Math.max(0.3, Math.min(6, mScale * delta));
+        updateModalTransform();
+      };
+
+      bodyEl.onmousedown = function (e) {
+        mDragging = true;
+        mStartX = e.clientX - mPanX;
+        mStartY = e.clientY - mPanY;
+        bodyEl.classList.add('is-dragging');
+      };
+      window.addEventListener('mousemove', function (e) {
+        if (!mDragging) return;
+        mPanX = e.clientX - mStartX;
+        mPanY = e.clientY - mStartY;
+        updateModalTransform();
+      });
+      window.addEventListener('mouseup', function () {
+        if (mDragging) {
+          mDragging = false;
+          bodyEl.classList.remove('is-dragging');
+        }
+      });
+
+      document.addEventListener('keydown', handleEsc);
+      modal.classList.add('is-active');
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     2. Modern Code Cards (Mac Chrome, Language Badge, Copy, Wrap)
+     -------------------------------------------------------------------------- */
+  function initModernCodeCards() {
+    var codeBlocks = document.querySelectorAll('.page__content pre, .main-content pre, article pre');
+
+    codeBlocks.forEach(function (pre) {
+      if (pre.closest('.modern-code-card') || pre.closest('.modern-diagram-card') || pre.classList.contains('mermaid')) {
+        return;
+      }
+      var code = pre.querySelector('code') || pre;
+      if (code.classList.contains('language-mermaid')) return;
+
+      var parentWrapper = pre.closest('.highlighter-rouge') || pre.closest('figure.highlight') || pre;
+
+      // Extract language
+      var lang = 'CODE';
+      var classes = (pre.className + ' ' + (code ? code.className : '') + ' ' + (parentWrapper ? parentWrapper.className : '')).split(/\s+/);
+      for (var i = 0; i < classes.length; i++) {
+        var cls = classes[i];
+        if (cls.indexOf('language-') === 0 && cls !== 'language-mermaid') {
+          lang = cls.replace('language-', '').toUpperCase();
+          break;
+        }
+      }
+
+      var langNames = {
+        'BASH': 'BASH', 'SH': 'SHELL', 'ZSH': 'ZSH',
+        'PYTHON': 'PYTHON', 'PY': 'PYTHON',
+        'JAVASCRIPT': 'JS', 'JS': 'JS',
+        'TYPESCRIPT': 'TS', 'TS': 'TS',
+        'JSON': 'JSON', 'YAML': 'YAML', 'YML': 'YAML',
+        'DOCKERFILE': 'DOCKER', 'DOCKER': 'DOCKER',
+        'SQL': 'SQL', 'MARKDOWN': 'MD', 'TEXT': 'TEXT',
+        'PLAINTEXT': 'TEXT', 'RUST': 'RUST', 'GO': 'GO',
+        'DIFF': 'DIFF', 'HTML': 'HTML', 'CSS': 'CSS', 'SCSS': 'SCSS'
+      };
+      var displayLang = langNames[lang] || lang;
+
+      var card = document.createElement('div');
+      card.className = 'modern-code-card';
+
+      var header = document.createElement('div');
+      header.className = 'modern-code-header';
+      header.innerHTML =
+        '<div style="display:flex;align-items:center;">' +
+          '<div class="modern-code-dots">' +
+            '<span class="code-dot dot-red"></span>' +
+            '<span class="code-dot dot-yellow"></span>' +
+            '<span class="code-dot dot-green"></span>' +
+          '</div>' +
+          '<div class="modern-code-meta">' +
+            '<span class="code-lang-badge">' + displayLang + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="modern-code-actions">' +
+          '<button type="button" class="code-action-btn code-wrap-btn" title="Toggle line wrap" aria-label="Toggle line wrap">' +
+            '<svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h14a3 3 0 0 1 0 6h-4M13 15l-3 3 3 3M3 18h4"></path></svg>' +
+            '<span>Wrap</span>' +
+          '</button>' +
+          '<button type="button" class="code-action-btn code-copy-btn" title="Copy code" aria-label="Copy code">' +
+            '<svg class="icon-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>' +
+            '<span class="copy-text">Copy</span>' +
+          '</button>' +
+        '</div>';
+
+      var body = document.createElement('div');
+      body.className = 'modern-code-body';
+
+      parentWrapper.parentNode.insertBefore(card, parentWrapper);
+      card.appendChild(header);
+      card.appendChild(body);
+      body.appendChild(pre);
+
+      if (parentWrapper !== pre && parentWrapper.parentNode) {
+        parentWrapper.parentNode.removeChild(parentWrapper);
+      }
+
+      var wrapBtn = header.querySelector('.code-wrap-btn');
+      wrapBtn.addEventListener('click', function () {
+        var isWrapped = pre.classList.toggle('is-wrapped');
+        wrapBtn.classList.toggle('is-active', isWrapped);
+        wrapBtn.querySelector('span').textContent = isWrapped ? 'Unwrap' : 'Wrap';
+      });
+
+      var copyBtn = header.querySelector('.code-copy-btn');
+      copyBtn.addEventListener('click', function () {
+        var text = (code ? code.textContent : pre.textContent).replace(/\n$/, '');
+        navigator.clipboard.writeText(text).then(function () {
+          var copyText = copyBtn.querySelector('.copy-text');
+          copyBtn.classList.add('is-copied');
+          copyText.textContent = 'Copied!';
+          copyBtn.querySelector('svg').innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
+          setTimeout(function () {
+            copyBtn.classList.remove('is-copied');
+            copyText.textContent = 'Copy';
+            copyBtn.querySelector('svg').innerHTML = '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>';
+          }, 2000);
+        });
+      });
+
+      var lineCount = (code ? code.textContent : pre.textContent).split('\n').length;
+      if (lineCount > 35) {
+        card.classList.add('is-collapsible');
+        var expandBtn = document.createElement('button');
+        expandBtn.type = 'button';
+        expandBtn.className = 'modern-code-expand-btn';
+        expandBtn.innerHTML =
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+          '<span>Show full code (' + lineCount + ' lines)</span>';
+
+        expandBtn.addEventListener('click', function () {
+          var expanded = card.classList.toggle('is-expanded');
+          if (expanded) {
+            expandBtn.innerHTML =
+              '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>' +
+              '<span>Collapse code</span>';
+          } else {
+            expandBtn.innerHTML =
+              '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+              '<span>Show full code (' + lineCount + ' lines)</span>';
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        });
+        card.appendChild(expandBtn);
+      }
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     3. Modern Admonitions / Callouts (GitHub & Emoji Callouts)
+     -------------------------------------------------------------------------- */
+  function initModernCallouts() {
+    var blockquotes = document.querySelectorAll('.page__content blockquote, .main-content blockquote');
+
+    var alertTypes = {
+      'NOTE': { class: 'callout--note', label: 'Note', icon: '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>' },
+      'TIP': { class: 'callout--tip', label: 'Tip', icon: '<path d="M9 18h6m-3-15a6 6 0 0 0-4 10.45V15a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-1.55A6 6 0 0 0 12 3z"></path>' },
+      'IMPORTANT': { class: 'callout--important', label: 'Important', icon: '<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>' },
+      'WARNING': { class: 'callout--warning', label: 'Warning', icon: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>' },
+      'CAUTION': { class: 'callout--caution', label: 'Caution', icon: '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>' }
+    };
+
+    blockquotes.forEach(function (bq) {
+      if (bq.classList.contains('modern-callout')) return;
+
+      var firstP = bq.querySelector('p');
+      if (!firstP) return;
+
+      var text = firstP.textContent.trim();
+      var match = text.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i);
+
+      var matchedType = null;
+      if (match) {
+        matchedType = alertTypes[match[1].toUpperCase()];
+        firstP.innerHTML = firstP.innerHTML.replace(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i, '').trim();
+      } else if (text.indexOf('📌') === 0) {
+        matchedType = { class: 'callout--important', label: 'Important Takeaway', icon: '<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>' };
+        firstP.innerHTML = firstP.innerHTML.replace(/^📌\s*/, '');
+      } else if (text.indexOf('🩸') === 0) {
+        matchedType = { class: 'callout--caution', label: 'Critical Warning', icon: '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>' };
+        firstP.innerHTML = firstP.innerHTML.replace(/^🩸\s*/, '');
+      } else if (text.indexOf('💡') === 0) {
+        matchedType = alertTypes['TIP'];
+        firstP.innerHTML = firstP.innerHTML.replace(/^💡\s*/, '');
+      }
+
+      if (matchedType) {
+        bq.className = 'modern-callout ' + matchedType.class;
+        var header = document.createElement('div');
+        header.className = 'callout-header';
+        header.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + matchedType.icon + '</svg><span>' + matchedType.label + '</span>';
+        bq.insertBefore(header, bq.firstChild);
+      }
+    });
+
+    // Also enhance standalone paragraphs starting with 📌, 🩸, or 💡
+    var paras = document.querySelectorAll('.page__content > p, .main-content > p');
+    paras.forEach(function (p) {
+      if (p.closest('.modern-callout') || p.closest('blockquote')) return;
+      var text = p.textContent.trim();
+      var matchedType = null;
+      if (text.indexOf('📌') === 0) {
+        matchedType = { class: 'callout--important', label: 'Important Takeaway', icon: '<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>' };
+        p.innerHTML = p.innerHTML.replace(/^📌\s*/, '');
+      } else if (text.indexOf('🩸') === 0) {
+        matchedType = { class: 'callout--caution', label: 'Critical Warning', icon: '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>' };
+        p.innerHTML = p.innerHTML.replace(/^🩸\s*/, '');
+      } else if (text.indexOf('💡') === 0) {
+        matchedType = alertTypes['TIP'];
+        p.innerHTML = p.innerHTML.replace(/^💡\s*/, '');
+      }
+
+      if (matchedType) {
+        var callout = document.createElement('div');
+        callout.className = 'modern-callout ' + matchedType.class;
+        var header = document.createElement('div');
+        header.className = 'callout-header';
+        header.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + matchedType.icon + '</svg><span>' + matchedType.label + '</span>';
+        callout.appendChild(header);
+        var body = document.createElement('div');
+        body.className = 'callout-body';
+        p.parentNode.insertBefore(callout, p);
+        body.appendChild(p);
+        callout.appendChild(body);
+      }
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     4. Reading Progress Bar, Image Lightbox, and Back-to-Top Floating Action
+     -------------------------------------------------------------------------- */
+  function initReadingEnhancements() {
+    var contentArea = document.querySelector('.page__content, .main-content');
+    if (contentArea) {
+      var progressBar = document.createElement('div');
+      progressBar.className = 'reading-progress-bar';
+      document.body.appendChild(progressBar);
+
+      window.addEventListener('scroll', function () {
+        var rect = contentArea.getBoundingClientRect();
+        var totalHeight = contentArea.offsetHeight;
+        var scrolled = window.innerHeight - rect.top;
+        var progress = Math.min(100, Math.max(0, (scrolled / totalHeight) * 100));
+        progressBar.style.width = progress + '%';
+      }, { passive: true });
+    }
+
+    var postImages = document.querySelectorAll('.page__content img, .main-content img');
+    if (postImages.length > 0) {
+      var lightbox = document.createElement('div');
+      lightbox.className = 'modern-lightbox';
+      lightbox.innerHTML = '<img src="" alt="Enlarged view">';
+      document.body.appendChild(lightbox);
+
+      var lightboxImg = lightbox.querySelector('img');
+
+      function closeLightbox() {
+        lightbox.classList.remove('is-active');
+        document.removeEventListener('keydown', handleLbKey);
+      }
+      function handleLbKey(e) {
+        if (e.key === 'Escape') closeLightbox();
+      }
+
+      lightbox.addEventListener('click', closeLightbox);
+
+      postImages.forEach(function (img) {
+        if (img.closest('.author-card') || img.closest('.author__avatar')) return;
+        img.classList.add('modern-zoomable-img');
+        img.addEventListener('click', function () {
+          lightboxImg.src = img.currentSrc || img.src;
+          lightboxImg.alt = img.alt || 'Enlarged image';
+          lightbox.classList.add('is-active');
+          document.addEventListener('keydown', handleLbKey);
+        });
+      });
+    }
+
+    var bttBtn = document.createElement('button');
+    bttBtn.type = 'button';
+    bttBtn.className = 'modern-back-to-top';
+    bttBtn.title = 'Back to top';
+    bttBtn.setAttribute('aria-label', 'Back to top');
+    bttBtn.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+        '<line x1="12" y1="19" x2="12" y2="5"></line>' +
+        '<polyline points="5 12 12 5 19 12"></polyline>' +
+      '</svg>';
+    document.body.appendChild(bttBtn);
+
+    window.addEventListener('scroll', function () {
+      if (window.pageYOffset > 400) {
+        bttBtn.classList.add('is-visible');
+      } else {
+        bttBtn.classList.remove('is-visible');
+      }
+    }, { passive: true });
+
+    bttBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  function runAll() {
+    initModernMermaid();
+    initModernCodeCards();
+    initModernCallouts();
+    initReadingEnhancements();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runAll);
+  } else {
+    runAll();
+  }
 })();
 </script>
 
