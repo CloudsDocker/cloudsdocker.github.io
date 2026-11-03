@@ -1,7 +1,7 @@
 ---
 title: 洞悉AI风险，守护数据安全：构建风险 gates 的策略
 header:
-    image: /assets/images/maven_proxy_success.png
+    image: /assets/images/hd_vscode_shortcuts.png
 date: 2026-11-02
 tags:
  - ai-engineering
@@ -10,6 +10,7 @@ tags:
 permalink: /blogs/tech/zh/uncover-ai-risks-protect-data-security-strategies-building-risk-gates
 lang: zh
 layout: single
+pinned: true
 category: tech
 ---
 *Power without boundaries is a flood; power within boundaries is an engine. The true art of AI engineering lies not in unleashing the model, but in architecting its constraints.*
@@ -47,8 +48,6 @@ category: tech
 
 云服务提供商的智能体安全指南特别指出，自主性、工具访问、持久化记忆和多系统权限会扩大传统应用的安全风险。
 
-![](https://www.google.com/s2/favicons?domain=https://docs.aws.amazon.com&sz=32)
-
 **云服务提供商的指导方针**
 
 ## 二、四种自主程度：从只读到受控执行
@@ -57,43 +56,35 @@ category: tech
 
 Level 1 — Read-only assistant
 
-低风险
-
-Agent 只能读取授权资料、检索保单和回答问题，不能更改业务状态。
+低风险, Agent 只能读取授权资料、检索保单和回答问题，不能更改业务状态。
 
 示例：解释盗窃险条款，列出相关免责条件。
 
 Level 2 — Recommend and draft
 
-有限业务影响
-
-Agent 可以生成理赔摘要、填写草稿、推荐下一步，但不直接提交高影响操作。
+有限业务影响, Agent 可以生成理赔摘要、填写草稿、推荐下一步，但不直接提交高影响操作。
 
 示例：准备理赔申请，等待理赔人员确认。
 
 Level 3 — Bounded execution
 
-受控自主执行
-
-Agent 可以执行预先授权、影响有限且可撤销的操作，但必须通过确定性的权限与业务规则检查。
+受控自主执行, Agent 可以执行预先授权、影响有限且可撤销的操作，但必须通过确定性的权限与业务规则检查。
 
 示例：更新理赔案件标签、安排回电、发送已批准的模板通知。
 
 Level 4 — High-impact execution with approval
 
-高风险
-
-可能涉及赔付、拒赔、承保决定或其他重大业务后果。Agent 可以收集证据并提出建议，但必须经过规定的授权或人工审批。
+高风险, 可能涉及赔付、拒赔、承保决定或其他重大业务后果。Agent 可以收集证据并提出建议，但必须经过规定的授权或人工审批。
 
 示例：准备理赔支付建议，由有权限的理赔人员最终批准。
 
 这四个 Level 是用于设计治理策略的实用分类，并非某个统一的行业标准。
 
-**LLM AI developer** 的判断标准： 不要追求让 Agent 获得最大的自主权，而应在满足业务目标的前提下，授予完成任务所需的最小自主权。
+**LLM AI developer** 的判断标准： 不要追求让 Agent 获得最大的自主权，而应在满足业务目标的前提下，授予完成任务所需的`最小自主权`。
 
 ## 三、技术上有哪些治理选项？
 
-这部分才是日常工作中老板或 Team a good Engineer 在架构评审时会继续深挖的核心设计。
+这部分才是日常工作中 good Engineer 在架构评审时会继续深挖的核心设计。
 
 | 治理选项                            | 如何工作                                             | 局限或注意事项                    |
 | ------------------------------- | ------------------------------------------------ | -------------------------- |
@@ -109,9 +100,6 @@ Level 4 — High-impact execution with approval
 
 Microsoft 的 Agent Control Specification（ACS）在 2026 年提出了一种运行时治理方案，通过标准化的拦截点，在 Agent 生命周期内评估和执行策略；它描述了输入、模型调用前后、工具调用前后、最终输出等八个拦截点。它是值得了解的新规范，但不代表每个企业都必须使用它。
 
-![](https://www.google.com/s2/favicons?domain=https://commandline.microsoft.com&sz=32)
-
-Command Line
 
 ## 四、推荐的企业级架构：集中定义策略，分散执行控制
 
@@ -168,17 +156,15 @@ Command Line
 
 **the cloud provider 的企业级 Agent 安全参考架构同样强调最小权限、集中管理工具访问、敏感操作的额外控制、会话隔离和运行时可观测性。**
 
-![](https://www.google.com/s2/favicons?domain=https://docs.aws.amazon.com&sz=32)
 
-**the cloud provider Prescriptive Guidance +1**
 
 ## 五、治理策略如何真正执行？
 
 考虑 Agent 尝试执行下面的工具调用：
 
-JSON
 
-```
+
+```JSON
 {
   "tool": "approve_claim_payment",
   "arguments": {
@@ -228,7 +214,6 @@ Prompt 是模型的行为指引，但不是强制的安全边界。模型可能�
 
 ## 七、LLM AI 开发者 架构阐述与方案设计：可以直接练习的英文版本
 
-**写作**
 
 我会将代理治理视为一个架构和运行时强制执行问题，而不是仅仅依赖提示或模型级别的守栏。
 
@@ -244,8 +229,6 @@ Prompt 是模型的行为指引，但不是强制的安全边界。模型可能�
 
 最后记住一句话：对于 LLM AI 开发者，代理治理的核心不是让模型“学会守规矩”，而是设计一个即使模型犯错，也能限制其权限、阻止危险操作、升级高风险决策并留下审计证据的系统。
 
-|  |
-| --- |
 
 这个概念非常值得你深入掌握，因为 “基于风险的质量门” 是将 AI 评估从“测模型”提升到“生产治理”的关键一步。
 
@@ -253,8 +236,6 @@ Prompt 是模型的行为指引，但不是强制的安全边界。模型可能�
 
 > **不是要求所有 AI 请求达到同一个质量标准，而是根据 AI 决策的业务风险，定义不同的质量、安全、人工审核和发布门槛。**
 
-|  |
-| --- |
 
 # 1. 什么叫 Quality Gate？
 
@@ -331,9 +312,7 @@ PASS → deploy
 
 ```text
 FAIL → don't deploy
-
-| ``` |
-| --- |
+```
 
 # 2. 那为什么还要加基于风险的？
 
@@ -351,18 +330,8 @@ FAIL → don't deploy
 
 显然两者不能使用同一套门槛。
 
-|  |
-| --- |
-
 AI A
-
-如果偶尔：
-
-少解释了一条次要条款。
-
-风险可能比较低。
-
-|  |
+如果偶尔：少解释了一条次要条款。风险可能比较低。|
 | --- |
 
 AI B
@@ -384,16 +353,12 @@ AI B 的 Quality Gate 必须严格得多。
 
 这就是：
 
-基于风险的质量门
-
-|  |
+基于风险的质量门 |
 | --- |
 
 # 3. 一个非常清楚的 Aegis 例子
 
-假设 Aegis 有一个 AI Agent：
-
-Claims Assistant
+假设 Aegis 有一个 AI Agent：Claims Assistant
 
 它可以做四种事情：
 
@@ -414,7 +379,7 @@ Accuracy ≥ 90%
 
 而是：
 
-```text
+```flowchart
                     AI Use Cases
                          │
           ┌──────────────┼──────────────┐
@@ -424,9 +389,8 @@ Accuracy ≥ 90%
        FAQ          Claim Guidance   Claim Decision
          │               │              │
        Gate A          Gate B         Gate C
+```
 
-| ``` |
-| --- |
 
 # 4. Gate A：Low Risk
 
@@ -584,7 +548,7 @@ High risk = 99%
 
 其实成熟的框架是多维的：
 
-```mermaid
+```text
                  Risk-Based Gate
                        │
        ┌───────────────┼────────────────┐
@@ -592,9 +556,7 @@ High risk = 99%
     Quality          Safety           Reliability
        │               │                │
  correctness       PII leakage       availability
-```
  groundedness      prompt injection   latency
-```mermaid
  completeness      unsafe tools       timeout
        │               │                │
        └───────────────┼────────────────┘
@@ -1179,12 +1141,10 @@ risk determines the required level of evidence and control, and the quality gate
 
 对于 Aegis 这种保险公司，这个层次尤其重要。
 
-```mermaid
-作为 LLM AI 开发者，在日常工作中如果能把 risk → evaluation → controls → human oversight → deployment gate → production feedback 这条链完整讲出来，向团队和管理层展现的就不是一个“会 RAG 的 AI Developer”，而是一个真正可以负责 AI 生产平台的 LLM AI 开发者。
-```
 
-|  |
-| --- |
+作为 LLM AI 开发者，在日常工作中如果能把 risk → evaluation → controls → human oversight → deployment gate → production feedback 这条链完整讲出来，向团队和管理层展现的就不是一个“会 RAG 的 AI Developer”，而是一个真正可以负责 AI 生产平台的 LLM AI 开发者。
+
+
 
 这个概念非常值得你深入掌握，因为 **“基于风险的质量门” 是将 AI 评估从“测模型”提升到“生产治理”的关键一步**。
 
@@ -1221,8 +1181,6 @@ risk determines the required level of evidence and control, and the quality gate
 
 # Risk-Based Quality Gate
 
-|  |
-| --- |
 
 # 3. 一个非常清楚的 Aegis 例子
 
@@ -1261,8 +1219,7 @@ Accuracy ≥ 90%
        Gate A          Gate B         Gate C
 ```
 
-|  |
-| --- |
+
 
 # 4. Gate A：Low Risk
 
@@ -1285,8 +1242,6 @@ P95 latency       ≤ 4 sec
 
 不需要人工审核每一次。
 
-|  |
-| --- |
 
 # 5. Gate B：Medium Risk
 
@@ -1319,8 +1274,6 @@ Escalate
 
 > human review for ambiguous cases
 
-|  |
-| --- |
 
 # 6. Gate C：High Risk
 
@@ -1377,9 +1330,6 @@ Human approval                = required
 
 这才是成熟的 AI Engineering。
 
-|  |
-| --- |
-
 # 7. 这是一个非常重要的区别
 
 在日常工作中你的老板或者team lead会提问：
@@ -1414,8 +1364,6 @@ Human-in-the-loop
 
 这就是 enterprise AI。
 
-|  |
-| --- |
 
 # 8. Risk-Based Gate 实际上不是一个数字
 
@@ -1426,7 +1374,7 @@ Human-in-the-loop
 
 其实成熟的 framework 是多维的：
 
-```text
+```
                  Risk-Based Gate
                        │
        ┌───────────────┼────────────────┐
@@ -1456,8 +1404,6 @@ Human-in-the-loop
 
 一起决定是否允许进入下一阶段。
 
-|  |
-| --- |
 
 # 9. 再举一个非常实际的例子
 
@@ -1517,8 +1463,6 @@ $0.09 × 10M = $900K
 
 也考虑进去。
 
-|  |
-| --- |
 
 # 10. 更关键的例子：平均分会骗人
 
@@ -1577,8 +1521,6 @@ PII leakage                = 0
 Overall score ≥ 95%
 ```
 
-|  |
-| --- |
 
 # 11. 这就是为什么作为 LLM AI developer 在日常工作中应当向团队明确强调：
 
@@ -1590,8 +1532,6 @@ Overall score ≥ 95%
 
 这句话非常强。
 
-|  |
-| --- |
 
 # 12. Failure Mode 也要单独设 Gate
 
@@ -1631,22 +1571,13 @@ Critical Failure Rate
 
 ```text
 Overall correctness ≥ 95%
-
 AND
-
 Critical hallucination < 0.1%
-
 AND
-
 PII leakage = 0
-
 AND
-
 Unsafe tool calls = 0
 ```
-
-|  |
-| --- |
 
 # 13. 甚至可以做“硬门槛”和“软指标”
 
@@ -1683,11 +1614,8 @@ Latency
 ```
 
 这就是：
-
 > **Not all metrics are equally important.**
 
-|  |
-| --- |
 
 # 14. 在日常技术方案评审时可以展示这个架构图
 
@@ -1729,8 +1657,6 @@ Quality       Safety Quality     Safety Quality    Safety
        Improve           Rollback
 ```
 
-|  |
-| --- |
 
 # 15. 日常工作中你的老板或者team lead会提问一：Who determines the risk level?
 
@@ -1778,8 +1704,6 @@ Approve $100,000 claim
 → high impact / potentially irreversible
 ```
 
-|  |
-| --- |
 
 # 16. 日常工作中你的老板或者team lead会提问二：What if the overall score passes but one critical metric fails?
 
@@ -1817,8 +1741,6 @@ PASS
 
 这是错误的。
 
-|  |
-| --- |
 
 # 17. 日常工作中你的老板或者team lead会提问三：Who sets the thresholds?
 
@@ -1858,8 +1780,7 @@ Threshold
 
 高级很多。
 
-|  |
-| --- |
+
 
 # 18. 日常工作中你的老板或者team lead会提问四：What happens when the gate fails?
 
@@ -1904,16 +1825,9 @@ Root cause
 Regression test
 ```
 
-这就和你的 engineering 背景连接起来了。
-
-|  |
-| --- |
-
 # 19. 日常工作中你的老板或者team lead会提问五：Can risk-based gates slow down innovation?
 
-这是一个非常好的 Leadership 问题。
-
-你回答：
+回答：
 
 > **Yes, if implemented as bureaucracy. My goal would be to make the gates automated and proportional to risk.**
 
@@ -1942,14 +1856,10 @@ controlled rollout
 
 > **Risk-based governance should accelerate low-risk experimentation while increasing controls only where the potential impact justifies them.**
 
-这句话很适合 a good Engineer。
-
-|  |
-| --- |
 
 # 20. 再来一个非常容易被问的场景
 
-你的老板或Team a good Engineer：
+你的老板：
 
 > “Your model improved from 94% to 98%, but you also saw a 20% increase in latency and 50% increase in cost. Would you deploy it?”
 
@@ -1996,14 +1906,11 @@ a good Engineer 的回答应该是：
 
 > **The gate is a business decision expressed through engineering metrics.**
 
-这是非常强的 a good Engineer-level 表达。
 
-|  |
-| --- |
 
 # 21. 你在 Aegis 最应该说的完整答案
 
-在日常工作中你的老板或者team lead直接提问：
+在日常工作中你的老板直接提问：
 
 > **“How would you establish risk-based quality gates for our AI agents?”**
 
@@ -2031,8 +1938,6 @@ So the principle is:
 
 **risk determines the required level of evidence and control, and the quality gate turns that risk policy into measurable engineering criteria.**
 
-|  |
-| --- |
 
 # 22. 最后你一定要理解一个非常重要的思想
 
@@ -2070,6 +1975,4 @@ So the principle is:
 
 对于 Aegis 这种保险公司，这个层次尤其重要。
 
-```flowchart
 **作为 LLM AI developer，在日常工作中如果能把 `risk → evaluation → controls → human oversight → deployment gate → production feedback` 这条链完整讲出来，向团队和管理层展现的就不是一个“会 RAG 的 AI Developer”，而是一个真正可以负责 AI production platform 的 LLM AI developer。**
-```
