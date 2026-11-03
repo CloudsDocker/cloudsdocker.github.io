@@ -1,5 +1,3 @@
-> "Imagine you want to predict the trajectory of a ball rolling down a winding roller coaster track. Newton’s method is that of an exhausted micro-contractor: watching every millisecond, painstakingly breaking gravity, normal force, and friction into components along the X and Y axes until getting thoroughly lost in local coordinate changes. Lagrange’s approach, by contrast, is that of an overarching architect: using the principle of least action, bypassing the messy local wrangling, and surveying the initial state, the final state, and the overarching constraints." — Adapted from Life-Notes Knowledge Base: *Newton vs Lagrange: The Micro-Contractor vs The Big-Picture Architect*
-
 When diagnosing automated CLI pipelines and local AI developer tools, engineers frequently fall into the trap of the "micro-contractor": the moment an error occurs, they immediately tweak prompts, restart background inference services, or edit port bindings, missing the silent contract violations that lurk between the command entry point and the OS kernel syscalls.
 
 ---
