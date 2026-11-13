@@ -632,10 +632,10 @@
   }
 
   /* --------------------------------------------------------------------------
-     5. World-Class Table of Contents Navigation (Scrollspy, Progress, Auto-Scroll)
+     5. World-Class Table of Contents Navigation & Precision Reading ScrollSpy
      -------------------------------------------------------------------------- */
   function initModernToc() {
-    var toc = document.querySelector('nav.toc');
+    var toc = document.querySelector('nav.toc-nav, nav.toc');
     if (!toc) return;
 
     var header = toc.querySelector('.nav__title');
@@ -643,25 +643,80 @@
     var links = toc.querySelectorAll('.toc__menu a');
     if (!links.length) return;
 
-    // 1. Add sleek progress badge to TOC title
-    if (header && !header.querySelector('.toc-progress-pill')) {
-      var progressPill = document.createElement('span');
+    var sidebar = toc.closest('.sidebar__right');
+
+    // 1. Structure each link: add .toc__bar and .toc__title, plus hover tooltips
+    var entries = [];
+    links.forEach(function (link) {
+      var titleEl = link.querySelector('.toc__title');
+      var title = (titleEl ? titleEl.textContent : link.textContent).trim();
+      link.setAttribute('data-title', title);
+      if (!link.getAttribute('title')) {
+        link.setAttribute('title', title); // Native tooltip on tiny bar hover
+      }
+
+      if (!titleEl) {
+        var bar = document.createElement('span');
+        bar.className = 'toc__bar';
+        bar.setAttribute('aria-hidden', 'true');
+
+        var titleSpan = document.createElement('span');
+        titleSpan.className = 'toc__title';
+        titleSpan.textContent = title;
+
+        link.textContent = '';
+        link.appendChild(bar);
+        link.appendChild(titleSpan);
+      }
+
+      var href = link.getAttribute('href') || '';
+      if (href.charAt(0) === '#') {
+        var rawId = href.slice(1);
+        var target = document.getElementById(rawId);
+        if (!target) {
+          try {
+            target = document.getElementById(decodeURIComponent(rawId));
+          } catch (e) {}
+        }
+        if (target) {
+          entries.push({
+            link: link,
+            li: link.closest('li'),
+            target: target
+          });
+        }
+      }
+    });
+
+    // 2. Ensure header text is wrapped in .nav__title-text for sleek hide/show transition
+    if (header) {
+      var icon = header.querySelector('i, svg');
+      var textNodes = Array.prototype.filter.call(header.childNodes, function (node) {
+        return node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0;
+      });
+      if (textNodes.length && !header.querySelector('.nav__title-text')) {
+        var headerText = document.createElement('span');
+        headerText.className = 'nav__title-text';
+        headerText.textContent = textNodes.map(function (n) { return n.textContent.trim(); }).join(' ');
+        textNodes.forEach(function (n) { header.removeChild(n); });
+        if (icon && icon.nextSibling) {
+          header.insertBefore(headerText, icon.nextSibling);
+        } else {
+          header.appendChild(headerText);
+        }
+      }
+    }
+
+    // 3. Add sleek progress badge to TOC title
+    var progressPill = header ? header.querySelector('.toc-progress-pill') : null;
+    if (header && !progressPill) {
+      progressPill = document.createElement('span');
       progressPill.className = 'toc-progress-pill';
       progressPill.textContent = '0%';
       header.appendChild(progressPill);
-
-      var contentArea = document.querySelector('.page__content, .main-content');
-      window.addEventListener('scroll', function () {
-        if (!contentArea) return;
-        var rect = contentArea.getBoundingClientRect();
-        var totalHeight = contentArea.offsetHeight;
-        var scrolled = window.innerHeight - rect.top;
-        var progress = Math.min(100, Math.max(0, Math.round((scrolled / totalHeight) * 100)));
-        progressPill.textContent = progress + '%';
-      }, { passive: true });
     }
 
-    // 2. Add quick footer action ("Back to top" link inside TOC)
+    // 4. Add quick footer action ("Back to top" link inside TOC)
     if (!toc.querySelector('.toc-quick-footer')) {
       var footer = document.createElement('div');
       footer.className = 'toc-quick-footer';
@@ -679,29 +734,110 @@
       });
     }
 
-    // 3. Smooth Auto-Scroll for Active TOC item (keeps active link visible in viewport)
-    var observer = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          var target = mutation.target;
-          if (target.classList && target.classList.contains('active')) {
-            var activeLink = target.querySelector('a') || target;
-            if (activeLink && menu) {
-              var linkRect = activeLink.getBoundingClientRect();
-              var menuRect = menu.getBoundingClientRect();
-              if (linkRect.top < menuRect.top || linkRect.bottom > menuRect.bottom) {
-                activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-              }
-            }
+    // 5. Precision Reading-Progress ScrollSpy
+    var activeIdx = -1;
+    var ticking = false;
+
+    function updateActiveState(newIdx) {
+      if (newIdx < 0 || newIdx >= entries.length) return;
+      if (newIdx === activeIdx) return;
+      activeIdx = newIdx;
+
+      for (var k = 0; k < entries.length; k++) {
+        var item = entries[k];
+        if (k === activeIdx) {
+          if (item.li) item.li.classList.add('active');
+          item.link.classList.add('active');
+
+          // Keep the active bar visible in the rail (in BOTH collapsed & expanded states)
+          if (menu) {
+            var itemEl = item.li || item.link;
+            var itemRect = itemEl.getBoundingClientRect();
+            var menuRect = menu.getBoundingClientRect();
+            var relativeTop = itemRect.top - menuRect.top + menu.scrollTop;
+            var targetScroll = relativeTop - (menu.clientHeight / 2) + 12;
+            menu.scrollTop = Math.max(0, targetScroll);
+          }
+        } else {
+          if (item.li) item.li.classList.remove('active');
+          item.link.classList.remove('active');
+        }
+      }
+    }
+
+    function onScrollSpy() {
+      if (!entries.length) return;
+
+      var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      var windowHeight = window.innerHeight;
+      var docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      var maxScroll = docHeight - windowHeight;
+
+      // Update progress percentage pill
+      if (progressPill) {
+        var pct = maxScroll > 0 ? Math.min(100, Math.max(0, Math.round((scrollY / maxScroll) * 100))) : 0;
+        progressPill.textContent = pct + '%';
+      }
+
+      var targetIdx = 0;
+
+      // Rule A: When at or near bottom (within 80px), the LAST bar MUST be active
+      if (scrollY + windowHeight >= docHeight - 80) {
+        targetIdx = entries.length - 1;
+      }
+      // Rule B: When at the top of the page, the FIRST bar is active
+      else if (scrollY < 120) {
+        targetIdx = 0;
+      }
+      // Rule C: Active heading by reading viewport line (32% from viewport top)
+      else {
+        var triggerLine = windowHeight * 0.32;
+        for (var i = 0; i < entries.length; i++) {
+          var rect = entries[i].target.getBoundingClientRect();
+          if (rect.top <= triggerLine) {
+            targetIdx = i;
           }
         }
-      });
-    });
+      }
 
-    var items = toc.querySelectorAll('li, a');
-    items.forEach(function (item) {
-      observer.observe(item, { attributes: true });
-    });
+      updateActiveState(targetIdx);
+      ticking = false;
+    }
+
+    function requestScrollSpy() {
+      if (!ticking) {
+        window.requestAnimationFrame(onScrollSpy);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', requestScrollSpy, { passive: true });
+    window.addEventListener('resize', requestScrollSpy, { passive: true });
+    window.addEventListener('load', requestScrollSpy, { passive: true });
+
+    // Initial run to activate the first bar immediately on page load
+    onScrollSpy();
+
+    // 6. Touch/Click toggle support & auto-collapse on navigation
+    if (sidebar) {
+      sidebar.addEventListener('click', function (e) {
+        var clickedLink = e.target.closest('a');
+        if (clickedLink) {
+          // If clicked a link, let smooth navigation happen and collapse
+          setTimeout(function () {
+            sidebar.classList.remove('is-expanded');
+          }, 250);
+          return;
+        }
+        sidebar.classList.toggle('is-expanded');
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!sidebar.contains(e.target)) {
+          sidebar.classList.remove('is-expanded');
+        }
+      });
+    }
   }
 
   /* --------------------------------------------------------------------------

@@ -1,5 +1,16 @@
 <!-- start custom head snippets -->
 
+<script>
+  (function() {
+    try {
+      var saved = localStorage.getItem('theme');
+      var prefDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = saved || (prefDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+
 <!-- 现代化meta标签 -->
 <meta name="theme-color" content="#1c1813">
 <meta name="msapplication-TileColor" content="#1c1813">
@@ -35,8 +46,8 @@
   }
   
   [data-theme="dark"] .masthead {
-    background: rgba(15, 23, 42, 0.95);
-    border-bottom-color: #334155;
+    background: #0f172a !important;
+    border-bottom: 1px solid #334155 !important;
   }
   
   [data-theme="dark"] .archive__item {
@@ -49,8 +60,7 @@
     color: #f8fafc;
   }
 
-  [data-theme="dark"] .sidebar,
-  [data-theme="dark"] .sidebar__right {
+  [data-theme="dark"] .sidebar {
     background: transparent;
     color: #f8fafc;
   }

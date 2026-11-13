@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const themeIcon = document.getElementById('themeIcon');
   const body = document.body;
   
-  const savedTheme = localStorage.getItem('theme') || 'light';
+  const savedTheme = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   body.setAttribute('data-theme', savedTheme);
+  document.documentElement.setAttribute('data-theme', savedTheme);
   updateThemeIcon(savedTheme);
   
   if (themeToggle) {
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       
       body.setAttribute('data-theme', newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       updateThemeIcon(newTheme);
       window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: newTheme } }));
