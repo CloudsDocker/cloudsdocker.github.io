@@ -61,7 +61,7 @@
   border-radius: 6px;
   display: inline-block;
   transition: background 0.2s ease, color 0.2s ease;
-  background: #fff;
+  background: var(--card-bg, #fff);
   border: 1px solid var(--line);
 }
 
@@ -124,7 +124,7 @@
 }
 
 .archive__item {
-  background: #fff;
+  background: var(--card-bg, #fff);
   border-radius: var(--radius);
   padding: 1.5rem;
   border: 1px solid var(--line);
@@ -271,6 +271,41 @@
   .taxonomy__section {
     padding: 1rem 0;
   }
+}
+
+/* Dark mode for posts index */
+[data-theme="dark"] .taxonomy__index {
+  background: var(--paper-2);
+  border-color: var(--line);
+}
+[data-theme="dark"] .taxonomy__index a {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line);
+}
+[data-theme="dark"] .taxonomy__index a:hover {
+  background: var(--clay-tint);
+  color: var(--clay);
+  border-color: var(--line-2);
+}
+[data-theme="dark"] .archive__item {
+  background: var(--paper-2);
+  border-color: var(--line);
+}
+[data-theme="dark"] .archive__item:hover {
+  border-color: var(--line-2);
+}
+[data-theme="dark"] .posts-header {
+  background: var(--paper-2);
+  border-color: var(--line);
+}
+[data-theme="dark"] .back-to-top {
+  border-color: var(--line-2);
+  color: var(--ink-2);
+}
+[data-theme="dark"] .back-to-top:hover {
+  background: var(--clay-tint);
+  color: var(--clay);
 }
 </style>
 

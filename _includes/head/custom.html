@@ -27,10 +27,14 @@
 <!-- 现代化CSS变量和主题支持 -->
 <style>
   /* 深色模式全局变量 */
-  [data-theme="dark"] {
+  [data-theme="dark"],
+  html[data-theme="dark"],
+  html[data-brand="personal"][data-theme="dark"],
+  body[data-theme="dark"] {
     --paper: #0f172a;
     --paper-2: #1e293b;
     --paper-3: #334155;
+    --card-bg: #1e293b;
     --ink: #f8fafc;
     --ink-2: #cbd5e1;
     --ink-3: #94a3b8;
@@ -38,6 +42,14 @@
     --line-2: #475569;
     --panel: #0b0f19;
     --panel-text: #e2e8f0;
+    --clay: #38bdf8;
+    --clay-bright: #60a5fa;
+    --clay-deep: #93c5fd;
+    --clay-tint: rgba(56, 189, 248, 0.15);
+    --accent-glow-1: rgba(56, 189, 248, 0.12);
+    --accent-glow-2: rgba(99, 102, 241, 0.08);
+    --accent-wash: rgba(15, 23, 42, 0.8);
+    --grid-line: rgba(255, 255, 255, 0.04);
   }
   
   [data-theme="dark"] body {
@@ -50,19 +62,130 @@
     border-bottom: 1px solid #334155 !important;
   }
   
-  [data-theme="dark"] .archive__item {
-    background: #1e293b;
+  /* Front page (home-personal) dark mode */
+  [data-theme="dark"] .pro-home {
+    background: #0f172a;
     color: #f8fafc;
-    border-color: #334155;
+  }
+
+  [data-theme="dark"] .pro-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+  
+  [data-theme="dark"] .pro-card:hover {
+    border-color: #475569 !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+  }
+  
+  [data-theme="dark"] .pro-card__title a {
+    color: #f8fafc !important;
+  }
+  
+  [data-theme="dark"] .pro-card__title a:hover {
+    color: #38bdf8 !important;
+  }
+  
+  [data-theme="dark"] .pro-card__excerpt {
+    color: #cbd5e1 !important;
+  }
+  
+  [data-theme="dark"] .pro-card__tags li {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+  }
+  
+  [data-theme="dark"] .pro-chip--pinned {
+    background: #f8fafc !important;
+    color: #0f172a !important;
+  }
+  
+  [data-theme="dark"] .pro-chip:not(.pro-chip--pinned) {
+    background: rgba(56, 189, 248, 0.15) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  }
+
+  [data-theme="dark"] .pro-intro {
+    background:
+      radial-gradient(60rem 30rem at 15% -10%, rgba(56, 189, 248, 0.12), transparent 60%),
+      radial-gradient(45rem 28rem at 95% 10%, rgba(99, 102, 241, 0.08), transparent 55%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, #0f172a 85%) !important;
+  }
+
+  [data-theme="dark"] .pro-eyebrow {
+    background: rgba(56, 189, 248, 0.12) !important;
+    color: #38bdf8 !important;
+    border-color: rgba(56, 189, 248, 0.25) !important;
+  }
+
+  [data-theme="dark"] .pro-section--alt {
+    background: #162032 !important;
+    border-top-color: #334155 !important;
+  }
+
+  /* Archive & taxonomy cards */
+  [data-theme="dark"] .archive__item {
+    background: #1e293b !important;
+    color: #f8fafc;
+    border-color: #334155 !important;
   }
   
   [data-theme="dark"] .archive__item-title a {
     color: #f8fafc;
   }
 
+  [data-theme="dark"] .taxonomy__index a {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+  }
+
   [data-theme="dark"] .sidebar {
     background: transparent;
     color: #f8fafc;
+  }
+
+  /* Single post & widgets dark mode */
+  [data-theme="dark"] .author-info {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+  }
+
+  [data-theme="dark"] .author-details h3 {
+    color: #f8fafc !important;
+  }
+
+  [data-theme="dark"] .author-details p {
+    color: #cbd5e1 !important;
+  }
+
+  [data-theme="dark"] .related-post {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+  }
+
+  [data-theme="dark"] .related-content h5 a {
+    color: #f8fafc !important;
+  }
+
+  [data-theme="dark"] .related-content time {
+    color: #94a3b8 !important;
+  }
+
+  [data-theme="dark"] .post-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+  }
+
+  [data-theme="dark"] .post-title {
+    color: #f8fafc !important;
+  }
+
+  [data-theme="dark"] .post-excerpt {
+    color: #cbd5e1 !important;
   }
 
   /* 主题切换悬浮按钮 */
