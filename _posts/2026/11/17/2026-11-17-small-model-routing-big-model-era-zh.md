@@ -51,9 +51,6 @@ category: tech
 | entities  | GLiNER                            | 关闭（只走正则）         | 没有固定形状的 PII                       |
 | language  | —                                | Unicode 文字系统启发式 | 语种路由                                 |
 
-|  |
-| --- |
-
 #### 细化 Slot 的职责
 
 | Slot      | 典型业务场景                                         | 需要的输入/输出 |
@@ -93,7 +90,11 @@ for slot_name, slot in pipeline.slots.items():
     duration = time.time() - start
     backend = slot._backend_name  # 'small_model' or 'fallback'
     trace.append({
-        'slot': slot_name
+        'slot': slot_name,
+        'backend': backend,
+        'duration_ms': round(duration * 1000, 2),
+    })
+```
 
 ### 2. ⚙️ 底层原理
 
@@ -118,7 +119,7 @@ if not getattr(embedder, "semantic", False):
     return  # 词法降级后端：这里的相似度没有意义
 ```
 
-> 经验：**降级实现最危险的地方不是「效果差」，而是「看起来一样」。** 让能力差异在类型上
+> 经验：**降级实现最危险的地方不是「效果差」，而是「看起来一样」。** 让能力差异在类型系统与接口语义上显式声明，消费方才不会误把降级噪声当作安全决策。
 
 ## 3. 🧭 为什么选它，不选别的
 
@@ -175,10 +176,16 @@ if cfg.get("scripts") and small_models.detect_script(text) not in cfg["scripts"]
 
 这正是语种识别 slot 存在的意义——小模型组合的精髓不在「多」，在「谁该上场」。
 
-| 句子类型 | 相似度范围 |
-|----------|------------|
-| 中文良性句子 vs 攻击例句 | 0.79–0.82 |
-
 **Q：怎么知道线上到底用的哪个后端？**
 `GET /ops/status` 调 `profile()`。评测报告的 `profile` 字段也是它，基线按 profile 分开存，两套后端的分数不会互相比较。
+
+---
+
+### 5. 🛠 自己动手
+
+1. 给一个你现有的项目找出三处「其实不需要 LLM」的判断，各写一个 Protocol。
+2. 为其中一个写降级实现，要求：无第三方依赖、同输入同输出。
+3. 加一个能力标记（类似 `semantic`），并找到一处必须检查它的调用点。
+4. 故意把模型名写错，确认系统降级而不是崩溃，并且日志级别是 warning。
+5. 换一个 embedder，观察你的索引是否自动识别出「需要重建」。不能的话，补上 `id`。
 
