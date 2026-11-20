@@ -1,7 +1,7 @@
 ---
 title: fix macOS option key traps and rebuild your terminal with fzf and zoxide
 header:
-    image: /assets/images/How_to_read_JDK_mission_control_report.jpg
+    image: /assets/images/bg_raw/BingWallpaper (15).jpg
 date: 2026-10-20
 tags:
  - terminal

@@ -1,7 +1,7 @@
 ---
 title: One git log Command, Explained Properly
 header:
-    image: /assets/images/camel_snake_logic.png
+    image: /assets/images/bg_raw/BingWallpaper (20).jpg
 date: 2026-11-01
 tags:
  - git

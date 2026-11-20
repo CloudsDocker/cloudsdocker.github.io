@@ -1,7 +1,7 @@
 ---
 title: "Block All Token Leaks in 48 Hours: The Technical Challenge"
 header:
-    image: /assets/images/sql_server_auth.png
+    image: /assets/images/bg_raw/BingWallpaper (13).jpg
 date: 2026-11-13
 tags:
  - llm-agent

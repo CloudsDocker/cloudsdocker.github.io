@@ -1,7 +1,7 @@
 ---
 title: 48 小时内阻断全部 Token 泄漏：技术挑战赛
 header:
-    image: /assets/images/sql_server_auth.png
+    image: /assets/images/bg_raw/BingWallpaper (13).jpg
 date: 2026-11-13
 tags:
  - llm-agent

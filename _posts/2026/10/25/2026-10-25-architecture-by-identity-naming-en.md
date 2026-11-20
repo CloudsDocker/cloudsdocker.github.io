@@ -1,7 +1,7 @@
 ---
 title: 'Beyond the Graveyard of Models: Architecture by Identity'
 header:
-    image: /assets/images/ruby_gem_errors_m1_2.png
+    image: /assets/images/bg_raw/BingWallpaper (2).png
 date: 2026-10-25
 tags:
  - ai

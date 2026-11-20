@@ -1,7 +1,7 @@
 ---
 title: 'Decoupling and Dynamic Allocation: Lessons from a CUDA Crisis'
 header:
-    image: /assets/images/Introduction_to_Generator_Expressions_in_Python.jpg
+    image: /assets/images/bg_raw/BingWallpaper (23).jpg
 date: 2026-11-11
 tags:
  - gpu-issues

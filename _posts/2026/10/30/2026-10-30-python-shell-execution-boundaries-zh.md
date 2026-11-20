@@ -1,7 +1,7 @@
 ---
 title: 那些隐藏在系统深处的 Python 运行秘技，高手都在用
 header:
-    image: /assets/images/Todd_Stamp_Logo.png
+    image: /assets/images/bg_raw/BingWallpaper (19).jpg
 date: 2026-10-30
 tags:
  - python

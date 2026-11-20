@@ -1,7 +1,7 @@
 ---
 title: 为什么你的增量同步在悄悄丢数据
 header:
-    image: /assets/images/keep_calm_and_don__t_panic.png
+    image: /assets/images/bg_raw/BingWallpaper (18).jpg
 date: 2026-10-27
 tags:
  - data-engineering

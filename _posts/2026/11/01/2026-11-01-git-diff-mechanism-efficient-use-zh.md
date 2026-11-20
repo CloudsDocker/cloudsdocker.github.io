@@ -1,7 +1,7 @@
 ---
 title: Git 差集命令背后的机制与高效使用
 header:
-    image: /assets/images/micronaut_jpa_2.png
+    image: /assets/images/bg_raw/BingWallpaper (20).jpg
 date: 2026-11-01
 tags:
  - git

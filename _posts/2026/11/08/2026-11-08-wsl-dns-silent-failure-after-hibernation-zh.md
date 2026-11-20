@@ -1,7 +1,7 @@
 ---
 title: 从「假性存活」到「透明自愈」——一次跨越虚拟化网络断层的深度复盘
 header:
-    image: /assets/images/jpa_camel_snake.png
+    image: /assets/images/bg_raw/BingWallpaper (22).jpg
 date: 2026-11-08
 tags:
  - 网络故障

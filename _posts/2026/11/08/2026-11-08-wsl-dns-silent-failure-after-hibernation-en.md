@@ -1,7 +1,7 @@
 ---
 title: 'It Pings, the PID Is Alive — but Your Service Is Already Dead: WSL2 DNS Failure After Hibernation'
 header:
-    image: /assets/images/jpa_camel_snake.png
+    image: /assets/images/bg_raw/BingWallpaper (22).jpg
 date: 2026-11-08
 tags:
  - wsl

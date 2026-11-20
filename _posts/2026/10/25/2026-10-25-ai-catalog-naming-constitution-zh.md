@@ -1,7 +1,7 @@
 ---
 title: 别让你的 AI 目录变成“数字垃圾场”
 header:
-    image: /assets/images/gradle_settings_1.png
+    image: /assets/images/bg_raw/BingWallpaper (2).png
 date: 2026-10-25
 tags:
  - ai

@@ -1,7 +1,7 @@
 ---
 title: 鲜为人知的高级开发利器：深度解析Neovim配置技巧
 header:
-    image: /assets/images/jmc_1.png
+    image: /assets/images/bg_raw/BingWallpaper (21).jpg
 date: 2026-11-07
 tags:
  - neovim

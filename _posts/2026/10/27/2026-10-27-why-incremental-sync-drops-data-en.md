@@ -1,7 +1,7 @@
 ---
 title: 'The Lie of Two Clocks: Why Incremental Sync Drops Data'
 header:
-    image: /assets/images/angular_no.png
+    image: /assets/images/bg_raw/BingWallpaper (18).jpg
 date: 2026-10-27
 tags:
  - data engineering

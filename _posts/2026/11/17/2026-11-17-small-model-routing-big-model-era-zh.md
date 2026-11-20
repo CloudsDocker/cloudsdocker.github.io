@@ -1,7 +1,7 @@
 ---
 title: 行业专家亲述：小模型路由在大模型时代的成功案例
 header:
-    image: /assets/images/jpa_spring_data.png
+    image: /assets/images/bg_raw/BingWallpaper (7).jpg
 date: 2026-11-17
 tags:
  - llmoops

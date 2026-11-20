@@ -1,7 +1,7 @@
 ---
 title: 为什么你的 macOS 终端 Option+C 没反应？顺便用 fzf+zoxide 打造极速命令行
 header:
-    image: /assets/images/How_to_read_JDK_mission_control_report.jpg
+    image: /assets/images/bg_raw/BingWallpaper (15).jpg
 date: 2026-10-20
 tags:
  - fzf

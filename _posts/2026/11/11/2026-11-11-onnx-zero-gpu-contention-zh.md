@@ -1,7 +1,7 @@
 ---
 title: 实现ONNX模型零GPU争用，让资源利用率飙升
 header:
-    image: /assets/images/Exploring_the_useRequest_Hook_from_ahooks.jpg
+    image: /assets/images/bg_raw/BingWallpaper (23).jpg
 date: 2026-11-11
 tags:
  - onnx

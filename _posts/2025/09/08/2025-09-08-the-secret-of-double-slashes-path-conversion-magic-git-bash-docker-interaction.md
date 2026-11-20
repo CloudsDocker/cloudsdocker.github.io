@@ -1,6 +1,6 @@
 ---
 header:
-    image: /assets/images/hd_ruby_on_rails_error.jpg
+    image: /assets/images/bg_raw/BB1msBay.jpg
 title:  The Secret of Double Slashes Path Conversion Magic Git Bash Docker Interaction
 date: 2025-09-08
 tags:

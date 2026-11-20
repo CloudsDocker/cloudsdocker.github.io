@@ -1,7 +1,7 @@
 ---
 title: Unlocking the Hidden Layers of Python Execution
 header:
-    image: /assets/images/Todd_Stamp_Logo.png
+    image: /assets/images/bg_raw/BingWallpaper (19).jpg
 date: 2026-10-30
 tags:
  - python
